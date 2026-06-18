@@ -52,14 +52,16 @@ UNIT_WEIGHTS = {"easy": 1, "medium": 4, "hard": 16}
 DAY_BLOCKS = 16  # 2 rows x 8 columns
 
 
-def _unsolved_counts(db: Session, solved_ids: set[int]) -> dict[str, int]:
-    """Count published, still-unsolved problems per difficulty.
+def _unsolved_counts(db: Session, skip_ids: set[int]) -> dict[str, int]:
+    """Count published problems per difficulty that are still worth surfacing —
+    i.e. neither solved nor marked "known" (pass `skip_ids = solved | known`).
 
     Backs the "jump to a random unsolved" quick-picks on both the problem list
-    and the progress page. Always reflects the whole bank, not any active filter."""
+    and the progress page, so the per-difficulty counts match the pool the random
+    jump draws from. Always reflects the whole bank, not any active filter."""
     counts = {"easy": 0, "medium": 0, "hard": 0}
     for p in db.scalars(select(Problem).where(Problem.is_published.is_(True))):
-        if p.id not in solved_ids and p.difficulty in counts:
+        if p.id not in skip_ids and p.difficulty in counts:
             counts[p.difficulty] += 1
     return counts
 
@@ -234,8 +236,8 @@ def problem_asset(slug: str, filename: str):
 
 @router.get("/")
 def index(request: Request, difficulty: str | None = None, topic: str | None = None,
-          q: str | None = None, unsolved: int = 0, solved: int = 0, page: int = 1,
-          db: Session = Depends(get_db)):
+          q: str | None = None, unsolved: int = 0, solved: int = 0,
+          unknown: int = 0, page: int = 1, db: Session = Depends(get_db)):
     stmt = select(Problem).where(Problem.is_published.is_(True))
     if difficulty:
         stmt = stmt.where(Problem.difficulty == difficulty)
@@ -246,13 +248,17 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
         problems = [p for p in problems if topic in (p.topics or [])]
 
     solved_ids = store.user_solved_problem_ids(db, request.state.user_id)
+    known_ids = store.user_known_problem_ids(db, request.state.user_id)
     if unsolved:
         problems = [p for p in problems if p.id not in solved_ids]
     # "See all" from the My Progress summary links here with solved=1.
     if solved:
         problems = [p for p in problems if p.id in solved_ids]
-
-    all_topics = sorted({t for p in db.scalars(select(Problem)) for t in (p.topics or [])})
+    # "Unknown only" hides both explicitly-known problems and solved ones (a
+    # solved problem is implicitly known — a UI rule, not stored that way).
+    if unknown:
+        problems = [p for p in problems
+                    if p.id not in known_ids and p.id not in solved_ids]
 
     # Category bar: published-problem count per topic, most-common first. If the
     # active topic filter is one of the "extra" (hidden) chips, start expanded so
@@ -261,8 +267,40 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
     topic_expanded = bool(topic) and any(
         tc["topic"] == topic for tc in topic_counts[TOPIC_BAR_TOP_N:])
 
-    # Unsolved counts per difficulty, for the "jump to a random unsolved" buttons.
-    unsolved_counts = _unsolved_counts(db, solved_ids)
+    # Counts per difficulty for the "jump to a random unsolved" buttons — skipping
+    # solved *and* known so the count matches what the random jump can land on.
+    unsolved_counts = _unsolved_counts(db, solved_ids | known_ids)
+
+    # Filter chips are toggle links. Each href keeps the *other* active filters, so
+    # a status (Unsolved/Unknown) and a topic combine in either click order; the
+    # two status chips are mutually exclusive, and clicking an already-active chip
+    # clears just that one filter. (Passing an override of None drops that key.)
+    current = {
+        "q": q, "difficulty": difficulty, "topic": topic,
+        "unsolved": 1 if unsolved else None,
+        "unknown": 1 if unknown else None,
+        "solved": 1 if solved else None,
+    }
+
+    def _href(**overrides: object) -> str:
+        qs = urlencode({k: v for k, v in {**current, **overrides}.items() if v})
+        return f"/?{qs}" if qs else "/"
+
+    unsolved_href = _href(unsolved=None) if unsolved \
+        else _href(unsolved=1, unknown=None, solved=None)
+    unknown_href = _href(unknown=None) if unknown \
+        else _href(unknown=1, unsolved=None, solved=None)
+    # Topic chips keep one topic at a time: clicking the active one clears it,
+    # clicking another replaces it — while preserving the active status filter.
+    for tc in topic_counts:
+        tc["href"] = _href(topic=None) if tc["topic"] == topic \
+            else _href(topic=tc["topic"])
+    # One-click difficulty chips (Easy/Medium/Hard), same toggle/keep-context rules.
+    difficulty_filters = [
+        {"name": d, "active": difficulty == d,
+         "href": _href(difficulty=None) if difficulty == d else _href(difficulty=d)}
+        for d in ("easy", "medium", "hard")
+    ]
 
     # Paginate the (fully filtered) list. `page` is clamped to a valid range so
     # stale/oversized links still render the last page rather than an empty one.
@@ -276,13 +314,18 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
     base_qs = urlencode({k: v for k, v in (
         ("q", q), ("difficulty", difficulty), ("topic", topic),
         ("unsolved", 1 if unsolved else None), ("solved", 1 if solved else None),
+        ("unknown", 1 if unknown else None),
     ) if v})
 
     return templates.TemplateResponse(request, "index.html", {
-        "request": request, "problems": page_problems, "all_topics": all_topics,
-        "solved_ids": solved_ids, "user_name": request.state.user_name,
+        "request": request, "problems": page_problems,
+        "solved_ids": solved_ids, "known_ids": known_ids,
+        "user_name": request.state.user_name,
         "f_difficulty": difficulty or "", "f_topic": topic or "", "f_q": q or "",
         "f_unsolved": bool(unsolved), "f_solved": bool(solved),
+        "f_unknown": bool(unknown),
+        "difficulty_filters": difficulty_filters,
+        "unsolved_href": unsolved_href, "unknown_href": unknown_href,
         "unsolved_counts": unsolved_counts,
         "topic_counts": topic_counts, "topic_top_n": TOPIC_BAR_TOP_N,
         "topic_expanded": topic_expanded,
@@ -295,20 +338,23 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
 
 @router.get("/random/{difficulty}")
 def random_unsolved(difficulty: str, request: Request, db: Session = Depends(get_db)):
-    """Redirect to a random unsolved, published problem of the given difficulty.
+    """Redirect to a random published problem of the given difficulty that the
+    user hasn't solved *and* hasn't marked "known".
 
-    Backs the quick-pick buttons on the problem list. If the user has cleared
-    that difficulty, fall back to the filtered list so the empty state is clear."""
+    Backs the quick-pick buttons on the problem list and the "Next problem" button
+    after marking one known. If nothing is left, fall back to the filtered list so
+    the empty state is clear."""
     if difficulty not in ("easy", "medium", "hard"):
         raise HTTPException(status_code=404, detail="Unknown difficulty")
-    solved_ids = store.user_solved_problem_ids(db, request.state.user_id)
+    skip_ids = (store.user_solved_problem_ids(db, request.state.user_id)
+                | store.user_known_problem_ids(db, request.state.user_id))
     candidates = [
         p for p in db.scalars(select(Problem).where(
             Problem.is_published.is_(True), Problem.difficulty == difficulty))
-        if p.id not in solved_ids
+        if p.id not in skip_ids
     ]
     if not candidates:
-        return RedirectResponse(f"/?difficulty={difficulty}&unsolved=1", status_code=303)
+        return RedirectResponse(f"/?difficulty={difficulty}&unknown=1", status_code=303)
     return RedirectResponse(f"/problems/{random.choice(candidates).slug}", status_code=303)
 
 
@@ -319,6 +365,7 @@ def problem_detail(slug: str, request: Request, submission: str | None = None,
     if prob is None:
         raise HTTPException(status_code=404, detail="Problem not found")
     solved = prob.id in store.user_solved_problem_ids(db, request.state.user_id)
+    known = prob.id in store.user_known_problem_ids(db, request.state.user_id)
     hidden_count = sum(1 for t in prob.tests if t.hidden)
 
     # Linked from the progress page ("?submission=<id>"): pre-fill the editor with
@@ -334,7 +381,7 @@ def problem_detail(slug: str, request: Request, submission: str | None = None,
             loaded_submission = sub
 
     return templates.TemplateResponse(request, "problem.html", {
-        "request": request, "prob": prob, "solved": solved,
+        "request": request, "prob": prob, "solved": solved, "known": known,
         "visible_count": len(prob.tests) - hidden_count, "hidden_count": hidden_count,
         "user_name": request.state.user_name,
         "initial_code": initial_code, "loaded_submission": loaded_submission,
@@ -363,6 +410,7 @@ def progress(request: Request, db: Session = Depends(get_db)):
     ][:RECENT_PROBLEMS_LIMIT]
 
     solved_ids = store.user_solved_problem_ids(db, uid)
+    known_ids = store.user_known_problem_ids(db, uid)
     solved = list(db.scalars(select(Problem).where(Problem.id.in_(solved_ids)))) \
         if solved_ids else []
     solved_counts = {"easy": 0, "medium": 0, "hard": 0}
@@ -373,7 +421,7 @@ def progress(request: Request, db: Session = Depends(get_db)):
         "request": request, "sub_groups": sub_groups, "solved": solved,
         "solved_counts": solved_counts, "user_name": request.state.user_name,
         "topic_cloud": _topic_cloud(solved),
-        "unsolved_counts": _unsolved_counts(db, solved_ids),
+        "unsolved_counts": _unsolved_counts(db, solved_ids | known_ids),
         "week_streak": _weekly_streak(db, uid, _user_tz(request)),
     })
 

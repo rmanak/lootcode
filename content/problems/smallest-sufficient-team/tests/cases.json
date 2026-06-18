@@ -1,0 +1,286 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "req_skills": [
+          "java",
+          "nodejs",
+          "reactjs"
+        ],
+        "people": [
+          [
+            "java"
+          ],
+          [
+            "nodejs"
+          ],
+          [
+            "nodejs",
+            "reactjs"
+          ]
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "req_skills": [
+          "a"
+        ],
+        "people": [
+          [
+            "a"
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "req_skills": [
+          "a",
+          "b"
+        ],
+        "people": [
+          [
+            "a"
+          ],
+          [
+            "b"
+          ],
+          [
+            "a",
+            "b"
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "req_skills": [
+          "a",
+          "b",
+          "c"
+        ],
+        "people": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "c"
+          ],
+          [
+            "a",
+            "c"
+          ]
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "req_skills": [
+          "a",
+          "c",
+          "b",
+          "d"
+        ],
+        "people": [
+          [
+            "d",
+            "b",
+            "a"
+          ],
+          [
+            "c",
+            "a",
+            "d",
+            "b"
+          ],
+          [
+            "c",
+            "d",
+            "b",
+            "a"
+          ],
+          [
+            "b"
+          ],
+          [
+            "d",
+            "a",
+            "c"
+          ],
+          [
+            "d",
+            "c",
+            "a",
+            "b"
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "req_skills": [
+          "e",
+          "c"
+        ],
+        "people": [
+          [
+            "c"
+          ],
+          [
+            "c",
+            "e"
+          ],
+          [
+            "c"
+          ],
+          [
+            "e"
+          ],
+          [
+            "e"
+          ],
+          [
+            "c",
+            "e"
+          ],
+          [
+            "e",
+            "c"
+          ],
+          [
+            "c"
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "req_skills": [
+          "e",
+          "a",
+          "d"
+        ],
+        "people": [
+          [
+            "a",
+            "e"
+          ],
+          [
+            "a"
+          ],
+          [
+            "d",
+            "e"
+          ],
+          [
+            "d",
+            "a"
+          ],
+          [
+            "a"
+          ],
+          [
+            "e",
+            "d"
+          ]
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "req_skills": [
+          "a",
+          "b"
+        ],
+        "people": [
+          [
+            "b",
+            "a"
+          ],
+          [
+            "b"
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "req_skills": [
+          "d"
+        ],
+        "people": [
+          [
+            "d"
+          ],
+          [
+            "d"
+          ],
+          [
+            "d"
+          ],
+          [
+            "d"
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "req_skills": [
+          "b"
+        ],
+        "people": [
+          [
+            "b"
+          ],
+          [
+            "b"
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

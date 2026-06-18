@@ -53,4 +53,9 @@ SKIP = {
     "find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree": "returns a node pointer in a clone; meaningless in our array repr",
     "dinner-plate-stacks": "stateful design class (push/pop/popAtStack); not a single pure function",
     "mini-parser": "deserialize a NestedInteger codec; not a single-answer gradable function",
+    # --- batch 023 ---
+    "remove-nth-node-from-end-of-list": "dup of existing remove-nth-from-end (removeNthFromEnd)",
+    "throne-inheritance": "stateful design class (birth/death/getInheritanceOrder); not a single pure function",
+    "design-twitter": "stateful design class (postTweet/getNewsFeed/follow/unfollow); not a single pure function",
+    "maximum-number-of-darts-inside-of-a-circular-dartboard": "geometry over floats; boundary points on the circle make it not robustly gradable under exact compare",
 }

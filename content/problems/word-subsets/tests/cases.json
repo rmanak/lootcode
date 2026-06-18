@@ -1,0 +1,264 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "A": [
+          "amazon",
+          "apple",
+          "facebook",
+          "google",
+          "leetcode"
+        ],
+        "B": [
+          "e",
+          "o"
+        ]
+      },
+      "expected": [
+        "facebook",
+        "google",
+        "leetcode"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "A": [
+          "amazon",
+          "apple",
+          "facebook",
+          "google",
+          "leetcode"
+        ],
+        "B": [
+          "lo",
+          "eo"
+        ]
+      },
+      "expected": [
+        "google",
+        "leetcode"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "A": [
+          "amazon",
+          "apple",
+          "facebook",
+          "google",
+          "leetcode"
+        ],
+        "B": [
+          "e",
+          "oo"
+        ]
+      },
+      "expected": [
+        "facebook",
+        "google"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "A": [
+          "amazon",
+          "apple",
+          "facebook",
+          "google",
+          "leetcode"
+        ],
+        "B": [
+          "ec",
+          "oc",
+          "ceo"
+        ]
+      },
+      "expected": [
+        "facebook",
+        "leetcode"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "A": [
+          "a"
+        ],
+        "B": [
+          "b"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "A": [
+          "edd"
+        ],
+        "B": [
+          "ad",
+          "bec"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "A": [
+          "b",
+          "baa",
+          "abbe",
+          "cc",
+          "abb"
+        ],
+        "B": [
+          "e",
+          "bde"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "A": [
+          "dc",
+          "add",
+          "ab"
+        ],
+        "B": [
+          "de",
+          "da"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "A": [
+          "a",
+          "aedae",
+          "ce"
+        ],
+        "B": [
+          "be",
+          "ce",
+          "d",
+          "e"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "A": [
+          "b",
+          "c",
+          "eacc",
+          "bbcb"
+        ],
+        "B": [
+          "ed",
+          "bed"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "A": [
+          "ad",
+          "bbabb",
+          "da",
+          "a",
+          "aecc",
+          "ec"
+        ],
+        "B": [
+          "c",
+          "c",
+          "c",
+          "e"
+        ]
+      },
+      "expected": [
+        "aecc",
+        "ec"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "A": [
+          "d",
+          "aebad",
+          "de",
+          "adeb",
+          "bee"
+        ],
+        "B": [
+          "da",
+          "b"
+        ]
+      },
+      "expected": [
+        "aebad",
+        "adeb"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "A": [
+          "de",
+          "dbbbb",
+          "bed",
+          "cc",
+          "c",
+          "cc"
+        ],
+        "B": [
+          "da",
+          "abc",
+          "dee"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

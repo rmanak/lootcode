@@ -1,0 +1,39 @@
+{
+  "slug": "number-of-valid-words-for-each-puzzle",
+  "title": "Number Of Valid Words For Each Puzzle",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "hash-table",
+    "string",
+    "bitmask"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findNumOfValidWords",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      },
+      {
+        "name": "puzzles",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -3,7 +3,7 @@
 > Conceptual entities. **Implemented** with SQLAlchemy in `app/models.py` on
 > SQLite — that file is the source of truth; this doc is the high-level view.
 > (The implemented model is a lean subset: User, Problem, TestCase, Submission,
-> TestResult; starters/canonical solution live as columns on Problem.)
+> TestResult, KnownProblem; starters/canonical solution live as columns on Problem.)
 
 ## Entities
 
@@ -93,6 +93,22 @@ are exempt from the unique indexes, so all guests coexist.
 | passed | bool | |
 | stdout / stderr | text? | size-capped |
 | runtimeMs / memoryKb | int? | |
+
+### KnownProblem (implemented)
+A user's explicit "I already know this — stop surfacing it" mark on a problem.
+Independent of `solved` (which is derived from Submissions): a problem can be
+known without ever being solved.
+
+| field | type | notes |
+|-------|------|-------|
+| id | int (pk) | |
+| userId | fk User | |
+| problemId | fk Problem | unique together with userId |
+| createdAt | timestamp | |
+
+> **Solved ⇒ known** is a *UI* rule, not stored here: the "unknown only" filter
+> and the random "next" picks hide solved problems too, but solving never writes
+> a KnownProblem row. Marking known is reversible (the row is deleted on unmark).
 
 ### Progress (derived, optional)
 Per `(userId, problemId)`: best status (`solved`/`attempted`), best score,

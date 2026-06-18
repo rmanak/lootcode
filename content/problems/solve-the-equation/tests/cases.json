@@ -1,0 +1,76 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "equation": "x+5-3+x=6+x-2"
+      },
+      "expected": "x=2",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "equation": "x=x"
+      },
+      "expected": "Infinite solutions",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "equation": "2x=x"
+      },
+      "expected": "x=0",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "equation": "2x+3x-6x=x+2"
+      },
+      "expected": "x=-1",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "equation": "x=x+2"
+      },
+      "expected": "No solution",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "equation": "0=0"
+      },
+      "expected": "Infinite solutions",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "equation": "-x=-1"
+      },
+      "expected": "x=1",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "equation": "3x=33"
+      },
+      "expected": "x=11",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

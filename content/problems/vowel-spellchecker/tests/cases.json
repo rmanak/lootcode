@@ -1,0 +1,219 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "wordlist": [
+          "KiTe",
+          "kite",
+          "hare",
+          "Hare"
+        ],
+        "queries": [
+          "kite",
+          "Kite",
+          "KiTe",
+          "Hare",
+          "HARE",
+          "Hear",
+          "hear",
+          "keti",
+          "keet",
+          "keto"
+        ]
+      },
+      "expected": [
+        "kite",
+        "KiTe",
+        "KiTe",
+        "Hare",
+        "hare",
+        "",
+        "",
+        "KiTe",
+        "",
+        "KiTe"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "wordlist": [
+          "yellow"
+        ],
+        "queries": [
+          "YellOw"
+        ]
+      },
+      "expected": [
+        "yellow"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "wordlist": [
+          "Yellow"
+        ],
+        "queries": [
+          "yellow"
+        ]
+      },
+      "expected": [
+        "Yellow"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "wordlist": [
+          "abc"
+        ],
+        "queries": [
+          "xyz"
+        ]
+      },
+      "expected": [
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "wordlist": [
+          "lEeT",
+          "KitE",
+          "mooN",
+          "MooN",
+          "BOt"
+        ],
+        "queries": [
+          "harE"
+        ]
+      },
+      "expected": [
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "wordlist": [
+          "BoT",
+          "Leet"
+        ],
+        "queries": [
+          "Bot",
+          "kite",
+          "Kita"
+        ]
+      },
+      "expected": [
+        "BoT",
+        "",
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "wordlist": [
+          "harE"
+        ],
+        "queries": [
+          "mooN",
+          "KiTE",
+          "Moon"
+        ]
+      },
+      "expected": [
+        "",
+        "",
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "wordlist": [
+          "boT"
+        ],
+        "queries": [
+          "KITe",
+          "mOan",
+          "hArE",
+          "kItE"
+        ]
+      },
+      "expected": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "wordlist": [
+          "kite"
+        ],
+        "queries": [
+          "Hare",
+          "HarE"
+        ]
+      },
+      "expected": [
+        "",
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "wordlist": [
+          "kite",
+          "HaRe",
+          "LeeT",
+          "mOON"
+        ],
+        "queries": [
+          "mOaN",
+          "kite",
+          "bUT",
+          "hAre",
+          "kItE",
+          "hare"
+        ]
+      },
+      "expected": [
+        "mOON",
+        "kite",
+        "",
+        "HaRe",
+        "kite",
+        "HaRe"
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

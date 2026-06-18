@@ -56,9 +56,25 @@ def test_pagination(client):
 def test_unsolved_filter(client):
     r = client.get("/?unsolved=1")
     assert r.status_code == 200
-    # The checkbox reflects the active filter, and other filters still combine.
-    assert "checked" in r.text
+    # The status chip reflects the active filter, and other filters still combine.
+    assert "status-chip active" in r.text
     assert client.get("/?unsolved=1&difficulty=easy&q=sum").status_code == 200
+
+
+def test_unknown_filter_and_marking(client):
+    # Marking a problem "known" flips the API state and then hides it from the
+    # "unknown only" list (and from the random-jump pool). Two Sum lives deep in
+    # the alphabetical bank, so search for it to dodge pagination.
+    assert client.post("/api/problems/two-sum/known",
+                       json={"known": True}).json() == {"known": True}
+    r = client.get("/?unknown=1&q=Two+Sum")
+    assert r.status_code == 200
+    assert "status-chip unknown active" in r.text
+    assert 'href="/problems/two-sum"' not in r.text
+    # Unmarking brings it back.
+    assert client.post("/api/problems/two-sum/known",
+                       json={"known": False}).json() == {"known": False}
+    assert 'href="/problems/two-sum"' in client.get("/?unknown=1&q=Two+Sum").text
 
 
 def test_run_canonical_full_score(client):

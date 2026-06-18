@@ -1,0 +1,38 @@
+{
+  "slug": "smallest-sufficient-team",
+  "title": "Smallest Sufficient Team",
+  "difficulty": "hard",
+  "tags": [
+    "dynamic-programming",
+    "bitmask",
+    "bit-manipulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "smallestSufficientTeamSize",
+    "params": [
+      {
+        "name": "req_skills",
+        "type": "string[]"
+      },
+      {
+        "name": "people",
+        "type": "string[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

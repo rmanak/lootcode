@@ -1,0 +1,40 @@
+{
+  "slug": "reverse-linked-list-ii",
+  "title": "Reverse Linked List II",
+  "difficulty": "medium",
+  "tags": [
+    "linked-list"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "reverseBetween",
+    "params": [
+      {
+        "name": "head",
+        "type": "int[]"
+      },
+      {
+        "name": "m",
+        "type": "int"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

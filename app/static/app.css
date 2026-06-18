@@ -12,6 +12,7 @@
   --hard: #b91c1c;
   --pass: #15803d;
   --fail: #b91c1c;
+  --known: #2563eb;        /* blue-600 — "known" marker, paired with green solved */
   --radius: 10px;
 }
 
@@ -51,19 +52,46 @@ h2 { font-size: 18px; margin: 28px 0 12px; }
 .crumb { margin: 0 0 14px; }
 .foot { text-align: center; color: var(--muted); font-size: 13px; padding: 24px; }
 
-/* Filters */
-.filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
-.filters input, .filters select {
-  padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface);
-}
-.filters button {
-  background: var(--primary); color: #fff; border: 0; padding: 8px 16px;
-  border-radius: 8px; cursor: pointer; font-weight: 600;
-}
-.filters .reset { align-self: center; color: var(--muted); }
-.filters .check { display: flex; align-items: center; gap: 6px; font-size: 14px;
-  color: var(--ink); cursor: pointer; user-select: none; }
-.filters .check input { width: auto; margin: 0; cursor: pointer; }
+/* A faint divider that sets the random-jump line apart from the filter UI. */
+.section-sep { border: 0; height: 1px; background: var(--border); opacity: .6;
+  margin: 6px 0 16px; }
+
+/* Filters — a wide title search, one-click difficulty chips, and a "reset all"
+   pushed to the far right of the row. */
+.filter-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+  margin-bottom: 12px; }
+.search-form { display: flex; margin: 0; }
+.search-form input[type="search"] { width: 340px; max-width: 100%; padding: 9px 13px;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--surface); font: inherit; }
+.difficulty-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+/* Active difficulty chips take their difficulty colour (the rest of the chip
+   styling is shared with .status-chip below). */
+.diff-chip.active.easy { color: var(--easy); background: #e7f4ec; border-color: #cfe9da; }
+.diff-chip.active.medium { color: var(--medium); background: #fbeede; border-color: #f2dcc0; }
+.diff-chip.active.hard { color: var(--hard); background: #fae8e6; border-color: #f3d2cd; }
+.reset-all { margin-left: auto; align-self: center; padding: 7px 14px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--muted);
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: color .12s, border-color .12s, background .12s; }
+.reset-all:hover { color: var(--ink); border-color: var(--muted); background: var(--bg);
+  text-decoration: none; }
+
+/* Status toggles (Unsolved / Unknown) — chip links that filter the list, styled
+   like the topic chips. Inactive chips hide their check; the active one shows it. */
+.status-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  margin: 0 0 14px; }
+.status-chip { display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 13px; border-radius: 999px; font-size: 14px; font-weight: 600;
+  color: var(--ink); background: var(--surface);
+  border: 1px solid var(--border); cursor: pointer;
+  transition: background .12s, border-color .12s, color .12s; }
+.status-chip:hover { text-decoration: none; background: var(--bg); border-color: var(--muted); }
+/* The check only exists when the chip is active — use display:none (not
+   visibility) so an inactive chip stays symmetric (no reserved space/flex gap). */
+.status-chip .sc-check { font-weight: 800; display: none; }
+.status-chip.active { color: var(--pass); background: #e7f4ec; border-color: #bfe0c9; }
+.status-chip.active .sc-check { display: inline; }
+.status-chip.unknown.active { color: var(--known); background: #e6effd; border-color: #c2d8f7; }
 
 /* Quick "random unsolved problem" picks */
 .quick-picks { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 18px; }
@@ -145,6 +173,9 @@ th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--bo
 th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
 tr:last-child td { border-bottom: 0; }
 .problems .solved-cell { width: 34px; text-align: center; }
+/* Blue check (blue_check_mark.svg) for "known but not solved" rows — the
+   list-page counterpart of the green ✅ solved tick. */
+.known-check { width: 16px; height: 16px; vertical-align: -3px; }
 .plink { font-weight: 600; }
 .empty { color: var(--muted); text-align: center; padding: 26px; }
 
@@ -160,6 +191,29 @@ tr:last-child td { border-bottom: 0; }
 a.topic { cursor: pointer; text-decoration: none; transition: color .12s, border-color .12s, background .12s; }
 a.topic:hover { color: var(--primary); border-color: var(--primary); background: #fff; text-decoration: none; }
 .solved-badge { font-size: 13px; color: var(--pass); margin-left: 8px; }
+/* Blue "Known" badge in the problem title — the counterpart of the green
+   "Solved ✅", using blue_check_mark.svg. It's a button so clicking it unmarks. */
+.known-badge { font: inherit; font-size: 13px; color: var(--known); margin-left: 8px;
+  background: none; border: 0; padding: 0; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 4px; vertical-align: middle; }
+.known-badge:hover { text-decoration: underline; }
+.known-badge[hidden] { display: none; }
+.kb-icon { width: 15px; height: 15px; }
+
+/* "Mark as known" / "Next problem" control under the title. Both children live
+   in the DOM; `.is-known` swaps which one shows. */
+.known-control { margin: 0 0 4px; }
+.known-control .next-known-btn { display: none; }
+.known-control.is-known .known-btn { display: none; }
+.known-control.is-known .next-known-btn { display: inline-block; }
+.known-btn { background: var(--surface); color: var(--known); border: 1px solid #c2d8f7;
+  padding: 5px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: background .12s, border-color .12s; }
+.known-btn:hover { background: #e6effd; border-color: var(--known); }
+.next-known-btn { background: var(--known); color: #fff; border: 1px solid var(--known);
+  padding: 6px 13px; border-radius: 999px; font-size: 13px; font-weight: 700;
+  text-decoration: none; }
+.next-known-btn:hover { filter: brightness(.95); text-decoration: none; }
 
 /* Solve layout — two columns with a draggable gutter between them.
    --split is the left column width; defaults to 1fr so each side starts at half. */

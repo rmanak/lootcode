@@ -8,7 +8,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from . import auth, content
-from .models import Problem, Submission, TestCase, User
+from .models import KnownProblem, Problem, Submission, TestCase, User
 from .tags import normalize_tags
 
 
@@ -64,6 +64,32 @@ def user_solved_problem_ids(db: Session, user_id: str) -> set[int]:
         )
     ).all()
     return {r[0] for r in rows}
+
+
+def user_known_problem_ids(db: Session, user_id: str) -> set[int]:
+    """Problems the user has explicitly marked "known". Solved problems are *not*
+    folded in here — that implicit "solved ⇒ known" rule lives in the UI/filters
+    (see the index route), so this set stays a faithful record of explicit marks."""
+    rows = db.execute(
+        select(KnownProblem.problem_id).where(KnownProblem.user_id == user_id)
+    ).all()
+    return {r[0] for r in rows}
+
+
+def set_problem_known(db: Session, user_id: str, problem_id: int,
+                      known: bool) -> bool:
+    """Mark or unmark a problem as known for a user. Idempotent: marking an
+    already-known problem (or unmarking an unknown one) is a no-op. Returns the
+    resulting known state."""
+    existing = db.scalar(select(KnownProblem).where(
+        KnownProblem.user_id == user_id, KnownProblem.problem_id == problem_id))
+    if known and existing is None:
+        db.add(KnownProblem(user_id=user_id, problem_id=problem_id))
+        db.commit()
+    elif not known and existing is not None:
+        db.delete(existing)
+        db.commit()
+    return known
 
 
 # --- Optional accounts (V2). See docs/user-accounts-v2.md. -------------------
@@ -129,5 +155,14 @@ def merge_user(db: Session, from_id: str, into_id: str) -> None:
         return
     db.execute(update(Submission).where(Submission.user_id == from_id)
                .values(user_id=into_id))
+    # Move the guest's "known" marks too, skipping any the account already has
+    # (the (user_id, problem_id) uniqueness constraint would otherwise trip).
+    account_known = user_known_problem_ids(db, into_id)
+    for mark in db.scalars(select(KnownProblem).where(
+            KnownProblem.user_id == from_id)):
+        if mark.problem_id in account_known:
+            db.delete(mark)
+        else:
+            mark.user_id = into_id
     db.delete(guest)
     db.commit()

@@ -14,7 +14,17 @@
       {{ prob.title }}
       <span class="badge {{ prob.difficulty }}">{{ prob.difficulty }}</span>
       {% if solved %}<span class="solved-badge">Solved ✅</span>{% endif %}
+      <button type="button" class="known-badge" id="known-badge"
+              title="Marked as known — click to unmark" {{ '' if known else 'hidden' }}>
+        <img src="{{ static('blue_check_mark.svg') }}" alt="" class="kb-icon">Known</button>
     </h1>
+    {# Mark-as-known control: marking hides this problem from random/"next" picks
+       and the "unknown only" filter, then offers a jump to the next one. #}
+    <div class="known-control {{ 'is-known' if known }}" id="known-control">
+      <button type="button" class="known-btn"
+              title="You already know this one — hide it from your random picks">Mark as known</button>
+      <a class="next-known-btn" href="/random/{{ prob.difficulty }}">Next {{ prob.difficulty }} problem →</a>
+    </div>
     <div class="md">{{ prob.statement_md | markdown | safe }}</div>
     <p class="limits">
       Function <code>{{ prob.function_name }}({{ prob.params | map(attribute='name') | join(', ') }})</code>

@@ -12,6 +12,7 @@ from sqlalchemy import (
     Integer,
     String,
     Text,
+    UniqueConstraint,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -127,6 +128,23 @@ class Submission(Base):
     @property
     def solved(self) -> bool:
         return self.total_count > 0 and self.passed_count == self.total_count
+
+
+class KnownProblem(Base):
+    """A user has marked a problem as "known" — they already know the solution and
+    don't want it surfaced when browsing for new work. Independent of `solved`
+    (derived from Submissions): a problem can be known without ever being solved.
+    Solved problems are treated as *implicitly* known in the UI's "unknown only"
+    filter, but that's a presentation rule — it isn't recorded here."""
+    __tablename__ = "known_problems"
+    __table_args__ = (
+        UniqueConstraint("user_id", "problem_id", name="uq_known_user_problem"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
+    problem_id: Mapped[int] = mapped_column(ForeignKey("problems.id"), index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
 
 
 class TestResult(Base):

@@ -1,0 +1,33 @@
+{
+  "slug": "solve-the-equation",
+  "title": "Solve The Equation",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "simulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "solveEquation",
+    "params": [
+      {
+        "name": "equation",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

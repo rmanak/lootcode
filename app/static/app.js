@@ -78,6 +78,32 @@
     });
   }
 
+  // "Mark as known" toggle: marking flips the control to a "Next problem" link
+  // and lights the blue badge; clicking the badge unmarks it again. Both states
+  // are in the DOM at once — we just toggle the `is-known` class.
+  const knownCtl = document.getElementById("known-control");
+  const knownBadge = document.getElementById("known-badge");
+  if (knownCtl && knownBadge) {
+    const markBtn = knownCtl.querySelector(".known-btn");
+    async function setKnown(state) {
+      try {
+        const resp = await fetch(`/api/problems/${slug}/known`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ known: state }),
+        });
+        if (!resp.ok) return;
+        const d = await resp.json();
+        knownCtl.classList.toggle("is-known", d.known);
+        knownBadge.hidden = !d.known;
+      } catch (_) {
+        /* offline / transient — leave the UI as-is */
+      }
+    }
+    markBtn.addEventListener("click", () => setKnown(true));
+    knownBadge.addEventListener("click", () => setKnown(false));
+  }
+
   async function run() {
     btn.disabled = true;
     statusEl.textContent = "Running…";

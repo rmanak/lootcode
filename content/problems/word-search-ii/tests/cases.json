@@ -191,9 +191,9 @@
         ],
         "words": [
           "cbca",
-          "cbba",
+          "a",
           "ac",
-          "a"
+          "cbba"
         ]
       },
       "expected": [

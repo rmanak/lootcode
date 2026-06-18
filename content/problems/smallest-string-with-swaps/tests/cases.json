@@ -1,0 +1,301 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "dcab",
+        "pairs": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "expected": "bacd",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "dcab",
+        "pairs": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      "expected": "abcd",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "s": "cba",
+        "pairs": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "expected": "abc",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "a",
+        "pairs": []
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "ab",
+        "pairs": []
+      },
+      "expected": "ab",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "ba",
+        "pairs": [
+          [
+            0,
+            1
+          ]
+        ]
+      },
+      "expected": "ab",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "zyx",
+        "pairs": [
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      "expected": "xyz",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "deabdbeb",
+        "pairs": [
+          [
+            7,
+            0
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            5,
+            7
+          ]
+        ]
+      },
+      "expected": "aebbbdde",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "cdbcaeae",
+        "pairs": [
+          [
+            5,
+            6
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "expected": "aabccdee",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "ac",
+        "pairs": []
+      },
+      "expected": "ac",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "cba",
+        "pairs": [
+          [
+            2,
+            0
+          ]
+        ]
+      },
+      "expected": "abc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "debccecc",
+        "pairs": [
+          [
+            1,
+            7
+          ]
+        ]
+      },
+      "expected": "dcbccece",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s": "dedccd",
+        "pairs": [
+          [
+            2,
+            4
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ]
+      },
+      "expected": "ccddde",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "s": "debcbeab",
+        "pairs": []
+      },
+      "expected": "debcbeab",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "s": "cddcdc",
+        "pairs": [
+          [
+            0,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            5
+          ]
+        ]
+      },
+      "expected": "cdccdd",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

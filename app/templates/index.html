@@ -5,25 +5,37 @@
 
 {% include "_quick_picks.html" %}
 
-<form class="filters" method="get">
-  <input type="search" name="q" placeholder="Search title…" value="{{ f_q }}">
-  <select name="difficulty">
-    <option value="">All difficulties</option>
-    {% for d in ["easy", "medium", "hard"] %}
-      <option value="{{ d }}" {{ 'selected' if f_difficulty == d }}>{{ d|capitalize }}</option>
+<hr class="section-sep">
+
+{# Filter bar: a wide title search that filters as you type (list.js), one-click
+   difficulty chips, and "Reset all" floated to the right. The search form carries
+   the active chip filters as hidden inputs so a live search (or Enter) keeps them. #}
+<div class="filter-bar">
+  <form class="search-form" method="get">
+    {% if f_difficulty %}<input type="hidden" name="difficulty" value="{{ f_difficulty }}">{% endif %}
+    {% if f_topic %}<input type="hidden" name="topic" value="{{ f_topic }}">{% endif %}
+    {% if f_unsolved %}<input type="hidden" name="unsolved" value="1">{% endif %}
+    {% if f_unknown %}<input type="hidden" name="unknown" value="1">{% endif %}
+    {% if f_solved %}<input type="hidden" name="solved" value="1">{% endif %}
+    <input type="search" name="q" placeholder="Search title…" value="{{ f_q }}">
+  </form>
+  <div class="difficulty-filters">
+    {% for d in difficulty_filters %}
+    <a class="status-chip diff-chip {{ d.name }}{{ ' active' if d.active }}" href="{{ d.href }}">
+      <span class="sc-check">✓</span> {{ d.name|capitalize }}</a>
     {% endfor %}
-  </select>
-  <select name="topic">
-    <option value="">All topics</option>
-    {% for t in all_topics %}
-      <option value="{{ t }}" {{ 'selected' if f_topic == t }}>{{ t }}</option>
-    {% endfor %}
-  </select>
-  <label class="check"><input type="checkbox" name="unsolved" value="1" {{ 'checked' if f_unsolved }}> Unsolved only</label>
-  <label class="check"><input type="checkbox" name="solved" value="1" {{ 'checked' if f_solved }}> Solved only</label>
-  <button type="submit">Filter</button>
-  <a class="reset" href="/">Reset</a>
-</form>
+  </div>
+  <a class="reset-all" href="/">Reset all filters</a>
+</div>
+
+{# Status toggles — like the topic chips, click to filter the list down. They
+   keep the current search/difficulty/topic and are mutually exclusive. #}
+<div class="status-filters">
+  <a class="status-chip {{ 'active' if f_unsolved }}" href="{{ unsolved_href }}">
+    <span class="sc-check">✓</span> Unsolved only</a>
+  <a class="status-chip unknown {{ 'active' if f_unknown }}" href="{{ unknown_href }}">
+    <span class="sc-check">✓</span> Unknown only</a>
+</div>
 
 {% if topic_counts %}
 {# Category bar: top topics by count; the rest expand via a pure-CSS checkbox
@@ -33,7 +45,7 @@
   <div class="topic-bar">
     {% for tc in topic_counts %}
     <a class="topic-chip {{ 'active' if f_topic == tc.topic }}{{ ' topic-extra' if loop.index0 >= topic_top_n }}"
-       href="/?topic={{ tc.topic | urlencode }}">{{ tc.topic }}
+       href="{{ tc.href }}">{{ tc.topic }}
       <span class="tc-count">{{ tc.count }}</span></a>
     {% endfor %}
     {% if topic_counts | length > topic_top_n %}
@@ -46,6 +58,7 @@
 </div>
 {% endif %}
 
+<div id="problem-list">
 <table class="problems">
   <thead>
     <tr><th></th><th>Title</th><th>Difficulty</th><th>Topics</th></tr>
@@ -53,7 +66,10 @@
   <tbody>
     {% for p in problems %}
     <tr>
-      <td class="solved-cell">{% if p.id in solved_ids %}<span title="Solved">✅</span>{% endif %}</td>
+      <td class="solved-cell">
+        {%- if p.id in solved_ids %}<span title="Solved">✅</span>
+        {%- elif p.id in known_ids %}<img class="known-check" src="{{ static('blue_check_mark.svg') }}" alt="Known" title="Known">
+        {%- endif %}</td>
       <td><a class="plink" href="/problems/{{ p.slug }}">{{ p.title }}</a></td>
       <td><span class="badge {{ p.difficulty }}">{{ p.difficulty }}</span></td>
       <td>{% for t in p.topics %}<a class="topic" href="/?topic={{ t | urlencode }}">{{ t }}</a>{% endfor %}</td>
@@ -91,4 +107,9 @@
   {% endif %}
 </nav>
 {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static('list.js') }}"></script>
 {% endblock %}

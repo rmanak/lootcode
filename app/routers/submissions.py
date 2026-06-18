@@ -6,6 +6,7 @@ from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from .. import store
 from ..db import get_db
 from ..executor import run_submission
 from ..models import Problem, Submission, TestResult
@@ -15,6 +16,10 @@ router = APIRouter(prefix="/api")
 
 class RunBody(BaseModel):
     code: str
+
+
+class KnownBody(BaseModel):
+    known: bool
 
 
 @router.post("/problems/{slug}/run")
@@ -64,3 +69,15 @@ def run(slug: str, body: RunBody, request: Request, db: Session = Depends(get_db
         "solved": graded.solved, "runtime_ms": round(graded.runtime_ms, 1),
         "results": out,
     }
+
+
+@router.post("/problems/{slug}/known")
+def set_known(slug: str, body: KnownBody, request: Request,
+              db: Session = Depends(get_db)):
+    """Mark/unmark this problem as "known" for the current user. Known problems
+    are hidden from the random "next" picks and the "unknown only" filter."""
+    prob = db.scalar(select(Problem).where(Problem.slug == slug))
+    if prob is None:
+        raise HTTPException(status_code=404, detail="Problem not found")
+    known = store.set_problem_known(db, request.state.user_id, prob.id, body.known)
+    return {"known": known}

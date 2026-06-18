@@ -98,8 +98,8 @@
       "name": "hidden-5",
       "input": {
         "words": [
-          "ab",
-          "aab"
+          "aab",
+          "ab"
         ]
       },
       "expected": 2,
@@ -110,10 +110,10 @@
       "name": "hidden-6",
       "input": {
         "words": [
-          "a",
-          "aa",
           "b",
-          "bb"
+          "bb",
+          "a",
+          "aa"
         ]
       },
       "expected": 2,
@@ -124,10 +124,10 @@
       "name": "hidden-7",
       "input": {
         "words": [
-          "baba",
-          "baa",
-          "a",
           "bbba",
+          "baba",
+          "a",
+          "baa",
           "aaa"
         ]
       },
@@ -139,10 +139,10 @@
       "name": "hidden-8",
       "input": {
         "words": [
-          "aaaa",
-          "abaa",
-          "a",
           "b",
+          "aaaa",
+          "a",
+          "abaa",
           "ba"
         ]
       },
@@ -154,10 +154,10 @@
       "name": "hidden-9",
       "input": {
         "words": [
-          "baab",
+          "bbaa",
           "a",
           "bbb",
-          "bbaa"
+          "baab"
         ]
       },
       "expected": 1,
@@ -168,9 +168,9 @@
       "name": "hidden-10",
       "input": {
         "words": [
-          "a",
+          "baa",
           "abb",
-          "baa"
+          "a"
         ]
       },
       "expected": 1,

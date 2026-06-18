@@ -1,0 +1,33 @@
+{
+  "slug": "remove-duplicates-from-sorted-list-ii",
+  "title": "Remove Duplicates From Sorted List II",
+  "difficulty": "medium",
+  "tags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "deleteDuplicates",
+    "params": [
+      {
+        "name": "head",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

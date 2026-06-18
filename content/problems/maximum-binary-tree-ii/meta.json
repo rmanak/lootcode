@@ -1,0 +1,37 @@
+{
+  "slug": "maximum-binary-tree-ii",
+  "title": "Maximum Binary Tree II",
+  "difficulty": "medium",
+  "tags": [
+    "tree",
+    "binary-tree"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "insertIntoMaxTree",
+    "params": [
+      {
+        "name": "root",
+        "type": "int[]"
+      },
+      {
+        "name": "val",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,134 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "num1": "1+1i",
+        "num2": "1+1i"
+      },
+      "expected": "0+2i",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "num1": "1+-1i",
+        "num2": "1+-1i"
+      },
+      "expected": "0+-2i",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "num1": "0+0i",
+        "num2": "5+5i"
+      },
+      "expected": "0+0i",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "num1": "1+0i",
+        "num2": "0+1i"
+      },
+      "expected": "0+1i",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "num1": "-5+3i",
+        "num2": "2+-4i"
+      },
+      "expected": "2+26i",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "num1": "-36+73i",
+        "num2": "3+83i"
+      },
+      "expected": "-6167+-2769i",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "num1": "90+48i",
+        "num2": "-2+22i"
+      },
+      "expected": "-1236+1884i",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "num1": "41+-23i",
+        "num2": "32+-95i"
+      },
+      "expected": "-873+-4631i",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "num1": "-12+53i",
+        "num2": "-66+-43i"
+      },
+      "expected": "3071+-2982i",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "num1": "-74+91i",
+        "num2": "-97+-61i"
+      },
+      "expected": "12729+-4313i",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "num1": "20+-42i",
+        "num2": "-1+-9i"
+      },
+      "expected": "-398+-138i",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "num1": "83+70i",
+        "num2": "-66+93i"
+      },
+      "expected": "-11988+3099i",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "num1": "19+-62i",
+        "num2": "-90+77i"
+      },
+      "expected": "3064+7043i",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "slug": "interval-list-intersections",
+  "title": "Interval List Intersections",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "two-pointers"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "intervalIntersection",
+    "params": [
+      {
+        "name": "A",
+        "type": "int[][]"
+      },
+      {
+        "name": "B",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

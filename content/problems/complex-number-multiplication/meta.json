@@ -1,0 +1,36 @@
+{
+  "slug": "complex-number-multiplication",
+  "title": "Complex Number Multiplication",
+  "difficulty": "medium",
+  "tags": [
+    "string"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "complexNumberMultiply",
+    "params": [
+      {
+        "name": "num1",
+        "type": "string"
+      },
+      {
+        "name": "num2",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

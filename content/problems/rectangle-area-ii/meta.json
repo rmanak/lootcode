@@ -1,0 +1,33 @@
+{
+  "slug": "rectangle-area-ii",
+  "title": "Rectangle Area II",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "rectangleArea",
+    "params": [
+      {
+        "name": "rectangles",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

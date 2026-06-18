@@ -1,0 +1,34 @@
+{
+  "slug": "binary-tree-zigzag-level-order-traversal",
+  "title": "Binary Tree Zigzag Level Order Traversal",
+  "difficulty": "medium",
+  "tags": [
+    "binary-tree",
+    "breadth-first-search",
+    "tree"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "zigzagLevelOrder",
+    "params": [
+      {
+        "name": "root",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

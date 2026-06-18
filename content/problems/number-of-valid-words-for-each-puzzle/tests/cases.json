@@ -1,0 +1,194 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "words": [
+          "aaaa",
+          "asas",
+          "able",
+          "ability",
+          "actt",
+          "actor",
+          "access"
+        ],
+        "puzzles": [
+          "aboveyz",
+          "abrodyz",
+          "abslute",
+          "absoryz",
+          "actresz",
+          "gaswxyz"
+        ]
+      },
+      "expected": [
+        1,
+        1,
+        3,
+        2,
+        4,
+        0
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "words": [
+          "apple",
+          "pleas",
+          "please"
+        ],
+        "puzzles": [
+          "aelwxyz",
+          "aelpxyz"
+        ]
+      },
+      "expected": [
+        0,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "words": [
+          "aaaa"
+        ],
+        "puzzles": [
+          "abcdefg"
+        ]
+      },
+      "expected": [
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "words": [
+          "fbcfdeb",
+          "cadefdd",
+          "gbfbfag",
+          "bedegbd",
+          "gbbbbg",
+          "efbc"
+        ],
+        "puzzles": [
+          "aebdfcg",
+          "aebgdcf"
+        ]
+      },
+      "expected": [
+        2,
+        2
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "words": [
+          "aaegd",
+          "gabafcd",
+          "dgae"
+        ],
+        "puzzles": [
+          "gdcfeab",
+          "aegdbfc",
+          "edfgcba"
+        ]
+      },
+      "expected": [
+        3,
+        3,
+        2
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "words": [
+          "babg",
+          "bgffba",
+          "gcggb",
+          "daacaf",
+          "dced",
+          "ddffdc"
+        ],
+        "puzzles": [
+          "egdbafc",
+          "bagedfc",
+          "cfbdeag",
+          "bacgdfe"
+        ]
+      },
+      "expected": [
+        1,
+        3,
+        4,
+        3
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "words": [
+          "aegba",
+          "dagb",
+          "feeda",
+          "bafgg"
+        ],
+        "puzzles": [
+          "acgfedb",
+          "eadfgcb",
+          "cbgafed"
+        ]
+      },
+      "expected": [
+        4,
+        2,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "words": [
+          "abbafg",
+          "ffdg",
+          "decdadg",
+          "aeecgg",
+          "fabb",
+          "fced"
+        ],
+        "puzzles": [
+          "efdabgc",
+          "badgcfe",
+          "dgeabcf",
+          "abegdcf"
+        ]
+      },
+      "expected": [
+        3,
+        2,
+        3,
+        4
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

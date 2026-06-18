@@ -91,9 +91,9 @@
       "name": "hidden-6",
       "input": {
         "words": [
-          "baab",
           "a",
-          "bab"
+          "bab",
+          "baab"
         ]
       },
       "expected": 6,
@@ -116,11 +116,11 @@
       "name": "hidden-8",
       "input": {
         "words": [
-          "baab",
-          "baa",
-          "a",
           "b",
-          "ab"
+          "baab",
+          "ab",
+          "a",
+          "baa"
         ]
       },
       "expected": 4,
@@ -131,11 +131,11 @@
       "name": "hidden-9",
       "input": {
         "words": [
-          "abb",
-          "baa",
           "b",
           "bbb",
-          "abba"
+          "abba",
+          "abb",
+          "baa"
         ]
       },
       "expected": 8,
