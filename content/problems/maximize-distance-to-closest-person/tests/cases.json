@@ -1,0 +1,227 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "seats": [
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "seats": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "seats": [
+          0,
+          1
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "seats": [
+          0,
+          0,
+          1
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "seats": [
+          1,
+          0,
+          1
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "seats": [
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "seats": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "seats": [
+          0,
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "seats": [
+          1,
+          0,
+          1
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "seats": [
+          1,
+          0
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "seats": [
+          0,
+          1,
+          1,
+          0
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "seats": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "seats": [
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "seats": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "seats": [
+          1,
+          1,
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

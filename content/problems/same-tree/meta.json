@@ -1,0 +1,37 @@
+{
+  "slug": "same-tree",
+  "title": "Same Tree",
+  "difficulty": "easy",
+  "tags": [
+    "tree",
+    "depth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "isSameTree",
+    "params": [
+      {
+        "name": "p",
+        "type": "int[]"
+      },
+      {
+        "name": "q",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

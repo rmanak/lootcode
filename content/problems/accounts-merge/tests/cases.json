@@ -1,0 +1,328 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "accounts": [
+          [
+            "John",
+            "a@m.com",
+            "b@m.com"
+          ],
+          [
+            "John",
+            "b@m.com",
+            "c@m.com"
+          ],
+          [
+            "Mary",
+            "x@m.com"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "John",
+          "a@m.com",
+          "b@m.com",
+          "c@m.com"
+        ],
+        [
+          "Mary",
+          "x@m.com"
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "accounts": [
+          [
+            "A",
+            "a@m.com"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "A",
+          "a@m.com"
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "accounts": [
+          [
+            "A",
+            "a@m.com"
+          ],
+          [
+            "B",
+            "b@m.com"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "A",
+          "a@m.com"
+        ],
+        [
+          "B",
+          "b@m.com"
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "accounts": [
+          [
+            "A",
+            "a@m.com",
+            "b@m.com"
+          ],
+          [
+            "A",
+            "c@m.com"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "A",
+          "a@m.com",
+          "b@m.com"
+        ],
+        [
+          "A",
+          "c@m.com"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "accounts": [
+          [
+            "A",
+            "x@m.com"
+          ],
+          [
+            "A",
+            "x@m.com"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "A",
+          "x@m.com"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "accounts": [
+          [
+            "A",
+            "e1@x.com",
+            "e3@x.com"
+          ],
+          [
+            "A",
+            "e1@x.com"
+          ],
+          [
+            "A",
+            "e4@x.com",
+            "e2@x.com"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "A",
+          "e1@x.com",
+          "e3@x.com"
+        ],
+        [
+          "A",
+          "e2@x.com",
+          "e4@x.com"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "accounts": [
+          [
+            "A",
+            "e1@x.com",
+            "e0@x.com"
+          ],
+          [
+            "A",
+            "e1@x.com",
+            "e3@x.com",
+            "e4@x.com"
+          ],
+          [
+            "A",
+            "e4@x.com",
+            "e0@x.com",
+            "e2@x.com"
+          ],
+          [
+            "A",
+            "e4@x.com",
+            "e2@x.com",
+            "e0@x.com"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "A",
+          "e0@x.com",
+          "e1@x.com",
+          "e2@x.com",
+          "e3@x.com",
+          "e4@x.com"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "accounts": [
+          [
+            "A",
+            "e5@x.com"
+          ],
+          [
+            "A",
+            "e1@x.com",
+            "e3@x.com"
+          ],
+          [
+            "A",
+            "e2@x.com"
+          ],
+          [
+            "A",
+            "e1@x.com"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "A",
+          "e5@x.com"
+        ],
+        [
+          "A",
+          "e1@x.com",
+          "e3@x.com"
+        ],
+        [
+          "A",
+          "e2@x.com"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "accounts": [
+          [
+            "A",
+            "e5@x.com"
+          ],
+          [
+            "A",
+            "e4@x.com",
+            "e2@x.com"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "A",
+          "e5@x.com"
+        ],
+        [
+          "A",
+          "e2@x.com",
+          "e4@x.com"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "accounts": [
+          [
+            "A",
+            "e1@x.com",
+            "e4@x.com",
+            "e5@x.com"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "A",
+          "e1@x.com",
+          "e4@x.com",
+          "e5@x.com"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "accounts": [
+          [
+            "A",
+            "e5@x.com",
+            "e3@x.com"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "A",
+          "e3@x.com",
+          "e5@x.com"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

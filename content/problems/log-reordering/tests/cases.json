@@ -1,0 +1,317 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "logs": [
+          "d1 8 1",
+          "l1 art can",
+          "l2 art zero"
+        ]
+      },
+      "expected": [
+        "l1 art can",
+        "l2 art zero",
+        "d1 8 1"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "logs": [
+          "a1 9 2",
+          "g1 act car"
+        ]
+      },
+      "expected": [
+        "g1 act car",
+        "a1 9 2"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "logs": [
+          "a1 1 2"
+        ]
+      },
+      "expected": [
+        "a1 1 2"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "logs": [
+          "x1 abc",
+          "y1 abc"
+        ]
+      },
+      "expected": [
+        "x1 abc",
+        "y1 abc"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "logs": [
+          "d1 5",
+          "d2 3",
+          "l1 b a",
+          "l2 a b"
+        ]
+      },
+      "expected": [
+        "l2 a b",
+        "l1 b a",
+        "d1 5",
+        "d2 3"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "logs": [
+          "f4 7 8 7",
+          "b6 8 7",
+          "d4 5",
+          "f8 6 5 0",
+          "b3 8 2 5",
+          "b5 2 0 4"
+        ]
+      },
+      "expected": [
+        "f4 7 8 7",
+        "b6 8 7",
+        "d4 5",
+        "f8 6 5 0",
+        "b3 8 2 5",
+        "b5 2 0 4"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "logs": [
+          "b0 0",
+          "b5 car car",
+          "a3 4 0"
+        ]
+      },
+      "expected": [
+        "b5 car car",
+        "b0 0",
+        "a3 4 0"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "logs": [
+          "g9 3 1 3",
+          "a2 4"
+        ]
+      },
+      "expected": [
+        "g9 3 1 3",
+        "a2 4"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "logs": [
+          "a2 4",
+          "a8 1",
+          "e7 act act",
+          "e9 art can car",
+          "a6 art can can",
+          "f4 act zoo"
+        ]
+      },
+      "expected": [
+        "e7 act act",
+        "f4 act zoo",
+        "a6 art can can",
+        "e9 art can car",
+        "a2 4",
+        "a8 1"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "logs": [
+          "c0 art zoo act",
+          "f8 0 2",
+          "g6 8 4"
+        ]
+      },
+      "expected": [
+        "c0 art zoo act",
+        "f8 0 2",
+        "g6 8 4"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "logs": [
+          "e9 8 5 0",
+          "b7 5 4",
+          "c8 art",
+          "a0 3 2 5",
+          "g1 8"
+        ]
+      },
+      "expected": [
+        "c8 art",
+        "e9 8 5 0",
+        "b7 5 4",
+        "a0 3 2 5",
+        "g1 8"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "logs": [
+          "e7 6 7",
+          "g9 car art act",
+          "c1 car can car",
+          "d5 2 1 3",
+          "g4 9 6 0",
+          "e3 7",
+          "e4 8",
+          "c2 car car"
+        ]
+      },
+      "expected": [
+        "g9 car art act",
+        "c1 car can car",
+        "c2 car car",
+        "e7 6 7",
+        "d5 2 1 3",
+        "g4 9 6 0",
+        "e3 7",
+        "e4 8"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "logs": [
+          "b2 0 9 0",
+          "g3 5",
+          "c7 can zoo"
+        ]
+      },
+      "expected": [
+        "c7 can zoo",
+        "b2 0 9 0",
+        "g3 5"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "logs": [
+          "e2 art can car",
+          "c1 act zoo",
+          "e7 2",
+          "b5 zoo zoo"
+        ]
+      },
+      "expected": [
+        "c1 act zoo",
+        "e2 art can car",
+        "b5 zoo zoo",
+        "e7 2"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "logs": [
+          "d1 7 5",
+          "e1 zoo zoo"
+        ]
+      },
+      "expected": [
+        "e1 zoo zoo",
+        "d1 7 5"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "logs": [
+          "a2 zoo zoo zoo",
+          "a3 zoo art art",
+          "c0 zoo zoo act",
+          "c1 7 4",
+          "e8 act car act",
+          "g5 8"
+        ]
+      },
+      "expected": [
+        "e8 act car act",
+        "a3 zoo art art",
+        "c0 zoo zoo act",
+        "a2 zoo zoo zoo",
+        "c1 7 4",
+        "g5 8"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "logs": [
+          "b8 art",
+          "d9 can can",
+          "a9 zoo car"
+        ]
+      },
+      "expected": [
+        "b8 art",
+        "d9 can can",
+        "a9 zoo car"
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

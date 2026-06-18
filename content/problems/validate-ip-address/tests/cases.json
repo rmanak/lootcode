@@ -1,0 +1,166 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "IP": "172.16.254.1"
+      },
+      "expected": "IPv4",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "IP": "2001:0db8:85a3:0:0:8A2E:0370:7334"
+      },
+      "expected": "IPv6",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "IP": "256.256.256.256"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "IP": "172.16.254.01"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "IP": "02001:0db8:85a3:0000:0000:8a2e:0370:7334"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "IP": "2001:0db8:85a3::8A2E:0370:7334"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "IP": "1e1.4.5.6"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "IP": "12..33.4"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "IP": "20EE:FGb8:85a3:0:0:8A2E:0370:7334"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "IP": "1.0.1.0"
+      },
+      "expected": "IPv4",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "IP": "24.26.83.291.149"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "IP": "120.49.298"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "IP": "972745b358"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "IP": "B0E:A08Cd:D:8274d:6fCE7:E4f1E:Df6aD:eeF"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "IP": "97.87.80"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "IP": "225.202.261.154"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "IP": "65.53.191.259.23"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "IP": "263.77.100.50"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "in-memory-key-value-store",
+  "title": "In Memory Key Value Store",
+  "difficulty": "medium",
+  "tags": [
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "kvStore",
+    "params": [
+      {
+        "name": "operations",
+        "type": "any[][]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

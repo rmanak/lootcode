@@ -1,0 +1,41 @@
+{
+  "slug": "pour-water",
+  "title": "Pour Water",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "simulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "pourWater",
+    "params": [
+      {
+        "name": "heights",
+        "type": "int[]"
+      },
+      {
+        "name": "V",
+        "type": "int"
+      },
+      {
+        "name": "K",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

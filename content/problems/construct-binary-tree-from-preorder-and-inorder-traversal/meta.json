@@ -1,0 +1,38 @@
+{
+  "slug": "construct-binary-tree-from-preorder-and-inorder-traversal",
+  "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+  "difficulty": "medium",
+  "tags": [
+    "tree",
+    "array",
+    "divide-and-conquer"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "buildTree",
+    "params": [
+      {
+        "name": "preorder",
+        "type": "int[]"
+      },
+      {
+        "name": "inorder",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

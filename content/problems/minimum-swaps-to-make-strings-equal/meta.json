@@ -1,0 +1,37 @@
+{
+  "slug": "minimum-swaps-to-make-strings-equal",
+  "title": "Minimum Swaps to Make Strings Equal",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minimumSwap",
+    "params": [
+      {
+        "name": "s1",
+        "type": "string"
+      },
+      {
+        "name": "s2",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

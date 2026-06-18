@@ -1,0 +1,297 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "A": [
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          4,
+          4,
+          5,
+          5
+        ],
+        "target": 8
+      },
+      "expected": 20,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "A": [
+          1,
+          1,
+          2,
+          2,
+          2,
+          2
+        ],
+        "target": 5
+      },
+      "expected": 12,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "A": [
+          0,
+          0,
+          0
+        ],
+        "target": 0
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "A": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "target": 3
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "A": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "target": 6
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "A": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "target": 5
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "A": [
+          5,
+          5,
+          5
+        ],
+        "target": 100
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "A": [
+          1,
+          8,
+          3,
+          8,
+          2,
+          1,
+          4,
+          7,
+          7,
+          2,
+          4,
+          2,
+          7,
+          8,
+          6,
+          2,
+          10
+        ],
+        "target": 6
+      },
+      "expected": 14,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "A": [
+          8,
+          10,
+          0
+        ],
+        "target": 19
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "A": [
+          8,
+          8,
+          5,
+          8,
+          3,
+          0,
+          1,
+          5,
+          5,
+          10,
+          10,
+          10,
+          9
+        ],
+        "target": 3
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "A": [
+          9,
+          0,
+          5,
+          9,
+          4,
+          2,
+          9,
+          9,
+          0
+        ],
+        "target": 16
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "A": [
+          3,
+          4,
+          2,
+          10,
+          6,
+          8,
+          2,
+          5,
+          3,
+          6,
+          1,
+          1,
+          7,
+          3,
+          6,
+          3,
+          2
+        ],
+        "target": 0
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "A": [
+          0,
+          4,
+          10,
+          4,
+          1,
+          2
+        ],
+        "target": 19
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "A": [
+          8,
+          4,
+          10,
+          2,
+          6,
+          0,
+          10,
+          8,
+          3,
+          5,
+          0,
+          8,
+          3,
+          7,
+          10,
+          5,
+          4
+        ],
+        "target": 16
+      },
+      "expected": 46,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "A": [
+          2,
+          4,
+          10,
+          5,
+          7,
+          4,
+          5,
+          7,
+          1,
+          10,
+          1
+        ],
+        "target": 8
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

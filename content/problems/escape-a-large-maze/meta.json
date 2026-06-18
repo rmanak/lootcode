@@ -1,0 +1,43 @@
+{
+  "slug": "escape-a-large-maze",
+  "title": "Escape a Large Maze",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "hash-table",
+    "breadth-first-search",
+    "depth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "isEscapePossible",
+    "params": [
+      {
+        "name": "blocked",
+        "type": "int[][]"
+      },
+      {
+        "name": "source",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

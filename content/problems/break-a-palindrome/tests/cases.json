@@ -1,0 +1,139 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "palindrome": "abccba"
+      },
+      "expected": "aaccba",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "palindrome": "a"
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "palindrome": "aa"
+      },
+      "expected": "ab",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "palindrome": "aba"
+      },
+      "expected": "abb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "palindrome": "aaa"
+      },
+      "expected": "aab",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "palindrome": "bab"
+      },
+      "expected": "aab",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "palindrome": "aba"
+      },
+      "expected": "abb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "palindrome": "aaaa"
+      },
+      "expected": "aaab",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "palindrome": "aaaaa"
+      },
+      "expected": "aaaab",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "palindrome": "abababa"
+      },
+      "expected": "aaababa",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "palindrome": "aa"
+      },
+      "expected": "ab",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "palindrome": "bbbbbb"
+      },
+      "expected": "abbbbb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "palindrome": "bb"
+      },
+      "expected": "ab",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "palindrome": "bbabbbabb"
+      },
+      "expected": "ababbbabb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "palindrome": "baababaab"
+      },
+      "expected": "aaababaab",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

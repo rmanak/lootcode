@@ -1,0 +1,216 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "()())()"
+      },
+      "expected": [
+        "(())()",
+        "()()()"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": ")("
+      },
+      "expected": [
+        ""
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": ""
+      },
+      "expected": [
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "a"
+      },
+      "expected": [
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "(a)())()"
+      },
+      "expected": [
+        "(a())()",
+        "(a)()()"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "((("
+      },
+      "expected": [
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "()()"
+      },
+      "expected": [
+        "()()"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": ")"
+      },
+      "expected": [
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": ")a"
+      },
+      "expected": [
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "((a(aa(aa"
+      },
+      "expected": [
+        "aaaaa"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "()a)(a(a"
+      },
+      "expected": [
+        "()aaa",
+        "(a)aa"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s": "(aaa))))"
+      },
+      "expected": [
+        "(aaa)"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "s": "(a()a)()("
+      },
+      "expected": [
+        "(a()a)()"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "s": "("
+      },
+      "expected": [
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "s": "a)a))a))"
+      },
+      "expected": [
+        "aaa"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "s": ")aa"
+      },
+      "expected": [
+        "aa"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "s": "()"
+      },
+      "expected": [
+        "()"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-16",
+      "input": {
+        "s": "a"
+      },
+      "expected": [
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-17",
+      "input": {
+        "s": ")(a)(a)a("
+      },
+      "expected": [
+        "(a)(a)a"
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

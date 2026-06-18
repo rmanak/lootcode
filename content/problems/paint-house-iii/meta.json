@@ -1,0 +1,49 @@
+{
+  "slug": "paint-house-iii",
+  "title": "Paint House III",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minCost",
+    "params": [
+      {
+        "name": "houses",
+        "type": "int[]"
+      },
+      {
+        "name": "cost",
+        "type": "int[][]"
+      },
+      {
+        "name": "m",
+        "type": "int"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

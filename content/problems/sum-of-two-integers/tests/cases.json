@@ -1,0 +1,134 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "a": 1,
+        "b": 2
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "a": 2,
+        "b": 3
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "a": -1,
+        "b": 1
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "a": -2,
+        "b": -3
+      },
+      "expected": -5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "a": 0,
+        "b": 0
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "a": -1000,
+        "b": 1000
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "a": 1000,
+        "b": 1000
+      },
+      "expected": 2000,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "a": 623,
+        "b": 11
+      },
+      "expected": 634,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "a": -72,
+        "b": 23
+      },
+      "expected": -49,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "a": 48,
+        "b": -32
+      },
+      "expected": 16,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "a": 902,
+        "b": -729
+      },
+      "expected": 173,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "a": -589,
+        "b": 237
+      },
+      "expected": -352,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "a": 797,
+        "b": 682
+      },
+      "expected": 1479,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

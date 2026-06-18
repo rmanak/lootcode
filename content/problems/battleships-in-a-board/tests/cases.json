@@ -1,0 +1,183 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "board": [
+          "X..X",
+          "...X",
+          "...X"
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "board": [
+          "..."
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "board": [
+          "X"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "board": [
+          "XXX"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "board": [
+          "X",
+          "X",
+          "X"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "board": [
+          ".X.",
+          ".X.",
+          "..."
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "board": [
+          ".....",
+          ".....",
+          "....."
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "board": [
+          "X."
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "board": [
+          ".X",
+          "..",
+          "..",
+          "..",
+          ".."
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "board": [
+          "..",
+          "..",
+          "..",
+          "X."
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "board": [
+          "X...."
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "board": [
+          "X....",
+          "X....",
+          "X...X"
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "board": [
+          "..",
+          "..",
+          "X.",
+          "..",
+          ".."
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "board": [
+          "....X",
+          "....X",
+          "....X",
+          ".....",
+          "....."
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

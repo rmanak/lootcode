@@ -1,0 +1,37 @@
+{
+  "slug": "filling-bookcase-shelves",
+  "title": "Filling Bookcase Shelves",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minHeightShelves",
+    "params": [
+      {
+        "name": "books",
+        "type": "int[][]"
+      },
+      {
+        "name": "shelfWidth",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

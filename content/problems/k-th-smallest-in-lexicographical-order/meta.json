@@ -1,0 +1,36 @@
+{
+  "slug": "k-th-smallest-in-lexicographical-order",
+  "title": "K-th Smallest in Lexicographical Order",
+  "difficulty": "hard",
+  "tags": [
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findKthNumber",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

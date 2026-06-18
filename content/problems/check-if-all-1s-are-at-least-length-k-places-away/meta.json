@@ -1,0 +1,36 @@
+{
+  "slug": "check-if-all-1s-are-at-least-length-k-places-away",
+  "title": "Check If All 1's Are at Least Length K Places Away",
+  "difficulty": "easy",
+  "tags": [
+    "array"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "kLengthApart",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

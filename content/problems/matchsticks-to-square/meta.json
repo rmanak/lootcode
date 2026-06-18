@@ -1,0 +1,35 @@
+{
+  "slug": "matchsticks-to-square",
+  "title": "Matchsticks to Square",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "backtracking",
+    "bitmask",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "makesquare",
+    "params": [
+      {
+        "name": "matchsticks",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

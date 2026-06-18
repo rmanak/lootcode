@@ -1,0 +1,32 @@
+{
+  "slug": "calendar-double-booking",
+  "title": "Calendar Double Booking Limit",
+  "difficulty": "medium",
+  "tags": [
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "myCalendarTwo",
+    "params": [
+      {
+        "name": "operations",
+        "type": "any[][]"
+      }
+    ],
+    "returns": {
+      "type": "bool[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

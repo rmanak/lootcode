@@ -1,0 +1,38 @@
+{
+  "slug": "bulls-and-cows",
+  "title": "Bulls and Cows",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "hash-table",
+    "counting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "getHint",
+    "params": [
+      {
+        "name": "secret",
+        "type": "string"
+      },
+      {
+        "name": "guess",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

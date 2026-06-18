@@ -1,0 +1,35 @@
+{
+  "slug": "distant-barcodes",
+  "title": "Distant Barcodes",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "greedy",
+    "counting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "canRearrange",
+    "params": [
+      {
+        "name": "barcodes",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

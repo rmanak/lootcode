@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Account · {{ app_name }}{% endblock %}
+{% block content %}
+<h1>Account</h1>
+
+{% if error %}<p class="form-error">{{ error }}</p>{% endif %}
+
+{% if request.state.is_account %}
+  <p>Signed in as <strong>{{ request.state.username }}</strong>{% if user_name and user_name != request.state.username %}
+    <span class="muted">(shown as “{{ user_name }}”)</span>{% endif %}.</p>
+  <p class="muted">Your progress is saved to this account — log in from any browser
+    or device to pick up where you left off. Change your display name on
+    <a href="/me">My Progress</a>.</p>
+  <form method="post" action="/logout" class="account-form">
+    <button type="submit">Log out</button>
+  </form>
+  <p class="muted">Logging out returns you to a fresh guest session; your account
+    and its progress stay safe.</p>
+{% else %}
+  <p class="muted">You're browsing as a <strong>guest</strong>. Create an account to
+    save your progress across browsers and devices — anything you've already
+    solved in this session is kept.</p>
+
+  <div class="account-cols">
+    <section class="account-card">
+      <h2>Create account</h2>
+      <form method="post" action="/account" class="account-form">
+        <label>Username
+          <input name="username" required minlength="3" maxlength="32"
+                 autocomplete="username" autofocus>
+        </label>
+        <label>Password
+          <input name="password" type="password" required minlength="8"
+                 autocomplete="new-password">
+        </label>
+        <label>Email <span class="muted">(optional, for future password reset)</span>
+          <input name="email" type="email" autocomplete="email">
+        </label>
+        <button type="submit">Create account &amp; keep my progress</button>
+      </form>
+    </section>
+
+    <section class="account-card">
+      <h2>Log in</h2>
+      <p class="muted">Already have an account? Logging in merges this session's
+        guest progress into it.</p>
+      <form method="post" action="/login" class="account-form">
+        <label>Username
+          <input name="username" required autocomplete="username">
+        </label>
+        <label>Password
+          <input name="password" type="password" required
+                 autocomplete="current-password">
+        </label>
+        <button type="submit">Log in</button>
+      </form>
+    </section>
+  </div>
+{% endif %}
+{% endblock %}

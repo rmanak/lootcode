@@ -1,0 +1,36 @@
+{
+  "slug": "making-a-large-island",
+  "title": "Making A Large Island",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "largestIsland",
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

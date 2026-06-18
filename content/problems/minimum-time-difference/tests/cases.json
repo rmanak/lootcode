@@ -1,0 +1,165 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "timePoints": [
+          "23:59",
+          "00:00"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "timePoints": [
+          "00:00",
+          "23:59",
+          "00:00"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "timePoints": [
+          "01:01",
+          "02:01",
+          "03:00"
+        ]
+      },
+      "expected": 59,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "timePoints": [
+          "12:00",
+          "00:00"
+        ]
+      },
+      "expected": 720,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "timePoints": [
+          "22:52",
+          "04:21"
+        ]
+      },
+      "expected": 329,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "timePoints": [
+          "13:03",
+          "19:25"
+        ]
+      },
+      "expected": 382,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "timePoints": [
+          "10:39",
+          "05:17",
+          "09:20"
+        ]
+      },
+      "expected": 79,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "timePoints": [
+          "02:29",
+          "13:01",
+          "06:51",
+          "05:14",
+          "15:57",
+          "08:21"
+        ]
+      },
+      "expected": 90,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "timePoints": [
+          "07:09",
+          "12:11",
+          "13:59",
+          "19:55",
+          "19:15",
+          "22:07",
+          "04:36"
+        ]
+      },
+      "expected": 40,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "timePoints": [
+          "19:21",
+          "07:18",
+          "20:52"
+        ]
+      },
+      "expected": 91,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "timePoints": [
+          "13:39",
+          "17:54",
+          "10:47"
+        ]
+      },
+      "expected": 172,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "timePoints": [
+          "01:06",
+          "11:22",
+          "20:28",
+          "08:25",
+          "09:02"
+        ]
+      },
+      "expected": 37,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

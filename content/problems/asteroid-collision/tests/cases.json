@@ -1,0 +1,321 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "asteroids": [
+          5,
+          10,
+          -5
+        ]
+      },
+      "expected": [
+        5,
+        10
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "asteroids": [
+          8,
+          -8
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "asteroids": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "asteroids": [
+          -2,
+          -1,
+          1,
+          2
+        ]
+      },
+      "expected": [
+        -2,
+        -1,
+        1,
+        2
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "asteroids": [
+          10,
+          2,
+          -5
+        ]
+      },
+      "expected": [
+        10
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "asteroids": [
+          -5,
+          5
+        ]
+      },
+      "expected": [
+        -5,
+        5
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "asteroids": [
+          1,
+          -2,
+          -2,
+          -2
+        ]
+      },
+      "expected": [
+        -2,
+        -2,
+        -2
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "asteroids": [
+          5,
+          -7,
+          -7,
+          -4
+        ]
+      },
+      "expected": [
+        -7,
+        -7,
+        -4
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "asteroids": [
+          -1,
+          10,
+          -9
+        ]
+      },
+      "expected": [
+        -1,
+        10
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "asteroids": [
+          -8,
+          1,
+          -1,
+          5,
+          2
+        ]
+      },
+      "expected": [
+        -8,
+        5,
+        2
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "asteroids": [
+          -7,
+          3,
+          4,
+          -5,
+          -5,
+          3,
+          7,
+          -10
+        ]
+      },
+      "expected": [
+        -7,
+        -5,
+        -5,
+        -10
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "asteroids": [
+          8,
+          5,
+          -7,
+          -6,
+          -3,
+          1
+        ]
+      },
+      "expected": [
+        8,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "asteroids": [
+          -4,
+          9,
+          -1,
+          -1
+        ]
+      },
+      "expected": [
+        -4,
+        9
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "asteroids": [
+          6
+        ]
+      },
+      "expected": [
+        6
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "asteroids": [
+          8,
+          5,
+          -8,
+          -1,
+          -7
+        ]
+      },
+      "expected": [
+        -1,
+        -7
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "asteroids": [
+          10,
+          -6,
+          -2,
+          -4
+        ]
+      },
+      "expected": [
+        10
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "asteroids": [
+          -10,
+          -10,
+          2,
+          -5,
+          -1
+        ]
+      },
+      "expected": [
+        -10,
+        -10,
+        -5,
+        -1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-16",
+      "input": {
+        "asteroids": [
+          9,
+          2,
+          -8,
+          6,
+          -8,
+          -1
+        ]
+      },
+      "expected": [
+        9
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-17",
+      "input": {
+        "asteroids": [
+          8,
+          7,
+          -4,
+          -10
+        ]
+      },
+      "expected": [
+        -10
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

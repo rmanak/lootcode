@@ -1,0 +1,33 @@
+{
+  "slug": "stone-game-iii",
+  "title": "Stone Game III",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "stoneGameIII",
+    "params": [
+      {
+        "name": "stoneValue",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

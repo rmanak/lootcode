@@ -1,0 +1,277 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "words": [
+          "apple"
+        ],
+        "queries": [
+          [
+            "a",
+            "e"
+          ],
+          [
+            "b",
+            ""
+          ]
+        ]
+      },
+      "expected": [
+        0,
+        -1
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "words": [
+          "abc",
+          "abcd",
+          "xbc"
+        ],
+        "queries": [
+          [
+            "a",
+            "c"
+          ],
+          [
+            "",
+            "d"
+          ],
+          [
+            "x",
+            ""
+          ]
+        ]
+      },
+      "expected": [
+        0,
+        1,
+        2
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "words": [
+          "a",
+          "a",
+          "a"
+        ],
+        "queries": [
+          [
+            "a",
+            "a"
+          ],
+          [
+            "",
+            ""
+          ]
+        ]
+      },
+      "expected": [
+        2,
+        2
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "words": [
+          "b",
+          "bba"
+        ],
+        "queries": [
+          [
+            "ab",
+            "cb"
+          ]
+        ]
+      },
+      "expected": [
+        -1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "words": [
+          "cac"
+        ],
+        "queries": [
+          [
+            "a",
+            "c"
+          ],
+          [
+            "c",
+            "aa"
+          ],
+          [
+            "b",
+            ""
+          ],
+          [
+            "",
+            "a"
+          ],
+          [
+            "",
+            "ba"
+          ]
+        ]
+      },
+      "expected": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "words": [
+          "ccc",
+          "b",
+          "cbb"
+        ],
+        "queries": [
+          [
+            "b",
+            "aa"
+          ],
+          [
+            "bc",
+            "cb"
+          ],
+          [
+            "a",
+            "cc"
+          ]
+        ]
+      },
+      "expected": [
+        -1,
+        -1,
+        -1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "words": [
+          "bb"
+        ],
+        "queries": [
+          [
+            "",
+            "c"
+          ],
+          [
+            "",
+            "a"
+          ],
+          [
+            "cc",
+            "ac"
+          ],
+          [
+            "a",
+            "bb"
+          ]
+        ]
+      },
+      "expected": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "words": [
+          "ab",
+          "b",
+          "cbab"
+        ],
+        "queries": [
+          [
+            "",
+            "ab"
+          ],
+          [
+            "b",
+            "bb"
+          ]
+        ]
+      },
+      "expected": [
+        2,
+        -1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "words": [
+          "bb",
+          "aa",
+          "ba",
+          "aca"
+        ],
+        "queries": [
+          [
+            "",
+            ""
+          ],
+          [
+            "",
+            "ab"
+          ],
+          [
+            "ba",
+            "ab"
+          ],
+          [
+            "aa",
+            "ac"
+          ],
+          [
+            "cb",
+            ""
+          ]
+        ]
+      },
+      "expected": [
+        3,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

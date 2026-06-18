@@ -1,0 +1,33 @@
+{
+  "slug": "maximum-product-subarray",
+  "title": "Maximum Product Subarray",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxProduct",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

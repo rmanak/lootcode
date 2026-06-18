@@ -1,0 +1,37 @@
+{
+  "slug": "orderly-queue",
+  "title": "Orderly Queue",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "orderlyQueue",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

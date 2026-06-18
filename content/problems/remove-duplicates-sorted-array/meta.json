@@ -1,0 +1,33 @@
+{
+  "slug": "remove-duplicates-sorted-array",
+  "title": "Remove Duplicates From Sorted Array",
+  "difficulty": "easy",
+  "tags": [
+    "array",
+    "two-pointers"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "removeDuplicates",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,35 @@
+{
+  "slug": "reducing-dishes",
+  "title": "Reducing Dishes",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "greedy",
+    "sorting",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxSatisfaction",
+    "params": [
+      {
+        "name": "satisfaction",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

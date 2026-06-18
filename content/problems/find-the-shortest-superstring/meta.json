@@ -1,0 +1,35 @@
+{
+  "slug": "find-the-shortest-superstring",
+  "title": "Find the Shortest Superstring",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "string",
+    "dynamic-programming",
+    "bitmask"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "shortestSuperstringLength",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

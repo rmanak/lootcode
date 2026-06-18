@@ -1,0 +1,33 @@
+{
+  "slug": "maximum-difference-between-node-and-ancestor",
+  "title": "Maximum Difference Between Node and Ancestor",
+  "difficulty": "medium",
+  "tags": [
+    "tree",
+    "depth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxAncestorDiff",
+    "params": [
+      {
+        "name": "root",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

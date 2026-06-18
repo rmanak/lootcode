@@ -1,0 +1,148 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "p": "a"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "p": "cac"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "p": "zab"
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "p": "abcd"
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "p": "zaz"
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "p": "aaaa"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "p": "abcabc"
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "p": "yzab"
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "p": "ybczzy"
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "p": "xyxzzzc"
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "p": "ayzycabaayx"
+      },
+      "expected": 8,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "p": "cybbxybcxzzb"
+      },
+      "expected": 7,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "p": "ybyyaa"
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "p": "yzccyyczbbyybbayybb"
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "p": "xxzcczzyzyayxaxax"
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "p": "zyx"
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "pushed": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "popped": [
+          4,
+          5,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "pushed": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "popped": [
+          4,
+          3,
+          5,
+          1,
+          2
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "pushed": [],
+        "popped": []
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "pushed": [
+          1
+        ],
+        "popped": [
+          1
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "pushed": [
+          1,
+          2
+        ],
+        "popped": [
+          2,
+          1
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "pushed": [
+          1,
+          2,
+          3
+        ],
+        "popped": [
+          3,
+          1,
+          2
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "pushed": [
+          3,
+          19,
+          23,
+          12,
+          13
+        ],
+        "popped": [
+          3,
+          12,
+          23,
+          13,
+          19
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "pushed": [
+          11
+        ],
+        "popped": [
+          11
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "pushed": [
+          6,
+          16
+        ],
+        "popped": [
+          16,
+          6
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "pushed": [],
+        "popped": []
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "pushed": [
+          20,
+          16,
+          12
+        ],
+        "popped": [
+          16,
+          12,
+          20
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "pushed": [
+          24
+        ],
+        "popped": [
+          24
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

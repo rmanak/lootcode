@@ -1,0 +1,245 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "quality": [
+          10,
+          20,
+          5
+        ],
+        "wage": [
+          70,
+          50,
+          30
+        ],
+        "K": 2
+      },
+      "expected": 105.0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "quality": [
+          3,
+          1,
+          10,
+          10,
+          1
+        ],
+        "wage": [
+          4,
+          8,
+          2,
+          2,
+          7
+        ],
+        "K": 3
+      },
+      "expected": 30.66667,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "quality": [
+          1
+        ],
+        "wage": [
+          5
+        ],
+        "K": 1
+      },
+      "expected": 5.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "quality": [
+          2,
+          2
+        ],
+        "wage": [
+          3,
+          3
+        ],
+        "K": 2
+      },
+      "expected": 6.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "quality": [
+          4,
+          3,
+          2,
+          1
+        ],
+        "wage": [
+          10,
+          20,
+          5,
+          8
+        ],
+        "K": 2
+      },
+      "expected": 15.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "quality": [
+          4,
+          10,
+          8,
+          9,
+          5,
+          2,
+          1
+        ],
+        "wage": [
+          6,
+          18,
+          8,
+          18,
+          4,
+          1,
+          18
+        ],
+        "K": 1
+      },
+      "expected": 1.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "quality": [
+          10,
+          8,
+          2,
+          1,
+          1
+        ],
+        "wage": [
+          16,
+          19,
+          7,
+          11,
+          20
+        ],
+        "K": 3
+      },
+      "expected": 70.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "quality": [
+          7,
+          8,
+          5,
+          5,
+          3,
+          9
+        ],
+        "wage": [
+          7,
+          18,
+          9,
+          16,
+          16,
+          11
+        ],
+        "K": 4
+      },
+      "expected": 65.25,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "quality": [
+          7,
+          6,
+          9,
+          3,
+          4,
+          4
+        ],
+        "wage": [
+          17,
+          11,
+          7,
+          10,
+          19,
+          4
+        ],
+        "K": 4
+      },
+      "expected": 63.14286,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "quality": [
+          8,
+          2,
+          8,
+          6,
+          8,
+          10,
+          4
+        ],
+        "wage": [
+          6,
+          1,
+          18,
+          18,
+          10,
+          10,
+          10
+        ],
+        "K": 4
+      },
+      "expected": 35.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "quality": [
+          9,
+          5,
+          6
+        ],
+        "wage": [
+          20,
+          5,
+          15
+        ],
+        "K": 1
+      },
+      "expected": 5.0,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

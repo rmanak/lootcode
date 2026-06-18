@@ -1,0 +1,251 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "nums": [
+          1,
+          1,
+          2,
+          3,
+          3,
+          4,
+          4,
+          8,
+          8
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "nums": [
+          3,
+          3,
+          7,
+          7,
+          10,
+          11,
+          11
+        ]
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "nums": [
+          1
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "nums": [
+          0,
+          0,
+          5,
+          5,
+          7
+        ]
+      },
+      "expected": 7,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "nums": [
+          7,
+          7,
+          9
+        ]
+      },
+      "expected": 9,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "nums": [
+          2,
+          4,
+          4
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "nums": [
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          4
+        ]
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "nums": [
+          0,
+          0,
+          6,
+          11,
+          11,
+          17,
+          17,
+          29,
+          29,
+          31,
+          31,
+          33,
+          33
+        ]
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "nums": [
+          0,
+          0,
+          13,
+          13,
+          14,
+          14,
+          25
+        ]
+      },
+      "expected": 25,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "nums": [
+          8,
+          8,
+          32,
+          39,
+          39
+        ]
+      },
+      "expected": 32,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "nums": [
+          0,
+          0,
+          5,
+          5,
+          31
+        ]
+      },
+      "expected": 31,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "nums": [
+          3,
+          3,
+          8,
+          8,
+          10,
+          17,
+          17,
+          39,
+          39,
+          44,
+          44,
+          46,
+          46
+        ]
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "nums": [
+          6,
+          6,
+          10,
+          10,
+          16,
+          16,
+          25,
+          25,
+          35,
+          35,
+          49
+        ]
+      },
+      "expected": 49,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "nums": [
+          46
+        ]
+      },
+      "expected": 46,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "nums": [
+          6,
+          19,
+          19,
+          21,
+          21,
+          48,
+          48
+        ]
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

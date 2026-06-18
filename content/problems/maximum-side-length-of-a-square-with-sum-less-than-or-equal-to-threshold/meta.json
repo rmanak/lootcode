@@ -1,0 +1,39 @@
+{
+  "slug": "maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold",
+  "title": "Maximum Side Length of a Square With Sum Less Than or Equal to Threshold",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "binary-search",
+    "matrix",
+    "prefix-sum"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxSideLength",
+    "params": [
+      {
+        "name": "mat",
+        "type": "int[][]"
+      },
+      {
+        "name": "threshold",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

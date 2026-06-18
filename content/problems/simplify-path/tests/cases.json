@@ -1,0 +1,148 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "path": "/home/"
+      },
+      "expected": "/home",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "path": "/a/./b/../../c/"
+      },
+      "expected": "/c",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "path": "/../"
+      },
+      "expected": "/",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-4",
+      "input": {
+        "path": "/home//foo/"
+      },
+      "expected": "/home/foo",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "path": "/"
+      },
+      "expected": "/",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "path": "/..."
+      },
+      "expected": "/...",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "path": "/a/../../b/../c//.//"
+      },
+      "expected": "/c",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "path": "/a//b////c/d//././/.."
+      },
+      "expected": "/a/b/c",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "path": "/home/bb/x/../."
+      },
+      "expected": "/home/bb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "path": "/bb/home/."
+      },
+      "expected": "/bb/home",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "path": "/x/home/a/a/."
+      },
+      "expected": "/x/home/a/a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "path": "/"
+      },
+      "expected": "/",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "path": "/x"
+      },
+      "expected": "/x",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "path": "/bb/.././.."
+      },
+      "expected": "/",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "path": "/x"
+      },
+      "expected": "/x",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "path": "/x"
+      },
+      "expected": "/x",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

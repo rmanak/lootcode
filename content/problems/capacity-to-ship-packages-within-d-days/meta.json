@@ -1,0 +1,37 @@
+{
+  "slug": "capacity-to-ship-packages-within-d-days",
+  "title": "Capacity to Ship Packages Within D Days",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "shipWithinDays",
+    "params": [
+      {
+        "name": "weights",
+        "type": "int[]"
+      },
+      {
+        "name": "days",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

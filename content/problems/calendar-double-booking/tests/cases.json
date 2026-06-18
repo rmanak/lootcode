@@ -1,0 +1,839 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "operations": [
+          [
+            "book",
+            10,
+            20
+          ],
+          [
+            "book",
+            50,
+            60
+          ],
+          [
+            "book",
+            10,
+            40
+          ],
+          [
+            "book",
+            5,
+            15
+          ],
+          [
+            "book",
+            5,
+            10
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true,
+        false,
+        true
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "operations": [
+          [
+            "book",
+            1,
+            5
+          ],
+          [
+            "book",
+            2,
+            6
+          ],
+          [
+            "book",
+            6,
+            8
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "operations": [
+          [
+            "book",
+            0,
+            10
+          ]
+        ]
+      },
+      "expected": [
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "operations": [
+          [
+            "book",
+            0,
+            10
+          ],
+          [
+            "book",
+            0,
+            10
+          ],
+          [
+            "book",
+            0,
+            10
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "operations": [
+          [
+            "book",
+            1,
+            3
+          ],
+          [
+            "book",
+            2,
+            4
+          ],
+          [
+            "book",
+            3,
+            5
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "operations": [
+          [
+            "book",
+            6,
+            10
+          ],
+          [
+            "book",
+            14,
+            23
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "operations": [
+          [
+            "book",
+            9,
+            13
+          ]
+        ]
+      },
+      "expected": [
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "operations": [
+          [
+            "book",
+            2,
+            7
+          ],
+          [
+            "book",
+            9,
+            15
+          ],
+          [
+            "book",
+            20,
+            27
+          ],
+          [
+            "book",
+            13,
+            22
+          ],
+          [
+            "book",
+            4,
+            12
+          ],
+          [
+            "book",
+            11,
+            16
+          ],
+          [
+            "book",
+            17,
+            25
+          ],
+          [
+            "book",
+            5,
+            12
+          ],
+          [
+            "book",
+            19,
+            28
+          ],
+          [
+            "book",
+            19,
+            25
+          ],
+          [
+            "book",
+            6,
+            8
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "operations": [
+          [
+            "book",
+            4,
+            6
+          ],
+          [
+            "book",
+            13,
+            19
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "operations": [
+          [
+            "book",
+            20,
+            29
+          ],
+          [
+            "book",
+            19,
+            29
+          ],
+          [
+            "book",
+            12,
+            21
+          ],
+          [
+            "book",
+            6,
+            10
+          ],
+          [
+            "book",
+            3,
+            8
+          ],
+          [
+            "book",
+            19,
+            23
+          ],
+          [
+            "book",
+            7,
+            12
+          ],
+          [
+            "book",
+            14,
+            24
+          ],
+          [
+            "book",
+            20,
+            26
+          ],
+          [
+            "book",
+            12,
+            21
+          ],
+          [
+            "book",
+            17,
+            24
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "operations": [
+          [
+            "book",
+            11,
+            20
+          ],
+          [
+            "book",
+            12,
+            20
+          ],
+          [
+            "book",
+            18,
+            28
+          ],
+          [
+            "book",
+            17,
+            20
+          ],
+          [
+            "book",
+            18,
+            26
+          ],
+          [
+            "book",
+            3,
+            12
+          ],
+          [
+            "book",
+            14,
+            21
+          ],
+          [
+            "book",
+            20,
+            22
+          ],
+          [
+            "book",
+            15,
+            22
+          ],
+          [
+            "book",
+            2,
+            10
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "operations": [
+          [
+            "book",
+            5,
+            12
+          ],
+          [
+            "book",
+            0,
+            8
+          ],
+          [
+            "book",
+            3,
+            5
+          ],
+          [
+            "book",
+            2,
+            9
+          ],
+          [
+            "book",
+            18,
+            26
+          ],
+          [
+            "book",
+            20,
+            30
+          ],
+          [
+            "book",
+            20,
+            23
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "operations": [
+          [
+            "book",
+            15,
+            21
+          ],
+          [
+            "book",
+            2,
+            7
+          ],
+          [
+            "book",
+            10,
+            11
+          ],
+          [
+            "book",
+            17,
+            18
+          ],
+          [
+            "book",
+            1,
+            5
+          ],
+          [
+            "book",
+            16,
+            26
+          ],
+          [
+            "book",
+            1,
+            7
+          ],
+          [
+            "book",
+            7,
+            10
+          ],
+          [
+            "book",
+            8,
+            12
+          ],
+          [
+            "book",
+            0,
+            8
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        true,
+        true,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "operations": [
+          [
+            "book",
+            18,
+            25
+          ],
+          [
+            "book",
+            20,
+            23
+          ],
+          [
+            "book",
+            4,
+            10
+          ],
+          [
+            "book",
+            12,
+            19
+          ],
+          [
+            "book",
+            17,
+            19
+          ],
+          [
+            "book",
+            14,
+            22
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "operations": [
+          [
+            "book",
+            2,
+            5
+          ],
+          [
+            "book",
+            1,
+            5
+          ],
+          [
+            "book",
+            19,
+            29
+          ],
+          [
+            "book",
+            11,
+            16
+          ],
+          [
+            "book",
+            6,
+            16
+          ],
+          [
+            "book",
+            12,
+            18
+          ],
+          [
+            "book",
+            19,
+            23
+          ],
+          [
+            "book",
+            12,
+            16
+          ],
+          [
+            "book",
+            5,
+            7
+          ],
+          [
+            "book",
+            10,
+            20
+          ],
+          [
+            "book",
+            18,
+            25
+          ],
+          [
+            "book",
+            8,
+            17
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "operations": [
+          [
+            "book",
+            1,
+            10
+          ],
+          [
+            "book",
+            14,
+            16
+          ],
+          [
+            "book",
+            5,
+            9
+          ],
+          [
+            "book",
+            12,
+            21
+          ],
+          [
+            "book",
+            10,
+            17
+          ],
+          [
+            "book",
+            3,
+            11
+          ],
+          [
+            "book",
+            8,
+            9
+          ],
+          [
+            "book",
+            20,
+            30
+          ],
+          [
+            "book",
+            6,
+            14
+          ],
+          [
+            "book",
+            14,
+            17
+          ],
+          [
+            "book",
+            8,
+            13
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "operations": [
+          [
+            "book",
+            4,
+            9
+          ],
+          [
+            "book",
+            17,
+            22
+          ],
+          [
+            "book",
+            13,
+            18
+          ],
+          [
+            "book",
+            4,
+            6
+          ],
+          [
+            "book",
+            3,
+            10
+          ],
+          [
+            "book",
+            11,
+            16
+          ],
+          [
+            "book",
+            5,
+            9
+          ],
+          [
+            "book",
+            13,
+            22
+          ],
+          [
+            "book",
+            8,
+            12
+          ],
+          [
+            "book",
+            8,
+            9
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "slug": "number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold",
+  "title": "Number of Sub-arrays of Size K and Average At Least Threshold",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "sliding-window"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "numOfSubarrays",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      },
+      {
+        "name": "threshold",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

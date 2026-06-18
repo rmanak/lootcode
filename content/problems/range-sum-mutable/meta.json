@@ -1,0 +1,36 @@
+{
+  "slug": "range-sum-mutable",
+  "title": "Range Sum Query Mutable",
+  "difficulty": "medium",
+  "tags": [
+    "binary-indexed-tree"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "rangeSum",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "operations",
+        "type": "any[][]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

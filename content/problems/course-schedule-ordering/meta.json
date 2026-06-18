@@ -1,0 +1,36 @@
+{
+  "slug": "course-schedule-ordering",
+  "title": "Course Schedule Ordering",
+  "difficulty": "medium",
+  "tags": [
+    "graph"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findOrder",
+    "params": [
+      {
+        "name": "numCourses",
+        "type": "int"
+      },
+      {
+        "name": "prerequisites",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,46 @@
+{
+  "slug": "time-needed-to-inform-all-employees",
+  "title": "Time Needed to Inform All Employees",
+  "difficulty": "medium",
+  "tags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "numOfMinutes",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "headID",
+        "type": "int"
+      },
+      {
+        "name": "manager",
+        "type": "int[]"
+      },
+      {
+        "name": "informTime",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

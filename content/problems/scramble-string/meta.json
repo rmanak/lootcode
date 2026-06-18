@@ -1,0 +1,37 @@
+{
+  "slug": "scramble-string",
+  "title": "Scramble String",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "isScramble",
+    "params": [
+      {
+        "name": "s1",
+        "type": "string"
+      },
+      {
+        "name": "s2",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

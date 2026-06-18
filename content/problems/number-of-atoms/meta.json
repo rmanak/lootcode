@@ -1,0 +1,35 @@
+{
+  "slug": "number-of-atoms",
+  "title": "Number Of Atoms",
+  "difficulty": "hard",
+  "tags": [
+    "hash-table",
+    "string",
+    "stack",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "countOfAtoms",
+    "params": [
+      {
+        "name": "formula",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

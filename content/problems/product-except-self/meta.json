@@ -1,0 +1,33 @@
+{
+  "slug": "product-except-self",
+  "title": "Product of Array Except Self",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "prefix-sum"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "productExceptSelf",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

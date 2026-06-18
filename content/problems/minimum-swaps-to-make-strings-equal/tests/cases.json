@@ -1,0 +1,154 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s1": "xx",
+        "s2": "yy"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s1": "xy",
+        "s2": "yx"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "s1": "xx",
+        "s2": "xy"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s1": "xxyyxyxyxx",
+        "s2": "xyyxyxxxyx"
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s1": "x",
+        "s2": "x"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s1": "xy",
+        "s2": "xy"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s1": "xyx",
+        "s2": "yxy"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s1": "xxxx",
+        "s2": "xxyx"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s1": "xyx",
+        "s2": "xxx"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s1": "yxx",
+        "s2": "yyy"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s1": "y",
+        "s2": "x"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s1": "yyxx",
+        "s2": "xyyy"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s1": "yy",
+        "s2": "xx"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "s1": "xyx",
+        "s2": "yyx"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "s1": "yx",
+        "s2": "xy"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

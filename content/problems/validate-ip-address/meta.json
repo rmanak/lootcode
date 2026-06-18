@@ -1,0 +1,32 @@
+{
+  "slug": "validate-ip-address",
+  "title": "Validate IP Address",
+  "difficulty": "medium",
+  "tags": [
+    "string"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "validIPAddress",
+    "params": [
+      {
+        "name": "IP",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

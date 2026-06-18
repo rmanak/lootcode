@@ -1,0 +1,41 @@
+{
+  "slug": "can-convert-string-in-k-moves",
+  "title": "Can Convert String in K Moves",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "canConvertString",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "t",
+        "type": "string"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

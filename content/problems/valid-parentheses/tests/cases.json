@@ -1,0 +1,112 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "()"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "()[]{}"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "s": "(]"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-4",
+      "input": {
+        "s": "([])"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-5",
+      "input": {
+        "s": "([)]"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "("
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "]"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "{[]}"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "{"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "(["
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "{)[]])})}"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "})"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

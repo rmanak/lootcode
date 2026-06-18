@@ -1,0 +1,156 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "grid": [
+          "aaaa",
+          "abba",
+          "abba",
+          "aaaa"
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "grid": [
+          "abb",
+          "bzb",
+          "bba"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "grid": [
+          "aa",
+          "aa"
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "grid": [
+          "a"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "grid": [
+          "ab",
+          "ba"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "grid": [
+          "ccca",
+          "cdcc",
+          "ccec",
+          "fccc"
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "grid": [
+          "a",
+          "a"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "grid": [
+          "bab",
+          "bbb"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "grid": [
+          "baa",
+          "bab"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "grid": [
+          "aa",
+          "bb",
+          "bb",
+          "aa",
+          "bb"
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "grid": [
+          "ba",
+          "aa",
+          "bb"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "grid": [
+          "bbb",
+          "bab"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

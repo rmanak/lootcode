@@ -1,0 +1,45 @@
+{
+  "slug": "find-all-good-strings",
+  "title": "Find All Good Strings",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findGoodStrings",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "s1",
+        "type": "string"
+      },
+      {
+        "name": "s2",
+        "type": "string"
+      },
+      {
+        "name": "evil",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

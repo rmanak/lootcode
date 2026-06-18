@@ -1,0 +1,42 @@
+{
+  "slug": "ones-and-zeroes",
+  "title": "Ones and Zeroes",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "string",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findMaxForm",
+    "params": [
+      {
+        "name": "strs",
+        "type": "string[]"
+      },
+      {
+        "name": "m",
+        "type": "int"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,144 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "annabelle",
+        "k": 2
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "leetcode",
+        "k": 3
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "s": "true",
+        "k": 4
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "yzyzyzyzyzyzyzy",
+        "k": 2
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "cr",
+        "k": 7
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "a",
+        "k": 1
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "aab",
+        "k": 1
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "aab",
+        "k": 2
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "bcabba",
+        "k": 10
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "b",
+        "k": 7
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "cacaab",
+        "k": 5
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "ab",
+        "k": 9
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s": "ccab",
+        "k": 6
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "s": "bcbbcac",
+        "k": 2
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

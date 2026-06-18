@@ -1,0 +1,34 @@
+{
+  "slug": "maximum-xor-of-two-numbers-in-an-array",
+  "title": "Maximum XOR of Two Numbers in an Array",
+  "difficulty": "medium",
+  "tags": [
+    "bit-manipulation",
+    "trie",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findMaximumXOR",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

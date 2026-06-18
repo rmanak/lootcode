@@ -1,0 +1,281 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "customers": [
+          1,
+          0,
+          1,
+          2,
+          1,
+          1,
+          7,
+          5
+        ],
+        "grumpy": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "X": 3
+      },
+      "expected": 16,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "customers": [
+          1
+        ],
+        "grumpy": [
+          0
+        ],
+        "X": 1
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "customers": [
+          1
+        ],
+        "grumpy": [
+          1
+        ],
+        "X": 1
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "customers": [
+          4,
+          10,
+          10
+        ],
+        "grumpy": [
+          1,
+          1,
+          0
+        ],
+        "X": 2
+      },
+      "expected": 24,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "customers": [
+          2,
+          6,
+          6,
+          9
+        ],
+        "grumpy": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "X": 1
+      },
+      "expected": 17,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "customers": [
+          8,
+          10,
+          4,
+          6,
+          2,
+          2,
+          2,
+          7,
+          2
+        ],
+        "grumpy": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1
+        ],
+        "X": 5
+      },
+      "expected": 33,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "customers": [
+          10,
+          9,
+          3,
+          1,
+          10,
+          10,
+          0,
+          7,
+          8
+        ],
+        "grumpy": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1
+        ],
+        "X": 1
+      },
+      "expected": 48,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "customers": [
+          0,
+          1,
+          7,
+          4,
+          8,
+          1,
+          1
+        ],
+        "grumpy": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          1
+        ],
+        "X": 6
+      },
+      "expected": 22,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "customers": [
+          4,
+          7,
+          3,
+          7,
+          2
+        ],
+        "grumpy": [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "X": 2
+      },
+      "expected": 23,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "customers": [
+          1,
+          5,
+          7,
+          6,
+          9,
+          7,
+          6,
+          0,
+          2,
+          7
+        ],
+        "grumpy": [
+          0,
+          1,
+          0,
+          1,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        "X": 4
+      },
+      "expected": 43,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "customers": [
+          1,
+          2,
+          0,
+          4,
+          3,
+          8,
+          5,
+          3,
+          5,
+          9
+        ],
+        "grumpy": [
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          1,
+          1,
+          1,
+          0
+        ],
+        "X": 9
+      },
+      "expected": 40,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

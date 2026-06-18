@@ -1,0 +1,33 @@
+{
+  "slug": "queue-via-stacks",
+  "title": "Queue Using Two Stacks",
+  "difficulty": "easy",
+  "tags": [
+    "stack",
+    "queue"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "myQueue",
+    "params": [
+      {
+        "name": "operations",
+        "type": "any[][]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,405 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "words": [
+          "cd",
+          "f",
+          "kl"
+        ],
+        "queries": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "f"
+        ]
+      },
+      "expected": [
+        false,
+        false,
+        false,
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "words": [
+          "ab"
+        ],
+        "queries": [
+          "a",
+          "b"
+        ]
+      },
+      "expected": [
+        false,
+        true
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "words": [
+          "a"
+        ],
+        "queries": [
+          "b",
+          "a",
+          "a"
+        ]
+      },
+      "expected": [
+        false,
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "words": [
+          "abc",
+          "xyz"
+        ],
+        "queries": [
+          "a",
+          "b",
+          "c",
+          "x",
+          "y",
+          "z"
+        ]
+      },
+      "expected": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "words": [
+          "bbb"
+        ],
+        "queries": [
+          "a",
+          "b",
+          "b",
+          "a"
+        ]
+      },
+      "expected": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "words": [
+          "a",
+          "aa",
+          "b",
+          "ba"
+        ],
+        "queries": [
+          "b",
+          "a",
+          "a",
+          "b",
+          "a",
+          "b",
+          "a",
+          "a"
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "words": [
+          "bab",
+          "ab"
+        ],
+        "queries": [
+          "a",
+          "b",
+          "a",
+          "b",
+          "b",
+          "a",
+          "a",
+          "b",
+          "b"
+        ]
+      },
+      "expected": [
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "words": [
+          "b",
+          "a",
+          "ab"
+        ],
+        "queries": [
+          "b",
+          "b",
+          "a",
+          "b",
+          "b",
+          "a",
+          "a",
+          "b"
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "words": [
+          "aaa",
+          "baa"
+        ],
+        "queries": [
+          "b",
+          "b",
+          "b",
+          "b",
+          "b",
+          "a",
+          "b",
+          "b",
+          "b"
+        ]
+      },
+      "expected": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "words": [
+          "a",
+          "aaa",
+          "b"
+        ],
+        "queries": [
+          "b",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a"
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "words": [
+          "ab",
+          "aba"
+        ],
+        "queries": [
+          "b"
+        ]
+      },
+      "expected": [
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "words": [
+          "aa",
+          "aa",
+          "aba"
+        ],
+        "queries": [
+          "a"
+        ]
+      },
+      "expected": [
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "words": [
+          "aba",
+          "aa"
+        ],
+        "queries": [
+          "a",
+          "a",
+          "a"
+        ]
+      },
+      "expected": [
+        false,
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "words": [
+          "a",
+          "ab"
+        ],
+        "queries": [
+          "b",
+          "b",
+          "b",
+          "a",
+          "a"
+        ]
+      },
+      "expected": [
+        false,
+        false,
+        false,
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "words": [
+          "bab",
+          "ba"
+        ],
+        "queries": [
+          "a",
+          "b"
+        ]
+      },
+      "expected": [
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "words": [
+          "b",
+          "aa"
+        ],
+        "queries": [
+          "a",
+          "a",
+          "b",
+          "a",
+          "a",
+          "a"
+        ]
+      },
+      "expected": [
+        false,
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

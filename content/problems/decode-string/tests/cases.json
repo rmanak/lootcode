@@ -1,0 +1,121 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "3[a]2[bc]"
+      },
+      "expected": "aaabcbc",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "3[a2[c]]"
+      },
+      "expected": "accaccacc",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "s": "2[abc]3[cd]ef"
+      },
+      "expected": "abcabccdcdcdef",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "abc"
+      },
+      "expected": "abc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "10[a]"
+      },
+      "expected": "aaaaaaaaaa",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "2[2[2[a]]]"
+      },
+      "expected": "aaaaaaaa",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "3[z]2[2[y]pq]"
+      },
+      "expected": "zzzyypqyypq",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "bbaba"
+      },
+      "expected": "bbaba",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "abb"
+      },
+      "expected": "abb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "ab1[a]1[1[baa]]"
+      },
+      "expected": "ababaa",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "aaa"
+      },
+      "expected": "aaa",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "baaa1[bb]"
+      },
+      "expected": "baaabb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s": "a1[3[abbbb]]"
+      },
+      "expected": "aabbbbabbbbabbbb",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

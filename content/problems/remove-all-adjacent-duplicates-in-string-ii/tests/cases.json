@@ -1,0 +1,134 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "abcd",
+        "k": 2
+      },
+      "expected": "abcd",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "deeedbbcccbdaa",
+        "k": 3
+      },
+      "expected": "aa",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "s": "pbbcggttciiippooaais",
+        "k": 2
+      },
+      "expected": "ps",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "aaa",
+        "k": 3
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "aaaa",
+        "k": 2
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "aabbccddeeff",
+        "k": 2
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "yfttttfbbpieik",
+        "k": 4
+      },
+      "expected": "yffbbpieik",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "bbba",
+        "k": 2
+      },
+      "expected": "ba",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "bbbbbab",
+        "k": 2
+      },
+      "expected": "bab",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "aa",
+        "k": 3
+      },
+      "expected": "aa",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "aaaaabbb",
+        "k": 4
+      },
+      "expected": "abbb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "aaaabbbababa",
+        "k": 4
+      },
+      "expected": "bbbababa",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s": "abbbabbabbb",
+        "k": 3
+      },
+      "expected": "aabba",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "grid": [
+          [
+            3,
+            0,
+            8,
+            4
+          ],
+          [
+            2,
+            4,
+            5,
+            7
+          ],
+          [
+            9,
+            2,
+            6,
+            3
+          ],
+          [
+            0,
+            3,
+            1,
+            0
+          ]
+        ]
+      },
+      "expected": 35,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "grid": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "grid": [
+          [
+            5,
+            5
+          ],
+          [
+            5,
+            5
+          ]
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "grid": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "grid": [
+          [
+            100,
+            0
+          ],
+          [
+            0,
+            100
+          ]
+        ]
+      },
+      "expected": 200,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "grid": [
+          [
+            3,
+            10,
+            17,
+            15,
+            4
+          ],
+          [
+            1,
+            18,
+            12,
+            6,
+            17
+          ],
+          [
+            3,
+            15,
+            12,
+            20,
+            3
+          ],
+          [
+            8,
+            8,
+            2,
+            16,
+            9
+          ],
+          [
+            11,
+            5,
+            0,
+            12,
+            7
+          ]
+        ]
+      },
+      "expected": 143,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "grid": [
+          [
+            2,
+            3,
+            9
+          ],
+          [
+            1,
+            6,
+            8
+          ],
+          [
+            2,
+            5,
+            6
+          ]
+        ]
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "grid": [
+          [
+            2,
+            1,
+            2
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
+            5,
+            3,
+            9
+          ]
+        ]
+      },
+      "expected": 14,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "grid": [
+          [
+            9,
+            3,
+            8
+          ],
+          [
+            4,
+            9,
+            5
+          ],
+          [
+            0,
+            1,
+            6
+          ]
+        ]
+      },
+      "expected": 25,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "grid": [
+          [
+            0,
+            8,
+            4
+          ],
+          [
+            0,
+            2,
+            1
+          ],
+          [
+            5,
+            0,
+            1
+          ]
+        ]
+      },
+      "expected": 16,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

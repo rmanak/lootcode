@@ -1,0 +1,164 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "numerator": 1,
+        "denominator": 2
+      },
+      "expected": "0.5",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "numerator": 2,
+        "denominator": 1
+      },
+      "expected": "2",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "numerator": 2,
+        "denominator": 3
+      },
+      "expected": "0.(6)",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "numerator": 4,
+        "denominator": 333
+      },
+      "expected": "0.(012)",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "numerator": -50,
+        "denominator": 8
+      },
+      "expected": "-6.25",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "numerator": 7,
+        "denominator": 12
+      },
+      "expected": "0.58(3)",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "numerator": 0,
+        "denominator": 5
+      },
+      "expected": "0",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "numerator": 1,
+        "denominator": 6
+      },
+      "expected": "0.1(6)",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "numerator": 39,
+        "denominator": -6
+      },
+      "expected": "-6.5",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "numerator": -21,
+        "denominator": -1
+      },
+      "expected": "21",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "numerator": 12,
+        "denominator": 6
+      },
+      "expected": "2",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "numerator": -48,
+        "denominator": -5
+      },
+      "expected": "9.6",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "numerator": -18,
+        "denominator": -2
+      },
+      "expected": "9",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "numerator": -46,
+        "denominator": -9
+      },
+      "expected": "5.(1)",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "numerator": -22,
+        "denominator": -9
+      },
+      "expected": "2.(4)",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "numerator": 40,
+        "denominator": -3
+      },
+      "expected": "-13.(3)",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

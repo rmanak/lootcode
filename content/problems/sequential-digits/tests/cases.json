@@ -1,0 +1,226 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "low": 100,
+        "high": 300
+      },
+      "expected": [
+        123,
+        234
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "low": 1000,
+        "high": 13000
+      },
+      "expected": [
+        1234,
+        2345,
+        3456,
+        4567,
+        5678,
+        6789,
+        12345
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "low": 10,
+        "high": 10
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "low": 10,
+        "high": 100
+      },
+      "expected": [
+        12,
+        23,
+        34,
+        45,
+        56,
+        67,
+        78,
+        89
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "low": 58,
+        "high": 155
+      },
+      "expected": [
+        67,
+        78,
+        89,
+        123
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "low": 487,
+        "high": 1789
+      },
+      "expected": [
+        567,
+        678,
+        789,
+        1234
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "low": 220,
+        "high": 3460
+      },
+      "expected": [
+        234,
+        345,
+        456,
+        567,
+        678,
+        789,
+        1234,
+        2345,
+        3456
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "low": 350,
+        "high": 3917
+      },
+      "expected": [
+        456,
+        567,
+        678,
+        789,
+        1234,
+        2345,
+        3456
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "low": 396,
+        "high": 4458
+      },
+      "expected": [
+        456,
+        567,
+        678,
+        789,
+        1234,
+        2345,
+        3456
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "low": 142,
+        "high": 4898
+      },
+      "expected": [
+        234,
+        345,
+        456,
+        567,
+        678,
+        789,
+        1234,
+        2345,
+        3456,
+        4567
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "low": 437,
+        "high": 3914
+      },
+      "expected": [
+        456,
+        567,
+        678,
+        789,
+        1234,
+        2345,
+        3456
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "low": 148,
+        "high": 3457
+      },
+      "expected": [
+        234,
+        345,
+        456,
+        567,
+        678,
+        789,
+        1234,
+        2345,
+        3456
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "low": 199,
+        "high": 884
+      },
+      "expected": [
+        234,
+        345,
+        456,
+        567,
+        678,
+        789
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

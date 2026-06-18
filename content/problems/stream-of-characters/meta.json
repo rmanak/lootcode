@@ -1,0 +1,37 @@
+{
+  "slug": "stream-of-characters",
+  "title": "Stream Of Characters Suffix Query",
+  "difficulty": "hard",
+  "tags": [
+    "trie",
+    "string"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "streamChecker",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      },
+      {
+        "name": "queries",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "bool[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

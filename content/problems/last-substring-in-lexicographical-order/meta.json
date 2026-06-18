@@ -1,0 +1,33 @@
+{
+  "slug": "last-substring-in-lexicographical-order",
+  "title": "Last Substring in Lexicographical Order",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "two-pointers"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "lastSubstring",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

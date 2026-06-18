@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Generate with AI · {{ app_name }}{% endblock %}
+{% block content %}
+<p class="crumb"><a href="/admin">← Admin</a></p>
+<h1>Generate a problem with AI</h1>
+
+{% if disabled %}
+<p class="muted">Set <code>ANTHROPIC_API_KEY</code> in <code>.env</code> and restart to enable this.</p>
+{% else %}
+
+{% if error %}<div class="run-error">{{ error }}</div>{% endif %}
+{% if results %}
+<div class="gen-results">
+  <h2>Created {{ results|length }} problem(s)</h2>
+  <ul>
+    {% for r in results %}
+    <li>
+      <a href="/problems/{{ r.slug }}">{{ r.title }}</a>
+      {% if r.validation %}
+        {% if r.validation.solved %}
+          <span class="ok-tag">verified ✓ ({{ r.validation.passed }}/{{ r.validation.total }})</span>
+        {% else %}
+          <span class="warn-tag">⚠ reference solution failed
+            ({{ r.validation.passed }}/{{ r.validation.total }}) — review it</span>
+        {% endif %}
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<form class="bigform" method="post" action="/admin/generate">
+  <h2>From an idea</h2>
+  <label>Problem idea / topic
+    <input name="brief" placeholder="dynamic programming on a 1D array, like climbing stairs">
+  </label>
+  <label>Difficulty (optional)
+    <select name="difficulty">
+      <option value="">let the model choose</option>
+      <option value="easy">easy</option><option value="medium">medium</option>
+      <option value="hard">hard</option>
+    </select>
+  </label>
+
+  <h2>…or from a batch of material</h2>
+  <label>Paste a list of problem ideas / descriptions
+    <textarea name="bulk_text" rows="6"
+      placeholder="Paste several problem ideas or a topic outline; the model will create similar problems."></textarea></label>
+  <label>How many to generate (max 5)<input name="count" type="number" value="3" min="1" max="5"></label>
+
+  <button type="submit">Generate &amp; verify</button>
+  <p class="muted">Each generated problem is run against its own tests before saving.
+     This calls the Claude API and may take a minute.</p>
+</form>
+{% endif %}
+{% endblock %}

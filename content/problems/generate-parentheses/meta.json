@@ -1,0 +1,33 @@
+{
+  "slug": "generate-parentheses",
+  "title": "Generate Parentheses",
+  "difficulty": "medium",
+  "tags": [
+    "backtracking",
+    "string"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "generateParenthesis",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "string[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "unordered"
+}

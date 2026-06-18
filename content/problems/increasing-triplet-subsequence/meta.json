@@ -1,0 +1,33 @@
+{
+  "slug": "increasing-triplet-subsequence",
+  "title": "Increasing Triplet Subsequence",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "increasingTriplet",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

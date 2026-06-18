@@ -1,0 +1,34 @@
+{
+  "slug": "set-matrix-zeroes",
+  "title": "Set Matrix Zeroes",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "matrix",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "setZeroes",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

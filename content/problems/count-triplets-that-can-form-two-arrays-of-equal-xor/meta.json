@@ -1,0 +1,35 @@
+{
+  "slug": "count-triplets-that-can-form-two-arrays-of-equal-xor",
+  "title": "Count Triplets That Can Form Two Arrays of Equal XOR",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "bit-manipulation",
+    "prefix-sum"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "countTriplets",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

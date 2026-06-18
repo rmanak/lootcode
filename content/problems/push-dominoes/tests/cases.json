@@ -1,0 +1,130 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "dominoes": ".L.R...LR..L.."
+      },
+      "expected": "LL.RR.LLRRLL..",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "dominoes": "RR.L"
+      },
+      "expected": "RR.L",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "dominoes": ""
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "dominoes": "."
+      },
+      "expected": ".",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "dominoes": "R."
+      },
+      "expected": "RR",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "dominoes": ".L"
+      },
+      "expected": "LL",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "dominoes": "R.R.L.L"
+      },
+      "expected": "RRR.LLL",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "dominoes": "RRR.LLL"
+      },
+      "expected": "RRR.LLL",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "dominoes": ".L..."
+      },
+      "expected": "LL...",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "dominoes": "L..LRRRLL.RLR"
+      },
+      "expected": "LLLLRRRLL.RLR",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "dominoes": "..RL.R..R.L."
+      },
+      "expected": "..RL.RRRR.L.",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "dominoes": ".LR"
+      },
+      "expected": "LLR",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "dominoes": ".RLLRRRLL"
+      },
+      "expected": ".RLLRRRLL",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "dominoes": "RLR"
+      },
+      "expected": "RLR",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

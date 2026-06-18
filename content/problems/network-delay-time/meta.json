@@ -1,0 +1,41 @@
+{
+  "slug": "network-delay-time",
+  "title": "Network Delay Time",
+  "difficulty": "medium",
+  "tags": [
+    "graph",
+    "heap"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "networkDelayTime",
+    "params": [
+      {
+        "name": "times",
+        "type": "int[][]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

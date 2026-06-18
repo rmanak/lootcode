@@ -1,0 +1,34 @@
+{
+  "slug": "delete-columns-to-make-sorted-iii",
+  "title": "Delete Columns to Make Sorted III",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "string",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minDeletionSize",
+    "params": [
+      {
+        "name": "A",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

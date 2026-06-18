@@ -1,0 +1,34 @@
+{
+  "slug": "group-anagrams",
+  "title": "Group Anagrams",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "hash-table",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "groupAnagrams",
+    "params": [
+      {
+        "name": "strs",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "string[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "set_of_lists"
+}

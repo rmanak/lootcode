@@ -1,0 +1,32 @@
+{
+  "slug": "n-queens",
+  "title": "N Queens",
+  "difficulty": "hard",
+  "tags": [
+    "backtracking"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "solveNQueens",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "string[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "unordered"
+}

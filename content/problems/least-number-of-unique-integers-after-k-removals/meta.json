@@ -1,0 +1,40 @@
+{
+  "slug": "least-number-of-unique-integers-after-k-removals",
+  "title": "Least Number of Unique Integers After K Removals",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "greedy",
+    "sorting",
+    "counting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findLeastNumOfUniqueInts",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

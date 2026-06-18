@@ -1,0 +1,130 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "num": 555
+      },
+      "expected": 888,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "num": 9
+      },
+      "expected": 8,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "num": 123456
+      },
+      "expected": 820000,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "num": 10000
+      },
+      "expected": 80000,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "num": 9288
+      },
+      "expected": 8700,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "num": 1
+      },
+      "expected": 8,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "num": 100000000
+      },
+      "expected": 800000000,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "num": 1101
+      },
+      "expected": 8808,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "num": 28768812
+      },
+      "expected": 80000008,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "num": 31311397
+      },
+      "expected": 80800800,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "num": 32395296
+      },
+      "expected": 80800000,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "num": 12365484
+      },
+      "expected": 82000000,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "num": 50826077
+      },
+      "expected": 80000000,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "num": 23293732
+      },
+      "expected": 80800008,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

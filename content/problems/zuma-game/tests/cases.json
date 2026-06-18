@@ -1,0 +1,124 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "board": "WWRRBBWW",
+        "hand": "WRBRW"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "board": "G",
+        "hand": "GGGGG"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "board": "RBYYBBRRB",
+        "hand": "YRBGB"
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "board": "WRRBBW",
+        "hand": "RB"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "board": "RRBBRR",
+        "hand": "B"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "board": "RYBG",
+        "hand": "RY"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "board": "R",
+        "hand": "RR"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "board": "YBRYRR",
+        "hand": "WR"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "board": "RGY",
+        "hand": "R"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "board": "YBYW",
+        "hand": "B"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "board": "WYRGB",
+        "hand": "GBG"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "board": "YGRBBG",
+        "hand": "R"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "slug": "tag-validator",
+  "title": "Tag Validator",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "stack"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "isValid",
+    "params": [
+      {
+        "name": "code",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

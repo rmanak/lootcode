@@ -1,0 +1,112 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "chars": "aabbccc"
+      },
+      "expected": "a2b2c3",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "chars": "abc"
+      },
+      "expected": "abc",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "chars": "aaa"
+      },
+      "expected": "a3",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "chars": ""
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "chars": "a"
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "chars": "aabaa"
+      },
+      "expected": "a2ba2",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "chars": "ba"
+      },
+      "expected": "ba",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "chars": "a"
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "chars": "ababaa"
+      },
+      "expected": "ababa2",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "chars": "abaaaa"
+      },
+      "expected": "aba4",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "chars": "aabaaaaaabaaaaba"
+      },
+      "expected": "a2ba6ba4ba",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "chars": "ab"
+      },
+      "expected": "ab",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "slug": "making-file-names-unique",
+  "title": "Making File Names Unique",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "getFolderNames",
+    "params": [
+      {
+        "name": "names",
+        "type": "str[]"
+      }
+    ],
+    "returns": {
+      "type": "str[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

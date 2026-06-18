@@ -1,0 +1,42 @@
+{
+  "slug": "evaluate-division",
+  "title": "Evaluate Division Queries",
+  "difficulty": "medium",
+  "tags": [
+    "graph",
+    "union-find",
+    "depth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "calcEquation",
+    "params": [
+      {
+        "name": "equations",
+        "type": "string[][]"
+      },
+      {
+        "name": "values",
+        "type": "float[]"
+      },
+      {
+        "name": "queries",
+        "type": "string[][]"
+      }
+    ],
+    "returns": {
+      "type": "float[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

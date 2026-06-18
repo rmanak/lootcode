@@ -1,0 +1,37 @@
+{
+  "slug": "delete-nodes-and-return-forest",
+  "title": "Delete Nodes And Return Forest",
+  "difficulty": "medium",
+  "tags": [
+    "tree",
+    "depth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "delNodes",
+    "params": [
+      {
+        "name": "root",
+        "type": "int[]"
+      },
+      {
+        "name": "to_delete",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "unordered"
+}

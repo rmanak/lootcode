@@ -1,0 +1,46 @@
+{
+  "slug": "frog-position-after-t-seconds",
+  "title": "Frog Position After T Seconds",
+  "difficulty": "hard",
+  "tags": [
+    "tree",
+    "graph",
+    "breadth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "frogPosition",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      },
+      {
+        "name": "t",
+        "type": "int"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "float"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

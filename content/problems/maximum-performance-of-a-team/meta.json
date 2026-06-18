@@ -1,0 +1,47 @@
+{
+  "slug": "maximum-performance-of-a-team",
+  "title": "Maximum Performance of a Team",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "heap",
+    "greedy",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxPerformance",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "speed",
+        "type": "int[]"
+      },
+      {
+        "name": "efficiency",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

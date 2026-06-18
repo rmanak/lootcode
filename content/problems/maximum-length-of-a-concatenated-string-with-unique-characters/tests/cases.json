@@ -1,0 +1,174 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "arr": [
+          "un",
+          "iq",
+          "ue"
+        ]
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "arr": [
+          "cha",
+          "r",
+          "act",
+          "ers"
+        ]
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "arr": [
+          "abcdefghijklmnopqrstuvwxyz"
+        ]
+      },
+      "expected": 26,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "arr": [
+          "aa",
+          "bb"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "arr": [
+          "a",
+          "b",
+          "c"
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "arr": [
+          "aabc",
+          "abc"
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "arr": [
+          "yy",
+          "bkhwmpbiisbldzknpm"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "arr": [
+          "bb",
+          "ab",
+          "c",
+          "dd"
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "arr": [
+          "dab",
+          "ac",
+          "daa",
+          "b",
+          "b",
+          "cc",
+          "ad"
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "arr": [
+          "a"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "arr": [
+          "a",
+          "a",
+          "ddb",
+          "a",
+          "bab"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "arr": [
+          "d",
+          "acc"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "arr": [
+          "aa",
+          "ca",
+          "aad",
+          "abb"
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

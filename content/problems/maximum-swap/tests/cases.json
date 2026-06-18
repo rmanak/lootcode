@@ -1,0 +1,139 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "num": 2736
+      },
+      "expected": 7236,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "num": 9973
+      },
+      "expected": 9973,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "num": 0
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "num": 1993
+      },
+      "expected": 9913,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "num": 98368
+      },
+      "expected": 98863,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "num": 10
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "num": 100000
+      },
+      "expected": 100000,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "num": 37666
+      },
+      "expected": 73666,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "num": 16218
+      },
+      "expected": 86211,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "num": 75400
+      },
+      "expected": 75400,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "num": 42887
+      },
+      "expected": 82847,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "num": 40554
+      },
+      "expected": 50544,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "num": 68928
+      },
+      "expected": 98628,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "num": 2443
+      },
+      "expected": 4423,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "num": 25793
+      },
+      "expected": 95723,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

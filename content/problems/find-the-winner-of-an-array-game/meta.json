@@ -1,0 +1,37 @@
+{
+  "slug": "find-the-winner-of-an-array-game",
+  "title": "Find the Winner of an Array Game",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "simulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "getWinner",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

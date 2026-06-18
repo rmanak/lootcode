@@ -1,0 +1,521 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "sentence1": [
+          "great",
+          "acting"
+        ],
+        "sentence2": [
+          "fine",
+          "drama"
+        ],
+        "pairs": [
+          [
+            "great",
+            "good"
+          ],
+          [
+            "fine",
+            "good"
+          ],
+          [
+            "acting",
+            "drama"
+          ]
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "sentence1": [
+          "great"
+        ],
+        "sentence2": [
+          "bad"
+        ],
+        "pairs": [
+          [
+            "great",
+            "good"
+          ]
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "sentence1": [],
+        "sentence2": [],
+        "pairs": []
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "sentence1": [
+          "a"
+        ],
+        "sentence2": [
+          "a",
+          "b"
+        ],
+        "pairs": []
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "sentence1": [
+          "a",
+          "b"
+        ],
+        "sentence2": [
+          "b",
+          "a"
+        ],
+        "pairs": [
+          [
+            "a",
+            "b"
+          ]
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "sentence1": [
+          "a"
+        ],
+        "sentence2": [
+          "d"
+        ],
+        "pairs": [
+          [
+            "a",
+            "f"
+          ],
+          [
+            "e",
+            "b"
+          ],
+          [
+            "b",
+            "e"
+          ],
+          [
+            "g",
+            "g"
+          ],
+          [
+            "a",
+            "a"
+          ],
+          [
+            "e",
+            "a"
+          ]
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "sentence1": [
+          "a"
+        ],
+        "sentence2": [
+          "e"
+        ],
+        "pairs": [
+          [
+            "d",
+            "b"
+          ],
+          [
+            "d",
+            "f"
+          ],
+          [
+            "d",
+            "e"
+          ],
+          [
+            "b",
+            "e"
+          ],
+          [
+            "g",
+            "g"
+          ]
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "sentence1": [
+          "g",
+          "b",
+          "b"
+        ],
+        "sentence2": [
+          "g",
+          "d",
+          "a"
+        ],
+        "pairs": [
+          [
+            "f",
+            "f"
+          ]
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "sentence1": [
+          "g"
+        ],
+        "sentence2": [
+          "a"
+        ],
+        "pairs": [
+          [
+            "e",
+            "b"
+          ],
+          [
+            "e",
+            "b"
+          ],
+          [
+            "b",
+            "d"
+          ]
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "sentence1": [
+          "a",
+          "b"
+        ],
+        "sentence2": [
+          "a",
+          "g"
+        ],
+        "pairs": [
+          [
+            "b",
+            "d"
+          ],
+          [
+            "d",
+            "a"
+          ],
+          [
+            "c",
+            "c"
+          ],
+          [
+            "a",
+            "a"
+          ]
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "sentence1": [
+          "a"
+        ],
+        "sentence2": [
+          "e"
+        ],
+        "pairs": [
+          [
+            "g",
+            "b"
+          ],
+          [
+            "e",
+            "d"
+          ],
+          [
+            "g",
+            "a"
+          ],
+          [
+            "e",
+            "d"
+          ],
+          [
+            "a",
+            "f"
+          ],
+          [
+            "c",
+            "e"
+          ]
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "sentence1": [
+          "c",
+          "b",
+          "a"
+        ],
+        "sentence2": [
+          "a",
+          "f",
+          "d"
+        ],
+        "pairs": [
+          [
+            "g",
+            "d"
+          ],
+          [
+            "c",
+            "f"
+          ],
+          [
+            "b",
+            "f"
+          ],
+          [
+            "g",
+            "e"
+          ]
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "sentence1": [
+          "a",
+          "e",
+          "a",
+          "f"
+        ],
+        "sentence2": [
+          "c",
+          "c",
+          "c",
+          "b"
+        ],
+        "pairs": [
+          [
+            "f",
+            "e"
+          ],
+          [
+            "b",
+            "g"
+          ]
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "sentence1": [
+          "c",
+          "f"
+        ],
+        "sentence2": [
+          "f",
+          "e"
+        ],
+        "pairs": [
+          [
+            "g",
+            "e"
+          ],
+          [
+            "c",
+            "d"
+          ]
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "sentence1": [
+          "c",
+          "e",
+          "e",
+          "b"
+        ],
+        "sentence2": [
+          "c",
+          "a",
+          "a",
+          "g"
+        ],
+        "pairs": [
+          [
+            "b",
+            "f"
+          ],
+          [
+            "f",
+            "a"
+          ],
+          [
+            "f",
+            "g"
+          ]
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "sentence1": [
+          "d",
+          "a",
+          "f",
+          "a"
+        ],
+        "sentence2": [
+          "g",
+          "f",
+          "c",
+          "e"
+        ],
+        "pairs": [
+          [
+            "f",
+            "b"
+          ],
+          [
+            "d",
+            "d"
+          ],
+          [
+            "a",
+            "e"
+          ],
+          [
+            "b",
+            "d"
+          ],
+          [
+            "a",
+            "c"
+          ],
+          [
+            "a",
+            "b"
+          ]
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "sentence1": [
+          "g",
+          "b",
+          "e"
+        ],
+        "sentence2": [
+          "a",
+          "c",
+          "a"
+        ],
+        "pairs": [
+          [
+            "g",
+            "d"
+          ],
+          [
+            "g",
+            "d"
+          ],
+          [
+            "e",
+            "b"
+          ],
+          [
+            "d",
+            "d"
+          ],
+          [
+            "c",
+            "e"
+          ],
+          [
+            "f",
+            "f"
+          ]
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

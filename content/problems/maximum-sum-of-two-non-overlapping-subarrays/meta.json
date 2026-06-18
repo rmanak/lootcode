@@ -1,0 +1,43 @@
+{
+  "slug": "maximum-sum-of-two-non-overlapping-subarrays",
+  "title": "Maximum Sum of Two Non-Overlapping Subarrays",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "sliding-window",
+    "prefix-sum"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxSumTwoNoOverlap",
+    "params": [
+      {
+        "name": "A",
+        "type": "int[]"
+      },
+      {
+        "name": "L",
+        "type": "int"
+      },
+      {
+        "name": "M",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

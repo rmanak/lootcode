@@ -1,0 +1,33 @@
+{
+  "slug": "best-time-to-buy-and-sell-stock-with-cooldown",
+  "title": "Best Time to Buy and Sell Stock with Cooldown",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxProfit",
+    "params": [
+      {
+        "name": "prices",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

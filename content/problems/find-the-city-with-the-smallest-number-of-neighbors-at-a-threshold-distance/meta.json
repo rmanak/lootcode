@@ -1,0 +1,40 @@
+{
+  "slug": "find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance",
+  "title": "Find the City With the Smallest Number of Neighbors at a Threshold Distance",
+  "difficulty": "medium",
+  "tags": [
+    "graph"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findTheCity",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      },
+      {
+        "name": "distanceThreshold",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

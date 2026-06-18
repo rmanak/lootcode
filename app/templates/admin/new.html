@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}New problem · {{ app_name }}{% endblock %}
+{% block content %}
+<p class="crumb"><a href="/admin">← Admin</a></p>
+<h1>New problem</h1>
+{% if error %}<div class="run-error">{{ error }}</div>{% endif %}
+
+<form class="bigform" method="post" action="/admin/new">
+  <div class="row">
+    <label>Slug<input name="slug" required placeholder="reverse-string"></label>
+    <label>Title<input name="title" required placeholder="Reverse String"></label>
+    <label>Difficulty
+      <select name="difficulty">
+        <option>easy</option><option>medium</option><option>hard</option>
+      </select>
+    </label>
+  </div>
+  <label>Topics (comma-separated)<input name="topics" placeholder="strings, two-pointers"></label>
+  <label>Statement (Markdown)<textarea name="statement_md" rows="6"
+    placeholder="Describe the problem, constraints, and examples."></textarea></label>
+
+  <div class="row">
+    <label>Function name<input name="function_name" required placeholder="reverseString"></label>
+    <label>Return type<input name="return_type" placeholder="string"></label>
+    <label>Compare mode
+      <select name="compare">
+        {% for m in compare_modes %}<option {{ 'selected' if m == 'exact' }}>{{ m }}</option>{% endfor %}
+      </select>
+    </label>
+  </div>
+  <label>Parameters (one per line as <code>name: type</code>)
+    <textarea name="params" rows="3" placeholder="s: string"></textarea></label>
+
+  <label>Starter code (Python)<textarea name="starter_code" class="mono" rows="5"
+    placeholder="def reverseString(s):&#10;    # your code here&#10;    pass"></textarea></label>
+  <label>Canonical solution (Python — must pass all tests)
+    <textarea name="canonical_solution" class="mono" rows="5"
+    placeholder="def reverseString(s):&#10;    return s[::-1]"></textarea></label>
+
+  <label>Tests (JSON array)
+    <textarea name="tests_json" class="mono" rows="8">[
+  {"name": "example-1", "input": {"s": "hello"}, "expected": "olleh", "weight": 1, "hidden": false},
+  {"name": "hidden-1", "input": {"s": ""}, "expected": "", "weight": 1, "hidden": true}
+]</textarea></label>
+
+  <button type="submit">Save problem</button>
+</form>
+{% endblock %}

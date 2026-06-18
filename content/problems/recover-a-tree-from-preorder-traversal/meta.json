@@ -1,0 +1,34 @@
+{
+  "slug": "recover-a-tree-from-preorder-traversal",
+  "title": "Recover a Tree From Preorder Traversal",
+  "difficulty": "hard",
+  "tags": [
+    "tree",
+    "string",
+    "depth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "recoverFromPreorder",
+    "params": [
+      {
+        "name": "traversal",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

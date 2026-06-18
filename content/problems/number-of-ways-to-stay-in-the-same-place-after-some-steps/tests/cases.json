@@ -1,0 +1,164 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "steps": 3,
+        "arrLen": 2
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "steps": 2,
+        "arrLen": 4
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "steps": 4,
+        "arrLen": 2
+      },
+      "expected": 8,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "steps": 1,
+        "arrLen": 1
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "steps": 4,
+        "arrLen": 1
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "steps": 10,
+        "arrLen": 3
+      },
+      "expected": 1682,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "steps": 27,
+        "arrLen": 7
+      },
+      "expected": 127784505,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "steps": 30,
+        "arrLen": 1000000
+      },
+      "expected": 385459332,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "steps": 4,
+        "arrLen": 23
+      },
+      "expected": 9,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "steps": 8,
+        "arrLen": 25
+      },
+      "expected": 323,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "steps": 29,
+        "arrLen": 9
+      },
+      "expected": 18257554,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "steps": 23,
+        "arrLen": 19
+      },
+      "expected": 129760408,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "steps": 14,
+        "arrLen": 13
+      },
+      "expected": 113634,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "steps": 7,
+        "arrLen": 20
+      },
+      "expected": 127,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "steps": 6,
+        "arrLen": 18
+      },
+      "expected": 51,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "steps": 11,
+        "arrLen": 17
+      },
+      "expected": 5798,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

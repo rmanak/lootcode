@@ -1,0 +1,36 @@
+{
+  "slug": "broken-calculator",
+  "title": "Broken Calculator",
+  "difficulty": "medium",
+  "tags": [
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "brokenCalc",
+    "params": [
+      {
+        "name": "startValue",
+        "type": "int"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

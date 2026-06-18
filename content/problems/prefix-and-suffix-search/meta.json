@@ -1,0 +1,37 @@
+{
+  "slug": "prefix-and-suffix-search",
+  "title": "Prefix And Suffix Search",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "trie"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "wordFilter",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      },
+      {
+        "name": "queries",
+        "type": "string[][]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

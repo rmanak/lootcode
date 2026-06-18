@@ -1,0 +1,33 @@
+{
+  "slug": "break-a-palindrome",
+  "title": "Break a Palindrome",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "breakPalindrome",
+    "params": [
+      {
+        "name": "palindrome",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

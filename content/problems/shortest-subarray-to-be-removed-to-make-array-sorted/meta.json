@@ -1,0 +1,35 @@
+{
+  "slug": "shortest-subarray-to-be-removed-to-make-array-sorted",
+  "title": "Shortest Subarray to be Removed to Make Array Sorted",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "two-pointers",
+    "binary-search",
+    "stack"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findLengthOfShortestSubarray",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

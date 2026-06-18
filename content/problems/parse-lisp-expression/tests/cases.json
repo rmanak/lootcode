@@ -1,0 +1,85 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "expression": "(add 1 2)"
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "expression": "(mult 3 (add 2 3))"
+      },
+      "expected": 15,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "expression": "(let x 2 (mult x 5))"
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "expression": "(let x 2 (mult x (let x 3 y 4 (add x y))))"
+      },
+      "expected": 14,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "expression": "(let x 3 x 2 x)"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "expression": "(let x 1 y 2 x (add x y) (add x y))"
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "expression": "(let x 2 (add (let x 3 (let x 4 x)) x))"
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "expression": "(let a1 3 b2 (add a1 1) b2)"
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "expression": "(add -5 (mult 2 3))"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

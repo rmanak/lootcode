@@ -1,0 +1,37 @@
+{
+  "slug": "insufficient-nodes-in-root-to-leaf-paths",
+  "title": "Insufficient Nodes in Root to Leaf Paths",
+  "difficulty": "medium",
+  "tags": [
+    "tree",
+    "depth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "sufficientSubset",
+    "params": [
+      {
+        "name": "root",
+        "type": "int[]"
+      },
+      {
+        "name": "limit",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

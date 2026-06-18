@@ -1,0 +1,34 @@
+{
+  "slug": "redundant-directed-connection",
+  "title": "Redundant Directed Connection",
+  "difficulty": "hard",
+  "tags": [
+    "graph",
+    "union-find",
+    "tree"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findRedundantDirectedConnection",
+    "params": [
+      {
+        "name": "edges",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

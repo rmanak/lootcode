@@ -1,0 +1,37 @@
+{
+  "slug": "minimum-height-trees",
+  "title": "Minimum Height Trees Roots",
+  "difficulty": "medium",
+  "tags": [
+    "graph",
+    "tree"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findMinHeightTrees",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "unordered"
+}

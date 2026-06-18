@@ -1,0 +1,41 @@
+{
+  "slug": "lowest-common-ancestor-of-a-binary-tree",
+  "title": "Lowest Common Ancestor of a Binary Tree",
+  "difficulty": "medium",
+  "tags": [
+    "tree",
+    "depth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "lowestCommonAncestor",
+    "params": [
+      {
+        "name": "root",
+        "type": "int[]"
+      },
+      {
+        "name": "p",
+        "type": "int"
+      },
+      {
+        "name": "q",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

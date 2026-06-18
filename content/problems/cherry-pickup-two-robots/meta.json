@@ -1,0 +1,33 @@
+{
+  "slug": "cherry-pickup-two-robots",
+  "title": "Cherry Pickup Two Robots",
+  "difficulty": "hard",
+  "tags": [
+    "matrix",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "cherryPickup",
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

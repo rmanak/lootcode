@@ -1,0 +1,40 @@
+{
+  "slug": "shortest-subarray-with-sum-at-least-k",
+  "title": "Shortest Subarray With Sum at Least K",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "binary-search",
+    "queue",
+    "sliding-window",
+    "prefix-sum"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "shortestSubarray",
+    "params": [
+      {
+        "name": "A",
+        "type": "int[]"
+      },
+      {
+        "name": "K",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,37 @@
+{
+  "slug": "koko-eating-bananas",
+  "title": "Koko Eating Bananas",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minEatingSpeed",
+    "params": [
+      {
+        "name": "piles",
+        "type": "int[]"
+      },
+      {
+        "name": "H",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

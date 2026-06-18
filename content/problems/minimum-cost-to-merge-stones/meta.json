@@ -1,0 +1,38 @@
+{
+  "slug": "minimum-cost-to-merge-stones",
+  "title": "Minimum Cost to Merge Stones",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "prefix-sum"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "mergeStones",
+    "params": [
+      {
+        "name": "stones",
+        "type": "int[]"
+      },
+      {
+        "name": "K",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

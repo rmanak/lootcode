@@ -1,0 +1,231 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "bloomDay": [
+          1,
+          10,
+          3,
+          10,
+          2
+        ],
+        "m": 3,
+        "k": 1
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "bloomDay": [
+          1,
+          10,
+          3,
+          10,
+          2
+        ],
+        "m": 3,
+        "k": 2
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "bloomDay": [
+          7,
+          7,
+          7,
+          7,
+          12,
+          7,
+          7
+        ],
+        "m": 2,
+        "k": 3
+      },
+      "expected": 12,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "bloomDay": [
+          1000000000,
+          1000000000
+        ],
+        "m": 1,
+        "k": 1
+      },
+      "expected": 1000000000,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "bloomDay": [
+          1,
+          10,
+          2,
+          9,
+          3,
+          8,
+          4,
+          7,
+          5,
+          6
+        ],
+        "m": 4,
+        "k": 2
+      },
+      "expected": 9,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "bloomDay": [
+          1
+        ],
+        "m": 1,
+        "k": 1
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "bloomDay": [
+          5,
+          5,
+          5
+        ],
+        "m": 1,
+        "k": 3
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "bloomDay": [
+          5,
+          7,
+          14
+        ],
+        "m": 1,
+        "k": 3
+      },
+      "expected": 14,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "bloomDay": [
+          15,
+          12,
+          7,
+          14,
+          10,
+          4,
+          4,
+          8,
+          4
+        ],
+        "m": 1,
+        "k": 7
+      },
+      "expected": 14,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "bloomDay": [
+          6,
+          2,
+          11,
+          13,
+          11,
+          1,
+          15,
+          12
+        ],
+        "m": 1,
+        "k": 5
+      },
+      "expected": 13,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "bloomDay": [
+          8,
+          5,
+          8,
+          11,
+          12,
+          4,
+          9
+        ],
+        "m": 1,
+        "k": 5
+      },
+      "expected": 12,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "bloomDay": [
+          9,
+          5,
+          14
+        ],
+        "m": 2,
+        "k": 3
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "bloomDay": [
+          7,
+          11,
+          8,
+          10,
+          9,
+          3,
+          1,
+          8
+        ],
+        "m": 1,
+        "k": 7
+      },
+      "expected": 11,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

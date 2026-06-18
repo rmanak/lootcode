@@ -1,0 +1,485 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "n": 3,
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "succProb": [
+          0.5,
+          0.5,
+          0.2
+        ],
+        "start": 0,
+        "end": 2
+      },
+      "expected": 0.25,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "n": 3,
+        "edges": [
+          [
+            0,
+            1
+          ]
+        ],
+        "succProb": [
+          0.5
+        ],
+        "start": 0,
+        "end": 2
+      },
+      "expected": 0.0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "n": 2,
+        "edges": [
+          [
+            0,
+            1
+          ]
+        ],
+        "succProb": [
+          0.8
+        ],
+        "start": 0,
+        "end": 1
+      },
+      "expected": 0.8,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "n": 2,
+        "edges": [],
+        "succProb": [],
+        "start": 0,
+        "end": 1
+      },
+      "expected": 0.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "n": 4,
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "succProb": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "start": 0,
+        "end": 3
+      },
+      "expected": 0.125,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "n": 6,
+        "edges": [
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            0,
+            3
+          ]
+        ],
+        "succProb": [
+          0.8,
+          0.5,
+          0.2,
+          0.5,
+          0.1,
+          0.2,
+          0.25
+        ],
+        "start": 5,
+        "end": 3
+      },
+      "expected": 0.025,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "n": 5,
+        "edges": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "succProb": [
+          0.1,
+          0.8,
+          0.25,
+          0.1,
+          0.25,
+          0.5
+        ],
+        "start": 1,
+        "end": 2
+      },
+      "expected": 0.08,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "n": 6,
+        "edges": [],
+        "succProb": [],
+        "start": 0,
+        "end": 1
+      },
+      "expected": 0.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "n": 5,
+        "edges": [
+          [
+            1,
+            3
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "succProb": [
+          0.1,
+          0.5,
+          0.5,
+          0.25,
+          0.8,
+          0.8,
+          0.5,
+          0.2
+        ],
+        "start": 1,
+        "end": 0
+      },
+      "expected": 0.5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "n": 3,
+        "edges": [
+          [
+            0,
+            1
+          ]
+        ],
+        "succProb": [
+          0.25
+        ],
+        "start": 1,
+        "end": 2
+      },
+      "expected": 0.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "n": 5,
+        "edges": [
+          [
+            1,
+            3
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "succProb": [
+          0.2,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "start": 2,
+        "end": 4
+      },
+      "expected": 0.25,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "n": 4,
+        "edges": [
+          [
+            2,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ]
+        ],
+        "succProb": [
+          0.5,
+          0.25,
+          0.1,
+          0.25,
+          0.2,
+          0.1
+        ],
+        "start": 0,
+        "end": 1
+      },
+      "expected": 0.25,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "n": 2,
+        "edges": [
+          [
+            0,
+            1
+          ]
+        ],
+        "succProb": [
+          0.5
+        ],
+        "start": 0,
+        "end": 1
+      },
+      "expected": 0.5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "n": 2,
+        "edges": [
+          [
+            0,
+            1
+          ]
+        ],
+        "succProb": [
+          0.25
+        ],
+        "start": 0,
+        "end": 1
+      },
+      "expected": 0.25,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "n": 2,
+        "edges": [
+          [
+            0,
+            1
+          ]
+        ],
+        "succProb": [
+          0.2
+        ],
+        "start": 1,
+        "end": 1
+      },
+      "expected": 1.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "n": 4,
+        "edges": [
+          [
+            0,
+            1
+          ]
+        ],
+        "succProb": [
+          0.2
+        ],
+        "start": 3,
+        "end": 1
+      },
+      "expected": 0.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "n": 4,
+        "edges": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ]
+        ],
+        "succProb": [
+          0.2,
+          0.8
+        ],
+        "start": 1,
+        "end": 1
+      },
+      "expected": 1.0,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

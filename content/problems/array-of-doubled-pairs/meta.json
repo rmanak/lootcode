@@ -1,0 +1,35 @@
+{
+  "slug": "array-of-doubled-pairs",
+  "title": "Array of Doubled Pairs",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "greedy",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "canReorderDoubled",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

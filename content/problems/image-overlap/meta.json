@@ -1,0 +1,37 @@
+{
+  "slug": "image-overlap",
+  "title": "Image Overlap",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "largestOverlap",
+    "params": [
+      {
+        "name": "img1",
+        "type": "int[][]"
+      },
+      {
+        "name": "img2",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

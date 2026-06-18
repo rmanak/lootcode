@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}My Progress · {{ app_name }}{% endblock %}
+{% block content %}
+<h1>My Progress</h1>
+
+{% if request.state.is_account %}
+<p class="muted">Signed in as <strong>{{ request.state.username }}</strong> ·
+  <a href="/account">manage account</a></p>
+{% else %}
+<p class="muted">Browsing as a guest — <a href="/account">create an account or log in</a>
+  to save your progress across browsers and devices.</p>
+{% endif %}
+
+<form class="namebar" method="post" action="/me/name">
+  <label>Display name</label>
+  <input name="name" value="{{ user_name }}" maxlength="40">
+  <button type="submit">Save</button>
+</form>
+
+<section class="streak">
+  <div class="streak-head">
+    <h2>This week</h2>
+    <span class="streak-sub">{{ week_streak.days_met }}/5 days hit the goal ·
+      {{ week_streak.total }} units total</span>
+  </div>
+  <div class="streak-bars">
+    {% for day in week_streak.days %}
+    <div class="streak-day{{ ' met' if day.met }}{{ ' today' if day.is_today }}{{ ' future' if day.is_future }}">
+      <div class="streak-grid" title="{{ day.filled }} of {{ week_streak.goal }} blocks · {{ day.units }} units solved">
+        {% for c in day.cells %}
+        <div class="streak-cell {{ c }}"></div>
+        {% endfor %}
+      </div>
+      <span class="streak-units">{% if day.met %}✓{% else %}{{ day.filled }}{% endif %}</span>
+      <span class="streak-label">{{ day.label }}</span>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="streak-legend muted">Fill each day's <strong>{{ week_streak.goal }} blocks</strong> —
+    extra work spills into the next day. <span class="streak-key easy">Easy = 1</span>
+    <span class="streak-key medium">Medium = 4</span> <span class="streak-key hard">Hard = 16</span></p>
+</section>
+
+{% include "_quick_picks.html" %}
+
+<div class="progress-panels">
+  <section class="panel panel-subs">
+    <h2>Recent Submissions</h2>
+    {% if sub_groups %}
+    <table class="subs subs-zebra">
+      <thead><tr><th></th><th>When</th><th>Problem</th><th>Result</th><th>Score</th></tr></thead>
+      <tbody>
+        {% for g in sub_groups %}
+        {% set gid = 'g' ~ loop.index %}
+        {% set band = 'g-even' if loop.index is even else 'g-odd' %}
+        <tr class="sub-latest {{ band }}">
+          <td class="sub-toggle-cell">
+            {% if g.older %}
+            <button type="button" class="sub-toggle" data-target="{{ gid }}" aria-expanded="false"
+                    title="Show {{ g.older|length }} earlier submission{{ '' if g.older|length == 1 else 's' }}">▾</button>
+            {% endif %}
+          </td>
+          <td><a href="/problems/{{ g.latest.problem.slug }}?submission={{ g.latest.id }}"
+                 title="Open this problem with this submission loaded into the editor">{{ g.latest.created_at.strftime('%Y-%m-%d %H:%M') }}</a></td>
+          <td><a href="/problems/{{ g.latest.problem.slug }}">{{ g.latest.problem.title }}</a>
+              {% if g.count > 1 %}<span class="sub-count">{{ g.count }} attempts</span>{% endif %}</td>
+          <td class="{{ 'pass' if g.latest.solved else 'fail' }}">{{ g.latest.passed_count }}/{{ g.latest.total_count }}</td>
+          <td>{{ g.latest.score }}</td>
+        </tr>
+        {% for s in g.older %}
+        <tr class="sub-extra {{ band }}" data-group="{{ gid }}" hidden>
+          <td></td>
+          <td><a href="/problems/{{ s.problem.slug }}?submission={{ s.id }}"
+                 title="Open this problem with this submission loaded into the editor">{{ s.created_at.strftime('%Y-%m-%d %H:%M') }}</a></td>
+          <td class="sub-extra-mark muted">↳ earlier attempt</td>
+          <td class="{{ 'pass' if s.solved else 'fail' }}">{{ s.passed_count }}/{{ s.total_count }}</td>
+          <td>{{ s.score }}</td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="muted">No submissions yet.</p>
+    {% endif %}
+  </section>
+
+  <aside class="panel panel-summary">
+    <h2>Summary</h2>
+    <h3 class="solved-head">Total Solved: {{ solved|length }} Problems</h3>
+    {% if solved %}
+    <ul class="solved-breakdown">
+      <li class="diff-stat easy"><strong>{{ solved_counts.easy }}</strong> Easy</li>
+      <li class="diff-stat medium"><strong>{{ solved_counts.medium }}</strong> Medium</li>
+      <li class="diff-stat hard"><strong>{{ solved_counts.hard }}</strong> Hard</li>
+    </ul>
+
+    {% if topic_cloud %}
+    <div class="topic-cloud" role="img" aria-label="Solved problems by topic">
+      {% for c in topic_cloud %}
+      <span class="topic-bubble" style="--size: {{ c.size }}px; --hue: {{ c.hue }};"
+            title="{{ c.topic }}: {{ c.count }} solved">
+        <span class="tb-label">{{ c.topic }}</span>
+        <span class="tb-count">{{ c.count }}</span>
+      </span>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <h3 class="solved-sub">Solved problems</h3>
+    <ul class="solved-list">
+      {% for p in solved[:10] %}
+      <li><a href="/problems/{{ p.slug }}">{{ p.title }}</a>
+          <span class="badge {{ p.difficulty }}">{{ p.difficulty }}</span></li>
+      {% endfor %}
+    </ul>
+    {% if solved|length > 10 %}
+    <p class="see-all"><a href="/?solved=1">See all {{ solved|length }} solved →</a></p>
+    {% endif %}
+    {% else %}
+    <p class="muted">Nothing solved yet — <a href="/">pick a problem</a>.</p>
+    {% endif %}
+  </aside>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Recent submissions: expand/collapse a problem's older attempts.
+  document.querySelectorAll(".sub-toggle").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var open = btn.getAttribute("aria-expanded") === "true";
+      document.querySelectorAll('tr.sub-extra[data-group="' + btn.dataset.target + '"]')
+        .forEach(function (row) { row.hidden = open; });
+      btn.setAttribute("aria-expanded", open ? "false" : "true");
+      btn.classList.toggle("open", !open);
+    });
+  });
+</script>
+{% endblock %}

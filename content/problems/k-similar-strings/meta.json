@@ -1,0 +1,37 @@
+{
+  "slug": "k-similar-strings",
+  "title": "K-Similar Strings",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "breadth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "kSimilarity",
+    "params": [
+      {
+        "name": "A",
+        "type": "string"
+      },
+      {
+        "name": "B",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

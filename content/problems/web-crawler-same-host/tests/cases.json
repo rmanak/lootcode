@@ -1,0 +1,279 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "startUrl": "http://a.com/1",
+        "graph": {
+          "http://a.com/1": [
+            "http://a.com/2",
+            "http://b.com/9"
+          ],
+          "http://a.com/2": [],
+          "http://b.com/9": []
+        }
+      },
+      "expected": [
+        "http://a.com/1",
+        "http://a.com/2"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "startUrl": "http://x.org/p",
+        "graph": {
+          "http://x.org/p": []
+        }
+      },
+      "expected": [
+        "http://x.org/p"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "startUrl": "http://a.com/1",
+        "graph": {
+          "http://a.com/1": [
+            "http://a.com/1"
+          ]
+        }
+      },
+      "expected": [
+        "http://a.com/1"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "startUrl": "http://a.com/1",
+        "graph": {
+          "http://a.com/1": [
+            "http://a.com/2"
+          ],
+          "http://a.com/2": [
+            "http://a.com/3"
+          ],
+          "http://a.com/3": []
+        }
+      },
+      "expected": [
+        "http://a.com/1",
+        "http://a.com/2",
+        "http://a.com/3"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "startUrl": "http://a.com/x",
+        "graph": {
+          "http://a.com/x": [
+            "http://c.com/y"
+          ],
+          "http://c.com/y": []
+        }
+      },
+      "expected": [
+        "http://a.com/x"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "startUrl": "http://a.com/p2",
+        "graph": {
+          "http://a.com/p0": [
+            "http://a.com/p2"
+          ],
+          "http://b.com/p1": [
+            "http://b.com/p5",
+            "http://a.com/p2",
+            "http://b.com/p5"
+          ],
+          "http://a.com/p2": [
+            "http://b.com/p5"
+          ],
+          "http://b.com/p3": [],
+          "http://a.com/p4": [
+            "http://a.com/p0",
+            "http://a.com/p4",
+            "http://a.com/p2"
+          ],
+          "http://b.com/p5": [
+            "http://b.com/p1",
+            "http://b.com/p3",
+            "http://b.com/p5"
+          ]
+        }
+      },
+      "expected": [
+        "http://a.com/p2"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "startUrl": "http://a.com/p2",
+        "graph": {
+          "http://a.com/p0": [],
+          "http://b.com/p1": [
+            "http://a.com/p4"
+          ],
+          "http://a.com/p2": [
+            "http://a.com/p0",
+            "http://a.com/p0"
+          ],
+          "http://b.com/p3": [],
+          "http://a.com/p4": [],
+          "http://b.com/p5": [
+            "http://b.com/p1",
+            "http://b.com/p1"
+          ]
+        }
+      },
+      "expected": [
+        "http://a.com/p0",
+        "http://a.com/p2"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "startUrl": "http://b.com/p1",
+        "graph": {
+          "http://a.com/p0": [],
+          "http://b.com/p1": [
+            "http://a.com/p0",
+            "http://a.com/p4",
+            "http://b.com/p1"
+          ],
+          "http://a.com/p2": [
+            "http://b.com/p5",
+            "http://a.com/p0",
+            "http://b.com/p3"
+          ],
+          "http://b.com/p3": [
+            "http://b.com/p3"
+          ],
+          "http://a.com/p4": [],
+          "http://b.com/p5": []
+        }
+      },
+      "expected": [
+        "http://b.com/p1"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "startUrl": "http://b.com/p5",
+        "graph": {
+          "http://a.com/p0": [
+            "http://b.com/p3",
+            "http://a.com/p0",
+            "http://b.com/p5"
+          ],
+          "http://b.com/p1": [],
+          "http://a.com/p2": [
+            "http://b.com/p5",
+            "http://b.com/p1",
+            "http://a.com/p4"
+          ],
+          "http://b.com/p3": [
+            "http://a.com/p0",
+            "http://b.com/p5"
+          ],
+          "http://a.com/p4": [],
+          "http://b.com/p5": []
+        }
+      },
+      "expected": [
+        "http://b.com/p5"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "startUrl": "http://b.com/p3",
+        "graph": {
+          "http://a.com/p0": [
+            "http://b.com/p3"
+          ],
+          "http://b.com/p1": [
+            "http://a.com/p4"
+          ],
+          "http://a.com/p2": [
+            "http://a.com/p0"
+          ],
+          "http://b.com/p3": [
+            "http://a.com/p2",
+            "http://a.com/p4",
+            "http://b.com/p1"
+          ],
+          "http://a.com/p4": [
+            "http://b.com/p5"
+          ],
+          "http://b.com/p5": [
+            "http://a.com/p0",
+            "http://b.com/p1"
+          ]
+        }
+      },
+      "expected": [
+        "http://b.com/p1",
+        "http://b.com/p3"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "startUrl": "http://b.com/p1",
+        "graph": {
+          "http://a.com/p0": [],
+          "http://b.com/p1": [],
+          "http://a.com/p2": [],
+          "http://b.com/p3": [
+            "http://a.com/p2",
+            "http://b.com/p1"
+          ],
+          "http://a.com/p4": [
+            "http://b.com/p5",
+            "http://b.com/p5",
+            "http://a.com/p2"
+          ],
+          "http://b.com/p5": [
+            "http://a.com/p0",
+            "http://a.com/p4"
+          ]
+        }
+      },
+      "expected": [
+        "http://b.com/p1"
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

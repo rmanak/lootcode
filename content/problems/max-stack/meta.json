@@ -1,0 +1,33 @@
+{
+  "slug": "max-stack",
+  "title": "Max Stack Operations",
+  "difficulty": "hard",
+  "tags": [
+    "stack",
+    "heap"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxStack",
+    "params": [
+      {
+        "name": "operations",
+        "type": "any[][]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "closest-divisors",
+  "title": "Closest Divisors",
+  "difficulty": "medium",
+  "tags": [
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "closestDivisors",
+    "params": [
+      {
+        "name": "num",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

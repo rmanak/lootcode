@@ -1,0 +1,37 @@
+{
+  "slug": "shortest-common-supersequence",
+  "title": "Shortest Common Supersequence",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "shortestCommonSupersequence",
+    "params": [
+      {
+        "name": "str1",
+        "type": "string"
+      },
+      {
+        "name": "str2",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

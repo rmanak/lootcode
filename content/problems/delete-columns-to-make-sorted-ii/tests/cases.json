@@ -1,0 +1,167 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "strs": [
+          "ca",
+          "bb",
+          "ac"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "strs": [
+          "xc",
+          "yb",
+          "za"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "strs": [
+          "zyx",
+          "wvu",
+          "tsr"
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "strs": [
+          "a"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "strs": [
+          "ab",
+          "ab"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "strs": [
+          "abx",
+          "abz",
+          "aby"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "strs": [
+          "bca",
+          "abc",
+          "cba"
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "strs": [
+          "abbbb",
+          "aaaba"
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "strs": [
+          "abaa",
+          "abbb",
+          "bbba",
+          "abaa"
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "strs": [
+          "b",
+          "b",
+          "b"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "strs": [
+          "aabbb",
+          "bbbab",
+          "bbaba",
+          "abbaa"
+        ]
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "strs": [
+          "bbaab"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "strs": [
+          "bb"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

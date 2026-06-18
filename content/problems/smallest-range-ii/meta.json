@@ -1,0 +1,38 @@
+{
+  "slug": "smallest-range-ii",
+  "title": "Smallest Range II",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "greedy",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "smallestRangeII",
+    "params": [
+      {
+        "name": "A",
+        "type": "int[]"
+      },
+      {
+        "name": "K",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

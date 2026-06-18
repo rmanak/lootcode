@@ -1,0 +1,39 @@
+{
+  "slug": "binary-subarrays-with-sum",
+  "title": "Binary Subarrays With Sum",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "prefix-sum",
+    "sliding-window"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "numSubarraysWithSum",
+    "params": [
+      {
+        "name": "A",
+        "type": "int[]"
+      },
+      {
+        "name": "S",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

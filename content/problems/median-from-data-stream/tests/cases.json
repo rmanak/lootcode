@@ -1,0 +1,508 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            1
+          ],
+          [
+            "addNum",
+            2
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "addNum",
+            3
+          ],
+          [
+            "findMedian"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        1.5,
+        null,
+        2.0
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            5
+          ],
+          [
+            "findMedian"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        5.0
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            2
+          ],
+          [
+            "addNum",
+            4
+          ],
+          [
+            "findMedian"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        3.0
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            -1
+          ],
+          [
+            "addNum",
+            -2
+          ],
+          [
+            "addNum",
+            -3
+          ],
+          [
+            "findMedian"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        -2.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            6
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "addNum",
+            10
+          ],
+          [
+            "findMedian"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        6.0,
+        null,
+        8.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            -6
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "addNum",
+            2
+          ],
+          [
+            "addNum",
+            -8
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "addNum",
+            8
+          ],
+          [
+            "addNum",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        -6.0,
+        null,
+        null,
+        -6.0,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            6
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "addNum",
+            8
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "addNum",
+            3
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "addNum",
+            8
+          ],
+          [
+            "findMedian"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        6.0,
+        6.0,
+        null,
+        7.0,
+        null,
+        6.0,
+        6.0,
+        null,
+        7.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            -5
+          ],
+          [
+            "addNum",
+            3
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "addNum",
+            3
+          ],
+          [
+            "addNum",
+            6
+          ],
+          [
+            "addNum",
+            -2
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "addNum",
+            5
+          ],
+          [
+            "addNum",
+            -2
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        -1.0,
+        null,
+        null,
+        null,
+        3.0,
+        3.0,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            6
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        6.0,
+        6.0,
+        6.0,
+        6.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            -1
+          ],
+          [
+            "addNum",
+            -3
+          ],
+          [
+            "addNum",
+            -4
+          ],
+          [
+            "addNum",
+            5
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        -2.0,
+        -2.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            8
+          ],
+          [
+            "addNum",
+            9
+          ],
+          [
+            "addNum",
+            3
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "addNum",
+            7
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        8.0,
+        null,
+        7.5,
+        7.5,
+        7.5,
+        7.5,
+        7.5,
+        7.5
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            -3
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "addNum",
+            4
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        -3.0,
+        null,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            1
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "addNum",
+            -7
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "addNum",
+            -1
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        1.0,
+        1.0,
+        1.0,
+        null,
+        -3.0,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "(abcd)"
+      },
+      "expected": "dcba",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "(u(love)i)"
+      },
+      "expected": "iloveu",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "s": "(ed(et(oc))el)"
+      },
+      "expected": "leetcode",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": ""
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "abc"
+      },
+      "expected": "abc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "a(bcdefghijkl(mno)p)q"
+      },
+      "expected": "apmnolkjihgfedcbq",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "()"
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "(a(b(c)d)e)"
+      },
+      "expected": "ebcda",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "ed(cc)cd"
+      },
+      "expected": "edcccd",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "eb"
+      },
+      "expected": "eb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "()d"
+      },
+      "expected": "d",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "(bed)"
+      },
+      "expected": "deb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s": "(bc)c"
+      },
+      "expected": "cbc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "s": "ce"
+      },
+      "expected": "ce",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "s": "(a)bc"
+      },
+      "expected": "abc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "s": "a(da)"
+      },
+      "expected": "aad",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

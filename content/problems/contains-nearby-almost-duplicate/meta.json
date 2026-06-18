@@ -1,0 +1,42 @@
+{
+  "slug": "contains-nearby-almost-duplicate",
+  "title": "Contains Nearby Almost Duplicate",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "sliding-window",
+    "binary-search-tree"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "containsNearbyAlmostDuplicate",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "indexDiff",
+        "type": "int"
+      },
+      {
+        "name": "valueDiff",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

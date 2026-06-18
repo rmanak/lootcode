@@ -1,0 +1,184 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "piles": [
+          3,
+          6,
+          7,
+          11
+        ],
+        "H": 8
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "piles": [
+          30,
+          11,
+          23,
+          4,
+          20
+        ],
+        "H": 5
+      },
+      "expected": 30,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "piles": [
+          30,
+          11,
+          23,
+          4,
+          20
+        ],
+        "H": 6
+      },
+      "expected": 23,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "piles": [
+          1
+        ],
+        "H": 1
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "piles": [
+          312884470
+        ],
+        "H": 312884469
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "piles": [
+          3,
+          6,
+          7,
+          11
+        ],
+        "H": 4
+      },
+      "expected": 11,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "piles": [
+          20,
+          18,
+          16,
+          13,
+          19
+        ],
+        "H": 6
+      },
+      "expected": 19,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "piles": [
+          11,
+          1,
+          16,
+          20,
+          16
+        ],
+        "H": 12
+      },
+      "expected": 7,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "piles": [
+          4,
+          6,
+          2,
+          20,
+          8
+        ],
+        "H": 12
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "piles": [
+          16,
+          12,
+          7,
+          2
+        ],
+        "H": 4
+      },
+      "expected": 16,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "piles": [
+          15,
+          20,
+          19,
+          20,
+          10,
+          15
+        ],
+        "H": 16
+      },
+      "expected": 8,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "piles": [
+          5,
+          15,
+          2
+        ],
+        "H": 6
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

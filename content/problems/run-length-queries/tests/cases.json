@@ -1,0 +1,411 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "arr": [
+          1,
+          1,
+          2,
+          2,
+          2,
+          3
+        ],
+        "queries": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      "expected": [
+        2,
+        3,
+        3
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "arr": [
+          5
+        ],
+        "queries": [
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        1
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "arr": [
+          7,
+          7,
+          7,
+          7
+        ],
+        "queries": [
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      "expected": [
+        3
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "arr": [
+          1,
+          2,
+          3
+        ],
+        "queries": [
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "arr": [
+          4,
+          4,
+          1,
+          4,
+          4,
+          4
+        ],
+        "queries": [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      "expected": [
+        2,
+        3,
+        3
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "arr": [
+          2,
+          1,
+          3,
+          3,
+          2,
+          3,
+          0,
+          3
+        ],
+        "queries": [
+          [
+            0,
+            7
+          ],
+          [
+            7,
+            7
+          ]
+        ]
+      },
+      "expected": [
+        2,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "arr": [
+          0,
+          0,
+          0,
+          0,
+          3,
+          1,
+          3
+        ],
+        "queries": [
+          [
+            2,
+            5
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            6,
+            6
+          ]
+        ]
+      },
+      "expected": [
+        2,
+        2,
+        1,
+        2,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "arr": [
+          2,
+          0,
+          2,
+          3,
+          3,
+          3,
+          1
+        ],
+        "queries": [
+          [
+            5,
+            5
+          ],
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "arr": [
+          1,
+          3,
+          3,
+          2,
+          3,
+          1,
+          2,
+          0
+        ],
+        "queries": [
+          [
+            4,
+            6
+          ]
+        ]
+      },
+      "expected": [
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "arr": [
+          0,
+          1,
+          2,
+          0,
+          0,
+          2
+        ],
+        "queries": [
+          [
+            3,
+            5
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      },
+      "expected": [
+        2,
+        2
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "arr": [
+          3,
+          0,
+          3,
+          2,
+          3
+        ],
+        "queries": [
+          [
+            0,
+            2
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        1,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "arr": [
+          3,
+          2,
+          2,
+          2,
+          3,
+          1,
+          3,
+          0,
+          2
+        ],
+        "queries": [
+          [
+            2,
+            3
+          ],
+          [
+            8,
+            8
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            6,
+            8
+          ]
+        ]
+      },
+      "expected": [
+        2,
+        1,
+        3,
+        1,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "arr": [
+          2,
+          2,
+          0,
+          0,
+          0,
+          3,
+          3,
+          0
+        ],
+        "queries": [
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      "expected": [
+        1,
+        1,
+        2
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

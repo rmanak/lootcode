@@ -1,0 +1,39 @@
+{
+  "slug": "maximum-number-of-non-overlapping-subarrays-with-sum-equals-target",
+  "title": "Maximum Number of Non-Overlapping Subarrays With Sum Equals Target",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "greedy",
+    "prefix-sum"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxNonOverlapping",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,491 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "stock": {
+          "A": 5
+        },
+        "requests": [
+          [
+            "A",
+            3
+          ],
+          [
+            "A",
+            3
+          ],
+          [
+            "A",
+            2
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        false,
+        true
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "stock": {},
+        "requests": [
+          [
+            "B",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        false
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "stock": {
+          "A": 0
+        },
+        "requests": [
+          [
+            "A",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "stock": {
+          "A": 3,
+          "B": 2
+        },
+        "requests": [
+          [
+            "A",
+            2
+          ],
+          [
+            "B",
+            2
+          ],
+          [
+            "A",
+            2
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "stock": {
+          "X": 10
+        },
+        "requests": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "stock": {
+          "C": 2
+        },
+        "requests": [
+          [
+            "C",
+            4
+          ]
+        ]
+      },
+      "expected": [
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "stock": {
+          "A": 7,
+          "B": 7
+        },
+        "requests": [
+          [
+            "B",
+            6
+          ],
+          [
+            "C",
+            6
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "stock": {
+          "A": 9,
+          "C": 8
+        },
+        "requests": [
+          [
+            "A",
+            6
+          ],
+          [
+            "B",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "stock": {
+          "A": 0,
+          "B": 0
+        },
+        "requests": [
+          [
+            "A",
+            1
+          ],
+          [
+            "A",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "stock": {
+          "A": 7,
+          "B": 4,
+          "C": 5
+        },
+        "requests": [
+          [
+            "A",
+            2
+          ],
+          [
+            "C",
+            6
+          ],
+          [
+            "A",
+            6
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "stock": {
+          "A": 4,
+          "B": 4
+        },
+        "requests": [
+          [
+            "B",
+            2
+          ],
+          [
+            "C",
+            3
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "stock": {
+          "A": 6,
+          "C": 10
+        },
+        "requests": [
+          [
+            "C",
+            2
+          ],
+          [
+            "C",
+            3
+          ],
+          [
+            "A",
+            5
+          ],
+          [
+            "A",
+            5
+          ],
+          [
+            "A",
+            4
+          ],
+          [
+            "C",
+            2
+          ],
+          [
+            "B",
+            5
+          ],
+          [
+            "C",
+            4
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "stock": {
+          "C": 2
+        },
+        "requests": [
+          [
+            "C",
+            3
+          ],
+          [
+            "B",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "stock": {
+          "B": 0,
+          "C": 0
+        },
+        "requests": [
+          [
+            "B",
+            1
+          ],
+          [
+            "B",
+            1
+          ],
+          [
+            "C",
+            4
+          ],
+          [
+            "C",
+            2
+          ],
+          [
+            "A",
+            4
+          ],
+          [
+            "A",
+            5
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "stock": {
+          "A": 4,
+          "C": 1
+        },
+        "requests": [
+          [
+            "A",
+            6
+          ],
+          [
+            "A",
+            5
+          ],
+          [
+            "C",
+            6
+          ],
+          [
+            "C",
+            4
+          ],
+          [
+            "B",
+            6
+          ],
+          [
+            "A",
+            6
+          ],
+          [
+            "A",
+            2
+          ],
+          [
+            "B",
+            5
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "stock": {
+          "A": 8,
+          "B": 10,
+          "C": 5
+        },
+        "requests": [
+          [
+            "A",
+            1
+          ],
+          [
+            "A",
+            6
+          ],
+          [
+            "C",
+            2
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "stock": {
+          "A": 10,
+          "B": 5
+        },
+        "requests": [
+          [
+            "B",
+            4
+          ]
+        ]
+      },
+      "expected": [
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

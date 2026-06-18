@@ -1,0 +1,190 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "nums": [
+          4,
+          3,
+          2,
+          3,
+          5,
+          2,
+          1
+        ],
+        "k": 4
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "k": 3
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "nums": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "k": 2
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "nums": [
+          2,
+          2,
+          2,
+          2,
+          3,
+          4,
+          5
+        ],
+        "k": 4
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "nums": [
+          4
+        ],
+        "k": 1
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "nums": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "k": 4
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "nums": [
+          6,
+          5,
+          5,
+          2
+        ],
+        "k": 4
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "nums": [
+          6,
+          5,
+          6,
+          3
+        ],
+        "k": 4
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "nums": [
+          6,
+          5,
+          3,
+          4,
+          6,
+          5
+        ],
+        "k": 6
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "nums": [
+          6,
+          1
+        ],
+        "k": 2
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "nums": [
+          2,
+          6,
+          2,
+          2,
+          4
+        ],
+        "k": 1
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "nums": [
+          6,
+          5,
+          1,
+          4,
+          1,
+          5
+        ],
+        "k": 4
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

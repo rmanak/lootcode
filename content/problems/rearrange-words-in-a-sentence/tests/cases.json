@@ -1,0 +1,139 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "text": "Leetcode is cool"
+      },
+      "expected": "Is cool leetcode",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "text": "Keep calm and code on"
+      },
+      "expected": "On and keep calm code",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "text": "To be or not to be"
+      },
+      "expected": "To be or to be not",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "text": "A"
+      },
+      "expected": "A",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "text": "Hello"
+      },
+      "expected": "Hello",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "text": "I love leetcode"
+      },
+      "expected": "I love leetcode",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "text": "Cat dog bird ox"
+      },
+      "expected": "Ox cat dog bird",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "text": "Leetcode or not to or leetcode be"
+      },
+      "expected": "Or to or be not leetcode leetcode",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "text": "A the code not to is the"
+      },
+      "expected": "A to is the not the code",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "text": "Leetcode not the leetcode"
+      },
+      "expected": "Not the leetcode leetcode",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "text": "Happy"
+      },
+      "expected": "Happy",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "text": "Is happy happy a leetcode"
+      },
+      "expected": "A is happy happy leetcode",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "text": "Code leetcode be be"
+      },
+      "expected": "Be be code leetcode",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "text": "To leetcode or"
+      },
+      "expected": "To or leetcode",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "text": "Or code or a"
+      },
+      "expected": "A or or code",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

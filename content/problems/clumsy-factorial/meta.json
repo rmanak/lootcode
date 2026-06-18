@@ -1,0 +1,33 @@
+{
+  "slug": "clumsy-factorial",
+  "title": "Clumsy Factorial",
+  "difficulty": "medium",
+  "tags": [
+    "stack",
+    "simulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "clumsy",
+    "params": [
+      {
+        "name": "N",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

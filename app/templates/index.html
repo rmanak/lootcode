@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Problems · {{ app_name }}{% endblock %}
+{% block content %}
+<h1>Problems</h1>
+
+{% include "_quick_picks.html" %}
+
+<form class="filters" method="get">
+  <input type="search" name="q" placeholder="Search title…" value="{{ f_q }}">
+  <select name="difficulty">
+    <option value="">All difficulties</option>
+    {% for d in ["easy", "medium", "hard"] %}
+      <option value="{{ d }}" {{ 'selected' if f_difficulty == d }}>{{ d|capitalize }}</option>
+    {% endfor %}
+  </select>
+  <select name="topic">
+    <option value="">All topics</option>
+    {% for t in all_topics %}
+      <option value="{{ t }}" {{ 'selected' if f_topic == t }}>{{ t }}</option>
+    {% endfor %}
+  </select>
+  <label class="check"><input type="checkbox" name="unsolved" value="1" {{ 'checked' if f_unsolved }}> Unsolved only</label>
+  <label class="check"><input type="checkbox" name="solved" value="1" {{ 'checked' if f_solved }}> Solved only</label>
+  <button type="submit">Filter</button>
+  <a class="reset" href="/">Reset</a>
+</form>
+
+{% if topic_counts %}
+{# Category bar: top topics by count; the rest expand via a pure-CSS checkbox
+   toggle. Each chip filters the list to that topic. #}
+<div class="topic-bar-wrap">
+  <input type="checkbox" id="topic-expand" class="topic-expand-cb" {{ 'checked' if topic_expanded }}>
+  <div class="topic-bar">
+    {% for tc in topic_counts %}
+    <a class="topic-chip {{ 'active' if f_topic == tc.topic }}{{ ' topic-extra' if loop.index0 >= topic_top_n }}"
+       href="/?topic={{ tc.topic | urlencode }}">{{ tc.topic }}
+      <span class="tc-count">{{ tc.count }}</span></a>
+    {% endfor %}
+    {% if topic_counts | length > topic_top_n %}
+    <label class="topic-toggle" for="topic-expand">
+      <span class="tt-expand">Expand ⌄</span>
+      <span class="tt-collapse">Collapse ⌃</span>
+    </label>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+<table class="problems">
+  <thead>
+    <tr><th></th><th>Title</th><th>Difficulty</th><th>Topics</th></tr>
+  </thead>
+  <tbody>
+    {% for p in problems %}
+    <tr>
+      <td class="solved-cell">{% if p.id in solved_ids %}<span title="Solved">✅</span>{% endif %}</td>
+      <td><a class="plink" href="/problems/{{ p.slug }}">{{ p.title }}</a></td>
+      <td><span class="badge {{ p.difficulty }}">{{ p.difficulty }}</span></td>
+      <td>{% for t in p.topics %}<a class="topic" href="/?topic={{ t | urlencode }}">{{ t }}</a>{% endfor %}</td>
+    </tr>
+    {% endfor %}
+    {% if not problems %}
+    <tr><td colspan="4" class="empty">No problems match your filters.</td></tr>
+    {% endif %}
+  </tbody>
+</table>
+
+{% if total %}
+<nav class="pagination" aria-label="Problem pages">
+  <span class="pginfo">Showing {{ range_start }}–{{ range_end }} of {{ total }}</span>
+  {% if pages > 1 %}
+    {% if page > 1 %}
+      <a href="?{{ base_qs }}{{ '&' if base_qs }}page={{ page - 1 }}" rel="prev">‹ Prev</a>
+    {% else %}
+      <span class="pg disabled">‹ Prev</span>
+    {% endif %}
+    {% for n in page_items %}
+      {% if n is none %}
+        <span class="pg gap">…</span>
+      {% elif n == page %}
+        <span class="pg current">{{ n }}</span>
+      {% else %}
+        <a href="?{{ base_qs }}{{ '&' if base_qs }}page={{ n }}">{{ n }}</a>
+      {% endif %}
+    {% endfor %}
+    {% if page < pages %}
+      <a href="?{{ base_qs }}{{ '&' if base_qs }}page={{ page + 1 }}" rel="next">Next ›</a>
+    {% else %}
+      <span class="pg disabled">Next ›</span>
+    {% endif %}
+  {% endif %}
+</nav>
+{% endif %}
+{% endblock %}

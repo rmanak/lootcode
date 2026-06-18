@@ -1,0 +1,39 @@
+{
+  "slug": "sum-of-distances-in-tree",
+  "title": "Sum of Distances in Tree",
+  "difficulty": "hard",
+  "tags": [
+    "tree",
+    "graph",
+    "depth-first-search",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "sumOfDistancesInTree",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,35 @@
+{
+  "slug": "longest-chunked-palindrome-decomposition",
+  "title": "Longest Chunked Palindrome Decomposition",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "greedy",
+    "two-pointers",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "longestDecomposition",
+    "params": [
+      {
+        "name": "text",
+        "type": "str"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

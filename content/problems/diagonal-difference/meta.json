@@ -1,0 +1,32 @@
+{
+  "slug": "diagonal-difference",
+  "title": "Diagonal Sum Difference",
+  "difficulty": "easy",
+  "tags": [
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "diagonalDifference",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

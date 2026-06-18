@@ -1,0 +1,511 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "k": 2,
+        "operations": [
+          [
+            "add",
+            "ice cream",
+            3
+          ],
+          [
+            "add",
+            "icing",
+            2
+          ],
+          [
+            "add",
+            "igloo",
+            5
+          ],
+          [
+            "query",
+            "i"
+          ],
+          [
+            "query",
+            "ic"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        [
+          "igloo",
+          "ice cream"
+        ],
+        [
+          "ice cream",
+          "icing"
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "k": 2,
+        "operations": [
+          [
+            "add",
+            "cat",
+            1
+          ],
+          [
+            "add",
+            "car",
+            1
+          ],
+          [
+            "query",
+            "ca"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        [
+          "car",
+          "cat"
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "k": 1,
+        "operations": [
+          [
+            "query",
+            "z"
+          ]
+        ]
+      },
+      "expected": [
+        []
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "k": 3,
+        "operations": [
+          [
+            "add",
+            "a",
+            1
+          ],
+          [
+            "add",
+            "ab",
+            1
+          ],
+          [
+            "add",
+            "abc",
+            1
+          ],
+          [
+            "query",
+            "a"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        [
+          "a",
+          "ab",
+          "abc"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "k": 1,
+        "operations": [
+          [
+            "add",
+            "x",
+            1
+          ],
+          [
+            "add",
+            "x",
+            5
+          ],
+          [
+            "query",
+            "x"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        [
+          "x"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "k": 3,
+        "operations": [
+          [
+            "add",
+            "bad",
+            5
+          ],
+          [
+            "add",
+            "bad",
+            3
+          ],
+          [
+            "query",
+            "ab"
+          ],
+          [
+            "add",
+            "ba",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        [],
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "k": 2,
+        "operations": [
+          [
+            "add",
+            "abd",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "k": 2,
+        "operations": [
+          [
+            "add",
+            "abd",
+            4
+          ],
+          [
+            "query",
+            "ab"
+          ],
+          [
+            "add",
+            "ba",
+            4
+          ],
+          [
+            "query",
+            ""
+          ],
+          [
+            "add",
+            "abc",
+            3
+          ],
+          [
+            "add",
+            "abcd",
+            2
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        [
+          "abd"
+        ],
+        null,
+        [
+          "abd",
+          "ba"
+        ],
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "k": 1,
+        "operations": [
+          [
+            "query",
+            ""
+          ],
+          [
+            "add",
+            "abcd",
+            2
+          ]
+        ]
+      },
+      "expected": [
+        [],
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "k": 1,
+        "operations": [
+          [
+            "query",
+            "ab"
+          ]
+        ]
+      },
+      "expected": [
+        []
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "k": 1,
+        "operations": [
+          [
+            "query",
+            "ab"
+          ],
+          [
+            "add",
+            "ba",
+            5
+          ],
+          [
+            "query",
+            "a"
+          ],
+          [
+            "add",
+            "ab",
+            3
+          ]
+        ]
+      },
+      "expected": [
+        [],
+        null,
+        [],
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "k": 2,
+        "operations": [
+          [
+            "query",
+            "abc"
+          ],
+          [
+            "query",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        [],
+        []
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "k": 2,
+        "operations": [
+          [
+            "add",
+            "abcd",
+            1
+          ],
+          [
+            "query",
+            "b"
+          ],
+          [
+            "query",
+            ""
+          ],
+          [
+            "add",
+            "ab",
+            4
+          ],
+          [
+            "query",
+            "abc"
+          ],
+          [
+            "add",
+            "bad",
+            3
+          ],
+          [
+            "query",
+            "b"
+          ],
+          [
+            "add",
+            "ab",
+            5
+          ],
+          [
+            "add",
+            "abc",
+            3
+          ],
+          [
+            "add",
+            "abc",
+            4
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        [],
+        [
+          "abcd"
+        ],
+        null,
+        [
+          "abcd"
+        ],
+        null,
+        [
+          "bad"
+        ],
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "k": 3,
+        "operations": [
+          [
+            "add",
+            "ba",
+            3
+          ],
+          [
+            "query",
+            ""
+          ],
+          [
+            "add",
+            "ba",
+            3
+          ],
+          [
+            "query",
+            "b"
+          ],
+          [
+            "add",
+            "abcd",
+            5
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        [
+          "ba"
+        ],
+        null,
+        [
+          "ba"
+        ],
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "k": 3,
+        "operations": [
+          [
+            "add",
+            "abc",
+            5
+          ],
+          [
+            "add",
+            "abd",
+            5
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

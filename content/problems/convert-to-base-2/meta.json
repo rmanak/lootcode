@@ -1,0 +1,32 @@
+{
+  "slug": "convert-to-base-2",
+  "title": "Convert to Base -2",
+  "difficulty": "medium",
+  "tags": [
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "baseNeg2",
+    "params": [
+      {
+        "name": "N",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

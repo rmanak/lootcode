@@ -1,0 +1,33 @@
+{
+  "slug": "reverse-substrings-between-each-pair-of-parentheses",
+  "title": "Reverse Substrings Between Each Pair of Parentheses",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "stack"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "reverseParentheses",
+    "params": [
+      {
+        "name": "s",
+        "type": "str"
+      }
+    ],
+    "returns": {
+      "type": "str"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

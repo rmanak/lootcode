@@ -1,0 +1,37 @@
+{
+  "slug": "teemo-attacking",
+  "title": "Teemo Attacking",
+  "difficulty": "easy",
+  "tags": [
+    "array",
+    "simulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findPoisonedDuration",
+    "params": [
+      {
+        "name": "timeSeries",
+        "type": "int[]"
+      },
+      {
+        "name": "duration",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

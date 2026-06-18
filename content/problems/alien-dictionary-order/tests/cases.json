@@ -1,0 +1,178 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "words": [
+          "wrt",
+          "wrf",
+          "er",
+          "ett",
+          "rftt"
+        ]
+      },
+      "expected": "wertf",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "words": [
+          "z",
+          "x"
+        ]
+      },
+      "expected": "zx",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "words": [
+          "z",
+          "x",
+          "z"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "words": [
+          "abc",
+          "ab"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "words": [
+          "a"
+        ]
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "words": [
+          "ba",
+          "bc",
+          "ac"
+        ]
+      },
+      "expected": "bac",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "words": [
+          "ac",
+          "b"
+        ]
+      },
+      "expected": "abc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "words": [
+          "ac"
+        ]
+      },
+      "expected": "ac",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "words": [
+          "cb",
+          "aaa"
+        ]
+      },
+      "expected": "bca",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "words": [
+          "bcb",
+          "bba",
+          "aca"
+        ]
+      },
+      "expected": "cba",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "words": [
+          "aab",
+          "c",
+          "bca",
+          "a"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "words": [
+          "cac",
+          "abb"
+        ]
+      },
+      "expected": "bca",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "words": [
+          "c",
+          "b",
+          "abb"
+        ]
+      },
+      "expected": "cba",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "words": [
+          "a"
+        ]
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

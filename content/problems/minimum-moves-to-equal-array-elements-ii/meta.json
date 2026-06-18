@@ -1,0 +1,33 @@
+{
+  "slug": "minimum-moves-to-equal-array-elements-ii",
+  "title": "Minimum Moves to Equal Array Elements II",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minMoves2",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

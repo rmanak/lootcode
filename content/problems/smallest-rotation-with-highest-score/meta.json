@@ -1,0 +1,33 @@
+{
+  "slug": "smallest-rotation-with-highest-score",
+  "title": "Smallest Rotation with Highest Score",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "prefix-sum"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "bestRotation",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

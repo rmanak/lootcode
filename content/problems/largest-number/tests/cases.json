@@ -1,0 +1,176 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "nums": [
+          10,
+          2
+        ]
+      },
+      "expected": "210",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "nums": [
+          3,
+          30,
+          34,
+          5,
+          9
+        ]
+      },
+      "expected": "9534330",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "nums": [
+          0,
+          0
+        ]
+      },
+      "expected": "0",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "nums": [
+          0
+        ]
+      },
+      "expected": "0",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "nums": [
+          1
+        ]
+      },
+      "expected": "1",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "nums": [
+          121,
+          12
+        ]
+      },
+      "expected": "12121",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "nums": [
+          432,
+          43243
+        ]
+      },
+      "expected": "43243432",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "nums": [
+          10,
+          0,
+          1
+        ]
+      },
+      "expected": "1100",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "nums": [
+          19
+        ]
+      },
+      "expected": "19",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "nums": [
+          47
+        ]
+      },
+      "expected": "47",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "nums": [
+          30,
+          29,
+          30,
+          44
+        ]
+      },
+      "expected": "44303029",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "nums": [
+          13,
+          46,
+          0,
+          4
+        ]
+      },
+      "expected": "464130",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "nums": [
+          36
+        ]
+      },
+      "expected": "36",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "nums": [
+          0,
+          47,
+          22
+        ]
+      },
+      "expected": "47220",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

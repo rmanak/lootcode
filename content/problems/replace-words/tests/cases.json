@@ -1,0 +1,137 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "dictionary": [
+          "cat",
+          "bat",
+          "rat"
+        ],
+        "sentence": "the cattle was rattled by the battery"
+      },
+      "expected": "the cat was rat by the bat",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "dictionary": [
+          "a",
+          "b",
+          "c"
+        ],
+        "sentence": "aadsfasf absbs bbab cadsfafs"
+      },
+      "expected": "a a b c",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "dictionary": [
+          "catt",
+          "cat",
+          "bat",
+          "rat"
+        ],
+        "sentence": "the cattle was rattled by the battery"
+      },
+      "expected": "the cat was rat by the bat",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "dictionary": [
+          "se",
+          "association"
+        ],
+        "sentence": "the search engine"
+      },
+      "expected": "the se engine",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "dictionary": [
+          "bb"
+        ],
+        "sentence": "babb abbbb aa aabb"
+      },
+      "expected": "babb abbbb aa aabb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "dictionary": [
+          "a"
+        ],
+        "sentence": "ba abaa"
+      },
+      "expected": "ba a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "dictionary": [
+          "abb",
+          "bb",
+          "aaa"
+        ],
+        "sentence": "baaab aa bb"
+      },
+      "expected": "baaab aa bb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "dictionary": [
+          "abb"
+        ],
+        "sentence": "a"
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "dictionary": [
+          "aba",
+          "b"
+        ],
+        "sentence": "bbab"
+      },
+      "expected": "b",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "dictionary": [
+          "ab",
+          "aaa",
+          "ba"
+        ],
+        "sentence": "aa"
+      },
+      "expected": "aa",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

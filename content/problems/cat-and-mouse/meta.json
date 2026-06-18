@@ -1,0 +1,35 @@
+{
+  "slug": "cat-and-mouse",
+  "title": "Cat and Mouse",
+  "difficulty": "hard",
+  "tags": [
+    "graph",
+    "breadth-first-search",
+    "dynamic-programming",
+    "memoization"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "catMouseGame",
+    "params": [
+      {
+        "name": "graph",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

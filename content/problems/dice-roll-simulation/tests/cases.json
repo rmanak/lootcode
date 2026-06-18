@@ -1,0 +1,225 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "n": 2,
+        "rollMax": [
+          1,
+          1,
+          2,
+          2,
+          2,
+          3
+        ]
+      },
+      "expected": 34,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "n": 2,
+        "rollMax": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 30,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "n": 3,
+        "rollMax": [
+          1,
+          1,
+          1,
+          2,
+          2,
+          3
+        ]
+      },
+      "expected": 181,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "n": 1,
+        "rollMax": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "n": 3,
+        "rollMax": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ]
+      },
+      "expected": 216,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "n": 2,
+        "rollMax": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "expected": 36,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "n": 4,
+        "rollMax": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 750,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "n": 4,
+        "rollMax": [
+          3,
+          2,
+          3,
+          2,
+          1,
+          2
+        ]
+      },
+      "expected": 1165,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "n": 3,
+        "rollMax": [
+          2,
+          1,
+          3,
+          2,
+          2,
+          1
+        ]
+      },
+      "expected": 191,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "n": 3,
+        "rollMax": [
+          3,
+          1,
+          2,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": 192,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "n": 1,
+        "rollMax": [
+          3,
+          3,
+          1,
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "n": 4,
+        "rollMax": [
+          1,
+          3,
+          3,
+          1,
+          3,
+          2
+        ]
+      },
+      "expected": 1092,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "n": 1,
+        "rollMax": [
+          3,
+          3,
+          3,
+          2,
+          3,
+          2
+        ]
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

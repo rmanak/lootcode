@@ -1,0 +1,33 @@
+{
+  "slug": "soup-servings",
+  "title": "Soup Servings",
+  "difficulty": "medium",
+  "tags": [
+    "dynamic-programming",
+    "memoization"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "soupServings",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "float"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

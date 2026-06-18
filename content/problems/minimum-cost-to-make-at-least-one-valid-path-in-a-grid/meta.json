@@ -1,0 +1,35 @@
+{
+  "slug": "minimum-cost-to-make-at-least-one-valid-path-in-a-grid",
+  "title": "Minimum Cost to Make at Least One Valid Path in a Grid",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "breadth-first-search",
+    "graph",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minCost",
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

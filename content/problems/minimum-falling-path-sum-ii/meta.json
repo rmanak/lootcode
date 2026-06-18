@@ -1,0 +1,34 @@
+{
+  "slug": "minimum-falling-path-sum-ii",
+  "title": "Minimum Falling Path Sum II",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minFallingPathSumII",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

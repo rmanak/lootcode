@@ -1,0 +1,232 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "words": [
+          "i",
+          "love",
+          "leetcode",
+          "i",
+          "love",
+          "coding"
+        ],
+        "k": 2
+      },
+      "expected": [
+        "i",
+        "love"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "words": [
+          "the",
+          "day",
+          "is",
+          "sunny",
+          "the",
+          "the",
+          "the",
+          "sunny",
+          "is",
+          "is"
+        ],
+        "k": 4
+      },
+      "expected": [
+        "the",
+        "is",
+        "sunny",
+        "day"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "words": [
+          "a"
+        ],
+        "k": 1
+      },
+      "expected": [
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "words": [
+          "b",
+          "a",
+          "b",
+          "a",
+          "c"
+        ],
+        "k": 2
+      },
+      "expected": [
+        "a",
+        "b"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "words": [
+          "z",
+          "z",
+          "y",
+          "y",
+          "x"
+        ],
+        "k": 3
+      },
+      "expected": [
+        "y",
+        "z",
+        "x"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "words": [
+          "cc",
+          "z",
+          "b",
+          "z",
+          "z",
+          "bb",
+          "z",
+          "b",
+          "cc",
+          "z",
+          "b",
+          "a"
+        ],
+        "k": 4
+      },
+      "expected": [
+        "z",
+        "b",
+        "cc",
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "words": [
+          "ab",
+          "z",
+          "b"
+        ],
+        "k": 1
+      },
+      "expected": [
+        "ab"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "words": [
+          "bb"
+        ],
+        "k": 1
+      },
+      "expected": [
+        "bb"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "words": [
+          "b",
+          "abc",
+          "ab",
+          "ab",
+          "abc",
+          "b",
+          "bb",
+          "a",
+          "z"
+        ],
+        "k": 4
+      },
+      "expected": [
+        "ab",
+        "abc",
+        "b",
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "words": [
+          "cc",
+          "ab",
+          "bb",
+          "ab",
+          "z",
+          "abc",
+          "z",
+          "a",
+          "a",
+          "b"
+        ],
+        "k": 3
+      },
+      "expected": [
+        "a",
+        "ab",
+        "z"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "words": [
+          "abc",
+          "bb",
+          "ab",
+          "ab",
+          "abc",
+          "cc",
+          "cc",
+          "ab"
+        ],
+        "k": 1
+      },
+      "expected": [
+        "ab"
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

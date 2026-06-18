@@ -1,0 +1,144 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "x": 2.0,
+        "n": 10
+      },
+      "expected": 1024.0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "x": 2.1,
+        "n": 3
+      },
+      "expected": 9.261,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "x": 2.0,
+        "n": -2
+      },
+      "expected": 0.25,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "x": 1.0,
+        "n": 2147483647
+      },
+      "expected": 1.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "x": 3.0,
+        "n": 0
+      },
+      "expected": 1.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "x": 0.5,
+        "n": 4
+      },
+      "expected": 0.0625,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "x": -2.0,
+        "n": 3
+      },
+      "expected": -8.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "x": 2.0,
+        "n": 1
+      },
+      "expected": 2.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "x": -0.99,
+        "n": -4
+      },
+      "expected": 1.04102,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "x": -1.06,
+        "n": -4
+      },
+      "expected": 0.79209,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "x": 1.29,
+        "n": -1
+      },
+      "expected": 0.77519,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "x": 2.52,
+        "n": 2
+      },
+      "expected": 6.3504,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "x": 2.39,
+        "n": -4
+      },
+      "expected": 0.03065,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "x": -2.71,
+        "n": 3
+      },
+      "expected": -19.90251,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "board": [
+          [
+            "o",
+            "a",
+            "a",
+            "n"
+          ],
+          [
+            "e",
+            "t",
+            "a",
+            "e"
+          ],
+          [
+            "i",
+            "h",
+            "k",
+            "r"
+          ],
+          [
+            "i",
+            "f",
+            "l",
+            "v"
+          ]
+        ],
+        "words": [
+          "oath",
+          "pea",
+          "eat",
+          "rain"
+        ]
+      },
+      "expected": [
+        "oath",
+        "eat"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "board": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "c",
+            "d"
+          ]
+        ],
+        "words": [
+          "abcb"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "board": [
+          [
+            "a"
+          ]
+        ],
+        "words": [
+          "a"
+        ]
+      },
+      "expected": [
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "board": [
+          [
+            "a"
+          ]
+        ],
+        "words": [
+          "b"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "board": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "c",
+            "d"
+          ]
+        ],
+        "words": [
+          "abdc",
+          "ab",
+          "acdb"
+        ]
+      },
+      "expected": [
+        "acdb",
+        "ab",
+        "abdc"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "board": [
+          [
+            "c",
+            "a"
+          ],
+          [
+            "b",
+            "c"
+          ]
+        ],
+        "words": [
+          "accc",
+          "ac"
+        ]
+      },
+      "expected": [
+        "ac"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "board": [
+          [
+            "b"
+          ],
+          [
+            "a"
+          ]
+        ],
+        "words": [
+          "bcab",
+          "c"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "board": [
+          [
+            "c",
+            "b",
+            "b"
+          ],
+          [
+            "c",
+            "b",
+            "c"
+          ],
+          [
+            "a",
+            "c",
+            "b"
+          ]
+        ],
+        "words": [
+          "cbca",
+          "cbba",
+          "ac",
+          "a"
+        ]
+      },
+      "expected": [
+        "cbca",
+        "a",
+        "ac"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "board": [
+          [
+            "c",
+            "a",
+            "c"
+          ],
+          [
+            "b",
+            "b",
+            "b"
+          ]
+        ],
+        "words": [
+          "a"
+        ]
+      },
+      "expected": [
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

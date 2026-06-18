@@ -1,0 +1,35 @@
+{
+  "slug": "minimum-moves-to-move-a-box-to-their-target-location",
+  "title": "Minimum Moves to Move a Box to Their Target Location",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "breadth-first-search",
+    "heap",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minPushBox",
+    "params": [
+      {
+        "name": "grid",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

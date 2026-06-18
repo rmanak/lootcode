@@ -1,0 +1,47 @@
+{
+  "slug": "largest-values-from-labels",
+  "title": "Largest Values From Labels",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "greedy",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "largestValsFromLabels",
+    "params": [
+      {
+        "name": "values",
+        "type": "int[]"
+      },
+      {
+        "name": "labels",
+        "type": "int[]"
+      },
+      {
+        "name": "numWanted",
+        "type": "int"
+      },
+      {
+        "name": "useLimit",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,46 @@
+{
+  "slug": "maximum-number-of-occurrences-of-a-substring",
+  "title": "Maximum Number of Occurrences of a Substring",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "hash-table",
+    "sliding-window"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxFreq",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "maxLetters",
+        "type": "int"
+      },
+      {
+        "name": "minSize",
+        "type": "int"
+      },
+      {
+        "name": "maxSize",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

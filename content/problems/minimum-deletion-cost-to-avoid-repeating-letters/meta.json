@@ -1,0 +1,39 @@
+{
+  "slug": "minimum-deletion-cost-to-avoid-repeating-letters",
+  "title": "Minimum Deletion Cost to Avoid Repeating Letters",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "string",
+    "greedy",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minCost",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "cost",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

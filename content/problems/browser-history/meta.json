@@ -1,0 +1,37 @@
+{
+  "slug": "browser-history",
+  "title": "Design Browser History",
+  "difficulty": "medium",
+  "tags": [
+    "stack",
+    "array"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "browserHistory",
+    "params": [
+      {
+        "name": "homepage",
+        "type": "string"
+      },
+      {
+        "name": "operations",
+        "type": "any[][]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

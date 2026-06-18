@@ -1,0 +1,333 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "board": [
+          [
+            "A",
+            "B",
+            "C",
+            "E"
+          ],
+          [
+            "S",
+            "F",
+            "C",
+            "S"
+          ],
+          [
+            "A",
+            "D",
+            "E",
+            "E"
+          ]
+        ],
+        "word": "ABCCED"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "board": [
+          [
+            "A",
+            "B",
+            "C",
+            "E"
+          ],
+          [
+            "S",
+            "F",
+            "C",
+            "S"
+          ],
+          [
+            "A",
+            "D",
+            "E",
+            "E"
+          ]
+        ],
+        "word": "SEE"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "board": [
+          [
+            "A",
+            "B",
+            "C",
+            "E"
+          ],
+          [
+            "S",
+            "F",
+            "C",
+            "S"
+          ],
+          [
+            "A",
+            "D",
+            "E",
+            "E"
+          ]
+        ],
+        "word": "ABCB"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "board": [
+          [
+            "A"
+          ]
+        ],
+        "word": "A"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "board": [
+          [
+            "A"
+          ]
+        ],
+        "word": "B"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "board": [
+          [
+            "A",
+            "B"
+          ],
+          [
+            "C",
+            "D"
+          ]
+        ],
+        "word": "ABDC"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "board": [
+          [
+            "A",
+            "A"
+          ]
+        ],
+        "word": "AAA"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "board": [
+          [
+            "D",
+            "D",
+            "B",
+            "C"
+          ],
+          [
+            "A",
+            "A",
+            "D",
+            "B"
+          ],
+          [
+            "D",
+            "B",
+            "C",
+            "C"
+          ]
+        ],
+        "word": "CBC"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "board": [
+          [
+            "D",
+            "D",
+            "B",
+            "C"
+          ],
+          [
+            "A",
+            "A",
+            "D",
+            "B"
+          ],
+          [
+            "D",
+            "B",
+            "C",
+            "C"
+          ]
+        ],
+        "word": "ACD"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "board": [
+          [
+            "A"
+          ],
+          [
+            "C"
+          ]
+        ],
+        "word": "AC"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "board": [
+          [
+            "A"
+          ],
+          [
+            "C"
+          ]
+        ],
+        "word": "D"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "board": [
+          [
+            "B"
+          ],
+          [
+            "C"
+          ]
+        ],
+        "word": "B"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "board": [
+          [
+            "B"
+          ],
+          [
+            "C"
+          ]
+        ],
+        "word": "DCAAD"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "board": [
+          [
+            "C",
+            "C"
+          ],
+          [
+            "B",
+            "D"
+          ],
+          [
+            "D",
+            "A"
+          ],
+          [
+            "B",
+            "A"
+          ]
+        ],
+        "word": "BDBA"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "board": [
+          [
+            "C",
+            "C"
+          ],
+          [
+            "B",
+            "D"
+          ],
+          [
+            "D",
+            "A"
+          ],
+          [
+            "B",
+            "A"
+          ]
+        ],
+        "word": "C"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

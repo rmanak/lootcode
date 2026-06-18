@@ -1,0 +1,37 @@
+{
+  "slug": "longest-common-subsequence",
+  "title": "Longest Common Subsequence",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "longestCommonSubsequence",
+    "params": [
+      {
+        "name": "text1",
+        "type": "string"
+      },
+      {
+        "name": "text2",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

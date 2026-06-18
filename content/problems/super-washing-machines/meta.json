@@ -1,0 +1,34 @@
+{
+  "slug": "super-washing-machines",
+  "title": "Super Washing Machines",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "greedy",
+    "prefix-sum"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findMinMoves",
+    "params": [
+      {
+        "name": "machines",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

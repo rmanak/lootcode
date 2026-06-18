@@ -1,0 +1,46 @@
+{
+  "slug": "find-and-replace-in-string",
+  "title": "Find And Replace in String",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "string",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findReplaceString",
+    "params": [
+      {
+        "name": "S",
+        "type": "string"
+      },
+      {
+        "name": "indexes",
+        "type": "int[]"
+      },
+      {
+        "name": "sources",
+        "type": "string[]"
+      },
+      {
+        "name": "targets",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

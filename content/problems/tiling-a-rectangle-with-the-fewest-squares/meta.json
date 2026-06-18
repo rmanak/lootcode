@@ -1,0 +1,37 @@
+{
+  "slug": "tiling-a-rectangle-with-the-fewest-squares",
+  "title": "Tiling a Rectangle with the Fewest Squares",
+  "difficulty": "hard",
+  "tags": [
+    "dynamic-programming",
+    "backtracking"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "tilingRectangle",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "m",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

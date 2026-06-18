@@ -1,0 +1,212 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "transactions": [
+          "alice,20,800,mtv",
+          "alice,50,100,beijing"
+        ]
+      },
+      "expected": [
+        "alice,20,800,mtv",
+        "alice,50,100,beijing"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "transactions": [
+          "alice,20,800,mtv",
+          "alice,50,1200,mtv"
+        ]
+      },
+      "expected": [
+        "alice,50,1200,mtv"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "transactions": [
+          "alice,20,800,mtv",
+          "bob,50,1200,mtv"
+        ]
+      },
+      "expected": [
+        "bob,50,1200,mtv"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "transactions": [
+          "alice,20,800,mtv"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "transactions": [
+          "bob,689,1029,barcelona"
+        ]
+      },
+      "expected": [
+        "bob,689,1029,barcelona"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "transactions": [
+          "alice,20,800,mtv",
+          "alice,85,800,beijing"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "transactions": [
+          "alice,25,1311,beijing",
+          "carol,145,145,beijing",
+          "alice,119,1800,beijing",
+          "bob,54,832,mtv"
+        ]
+      },
+      "expected": [
+        "alice,25,1311,beijing",
+        "alice,119,1800,beijing"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "transactions": [
+          "carol,191,558,mtv",
+          "alice,139,745,la"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "transactions": [
+          "alice,7,1229,mtv",
+          "bob,140,1220,beijing",
+          "bob,196,1429,beijing",
+          "bob,165,1954,mtv",
+          "carol,166,1364,la"
+        ]
+      },
+      "expected": [
+        "alice,7,1229,mtv",
+        "bob,140,1220,beijing",
+        "bob,196,1429,beijing",
+        "bob,165,1954,mtv",
+        "carol,166,1364,la"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "transactions": [
+          "carol,42,993,beijing",
+          "carol,190,1767,mtv",
+          "carol,34,1076,beijing",
+          "bob,199,26,la"
+        ]
+      },
+      "expected": [
+        "carol,190,1767,mtv",
+        "carol,34,1076,beijing"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "transactions": [
+          "bob,174,1799,la"
+        ]
+      },
+      "expected": [
+        "bob,174,1799,la"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "transactions": [
+          "alice,58,1570,mtv",
+          "carol,110,52,beijing",
+          "bob,109,1393,beijing",
+          "carol,107,861,mtv"
+        ]
+      },
+      "expected": [
+        "alice,58,1570,mtv",
+        "carol,110,52,beijing",
+        "bob,109,1393,beijing",
+        "carol,107,861,mtv"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "transactions": [
+          "alice,162,714,beijing",
+          "bob,156,1353,la",
+          "alice,95,1500,la"
+        ]
+      },
+      "expected": [
+        "bob,156,1353,la",
+        "alice,95,1500,la"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "transactions": [
+          "bob,80,1567,beijing",
+          "carol,86,982,beijing"
+        ]
+      },
+      "expected": [
+        "bob,80,1567,beijing"
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

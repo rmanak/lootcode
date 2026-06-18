@@ -1,0 +1,124 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "n": 3,
+        "k": 3
+      },
+      "expected": "213",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "n": 4,
+        "k": 9
+      },
+      "expected": "2314",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "n": 1,
+        "k": 1
+      },
+      "expected": "1",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "n": 3,
+        "k": 1
+      },
+      "expected": "123",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "n": 3,
+        "k": 6
+      },
+      "expected": "321",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "n": 4,
+        "k": 24
+      },
+      "expected": "4321",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "n": 6,
+        "k": 494
+      },
+      "expected": "514263",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "n": 1,
+        "k": 1
+      },
+      "expected": "1",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "n": 1,
+        "k": 1
+      },
+      "expected": "1",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "n": 1,
+        "k": 1
+      },
+      "expected": "1",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "n": 5,
+        "k": 112
+      },
+      "expected": "53241",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "n": 5,
+        "k": 43
+      },
+      "expected": "25134",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

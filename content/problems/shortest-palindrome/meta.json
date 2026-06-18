@@ -1,0 +1,33 @@
+{
+  "slug": "shortest-palindrome",
+  "title": "Shortest Palindrome",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "shortestPalindrome",
+    "params": [
+      {
+        "name": "s",
+        "type": "str"
+      }
+    ],
+    "returns": {
+      "type": "str"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,34 @@
+{
+  "slug": "split-a-string-into-the-max-number-of-unique-substrings",
+  "title": "Split a String Into the Max Number of Unique Substrings",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "backtracking",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxUniqueSplit",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

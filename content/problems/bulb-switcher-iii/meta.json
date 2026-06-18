@@ -1,0 +1,33 @@
+{
+  "slug": "bulb-switcher-iii",
+  "title": "Bulb Switcher III",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "numTimesAllBlue",
+    "params": [
+      {
+        "name": "light",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,33 @@
+{
+  "slug": "string-compression",
+  "title": "String Compression",
+  "difficulty": "easy",
+  "tags": [
+    "string",
+    "two-pointers"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "compress",
+    "params": [
+      {
+        "name": "chars",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

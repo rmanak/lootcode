@@ -1,0 +1,546 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "transactions": [
+          [
+            "a",
+            "b",
+            5
+          ],
+          [
+            "b",
+            "c",
+            2
+          ]
+        ]
+      },
+      "expected": {
+        "a": -5,
+        "b": 3,
+        "c": 2
+      },
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "transactions": []
+      },
+      "expected": {},
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "transactions": [
+          [
+            "a",
+            "b",
+            10
+          ]
+        ]
+      },
+      "expected": {
+        "a": -10,
+        "b": 10
+      },
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "transactions": [
+          [
+            "x",
+            "y",
+            3
+          ],
+          [
+            "y",
+            "x",
+            3
+          ]
+        ]
+      },
+      "expected": {
+        "x": 0,
+        "y": 0
+      },
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "transactions": [
+          [
+            "a",
+            "b",
+            1
+          ],
+          [
+            "a",
+            "c",
+            2
+          ],
+          [
+            "b",
+            "c",
+            1
+          ]
+        ]
+      },
+      "expected": {
+        "a": -3,
+        "b": 0,
+        "c": 3
+      },
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "transactions": [
+          [
+            "b",
+            "a",
+            17
+          ],
+          [
+            "c",
+            "d",
+            13
+          ],
+          [
+            "d",
+            "c",
+            91
+          ],
+          [
+            "c",
+            "b",
+            95
+          ],
+          [
+            "b",
+            "a",
+            80
+          ],
+          [
+            "a",
+            "b",
+            61
+          ]
+        ]
+      },
+      "expected": {
+        "b": 59,
+        "a": 36,
+        "c": -17,
+        "d": -78
+      },
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "transactions": [
+          [
+            "a",
+            "d",
+            49
+          ],
+          [
+            "c",
+            "a",
+            47
+          ],
+          [
+            "b",
+            "d",
+            22
+          ],
+          [
+            "c",
+            "a",
+            34
+          ],
+          [
+            "a",
+            "c",
+            16
+          ],
+          [
+            "d",
+            "b",
+            93
+          ],
+          [
+            "a",
+            "b",
+            40
+          ]
+        ]
+      },
+      "expected": {
+        "a": -24,
+        "d": -22,
+        "c": -65,
+        "b": 111
+      },
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "transactions": [
+          [
+            "c",
+            "b",
+            32
+          ],
+          [
+            "b",
+            "c",
+            100
+          ],
+          [
+            "b",
+            "d",
+            54
+          ],
+          [
+            "b",
+            "c",
+            56
+          ]
+        ]
+      },
+      "expected": {
+        "c": 124,
+        "b": -178,
+        "d": 54
+      },
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "transactions": [
+          [
+            "d",
+            "c",
+            73
+          ]
+        ]
+      },
+      "expected": {
+        "d": -73,
+        "c": 73
+      },
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "transactions": [
+          [
+            "d",
+            "a",
+            75
+          ],
+          [
+            "d",
+            "c",
+            97
+          ],
+          [
+            "a",
+            "c",
+            28
+          ],
+          [
+            "a",
+            "c",
+            16
+          ]
+        ]
+      },
+      "expected": {
+        "d": -172,
+        "a": 31,
+        "c": 141
+      },
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "transactions": [
+          [
+            "c",
+            "d",
+            55
+          ],
+          [
+            "a",
+            "b",
+            17
+          ],
+          [
+            "a",
+            "b",
+            15
+          ],
+          [
+            "d",
+            "b",
+            64
+          ]
+        ]
+      },
+      "expected": {
+        "c": -55,
+        "d": -9,
+        "a": -32,
+        "b": 96
+      },
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "transactions": [
+          [
+            "c",
+            "d",
+            65
+          ],
+          [
+            "d",
+            "a",
+            70
+          ],
+          [
+            "a",
+            "b",
+            68
+          ],
+          [
+            "c",
+            "b",
+            44
+          ],
+          [
+            "a",
+            "b",
+            31
+          ],
+          [
+            "c",
+            "b",
+            40
+          ]
+        ]
+      },
+      "expected": {
+        "c": -149,
+        "d": -5,
+        "a": -29,
+        "b": 183
+      },
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "transactions": [
+          [
+            "b",
+            "d",
+            63
+          ],
+          [
+            "a",
+            "d",
+            26
+          ]
+        ]
+      },
+      "expected": {
+        "b": -63,
+        "d": 89,
+        "a": -26
+      },
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "transactions": [
+          [
+            "a",
+            "c",
+            61
+          ],
+          [
+            "d",
+            "c",
+            3
+          ],
+          [
+            "a",
+            "d",
+            91
+          ],
+          [
+            "c",
+            "b",
+            62
+          ],
+          [
+            "a",
+            "b",
+            12
+          ],
+          [
+            "b",
+            "c",
+            50
+          ],
+          [
+            "d",
+            "c",
+            16
+          ]
+        ]
+      },
+      "expected": {
+        "a": -164,
+        "c": 68,
+        "d": 72,
+        "b": 24
+      },
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "transactions": [
+          [
+            "d",
+            "b",
+            46
+          ],
+          [
+            "a",
+            "c",
+            45
+          ],
+          [
+            "d",
+            "a",
+            95
+          ],
+          [
+            "a",
+            "c",
+            13
+          ],
+          [
+            "d",
+            "b",
+            79
+          ],
+          [
+            "b",
+            "a",
+            94
+          ],
+          [
+            "c",
+            "b",
+            95
+          ]
+        ]
+      },
+      "expected": {
+        "d": -220,
+        "b": 126,
+        "a": 131,
+        "c": -37
+      },
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "transactions": []
+      },
+      "expected": {},
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "transactions": [
+          [
+            "d",
+            "b",
+            40
+          ],
+          [
+            "c",
+            "a",
+            10
+          ],
+          [
+            "c",
+            "d",
+            82
+          ],
+          [
+            "a",
+            "d",
+            71
+          ],
+          [
+            "c",
+            "a",
+            87
+          ],
+          [
+            "d",
+            "a",
+            6
+          ]
+        ]
+      },
+      "expected": {
+        "d": 107,
+        "b": 40,
+        "c": -179,
+        "a": 32
+      },
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

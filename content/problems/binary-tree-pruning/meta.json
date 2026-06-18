@@ -1,0 +1,33 @@
+{
+  "slug": "binary-tree-pruning",
+  "title": "Binary Tree Pruning",
+  "difficulty": "medium",
+  "tags": [
+    "tree",
+    "depth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "pruneTree",
+    "params": [
+      {
+        "name": "root",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

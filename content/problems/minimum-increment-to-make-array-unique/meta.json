@@ -1,0 +1,35 @@
+{
+  "slug": "minimum-increment-to-make-array-unique",
+  "title": "Minimum Increment to Make Array Unique",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "greedy",
+    "sorting",
+    "counting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minIncrementForUnique",
+    "params": [
+      {
+        "name": "A",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

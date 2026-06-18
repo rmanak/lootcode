@@ -1,0 +1,185 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "rods": [
+          1,
+          2,
+          3,
+          6
+        ]
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "rods": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "rods": [
+          1,
+          2
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "rods": []
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "rods": [
+          2,
+          4,
+          8,
+          16
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "rods": [
+          3,
+          3
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "rods": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "rods": [
+          4,
+          1,
+          1,
+          2,
+          5,
+          4,
+          3
+        ]
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "rods": [
+          2,
+          3
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "rods": [
+          1,
+          5,
+          4,
+          2
+        ]
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "rods": [
+          1,
+          5
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "rods": [
+          4,
+          6,
+          4,
+          1,
+          1,
+          4,
+          4
+        ]
+      },
+      "expected": 12,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "rods": [
+          6,
+          2,
+          6,
+          2,
+          6,
+          6,
+          4
+        ]
+      },
+      "expected": 16,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

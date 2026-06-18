@@ -1,0 +1,34 @@
+{
+  "slug": "longest-substring-without-repeating",
+  "title": "Longest Substring Without Repeating Characters",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "sliding-window",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "lengthOfLongestSubstring",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

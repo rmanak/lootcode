@@ -1,0 +1,76 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "S": "LeetCode@LeetCode.com"
+      },
+      "expected": "l*****e@leetcode.com",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "S": "1(234)567-890"
+      },
+      "expected": "***-***-7890",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "S": "86-(10)12345678"
+      },
+      "expected": "+**-***-***-5678",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "S": "AB@qq.com"
+      },
+      "expected": "a*****b@qq.com",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "S": "Test@Test.com"
+      },
+      "expected": "t*****t@test.com",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "S": "123 456 7890"
+      },
+      "expected": "***-***-7890",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "S": "+111 111 111 1111"
+      },
+      "expected": "+***-***-***-1111",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "S": "+1-234-567-8901"
+      },
+      "expected": "+*-***-***-8901",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

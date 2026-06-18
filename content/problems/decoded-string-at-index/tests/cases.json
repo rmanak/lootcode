@@ -1,0 +1,154 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "S": "leet2code3",
+        "K": 10
+      },
+      "expected": "o",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "S": "ha22",
+        "K": 5
+      },
+      "expected": "h",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "S": "a2",
+        "K": 2
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "S": "abc",
+        "K": 3
+      },
+      "expected": "c",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "S": "x2y3",
+        "K": 7
+      },
+      "expected": "x",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "S": "leet2code3",
+        "K": 1
+      },
+      "expected": "l",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "S": "a2b3",
+        "K": 5
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "S": "bb2c3",
+        "K": 8
+      },
+      "expected": "b",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "S": "ab",
+        "K": 1
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "S": "b33",
+        "K": 8
+      },
+      "expected": "b",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "S": "c3aa2",
+        "K": 2
+      },
+      "expected": "c",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "S": "b32ab",
+        "K": 5
+      },
+      "expected": "b",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "S": "aa",
+        "K": 1
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "S": "a2223",
+        "K": 12
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "S": "abb2c",
+        "K": 1
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

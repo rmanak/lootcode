@@ -1,0 +1,34 @@
+{
+  "slug": "largest-multiple-of-three",
+  "title": "Largest Multiple of Three",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "largestMultipleOfThree",
+    "params": [
+      {
+        "name": "digits",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,37 @@
+{
+  "slug": "linked-list-cycle",
+  "title": "Linked List Cycle",
+  "difficulty": "easy",
+  "tags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "hasCycle",
+    "params": [
+      {
+        "name": "head",
+        "type": "int[]"
+      },
+      {
+        "name": "pos",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

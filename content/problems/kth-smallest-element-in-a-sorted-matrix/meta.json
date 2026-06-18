@@ -1,0 +1,39 @@
+{
+  "slug": "kth-smallest-element-in-a-sorted-matrix",
+  "title": "Kth Smallest Element in a Sorted Matrix",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "heap",
+    "binary-search",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "kthSmallest",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "int[][]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

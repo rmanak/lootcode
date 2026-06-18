@@ -1,0 +1,37 @@
+{
+  "slug": "form-largest-integer-with-digits-that-add-up-to-target",
+  "title": "Form Largest Integer With Digits That Add up to Target",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "largestNumber",
+    "params": [
+      {
+        "name": "cost",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

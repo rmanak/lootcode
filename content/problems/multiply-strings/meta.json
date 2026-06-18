@@ -1,0 +1,37 @@
+{
+  "slug": "multiply-strings",
+  "title": "Multiply Strings",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "simulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "multiply",
+    "params": [
+      {
+        "name": "num1",
+        "type": "string"
+      },
+      {
+        "name": "num2",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

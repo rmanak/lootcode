@@ -1,0 +1,33 @@
+{
+  "slug": "merge-intervals",
+  "title": "Merge Intervals",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "merge",
+    "params": [
+      {
+        "name": "intervals",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,34 @@
+{
+  "slug": "remove-invalid-parentheses",
+  "title": "Remove Invalid Parentheses",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "backtracking",
+    "breadth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "removeInvalidParentheses",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "unordered"
+}

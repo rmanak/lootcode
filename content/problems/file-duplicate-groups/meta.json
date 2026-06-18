@@ -1,0 +1,33 @@
+{
+  "slug": "file-duplicate-groups",
+  "title": "File Duplicate Groups",
+  "difficulty": "medium",
+  "tags": [
+    "hash-table",
+    "string"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findDuplicates",
+    "params": [
+      {
+        "name": "files",
+        "type": "string[][]"
+      }
+    ],
+    "returns": {
+      "type": "string[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "set_of_lists"
+}

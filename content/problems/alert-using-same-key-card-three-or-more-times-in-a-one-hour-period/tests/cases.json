@@ -1,0 +1,315 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "keyName": [
+          "daniel",
+          "daniel",
+          "daniel",
+          "luis",
+          "luis",
+          "luis",
+          "luis"
+        ],
+        "keyTime": [
+          "10:00",
+          "10:40",
+          "11:00",
+          "09:00",
+          "11:00",
+          "13:00",
+          "15:00"
+        ]
+      },
+      "expected": [
+        "daniel"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "keyName": [
+          "leslie",
+          "leslie",
+          "leslie",
+          "clare",
+          "clare",
+          "clare",
+          "clare"
+        ],
+        "keyTime": [
+          "13:00",
+          "13:20",
+          "14:00",
+          "18:00",
+          "18:51",
+          "19:30",
+          "19:49"
+        ]
+      },
+      "expected": [
+        "clare",
+        "leslie"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "keyName": [
+          "alice",
+          "alice",
+          "alice",
+          "bob",
+          "bob",
+          "bob",
+          "bob"
+        ],
+        "keyTime": [
+          "12:01",
+          "12:00",
+          "18:00",
+          "21:00",
+          "21:20",
+          "21:30",
+          "23:00"
+        ]
+      },
+      "expected": [
+        "bob"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "keyName": [
+          "john",
+          "john",
+          "john"
+        ],
+        "keyTime": [
+          "23:58",
+          "23:59",
+          "00:01"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "keyName": [
+          "a"
+        ],
+        "keyTime": [
+          "00:00"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "keyName": [
+          "z",
+          "z",
+          "z"
+        ],
+        "keyTime": [
+          "00:00",
+          "00:30",
+          "01:00"
+        ]
+      },
+      "expected": [
+        "z"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "keyName": [
+          "b",
+          "a"
+        ],
+        "keyTime": [
+          "13:50",
+          "03:07"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "keyName": [
+          "b"
+        ],
+        "keyTime": [
+          "13:48"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "keyName": [
+          "a",
+          "b",
+          "c",
+          "a",
+          "b",
+          "b",
+          "a"
+        ],
+        "keyTime": [
+          "22:46",
+          "17:29",
+          "21:22",
+          "11:40",
+          "02:55",
+          "20:48",
+          "13:56"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "keyName": [
+          "b",
+          "b",
+          "c",
+          "a",
+          "c",
+          "b",
+          "b",
+          "a",
+          "b"
+        ],
+        "keyTime": [
+          "17:17",
+          "12:37",
+          "12:10",
+          "23:31",
+          "16:28",
+          "00:13",
+          "17:21",
+          "03:59",
+          "04:14"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "keyName": [
+          "b"
+        ],
+        "keyTime": [
+          "17:28"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "keyName": [
+          "a",
+          "b",
+          "a",
+          "b",
+          "b",
+          "a",
+          "b",
+          "b"
+        ],
+        "keyTime": [
+          "08:53",
+          "11:30",
+          "00:22",
+          "16:32",
+          "05:47",
+          "19:47",
+          "23:56",
+          "21:40"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "keyName": [
+          "c",
+          "b"
+        ],
+        "keyTime": [
+          "12:24",
+          "13:43"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "keyName": [
+          "b",
+          "a",
+          "c",
+          "b",
+          "c",
+          "c",
+          "a",
+          "c",
+          "a"
+        ],
+        "keyTime": [
+          "00:36",
+          "12:36",
+          "06:31",
+          "03:01",
+          "05:27",
+          "11:31",
+          "22:02",
+          "00:58",
+          "11:38"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

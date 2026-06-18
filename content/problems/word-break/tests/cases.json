@@ -1,0 +1,83 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "leetcode",
+        "wordDict": [
+          "leet",
+          "code"
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "applepenapple",
+        "wordDict": [
+          "apple",
+          "pen"
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "s": "catsandog",
+        "wordDict": [
+          "cats",
+          "dog",
+          "sand",
+          "and",
+          "cat"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "a",
+        "wordDict": [
+          "a"
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "ab",
+        "wordDict": [
+          "a"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "aaaaaaa",
+        "wordDict": [
+          "aaaa",
+          "aaa"
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

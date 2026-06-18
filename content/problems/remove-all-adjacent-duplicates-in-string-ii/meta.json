@@ -1,0 +1,37 @@
+{
+  "slug": "remove-all-adjacent-duplicates-in-string-ii",
+  "title": "Remove All Adjacent Duplicates in String II",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "stack"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "removeDuplicates",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

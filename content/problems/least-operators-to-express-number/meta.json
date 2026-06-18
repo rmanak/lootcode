@@ -1,0 +1,37 @@
+{
+  "slug": "least-operators-to-express-number",
+  "title": "Least Operators to Express Number",
+  "difficulty": "hard",
+  "tags": [
+    "dynamic-programming",
+    "memoization"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "leastOpsExpressTarget",
+    "params": [
+      {
+        "name": "x",
+        "type": "int"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,96 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "beginWord": "hit",
+        "endWord": "cog",
+        "wordList": [
+          "hot",
+          "dot",
+          "dog",
+          "lot",
+          "log",
+          "cog"
+        ]
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "beginWord": "hit",
+        "endWord": "cog",
+        "wordList": [
+          "hot",
+          "dot",
+          "dog",
+          "lot",
+          "log"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "beginWord": "a",
+        "endWord": "c",
+        "wordList": [
+          "a",
+          "b",
+          "c"
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "beginWord": "a",
+        "endWord": "a",
+        "wordList": [
+          "a"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "beginWord": "hot",
+        "endWord": "dog",
+        "wordList": [
+          "hot",
+          "dog"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "beginWord": "hot",
+        "endWord": "dog",
+        "wordList": [
+          "hot",
+          "dot",
+          "dog"
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

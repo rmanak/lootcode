@@ -1,0 +1,38 @@
+{
+  "slug": "minimum-possible-integer-after-at-most-k-adjacent-swaps-on-digits",
+  "title": "Minimum Possible Integer After at Most K Adjacent Swaps on Digits",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "greedy",
+    "binary-indexed-tree"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minInteger",
+    "params": [
+      {
+        "name": "num",
+        "type": "string"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

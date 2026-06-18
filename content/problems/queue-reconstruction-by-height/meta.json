@@ -1,0 +1,35 @@
+{
+  "slug": "queue-reconstruction-by-height",
+  "title": "Queue Reconstruction By Height",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "greedy",
+    "binary-indexed-tree",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "reconstructQueue",
+    "params": [
+      {
+        "name": "people",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

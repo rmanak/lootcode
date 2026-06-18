@@ -1,0 +1,37 @@
+{
+  "slug": "reverse-nodes-in-k-group",
+  "title": "Reverse Nodes In K Group",
+  "difficulty": "hard",
+  "tags": [
+    "linked-list",
+    "recursion"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "reverseKGroup",
+    "params": [
+      {
+        "name": "head",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

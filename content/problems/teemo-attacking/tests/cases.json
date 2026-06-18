@@ -1,0 +1,189 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "timeSeries": [
+          1,
+          4
+        ],
+        "duration": 2
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "timeSeries": [
+          1,
+          2
+        ],
+        "duration": 2
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "timeSeries": [],
+        "duration": 2
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "timeSeries": [
+          5
+        ],
+        "duration": 3
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "timeSeries": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "duration": 1
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "timeSeries": [
+          1,
+          10,
+          20
+        ],
+        "duration": 5
+      },
+      "expected": 15,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "timeSeries": [
+          15,
+          19,
+          24,
+          26,
+          29,
+          31,
+          36
+        ],
+        "duration": 2
+      },
+      "expected": 14,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "timeSeries": [
+          2,
+          8,
+          11,
+          12,
+          22,
+          30,
+          39
+        ],
+        "duration": 8
+      },
+      "expected": 42,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "timeSeries": [
+          0,
+          3,
+          6,
+          8,
+          12,
+          33
+        ],
+        "duration": 5
+      },
+      "expected": 22,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "timeSeries": [
+          1,
+          2,
+          14,
+          21,
+          22,
+          23,
+          34,
+          38
+        ],
+        "duration": 2
+      },
+      "expected": 13,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "timeSeries": [
+          5,
+          8,
+          11,
+          15,
+          18,
+          19
+        ],
+        "duration": 8
+      },
+      "expected": 22,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "timeSeries": [
+          0,
+          5,
+          6,
+          22,
+          29,
+          34,
+          36
+        ],
+        "duration": 6
+      },
+      "expected": 31,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "minimum-one-bit-operations-to-make-integers-zero",
+  "title": "Minimum One Bit Operations to Make Integers Zero",
+  "difficulty": "hard",
+  "tags": [
+    "bit-manipulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minimumOneBitOperations",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,34 @@
+{
+  "slug": "dota2-senate",
+  "title": "Dota2 Senate",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "greedy",
+    "queue"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "predictPartyVictory",
+    "params": [
+      {
+        "name": "senate",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

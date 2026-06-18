@@ -1,0 +1,13 @@
+{# Shared "jump to a random unsolved problem" picks. Expects `unsolved_counts`. #}
+<div class="quick-picks">
+  <span class="qp-label">🎲 Jump to a random unsolved problem
+    <span class="qp-arrow" aria-hidden="true">→</span></span>
+  {% for d in ["easy", "medium", "hard"] %}
+    {% set n = unsolved_counts[d] %}
+    {% if n %}
+      <a class="quick-pick {{ d }}" href="/random/{{ d }}"><span class="qp-icon" aria-hidden="true">❯<span class="qp-cursor">_</span></span> {{ d|capitalize }} <span class="qp-count">{{ n }} left</span></a>
+    {% else %}
+      <span class="quick-pick {{ d }} disabled"><span class="qp-icon" aria-hidden="true">❯<span class="qp-cursor">_</span></span> {{ d|capitalize }} <span class="qp-count">all done</span></span>
+    {% endif %}
+  {% endfor %}
+</div>

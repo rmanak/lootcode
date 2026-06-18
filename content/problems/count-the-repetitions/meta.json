@@ -1,0 +1,45 @@
+{
+  "slug": "count-the-repetitions",
+  "title": "Count the Repetitions",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "getMaxRepetitions",
+    "params": [
+      {
+        "name": "s1",
+        "type": "string"
+      },
+      {
+        "name": "n1",
+        "type": "int"
+      },
+      {
+        "name": "s2",
+        "type": "string"
+      },
+      {
+        "name": "n2",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

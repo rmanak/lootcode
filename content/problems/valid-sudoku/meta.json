@@ -1,0 +1,34 @@
+{
+  "slug": "valid-sudoku",
+  "title": "Valid Sudoku",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "isValidSudoku",
+    "params": [
+      {
+        "name": "board",
+        "type": "string[][]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

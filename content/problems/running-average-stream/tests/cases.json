@@ -1,0 +1,92 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "nums": [
+          2,
+          4,
+          6
+        ]
+      },
+      "expected": [
+        2.0,
+        3.0,
+        4.0
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "nums": [
+          1,
+          2
+        ]
+      },
+      "expected": [
+        1.0,
+        1.5
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "nums": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "nums": [
+          5
+        ]
+      },
+      "expected": [
+        5.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "nums": [
+          -2,
+          2
+        ]
+      },
+      "expected": [
+        -2.0,
+        0.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "nums": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

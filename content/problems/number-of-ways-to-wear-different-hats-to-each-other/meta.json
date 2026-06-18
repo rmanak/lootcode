@@ -1,0 +1,34 @@
+{
+  "slug": "number-of-ways-to-wear-different-hats-to-each-other",
+  "title": "Number of Ways to Wear Different Hats to Each Other",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "bitmask"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "numberWays",
+    "params": [
+      {
+        "name": "hats",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,205 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "words": [
+          "SEND",
+          "MORE"
+        ],
+        "result": "MONEY"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "words": [
+          "SIX",
+          "SEVEN",
+          "SEVEN"
+        ],
+        "result": "TWENTY"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "words": [
+          "LEET",
+          "CODE"
+        ],
+        "result": "POINT"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "words": [
+          "A",
+          "B"
+        ],
+        "result": "A"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "words": [
+          "AB",
+          "BA"
+        ],
+        "result": "AA"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "words": [
+          "ACA",
+          "DD"
+        ],
+        "result": "BD"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "words": [
+          "THIS",
+          "IS"
+        ],
+        "result": "TOO"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "words": [
+          "C",
+          "A"
+        ],
+        "result": "D"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "words": [
+          "C",
+          "BCB"
+        ],
+        "result": "CAD"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "words": [
+          "DA",
+          "DA",
+          "C"
+        ],
+        "result": "BC"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "words": [
+          "BD",
+          "DA",
+          "BDA"
+        ],
+        "result": "BCD"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "words": [
+          "BAA",
+          "A",
+          "A"
+        ],
+        "result": "CCA"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "words": [
+          "DCD",
+          "B",
+          "B"
+        ],
+        "result": "ABA"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "words": [
+          "AD",
+          "CAD"
+        ],
+        "result": "DAA"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "words": [
+          "D",
+          "B",
+          "A"
+        ],
+        "result": "CCC"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

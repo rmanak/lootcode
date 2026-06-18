@@ -1,0 +1,32 @@
+{
+  "slug": "find-the-minimum-number-of-fibonacci-numbers-whose-sum-is-k",
+  "title": "Find the Minimum Number of Fibonacci Numbers Whose Sum Is K",
+  "difficulty": "medium",
+  "tags": [
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findMinFibonacciNumbers",
+    "params": [
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

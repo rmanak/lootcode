@@ -1,0 +1,46 @@
+{
+  "slug": "tweet-counts-per-frequency",
+  "title": "Tweet Counts Per Frequency",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "tweetCounts",
+    "params": [
+      {
+        "name": "freq",
+        "type": "string"
+      },
+      {
+        "name": "times",
+        "type": "int[]"
+      },
+      {
+        "name": "startTime",
+        "type": "int"
+      },
+      {
+        "name": "endTime",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

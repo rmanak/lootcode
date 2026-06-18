@@ -1,0 +1,35 @@
+{
+  "slug": "russian-doll-envelopes",
+  "title": "Russian Doll Envelopes",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "binary-search",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxEnvelopes",
+    "params": [
+      {
+        "name": "envelopes",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,40 @@
+{
+  "slug": "number-of-dice-rolls-with-target-sum",
+  "title": "Number of Dice Rolls with Target Sum",
+  "difficulty": "medium",
+  "tags": [
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "numRollsToTarget",
+    "params": [
+      {
+        "name": "d",
+        "type": "int"
+      },
+      {
+        "name": "f",
+        "type": "int"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "string-to-integer-atoi",
+  "title": "String to Integer (atoi)",
+  "difficulty": "medium",
+  "tags": [
+    "string"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "myAtoi",
+    "params": [
+      {
+        "name": "s",
+        "type": "str"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

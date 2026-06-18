@@ -1,0 +1,41 @@
+{
+  "slug": "reachable-nodes-in-subdivided-graph",
+  "title": "Reachable Nodes In Subdivided Graph",
+  "difficulty": "hard",
+  "tags": [
+    "graph",
+    "heap"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "reachableNodes",
+    "params": [
+      {
+        "name": "edges",
+        "type": "int[][]"
+      },
+      {
+        "name": "maxMoves",
+        "type": "int"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

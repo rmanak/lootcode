@@ -1,0 +1,32 @@
+{
+  "slug": "max-difference-you-can-get-from-changing-an-integer",
+  "title": "Max Difference You Can Get From Changing an Integer",
+  "difficulty": "medium",
+  "tags": [
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxDiff",
+    "params": [
+      {
+        "name": "num",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

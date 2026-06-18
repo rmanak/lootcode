@@ -1,0 +1,33 @@
+{
+  "slug": "candy-distribution",
+  "title": "Candy Distribution",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "candy",
+    "params": [
+      {
+        "name": "ratings",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

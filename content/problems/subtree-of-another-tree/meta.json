@@ -1,0 +1,38 @@
+{
+  "slug": "subtree-of-another-tree",
+  "title": "Subtree of Another Tree",
+  "difficulty": "easy",
+  "tags": [
+    "tree",
+    "binary-tree",
+    "depth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "isSubtree",
+    "params": [
+      {
+        "name": "root",
+        "type": "int[]"
+      },
+      {
+        "name": "subRoot",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

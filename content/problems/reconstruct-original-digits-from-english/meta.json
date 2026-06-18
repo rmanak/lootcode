@@ -1,0 +1,33 @@
+{
+  "slug": "reconstruct-original-digits-from-english",
+  "title": "Reconstruct Original Digits From English",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "originalDigits",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

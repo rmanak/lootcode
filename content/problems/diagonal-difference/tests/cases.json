@@ -1,0 +1,230 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "matrix": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "matrix": [
+          [
+            5,
+            1
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "matrix": [
+          [
+            7
+          ]
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "matrix": [
+          [
+            -1,
+            -2
+          ],
+          [
+            -3,
+            -4
+          ]
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "matrix": [
+          [
+            11,
+            2,
+            4
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            10,
+            8,
+            -12
+          ]
+        ]
+      },
+      "expected": 15,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "matrix": [
+          [
+            43
+          ]
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "matrix": [
+          [
+            11,
+            -32,
+            23,
+            -46,
+            26
+          ],
+          [
+            6,
+            45,
+            -36,
+            -16,
+            -45
+          ],
+          [
+            33,
+            43,
+            12,
+            30,
+            2
+          ],
+          [
+            48,
+            27,
+            -38,
+            50,
+            -25
+          ],
+          [
+            12,
+            -43,
+            -24,
+            27,
+            -36
+          ]
+        ]
+      },
+      "expected": 21,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "matrix": [
+          [
+            40
+          ]
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "matrix": [
+          [
+            -33,
+            -1,
+            -7
+          ],
+          [
+            10,
+            2,
+            -9
+          ],
+          [
+            24,
+            -31,
+            -26
+          ]
+        ]
+      },
+      "expected": 76,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "matrix": [
+          [
+            -16
+          ]
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "matrix": [
+          [
+            -33,
+            -50
+          ],
+          [
+            -10,
+            -21
+          ]
+        ]
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

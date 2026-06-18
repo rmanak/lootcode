@@ -1,0 +1,34 @@
+{
+  "slug": "accounts-merge",
+  "title": "Accounts Merge",
+  "difficulty": "medium",
+  "tags": [
+    "union-find",
+    "hash-table",
+    "graph"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "accountsMerge",
+    "params": [
+      {
+        "name": "accounts",
+        "type": "string[][]"
+      }
+    ],
+    "returns": {
+      "type": "string[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "unordered"
+}

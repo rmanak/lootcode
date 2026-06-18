@@ -1,0 +1,39 @@
+{
+  "slug": "boats-to-save-people",
+  "title": "Boats to Save People",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "greedy",
+    "two-pointers",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "numRescueBoats",
+    "params": [
+      {
+        "name": "people",
+        "type": "int[]"
+      },
+      {
+        "name": "limit",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

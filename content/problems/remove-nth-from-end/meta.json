@@ -1,0 +1,37 @@
+{
+  "slug": "remove-nth-from-end",
+  "title": "Remove Nth Node From End of List",
+  "difficulty": "medium",
+  "tags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "removeNthFromEnd",
+    "params": [
+      {
+        "name": "head",
+        "type": "int[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

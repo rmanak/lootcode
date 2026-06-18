@@ -1,0 +1,36 @@
+{
+  "slug": "sequential-digits",
+  "title": "Sequential Digits",
+  "difficulty": "medium",
+  "tags": [
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "sequentialDigits",
+    "params": [
+      {
+        "name": "low",
+        "type": "int"
+      },
+      {
+        "name": "high",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

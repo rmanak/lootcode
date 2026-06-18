@@ -1,0 +1,669 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "operations": [
+          [
+            "addServer",
+            10
+          ],
+          [
+            "addServer",
+            20
+          ],
+          [
+            "addServer",
+            30
+          ],
+          [
+            "getServer",
+            5
+          ],
+          [
+            "getServer",
+            15
+          ],
+          [
+            "getServer",
+            25
+          ],
+          [
+            "getServer",
+            35
+          ],
+          [
+            "removeServer",
+            20
+          ],
+          [
+            "getServer",
+            15
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        10,
+        20,
+        30,
+        10,
+        null,
+        30
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "operations": [
+          [
+            "getServer",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        null
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "operations": [
+          [
+            "addServer",
+            7
+          ],
+          [
+            "getServer",
+            7
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        7
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "operations": [
+          [
+            "addServer",
+            5
+          ],
+          [
+            "addServer",
+            5
+          ],
+          [
+            "getServer",
+            5
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        5
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "operations": [
+          [
+            "addServer",
+            1
+          ],
+          [
+            "removeServer",
+            1
+          ],
+          [
+            "getServer",
+            0
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "operations": [
+          [
+            "addServer",
+            22
+          ],
+          [
+            "getServer",
+            13
+          ],
+          [
+            "addServer",
+            13
+          ],
+          [
+            "getServer",
+            26
+          ],
+          [
+            "removeServer",
+            4
+          ],
+          [
+            "getServer",
+            20
+          ],
+          [
+            "getServer",
+            23
+          ],
+          [
+            "getServer",
+            13
+          ],
+          [
+            "getServer",
+            19
+          ],
+          [
+            "addServer",
+            4
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        22,
+        null,
+        13,
+        null,
+        22,
+        13,
+        13,
+        22,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "operations": [
+          [
+            "addServer",
+            6
+          ],
+          [
+            "addServer",
+            32
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "operations": [
+          [
+            "getServer",
+            30
+          ],
+          [
+            "getServer",
+            16
+          ],
+          [
+            "addServer",
+            37
+          ],
+          [
+            "getServer",
+            39
+          ],
+          [
+            "removeServer",
+            31
+          ],
+          [
+            "addServer",
+            26
+          ],
+          [
+            "getServer",
+            31
+          ],
+          [
+            "addServer",
+            5
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        37,
+        null,
+        null,
+        37,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "operations": [
+          [
+            "getServer",
+            8
+          ],
+          [
+            "getServer",
+            3
+          ],
+          [
+            "addServer",
+            24
+          ],
+          [
+            "getServer",
+            43
+          ],
+          [
+            "getServer",
+            21
+          ],
+          [
+            "getServer",
+            7
+          ],
+          [
+            "getServer",
+            30
+          ],
+          [
+            "removeServer",
+            13
+          ],
+          [
+            "addServer",
+            9
+          ],
+          [
+            "addServer",
+            41
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        24,
+        24,
+        24,
+        24,
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "operations": [
+          [
+            "getServer",
+            49
+          ],
+          [
+            "addServer",
+            44
+          ],
+          [
+            "addServer",
+            35
+          ],
+          [
+            "addServer",
+            21
+          ],
+          [
+            "removeServer",
+            43
+          ],
+          [
+            "getServer",
+            21
+          ],
+          [
+            "addServer",
+            12
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        21,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "operations": [
+          [
+            "getServer",
+            43
+          ],
+          [
+            "addServer",
+            18
+          ],
+          [
+            "removeServer",
+            12
+          ],
+          [
+            "getServer",
+            43
+          ],
+          [
+            "getServer",
+            6
+          ],
+          [
+            "getServer",
+            50
+          ],
+          [
+            "removeServer",
+            23
+          ],
+          [
+            "getServer",
+            13
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        18,
+        18,
+        18,
+        null,
+        18
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "operations": [
+          [
+            "addServer",
+            11
+          ],
+          [
+            "getServer",
+            34
+          ],
+          [
+            "getServer",
+            10
+          ],
+          [
+            "getServer",
+            14
+          ],
+          [
+            "getServer",
+            11
+          ],
+          [
+            "addServer",
+            23
+          ],
+          [
+            "addServer",
+            24
+          ],
+          [
+            "getServer",
+            19
+          ],
+          [
+            "getServer",
+            5
+          ],
+          [
+            "removeServer",
+            42
+          ],
+          [
+            "getServer",
+            47
+          ],
+          [
+            "addServer",
+            35
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        11,
+        11,
+        11,
+        11,
+        null,
+        null,
+        23,
+        11,
+        null,
+        11,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "operations": [
+          [
+            "removeServer",
+            44
+          ],
+          [
+            "removeServer",
+            42
+          ],
+          [
+            "getServer",
+            46
+          ],
+          [
+            "addServer",
+            18
+          ],
+          [
+            "addServer",
+            17
+          ],
+          [
+            "getServer",
+            33
+          ],
+          [
+            "getServer",
+            31
+          ],
+          [
+            "getServer",
+            31
+          ],
+          [
+            "addServer",
+            17
+          ],
+          [
+            "addServer",
+            22
+          ],
+          [
+            "getServer",
+            38
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        17,
+        17,
+        17,
+        null,
+        null,
+        17
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "operations": [
+          [
+            "removeServer",
+            36
+          ],
+          [
+            "addServer",
+            42
+          ],
+          [
+            "addServer",
+            43
+          ],
+          [
+            "getServer",
+            24
+          ],
+          [
+            "getServer",
+            26
+          ],
+          [
+            "addServer",
+            4
+          ],
+          [
+            "getServer",
+            18
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        42,
+        42,
+        null,
+        42
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "operations": [
+          [
+            "addServer",
+            28
+          ],
+          [
+            "getServer",
+            40
+          ],
+          [
+            "addServer",
+            44
+          ],
+          [
+            "addServer",
+            47
+          ],
+          [
+            "addServer",
+            46
+          ],
+          [
+            "addServer",
+            29
+          ],
+          [
+            "addServer",
+            29
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        28,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

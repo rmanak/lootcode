@@ -1,0 +1,3 @@
+def minSteps(n):
+    # Write your solution here.
+    pass

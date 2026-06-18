@@ -1,0 +1,32 @@
+{
+  "slug": "smallest-integer-divisible-by-k",
+  "title": "Smallest Integer Divisible by K",
+  "difficulty": "medium",
+  "tags": [
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "smallestRepunitDivByK",
+    "params": [
+      {
+        "name": "K",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

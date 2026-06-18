@@ -1,0 +1,33 @@
+{
+  "slug": "utf-8-validation",
+  "title": "UTF-8 Validation",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "bit-manipulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "validUtf8",
+    "params": [
+      {
+        "name": "data",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,38 @@
+{
+  "slug": "min-operations-reduce-x",
+  "title": "Minimum Operations to Reduce X to Zero",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "sliding-window",
+    "two-pointers"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minOperations",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "x",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

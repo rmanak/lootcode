@@ -1,0 +1,42 @@
+{
+  "slug": "maximum-profit-of-operating-a-centennial-wheel",
+  "title": "Maximum Profit of Operating a Centennial Wheel",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "simulation",
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minOperationsMaxProfit",
+    "params": [
+      {
+        "name": "customers",
+        "type": "int[]"
+      },
+      {
+        "name": "boardingCost",
+        "type": "int"
+      },
+      {
+        "name": "runningCost",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,38 @@
+{
+  "slug": "find-k-th-smallest-pair-distance",
+  "title": "Find K-th Smallest Pair Distance",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "binary-search",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "smallestDistancePair",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

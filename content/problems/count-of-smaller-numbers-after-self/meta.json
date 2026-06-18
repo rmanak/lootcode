@@ -1,0 +1,35 @@
+{
+  "slug": "count-of-smaller-numbers-after-self",
+  "title": "Count Of Smaller Numbers After Self",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "binary-indexed-tree",
+    "divide-and-conquer",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "countSmaller",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

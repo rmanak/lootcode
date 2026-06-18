@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Edit {{ f.slug }} · {{ app_name }}{% endblock %}
+{% block content %}
+<p class="crumb"><a href="/admin">← Admin</a> &nbsp;·&nbsp; <a href="/problems/{{ f.slug }}">open in solver ↗</a></p>
+<h1>Edit problem <code>{{ f.slug }}</code></h1>
+
+{% if saved %}<div class="ok-banner">Saved ✓ — the database and <code>content/{{ f.slug }}/</code> are updated.</div>{% endif %}
+{% if error %}<div class="run-error">{{ error }}</div>{% endif %}
+
+<form class="bigform" id="edit-form" method="post"
+      action="/admin/problems/{{ f.slug }}/edit" data-slug="{{ f.slug }}">
+  <div class="row">
+    <label>Slug<input value="{{ f.slug }}" disabled title="Slug is the identity and can't be changed here"></label>
+    <label>Title<input name="title" value="{{ f.title }}" required></label>
+    <label>Difficulty
+      <select name="difficulty">
+        {% for d in ["easy", "medium", "hard"] %}
+          <option {{ 'selected' if f.difficulty == d }}>{{ d }}</option>
+        {% endfor %}
+      </select>
+    </label>
+  </div>
+
+  <label>Topics (comma-separated)<input name="topics" value="{{ f.topics }}"></label>
+  <label>Statement (Markdown)<textarea name="statement_md" rows="8">{{ f.statement_md }}</textarea></label>
+
+  <div class="row">
+    <label>Function name<input name="function_name" value="{{ f.function_name }}" required></label>
+    <label>Return type<input name="return_type" value="{{ f.return_type }}"></label>
+    <label>Compare mode
+      <select name="compare">
+        {% for m in compare_modes %}
+          <option {{ 'selected' if f.compare == m }}>{{ m }}</option>
+        {% endfor %}
+      </select>
+    </label>
+  </div>
+  <label>Parameters (one per line as <code>name: type</code>)
+    <textarea name="params" rows="3">{{ f.params }}</textarea></label>
+
+  <label>Starter code (Python)
+    <textarea name="starter_code" class="mono" rows="6">{{ f.starter_code }}</textarea></label>
+  <label>Canonical solution (Python — must pass all tests)
+    <textarea name="canonical_solution" class="mono" rows="12">{{ f.canonical_solution }}</textarea></label>
+  <label>Tests (JSON array)
+    <textarea name="tests_json" class="mono" rows="16">{{ f.tests_json }}</textarea></label>
+
+  <div class="actions">
+    <button type="submit">Save changes</button>
+    <button type="button" id="verify-btn" class="secondary">▶ Run canonical against tests</button>
+    <span id="verify-status"></span>
+  </div>
+  <div id="verify-results"></div>
+</form>
+{% endblock %}
+{% block scripts %}<script src="{{ static('admin.js') }}"></script>{% endblock %}

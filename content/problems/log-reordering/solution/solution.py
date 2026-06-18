@@ -1,0 +1,8 @@
+def reorderLogFiles(logs):
+    def key(log):
+        ident, rest = log.split(" ", 1)
+        if rest[0].isdigit():
+            return (1,)
+        return (0, rest, ident)
+
+    return sorted(logs, key=key)

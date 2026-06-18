@@ -1,0 +1,85 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "grid": [
+          "@.a.#",
+          "###.#",
+          "b.A.B"
+        ]
+      },
+      "expected": 8,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "grid": [
+          "@..aA",
+          "..B#.",
+          "....b"
+        ]
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "grid": [
+          "@a"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "grid": [
+          "@.a"
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "grid": [
+          "@#a"
+        ]
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "grid": [
+          "@aA"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "grid": [
+          "a.@.A"
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

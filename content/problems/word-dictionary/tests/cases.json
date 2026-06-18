@@ -1,0 +1,580 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "operations": [
+          [
+            "addWord",
+            "bad"
+          ],
+          [
+            "addWord",
+            "dad"
+          ],
+          [
+            "search",
+            ".ad"
+          ],
+          [
+            "search",
+            "b.."
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "operations": [
+          [
+            "addWord",
+            "a"
+          ],
+          [
+            "search",
+            "."
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "operations": [
+          [
+            "search",
+            "x"
+          ]
+        ]
+      },
+      "expected": [
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "operations": [
+          [
+            "addWord",
+            "ab"
+          ],
+          [
+            "search",
+            "a"
+          ],
+          [
+            "search",
+            ".."
+          ],
+          [
+            "search",
+            "a.b"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        false,
+        true,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "operations": [
+          [
+            "addWord",
+            "ab"
+          ]
+        ]
+      },
+      "expected": [
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "operations": [
+          [
+            "addWord",
+            "dad"
+          ],
+          [
+            "search",
+            "b.d"
+          ],
+          [
+            "addWord",
+            "abc"
+          ],
+          [
+            "search",
+            "da."
+          ],
+          [
+            "search",
+            ".b"
+          ],
+          [
+            "addWord",
+            "dad"
+          ],
+          [
+            "search",
+            ".a."
+          ],
+          [
+            "addWord",
+            "a"
+          ],
+          [
+            "search",
+            "..."
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        false,
+        null,
+        true,
+        false,
+        null,
+        true,
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "operations": [
+          [
+            "addWord",
+            "ab"
+          ],
+          [
+            "addWord",
+            "bad"
+          ],
+          [
+            "search",
+            "ab."
+          ],
+          [
+            "addWord",
+            "a"
+          ],
+          [
+            "search",
+            "ma."
+          ],
+          [
+            "addWord",
+            "mad"
+          ],
+          [
+            "search",
+            "ab"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        false,
+        null,
+        false,
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "operations": [
+          [
+            "addWord",
+            "mad"
+          ],
+          [
+            "search",
+            "."
+          ],
+          [
+            "search",
+            ".."
+          ],
+          [
+            "search",
+            "..d"
+          ],
+          [
+            "search",
+            "bad"
+          ],
+          [
+            "addWord",
+            "ab"
+          ],
+          [
+            "search",
+            "d.d"
+          ],
+          [
+            "addWord",
+            "a"
+          ],
+          [
+            "addWord",
+            "dad"
+          ],
+          [
+            "search",
+            "."
+          ],
+          [
+            "addWord",
+            "ab"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        false,
+        false,
+        true,
+        false,
+        null,
+        false,
+        null,
+        null,
+        true,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "operations": [
+          [
+            "addWord",
+            "ab"
+          ],
+          [
+            "search",
+            "ba."
+          ],
+          [
+            "search",
+            "ba."
+          ],
+          [
+            "addWord",
+            "bad"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        false,
+        false,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "operations": [
+          [
+            "addWord",
+            "a"
+          ],
+          [
+            "addWord",
+            "mad"
+          ],
+          [
+            "addWord",
+            "dad"
+          ],
+          [
+            "search",
+            "a.c"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "operations": [
+          [
+            "addWord",
+            "a"
+          ],
+          [
+            "search",
+            "..d"
+          ],
+          [
+            "search",
+            ".ad"
+          ],
+          [
+            "addWord",
+            "mad"
+          ],
+          [
+            "addWord",
+            "dad"
+          ],
+          [
+            "search",
+            "mad"
+          ],
+          [
+            "addWord",
+            "bad"
+          ],
+          [
+            "addWord",
+            "bad"
+          ],
+          [
+            "addWord",
+            "bad"
+          ],
+          [
+            "addWord",
+            "mad"
+          ],
+          [
+            "search",
+            ".b."
+          ],
+          [
+            "addWord",
+            "dad"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        false,
+        false,
+        null,
+        null,
+        true,
+        null,
+        null,
+        null,
+        null,
+        false,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "operations": [
+          [
+            "addWord",
+            "bad"
+          ],
+          [
+            "addWord",
+            "mad"
+          ],
+          [
+            "addWord",
+            "bad"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "operations": [
+          [
+            "addWord",
+            "abc"
+          ],
+          [
+            "addWord",
+            "abc"
+          ],
+          [
+            "addWord",
+            "ab"
+          ],
+          [
+            "search",
+            "bad"
+          ],
+          [
+            "search",
+            ".."
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        false,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "operations": [
+          [
+            "addWord",
+            "abc"
+          ],
+          [
+            "search",
+            "."
+          ],
+          [
+            "addWord",
+            "mad"
+          ],
+          [
+            "search",
+            "abc"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        false,
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "operations": [
+          [
+            "addWord",
+            "a"
+          ],
+          [
+            "addWord",
+            "a"
+          ],
+          [
+            "addWord",
+            "dad"
+          ],
+          [
+            "search",
+            "abc"
+          ],
+          [
+            "addWord",
+            "abc"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        false,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "operations": [
+          [
+            "addWord",
+            "ab"
+          ],
+          [
+            "addWord",
+            "bad"
+          ],
+          [
+            "addWord",
+            "bad"
+          ],
+          [
+            "addWord",
+            "ab"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

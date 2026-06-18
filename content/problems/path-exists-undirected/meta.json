@@ -1,0 +1,46 @@
+{
+  "slug": "path-exists-undirected",
+  "title": "Path Exists In Undirected Graph",
+  "difficulty": "easy",
+  "tags": [
+    "graph",
+    "union-find",
+    "breadth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "validPath",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      },
+      {
+        "name": "source",
+        "type": "int"
+      },
+      {
+        "name": "destination",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

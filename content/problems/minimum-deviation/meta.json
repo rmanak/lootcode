@@ -1,0 +1,34 @@
+{
+  "slug": "minimum-deviation",
+  "title": "Minimum Deviation in Array",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "heap",
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minimumDeviation",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

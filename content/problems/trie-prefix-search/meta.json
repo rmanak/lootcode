@@ -1,0 +1,33 @@
+{
+  "slug": "trie-prefix-search",
+  "title": "Trie Prefix Search",
+  "difficulty": "medium",
+  "tags": [
+    "trie",
+    "string"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "trieOps",
+    "params": [
+      {
+        "name": "operations",
+        "type": "string[][]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

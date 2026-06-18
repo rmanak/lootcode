@@ -1,0 +1,39 @@
+{
+  "slug": "replace-words",
+  "title": "Replace Words",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "string",
+    "trie",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "replaceWords",
+    "params": [
+      {
+        "name": "dictionary",
+        "type": "string[]"
+      },
+      {
+        "name": "sentence",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

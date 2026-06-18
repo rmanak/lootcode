@@ -1,0 +1,39 @@
+{
+  "slug": "permutation-in-string",
+  "title": "Permutation in String",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "hash-table",
+    "sliding-window",
+    "two-pointers"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "checkInclusion",
+    "params": [
+      {
+        "name": "s1",
+        "type": "string"
+      },
+      {
+        "name": "s2",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

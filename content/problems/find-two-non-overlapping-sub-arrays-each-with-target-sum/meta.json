@@ -1,0 +1,38 @@
+{
+  "slug": "find-two-non-overlapping-sub-arrays-each-with-target-sum",
+  "title": "Find Two Non-overlapping Sub-arrays Each With Target Sum",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "sliding-window"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minSumOfLengths",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

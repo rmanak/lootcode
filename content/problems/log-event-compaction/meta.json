@@ -1,0 +1,33 @@
+{
+  "slug": "log-event-compaction",
+  "title": "Log Event Compaction",
+  "difficulty": "easy",
+  "tags": [
+    "array",
+    "simulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "compactLog",
+    "params": [
+      {
+        "name": "samples",
+        "type": "any[][]"
+      }
+    ],
+    "returns": {
+      "type": "any[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

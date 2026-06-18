@@ -1,0 +1,37 @@
+{
+  "slug": "find-the-smallest-divisor-given-a-threshold",
+  "title": "Find the Smallest Divisor Given a Threshold",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "smallestDivisor",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "threshold",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

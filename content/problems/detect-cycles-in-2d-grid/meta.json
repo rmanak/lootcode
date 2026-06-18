@@ -1,0 +1,36 @@
+{
+  "slug": "detect-cycles-in-2d-grid",
+  "title": "Detect Cycles in 2D Grid",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "containsCycle",
+    "params": [
+      {
+        "name": "grid",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,594 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "operations": [
+          [
+            "insert",
+            "apple"
+          ],
+          [
+            "search",
+            "apple"
+          ],
+          [
+            "search",
+            "app"
+          ],
+          [
+            "startsWith",
+            "app"
+          ],
+          [
+            "insert",
+            "app"
+          ],
+          [
+            "search",
+            "app"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        true,
+        false,
+        true,
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "operations": [
+          [
+            "search",
+            "a"
+          ]
+        ]
+      },
+      "expected": [
+        false
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "operations": [
+          [
+            "insert",
+            "ab"
+          ],
+          [
+            "startsWith",
+            "abc"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        false
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "operations": [
+          [
+            "insert",
+            "a"
+          ],
+          [
+            "insert",
+            "a"
+          ],
+          [
+            "search",
+            "a"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "operations": [
+          [
+            "insert",
+            "abc"
+          ],
+          [
+            "startsWith",
+            "ab"
+          ],
+          [
+            "search",
+            "ab"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        true,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "operations": [
+          [
+            "search",
+            "bbb"
+          ],
+          [
+            "insert",
+            "bbb"
+          ],
+          [
+            "search",
+            "ba"
+          ],
+          [
+            "startsWith",
+            "b"
+          ],
+          [
+            "insert",
+            "bbbb"
+          ],
+          [
+            "startsWith",
+            "aaaa"
+          ],
+          [
+            "insert",
+            "bb"
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        null,
+        false,
+        true,
+        null,
+        false,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "operations": [
+          [
+            "search",
+            "aa"
+          ],
+          [
+            "startsWith",
+            "abab"
+          ],
+          [
+            "search",
+            "b"
+          ],
+          [
+            "startsWith",
+            "ab"
+          ],
+          [
+            "search",
+            "b"
+          ],
+          [
+            "search",
+            "ab"
+          ],
+          [
+            "startsWith",
+            "ab"
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "operations": [
+          [
+            "startsWith",
+            "bbab"
+          ],
+          [
+            "insert",
+            "aba"
+          ],
+          [
+            "insert",
+            "a"
+          ],
+          [
+            "insert",
+            "abba"
+          ],
+          [
+            "search",
+            "bbb"
+          ],
+          [
+            "search",
+            "bba"
+          ],
+          [
+            "search",
+            "aaba"
+          ],
+          [
+            "insert",
+            "a"
+          ],
+          [
+            "insert",
+            "ab"
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        null,
+        null,
+        null,
+        false,
+        false,
+        false,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "operations": [
+          [
+            "search",
+            "bba"
+          ],
+          [
+            "insert",
+            "bbba"
+          ],
+          [
+            "insert",
+            "b"
+          ],
+          [
+            "search",
+            "bba"
+          ],
+          [
+            "search",
+            "ab"
+          ],
+          [
+            "startsWith",
+            "b"
+          ],
+          [
+            "insert",
+            "abbb"
+          ],
+          [
+            "startsWith",
+            "ab"
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        null,
+        null,
+        false,
+        false,
+        true,
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "operations": [
+          [
+            "search",
+            "bbb"
+          ],
+          [
+            "insert",
+            "ab"
+          ],
+          [
+            "insert",
+            "abab"
+          ],
+          [
+            "search",
+            "bbb"
+          ],
+          [
+            "startsWith",
+            "a"
+          ],
+          [
+            "insert",
+            "abab"
+          ],
+          [
+            "insert",
+            "aab"
+          ],
+          [
+            "search",
+            "bbab"
+          ],
+          [
+            "startsWith",
+            "aaa"
+          ],
+          [
+            "insert",
+            "a"
+          ],
+          [
+            "startsWith",
+            "babb"
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        null,
+        null,
+        false,
+        true,
+        null,
+        null,
+        false,
+        false,
+        null,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "operations": [
+          [
+            "startsWith",
+            "a"
+          ],
+          [
+            "search",
+            "aab"
+          ],
+          [
+            "insert",
+            "bb"
+          ],
+          [
+            "search",
+            "baaa"
+          ],
+          [
+            "insert",
+            "aa"
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        false,
+        null,
+        false,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "operations": [
+          [
+            "insert",
+            "bbbb"
+          ],
+          [
+            "startsWith",
+            "bab"
+          ],
+          [
+            "insert",
+            "baab"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        false,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "operations": [
+          [
+            "startsWith",
+            "a"
+          ],
+          [
+            "insert",
+            "a"
+          ],
+          [
+            "insert",
+            "ab"
+          ],
+          [
+            "search",
+            "a"
+          ],
+          [
+            "insert",
+            "bb"
+          ],
+          [
+            "startsWith",
+            "ba"
+          ],
+          [
+            "startsWith",
+            "bb"
+          ],
+          [
+            "search",
+            "a"
+          ],
+          [
+            "search",
+            "aaab"
+          ],
+          [
+            "search",
+            "aab"
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        null,
+        null,
+        true,
+        null,
+        false,
+        true,
+        true,
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "operations": [
+          [
+            "insert",
+            "baaa"
+          ],
+          [
+            "search",
+            "bab"
+          ],
+          [
+            "insert",
+            "baa"
+          ],
+          [
+            "search",
+            "b"
+          ],
+          [
+            "search",
+            "aab"
+          ],
+          [
+            "startsWith",
+            "b"
+          ],
+          [
+            "startsWith",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        false,
+        null,
+        false,
+        false,
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "operations": [
+          [
+            "search",
+            "ab"
+          ],
+          [
+            "startsWith",
+            "b"
+          ],
+          [
+            "insert",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        false,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

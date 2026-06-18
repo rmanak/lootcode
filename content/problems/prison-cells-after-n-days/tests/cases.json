@@ -1,0 +1,312 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "cells": [
+          0,
+          1,
+          0,
+          1,
+          1,
+          0,
+          0,
+          1
+        ],
+        "N": 7
+      },
+      "expected": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "cells": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "N": 1
+      },
+      "expected": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "cells": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "N": 3
+      },
+      "expected": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "cells": [
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "N": 15
+      },
+      "expected": [
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "cells": [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          1
+        ],
+        "N": 20
+      },
+      "expected": [
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "cells": [
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        "N": 5
+      },
+      "expected": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "cells": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "N": 19
+      },
+      "expected": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "cells": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
+          1,
+          0
+        ],
+        "N": 9
+      },
+      "expected": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "cells": [
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          1,
+          1
+        ],
+        "N": 12
+      },
+      "expected": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "cells": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          1,
+          0
+        ],
+        "N": 4
+      },
+      "expected": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "cells": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
+          1,
+          0
+        ],
+        "N": 25
+      },
+      "expected": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "slug": "minimum-spanning-tree-cost",
+  "title": "Minimum Spanning Tree Cost",
+  "difficulty": "medium",
+  "tags": [
+    "graph",
+    "union-find",
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minimumSpanningTree",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

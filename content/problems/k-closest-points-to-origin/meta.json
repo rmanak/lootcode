@@ -1,0 +1,37 @@
+{
+  "slug": "k-closest-points-to-origin",
+  "title": "K Closest Points to Origin",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "heap"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "kClosest",
+    "params": [
+      {
+        "name": "points",
+        "type": "int[][]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "unordered"
+}

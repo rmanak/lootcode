@@ -1,0 +1,39 @@
+{
+  "slug": "linked-list-in-binary-tree",
+  "title": "Linked List In Binary Tree",
+  "difficulty": "medium",
+  "tags": [
+    "linked-list",
+    "tree",
+    "depth-first-search",
+    "binary-tree"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "isSubPath",
+    "params": [
+      {
+        "name": "head",
+        "type": "int[]"
+      },
+      {
+        "name": "root",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

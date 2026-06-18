@@ -1,0 +1,33 @@
+{
+  "slug": "word-dictionary",
+  "title": "Trie Word Dictionary With Wildcards",
+  "difficulty": "medium",
+  "tags": [
+    "trie",
+    "depth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "wordDictionary",
+    "params": [
+      {
+        "name": "operations",
+        "type": "any[][]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

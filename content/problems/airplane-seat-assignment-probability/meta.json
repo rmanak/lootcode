@@ -1,0 +1,32 @@
+{
+  "slug": "airplane-seat-assignment-probability",
+  "title": "Airplane Seat Assignment Probability",
+  "difficulty": "medium",
+  "tags": [
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "nthPersonGetsNthSeat",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "float"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

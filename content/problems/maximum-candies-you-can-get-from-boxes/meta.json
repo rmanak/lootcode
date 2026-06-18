@@ -1,0 +1,50 @@
+{
+  "slug": "maximum-candies-you-can-get-from-boxes",
+  "title": "Maximum Candies You Can Get from Boxes",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "breadth-first-search",
+    "graph"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxCandies",
+    "params": [
+      {
+        "name": "status",
+        "type": "int[]"
+      },
+      {
+        "name": "candies",
+        "type": "int[]"
+      },
+      {
+        "name": "keys",
+        "type": "int[][]"
+      },
+      {
+        "name": "containedBoxes",
+        "type": "int[][]"
+      },
+      {
+        "name": "initialBoxes",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

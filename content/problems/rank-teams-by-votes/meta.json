@@ -1,0 +1,36 @@
+{
+  "slug": "rank-teams-by-votes",
+  "title": "Rank Teams by Votes",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "string",
+    "sorting",
+    "counting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "rankTeams",
+    "params": [
+      {
+        "name": "votes",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,37 @@
+{
+  "slug": "combination-sum",
+  "title": "Combination Sum",
+  "difficulty": "medium",
+  "tags": [
+    "backtracking",
+    "array"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "combinationSum",
+    "params": [
+      {
+        "name": "candidates",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "set_of_lists"
+}

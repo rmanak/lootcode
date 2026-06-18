@@ -1,0 +1,34 @@
+{
+  "slug": "minimum-add-to-make-parentheses-valid",
+  "title": "Minimum Add to Make Parentheses Valid",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "stack",
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minAddToMakeValid",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

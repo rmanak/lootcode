@@ -1,0 +1,37 @@
+{
+  "slug": "minimum-swaps-to-make-sequences-increasing",
+  "title": "Minimum Swaps to Make Sequences Increasing",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minSwap",
+    "params": [
+      {
+        "name": "A",
+        "type": "int[]"
+      },
+      {
+        "name": "B",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,114 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "words": [
+          "This",
+          "is",
+          "an",
+          "example",
+          "of",
+          "text",
+          "justification."
+        ],
+        "maxWidth": 16
+      },
+      "expected": [
+        "This    is    an",
+        "example  of text",
+        "justification.  "
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "words": [
+          "What",
+          "must",
+          "be",
+          "acknowledgment",
+          "shall",
+          "be"
+        ],
+        "maxWidth": 16
+      },
+      "expected": [
+        "What   must   be",
+        "acknowledgment  ",
+        "shall be        "
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "words": [
+          "Science",
+          "is",
+          "what",
+          "we",
+          "understand",
+          "well",
+          "enough",
+          "to",
+          "explain",
+          "to",
+          "a",
+          "computer.",
+          "Art",
+          "is",
+          "everything",
+          "else",
+          "we",
+          "do"
+        ],
+        "maxWidth": 20
+      },
+      "expected": [
+        "Science  is  what we",
+        "understand      well",
+        "enough to explain to",
+        "a  computer.  Art is",
+        "everything  else  we",
+        "do                  "
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "words": [
+          "a"
+        ],
+        "maxWidth": 1
+      },
+      "expected": [
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "words": [
+          "a",
+          "b",
+          "c"
+        ],
+        "maxWidth": 3
+      },
+      "expected": [
+        "a b",
+        "c  "
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

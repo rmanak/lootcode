@@ -1,0 +1,36 @@
+{
+  "slug": "verbal-arithmetic-puzzle",
+  "title": "Verbal Arithmetic Puzzle",
+  "difficulty": "hard",
+  "tags": [
+    "backtracking"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "isSolvable",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      },
+      {
+        "name": "result",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

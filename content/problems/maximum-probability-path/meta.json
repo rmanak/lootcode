@@ -1,0 +1,48 @@
+{
+  "slug": "maximum-probability-path",
+  "title": "Maximum Probability Path",
+  "difficulty": "medium",
+  "tags": [
+    "graph"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxProbability",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      },
+      {
+        "name": "succProb",
+        "type": "float[]"
+      },
+      {
+        "name": "start",
+        "type": "int"
+      },
+      {
+        "name": "end",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "float"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

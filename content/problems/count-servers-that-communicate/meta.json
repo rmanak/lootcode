@@ -1,0 +1,34 @@
+{
+  "slug": "count-servers-that-communicate",
+  "title": "Count Servers that Communicate",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "matrix",
+    "counting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "countServers",
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

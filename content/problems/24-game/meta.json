@@ -1,0 +1,33 @@
+{
+  "slug": "24-game",
+  "title": "24 Game",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "backtracking"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "judgePoint24",
+    "params": [
+      {
+        "name": "cards",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

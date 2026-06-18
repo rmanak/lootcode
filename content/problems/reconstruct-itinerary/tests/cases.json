@@ -1,0 +1,553 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "tickets": [
+          [
+            "MUC",
+            "LHR"
+          ],
+          [
+            "JFK",
+            "MUC"
+          ],
+          [
+            "SFO",
+            "SJC"
+          ],
+          [
+            "LHR",
+            "SFO"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "MUC",
+        "LHR",
+        "SFO",
+        "SJC"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "tickets": [
+          [
+            "JFK",
+            "KUL"
+          ],
+          [
+            "JFK",
+            "NRT"
+          ],
+          [
+            "NRT",
+            "JFK"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "NRT",
+        "JFK",
+        "KUL"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "tickets": [
+          [
+            "JFK",
+            "ATL"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "ATL"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "tickets": [
+          [
+            "JFK",
+            "A"
+          ],
+          [
+            "A",
+            "JFK"
+          ],
+          [
+            "JFK",
+            "B"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "A",
+        "JFK",
+        "B"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "tickets": [
+          [
+            "JFK",
+            "SFO"
+          ],
+          [
+            "JFK",
+            "ATL"
+          ],
+          [
+            "SFO",
+            "ATL"
+          ],
+          [
+            "ATL",
+            "JFK"
+          ],
+          [
+            "ATL",
+            "SFO"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "ATL",
+        "JFK",
+        "SFO",
+        "ATL",
+        "SFO"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "tickets": [
+          [
+            "LAX",
+            "SFO"
+          ],
+          [
+            "DEN",
+            "LAX"
+          ],
+          [
+            "ATL",
+            "DEN"
+          ],
+          [
+            "LAX",
+            "JFK"
+          ],
+          [
+            "JFK",
+            "ATL"
+          ],
+          [
+            "ATL",
+            "ATL"
+          ],
+          [
+            "ORD",
+            "LAX"
+          ],
+          [
+            "JFK",
+            "ORD"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "ATL",
+        "ATL",
+        "DEN",
+        "LAX",
+        "JFK",
+        "ORD",
+        "LAX",
+        "SFO"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "tickets": [
+          [
+            "JFK",
+            "LAX"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "LAX"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "tickets": [
+          [
+            "JFK",
+            "ORD"
+          ],
+          [
+            "ATL",
+            "SFO"
+          ],
+          [
+            "ORD",
+            "ATL"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "ORD",
+        "ATL",
+        "SFO"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "tickets": [
+          [
+            "SFO",
+            "ATL"
+          ],
+          [
+            "LAX",
+            "JFK"
+          ],
+          [
+            "ATL",
+            "JFK"
+          ],
+          [
+            "LAX",
+            "SFO"
+          ],
+          [
+            "JFK",
+            "LAX"
+          ],
+          [
+            "SFO",
+            "DEN"
+          ],
+          [
+            "JFK",
+            "LAX"
+          ],
+          [
+            "JFK",
+            "SFO"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "LAX",
+        "JFK",
+        "LAX",
+        "SFO",
+        "ATL",
+        "JFK",
+        "SFO",
+        "DEN"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "tickets": [
+          [
+            "DEN",
+            "ORD"
+          ],
+          [
+            "JFK",
+            "DEN"
+          ],
+          [
+            "JFK",
+            "JFK"
+          ],
+          [
+            "ORD",
+            "JFK"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "DEN",
+        "ORD",
+        "JFK",
+        "JFK"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "tickets": [
+          [
+            "ORD",
+            "ATL"
+          ],
+          [
+            "LAX",
+            "ORD"
+          ],
+          [
+            "DEN",
+            "ORD"
+          ],
+          [
+            "JFK",
+            "LAX"
+          ],
+          [
+            "ATL",
+            "LAX"
+          ],
+          [
+            "ORD",
+            "SFO"
+          ],
+          [
+            "LAX",
+            "DEN"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "LAX",
+        "DEN",
+        "ORD",
+        "ATL",
+        "LAX",
+        "ORD",
+        "SFO"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "tickets": [
+          [
+            "ORD",
+            "SFO"
+          ],
+          [
+            "JFK",
+            "ORD"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "ORD",
+        "SFO"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "tickets": [
+          [
+            "DEN",
+            "DEN"
+          ],
+          [
+            "DEN",
+            "JFK"
+          ],
+          [
+            "JFK",
+            "DEN"
+          ],
+          [
+            "DEN",
+            "DEN"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "DEN",
+        "DEN",
+        "DEN",
+        "JFK"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "tickets": [
+          [
+            "ATL",
+            "ATL"
+          ],
+          [
+            "DEN",
+            "ORD"
+          ],
+          [
+            "ATL",
+            "LAX"
+          ],
+          [
+            "LAX",
+            "DEN"
+          ],
+          [
+            "JFK",
+            "ATL"
+          ],
+          [
+            "LAX",
+            "DEN"
+          ],
+          [
+            "DEN",
+            "LAX"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "ATL",
+        "ATL",
+        "LAX",
+        "DEN",
+        "LAX",
+        "DEN",
+        "ORD"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "tickets": [
+          [
+            "SFO",
+            "ORD"
+          ],
+          [
+            "JFK",
+            "SFO"
+          ],
+          [
+            "LAX",
+            "SFO"
+          ],
+          [
+            "JFK",
+            "LAX"
+          ],
+          [
+            "SFO",
+            "JFK"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "LAX",
+        "SFO",
+        "JFK",
+        "SFO",
+        "ORD"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "tickets": [
+          [
+            "ATL",
+            "SFO"
+          ],
+          [
+            "JFK",
+            "ATL"
+          ],
+          [
+            "SFO",
+            "ATL"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "ATL",
+        "SFO",
+        "ATL"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "tickets": [
+          [
+            "JFK",
+            "JFK"
+          ]
+        ]
+      },
+      "expected": [
+        "JFK",
+        "JFK"
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

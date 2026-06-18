@@ -1,0 +1,33 @@
+{
+  "slug": "swap-nodes-in-pairs",
+  "title": "Swap Nodes in Pairs",
+  "difficulty": "medium",
+  "tags": [
+    "linked-list",
+    "recursion"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "swapPairs",
+    "params": [
+      {
+        "name": "head",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

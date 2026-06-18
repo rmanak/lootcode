@@ -1,0 +1,202 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "1 + (2 - 3)"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "(1+(4+5+2)-3)+(6+8)"
+      },
+      "expected": 23,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "0"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "  42 "
+      },
+      "expected": 42,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "2-1+2"
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "(5)"
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "1-(2+3)"
+      },
+      "expected": -4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "10-(2-(3+1))"
+      },
+      "expected": 12,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "7"
+      },
+      "expected": 7,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "(0 - 0 + 13)"
+      },
+      "expected": 13,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "10"
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s": "1"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "s": "(9 - 15) - (6 - 19)"
+      },
+      "expected": 7,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "s": "2 + 18"
+      },
+      "expected": 20,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "s": "(0 - 18)"
+      },
+      "expected": -18,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "s": "0 + 15 + 1"
+      },
+      "expected": 16,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "s": "10"
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-16",
+      "input": {
+        "s": "17"
+      },
+      "expected": 17,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-17",
+      "input": {
+        "s": "14 - 19"
+      },
+      "expected": -5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-18",
+      "input": {
+        "s": "20"
+      },
+      "expected": 20,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-19",
+      "input": {
+        "s": "2"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-20",
+      "input": {
+        "s": "(20 - (16 - 12))"
+      },
+      "expected": 16,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

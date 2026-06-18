@@ -1,0 +1,39 @@
+{
+  "slug": "top-k-frequent-words",
+  "title": "Top K Frequent Words",
+  "difficulty": "medium",
+  "tags": [
+    "hash-table",
+    "string",
+    "sorting",
+    "heap"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "topKFrequent",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "str[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

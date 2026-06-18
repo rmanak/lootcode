@@ -1,0 +1,272 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "files": [
+          [
+            "a",
+            "x"
+          ],
+          [
+            "b",
+            "x"
+          ],
+          [
+            "c",
+            "y"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "a",
+          "b"
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "files": [
+          [
+            "a",
+            "x"
+          ]
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "files": [
+          [
+            "a",
+            "x"
+          ],
+          [
+            "b",
+            "y"
+          ],
+          [
+            "c",
+            "x"
+          ],
+          [
+            "d",
+            "y"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "a",
+          "c"
+        ],
+        [
+          "b",
+          "d"
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "files": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "files": [
+          [
+            "a",
+            "x"
+          ],
+          [
+            "b",
+            "y"
+          ]
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "files": [
+          [
+            "a",
+            "x"
+          ],
+          [
+            "b",
+            "x"
+          ],
+          [
+            "c",
+            "x"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "a",
+          "b",
+          "c"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "files": [
+          [
+            "p0",
+            "y"
+          ],
+          [
+            "p1",
+            "y"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "p0",
+          "p1"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "files": [
+          [
+            "p0",
+            "y"
+          ]
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "files": [
+          [
+            "p0",
+            "x"
+          ],
+          [
+            "p1",
+            "x"
+          ],
+          [
+            "p2",
+            "x"
+          ],
+          [
+            "p3",
+            "x"
+          ],
+          [
+            "p4",
+            "z"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "p0",
+          "p1",
+          "p2",
+          "p3"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "files": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "files": [
+          [
+            "p0",
+            "y"
+          ],
+          [
+            "p1",
+            "y"
+          ],
+          [
+            "p2",
+            "x"
+          ],
+          [
+            "p3",
+            "x"
+          ],
+          [
+            "p4",
+            "x"
+          ],
+          [
+            "p5",
+            "y"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "p0",
+          "p1",
+          "p5"
+        ],
+        [
+          "p2",
+          "p3",
+          "p4"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "files": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

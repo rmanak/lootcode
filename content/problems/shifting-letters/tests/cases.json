@@ -1,0 +1,216 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "S": "abc",
+        "shifts": [
+          3,
+          5,
+          9
+        ]
+      },
+      "expected": "rpl",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "S": "a",
+        "shifts": [
+          0
+        ]
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "S": "z",
+        "shifts": [
+          1
+        ]
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "S": "aaa",
+        "shifts": [
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": "dcb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "S": "xyz",
+        "shifts": [
+          26,
+          52,
+          1
+        ]
+      },
+      "expected": "yza",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "S": "ruby",
+        "shifts": [
+          1000000000,
+          0,
+          5,
+          7
+        ]
+      },
+      "expected": "pgnf",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "S": "ybzx",
+        "shifts": [
+          628005860,
+          913988934,
+          172855576,
+          88153331
+        ]
+      },
+      "expected": "dscq",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "S": "bzzxbx",
+        "shifts": [
+          956922045,
+          701486108,
+          938754334,
+          413914128,
+          170487060,
+          413052912
+        ]
+      },
+      "expected": "ebdddj",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "S": "ycayx",
+        "shifts": [
+          148169234,
+          65302570,
+          954433712,
+          224157316,
+          84548325
+        ]
+      },
+      "expected": "tfvvo",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "S": "z",
+        "shifts": [
+          504088009
+        ]
+      },
+      "expected": "i",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "S": "zcxax",
+        "shifts": [
+          392203520,
+          30147319,
+          862315367,
+          41943402,
+          40558070
+        ]
+      },
+      "expected": "focor",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "S": "aabaaaa",
+        "shifts": [
+          681352181,
+          799193283,
+          478503823,
+          206370891,
+          141135539,
+          401822985,
+          934528888
+        ]
+      },
+      "expected": "khdxyzu",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "S": "azcbaxzy",
+        "shifts": [
+          197626363,
+          539993654,
+          913145907,
+          915687667,
+          980322414,
+          216734137,
+          73530381,
+          458336404
+        ]
+      },
+      "expected": "xxiwkbue",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "S": "xcxcyzc",
+        "shifts": [
+          494499070,
+          247164582,
+          877711418,
+          867205293,
+          163891719,
+          655006140,
+          557839811
+        ]
+      },
+      "expected": "afyruel",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

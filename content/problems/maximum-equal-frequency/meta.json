@@ -1,0 +1,33 @@
+{
+  "slug": "maximum-equal-frequency",
+  "title": "Maximum Equal Frequency",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxEqualFreq",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

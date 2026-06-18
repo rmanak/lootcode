@@ -1,0 +1,271 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "freq": "minute",
+        "times": [
+          0,
+          60,
+          10
+        ],
+        "startTime": 0,
+        "endTime": 59
+      },
+      "expected": [
+        2
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "freq": "minute",
+        "times": [
+          0,
+          60,
+          10
+        ],
+        "startTime": 0,
+        "endTime": 60
+      },
+      "expected": [
+        2,
+        1
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "freq": "hour",
+        "times": [
+          0,
+          10,
+          60,
+          120
+        ],
+        "startTime": 0,
+        "endTime": 210
+      },
+      "expected": [
+        4
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "freq": "day",
+        "times": [],
+        "startTime": 0,
+        "endTime": 100
+      },
+      "expected": [
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "freq": "minute",
+        "times": [
+          5,
+          5,
+          5
+        ],
+        "startTime": 0,
+        "endTime": 0
+      },
+      "expected": [
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "freq": "minute",
+        "times": [
+          0,
+          59,
+          60,
+          119
+        ],
+        "startTime": 0,
+        "endTime": 119
+      },
+      "expected": [
+        2,
+        2
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "freq": "day",
+        "times": [
+          85,
+          140,
+          187,
+          244,
+          101,
+          170,
+          28,
+          173,
+          263,
+          226
+        ],
+        "startTime": 32,
+        "endTime": 56
+      },
+      "expected": [
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "freq": "minute",
+        "times": [
+          251,
+          20,
+          161,
+          133,
+          245,
+          37,
+          264,
+          195
+        ],
+        "startTime": 28,
+        "endTime": 171
+      },
+      "expected": [
+        1,
+        1,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "freq": "hour",
+        "times": [
+          274
+        ],
+        "startTime": 4,
+        "endTime": 144
+      },
+      "expected": [
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "freq": "hour",
+        "times": [],
+        "startTime": 10,
+        "endTime": 16
+      },
+      "expected": [
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "freq": "hour",
+        "times": [],
+        "startTime": 15,
+        "endTime": 53
+      },
+      "expected": [
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "freq": "hour",
+        "times": [
+          89,
+          190,
+          118,
+          40,
+          285,
+          66,
+          286
+        ],
+        "startTime": 20,
+        "endTime": 147
+      },
+      "expected": [
+        4
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "freq": "minute",
+        "times": [
+          36,
+          105,
+          64,
+          12
+        ],
+        "startTime": 12,
+        "endTime": 138
+      },
+      "expected": [
+        3,
+        1,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "freq": "minute",
+        "times": [
+          58,
+          20,
+          296,
+          285,
+          241,
+          259,
+          205
+        ],
+        "startTime": 40,
+        "endTime": 55
+      },
+      "expected": [
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

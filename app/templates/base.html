@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ app_name }}{% endblock %}</title>
+  <link rel="icon" type="image/svg+xml" href="{{ static('favicon.svg') }}">
+  <link rel="stylesheet" href="{{ static('app.css') }}">
+  <script>
+    // Tell the server our timezone so per-day stats (the weekly grid) bucket
+    // solves by the user's local day, not UTC. Runs once per browser; reloads
+    // the first time so the current page can use it immediately.
+    (function () {
+      try {
+        var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (!tz) return;
+        var want = "lc_tz=" + encodeURIComponent(tz);
+        if (("; " + document.cookie).indexOf("; " + want) !== -1) return;
+        document.cookie = want + ";path=/;max-age=63072000;samesite=lax";
+        // Guard against a reload loop when cookies are disabled (set was a no-op).
+        if (document.cookie.indexOf("lc_tz=") !== -1) location.reload();
+      } catch (e) { /* Intl/cookies unavailable — fall back to UTC server-side */ }
+    })();
+  </script>
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">🪙 lootcode</a>
+    <nav>
+      <a href="/">Problems</a>
+      <a href="/me">My Progress</a>
+      <a href="/admin">Admin</a>
+    </nav>
+    <span class="who">
+      {% if request.state.is_account %}
+        <a href="/account" title="Signed in — manage account">👤 {{ request.state.username }}</a>
+      {% else %}
+        {{ user_name or 'guest' }} · <a href="/account">Log in / Sign up</a>
+      {% endif %}
+    </span>
+  </header>
+  <main class="container {% block container_class %}{% endblock %}">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="foot">lootcode — practice · run · score</footer>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

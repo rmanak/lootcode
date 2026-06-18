@@ -1,0 +1,216 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "root": [
+          5,
+          4,
+          8,
+          11,
+          null,
+          13,
+          4,
+          7,
+          2,
+          null,
+          null,
+          5,
+          1
+        ],
+        "targetSum": 22
+      },
+      "expected": [
+        [
+          5,
+          4,
+          11,
+          2
+        ],
+        [
+          5,
+          8,
+          4,
+          5
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "root": [
+          1,
+          2,
+          3
+        ],
+        "targetSum": 5
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "root": [
+          1,
+          2
+        ],
+        "targetSum": 3
+      },
+      "expected": [
+        [
+          1,
+          2
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "root": [
+          1,
+          2
+        ],
+        "targetSum": 0
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "root": [],
+        "targetSum": 0
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "root": [
+          2
+        ],
+        "targetSum": 9
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "root": [
+          6
+        ],
+        "targetSum": 4
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "root": [
+          1,
+          4,
+          null,
+          2,
+          4,
+          -2,
+          5,
+          -3,
+          -3,
+          -2,
+          5,
+          null,
+          null,
+          null,
+          null,
+          2,
+          null,
+          null,
+          null,
+          null,
+          1
+        ],
+        "targetSum": 4
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "root": [
+          2,
+          -1,
+          -1,
+          0,
+          3,
+          null,
+          null,
+          null,
+          4,
+          null,
+          null,
+          -1,
+          4,
+          -2,
+          null,
+          null,
+          null,
+          2
+        ],
+        "targetSum": 5
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "root": [
+          2,
+          null,
+          1
+        ],
+        "targetSum": 2
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "root": [
+          -2,
+          -3,
+          null,
+          6,
+          5,
+          null,
+          null,
+          3,
+          null,
+          6
+        ],
+        "targetSum": 7
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

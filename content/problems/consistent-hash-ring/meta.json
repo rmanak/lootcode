@@ -1,0 +1,32 @@
+{
+  "slug": "consistent-hash-ring",
+  "title": "Consistent Hash Ring",
+  "difficulty": "medium",
+  "tags": [
+    "binary-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "hashRing",
+    "params": [
+      {
+        "name": "operations",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,37 @@
+{
+  "slug": "shortest-common-supersequence-length",
+  "title": "Shortest Common Supersequence Length",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "scsLength",
+    "params": [
+      {
+        "name": "str1",
+        "type": "string"
+      },
+      {
+        "name": "str2",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,209 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "votes": [
+          "ABC",
+          "ACB",
+          "ABC",
+          "ACB",
+          "ACB"
+        ]
+      },
+      "expected": "ACB",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "votes": [
+          "WXYZ",
+          "XYZW"
+        ]
+      },
+      "expected": "XWYZ",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "votes": [
+          "BCA",
+          "CAB",
+          "CBA",
+          "ABC",
+          "ACB",
+          "BAC"
+        ]
+      },
+      "expected": "ABC",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "votes": [
+          "ZMNAGUEDSJYLBOPHRQICWFXTVK"
+        ]
+      },
+      "expected": "ZMNAGUEDSJYLBOPHRQICWFXTVK",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "votes": [
+          "M",
+          "M",
+          "M",
+          "M"
+        ]
+      },
+      "expected": "M",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "votes": [
+          "AB",
+          "AB",
+          "BA"
+        ]
+      },
+      "expected": "AB",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "votes": [
+          "FVSHJIEMNGYPTQOURDABKWLZCX"
+        ]
+      },
+      "expected": "FVSHJIEMNGYPTQOURDABKWLZCX",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "votes": [
+          "BCAD",
+          "ABDC",
+          "CADB",
+          "ACDB",
+          "DBAC"
+        ]
+      },
+      "expected": "ABCD",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "votes": [
+          "BAC",
+          "BAC",
+          "CAB"
+        ]
+      },
+      "expected": "BCA",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "votes": [
+          "CAB",
+          "BAC",
+          "CBA",
+          "ABC"
+        ]
+      },
+      "expected": "CAB",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "votes": [
+          "BAC",
+          "CAB",
+          "BCA",
+          "BAC"
+        ]
+      },
+      "expected": "BCA",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "votes": [
+          "ACDB",
+          "ADCB",
+          "CBDA"
+        ]
+      },
+      "expected": "ACDB",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "votes": [
+          "CBDA",
+          "CBAD",
+          "DBCA",
+          "CDBA",
+          "BCAD"
+        ]
+      },
+      "expected": "CBDA",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "votes": [
+          "DACB",
+          "ACBD",
+          "BDAC",
+          "DCBA",
+          "BDCA"
+        ]
+      },
+      "expected": "DBAC",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "votes": [
+          "BCA",
+          "CBA",
+          "ACB",
+          "ABC"
+        ]
+      },
+      "expected": "ABC",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

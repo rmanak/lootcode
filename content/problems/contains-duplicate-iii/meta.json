@@ -1,0 +1,42 @@
+{
+  "slug": "contains-duplicate-iii",
+  "title": "Contains Duplicate III",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "sliding-window",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "containsNearbyAlmostDuplicate",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      },
+      {
+        "name": "t",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

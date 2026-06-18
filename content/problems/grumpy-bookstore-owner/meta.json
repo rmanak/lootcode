@@ -1,0 +1,41 @@
+{
+  "slug": "grumpy-bookstore-owner",
+  "title": "Grumpy Bookstore Owner",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "sliding-window"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxSatisfied",
+    "params": [
+      {
+        "name": "customers",
+        "type": "int[]"
+      },
+      {
+        "name": "grumpy",
+        "type": "int[]"
+      },
+      {
+        "name": "X",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

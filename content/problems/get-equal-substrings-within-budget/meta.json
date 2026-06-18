@@ -1,0 +1,42 @@
+{
+  "slug": "get-equal-substrings-within-budget",
+  "title": "Get Equal Substrings Within Budget",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "sliding-window",
+    "binary-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "equalSubstring",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "t",
+        "type": "string"
+      },
+      {
+        "name": "maxCost",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,35 @@
+{
+  "slug": "pizza-with-3n-slices",
+  "title": "Pizza With 3n Slices",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "greedy",
+    "heap"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxSizeSlices",
+    "params": [
+      {
+        "name": "slices",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

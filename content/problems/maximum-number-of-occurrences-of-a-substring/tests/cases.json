@@ -1,0 +1,148 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "aababcaab",
+        "maxLetters": 2,
+        "minSize": 3,
+        "maxSize": 4
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "aaaa",
+        "maxLetters": 1,
+        "minSize": 3,
+        "maxSize": 3
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "s": "abcde",
+        "maxLetters": 2,
+        "minSize": 3,
+        "maxSize": 3
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "aabcabcab",
+        "maxLetters": 2,
+        "minSize": 2,
+        "maxSize": 3
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "a",
+        "maxLetters": 1,
+        "minSize": 1,
+        "maxSize": 1
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "abababab",
+        "maxLetters": 2,
+        "minSize": 2,
+        "maxSize": 4
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",
+        "maxLetters": 1,
+        "minSize": 3,
+        "maxSize": 5
+      },
+      "expected": 198,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "cccccacbbbcc",
+        "maxLetters": 1,
+        "minSize": 3,
+        "maxSize": 3
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "bccb",
+        "maxLetters": 1,
+        "minSize": 2,
+        "maxSize": 3
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "baaccccab",
+        "maxLetters": 1,
+        "minSize": 4,
+        "maxSize": 6
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "cacbb",
+        "maxLetters": 3,
+        "minSize": 1,
+        "maxSize": 1
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "caccabc",
+        "maxLetters": 2,
+        "minSize": 3,
+        "maxSize": 6
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "slug": "pow-function",
+  "title": "Pow Function",
+  "difficulty": "medium",
+  "tags": [
+    "recursion"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "myPow",
+    "params": [
+      {
+        "name": "x",
+        "type": "num"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "num"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

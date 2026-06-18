@@ -1,0 +1,34 @@
+{
+  "slug": "maximum-number-of-coins-you-can-get",
+  "title": "Maximum Number of Coins You Can Get",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "greedy",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxCoins",
+    "params": [
+      {
+        "name": "piles",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

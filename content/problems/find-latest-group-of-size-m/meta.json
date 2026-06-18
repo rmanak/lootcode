@@ -1,0 +1,38 @@
+{
+  "slug": "find-latest-group-of-size-m",
+  "title": "Find Latest Group of Size M",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "simulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findLatestStep",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[]"
+      },
+      {
+        "name": "m",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,38 @@
+{
+  "slug": "regex-full-match",
+  "title": "Regular Expression Full Match",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "dynamic-programming",
+    "recursion"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "isMatch",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "p",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

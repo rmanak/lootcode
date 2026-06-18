@@ -1,0 +1,37 @@
+{
+  "slug": "edit-distance",
+  "title": "Edit Distance",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minDistance",
+    "params": [
+      {
+        "name": "word1",
+        "type": "string"
+      },
+      {
+        "name": "word2",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

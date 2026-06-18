@@ -1,0 +1,35 @@
+{
+  "slug": "bitwise-ors-of-subarrays",
+  "title": "Bitwise ORs of Subarrays",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "bit-manipulation",
+    "hash-table",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "subarrayBitwiseORs",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

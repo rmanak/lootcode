@@ -1,0 +1,42 @@
+{
+  "slug": "car-fleet",
+  "title": "Car Fleet Count",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "stack",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "carFleet",
+    "params": [
+      {
+        "name": "target",
+        "type": "int"
+      },
+      {
+        "name": "position",
+        "type": "int[]"
+      },
+      {
+        "name": "speed",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

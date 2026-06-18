@@ -1,0 +1,33 @@
+{
+  "slug": "simplify-path",
+  "title": "Simplify Path",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "stack"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "simplifyPath",
+    "params": [
+      {
+        "name": "path",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

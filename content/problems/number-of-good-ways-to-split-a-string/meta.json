@@ -1,0 +1,35 @@
+{
+  "slug": "number-of-good-ways-to-split-a-string",
+  "title": "Number of Good Ways to Split a String",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "hash-table",
+    "dynamic-programming",
+    "bit-manipulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "numSplits",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

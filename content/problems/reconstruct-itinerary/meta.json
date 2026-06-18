@@ -1,0 +1,33 @@
+{
+  "slug": "reconstruct-itinerary",
+  "title": "Reconstruct Itinerary",
+  "difficulty": "hard",
+  "tags": [
+    "graph",
+    "depth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findItinerary",
+    "params": [
+      {
+        "name": "tickets",
+        "type": "string[][]"
+      }
+    ],
+    "returns": {
+      "type": "string[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,121 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "tree"
+      },
+      "expected": "eert",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "cccaaa"
+      },
+      "expected": "aaaccc",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "s": "Aabb"
+      },
+      "expected": "bbAa",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "a"
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "aabbcc"
+      },
+      "expected": "aabbcc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "loveleetcode"
+      },
+      "expected": "eeeelloocdtv",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "zZzZ"
+      },
+      "expected": "ZZzz",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "bBabbbaBca"
+      },
+      "expected": "bbbbaaaBBc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "aa"
+      },
+      "expected": "aa",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "aAcbbccbb"
+      },
+      "expected": "bbbbcccAa",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "aAabaABa"
+      },
+      "expected": "aaaaAABb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "abBA"
+      },
+      "expected": "ABab",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s": "baaAABaAa"
+      },
+      "expected": "aaaaAAABb",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

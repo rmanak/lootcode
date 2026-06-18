@@ -1,0 +1,33 @@
+{
+  "slug": "reordered-power-of-2",
+  "title": "Reordered Power of 2",
+  "difficulty": "medium",
+  "tags": [
+    "counting",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "reorderedPowerOf2",
+    "params": [
+      {
+        "name": "N",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

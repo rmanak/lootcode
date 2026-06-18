@@ -1,0 +1,35 @@
+{
+  "slug": "avoid-flood-in-the-city",
+  "title": "Avoid Flood in The City",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "binary-search",
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "canAvoidFlood",
+    "params": [
+      {
+        "name": "rains",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

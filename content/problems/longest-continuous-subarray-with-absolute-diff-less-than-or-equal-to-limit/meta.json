@@ -1,0 +1,39 @@
+{
+  "slug": "longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit",
+  "title": "Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "sliding-window",
+    "heap",
+    "binary-search-tree"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "longestSubarray",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "limit",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

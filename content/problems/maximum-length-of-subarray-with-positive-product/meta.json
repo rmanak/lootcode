@@ -1,0 +1,34 @@
+{
+  "slug": "maximum-length-of-subarray-with-positive-product",
+  "title": "Maximum Length of Subarray With Positive Product",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "getMaxLen",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

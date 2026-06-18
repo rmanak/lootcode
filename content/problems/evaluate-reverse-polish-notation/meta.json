@@ -1,0 +1,32 @@
+{
+  "slug": "evaluate-reverse-polish-notation",
+  "title": "Evaluate Reverse Polish Notation",
+  "difficulty": "medium",
+  "tags": [
+    "stack"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "evalRPN",
+    "params": [
+      {
+        "name": "tokens",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

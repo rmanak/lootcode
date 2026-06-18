@@ -1,0 +1,37 @@
+{
+  "slug": "decoded-string-at-index",
+  "title": "Decoded String at Index",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "stack"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "decodeAtIndex",
+    "params": [
+      {
+        "name": "S",
+        "type": "string"
+      },
+      {
+        "name": "K",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

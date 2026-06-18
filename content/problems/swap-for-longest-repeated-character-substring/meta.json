@@ -1,0 +1,33 @@
+{
+  "slug": "swap-for-longest-repeated-character-substring",
+  "title": "Swap For Longest Repeated Character Substring",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "sliding-window"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxRepOpt1",
+    "params": [
+      {
+        "name": "text",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

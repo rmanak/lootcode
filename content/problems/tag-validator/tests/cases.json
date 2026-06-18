@@ -1,0 +1,85 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "code": "<DIV>This is the first line <![CDATA[<div>]]></DIV>"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "code": "<A>  <B> </A>   </B>"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "code": "<DIV>  unmatched <  </DIV>"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "code": "<DIV>>>  ![cdata[]] <![CDATA[<div>]>]]>]]>>]</DIV>"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "code": "<DIV>  div tag is not closed  <DIV>"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "code": "<DIV> closed tags with invalid tag name  <b>123</b> </DIV>"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "code": "<A></A>"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "code": "<A>B</A>C"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "code": "abc"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "slug": "number-of-ways-to-stay-in-the-same-place-after-some-steps",
+  "title": "Number of Ways to Stay in the Same Place After Some Steps",
+  "difficulty": "hard",
+  "tags": [
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "numWays",
+    "params": [
+      {
+        "name": "steps",
+        "type": "int"
+      },
+      {
+        "name": "arrLen",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

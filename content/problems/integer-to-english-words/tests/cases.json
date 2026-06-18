@@ -1,0 +1,85 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "num": 123
+      },
+      "expected": "One Hundred Twenty Three",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "num": 12345
+      },
+      "expected": "Twelve Thousand Three Hundred Forty Five",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "num": 1234567
+      },
+      "expected": "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "num": 0
+      },
+      "expected": "Zero",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "num": 1234567891
+      },
+      "expected": "One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thousand Eight Hundred Ninety One",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "num": 100
+      },
+      "expected": "One Hundred",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "num": 1000000
+      },
+      "expected": "One Million",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "num": 20
+      },
+      "expected": "Twenty",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "num": 2147483647
+      },
+      "expected": "Two Billion One Hundred Forty Seven Million Four Hundred Eighty Three Thousand Six Hundred Forty Seven",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

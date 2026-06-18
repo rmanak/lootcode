@@ -1,0 +1,37 @@
+{
+  "slug": "median-of-two-sorted-arrays",
+  "title": "Median of Two Sorted Arrays",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findMedianSortedArrays",
+    "params": [
+      {
+        "name": "nums1",
+        "type": "int[]"
+      },
+      {
+        "name": "nums2",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "num"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

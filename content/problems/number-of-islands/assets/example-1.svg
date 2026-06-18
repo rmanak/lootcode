@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 232 206" width="232" height="206" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0f766e"/></marker><marker id="arrowA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b45309"/></marker></defs>
+  <text x="116" y="20" fill="#6b7280" font-size="13" font-weight="600" text-anchor="middle">1 island</text>
+  <rect x="16" y="30" width="40" height="40" fill="#d6efea" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="36" y="55" fill="#1f2430" font-size="15" font-weight="700" text-anchor="middle">1</text>
+  <rect x="56" y="30" width="40" height="40" fill="#d6efea" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="76" y="55" fill="#1f2430" font-size="15" font-weight="700" text-anchor="middle">1</text>
+  <rect x="96" y="30" width="40" height="40" fill="#d6efea" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="116" y="55" fill="#1f2430" font-size="15" font-weight="700" text-anchor="middle">1</text>
+  <rect x="136" y="30" width="40" height="40" fill="#d6efea" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="156" y="55" fill="#1f2430" font-size="15" font-weight="700" text-anchor="middle">1</text>
+  <rect x="176" y="30" width="40" height="40" fill="#fff" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="196" y="55" fill="#6b7280" font-size="15" font-weight="400" text-anchor="middle">0</text>
+  <rect x="16" y="70" width="40" height="40" fill="#d6efea" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="36" y="95" fill="#1f2430" font-size="15" font-weight="700" text-anchor="middle">1</text>
+  <rect x="56" y="70" width="40" height="40" fill="#d6efea" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="76" y="95" fill="#1f2430" font-size="15" font-weight="700" text-anchor="middle">1</text>
+  <rect x="96" y="70" width="40" height="40" fill="#fff" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="116" y="95" fill="#6b7280" font-size="15" font-weight="400" text-anchor="middle">0</text>
+  <rect x="136" y="70" width="40" height="40" fill="#d6efea" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="156" y="95" fill="#1f2430" font-size="15" font-weight="700" text-anchor="middle">1</text>
+  <rect x="176" y="70" width="40" height="40" fill="#fff" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="196" y="95" fill="#6b7280" font-size="15" font-weight="400" text-anchor="middle">0</text>
+  <rect x="16" y="110" width="40" height="40" fill="#d6efea" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="36" y="135" fill="#1f2430" font-size="15" font-weight="700" text-anchor="middle">1</text>
+  <rect x="56" y="110" width="40" height="40" fill="#d6efea" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="76" y="135" fill="#1f2430" font-size="15" font-weight="700" text-anchor="middle">1</text>
+  <rect x="96" y="110" width="40" height="40" fill="#fff" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="116" y="135" fill="#6b7280" font-size="15" font-weight="400" text-anchor="middle">0</text>
+  <rect x="136" y="110" width="40" height="40" fill="#fff" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="156" y="135" fill="#6b7280" font-size="15" font-weight="400" text-anchor="middle">0</text>
+  <rect x="176" y="110" width="40" height="40" fill="#fff" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="196" y="135" fill="#6b7280" font-size="15" font-weight="400" text-anchor="middle">0</text>
+  <rect x="16" y="150" width="40" height="40" fill="#fff" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="36" y="175" fill="#6b7280" font-size="15" font-weight="400" text-anchor="middle">0</text>
+  <rect x="56" y="150" width="40" height="40" fill="#fff" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="76" y="175" fill="#6b7280" font-size="15" font-weight="400" text-anchor="middle">0</text>
+  <rect x="96" y="150" width="40" height="40" fill="#fff" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="116" y="175" fill="#6b7280" font-size="15" font-weight="400" text-anchor="middle">0</text>
+  <rect x="136" y="150" width="40" height="40" fill="#fff" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="156" y="175" fill="#6b7280" font-size="15" font-weight="400" text-anchor="middle">0</text>
+  <rect x="176" y="150" width="40" height="40" fill="#fff" stroke="#b9b4a8" stroke-width="1.5"/>
+  <text x="196" y="175" fill="#6b7280" font-size="15" font-weight="400" text-anchor="middle">0</text>
+</svg>

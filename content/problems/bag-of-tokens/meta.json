@@ -1,0 +1,39 @@
+{
+  "slug": "bag-of-tokens",
+  "title": "Bag of Tokens",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "greedy",
+    "sorting",
+    "two-pointers"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "bagOfTokensScore",
+    "params": [
+      {
+        "name": "tokens",
+        "type": "int[]"
+      },
+      {
+        "name": "P",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

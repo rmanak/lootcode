@@ -1,0 +1,43 @@
+{
+  "slug": "validate-binary-tree-nodes",
+  "title": "Validate Binary Tree Nodes",
+  "difficulty": "medium",
+  "tags": [
+    "tree",
+    "graph",
+    "union-find",
+    "breadth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "validateBinaryTreeNodes",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "leftChild",
+        "type": "int[]"
+      },
+      {
+        "name": "rightChild",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

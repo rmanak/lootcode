@@ -1,0 +1,37 @@
+{
+  "slug": "inventory-reservation",
+  "title": "Inventory Reservation Acceptance",
+  "difficulty": "easy",
+  "tags": [
+    "hash-table",
+    "simulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "reserve",
+    "params": [
+      {
+        "name": "stock",
+        "type": "object"
+      },
+      {
+        "name": "requests",
+        "type": "[string,int][]"
+      }
+    ],
+    "returns": {
+      "type": "bool[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,33 @@
+{
+  "slug": "robot-bounded-in-circle",
+  "title": "Robot Bounded In Circle",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "simulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "isRobotBounded",
+    "params": [
+      {
+        "name": "instructions",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

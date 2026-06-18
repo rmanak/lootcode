@@ -1,0 +1,42 @@
+{
+  "slug": "minimum-refueling-stops",
+  "title": "Minimum Number of Refueling Stops",
+  "difficulty": "hard",
+  "tags": [
+    "heap",
+    "greedy",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minRefuelStops",
+    "params": [
+      {
+        "name": "target",
+        "type": "int"
+      },
+      {
+        "name": "startFuel",
+        "type": "int"
+      },
+      {
+        "name": "stations",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

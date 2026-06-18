@@ -1,0 +1,166 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "tokens": [
+          100
+        ],
+        "P": 50
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "tokens": [
+          100,
+          200
+        ],
+        "P": 150
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "tokens": [
+          100,
+          200,
+          300,
+          400
+        ],
+        "P": 200
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "tokens": [],
+        "P": 100
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "tokens": [
+          26
+        ],
+        "P": 51
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "tokens": [
+          71,
+          55,
+          82
+        ],
+        "P": 54
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "tokens": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "P": 3
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "tokens": [
+          17
+        ],
+        "P": 2
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "tokens": [
+          18,
+          14
+        ],
+        "P": 23
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "tokens": [],
+        "P": 23
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "tokens": [
+          9
+        ],
+        "P": 26
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "tokens": [],
+        "P": 21
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "tokens": [
+          18,
+          2
+        ],
+        "P": 29
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

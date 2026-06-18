@@ -1,0 +1,32 @@
+{
+  "slug": "self-crossing",
+  "title": "Self Crossing",
+  "difficulty": "hard",
+  "tags": [
+    "array"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "isSelfCrossing",
+    "params": [
+      {
+        "name": "x",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

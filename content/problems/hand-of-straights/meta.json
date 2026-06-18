@@ -1,0 +1,38 @@
+{
+  "slug": "hand-of-straights",
+  "title": "Hand of Straights",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "greedy",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "isNStraightHand",
+    "params": [
+      {
+        "name": "hand",
+        "type": "int[]"
+      },
+      {
+        "name": "groupSize",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

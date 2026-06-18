@@ -1,0 +1,163 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "prices": [
+          7,
+          1,
+          5,
+          3,
+          6,
+          4
+        ]
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "prices": [
+          7,
+          6,
+          4,
+          3,
+          1
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "prices": []
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "prices": [
+          1
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "prices": [
+          2,
+          4,
+          1
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "prices": [
+          27,
+          25,
+          1,
+          14,
+          25,
+          8,
+          4,
+          26
+        ]
+      },
+      "expected": 25,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "prices": [
+          7,
+          17,
+          2,
+          13,
+          9,
+          6,
+          16,
+          26,
+          16,
+          30,
+          11,
+          28,
+          19,
+          4,
+          24,
+          6,
+          29,
+          14,
+          13
+        ]
+      },
+      "expected": 28,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "prices": [
+          11,
+          4,
+          8,
+          20,
+          20,
+          13,
+          24,
+          14,
+          2,
+          23,
+          7,
+          1,
+          13,
+          5,
+          7,
+          7,
+          0,
+          3,
+          26
+        ]
+      },
+      "expected": 26,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "prices": [
+          18,
+          29,
+          1,
+          18,
+          8,
+          1,
+          30,
+          7,
+          10
+        ]
+      },
+      "expected": 29,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

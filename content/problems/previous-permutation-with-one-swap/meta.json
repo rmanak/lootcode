@@ -1,0 +1,33 @@
+{
+  "slug": "previous-permutation-with-one-swap",
+  "title": "Previous Permutation With One Swap",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "prevPermOpt1",
+    "params": [
+      {
+        "name": "A",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

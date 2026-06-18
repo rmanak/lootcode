@@ -1,0 +1,494 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "costs": [
+          [
+            17,
+            2,
+            17
+          ],
+          [
+            16,
+            16,
+            5
+          ],
+          [
+            14,
+            3,
+            19
+          ]
+        ]
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "costs": [
+          [
+            7,
+            6,
+            2
+          ]
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "costs": [
+          [
+            1,
+            2,
+            3
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "costs": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "costs": [
+          [
+            5,
+            8,
+            6
+          ],
+          [
+            19,
+            14,
+            13
+          ],
+          [
+            7,
+            5,
+            12
+          ],
+          [
+            14,
+            15,
+            17
+          ]
+        ]
+      },
+      "expected": 37,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "costs": [
+          [
+            3,
+            14,
+            9
+          ],
+          [
+            20,
+            3,
+            10
+          ],
+          [
+            18,
+            8,
+            13
+          ],
+          [
+            16,
+            6,
+            10
+          ],
+          [
+            2,
+            19,
+            17
+          ],
+          [
+            6,
+            13,
+            9
+          ]
+        ]
+      },
+      "expected": 36,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "costs": [
+          [
+            3,
+            2,
+            2
+          ],
+          [
+            3,
+            15,
+            6
+          ],
+          [
+            5,
+            18,
+            15
+          ],
+          [
+            19,
+            13,
+            6
+          ],
+          [
+            20,
+            12,
+            5
+          ],
+          [
+            7,
+            4,
+            17
+          ]
+        ]
+      },
+      "expected": 35,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "costs": [
+          [
+            11,
+            8,
+            12
+          ],
+          [
+            4,
+            14,
+            18
+          ],
+          [
+            7,
+            16,
+            4
+          ],
+          [
+            10,
+            14,
+            1
+          ],
+          [
+            14,
+            2,
+            5
+          ],
+          [
+            18,
+            5,
+            13
+          ],
+          [
+            4,
+            11,
+            15
+          ],
+          [
+            5,
+            3,
+            16
+          ]
+        ]
+      },
+      "expected": 43,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "costs": [
+          [
+            13,
+            6,
+            12
+          ],
+          [
+            14,
+            6,
+            7
+          ],
+          [
+            16,
+            12,
+            12
+          ],
+          [
+            11,
+            18,
+            11
+          ]
+        ]
+      },
+      "expected": 36,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "costs": [
+          [
+            14,
+            13,
+            14
+          ]
+        ]
+      },
+      "expected": 13,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "costs": [
+          [
+            4,
+            13,
+            9
+          ],
+          [
+            16,
+            7,
+            13
+          ],
+          [
+            19,
+            12,
+            1
+          ],
+          [
+            2,
+            10,
+            18
+          ]
+        ]
+      },
+      "expected": 14,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "costs": [
+          [
+            18,
+            19,
+            5
+          ]
+        ]
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "costs": [
+          [
+            7,
+            8,
+            3
+          ],
+          [
+            18,
+            12,
+            11
+          ],
+          [
+            10,
+            20,
+            7
+          ],
+          [
+            14,
+            1,
+            20
+          ],
+          [
+            9,
+            6,
+            20
+          ],
+          [
+            10,
+            14,
+            17
+          ],
+          [
+            10,
+            1,
+            13
+          ]
+        ]
+      },
+      "expected": 50,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "costs": [
+          [
+            5,
+            12,
+            17
+          ]
+        ]
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "costs": [
+          [
+            8,
+            13,
+            10
+          ],
+          [
+            8,
+            10,
+            3
+          ],
+          [
+            18,
+            20,
+            14
+          ],
+          [
+            4,
+            1,
+            14
+          ],
+          [
+            6,
+            3,
+            18
+          ]
+        ]
+      },
+      "expected": 36,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "costs": [
+          [
+            20,
+            3,
+            13
+          ],
+          [
+            1,
+            20,
+            10
+          ]
+        ]
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "costs": [
+          [
+            8,
+            2,
+            15
+          ],
+          [
+            8,
+            2,
+            9
+          ],
+          [
+            5,
+            9,
+            5
+          ],
+          [
+            16,
+            18,
+            8
+          ],
+          [
+            2,
+            19,
+            6
+          ],
+          [
+            16,
+            1,
+            12
+          ],
+          [
+            18,
+            9,
+            4
+          ],
+          [
+            11,
+            15,
+            11
+          ]
+        ]
+      },
+      "expected": 41,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

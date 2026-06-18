@@ -1,0 +1,35 @@
+{
+  "slug": "construct-binary-search-tree-from-preorder-traversal",
+  "title": "Construct Binary Search Tree From Preorder Traversal",
+  "difficulty": "medium",
+  "tags": [
+    "stack",
+    "tree",
+    "binary-search-tree",
+    "binary-tree"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "bstFromPreorder",
+    "params": [
+      {
+        "name": "preorder",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

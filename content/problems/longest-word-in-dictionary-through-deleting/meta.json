@@ -1,0 +1,39 @@
+{
+  "slug": "longest-word-in-dictionary-through-deleting",
+  "title": "Longest Word in Dictionary through Deleting",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "string",
+    "two-pointers",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findLongestWord",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "d",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

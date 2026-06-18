@@ -1,0 +1,32 @@
+{
+  "slug": "n-queens-ii",
+  "title": "N-Queens II",
+  "difficulty": "hard",
+  "tags": [
+    "backtracking"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "totalNQueens",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,41 @@
+{
+  "slug": "shortest-alternating-path",
+  "title": "Shortest Alternating Color Path",
+  "difficulty": "medium",
+  "tags": [
+    "graph",
+    "breadth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "shortestAlternatingPaths",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "redEdges",
+        "type": "int[][]"
+      },
+      {
+        "name": "blueEdges",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

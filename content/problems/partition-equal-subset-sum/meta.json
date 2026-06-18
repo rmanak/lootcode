@@ -1,0 +1,33 @@
+{
+  "slug": "partition-equal-subset-sum",
+  "title": "Partition Equal Subset Sum",
+  "difficulty": "medium",
+  "tags": [
+    "dynamic-programming",
+    "array"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "canPartition",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

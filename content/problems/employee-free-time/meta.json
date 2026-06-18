@@ -1,0 +1,32 @@
+{
+  "slug": "employee-free-time",
+  "title": "Employee Free Time",
+  "difficulty": "hard",
+  "tags": [
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "employeeFreeTime",
+    "params": [
+      {
+        "name": "schedule",
+        "type": "int[][][]"
+      }
+    ],
+    "returns": {
+      "type": "int[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

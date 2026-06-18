@@ -1,0 +1,35 @@
+{
+  "slug": "shortest-path-to-get-all-keys",
+  "title": "Shortest Path to Get All Keys",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "bitmask",
+    "breadth-first-search",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "shortestPathAllKeys",
+    "params": [
+      {
+        "name": "grid",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

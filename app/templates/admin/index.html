@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Admin · {{ app_name }}{% endblock %}
+{% block content %}
+<h1>Admin</h1>
+<div class="admin-actions">
+  <a class="btn" href="/admin/new">+ New problem (manual)</a>
+  <a class="btn {{ '' if ai_enabled else 'disabled' }}" href="/admin/generate">✨ Generate with AI</a>
+</div>
+{% if not ai_enabled %}
+<p class="muted">AI generation is off. Set <code>ANTHROPIC_API_KEY</code> in <code>.env</code> to enable it.</p>
+{% endif %}
+
+<h2>Problems ({{ problems|length }})</h2>
+<p class="muted">Click a problem to view and edit its source, solution, and tests.</p>
+<table class="problems">
+  <thead><tr><th>Slug</th><th>Title</th><th>Difficulty</th><th>Tests</th><th>Compare</th><th></th></tr></thead>
+  <tbody>
+    {% for p in problems %}
+    <tr>
+      <td><a class="plink" href="/admin/problems/{{ p.slug }}/edit">{{ p.slug }}</a></td>
+      <td>{{ p.title }}</td>
+      <td><span class="badge {{ p.difficulty }}">{{ p.difficulty }}</span></td>
+      <td>{{ p.tests|length }}</td>
+      <td><code>{{ p.compare }}</code></td>
+      <td><a href="/problems/{{ p.slug }}">solve ↗</a></td>
+    </tr>
+    {% endfor %}
+    {% if not problems %}<tr><td colspan="6" class="empty">No problems yet.</td></tr>{% endif %}
+  </tbody>
+</table>
+{% endblock %}

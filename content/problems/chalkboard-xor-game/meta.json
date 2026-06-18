@@ -1,0 +1,34 @@
+{
+  "slug": "chalkboard-xor-game",
+  "title": "Chalkboard XOR Game",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "bit-manipulation",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "xorGame",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,37 @@
+{
+  "slug": "exclusive-time-of-functions",
+  "title": "Exclusive Time of Functions",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "stack"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "exclusiveTime",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "logs",
+        "type": "str[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

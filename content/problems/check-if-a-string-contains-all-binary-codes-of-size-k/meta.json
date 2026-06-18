@@ -1,0 +1,38 @@
+{
+  "slug": "check-if-a-string-contains-all-binary-codes-of-size-k",
+  "title": "Check If a String Contains All Binary Codes of Size K",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "hash-table",
+    "bit-manipulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "hasAllCodes",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

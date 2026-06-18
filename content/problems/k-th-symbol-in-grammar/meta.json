@@ -1,0 +1,37 @@
+{
+  "slug": "k-th-symbol-in-grammar",
+  "title": "K-th Symbol in Grammar",
+  "difficulty": "medium",
+  "tags": [
+    "bit-manipulation",
+    "recursion"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "kthGrammar",
+    "params": [
+      {
+        "name": "N",
+        "type": "int"
+      },
+      {
+        "name": "K",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

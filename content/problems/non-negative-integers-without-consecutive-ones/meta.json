@@ -1,0 +1,33 @@
+{
+  "slug": "non-negative-integers-without-consecutive-ones",
+  "title": "Non-negative Integers without Consecutive Ones",
+  "difficulty": "hard",
+  "tags": [
+    "dynamic-programming",
+    "bit-manipulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findIntegers",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

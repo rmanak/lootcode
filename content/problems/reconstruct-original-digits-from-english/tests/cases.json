@@ -1,0 +1,130 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "owoztneoer"
+      },
+      "expected": "012",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "fviefuro"
+      },
+      "expected": "45",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "zeroonetwothreefourfivesixseveneightnine"
+      },
+      "expected": "0123456789",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "nine"
+      },
+      "expected": "9",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "eight"
+      },
+      "expected": "8",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "zero"
+      },
+      "expected": "0",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "roehgiutf"
+      },
+      "expected": "48",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "ttgeheienionseinixgh"
+      },
+      "expected": "16889",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "enni"
+      },
+      "expected": "9",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "orneeerhteinz"
+      },
+      "expected": "039",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "onezrisiiswteonxx"
+      },
+      "expected": "02669",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s": "tvstgennweiheoeo"
+      },
+      "expected": "1278",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "s": "eiiteeitoogfwvzrnenh"
+      },
+      "expected": "02589",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "s": "ugrfoithe"
+      },
+      "expected": "48",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,592 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "operations": [
+          [
+            "push",
+            -2
+          ],
+          [
+            "push",
+            0
+          ],
+          [
+            "push",
+            -3
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "pop"
+          ],
+          [
+            "top"
+          ],
+          [
+            "getMin"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        -3,
+        null,
+        0,
+        -2
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "operations": [
+          [
+            "push",
+            5
+          ],
+          [
+            "top"
+          ],
+          [
+            "getMin"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        5,
+        5
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "operations": [
+          [
+            "push",
+            1
+          ],
+          [
+            "push",
+            1
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "pop"
+          ],
+          [
+            "getMin"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        1,
+        null,
+        1
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "operations": [
+          [
+            "push",
+            0
+          ],
+          [
+            "getMin"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "operations": [
+          [
+            "push",
+            3
+          ],
+          [
+            "push",
+            1
+          ],
+          [
+            "push",
+            2
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "pop"
+          ],
+          [
+            "getMin"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        1,
+        null,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "operations": [
+          [
+            "push",
+            -8
+          ],
+          [
+            "pop"
+          ],
+          [
+            "push",
+            8
+          ],
+          [
+            "top"
+          ],
+          [
+            "push",
+            3
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        8,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "operations": [
+          [
+            "push",
+            7
+          ],
+          [
+            "push",
+            -3
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "pop"
+          ],
+          [
+            "pop"
+          ],
+          [
+            "push",
+            6
+          ],
+          [
+            "push",
+            -4
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "top"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        -3,
+        null,
+        null,
+        null,
+        null,
+        -4,
+        -4,
+        -4
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "operations": [
+          [
+            "push",
+            -6
+          ],
+          [
+            "push",
+            -7
+          ],
+          [
+            "pop"
+          ],
+          [
+            "pop"
+          ],
+          [
+            "push",
+            -4
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "operations": [
+          [
+            "push",
+            0
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "top"
+          ],
+          [
+            "top"
+          ],
+          [
+            "top"
+          ],
+          [
+            "pop"
+          ],
+          [
+            "push",
+            -5
+          ],
+          [
+            "pop"
+          ],
+          [
+            "push",
+            -2
+          ],
+          [
+            "pop"
+          ],
+          [
+            "push",
+            1
+          ],
+          [
+            "getMin"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "operations": [
+          [
+            "push",
+            9
+          ],
+          [
+            "top"
+          ],
+          [
+            "pop"
+          ],
+          [
+            "push",
+            3
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "pop"
+          ],
+          [
+            "push",
+            -6
+          ],
+          [
+            "push",
+            -2
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "top"
+          ],
+          [
+            "pop"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        9,
+        null,
+        null,
+        3,
+        null,
+        null,
+        null,
+        -6,
+        -2,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "operations": [
+          [
+            "push",
+            9
+          ],
+          [
+            "pop"
+          ],
+          [
+            "push",
+            2
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "push",
+            -7
+          ],
+          [
+            "top"
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "push",
+            -2
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "push",
+            -8
+          ],
+          [
+            "getMin"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        2,
+        null,
+        -7,
+        -7,
+        null,
+        -7,
+        -7,
+        null,
+        -8
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "operations": [
+          [
+            "push",
+            9
+          ],
+          [
+            "top"
+          ],
+          [
+            "push",
+            -8
+          ],
+          [
+            "pop"
+          ],
+          [
+            "push",
+            4
+          ],
+          [
+            "top"
+          ],
+          [
+            "push",
+            5
+          ],
+          [
+            "pop"
+          ],
+          [
+            "pop"
+          ],
+          [
+            "pop"
+          ],
+          [
+            "push",
+            -1
+          ],
+          [
+            "top"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        9,
+        null,
+        null,
+        null,
+        4,
+        null,
+        null,
+        null,
+        null,
+        null,
+        -1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "operations": [
+          [
+            "push",
+            -2
+          ],
+          [
+            "pop"
+          ],
+          [
+            "push",
+            8
+          ],
+          [
+            "push",
+            6
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "top"
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "pop"
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "top"
+          ],
+          [
+            "top"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        6,
+        6,
+        6,
+        null,
+        8,
+        8,
+        8
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "slug": "payment-ledger-balance",
+  "title": "Payment Ledger Balance",
+  "difficulty": "easy",
+  "tags": [
+    "hash-table",
+    "simulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "ledgerBalance",
+    "params": [
+      {
+        "name": "transactions",
+        "type": "[string,string,int][]"
+      }
+    ],
+    "returns": {
+      "type": "object"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

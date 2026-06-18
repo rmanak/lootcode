@@ -1,0 +1,158 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "N": 10,
+        "K": 1,
+        "W": 10
+      },
+      "expected": 1.0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "N": 6,
+        "K": 1,
+        "W": 10
+      },
+      "expected": 0.6,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "N": 21,
+        "K": 17,
+        "W": 10
+      },
+      "expected": 0.73278,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "N": 1,
+        "K": 0,
+        "W": 1
+      },
+      "expected": 1.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "N": 5,
+        "K": 1,
+        "W": 1
+      },
+      "expected": 1.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "N": 0,
+        "K": 0,
+        "W": 1
+      },
+      "expected": 1.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "N": 8,
+        "K": 5,
+        "W": 5
+      },
+      "expected": 0.93088,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "N": 3,
+        "K": 2,
+        "W": 3
+      },
+      "expected": 0.88889,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "N": 11,
+        "K": 7,
+        "W": 3
+      },
+      "expected": 1.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "N": 2,
+        "K": 2,
+        "W": 2
+      },
+      "expected": 0.75,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "N": 9,
+        "K": 5,
+        "W": 2
+      },
+      "expected": 1.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "N": 1,
+        "K": 1,
+        "W": 7
+      },
+      "expected": 0.14286,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "N": 8,
+        "K": 0,
+        "W": 8
+      },
+      "expected": 1.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "N": 6,
+        "K": 2,
+        "W": 6
+      },
+      "expected": 0.97222,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "slug": "numbers-with-same-consecutive-differences",
+  "title": "Numbers With Same Consecutive Differences",
+  "difficulty": "medium",
+  "tags": [
+    "backtracking",
+    "breadth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "numsSameConsecDiff",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "unordered"
+}

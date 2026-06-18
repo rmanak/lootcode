@@ -1,0 +1,154 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "hour": 12,
+        "minutes": 30
+      },
+      "expected": 165.0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "hour": 3,
+        "minutes": 30
+      },
+      "expected": 75.0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "hour": 3,
+        "minutes": 15
+      },
+      "expected": 7.5,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "hour": 4,
+        "minutes": 50
+      },
+      "expected": 155.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "hour": 12,
+        "minutes": 0
+      },
+      "expected": 0.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "hour": 1,
+        "minutes": 0
+      },
+      "expected": 30.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "hour": 6,
+        "minutes": 0
+      },
+      "expected": 180.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "hour": 11,
+        "minutes": 4
+      },
+      "expected": 52.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "hour": 4,
+        "minutes": 36
+      },
+      "expected": 78.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "hour": 7,
+        "minutes": 50
+      },
+      "expected": 65.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "hour": 4,
+        "minutes": 23
+      },
+      "expected": 6.5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "hour": 8,
+        "minutes": 22
+      },
+      "expected": 119.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "hour": 9,
+        "minutes": 11
+      },
+      "expected": 150.5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "hour": 7,
+        "minutes": 20
+      },
+      "expected": 100.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "hour": 12,
+        "minutes": 57
+      },
+      "expected": 46.5,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "slug": "magnetic-force-between-two-balls",
+  "title": "Magnetic Force Between Two Balls",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "binary-search",
+    "greedy",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxDistance",
+    "params": [
+      {
+        "name": "position",
+        "type": "int[]"
+      },
+      {
+        "name": "m",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

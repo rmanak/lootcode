@@ -1,0 +1,124 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "PAYPALISHIRING",
+        "numRows": 3
+      },
+      "expected": "PAHNAPLSIIGYIR",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "PAYPALISHIRING",
+        "numRows": 4
+      },
+      "expected": "PINALSIGYAHRPI",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "A",
+        "numRows": 1
+      },
+      "expected": "A",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "AB",
+        "numRows": 1
+      },
+      "expected": "AB",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "ABCD",
+        "numRows": 2
+      },
+      "expected": "ACBD",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "ABC",
+        "numRows": 5
+      },
+      "expected": "ABC",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "BAEDEDCB",
+        "numRows": 3
+      },
+      "expected": "BEADDBEC",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "EDAD",
+        "numRows": 3
+      },
+      "expected": "EDDA",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "CBE",
+        "numRows": 5
+      },
+      "expected": "CBE",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "EACEAEDCDD",
+        "numRows": 1
+      },
+      "expected": "EACEAEDCDD",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "EDCADEBDBEBABB",
+        "numRows": 4
+      },
+      "expected": "EBBDEDABCDBBAE",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s": "EBEACECCEBDDEC",
+        "numRows": 5
+      },
+      "expected": "EEBCBECDAEDCCE",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "slug": "reorder-list",
+  "title": "Reorder List",
+  "difficulty": "medium",
+  "tags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "reorderList",
+    "params": [
+      {
+        "name": "head",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

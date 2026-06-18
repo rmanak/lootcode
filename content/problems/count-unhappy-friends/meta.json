@@ -1,0 +1,42 @@
+{
+  "slug": "count-unhappy-friends",
+  "title": "Count Unhappy Friends",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "simulation",
+    "counting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "unhappyFriends",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "preferences",
+        "type": "int[][]"
+      },
+      {
+        "name": "pairs",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

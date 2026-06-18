@@ -1,0 +1,33 @@
+{
+  "slug": "score-of-parentheses",
+  "title": "Score of Parentheses",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "stack"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "scoreOfParentheses",
+    "params": [
+      {
+        "name": "S",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

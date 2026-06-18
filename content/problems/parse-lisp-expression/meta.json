@@ -1,0 +1,35 @@
+{
+  "slug": "parse-lisp-expression",
+  "title": "Parse Lisp Expression",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "stack",
+    "recursion",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "evaluate",
+    "params": [
+      {
+        "name": "expression",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,33 @@
+{
+  "slug": "largest-rectangle-in-histogram",
+  "title": "Largest Rectangle in Histogram",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "stack"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "largestRectangleArea",
+    "params": [
+      {
+        "name": "heights",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

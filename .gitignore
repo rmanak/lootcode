@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Local database & sandbox scratch
+*.db
+*.db-journal
+.sandbox/
+tmp/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Test / tooling caches
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+.mypy_cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Problem-import scratch & source dumps — provenance kept local, not in the repo.
+# (Root-anchored so requirements*.txt and anything under content/ is unaffected.)
+# Raw source problem sets (import inputs):
+/new_p.txt
+/large_bank.txt
+/qb3_large.txt
+/problemset2.txt
+/problemset3.txt
+/coding_exercise_examples.txt
+# Import worklogs:
+/bulk-import*.md
+# Scratch notes:
+/all_tags.txt
+/tag_update.txt
+/resume.txt
+# Scratch screenshots:
+/s1.png
+/s2.png

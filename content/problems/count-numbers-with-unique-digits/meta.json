@@ -1,0 +1,33 @@
+{
+  "slug": "count-numbers-with-unique-digits",
+  "title": "Count Numbers with Unique Digits",
+  "difficulty": "medium",
+  "tags": [
+    "dynamic-programming",
+    "backtracking"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "countNumbersWithUniqueDigits",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

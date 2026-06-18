@@ -1,0 +1,46 @@
+{
+  "slug": "range-sum-of-sorted-subarray-sums",
+  "title": "Range Sum of Sorted Subarray Sums",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "sorting",
+    "binary-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "rangeSum",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "left",
+        "type": "int"
+      },
+      {
+        "name": "right",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

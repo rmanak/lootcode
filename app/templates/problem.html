@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}{{ prob.title }} · {{ app_name }}{% endblock %}
+{% block container_class %}wide{% endblock %}
+{% block head %}
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="solve" data-slug="{{ prob.slug }}" data-difficulty="{{ prob.difficulty }}">
+
+  <section class="statement">
+    <h1>
+      {{ prob.title }}
+      <span class="badge {{ prob.difficulty }}">{{ prob.difficulty }}</span>
+      {% if solved %}<span class="solved-badge">Solved ✅</span>{% endif %}
+    </h1>
+    <div class="md">{{ prob.statement_md | markdown | safe }}</div>
+    <p class="limits">
+      Function <code>{{ prob.function_name }}({{ prob.params | map(attribute='name') | join(', ') }})</code>
+      · time limit {{ prob.time_limit_ms }} ms
+      · {{ visible_count }} visible / {{ hidden_count }} hidden tests · Python 3
+    </p>
+    {% if prob.topics %}
+    <div class="topics-section">
+      <h2 class="topics-title">Topics</h2>
+      <div class="topics">
+        {% for t in prob.topics %}<a class="topic" href="/?topic={{ t | urlencode }}">{{ t }}</a>{% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </section>
+
+  <div class="col-gutter" title="Drag to resize panels"></div>
+
+  <section class="workbench">
+    <label for="code">Your solution</label>
+    {% if loaded_submission %}
+    <p class="loaded-note">Loaded your submission from
+      {{ loaded_submission.created_at.strftime('%Y-%m-%d %H:%M') }} UTC
+      ({{ loaded_submission.passed_count }}/{{ loaded_submission.total_count }} passed).
+      <a href="/problems/{{ prob.slug }}">Reset to starter code</a></p>
+    {% endif %}
+    <div class="editor-wrap">
+      <textarea id="code">{{ initial_code }}</textarea>
+      <div class="editor-resize" title="Drag to resize editor"></div>
+    </div>
+    <div class="actions">
+      <button id="run-btn" type="button">▶ Run &amp; Score</button>
+      <span id="status"></span>
+    </div>
+    <div id="results"></div>
+  </section>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+<script src="{{ static('app.js') }}"></script>
+{% endblock %}

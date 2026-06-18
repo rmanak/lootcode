@@ -1,0 +1,96 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "expression": "{a,b}{c,{d,e}}"
+      },
+      "expected": [
+        "ac",
+        "ad",
+        "ae",
+        "bc",
+        "bd",
+        "be"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "expression": "{{a,z},a{b,c},{ab,z}}"
+      },
+      "expected": [
+        "a",
+        "ab",
+        "ac",
+        "z"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "expression": "{a,b}{c,d}"
+      },
+      "expected": [
+        "ac",
+        "ad",
+        "bc",
+        "bd"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "expression": "a"
+      },
+      "expected": [
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "expression": "abc"
+      },
+      "expected": [
+        "abc"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "expression": "{a,b,c}"
+      },
+      "expected": [
+        "a",
+        "b",
+        "c"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "expression": "{{a,b},{b,c}}"
+      },
+      "expected": [
+        "a",
+        "b",
+        "c"
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

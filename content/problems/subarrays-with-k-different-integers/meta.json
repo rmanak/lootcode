@@ -1,0 +1,39 @@
+{
+  "slug": "subarrays-with-k-different-integers",
+  "title": "Subarrays with K Different Integers",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "hash-table",
+    "sliding-window",
+    "counting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "subarraysWithKDistinct",
+    "params": [
+      {
+        "name": "A",
+        "type": "int[]"
+      },
+      {
+        "name": "K",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

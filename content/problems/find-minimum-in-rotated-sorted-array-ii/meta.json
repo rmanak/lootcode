@@ -1,0 +1,33 @@
+{
+  "slug": "find-minimum-in-rotated-sorted-array-ii",
+  "title": "Find Minimum in Rotated Sorted Array II",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findMin",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

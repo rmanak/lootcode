@@ -1,0 +1,191 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "strs": [
+          "eat",
+          "tea",
+          "ate",
+          "bat"
+        ]
+      },
+      "expected": [
+        [
+          "ate",
+          "eat",
+          "tea"
+        ],
+        [
+          "bat"
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "strs": [
+          ""
+        ]
+      },
+      "expected": [
+        [
+          ""
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "strs": [
+          "a"
+        ]
+      },
+      "expected": [
+        [
+          "a"
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "strs": [
+          "abc",
+          "bca",
+          "cab",
+          "xyz"
+        ]
+      },
+      "expected": [
+        [
+          "abc",
+          "bca",
+          "cab"
+        ],
+        [
+          "xyz"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "strs": [
+          "ab",
+          "ba",
+          "abc"
+        ]
+      },
+      "expected": [
+        [
+          "ab",
+          "ba"
+        ],
+        [
+          "abc"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "strs": [
+          "caa",
+          "a",
+          "bca",
+          "cccc"
+        ]
+      },
+      "expected": [
+        [
+          "a"
+        ],
+        [
+          "bca"
+        ],
+        [
+          "caa"
+        ],
+        [
+          "cccc"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "strs": [
+          "acab",
+          "c",
+          "c",
+          "a"
+        ]
+      },
+      "expected": [
+        [
+          "a"
+        ],
+        [
+          "acab"
+        ],
+        [
+          "c",
+          "c"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "strs": [
+          "cca",
+          "cbc"
+        ]
+      },
+      "expected": [
+        [
+          "cbc"
+        ],
+        [
+          "cca"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "strs": [
+          "ab",
+          "a"
+        ]
+      },
+      "expected": [
+        [
+          "a"
+        ],
+        [
+          "ab"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "slug": "valid-square",
+  "title": "Valid Square",
+  "difficulty": "medium",
+  "tags": [
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "validSquare",
+    "params": [
+      {
+        "name": "p1",
+        "type": "int[]"
+      },
+      {
+        "name": "p2",
+        "type": "int[]"
+      },
+      {
+        "name": "p3",
+        "type": "int[]"
+      },
+      {
+        "name": "p4",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

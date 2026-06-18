@@ -1,0 +1,3 @@
+def findIntegers(n):
+    # Write your solution here.
+    pass

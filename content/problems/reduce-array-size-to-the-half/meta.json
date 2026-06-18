@@ -1,0 +1,36 @@
+{
+  "slug": "reduce-array-size-to-the-half",
+  "title": "Reduce Array Size to The Half",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "greedy",
+    "sorting",
+    "heap",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minSetSize",
+    "params": [
+      {
+        "name": "arr",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

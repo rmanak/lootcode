@@ -1,0 +1,20 @@
+# Run lootcode on your home server:  docker compose up --build
+# Then visit http://<server-ip>:8000 from any device on your LAN.
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      HOST: "0.0.0.0"
+      LOOTCODE_DB: "/app/data/lootcode.db"
+      EXECUTOR_BACKEND: "subprocess"
+      # Uncomment to enable AI problem generation:
+      # ANTHROPIC_API_KEY: "sk-ant-..."
+    volumes:
+      - ./content:/app/content      # edit problems on the host
+      - lootcode-data:/app/data     # persist the SQLite database
+    restart: unless-stopped
+
+volumes:
+  lootcode-data:

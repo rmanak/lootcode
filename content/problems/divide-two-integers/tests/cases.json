@@ -1,0 +1,154 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "dividend": 10,
+        "divisor": 3
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "dividend": 7,
+        "divisor": -3
+      },
+      "expected": -2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "dividend": -7,
+        "divisor": 3
+      },
+      "expected": -2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "dividend": 0,
+        "divisor": 5
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "dividend": -2147483648,
+        "divisor": -1
+      },
+      "expected": 2147483647,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "dividend": 1,
+        "divisor": 1
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "dividend": -2147483648,
+        "divisor": 2
+      },
+      "expected": -1073741824,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "dividend": -825,
+        "divisor": 6
+      },
+      "expected": -137,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "dividend": -399,
+        "divisor": -1
+      },
+      "expected": 399,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "dividend": -771,
+        "divisor": 2
+      },
+      "expected": -385,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "dividend": -419,
+        "divisor": 1
+      },
+      "expected": -419,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "dividend": 723,
+        "divisor": -6
+      },
+      "expected": -120,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "dividend": 727,
+        "divisor": 8
+      },
+      "expected": 90,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "dividend": -147,
+        "divisor": 3
+      },
+      "expected": -49,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "dividend": -46,
+        "divisor": 3
+      },
+      "expected": -15,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

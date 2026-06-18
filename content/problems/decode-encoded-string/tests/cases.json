@@ -1,0 +1,58 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "3[a]2[bc]"
+      },
+      "expected": "aaabcbc",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "3[a2[c]]"
+      },
+      "expected": "accaccacc",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "s": "2[abc]3[cd]ef"
+      },
+      "expected": "abcabccdcdcdef",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "abc"
+      },
+      "expected": "abc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "1[x]"
+      },
+      "expected": "x",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "2[2[a]b]"
+      },
+      "expected": "aabaab",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

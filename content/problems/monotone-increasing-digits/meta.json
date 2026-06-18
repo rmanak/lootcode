@@ -1,0 +1,32 @@
+{
+  "slug": "monotone-increasing-digits",
+  "title": "Monotone Increasing Digits",
+  "difficulty": "medium",
+  "tags": [
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "monotoneIncreasingDigits",
+    "params": [
+      {
+        "name": "N",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,44 @@
+{
+  "slug": "profitable-schemes",
+  "title": "Profitable Schemes",
+  "difficulty": "hard",
+  "tags": [
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "profitableSchemes",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "minProfit",
+        "type": "int"
+      },
+      {
+        "name": "group",
+        "type": "int[]"
+      },
+      {
+        "name": "profit",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,47 @@
+{
+  "slug": "get-watched-videos-by-your-friends",
+  "title": "Get Watched Videos by Your Friends",
+  "difficulty": "medium",
+  "tags": [
+    "graph",
+    "breadth-first-search",
+    "hash-table",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "watchedVideosByFriends",
+    "params": [
+      {
+        "name": "watchedVideos",
+        "type": "str[][]"
+      },
+      {
+        "name": "friends",
+        "type": "int[][]"
+      },
+      {
+        "name": "id",
+        "type": "int"
+      },
+      {
+        "name": "level",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "str[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

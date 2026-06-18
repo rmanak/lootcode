@@ -1,0 +1,33 @@
+{
+  "slug": "contains-duplicate",
+  "title": "Contains Duplicate",
+  "difficulty": "easy",
+  "tags": [
+    "array",
+    "hash-set"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "containsDuplicate",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

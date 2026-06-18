@@ -1,0 +1,759 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "equations": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "c"
+          ]
+        ],
+        "values": [
+          2.0,
+          3.0
+        ],
+        "queries": [
+          [
+            "a",
+            "c"
+          ],
+          [
+            "c",
+            "a"
+          ]
+        ]
+      },
+      "expected": [
+        6.0,
+        0.16667
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "equations": [
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "values": [
+          2.0
+        ],
+        "queries": [
+          [
+            "a",
+            "e"
+          ]
+        ]
+      },
+      "expected": [
+        -1.0
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "equations": [
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "values": [
+          2.0
+        ],
+        "queries": [
+          [
+            "a",
+            "a"
+          ],
+          [
+            "x",
+            "x"
+          ]
+        ]
+      },
+      "expected": [
+        1.0,
+        -1.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "equations": [
+          [
+            "x",
+            "y"
+          ],
+          [
+            "y",
+            "z"
+          ]
+        ],
+        "values": [
+          4.0,
+          2.0
+        ],
+        "queries": [
+          [
+            "x",
+            "z"
+          ],
+          [
+            "z",
+            "x"
+          ],
+          [
+            "x",
+            "x"
+          ]
+        ]
+      },
+      "expected": [
+        8.0,
+        0.125,
+        1.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "equations": [
+          [
+            "b",
+            "c"
+          ],
+          [
+            "c",
+            "a"
+          ],
+          [
+            "c",
+            "d"
+          ]
+        ],
+        "values": [
+          2.0,
+          0.25,
+          0.25
+        ],
+        "queries": [
+          [
+            "d",
+            "a"
+          ],
+          [
+            "d",
+            "a"
+          ],
+          [
+            "d",
+            "b"
+          ],
+          [
+            "a",
+            "c"
+          ]
+        ]
+      },
+      "expected": [
+        1.0,
+        1.0,
+        2.0,
+        4.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "equations": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "c",
+            "a"
+          ],
+          [
+            "c",
+            "b"
+          ]
+        ],
+        "values": [
+          1.0,
+          0.5,
+          0.5
+        ],
+        "queries": [
+          [
+            "z",
+            "z"
+          ]
+        ]
+      },
+      "expected": [
+        -1.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "equations": [
+          [
+            "b",
+            "a"
+          ],
+          [
+            "b",
+            "c"
+          ],
+          [
+            "c",
+            "a"
+          ],
+          [
+            "d",
+            "a"
+          ],
+          [
+            "e",
+            "a"
+          ],
+          [
+            "e",
+            "c"
+          ],
+          [
+            "e",
+            "d"
+          ],
+          [
+            "f",
+            "b"
+          ],
+          [
+            "f",
+            "c"
+          ]
+        ],
+        "values": [
+          4.0,
+          4.0,
+          1.0,
+          0.5,
+          4.0,
+          4.0,
+          8.0,
+          1.0,
+          4.0
+        ],
+        "queries": [
+          [
+            "c",
+            "d"
+          ],
+          [
+            "e",
+            "c"
+          ]
+        ]
+      },
+      "expected": [
+        2.0,
+        4.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "equations": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "a"
+          ],
+          [
+            "c",
+            "b"
+          ]
+        ],
+        "values": [
+          0.5,
+          2.0,
+          0.25
+        ],
+        "queries": [
+          [
+            "b",
+            "a"
+          ],
+          [
+            "c",
+            "c"
+          ],
+          [
+            "b",
+            "c"
+          ]
+        ]
+      },
+      "expected": [
+        2.0,
+        1.0,
+        4.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "equations": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "a"
+          ]
+        ],
+        "values": [
+          8.0,
+          0.125
+        ],
+        "queries": [
+          [
+            "b",
+            "a"
+          ],
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "a"
+          ],
+          [
+            "b",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        0.125,
+        8.0,
+        0.125,
+        1.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "equations": [
+          [
+            "a",
+            "c"
+          ],
+          [
+            "a",
+            "e"
+          ],
+          [
+            "b",
+            "a"
+          ],
+          [
+            "c",
+            "d"
+          ],
+          [
+            "e",
+            "b"
+          ],
+          [
+            "e",
+            "d"
+          ]
+        ],
+        "values": [
+          4.0,
+          2.0,
+          0.5,
+          1.0,
+          1.0,
+          2.0
+        ],
+        "queries": [
+          [
+            "z",
+            "a"
+          ],
+          [
+            "b",
+            "d"
+          ]
+        ]
+      },
+      "expected": [
+        -1.0,
+        2.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "equations": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "c"
+          ],
+          [
+            "c",
+            "a"
+          ],
+          [
+            "c",
+            "b"
+          ]
+        ],
+        "values": [
+          0.25,
+          1.0,
+          4.0,
+          1.0
+        ],
+        "queries": [
+          [
+            "c",
+            "b"
+          ],
+          [
+            "z",
+            "a"
+          ],
+          [
+            "a",
+            "c"
+          ],
+          [
+            "b",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        1.0,
+        -1.0,
+        0.25,
+        1.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "equations": [
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "values": [
+          0.5
+        ],
+        "queries": [
+          [
+            "b",
+            "b"
+          ],
+          [
+            "b",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        1.0,
+        1.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "equations": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a",
+            "c"
+          ],
+          [
+            "b",
+            "a"
+          ],
+          [
+            "b",
+            "c"
+          ],
+          [
+            "b",
+            "d"
+          ],
+          [
+            "c",
+            "d"
+          ]
+        ],
+        "values": [
+          1.0,
+          0.5,
+          1.0,
+          0.5,
+          1.0,
+          2.0
+        ],
+        "queries": [
+          [
+            "d",
+            "c"
+          ]
+        ]
+      },
+      "expected": [
+        0.5
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "equations": [
+          [
+            "a",
+            "c"
+          ],
+          [
+            "c",
+            "a"
+          ],
+          [
+            "c",
+            "e"
+          ],
+          [
+            "d",
+            "b"
+          ],
+          [
+            "e",
+            "a"
+          ],
+          [
+            "e",
+            "c"
+          ],
+          [
+            "e",
+            "d"
+          ]
+        ],
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          0.25,
+          1.0,
+          1.0,
+          2.0
+        ],
+        "queries": [
+          [
+            "d",
+            "a"
+          ],
+          [
+            "e",
+            "d"
+          ],
+          [
+            "b",
+            "a"
+          ],
+          [
+            "e",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        0.5,
+        2.0,
+        2.0,
+        0.5
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "equations": [
+          [
+            "a",
+            "c"
+          ],
+          [
+            "a",
+            "d"
+          ],
+          [
+            "b",
+            "a"
+          ],
+          [
+            "c",
+            "d"
+          ],
+          [
+            "c",
+            "e"
+          ],
+          [
+            "d",
+            "b"
+          ],
+          [
+            "e",
+            "a"
+          ],
+          [
+            "e",
+            "c"
+          ],
+          [
+            "e",
+            "d"
+          ]
+        ],
+        "values": [
+          0.5,
+          0.5,
+          8.0,
+          1.0,
+          1.0,
+          0.25,
+          2.0,
+          1.0,
+          1.0
+        ],
+        "queries": [
+          [
+            "c",
+            "a"
+          ],
+          [
+            "a",
+            "d"
+          ],
+          [
+            "c",
+            "a"
+          ],
+          [
+            "b",
+            "c"
+          ]
+        ]
+      },
+      "expected": [
+        2.0,
+        0.5,
+        2.0,
+        4.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "equations": [
+          [
+            "b",
+            "a"
+          ]
+        ],
+        "values": [
+          1.0
+        ],
+        "queries": [
+          [
+            "z",
+            "a"
+          ],
+          [
+            "a",
+            "z"
+          ],
+          [
+            "a",
+            "a"
+          ],
+          [
+            "z",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        -1.0,
+        -1.0,
+        1.0,
+        -1.0
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

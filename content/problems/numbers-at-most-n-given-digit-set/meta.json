@@ -1,0 +1,37 @@
+{
+  "slug": "numbers-at-most-n-given-digit-set",
+  "title": "Numbers At Most N Given Digit Set",
+  "difficulty": "hard",
+  "tags": [
+    "dynamic-programming",
+    "binary-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "atMostNGivenDigitSet",
+    "params": [
+      {
+        "name": "digits",
+        "type": "string[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,36 @@
+{
+  "slug": "powx-n",
+  "title": "Pow(x, n)",
+  "difficulty": "medium",
+  "tags": [
+    "recursion"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "myPow",
+    "params": [
+      {
+        "name": "x",
+        "type": "float"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "float"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

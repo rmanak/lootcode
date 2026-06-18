@@ -1,0 +1,134 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "cba",
+        "k": 1
+      },
+      "expected": "acb",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "baaca",
+        "k": 3
+      },
+      "expected": "aaabc",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "a",
+        "k": 1
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "ba",
+        "k": 1
+      },
+      "expected": "ab",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "ba",
+        "k": 2
+      },
+      "expected": "ab",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "nhtq",
+        "k": 1
+      },
+      "expected": "htqn",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "tryhard",
+        "k": 4
+      },
+      "expected": "adhrrty",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "b",
+        "k": 1
+      },
+      "expected": "b",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "bba",
+        "k": 3
+      },
+      "expected": "abb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "abbccb",
+        "k": 5
+      },
+      "expected": "abbbcc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "cacccc",
+        "k": 5
+      },
+      "expected": "accccc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s": "bbbbc",
+        "k": 2
+      },
+      "expected": "bbbbc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "s": "ca",
+        "k": 2
+      },
+      "expected": "ac",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

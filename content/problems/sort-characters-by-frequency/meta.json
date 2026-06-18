@@ -1,0 +1,35 @@
+{
+  "slug": "sort-characters-by-frequency",
+  "title": "Sort Characters By Frequency",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "hash-table",
+    "sorting",
+    "heap"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "frequencySort",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,53 @@
+{
+  "slug": "apply-discount-every-n-orders",
+  "title": "Apply Discount Every N Orders",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "getBills",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "discount",
+        "type": "int"
+      },
+      {
+        "name": "products",
+        "type": "int[]"
+      },
+      {
+        "name": "prices",
+        "type": "int[]"
+      },
+      {
+        "name": "order_products",
+        "type": "int[][]"
+      },
+      {
+        "name": "order_amounts",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "float[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

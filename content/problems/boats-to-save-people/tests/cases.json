@@ -1,0 +1,200 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "people": [
+          1,
+          2
+        ],
+        "limit": 3
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "people": [
+          3,
+          2,
+          2,
+          1
+        ],
+        "limit": 3
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "people": [
+          3,
+          5,
+          3,
+          4
+        ],
+        "limit": 5
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "people": [
+          5
+        ],
+        "limit": 5
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "people": [
+          2,
+          2
+        ],
+        "limit": 6
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "people": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "limit": 2
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "people": [
+          3,
+          2,
+          2,
+          1,
+          5,
+          4,
+          3,
+          2
+        ],
+        "limit": 6
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "people": [
+          1,
+          1,
+          1
+        ],
+        "limit": 11
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "people": [
+          5,
+          5,
+          4
+        ],
+        "limit": 6
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "people": [
+          3
+        ],
+        "limit": 4
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "people": [
+          4,
+          3,
+          3,
+          4,
+          7,
+          2,
+          8,
+          7
+        ],
+        "limit": 8
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "people": [
+          2,
+          6,
+          1,
+          7,
+          4,
+          1,
+          7,
+          1
+        ],
+        "limit": 11
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "people": [
+          2,
+          5,
+          2,
+          5,
+          6
+        ],
+        "limit": 6
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "slug": "add-two-numbers",
+  "title": "Add Two Numbers In Linked Lists",
+  "difficulty": "medium",
+  "tags": [
+    "linked-list"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "addTwoNumbers",
+    "params": [
+      {
+        "name": "l1",
+        "type": "int[]"
+      },
+      {
+        "name": "l2",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

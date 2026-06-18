@@ -1,0 +1,42 @@
+{
+  "slug": "minimum-genetic-mutation",
+  "title": "Minimum Genetic Mutation",
+  "difficulty": "medium",
+  "tags": [
+    "string",
+    "breadth-first-search",
+    "graph"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minMutation",
+    "params": [
+      {
+        "name": "startGene",
+        "type": "string"
+      },
+      {
+        "name": "endGene",
+        "type": "string"
+      },
+      {
+        "name": "bank",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

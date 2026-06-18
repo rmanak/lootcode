@@ -1,0 +1,282 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            10
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            7,
+            0
+          ]
+        ]
+      },
+      "expected": 20,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "points": [
+          [
+            3,
+            12
+          ],
+          [
+            -2,
+            5
+          ],
+          [
+            -4,
+            1
+          ]
+        ]
+      },
+      "expected": 18,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "points": [
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            -1,
+            1
+          ]
+        ]
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "points": [
+          [
+            2,
+            -3
+          ],
+          [
+            -17,
+            -8
+          ],
+          [
+            13,
+            8
+          ],
+          [
+            -17,
+            -15
+          ]
+        ]
+      },
+      "expected": 53,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "points": [
+          [
+            9,
+            6
+          ],
+          [
+            8,
+            -9
+          ],
+          [
+            -6,
+            4
+          ],
+          [
+            -1,
+            -1
+          ],
+          [
+            -5,
+            10
+          ],
+          [
+            9,
+            9
+          ]
+        ]
+      },
+      "expected": 51,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "points": [
+          [
+            7,
+            10
+          ],
+          [
+            -6,
+            -4
+          ]
+        ]
+      },
+      "expected": 27,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "points": [
+          [
+            -7,
+            -6
+          ],
+          [
+            -1,
+            7
+          ],
+          [
+            6,
+            -2
+          ],
+          [
+            8,
+            6
+          ],
+          [
+            4,
+            2
+          ]
+        ]
+      },
+      "expected": 41,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "points": [
+          [
+            10,
+            6
+          ],
+          [
+            9,
+            -3
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      },
+      "expected": 31,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "points": [
+          [
+            0,
+            9
+          ],
+          [
+            -6,
+            -4
+          ],
+          [
+            -2,
+            -1
+          ]
+        ]
+      },
+      "expected": 19,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "points": [
+          [
+            10,
+            -9
+          ],
+          [
+            -9,
+            -2
+          ],
+          [
+            -1,
+            8
+          ],
+          [
+            -7,
+            7
+          ]
+        ]
+      },
+      "expected": 44,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "ADOBECODEBANC",
+        "t": "ABC"
+      },
+      "expected": "BANC",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "a",
+        "t": "a"
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "s": "a",
+        "t": "aa"
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "ab",
+        "t": "b"
+      },
+      "expected": "b",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "abc",
+        "t": "cba"
+      },
+      "expected": "abc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "aa",
+        "t": "aa"
+      },
+      "expected": "aa",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "bba",
+        "t": "ab"
+      },
+      "expected": "ba",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "cabwefgewcwaefgcf",
+        "t": "cae"
+      },
+      "expected": "cwae",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "cabcbacaba",
+        "t": "ab"
+      },
+      "expected": "ab",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "bbcbaac",
+        "t": "c"
+      },
+      "expected": "c",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "cabcaccabb",
+        "t": "a"
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "accabbcac",
+        "t": "cbb"
+      },
+      "expected": "bbc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s": "bbaccabaaa",
+        "t": "b"
+      },
+      "expected": "b",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "s": "cacbacccc",
+        "t": "a"
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

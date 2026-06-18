@@ -1,0 +1,41 @@
+{
+  "slug": "new-21-game",
+  "title": "New 21 Game",
+  "difficulty": "medium",
+  "tags": [
+    "dynamic-programming",
+    "sliding-window"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "new21Game",
+    "params": [
+      {
+        "name": "N",
+        "type": "int"
+      },
+      {
+        "name": "K",
+        "type": "int"
+      },
+      {
+        "name": "W",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "float"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

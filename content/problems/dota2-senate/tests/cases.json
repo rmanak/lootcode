@@ -1,0 +1,121 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "senate": "RD"
+      },
+      "expected": "Radiant",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "senate": "RDD"
+      },
+      "expected": "Dire",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "senate": "R"
+      },
+      "expected": "Radiant",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "senate": "D"
+      },
+      "expected": "Dire",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "senate": "RRD"
+      },
+      "expected": "Radiant",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "senate": "DDRRR"
+      },
+      "expected": "Dire",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "senate": "RDRDRD"
+      },
+      "expected": "Radiant",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "senate": "DDRR"
+      },
+      "expected": "Dire",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "senate": "RDDR"
+      },
+      "expected": "Radiant",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "senate": "DR"
+      },
+      "expected": "Dire",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "senate": "RRDDRRRDDR"
+      },
+      "expected": "Radiant",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "senate": "RRR"
+      },
+      "expected": "Radiant",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "senate": "DDDRDRRRRD"
+      },
+      "expected": "Dire",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

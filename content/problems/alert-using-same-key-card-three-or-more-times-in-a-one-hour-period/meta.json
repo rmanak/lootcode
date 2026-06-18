@@ -1,0 +1,39 @@
+{
+  "slug": "alert-using-same-key-card-three-or-more-times-in-a-one-hour-period",
+  "title": "Alert Using Same Key-Card Three or More Times in a One-Hour Period",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "alertNames",
+    "params": [
+      {
+        "name": "keyName",
+        "type": "str[]"
+      },
+      {
+        "name": "keyTime",
+        "type": "str[]"
+      }
+    ],
+    "returns": {
+      "type": "str[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

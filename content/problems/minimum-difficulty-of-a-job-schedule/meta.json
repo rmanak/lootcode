@@ -1,0 +1,37 @@
+{
+  "slug": "minimum-difficulty-of-a-job-schedule",
+  "title": "Minimum Difficulty of a Job Schedule",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minDifficulty",
+    "params": [
+      {
+        "name": "jobDifficulty",
+        "type": "int[]"
+      },
+      {
+        "name": "d",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

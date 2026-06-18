@@ -1,0 +1,608 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "operations": [
+          [
+            "inc",
+            "a"
+          ],
+          [
+            "inc",
+            "b"
+          ],
+          [
+            "inc",
+            "a"
+          ],
+          [
+            "getMaxKey"
+          ],
+          [
+            "getMinKey"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        "a",
+        "b"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "operations": [
+          [
+            "inc",
+            "x"
+          ],
+          [
+            "dec",
+            "x"
+          ],
+          [
+            "getMaxKey"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        ""
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "operations": [
+          [
+            "getMaxKey"
+          ],
+          [
+            "getMinKey"
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "operations": [
+          [
+            "inc",
+            "a"
+          ],
+          [
+            "inc",
+            "a"
+          ],
+          [
+            "inc",
+            "b"
+          ],
+          [
+            "dec",
+            "a"
+          ],
+          [
+            "getMaxKey"
+          ],
+          [
+            "getMinKey"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        "a",
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "operations": [
+          [
+            "getMaxKey"
+          ],
+          [
+            "inc",
+            "d"
+          ],
+          [
+            "inc",
+            "a"
+          ],
+          [
+            "inc",
+            "c"
+          ],
+          [
+            "inc",
+            "c"
+          ],
+          [
+            "inc",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "operations": [
+          [
+            "getMaxKey"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "inc",
+            "a"
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        "",
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "operations": [
+          [
+            "inc",
+            "b"
+          ],
+          [
+            "inc",
+            "b"
+          ],
+          [
+            "inc",
+            "a"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "dec",
+            "a"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "inc",
+            "d"
+          ],
+          [
+            "inc",
+            "d"
+          ],
+          [
+            "inc",
+            "c"
+          ],
+          [
+            "inc",
+            "a"
+          ],
+          [
+            "inc",
+            "a"
+          ],
+          [
+            "getMaxKey"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        "a",
+        null,
+        "b",
+        null,
+        null,
+        null,
+        null,
+        null,
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "operations": [
+          [
+            "inc",
+            "c"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "getMaxKey"
+          ],
+          [
+            "inc",
+            "a"
+          ],
+          [
+            "inc",
+            "a"
+          ],
+          [
+            "getMaxKey"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        "c",
+        "c",
+        null,
+        null,
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "operations": [
+          [
+            "getMinKey"
+          ],
+          [
+            "inc",
+            "a"
+          ],
+          [
+            "inc",
+            "c"
+          ],
+          [
+            "dec",
+            "c"
+          ],
+          [
+            "dec",
+            "a"
+          ],
+          [
+            "getMaxKey"
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        null,
+        null,
+        null,
+        null,
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "operations": [
+          [
+            "inc",
+            "b"
+          ],
+          [
+            "dec",
+            "b"
+          ],
+          [
+            "getMaxKey"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "getMaxKey"
+          ],
+          [
+            "inc",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        "",
+        "",
+        "",
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "operations": [
+          [
+            "getMaxKey"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "getMaxKey"
+          ],
+          [
+            "getMaxKey"
+          ],
+          [
+            "inc",
+            "c"
+          ],
+          [
+            "inc",
+            "b"
+          ],
+          [
+            "inc",
+            "c"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "inc",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        "",
+        "",
+        "",
+        null,
+        null,
+        null,
+        "b",
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "operations": [
+          [
+            "inc",
+            "c"
+          ]
+        ]
+      },
+      "expected": [
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "operations": [
+          [
+            "getMinKey"
+          ],
+          [
+            "inc",
+            "c"
+          ],
+          [
+            "inc",
+            "d"
+          ],
+          [
+            "inc",
+            "c"
+          ],
+          [
+            "inc",
+            "b"
+          ],
+          [
+            "getMaxKey"
+          ],
+          [
+            "getMaxKey"
+          ],
+          [
+            "getMinKey"
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        null,
+        null,
+        null,
+        null,
+        "c",
+        "c",
+        "b"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "operations": [
+          [
+            "getMaxKey"
+          ],
+          [
+            "getMaxKey"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "inc",
+            "c"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "inc",
+            "c"
+          ],
+          [
+            "inc",
+            "b"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "inc",
+            "c"
+          ],
+          [
+            "dec",
+            "c"
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        "",
+        "",
+        "",
+        null,
+        "c",
+        null,
+        null,
+        "b",
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "operations": [
+          [
+            "inc",
+            "a"
+          ]
+        ]
+      },
+      "expected": [
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "operations": [
+          [
+            "getMinKey"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "inc",
+            "b"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "inc",
+            "b"
+          ],
+          [
+            "getMinKey"
+          ],
+          [
+            "inc",
+            "a"
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        "",
+        "",
+        "",
+        null,
+        "b",
+        null,
+        "b",
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

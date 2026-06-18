@@ -1,0 +1,10 @@
+# lootcode — Python backend deps. Install: pip install -r requirements.txt
+fastapi>=0.110
+uvicorn[standard]>=0.29
+jinja2>=3.1
+sqlalchemy>=2.0
+python-multipart>=0.0.9
+markdown>=3.6
+python-dotenv>=1.0
+# Optional: only needed for the admin "generate problem with AI" feature.
+anthropic>=0.40

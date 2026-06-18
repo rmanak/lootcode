@@ -1,0 +1,194 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "abcdebdde",
+        "t": "bde"
+      },
+      "expected": "bcde",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "jmeqksfrsdcmsiwvaovztaqenprpvnbstl",
+        "t": "u"
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "a",
+        "t": "a"
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "a",
+        "t": "b"
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "abc",
+        "t": "abc"
+      },
+      "expected": "abc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "cnhczmccqouqadqtmjjzl",
+        "t": "mm"
+      },
+      "expected": "mccqouqadqtm",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "aaaaa",
+        "t": "aa"
+      },
+      "expected": "aa",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "aabcc",
+        "t": "bcc"
+      },
+      "expected": "bcc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "bcb",
+        "t": "ba"
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "bbb",
+        "t": "cc"
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "abcbbcba",
+        "t": "b"
+      },
+      "expected": "b",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s": "caacac",
+        "t": "cb"
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "s": "cb",
+        "t": "b"
+      },
+      "expected": "b",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "s": "abc",
+        "t": "caa"
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "s": "abccabbcc",
+        "t": "abb"
+      },
+      "expected": "abb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "s": "b",
+        "t": "bac"
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "s": "cbcaccaaba",
+        "t": "a"
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-16",
+      "input": {
+        "s": "aaaacbbb",
+        "t": "b"
+      },
+      "expected": "b",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-17",
+      "input": {
+        "s": "acc",
+        "t": "aac"
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

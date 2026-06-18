@@ -1,0 +1,170 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "height": [
+          1,
+          8,
+          6,
+          2,
+          5,
+          4,
+          8,
+          3,
+          7
+        ]
+      },
+      "expected": 49,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "height": [
+          1,
+          1
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "height": [
+          4,
+          3,
+          2,
+          1,
+          4
+        ]
+      },
+      "expected": 16,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "height": [
+          1,
+          2,
+          1
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "height": [
+          33,
+          22,
+          32,
+          37,
+          29,
+          30,
+          5,
+          35,
+          33,
+          8,
+          46,
+          15,
+          17,
+          16,
+          22,
+          20,
+          44,
+          25,
+          4,
+          5,
+          17,
+          46
+        ]
+      },
+      "expected": 693,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "height": [
+          18,
+          13,
+          27,
+          2,
+          2,
+          31,
+          26,
+          22,
+          5,
+          40,
+          4,
+          13,
+          26,
+          43,
+          47,
+          37,
+          38,
+          15
+        ]
+      },
+      "expected": 378,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "height": [
+          30,
+          35,
+          39,
+          31
+        ]
+      },
+      "expected": 90,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "height": [
+          26,
+          25,
+          49,
+          45,
+          13,
+          3,
+          36,
+          39,
+          42,
+          19,
+          26,
+          9,
+          18,
+          5,
+          29,
+          20,
+          21,
+          43,
+          10,
+          18,
+          17,
+          2,
+          34
+        ]
+      },
+      "expected": 680,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

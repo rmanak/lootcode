@@ -1,0 +1,317 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "temperatures": [
+          73,
+          74,
+          75,
+          71,
+          69,
+          72,
+          76,
+          73
+        ]
+      },
+      "expected": [
+        1,
+        1,
+        4,
+        2,
+        1,
+        1,
+        0,
+        0
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "temperatures": [
+          30,
+          40,
+          50,
+          60
+        ]
+      },
+      "expected": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "temperatures": [
+          30,
+          30,
+          30
+        ]
+      },
+      "expected": [
+        0,
+        0,
+        0
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "temperatures": [
+          50
+        ]
+      },
+      "expected": [
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "temperatures": [
+          90,
+          80,
+          70
+        ]
+      },
+      "expected": [
+        0,
+        0,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "temperatures": [
+          70,
+          80,
+          70,
+          80,
+          70
+        ]
+      },
+      "expected": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "temperatures": [
+          2,
+          -4,
+          3,
+          4,
+          -3,
+          -5,
+          -3,
+          0
+        ]
+      },
+      "expected": [
+        2,
+        1,
+        1,
+        0,
+        3,
+        1,
+        1,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "temperatures": [
+          -2,
+          3,
+          -1,
+          4,
+          3,
+          0,
+          1,
+          -4,
+          4,
+          3,
+          4,
+          5,
+          -3,
+          1,
+          -1,
+          3,
+          -4,
+          0
+        ]
+      },
+      "expected": [
+        1,
+        2,
+        1,
+        8,
+        4,
+        1,
+        2,
+        1,
+        3,
+        1,
+        1,
+        0,
+        1,
+        2,
+        1,
+        0,
+        1,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "temperatures": [
+          -4,
+          -4,
+          -3,
+          -4,
+          -1,
+          1,
+          0,
+          4,
+          -2,
+          0,
+          0,
+          -2,
+          5,
+          -3,
+          2,
+          5,
+          -3,
+          -3,
+          4
+        ]
+      },
+      "expected": [
+        2,
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        5,
+        1,
+        3,
+        2,
+        1,
+        0,
+        1,
+        1,
+        0,
+        2,
+        1,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "temperatures": [
+          4,
+          -3,
+          5,
+          -5,
+          5,
+          -1,
+          5,
+          4,
+          -2
+        ]
+      },
+      "expected": [
+        2,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "temperatures": [
+          3,
+          -2,
+          -5,
+          0,
+          -4,
+          3,
+          2,
+          -3,
+          -3,
+          -1,
+          2,
+          -2,
+          -3,
+          -1,
+          0,
+          2,
+          5,
+          2
+        ]
+      },
+      "expected": [
+        16,
+        2,
+        1,
+        2,
+        1,
+        11,
+        10,
+        2,
+        1,
+        1,
+        6,
+        2,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

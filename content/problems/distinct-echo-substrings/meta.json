@@ -1,0 +1,33 @@
+{
+  "slug": "distinct-echo-substrings",
+  "title": "Distinct Echo Substrings",
+  "difficulty": "hard",
+  "tags": [
+    "string",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "distinctEchoSubstrings",
+    "params": [
+      {
+        "name": "text",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

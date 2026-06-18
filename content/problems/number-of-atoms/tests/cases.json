@@ -1,0 +1,121 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "formula": "H2O"
+      },
+      "expected": "H2O",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "formula": "Mg(OH)2"
+      },
+      "expected": "H2MgO2",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "formula": "K4(ON(SO3)2)2"
+      },
+      "expected": "K4N2O14S4",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "formula": "OH"
+      },
+      "expected": "HO",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "formula": "H"
+      },
+      "expected": "H",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "formula": "(H2O2)3"
+      },
+      "expected": "H6O6",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "formula": "Be32"
+      },
+      "expected": "Be32",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "formula": "S(S4O3)"
+      },
+      "expected": "O3S5",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "formula": "H4"
+      },
+      "expected": "H4",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "formula": "Ca2H"
+      },
+      "expected": "Ca2H",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "formula": "(Mg2)Na(Mg4(Ca2)4(N4HCa3))"
+      },
+      "expected": "Ca11HMg6N4Na",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "formula": "O5(N)2H"
+      },
+      "expected": "HN2O5",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "formula": "Ca4Ca5"
+      },
+      "expected": "Ca9",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

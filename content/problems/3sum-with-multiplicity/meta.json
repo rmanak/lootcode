@@ -1,0 +1,39 @@
+{
+  "slug": "3sum-with-multiplicity",
+  "title": "3Sum With Multiplicity",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "two-pointers",
+    "counting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "threeSumMulti",
+    "params": [
+      {
+        "name": "A",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

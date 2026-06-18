@@ -1,0 +1,403 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "n": 4,
+        "flights": [
+          [
+            0,
+            1,
+            100
+          ],
+          [
+            1,
+            2,
+            100
+          ],
+          [
+            2,
+            0,
+            100
+          ],
+          [
+            1,
+            3,
+            600
+          ],
+          [
+            2,
+            3,
+            200
+          ]
+        ],
+        "src": 0,
+        "dst": 3,
+        "k": 1
+      },
+      "expected": 700,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "n": 3,
+        "flights": [
+          [
+            0,
+            1,
+            100
+          ],
+          [
+            1,
+            2,
+            100
+          ],
+          [
+            0,
+            2,
+            500
+          ]
+        ],
+        "src": 0,
+        "dst": 2,
+        "k": 1
+      },
+      "expected": 200,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "n": 3,
+        "flights": [
+          [
+            0,
+            1,
+            100
+          ],
+          [
+            1,
+            2,
+            100
+          ],
+          [
+            0,
+            2,
+            500
+          ]
+        ],
+        "src": 0,
+        "dst": 2,
+        "k": 0
+      },
+      "expected": 500,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "n": 2,
+        "flights": [],
+        "src": 0,
+        "dst": 1,
+        "k": 1
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "n": 2,
+        "flights": [
+          [
+            0,
+            1,
+            50
+          ]
+        ],
+        "src": 0,
+        "dst": 0,
+        "k": 1
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "n": 3,
+        "flights": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "src": 0,
+        "dst": 2,
+        "k": 1
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "n": 4,
+        "flights": [
+          [
+            3,
+            1,
+            8
+          ],
+          [
+            3,
+            0,
+            47
+          ],
+          [
+            3,
+            0,
+            15
+          ],
+          [
+            0,
+            2,
+            9
+          ]
+        ],
+        "src": 2,
+        "dst": 0,
+        "k": 0
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "n": 5,
+        "flights": [
+          [
+            4,
+            1,
+            45
+          ],
+          [
+            3,
+            4,
+            23
+          ],
+          [
+            4,
+            2,
+            9
+          ],
+          [
+            2,
+            0,
+            7
+          ]
+        ],
+        "src": 1,
+        "dst": 4,
+        "k": 5
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "n": 4,
+        "flights": [
+          [
+            0,
+            2,
+            13
+          ],
+          [
+            1,
+            3,
+            15
+          ],
+          [
+            2,
+            1,
+            41
+          ],
+          [
+            2,
+            3,
+            9
+          ],
+          [
+            2,
+            0,
+            22
+          ],
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            3,
+            50
+          ]
+        ],
+        "src": 1,
+        "dst": 1,
+        "k": 0
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "n": 3,
+        "flights": [
+          [
+            1,
+            0,
+            32
+          ],
+          [
+            0,
+            2,
+            47
+          ]
+        ],
+        "src": 1,
+        "dst": 1,
+        "k": 3
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "n": 3,
+        "flights": [
+          [
+            2,
+            0,
+            17
+          ],
+          [
+            0,
+            2,
+            7
+          ],
+          [
+            2,
+            1,
+            45
+          ],
+          [
+            0,
+            1,
+            40
+          ],
+          [
+            0,
+            1,
+            2
+          ]
+        ],
+        "src": 2,
+        "dst": 0,
+        "k": 2
+      },
+      "expected": 17,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "n": 2,
+        "flights": [
+          [
+            1,
+            0,
+            39
+          ],
+          [
+            1,
+            0,
+            29
+          ],
+          [
+            1,
+            0,
+            14
+          ]
+        ],
+        "src": 0,
+        "dst": 0,
+        "k": 0
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "n": 4,
+        "flights": [
+          [
+            3,
+            1,
+            18
+          ],
+          [
+            0,
+            1,
+            31
+          ]
+        ],
+        "src": 2,
+        "dst": 1,
+        "k": 2
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "n": 3,
+        "flights": [],
+        "src": 1,
+        "dst": 1,
+        "k": 0
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "slug": "reaching-points",
+  "title": "Reaching Points",
+  "difficulty": "hard",
+  "tags": [
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "reachingPoints",
+    "params": [
+      {
+        "name": "sx",
+        "type": "int"
+      },
+      {
+        "name": "sy",
+        "type": "int"
+      },
+      {
+        "name": "tx",
+        "type": "int"
+      },
+      {
+        "name": "ty",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

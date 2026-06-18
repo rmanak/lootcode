@@ -1,0 +1,35 @@
+{
+  "slug": "longest-string-chain",
+  "title": "Longest String Chain",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "string",
+    "dynamic-programming",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "longestStrChain",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

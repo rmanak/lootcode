@@ -1,0 +1,272 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "A": [
+          1,
+          3,
+          5,
+          4
+        ],
+        "B": [
+          1,
+          2,
+          3,
+          7
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "A": [
+          1,
+          2,
+          3
+        ],
+        "B": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "A": [
+          3,
+          5
+        ],
+        "B": [
+          1,
+          2
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "A": [
+          0,
+          3,
+          5,
+          8,
+          9
+        ],
+        "B": [
+          2,
+          1,
+          4,
+          6,
+          9
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "A": [
+          1
+        ],
+        "B": [
+          1
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "A": [
+          22
+        ],
+        "B": [
+          6
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "A": [
+          2,
+          16,
+          16
+        ],
+        "B": [
+          8,
+          12,
+          33
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "A": [
+          4,
+          8,
+          16,
+          22,
+          22,
+          29,
+          26,
+          32
+        ],
+        "B": [
+          7,
+          9,
+          9,
+          10,
+          26,
+          23,
+          30,
+          33
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "A": [
+          13,
+          19,
+          22,
+          30,
+          36
+        ],
+        "B": [
+          4,
+          20,
+          28,
+          28,
+          37
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "A": [
+          6,
+          5,
+          7,
+          10,
+          27,
+          34
+        ],
+        "B": [
+          2,
+          8,
+          9,
+          14,
+          15,
+          28
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "A": [
+          5,
+          15,
+          34
+        ],
+        "B": [
+          3,
+          8,
+          16
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "A": [
+          0,
+          3,
+          5,
+          8,
+          21,
+          33,
+          36,
+          35
+        ],
+        "B": [
+          2,
+          1,
+          8,
+          14,
+          13,
+          22,
+          28,
+          37
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "A": [
+          6,
+          18,
+          20,
+          14,
+          34,
+          32,
+          35
+        ],
+        "B": [
+          0,
+          7,
+          11,
+          21,
+          23,
+          35,
+          36
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

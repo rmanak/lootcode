@@ -1,0 +1,33 @@
+{
+  "slug": "probability-of-a-two-boxes-having-the-same-number-of-distinct-balls",
+  "title": "Probability of Two Boxes Having the Same Number of Distinct Balls",
+  "difficulty": "hard",
+  "tags": [
+    "backtracking",
+    "combinatorics"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "getProbability",
+    "params": [
+      {
+        "name": "balls",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "float"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

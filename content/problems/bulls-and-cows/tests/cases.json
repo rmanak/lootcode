@@ -1,0 +1,154 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "secret": "1807",
+        "guess": "7810"
+      },
+      "expected": "1A3B",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "secret": "1123",
+        "guess": "0111"
+      },
+      "expected": "1A1B",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "secret": "1",
+        "guess": "0"
+      },
+      "expected": "0A0B",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "secret": "1",
+        "guess": "1"
+      },
+      "expected": "1A0B",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "secret": "11",
+        "guess": "10"
+      },
+      "expected": "1A0B",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "secret": "1122",
+        "guess": "2211"
+      },
+      "expected": "0A4B",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "secret": "0",
+        "guess": "0"
+      },
+      "expected": "1A0B",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "secret": "3",
+        "guess": "3"
+      },
+      "expected": "1A0B",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "secret": "02",
+        "guess": "13"
+      },
+      "expected": "0A0B",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "secret": "102",
+        "guess": "333"
+      },
+      "expected": "0A0B",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "secret": "1",
+        "guess": "2"
+      },
+      "expected": "0A0B",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "secret": "01",
+        "guess": "01"
+      },
+      "expected": "2A0B",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "secret": "303",
+        "guess": "131"
+      },
+      "expected": "0A1B",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "secret": "0",
+        "guess": "3"
+      },
+      "expected": "0A0B",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "secret": "201",
+        "guess": "022"
+      },
+      "expected": "0A2B",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

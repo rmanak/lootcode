@@ -1,0 +1,42 @@
+{
+  "slug": "maximum-profit-job-scheduling",
+  "title": "Maximum Profit Job Scheduling",
+  "difficulty": "hard",
+  "tags": [
+    "dynamic-programming",
+    "binary-search",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "jobScheduling",
+    "params": [
+      {
+        "name": "start",
+        "type": "int[]"
+      },
+      {
+        "name": "end",
+        "type": "int[]"
+      },
+      {
+        "name": "profit",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

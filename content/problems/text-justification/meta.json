@@ -1,0 +1,38 @@
+{
+  "slug": "text-justification",
+  "title": "Text Justification",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "string",
+    "simulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "fullJustify",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      },
+      {
+        "name": "maxWidth",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "str[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

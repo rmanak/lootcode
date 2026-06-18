@@ -1,0 +1,33 @@
+{
+  "slug": "eventual-safe-states",
+  "title": "Eventual Safe States",
+  "difficulty": "medium",
+  "tags": [
+    "graph",
+    "depth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "eventualSafeNodes",
+    "params": [
+      {
+        "name": "graph",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

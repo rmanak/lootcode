@@ -1,0 +1,209 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "weights": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "days": 5
+      },
+      "expected": 15,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "weights": [
+          3,
+          2,
+          2,
+          4,
+          1,
+          4
+        ],
+        "days": 3
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "weights": [
+          1,
+          2,
+          3,
+          1,
+          1
+        ],
+        "days": 4
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "weights": [
+          5
+        ],
+        "days": 1
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "weights": [
+          1,
+          1,
+          1
+        ],
+        "days": 3
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "weights": [
+          10,
+          5,
+          5
+        ],
+        "days": 1
+      },
+      "expected": 20,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "weights": [
+          3,
+          2,
+          2,
+          4,
+          1,
+          4
+        ],
+        "days": 6
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "weights": [
+          4,
+          3,
+          2,
+          8
+        ],
+        "days": 2
+      },
+      "expected": 9,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "weights": [
+          8,
+          1,
+          6,
+          10
+        ],
+        "days": 4
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "weights": [
+          6,
+          5,
+          3,
+          9,
+          3,
+          3,
+          9,
+          8
+        ],
+        "days": 7
+      },
+      "expected": 9,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "weights": [
+          4,
+          10,
+          9,
+          4
+        ],
+        "days": 3
+      },
+      "expected": 13,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "weights": [
+          3,
+          9,
+          10
+        ],
+        "days": 3
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "weights": [
+          5,
+          1,
+          7,
+          3,
+          9
+        ],
+        "days": 4
+      },
+      "expected": 9,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

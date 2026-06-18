@@ -1,0 +1,3 @@
+def countDigitOne(n):
+    # Write your solution here.
+    pass

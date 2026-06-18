@@ -1,0 +1,198 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "stones": [
+          3,
+          2,
+          4,
+          1
+        ],
+        "K": 2
+      },
+      "expected": 20,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "stones": [
+          3,
+          2,
+          4,
+          1
+        ],
+        "K": 3
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "stones": [
+          3,
+          5,
+          1,
+          2,
+          6
+        ],
+        "K": 3
+      },
+      "expected": 25,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "stones": [
+          1
+        ],
+        "K": 2
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "stones": [
+          1,
+          2
+        ],
+        "K": 2
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "stones": [
+          6,
+          4,
+          4,
+          6
+        ],
+        "K": 2
+      },
+      "expected": 40,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "stones": [
+          3,
+          5,
+          1,
+          2,
+          6
+        ],
+        "K": 4
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "stones": [
+          13,
+          6,
+          10,
+          18,
+          7,
+          13
+        ],
+        "K": 2
+      },
+      "expected": 170,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "stones": [
+          13,
+          14
+        ],
+        "K": 4
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "stones": [
+          2,
+          15,
+          10,
+          15
+        ],
+        "K": 2
+      },
+      "expected": 84,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "stones": [
+          18,
+          13,
+          9,
+          10,
+          9,
+          19,
+          13
+        ],
+        "K": 4
+      },
+      "expected": 132,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "stones": [
+          20,
+          2,
+          10
+        ],
+        "K": 4
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "stones": [
+          19,
+          20,
+          19,
+          12
+        ],
+        "K": 2
+      },
+      "expected": 140,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

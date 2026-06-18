@@ -1,0 +1,262 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "startGene": "AACCGGTT",
+        "endGene": "AACCGGTA",
+        "bank": [
+          "AACCGGTA"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "startGene": "AACCGGTT",
+        "endGene": "AAACGGTA",
+        "bank": [
+          "AACCGGTA",
+          "AACCGCTA",
+          "AAACGGTA"
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "startGene": "AAAA",
+        "endGene": "AAAA",
+        "bank": []
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "startGene": "AAAA",
+        "endGene": "AACA",
+        "bank": [
+          "AACA"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "startGene": "AAAA",
+        "endGene": "ACGT",
+        "bank": [
+          "AAGA"
+        ]
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "startGene": "CGGG",
+        "endGene": "TGGG",
+        "bank": [
+          "GACT",
+          "TATG",
+          "TGCA",
+          "TGGG"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "startGene": "AGTT",
+        "endGene": "CTGA",
+        "bank": [
+          "AGTG",
+          "ACTC",
+          "AGTC",
+          "TGAT",
+          "ACGA",
+          "CGCT",
+          "ACGC"
+        ]
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "startGene": "AAGAA",
+        "endGene": "AAGTG",
+        "bank": [
+          "AAGTA",
+          "AAGTG"
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "startGene": "CGA",
+        "endGene": "CGT",
+        "bank": [
+          "CGT",
+          "CGA",
+          "CGG"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "startGene": "CT",
+        "endGene": "GT",
+        "bank": [
+          "TT",
+          "GT"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "startGene": "GATAT",
+        "endGene": "GATAT",
+        "bank": [
+          "CCCCC",
+          "ATTCA",
+          "ACAGA",
+          "TCAAG"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "startGene": "GTGAC",
+        "endGene": "TTTCT",
+        "bank": [
+          "GTTCT",
+          "GTGCT",
+          "TTTCT",
+          "CCTAA",
+          "GTGGC",
+          "GGAGG",
+          "GTGCC"
+        ]
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "startGene": "TGAGA",
+        "endGene": "TGGGA",
+        "bank": [
+          "TGGGA",
+          "ACAGG"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "startGene": "CTTA",
+        "endGene": "GGTG",
+        "bank": [
+          "ATTG",
+          "AATC",
+          "ATTA",
+          "ATTA",
+          "ATTC",
+          "CTTA"
+        ]
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "startGene": "ATTAC",
+        "endGene": "ATGAC",
+        "bank": [
+          "CCATC",
+          "ATGAC",
+          "TGTTA",
+          "AACCG"
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "startGene": "GCA",
+        "endGene": "CGT",
+        "bank": [
+          "ACC",
+          "CGT",
+          "TTG",
+          "ATC",
+          "GAA",
+          "CCA",
+          "CCT"
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "startGene": "GG",
+        "endGene": "GG",
+        "bank": [
+          "AA"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

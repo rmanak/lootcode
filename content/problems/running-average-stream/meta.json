@@ -1,0 +1,33 @@
+{
+  "slug": "running-average-stream",
+  "title": "Running Average Stream",
+  "difficulty": "easy",
+  "tags": [
+    "array",
+    "prefix-sum"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "runningAverage",
+    "params": [
+      {
+        "name": "nums",
+        "type": "num[]"
+      }
+    ],
+    "returns": {
+      "type": "num[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

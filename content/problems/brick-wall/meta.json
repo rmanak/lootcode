@@ -1,0 +1,33 @@
+{
+  "slug": "brick-wall",
+  "title": "Brick Wall",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "leastBricks",
+    "params": [
+      {
+        "name": "wall",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

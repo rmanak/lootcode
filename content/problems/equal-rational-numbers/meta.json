@@ -1,0 +1,36 @@
+{
+  "slug": "equal-rational-numbers",
+  "title": "Equal Rational Numbers",
+  "difficulty": "hard",
+  "tags": [
+    "string"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "isRationalEqual",
+    "params": [
+      {
+        "name": "S",
+        "type": "string"
+      },
+      {
+        "name": "T",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

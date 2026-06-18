@@ -1,0 +1,536 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "board": [
+          [
+            "X",
+            "X",
+            "X"
+          ],
+          [
+            "X",
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "X",
+            "X"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "X",
+          "X",
+          "X"
+        ],
+        [
+          "X",
+          "X",
+          "X"
+        ],
+        [
+          "X",
+          "X",
+          "X"
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "board": [
+          [
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "O"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "O",
+          "X"
+        ],
+        [
+          "X",
+          "O"
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "board": [
+          [
+            "O"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "O"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "board": [
+          [
+            "X"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "X"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "board": [
+          [
+            "X",
+            "X",
+            "X",
+            "X"
+          ],
+          [
+            "X",
+            "O",
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "X",
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "O",
+            "X",
+            "X"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "X",
+          "X",
+          "X",
+          "X"
+        ],
+        [
+          "X",
+          "X",
+          "X",
+          "X"
+        ],
+        [
+          "X",
+          "X",
+          "X",
+          "X"
+        ],
+        [
+          "X",
+          "O",
+          "X",
+          "X"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "board": [
+          [
+            "O",
+            "O"
+          ],
+          [
+            "O",
+            "O"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "O",
+          "O"
+        ],
+        [
+          "O",
+          "O"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "board": [
+          [
+            "O",
+            "O",
+            "O",
+            "O",
+            "O",
+            "X"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "O",
+          "O",
+          "O",
+          "O",
+          "O",
+          "X"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "board": [
+          [
+            "O",
+            "X",
+            "O",
+            "O",
+            "X",
+            "O"
+          ],
+          [
+            "O",
+            "X",
+            "O",
+            "X",
+            "X",
+            "O"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "O",
+          "X",
+          "O",
+          "O",
+          "X",
+          "O"
+        ],
+        [
+          "O",
+          "X",
+          "O",
+          "X",
+          "X",
+          "O"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "board": [
+          [
+            "O"
+          ],
+          [
+            "O"
+          ],
+          [
+            "O"
+          ],
+          [
+            "X"
+          ],
+          [
+            "O"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "O"
+        ],
+        [
+          "O"
+        ],
+        [
+          "O"
+        ],
+        [
+          "X"
+        ],
+        [
+          "O"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "board": [
+          [
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "O"
+          ],
+          [
+            "X",
+            "O"
+          ],
+          [
+            "O",
+            "O"
+          ],
+          [
+            "X",
+            "O"
+          ],
+          [
+            "O",
+            "X"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "O",
+          "X"
+        ],
+        [
+          "X",
+          "O"
+        ],
+        [
+          "X",
+          "O"
+        ],
+        [
+          "O",
+          "O"
+        ],
+        [
+          "X",
+          "O"
+        ],
+        [
+          "O",
+          "X"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "board": [
+          [
+            "X",
+            "X",
+            "O"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "X",
+          "X",
+          "O"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "board": [
+          [
+            "X"
+          ],
+          [
+            "X"
+          ],
+          [
+            "X"
+          ],
+          [
+            "X"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "X"
+        ],
+        [
+          "X"
+        ],
+        [
+          "X"
+        ],
+        [
+          "X"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "board": [
+          [
+            "X",
+            "X",
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "X",
+            "O",
+            "O"
+          ],
+          [
+            "O",
+            "X",
+            "X",
+            "O"
+          ],
+          [
+            "O",
+            "O",
+            "O",
+            "X"
+          ],
+          [
+            "O",
+            "O",
+            "O",
+            "O"
+          ],
+          [
+            "X",
+            "O",
+            "X",
+            "O"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "X",
+          "X",
+          "O",
+          "X"
+        ],
+        [
+          "X",
+          "X",
+          "O",
+          "O"
+        ],
+        [
+          "O",
+          "X",
+          "X",
+          "O"
+        ],
+        [
+          "O",
+          "O",
+          "O",
+          "X"
+        ],
+        [
+          "O",
+          "O",
+          "O",
+          "O"
+        ],
+        [
+          "X",
+          "O",
+          "X",
+          "O"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "board": [
+          [
+            "O",
+            "O",
+            "O",
+            "O"
+          ],
+          [
+            "O",
+            "O",
+            "X",
+            "O"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "O",
+          "O",
+          "O",
+          "O"
+        ],
+        [
+          "O",
+          "O",
+          "X",
+          "O"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

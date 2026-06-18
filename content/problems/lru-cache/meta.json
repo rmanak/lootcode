@@ -1,0 +1,37 @@
+{
+  "slug": "lru-cache",
+  "title": "LRU Cache",
+  "difficulty": "medium",
+  "tags": [
+    "hash-table",
+    "linked-list"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "lruCache",
+    "params": [
+      {
+        "name": "capacity",
+        "type": "int"
+      },
+      {
+        "name": "operations",
+        "type": "any[][]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

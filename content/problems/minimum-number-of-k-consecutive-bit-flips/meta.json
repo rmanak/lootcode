@@ -1,0 +1,39 @@
+{
+  "slug": "minimum-number-of-k-consecutive-bit-flips",
+  "title": "Minimum Number of K Consecutive Bit Flips",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "greedy",
+    "sliding-window",
+    "prefix-sum"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minKBitFlips",
+    "params": [
+      {
+        "name": "A",
+        "type": "int[]"
+      },
+      {
+        "name": "K",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

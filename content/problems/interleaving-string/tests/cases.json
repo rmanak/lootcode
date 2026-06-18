@@ -1,0 +1,169 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s1": "aabcc",
+        "s2": "dbbca",
+        "s3": "aadbbcbcac"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s1": "aabcc",
+        "s2": "dbbca",
+        "s3": "aadbbbaccc"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s1": "",
+        "s2": "",
+        "s3": ""
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s1": "a",
+        "s2": "",
+        "s3": "a"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s1": "a",
+        "s2": "b",
+        "s3": "ab"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s1": "a",
+        "s2": "b",
+        "s3": "ba"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s1": "abc",
+        "s2": "abc",
+        "s3": "abcabc"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s1": "bba",
+        "s2": "bba",
+        "s3": "bbbbaa"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s1": "ab",
+        "s2": "",
+        "s3": "ab"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s1": "aa",
+        "s2": "aba",
+        "s3": "babaa"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s1": "bb",
+        "s2": "bba",
+        "s3": "bbaaa"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s1": "aa",
+        "s2": "aaba",
+        "s3": "bbbbba"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "s1": "bbb",
+        "s2": "bbaa",
+        "s3": "bbaabbb"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "s1": "aa",
+        "s2": "baa",
+        "s3": "aabaa"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "s1": "",
+        "s2": "",
+        "s3": ""
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

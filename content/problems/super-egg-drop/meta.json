@@ -1,0 +1,37 @@
+{
+  "slug": "super-egg-drop",
+  "title": "Super Egg Drop",
+  "difficulty": "hard",
+  "tags": [
+    "dynamic-programming",
+    "binary-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "superEggDrop",
+    "params": [
+      {
+        "name": "K",
+        "type": "int"
+      },
+      {
+        "name": "N",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

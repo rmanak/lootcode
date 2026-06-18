@@ -1,0 +1,41 @@
+{
+  "slug": "rate-limiter",
+  "title": "Rate Limiter",
+  "difficulty": "medium",
+  "tags": [
+    "queue",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "rateLimiter",
+    "params": [
+      {
+        "name": "limit",
+        "type": "int"
+      },
+      {
+        "name": "window",
+        "type": "int"
+      },
+      {
+        "name": "operations",
+        "type": "any[][]"
+      }
+    ],
+    "returns": {
+      "type": "bool[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

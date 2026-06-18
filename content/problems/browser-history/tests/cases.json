@@ -1,0 +1,541 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "homepage": "a.com",
+        "operations": [
+          [
+            "visit",
+            "b.com"
+          ],
+          [
+            "visit",
+            "c.com"
+          ],
+          [
+            "back",
+            1
+          ],
+          [
+            "forward",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        "b.com",
+        "c.com"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "homepage": "x.com",
+        "operations": [
+          [
+            "visit",
+            "y.com"
+          ],
+          [
+            "back",
+            2
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        "x.com"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "homepage": "h.com",
+        "operations": [
+          [
+            "back",
+            1
+          ],
+          [
+            "forward",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        "h.com",
+        "h.com"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "homepage": "a",
+        "operations": [
+          [
+            "visit",
+            "b"
+          ],
+          [
+            "visit",
+            "c"
+          ],
+          [
+            "back",
+            1
+          ],
+          [
+            "visit",
+            "d"
+          ],
+          [
+            "forward",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        "b",
+        null,
+        "d"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "homepage": "home.com",
+        "operations": [
+          [
+            "forward",
+            3
+          ],
+          [
+            "back",
+            1
+          ],
+          [
+            "visit",
+            "c.com"
+          ],
+          [
+            "visit",
+            "d.com"
+          ],
+          [
+            "visit",
+            "c.com"
+          ],
+          [
+            "forward",
+            2
+          ],
+          [
+            "back",
+            2
+          ],
+          [
+            "visit",
+            "a.com"
+          ]
+        ]
+      },
+      "expected": [
+        "home.com",
+        "home.com",
+        null,
+        null,
+        null,
+        "c.com",
+        "c.com",
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "homepage": "home.com",
+        "operations": [
+          [
+            "visit",
+            "d.com"
+          ],
+          [
+            "visit",
+            "b.com"
+          ],
+          [
+            "visit",
+            "c.com"
+          ],
+          [
+            "back",
+            2
+          ],
+          [
+            "visit",
+            "b.com"
+          ],
+          [
+            "visit",
+            "a.com"
+          ],
+          [
+            "visit",
+            "d.com"
+          ],
+          [
+            "visit",
+            "c.com"
+          ],
+          [
+            "visit",
+            "c.com"
+          ],
+          [
+            "visit",
+            "c.com"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        "d.com",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "homepage": "home.com",
+        "operations": [
+          [
+            "visit",
+            "c.com"
+          ]
+        ]
+      },
+      "expected": [
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "homepage": "home.com",
+        "operations": [
+          [
+            "forward",
+            1
+          ],
+          [
+            "visit",
+            "d.com"
+          ],
+          [
+            "forward",
+            3
+          ]
+        ]
+      },
+      "expected": [
+        "home.com",
+        null,
+        "d.com"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "homepage": "home.com",
+        "operations": [
+          [
+            "visit",
+            "a.com"
+          ],
+          [
+            "visit",
+            "b.com"
+          ],
+          [
+            "back",
+            2
+          ],
+          [
+            "visit",
+            "b.com"
+          ],
+          [
+            "forward",
+            2
+          ],
+          [
+            "visit",
+            "b.com"
+          ],
+          [
+            "visit",
+            "d.com"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        "home.com",
+        null,
+        "b.com",
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "homepage": "home.com",
+        "operations": [
+          [
+            "back",
+            3
+          ]
+        ]
+      },
+      "expected": [
+        "home.com"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "homepage": "home.com",
+        "operations": [
+          [
+            "back",
+            1
+          ],
+          [
+            "back",
+            3
+          ],
+          [
+            "back",
+            1
+          ],
+          [
+            "forward",
+            1
+          ],
+          [
+            "visit",
+            "d.com"
+          ],
+          [
+            "back",
+            1
+          ],
+          [
+            "back",
+            2
+          ]
+        ]
+      },
+      "expected": [
+        "home.com",
+        "home.com",
+        "home.com",
+        "home.com",
+        null,
+        "home.com",
+        "home.com"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "homepage": "home.com",
+        "operations": [
+          [
+            "visit",
+            "b.com"
+          ],
+          [
+            "visit",
+            "b.com"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "homepage": "home.com",
+        "operations": [
+          [
+            "visit",
+            "d.com"
+          ]
+        ]
+      },
+      "expected": [
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "homepage": "home.com",
+        "operations": [
+          [
+            "forward",
+            3
+          ],
+          [
+            "back",
+            3
+          ],
+          [
+            "back",
+            3
+          ],
+          [
+            "back",
+            3
+          ],
+          [
+            "forward",
+            1
+          ],
+          [
+            "back",
+            2
+          ],
+          [
+            "visit",
+            "b.com"
+          ]
+        ]
+      },
+      "expected": [
+        "home.com",
+        "home.com",
+        "home.com",
+        "home.com",
+        "home.com",
+        "home.com",
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "homepage": "home.com",
+        "operations": [
+          [
+            "back",
+            2
+          ],
+          [
+            "back",
+            1
+          ],
+          [
+            "forward",
+            2
+          ],
+          [
+            "forward",
+            1
+          ],
+          [
+            "visit",
+            "a.com"
+          ],
+          [
+            "visit",
+            "b.com"
+          ],
+          [
+            "visit",
+            "d.com"
+          ]
+        ]
+      },
+      "expected": [
+        "home.com",
+        "home.com",
+        "home.com",
+        "home.com",
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "homepage": "home.com",
+        "operations": [
+          [
+            "forward",
+            3
+          ],
+          [
+            "back",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        "home.com",
+        "home.com"
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

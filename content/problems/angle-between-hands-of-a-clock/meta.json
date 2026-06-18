@@ -1,0 +1,36 @@
+{
+  "slug": "angle-between-hands-of-a-clock",
+  "title": "Angle Between Hands of a Clock",
+  "difficulty": "medium",
+  "tags": [
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "angleClock",
+    "params": [
+      {
+        "name": "hour",
+        "type": "int"
+      },
+      {
+        "name": "minutes",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "float"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

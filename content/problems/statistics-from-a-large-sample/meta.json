@@ -1,0 +1,32 @@
+{
+  "slug": "statistics-from-a-large-sample",
+  "title": "Statistics from a Large Sample",
+  "difficulty": "medium",
+  "tags": [
+    "array"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "sampleStats",
+    "params": [
+      {
+        "name": "count",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "float[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

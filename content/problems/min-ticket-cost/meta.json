@@ -1,0 +1,37 @@
+{
+  "slug": "min-ticket-cost",
+  "title": "Minimum Ticket Cost",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "mincostTickets",
+    "params": [
+      {
+        "name": "days",
+        "type": "int[]"
+      },
+      {
+        "name": "costs",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

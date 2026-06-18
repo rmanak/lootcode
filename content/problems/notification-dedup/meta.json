@@ -1,0 +1,37 @@
+{
+  "slug": "notification-dedup",
+  "title": "Notification Deduplication Window",
+  "difficulty": "medium",
+  "tags": [
+    "hash-table",
+    "simulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "deduplicate",
+    "params": [
+      {
+        "name": "events",
+        "type": "[string,int][]"
+      },
+      {
+        "name": "window",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "[string,int][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

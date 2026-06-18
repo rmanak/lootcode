@@ -1,0 +1,42 @@
+{
+  "slug": "binary-tree-coloring-game",
+  "title": "Binary Tree Coloring Game",
+  "difficulty": "medium",
+  "tags": [
+    "tree",
+    "depth-first-search",
+    "binary-tree"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "btreeGameWinningMove",
+    "params": [
+      {
+        "name": "root",
+        "type": "int[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "x",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

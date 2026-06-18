@@ -1,0 +1,34 @@
+{
+  "slug": "minimum-time-difference",
+  "title": "Minimum Time Difference",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "string",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findMinDifference",
+    "params": [
+      {
+        "name": "timePoints",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

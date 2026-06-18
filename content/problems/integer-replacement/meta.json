@@ -1,0 +1,33 @@
+{
+  "slug": "integer-replacement",
+  "title": "Integer Replacement",
+  "difficulty": "medium",
+  "tags": [
+    "bit-manipulation",
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "integerReplacement",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

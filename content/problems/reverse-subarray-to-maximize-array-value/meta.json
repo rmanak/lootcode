@@ -1,0 +1,33 @@
+{
+  "slug": "reverse-subarray-to-maximize-array-value",
+  "title": "Reverse Subarray to Maximize Array Value",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxValueAfterReverse",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

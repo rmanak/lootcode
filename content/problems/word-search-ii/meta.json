@@ -1,0 +1,38 @@
+{
+  "slug": "word-search-ii",
+  "title": "Word Search II",
+  "difficulty": "hard",
+  "tags": [
+    "trie",
+    "backtracking",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findWords",
+    "params": [
+      {
+        "name": "board",
+        "type": "string[][]"
+      },
+      {
+        "name": "words",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "string[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "unordered"
+}

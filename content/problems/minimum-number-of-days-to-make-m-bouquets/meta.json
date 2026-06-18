@@ -1,0 +1,41 @@
+{
+  "slug": "minimum-number-of-days-to-make-m-bouquets",
+  "title": "Minimum Number of Days to Make m Bouquets",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minDays",
+    "params": [
+      {
+        "name": "bloomDay",
+        "type": "int[]"
+      },
+      {
+        "name": "m",
+        "type": "int"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

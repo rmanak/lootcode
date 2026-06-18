@@ -1,0 +1,411 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "houses": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "cost": [
+          [
+            1,
+            10
+          ],
+          [
+            10,
+            1
+          ],
+          [
+            10,
+            1
+          ],
+          [
+            1,
+            10
+          ],
+          [
+            5,
+            1
+          ]
+        ],
+        "m": 5,
+        "n": 2,
+        "target": 3
+      },
+      "expected": 9,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "houses": [
+          0,
+          2,
+          1,
+          2,
+          0
+        ],
+        "cost": [
+          [
+            1,
+            10
+          ],
+          [
+            10,
+            1
+          ],
+          [
+            10,
+            1
+          ],
+          [
+            1,
+            10
+          ],
+          [
+            5,
+            1
+          ]
+        ],
+        "m": 5,
+        "n": 2,
+        "target": 3
+      },
+      "expected": 11,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "houses": [
+          3,
+          1,
+          2,
+          3
+        ],
+        "cost": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "m": 4,
+        "n": 3,
+        "target": 3
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "houses": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "cost": [
+          [
+            1,
+            10
+          ],
+          [
+            10,
+            1
+          ],
+          [
+            1,
+            10
+          ],
+          [
+            10,
+            1
+          ],
+          [
+            1,
+            10
+          ]
+        ],
+        "m": 5,
+        "n": 2,
+        "target": 5
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "houses": [
+          1
+        ],
+        "cost": [
+          [
+            5
+          ]
+        ],
+        "m": 1,
+        "n": 1,
+        "target": 1
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "houses": [
+          0
+        ],
+        "cost": [
+          [
+            3,
+            7
+          ]
+        ],
+        "m": 1,
+        "n": 2,
+        "target": 1
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "houses": [
+          2,
+          2,
+          2
+        ],
+        "cost": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "m": 3,
+        "n": 2,
+        "target": 2
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "houses": [
+          3
+        ],
+        "cost": [
+          [
+            9,
+            3,
+            3
+          ]
+        ],
+        "m": 1,
+        "n": 3,
+        "target": 1
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "houses": [
+          2,
+          1,
+          1
+        ],
+        "cost": [
+          [
+            2,
+            1
+          ],
+          [
+            9,
+            2
+          ],
+          [
+            5,
+            5
+          ]
+        ],
+        "m": 3,
+        "n": 2,
+        "target": 3
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "houses": [
+          2,
+          2,
+          2
+        ],
+        "cost": [
+          [
+            9,
+            6,
+            8
+          ],
+          [
+            6,
+            6,
+            6
+          ],
+          [
+            9,
+            3,
+            6
+          ]
+        ],
+        "m": 3,
+        "n": 3,
+        "target": 3
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "houses": [
+          1,
+          0,
+          1,
+          1
+        ],
+        "cost": [
+          [
+            9
+          ],
+          [
+            9
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ],
+        "m": 4,
+        "n": 1,
+        "target": 3
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "houses": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "cost": [
+          [
+            4
+          ],
+          [
+            1
+          ],
+          [
+            9
+          ],
+          [
+            3
+          ]
+        ],
+        "m": 4,
+        "n": 1,
+        "target": 1
+      },
+      "expected": 13,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "houses": [
+          3,
+          3,
+          0
+        ],
+        "cost": [
+          [
+            1,
+            6,
+            4
+          ],
+          [
+            5,
+            5,
+            9
+          ],
+          [
+            8,
+            4,
+            2
+          ]
+        ],
+        "m": 3,
+        "n": 3,
+        "target": 1
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

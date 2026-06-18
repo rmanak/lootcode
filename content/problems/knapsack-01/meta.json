@@ -1,0 +1,41 @@
+{
+  "slug": "knapsack-01",
+  "title": "0-1 Knapsack Maximum Value",
+  "difficulty": "medium",
+  "tags": [
+    "dynamic-programming",
+    "array"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "knapsack",
+    "params": [
+      {
+        "name": "values",
+        "type": "int[]"
+      },
+      {
+        "name": "weights",
+        "type": "int[]"
+      },
+      {
+        "name": "capacity",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

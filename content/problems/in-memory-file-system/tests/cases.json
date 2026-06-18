@@ -1,0 +1,843 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "operations": [
+          [
+            "mkdir",
+            "/a/b"
+          ],
+          [
+            "addContentToFile",
+            "/a/b/f",
+            "hi"
+          ],
+          [
+            "ls",
+            "/a/b"
+          ],
+          [
+            "readContentFromFile",
+            "/a/b/f"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        [
+          "f"
+        ],
+        "hi"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "operations": [
+          [
+            "ls",
+            "/"
+          ]
+        ]
+      },
+      "expected": [
+        []
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "operations": [
+          [
+            "mkdir",
+            "/c"
+          ],
+          [
+            "ls",
+            "/"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        [
+          "c"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "operations": [
+          [
+            "addContentToFile",
+            "/f",
+            "ab"
+          ],
+          [
+            "addContentToFile",
+            "/f",
+            "cd"
+          ],
+          [
+            "readContentFromFile",
+            "/f"
+          ],
+          [
+            "ls",
+            "/f"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        "abcd",
+        [
+          "f"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "operations": [
+          [
+            "mkdir",
+            "/a/b"
+          ],
+          [
+            "mkdir",
+            "/c"
+          ],
+          [
+            "mkdir",
+            "/c/d"
+          ],
+          [
+            "mkdir",
+            "/a"
+          ],
+          [
+            "addContentToFile",
+            "/c/d/h",
+            "yo"
+          ],
+          [
+            "ls",
+            "/"
+          ],
+          [
+            "ls",
+            "/a/b"
+          ],
+          [
+            "ls",
+            "/c"
+          ],
+          [
+            "ls",
+            "/c/d"
+          ],
+          [
+            "ls",
+            "/a"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        [
+          "a",
+          "c"
+        ],
+        [],
+        [
+          "d"
+        ],
+        [
+          "h"
+        ],
+        [
+          "b"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "operations": [
+          [
+            "mkdir",
+            "/a/b"
+          ],
+          [
+            "mkdir",
+            "/c"
+          ],
+          [
+            "addContentToFile",
+            "/g",
+            "hi"
+          ],
+          [
+            "addContentToFile",
+            "/a/b/h",
+            "yo"
+          ],
+          [
+            "addContentToFile",
+            "/a/b/h",
+            "hi"
+          ],
+          [
+            "addContentToFile",
+            "/a/b/g",
+            "yo"
+          ],
+          [
+            "ls",
+            "/"
+          ],
+          [
+            "ls",
+            "/a/b"
+          ],
+          [
+            "ls",
+            "/c"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        [
+          "a",
+          "c",
+          "g"
+        ],
+        [
+          "g",
+          "h"
+        ],
+        []
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "operations": [
+          [
+            "mkdir",
+            "/c"
+          ],
+          [
+            "mkdir",
+            "/a/b"
+          ],
+          [
+            "ls",
+            "/"
+          ],
+          [
+            "ls",
+            "/c"
+          ],
+          [
+            "ls",
+            "/a/b"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        [
+          "a",
+          "c"
+        ],
+        [],
+        []
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "operations": [
+          [
+            "mkdir",
+            "/a"
+          ],
+          [
+            "mkdir",
+            "/c"
+          ],
+          [
+            "mkdir",
+            "/c/d"
+          ],
+          [
+            "mkdir",
+            "/a/b"
+          ],
+          [
+            "addContentToFile",
+            "/a/b/h",
+            "yo"
+          ],
+          [
+            "addContentToFile",
+            "/a/f",
+            "hi"
+          ],
+          [
+            "ls",
+            "/"
+          ],
+          [
+            "ls",
+            "/a"
+          ],
+          [
+            "ls",
+            "/c"
+          ],
+          [
+            "ls",
+            "/c/d"
+          ],
+          [
+            "ls",
+            "/a/b"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        [
+          "a",
+          "c"
+        ],
+        [
+          "b",
+          "f"
+        ],
+        [
+          "d"
+        ],
+        [],
+        [
+          "h"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "operations": [
+          [
+            "mkdir",
+            "/a/b"
+          ],
+          [
+            "mkdir",
+            "/a"
+          ],
+          [
+            "mkdir",
+            "/c/d"
+          ],
+          [
+            "mkdir",
+            "/c"
+          ],
+          [
+            "ls",
+            "/"
+          ],
+          [
+            "ls",
+            "/a/b"
+          ],
+          [
+            "ls",
+            "/a"
+          ],
+          [
+            "ls",
+            "/c/d"
+          ],
+          [
+            "ls",
+            "/c"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        [
+          "a",
+          "c"
+        ],
+        [],
+        [
+          "b"
+        ],
+        [],
+        [
+          "d"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "operations": [
+          [
+            "mkdir",
+            "/a"
+          ],
+          [
+            "mkdir",
+            "/a/b"
+          ],
+          [
+            "mkdir",
+            "/c"
+          ],
+          [
+            "mkdir",
+            "/c/d"
+          ],
+          [
+            "addContentToFile",
+            "/a/b/f",
+            "yo"
+          ],
+          [
+            "addContentToFile",
+            "/a/b/h",
+            "hi"
+          ],
+          [
+            "addContentToFile",
+            "/a/h",
+            "yo"
+          ],
+          [
+            "addContentToFile",
+            "/c/d/g",
+            "hi"
+          ],
+          [
+            "ls",
+            "/"
+          ],
+          [
+            "ls",
+            "/a"
+          ],
+          [
+            "ls",
+            "/a/b"
+          ],
+          [
+            "ls",
+            "/c"
+          ],
+          [
+            "ls",
+            "/c/d"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        [
+          "a",
+          "c"
+        ],
+        [
+          "b",
+          "h"
+        ],
+        [
+          "f",
+          "h"
+        ],
+        [
+          "d"
+        ],
+        [
+          "g"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "operations": [
+          [
+            "mkdir",
+            "/c"
+          ],
+          [
+            "addContentToFile",
+            "/g",
+            "hi"
+          ],
+          [
+            "addContentToFile",
+            "/c/f",
+            "hi"
+          ],
+          [
+            "addContentToFile",
+            "/g",
+            "yo"
+          ],
+          [
+            "ls",
+            "/"
+          ],
+          [
+            "ls",
+            "/c"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        [
+          "c",
+          "g"
+        ],
+        [
+          "f"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "operations": [
+          [
+            "mkdir",
+            "/a"
+          ],
+          [
+            "mkdir",
+            "/c"
+          ],
+          [
+            "mkdir",
+            "/c/d"
+          ],
+          [
+            "mkdir",
+            "/a/b"
+          ],
+          [
+            "ls",
+            "/"
+          ],
+          [
+            "ls",
+            "/a"
+          ],
+          [
+            "ls",
+            "/c"
+          ],
+          [
+            "ls",
+            "/c/d"
+          ],
+          [
+            "ls",
+            "/a/b"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        [
+          "a",
+          "c"
+        ],
+        [
+          "b"
+        ],
+        [
+          "d"
+        ],
+        [],
+        []
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "operations": [
+          [
+            "mkdir",
+            "/a"
+          ],
+          [
+            "mkdir",
+            "/c/d"
+          ],
+          [
+            "ls",
+            "/"
+          ],
+          [
+            "ls",
+            "/a"
+          ],
+          [
+            "ls",
+            "/c/d"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        [
+          "a",
+          "c"
+        ],
+        [],
+        []
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "operations": [
+          [
+            "mkdir",
+            "/a/b"
+          ],
+          [
+            "addContentToFile",
+            "/h",
+            "yo"
+          ],
+          [
+            "addContentToFile",
+            "/a/b/h",
+            "hi"
+          ],
+          [
+            "ls",
+            "/"
+          ],
+          [
+            "ls",
+            "/a/b"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        [
+          "a",
+          "h"
+        ],
+        [
+          "h"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "operations": [
+          [
+            "mkdir",
+            "/c/d"
+          ],
+          [
+            "mkdir",
+            "/a"
+          ],
+          [
+            "mkdir",
+            "/a/b"
+          ],
+          [
+            "addContentToFile",
+            "/c/d/f",
+            "hi"
+          ],
+          [
+            "addContentToFile",
+            "/g",
+            "yo"
+          ],
+          [
+            "addContentToFile",
+            "/g",
+            "yo"
+          ],
+          [
+            "ls",
+            "/"
+          ],
+          [
+            "ls",
+            "/c/d"
+          ],
+          [
+            "ls",
+            "/a"
+          ],
+          [
+            "ls",
+            "/a/b"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        [
+          "a",
+          "c",
+          "g"
+        ],
+        [
+          "f"
+        ],
+        [
+          "b"
+        ],
+        []
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "operations": [
+          [
+            "mkdir",
+            "/a/b"
+          ],
+          [
+            "mkdir",
+            "/c/d"
+          ],
+          [
+            "addContentToFile",
+            "/a/b/f",
+            "yo"
+          ],
+          [
+            "addContentToFile",
+            "/a/b/h",
+            "hi"
+          ],
+          [
+            "ls",
+            "/"
+          ],
+          [
+            "ls",
+            "/a/b"
+          ],
+          [
+            "ls",
+            "/c/d"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        [
+          "a",
+          "c"
+        ],
+        [
+          "f",
+          "h"
+        ],
+        []
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

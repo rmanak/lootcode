@@ -1,0 +1,35 @@
+{
+  "slug": "minimum-number-of-flips-to-convert-binary-matrix-to-zero-matrix",
+  "title": "Minimum Number of Flips to Convert Binary Matrix to Zero Matrix",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "bitmask",
+    "breadth-first-search",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minFlips",
+    "params": [
+      {
+        "name": "mat",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

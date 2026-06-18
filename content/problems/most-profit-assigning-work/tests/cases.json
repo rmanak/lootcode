@@ -1,0 +1,269 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "difficulty": [
+          2,
+          4,
+          6,
+          8,
+          10
+        ],
+        "profit": [
+          10,
+          20,
+          30,
+          40,
+          50
+        ],
+        "worker": [
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "expected": 100,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "difficulty": [
+          5
+        ],
+        "profit": [
+          10
+        ],
+        "worker": [
+          1
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "difficulty": [
+          5
+        ],
+        "profit": [
+          10
+        ],
+        "worker": [
+          5,
+          5,
+          5
+        ]
+      },
+      "expected": 30,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "difficulty": [
+          13,
+          37,
+          71
+        ],
+        "profit": [
+          4,
+          7,
+          8
+        ],
+        "worker": [
+          4,
+          9,
+          15
+        ]
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "difficulty": [
+          68,
+          35,
+          52,
+          47,
+          86
+        ],
+        "profit": [
+          67,
+          17,
+          1,
+          81,
+          3
+        ],
+        "worker": [
+          92,
+          10,
+          85,
+          84,
+          82
+        ]
+      },
+      "expected": 324,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "difficulty": [
+          12,
+          3,
+          13,
+          4,
+          1,
+          5
+        ],
+        "profit": [
+          11,
+          13,
+          11,
+          14,
+          18,
+          5
+        ],
+        "worker": [
+          1,
+          14,
+          12
+        ]
+      },
+      "expected": 54,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "difficulty": [
+          9,
+          10,
+          2
+        ],
+        "profit": [
+          3,
+          19,
+          19
+        ],
+        "worker": [
+          12,
+          6,
+          3
+        ]
+      },
+      "expected": 57,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "difficulty": [
+          11,
+          15,
+          4,
+          13
+        ],
+        "profit": [
+          5,
+          2,
+          7,
+          6
+        ],
+        "worker": [
+          3,
+          2,
+          12,
+          3
+        ]
+      },
+      "expected": 7,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "difficulty": [
+          15
+        ],
+        "profit": [
+          5
+        ],
+        "worker": [
+          14,
+          5,
+          6,
+          4,
+          5,
+          15
+        ]
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "difficulty": [
+          9,
+          10,
+          5,
+          12
+        ],
+        "profit": [
+          17,
+          20,
+          18,
+          12
+        ],
+        "worker": [
+          9,
+          5,
+          7,
+          1
+        ]
+      },
+      "expected": 54,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "difficulty": [
+          12,
+          15,
+          15
+        ],
+        "profit": [
+          18,
+          17,
+          9
+        ],
+        "worker": [
+          8,
+          15,
+          14
+        ]
+      },
+      "expected": 36,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

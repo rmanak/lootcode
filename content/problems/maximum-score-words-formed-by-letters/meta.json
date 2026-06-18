@@ -1,0 +1,43 @@
+{
+  "slug": "maximum-score-words-formed-by-letters",
+  "title": "Maximum Score Words Formed by Letters",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "string",
+    "dynamic-programming",
+    "bitmask"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxScoreWords",
+    "params": [
+      {
+        "name": "words",
+        "type": "string[]"
+      },
+      {
+        "name": "letters",
+        "type": "string[]"
+      },
+      {
+        "name": "score",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

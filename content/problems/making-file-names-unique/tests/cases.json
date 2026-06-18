@@ -1,0 +1,291 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "names": [
+          "pes",
+          "fifa",
+          "gta",
+          "pes(2019)"
+        ]
+      },
+      "expected": [
+        "pes",
+        "fifa",
+        "gta",
+        "pes(2019)"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "names": [
+          "gta",
+          "gta(1)",
+          "gta",
+          "avalon"
+        ]
+      },
+      "expected": [
+        "gta",
+        "gta(1)",
+        "gta(2)",
+        "avalon"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "names": [
+          "kaido",
+          "kaido(1)",
+          "kaido",
+          "kaido(1)"
+        ]
+      },
+      "expected": [
+        "kaido",
+        "kaido(1)",
+        "kaido(2)",
+        "kaido(1)(1)"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "names": [
+          "wano",
+          "wano",
+          "wano",
+          "wano"
+        ]
+      },
+      "expected": [
+        "wano",
+        "wano(1)",
+        "wano(2)",
+        "wano(3)"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "names": [
+          "onepiece",
+          "onepiece(1)",
+          "onepiece(2)",
+          "onepiece(3)",
+          "onepiece"
+        ]
+      },
+      "expected": [
+        "onepiece",
+        "onepiece(1)",
+        "onepiece(2)",
+        "onepiece(3)",
+        "onepiece(4)"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "names": [
+          "a"
+        ]
+      },
+      "expected": [
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "names": [
+          "a",
+          "a",
+          "a(1)"
+        ]
+      },
+      "expected": [
+        "a",
+        "a(1)",
+        "a(1)(1)"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "names": [
+          "a"
+        ]
+      },
+      "expected": [
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "names": [
+          "a(1)",
+          "b",
+          "a(1)",
+          "x",
+          "a",
+          "b(2)"
+        ]
+      },
+      "expected": [
+        "a(1)",
+        "b",
+        "a(1)(1)",
+        "x",
+        "a",
+        "b(2)"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "names": [
+          "gta",
+          "a",
+          "a",
+          "b(2)",
+          "a"
+        ]
+      },
+      "expected": [
+        "gta",
+        "a",
+        "a(1)",
+        "b(2)",
+        "a(2)"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "names": [
+          "a(1)",
+          "a",
+          "gta",
+          "a",
+          "a",
+          "b(2)"
+        ]
+      },
+      "expected": [
+        "a(1)",
+        "a",
+        "gta",
+        "a(2)",
+        "a(3)",
+        "b(2)"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "names": [
+          "b",
+          "x",
+          "b",
+          "a(1)",
+          "a"
+        ]
+      },
+      "expected": [
+        "b",
+        "x",
+        "b(1)",
+        "a(1)",
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "names": [
+          "gta",
+          "b"
+        ]
+      },
+      "expected": [
+        "gta",
+        "b"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "names": [
+          "a",
+          "x",
+          "a(1)",
+          "b",
+          "a(1)",
+          "b(2)",
+          "gta"
+        ]
+      },
+      "expected": [
+        "a",
+        "x",
+        "a(1)",
+        "b",
+        "a(1)(1)",
+        "b(2)",
+        "gta"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "names": [
+          "b(2)",
+          "a",
+          "b(2)",
+          "gta"
+        ]
+      },
+      "expected": [
+        "b(2)",
+        "a",
+        "b(2)(1)",
+        "gta"
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

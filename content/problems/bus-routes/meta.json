@@ -1,0 +1,42 @@
+{
+  "slug": "bus-routes",
+  "title": "Bus Routes",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "hash-table",
+    "breadth-first-search"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "numBusesToDestination",
+    "params": [
+      {
+        "name": "routes",
+        "type": "int[][]"
+      },
+      {
+        "name": "source",
+        "type": "int"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,35 @@
+{
+  "slug": "maximum-length-of-a-concatenated-string-with-unique-characters",
+  "title": "Maximum Length of a Concatenated String with Unique Characters",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "string",
+    "backtracking",
+    "bit-manipulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxLength",
+    "params": [
+      {
+        "name": "arr",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

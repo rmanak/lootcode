@@ -1,0 +1,39 @@
+{
+  "slug": "partition-to-k-equal-sum-subsets",
+  "title": "Partition to K Equal Sum Subsets",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "backtracking",
+    "bitmask"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "canPartitionKSubsets",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,148 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "n": 2,
+        "s1": "aa",
+        "s2": "da",
+        "evil": "b"
+      },
+      "expected": 51,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "n": 2,
+        "s1": "gx",
+        "s2": "gz",
+        "evil": "x"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "n": 1,
+        "s1": "a",
+        "s2": "c",
+        "evil": "b"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "n": 2,
+        "s1": "aa",
+        "s2": "bb",
+        "evil": "ab"
+      },
+      "expected": 27,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "n": 3,
+        "s1": "aaa",
+        "s2": "aaa",
+        "evil": "a"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "n": 2,
+        "s1": "aa",
+        "s2": "zz",
+        "evil": "z"
+      },
+      "expected": 625,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "n": 3,
+        "s1": "cbb",
+        "s2": "cbb",
+        "evil": "ab"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "n": 2,
+        "s1": "ba",
+        "s2": "bc",
+        "evil": "c"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "n": 3,
+        "s1": "aac",
+        "s2": "bca",
+        "evil": "aa"
+      },
+      "expected": 702,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "n": 2,
+        "s1": "ca",
+        "s2": "cc",
+        "evil": "aa"
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "n": 3,
+        "s1": "aba",
+        "s2": "aba",
+        "evil": "ac"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "n": 3,
+        "s1": "aac",
+        "s2": "cba",
+        "evil": "bb"
+      },
+      "expected": 1350,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

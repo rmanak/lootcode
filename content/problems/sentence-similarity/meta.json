@@ -1,0 +1,42 @@
+{
+  "slug": "sentence-similarity",
+  "title": "Sentence Similarity With Synonyms",
+  "difficulty": "medium",
+  "tags": [
+    "graph",
+    "union-find",
+    "string"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "areSentencesSimilarTwo",
+    "params": [
+      {
+        "name": "sentence1",
+        "type": "string[]"
+      },
+      {
+        "name": "sentence2",
+        "type": "string[]"
+      },
+      {
+        "name": "pairs",
+        "type": "string[][]"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

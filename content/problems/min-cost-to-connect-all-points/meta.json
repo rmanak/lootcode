@@ -1,0 +1,34 @@
+{
+  "slug": "min-cost-to-connect-all-points",
+  "title": "Min Cost To Connect All Points",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "union-find",
+    "graph"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minCostConnectPoints",
+    "params": [
+      {
+        "name": "points",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

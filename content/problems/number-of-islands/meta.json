@@ -1,0 +1,35 @@
+{
+  "slug": "number-of-islands",
+  "title": "Number of Islands",
+  "difficulty": "medium",
+  "tags": [
+    "graph",
+    "matrix",
+    "depth-first-search",
+    "union-find"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "numIslands",
+    "params": [
+      {
+        "name": "grid",
+        "type": "string[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}
