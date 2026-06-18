@@ -6,6 +6,8 @@
 
 A lightweight, self-hostable LeetCode-style platform. Python 3 · FastAPI · SQLite · 669 problems.
 
+<img src="screenshots/code.png" alt="Solving a problem in lootcode: statement on the left, in-browser Python editor on the right" width="800">
+
 </div>
 
 ---
