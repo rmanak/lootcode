@@ -23,6 +23,8 @@ A lightweight, self-hostable LeetCode-style platform. Python 3 · FastAPI · SQL
 
 > Built to be lightweight and run on a home/LAN server. See `docs/roadmap.md` for status and what's next.
 
+<img src="screenshots/prog.png" alt="Solving a problem in lootcode: statement on the left, in-browser Python editor on the right" width="800">
+
 ## Quick start
 
 ```bash
@@ -49,6 +51,8 @@ cp .env.example .env        # then set ANTHROPIC_API_KEY
 ```
 
 **Docker:** `docker compose up` (see `docker-compose.yml`). **Make shortcuts:** `make install`, `make dev`, `make run`, `make test`.
+
+<img src="screenshots/problems.png" alt="Solving a problem in lootcode: statement on the left, in-browser Python editor on the right" width="800">
 
 ## Development
 
