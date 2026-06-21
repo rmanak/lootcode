@@ -14,6 +14,7 @@
   <form class="search-form" method="get">
     {% if f_difficulty %}<input type="hidden" name="difficulty" value="{{ f_difficulty }}">{% endif %}
     {% if f_topic %}<input type="hidden" name="topic" value="{{ f_topic }}">{% endif %}
+    {% if f_collection %}<input type="hidden" name="collection" value="{{ f_collection }}">{% endif %}
     {% if f_unsolved %}<input type="hidden" name="unsolved" value="1">{% endif %}
     {% if f_unknown %}<input type="hidden" name="unknown" value="1">{% endif %}
     {% if f_solved %}<input type="hidden" name="solved" value="1">{% endif %}
@@ -37,6 +38,19 @@
     <span class="sc-check">✓</span> Unknown only</a>
 </div>
 
+{% if collection_chips %}
+{# Curated lists (e.g. "Blind 73"). System-defined; clicking filters the list to
+   that collection's members (shown in study order). Toggle off by clicking again. #}
+<div class="collection-filters">
+  <span class="cf-label">Lists</span>
+  {% for c in collection_chips %}
+  <a class="status-chip list-chip {{ 'active' if c.active }}" href="{{ c.href }}">
+    <span class="sc-check">✓</span> {{ c.title }}
+    <span class="tc-count">{{ c.count }}</span></a>
+  {% endfor %}
+</div>
+{% endif %}
+
 {% if topic_counts %}
 {# Category bar: top topics by count; the rest expand via a pure-CSS checkbox
    toggle. Each chip filters the list to that topic. #}
@@ -55,6 +69,14 @@
     </label>
     {% endif %}
   </div>
+</div>
+{% endif %}
+
+{% if active_collection %}
+<div class="collection-banner">
+  <strong>{{ active_collection.title }}</strong>
+  {% if active_collection.subtitle %}<span class="cb-sub">{{ active_collection.subtitle }}</span>{% endif %}
+  <span class="cb-count">{{ active_collection.items | length }} problems · study order</span>
 </div>
 {% endif %}
 

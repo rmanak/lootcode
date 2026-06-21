@@ -29,6 +29,8 @@ class Settings:
     DATABASE_URL = f"sqlite:///{DB_PATH}"
 
     CONTENT_DIR = BASE_DIR / "content" / "problems"
+    # Curated, system-defined problem lists (e.g. "Blind 73"). See docs/collections.md.
+    COLLECTIONS_DIR = BASE_DIR / "content" / "collections"
     TEMPLATES_DIR = APP_DIR / "templates"
     STATIC_DIR = APP_DIR / "static"
 

@@ -1,6 +1,7 @@
 """Database operations on top of the models: upsert problems, seed, progress."""
 from __future__ import annotations
 
+import logging
 from datetime import datetime, timezone
 
 from sqlalchemy import select, update
@@ -8,8 +9,18 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from . import auth, content
-from .models import KnownProblem, Problem, Submission, TestCase, User
+from .models import (
+    Collection,
+    CollectionProblem,
+    KnownProblem,
+    Problem,
+    Submission,
+    TestCase,
+    User,
+)
 from .tags import normalize_tags
+
+log = logging.getLogger(__name__)
 
 
 def _now() -> datetime:
@@ -53,6 +64,54 @@ def seed_from_content(db: Session) -> int:
         upsert_problem(db, data)
         count += 1
     return count
+
+
+def seed_collections(db: Session) -> tuple[int, list[str]]:
+    """Seed curated problem lists from content/collections/*.json.
+
+    Upserts each `Collection` by slug and rebuilds its membership rows, resolving
+    every problem slug to a `Problem.id` in manifest order (the study order).
+    Unknown slugs — a typo, or a problem not (yet) in the bank — are skipped and
+    returned as "<collection>:<slug>" so a caller can surface them; they never
+    crash seeding. Idempotent. Returns (collections_seeded, unresolved_slugs).
+
+    Seeds problems first (`seed_from_content`) since membership needs problem ids.
+    """
+    problem_ids = {
+        slug: pid for slug, pid in db.execute(select(Problem.slug, Problem.id)).all()
+    }
+    unresolved: list[str] = []
+    count = 0
+    for data in content.load_collections():
+        coll = db.scalar(select(Collection).where(Collection.slug == data["slug"]))
+        if coll is None:
+            coll = Collection(slug=data["slug"])
+            db.add(coll)
+        coll.title = data["title"]
+        coll.subtitle = data.get("subtitle", "")
+        coll.source = "file"
+        coll.items.clear()
+        db.flush()
+        position = 0
+        for pslug in data["problems"]:
+            pid = problem_ids.get(pslug)
+            if pid is None:
+                unresolved.append(f"{data['slug']}:{pslug}")
+                continue
+            coll.items.append(CollectionProblem(problem_id=pid, position=position))
+            position += 1
+        count += 1
+    db.commit()
+    if unresolved:
+        log.warning("Collections reference %d unknown problem slug(s): %s",
+                    len(unresolved), ", ".join(unresolved))
+    return count, unresolved
+
+
+def collection_member_ids(db: Session, slug: str) -> list[int]:
+    """Ordered problem ids for a collection (study order), or [] if unknown."""
+    coll = db.scalar(select(Collection).where(Collection.slug == slug))
+    return [it.problem_id for it in coll.items] if coll else []
 
 
 def user_solved_problem_ids(db: Session, user_id: str) -> set[int]:

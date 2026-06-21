@@ -21,7 +21,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 from app.db import SessionLocal, init_db  # noqa: E402
 from app.executor import _equal, run_submission  # noqa: E402
 from app.models import Problem  # noqa: E402
-from app.store import seed_from_content  # noqa: E402
+from app.store import seed_collections, seed_from_content  # noqa: E402
 
 AMBIGUITY = ("any order", "in any order", "any valid", "you may return",
              "return any", "multiple valid")
@@ -94,14 +94,25 @@ def main() -> int:
                   f"{('yes' if p._amb else 'no'):11} {p._fair:9}{flag}")
 
         bad = {s: i for s, i in all_issues.items() if i}
+
+        # Collection integrity: every manifest slug must resolve to a real problem,
+        # so a typo can't silently drop a problem from a curated list.
+        n_coll, unresolved = seed_collections(db)
+
         print("\n" + ("=" * 95))
         if bad:
             print(f"INCONSISTENT: {len(bad)} problem(s) need attention:")
             for s, i in bad.items():
                 print(f"  - {s}: {'; '.join(i)}")
+        if unresolved:
+            print(f"BROKEN COLLECTIONS: {len(unresolved)} unknown problem slug(s):")
+            for ref in unresolved:
+                print(f"  - {ref}")
+        if bad or unresolved:
             return 1
-        print(f"ALL CONSISTENT: {len(problems)} problems — canonical passes all tests, "
-              "statements match the judge, and 'any order' problems accept re-ordered answers.")
+        print(f"ALL CONSISTENT: {len(problems)} problems across {n_coll} collection(s) — "
+              "canonical passes all tests, statements match the judge, 'any order' "
+              "problems accept re-ordered answers, and every collection slug resolves.")
         return 0
 
 

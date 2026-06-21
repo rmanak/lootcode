@@ -15,7 +15,7 @@ from .config import settings
 from .db import SessionLocal, init_db
 from .models import Problem, User
 from .routers import admin, pages, submissions
-from .store import seed_from_content
+from .store import seed_collections, seed_from_content
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
@@ -23,6 +23,10 @@ async def lifespan(_: FastAPI):
     with SessionLocal() as db:
         if not db.scalar(select(func.count()).select_from(Problem)):
             seed_from_content(db)
+        # Curated lists are cheap to rebuild and idempotent, so (re)seed them on
+        # every startup — a manifest edit takes effect on restart without a full
+        # problem re-seed. Unknown slugs are logged, not fatal (see store).
+        seed_collections(db)
     yield
 
 

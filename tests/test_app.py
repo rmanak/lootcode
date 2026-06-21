@@ -77,6 +77,57 @@ def test_unknown_filter_and_marking(client):
     assert 'href="/problems/two-sum"' in client.get("/?unknown=1&q=Two+Sum").text
 
 
+def test_collection_filter_lists_members_in_study_order(client):
+    r = client.get("/?collection=blind-73")
+    assert r.status_code == 200
+    # The active-list banner names the list.
+    assert "collection-banner" in r.text and "Blind 73" in r.text
+    # Members show; a non-member (gas-station isn't in Blind 73) does not.
+    assert 'href="/problems/two-sum"' in r.text
+    assert 'href="/problems/gas-station"' not in r.text
+    # Curated study order, not id/alphabetical: #1 precedes #2 on the first page.
+    assert (r.text.index("/problems/longest-consecutive-sequence")
+            < r.text.index("/problems/two-sum"))
+
+
+def test_collection_chip_on_home(client):
+    r = client.get("/")
+    assert "list-chip" in r.text and "Blind 73" in r.text
+
+
+def test_collection_composes_and_tolerates_unknown_slug(client):
+    # Composes with other filters.
+    assert client.get("/?collection=blind-73&difficulty=easy").status_code == 200
+    # A stale/unknown collection slug is treated as "no list filter" (no empty
+    # page, no banner) rather than a 404.
+    r = client.get("/?collection=nope-not-real")
+    assert r.status_code == 200 and "collection-banner" not in r.text
+
+
+def test_seed_collections_skips_unknown_slug(client, monkeypatch):
+    # A manifest slug that doesn't resolve to a problem is skipped + reported,
+    # never fatal. (Cleans up the temp collection it writes.)
+    from sqlalchemy import select
+
+    from app import content, store
+    from app.db import SessionLocal
+    from app.models import Collection
+
+    fake = [{"slug": "t-test-list", "title": "T", "subtitle": "",
+             "problems": ["two-sum", "definitely-not-a-real-slug-xyz"]}]
+    monkeypatch.setattr(content, "load_collections", lambda *a, **k: fake)
+    with SessionLocal() as db:
+        try:
+            _, unresolved = store.seed_collections(db)
+            assert "t-test-list:definitely-not-a-real-slug-xyz" in unresolved
+            assert len(store.collection_member_ids(db, "t-test-list")) == 1
+        finally:
+            c = db.scalar(select(Collection).where(Collection.slug == "t-test-list"))
+            if c:
+                db.delete(c)
+                db.commit()
+
+
 def test_run_canonical_full_score(client):
     r = client.post("/api/problems/two-sum/run", json={"code": CANONICAL})
     assert r.status_code == 200
@@ -161,8 +212,10 @@ def test_weekly_streak_counts_solves(client):
     client.post("/api/problems/two-sum/run", json={"code": CANONICAL})
     me = client.get("/me").text
     assert "This week" in me
-    assert re.search(r"streak-label\">Mon<", me)   # Mon–Fri columns rendered
-    assert re.search(r"streak-label\">Fri<", me)
+    # Sun–Sat columns rendered (weekend included).
+    assert re.search(r"streak-label\">Sun<", me)
+    assert re.search(r"streak-label\">Sat<", me)
+    assert "/7 days hit the goal" in me
     total = int(re.search(r"(\d+) units total", me).group(1))
     assert total >= 1
     # A second submission of the same solved problem must not double count.

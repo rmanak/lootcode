@@ -1,10 +1,11 @@
 """Server-rendered pages: problem list, problem detail, and per-user progress."""
 from __future__ import annotations
 
+import calendar
 import math
 import os
 import random
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import quote, urlencode
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
@@ -17,7 +18,7 @@ from sqlalchemy.orm import Session
 from .. import store
 from ..config import settings
 from ..db import get_db
-from ..models import Problem, Submission, User
+from ..models import Collection, Problem, Submission, User
 from ..templating import templates
 
 router = APIRouter()
@@ -44,12 +45,12 @@ TOPIC_BAR_TOP_N = 8
 # (each shown with its full attempt history), not per attempt.
 RECENT_PROBLEMS_LIMIT = 25
 
-# "Units of work" a solve is worth, by difficulty. Each weekday is drawn as a
-# 2x8 grid of DAY_BLOCKS little blocks; a solve fills that many grey blocks with
+# "Units of work" a solve is worth, by difficulty. Each weekday is drawn as an
+# 8x2 grid of DAY_BLOCKS little blocks; a solve fills that many grey blocks with
 # a difficulty colour (easy 1 light-green, medium 4 yellow, hard 16 red == a full
 # day). Anything past a full day spills forward to pre-fill the next day(s).
 UNIT_WEIGHTS = {"easy": 1, "medium": 4, "hard": 16}
-DAY_BLOCKS = 16  # 2 rows x 8 columns
+DAY_BLOCKS = 16  # 8 rows x 2 columns
 
 
 def _unsolved_counts(db: Session, skip_ids: set[int]) -> dict[str, int]:
@@ -122,15 +123,11 @@ def _user_tz(request: Request) -> ZoneInfo:
     return ZoneInfo("UTC")
 
 
-def _weekly_streak(db: Session, user_id: str, tz: ZoneInfo) -> dict:
-    """Per-weekday (Mon–Fri) block grid of work completed this week.
+def _first_solved(db: Session, user_id: str) -> dict[int, Submission]:
+    """Earliest *solving* submission per problem (one entry per solved problem).
 
-    A problem counts once, on the day it was *first* solved, and is worth
-    `UNIT_WEIGHTS` blocks (easy 1, medium 4, hard 16). Each day's grid holds
-    `DAY_BLOCKS` blocks; blocks beyond a full day spill forward to pre-fill the
-    next day(s). Solve times are stored as UTC and bucketed by the user's local
-    day (`tz`), so an evening solve lands on the day it felt like, not the next."""
-    # Earliest solving submission per problem (rows already time-ordered).
+    Rows arrive in `created_at` order, so the first time we see a problem id is
+    the moment it was first solved; later attempts don't re-count it."""
     first_solved: dict[int, Submission] = {}
     for s in db.scalars(
         select(Submission).where(
@@ -140,36 +137,54 @@ def _weekly_streak(db: Session, user_id: str, tz: ZoneInfo) -> dict:
         ).order_by(Submission.created_at)
     ):
         first_solved.setdefault(s.problem_id, s)
+    return first_solved
 
-    today = datetime.now(tz).date()
-    monday = today - timedelta(days=today.weekday())  # Monday == weekday 0
-    week_days = [monday + timedelta(days=i) for i in range(5)]  # Mon … Fri
 
-    # Per day: the units earned that day, and a flat list of coloured blocks (one
-    # difficulty tag per unit of work), in solve order.
-    units_by_date = {d: 0 for d in week_days}
-    blocks_by_date: dict[object, list[str]] = {d: [] for d in week_days}
+def _blocks_by_local_date(
+    first_solved: dict[int, Submission], tz: ZoneInfo
+) -> tuple[dict[date, int], dict[date, list[str]]]:
+    """Bucket each first-solve onto its *local* day, returning per-day units and a
+    flat list of coloured blocks (one difficulty tag per unit of work).
+
+    A solve is worth `UNIT_WEIGHTS` blocks (easy 1, medium 4, hard 16). Solve
+    times are stored as UTC and bucketed by the user's local day (`tz`), so an
+    evening solve lands on the day it felt like, not the next."""
+    units_by_date: dict[date, int] = {}
+    blocks_by_date: dict[date, list[str]] = {}
     for s in first_solved.values():  # iterated in created_at order
-        # created_at is naive UTC; reinterpret in the user's zone for bucketing.
         d = s.created_at.replace(tzinfo=timezone.utc).astimezone(tz).date()
-        if d in units_by_date:
-            diff = s.problem.difficulty if s.problem.difficulty in UNIT_WEIGHTS else "easy"
-            weight = UNIT_WEIGHTS[diff]
-            units_by_date[d] += weight
-            blocks_by_date[d].extend(diff for _ in range(weight))
+        diff = s.problem.difficulty if s.problem.difficulty in UNIT_WEIGHTS else "easy"
+        weight = UNIT_WEIGHTS[diff]
+        units_by_date[d] = units_by_date.get(d, 0) + weight
+        blocks_by_date.setdefault(d, []).extend(diff for _ in range(weight))
+    return units_by_date, blocks_by_date
+
+
+def _weekly_streak(
+    units_by_date: dict[date, int], blocks_by_date: dict[date, list[str]], tz: ZoneInfo
+) -> dict:
+    """Per-weekday (Sun–Sat, weekend included) block grid for the current week.
+
+    Each day's grid holds `DAY_BLOCKS` blocks; blocks beyond a full day spill
+    forward to pre-fill the next day(s)."""
+    today = datetime.now(tz).date()
+    # Sunday that starts this week. weekday(): Mon=0 … Sun=6, so (weekday+1)%7 is
+    # the number of days back to the most recent Sunday.
+    sunday = today - timedelta(days=(today.weekday() + 1) % 7)
+    week_days = [sunday + timedelta(days=i) for i in range(7)]  # Sun … Sat
 
     # Lay each day's blocks into its DAY_BLOCKS-slot grid; whatever overflows a
     # full day is carried forward to pre-fill the following day(s).
     days = []
     carry: list[str] = []
     for d in week_days:
-        filled = carry + blocks_by_date[d]
+        filled = carry + blocks_by_date.get(d, [])
         placed, carry = filled[:DAY_BLOCKS], filled[DAY_BLOCKS:]
         # "" renders as a grey (empty) block; a difficulty name colours it.
         cells = [placed[i] if i < len(placed) else "" for i in range(DAY_BLOCKS)]
         days.append({
             "label": d.strftime("%a"),
-            "units": units_by_date[d],
+            "units": units_by_date.get(d, 0),
             "filled": len(placed),
             "cells": cells,
             "met": len(placed) >= DAY_BLOCKS,
@@ -180,10 +195,68 @@ def _weekly_streak(db: Session, user_id: str, tz: ZoneInfo) -> dict:
     return {
         "days": days,
         "goal": DAY_BLOCKS,
-        "total": sum(units_by_date.values()),
+        "total": sum(units_by_date.get(d, 0) for d in week_days),
         # A still-to-come day pre-filled by overflow isn't a day you "hit".
         "days_met": sum(1 for x in days if x["met"] and not x["is_future"]),
     }
+
+
+def _month_calendar(
+    units_by_date: dict[date, int], tz: ZoneInfo, year: int, month: int
+) -> dict:
+    """A month grid (Sunday-first) marking which days hit the daily 16-block goal.
+
+    A day is `done` only when *that day's own* solves reach `DAY_BLOCKS` — no
+    spillover from other days, so an empty or still-to-come day never lights up
+    green. Cells from adjacent months are rendered blank (`in_month` False)."""
+    today = datetime.now(tz).date()
+    cal = calendar.Calendar(firstweekday=6)  # 6 == Sunday
+
+    met = {
+        d: units_by_date.get(d, 0) >= DAY_BLOCKS
+        for d in cal.itermonthdates(year, month) if d.month == month
+    }
+
+    weeks = [
+        [
+            {
+                "day": d.day,
+                "in_month": d.month == month,
+                "done": d.month == month and met.get(d, False),
+                "is_today": d == today,
+                "is_future": d > today,
+            }
+            for d in week
+        ]
+        for week in cal.monthdatescalendar(year, month)
+    ]
+
+    prev_y, prev_m = (year - 1, 12) if month == 1 else (year, month - 1)
+    next_y, next_m = (year + 1, 1) if month == 12 else (year, month + 1)
+    return {
+        "label": date(year, month, 1).strftime("%B %Y"),
+        "weekday_labels": ["S", "M", "T", "W", "T", "F", "S"],
+        "weeks": weeks,
+        "prev": f"{prev_y:04d}-{prev_m:02d}",
+        "next": f"{next_y:04d}-{next_m:02d}",
+        # Don't let users page forward into empty future months.
+        "has_next": (year, month) < (today.year, today.month),
+    }
+
+
+def _parse_cal_month(cal: str | None, today: date) -> tuple[int, int]:
+    """Parse a `YYYY-MM` calendar param into (year, month), clamped to a real
+    month and never past the current one; falls back to today's month."""
+    if cal:
+        try:
+            y, m = cal.split("-", 1)
+            year, month = int(y), int(m)
+            date(year, month, 1)  # validate month range
+            if (year, month) <= (today.year, today.month):
+                return year, month
+        except (ValueError, TypeError):
+            pass
+    return today.year, today.month
 
 
 def _page_window(page: int, pages: int, span: int = 2) -> list[int | None]:
@@ -236,8 +309,9 @@ def problem_asset(slug: str, filename: str):
 
 @router.get("/")
 def index(request: Request, difficulty: str | None = None, topic: str | None = None,
-          q: str | None = None, unsolved: int = 0, solved: int = 0,
-          unknown: int = 0, page: int = 1, db: Session = Depends(get_db)):
+          q: str | None = None, collection: str | None = None, unsolved: int = 0,
+          solved: int = 0, unknown: int = 0, page: int = 1,
+          db: Session = Depends(get_db)):
     stmt = select(Problem).where(Problem.is_published.is_(True))
     if difficulty:
         stmt = stmt.where(Problem.difficulty == difficulty)
@@ -246,6 +320,18 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
     problems = list(db.scalars(stmt.order_by(Problem.id)))
     if topic:
         problems = [p for p in problems if topic in (p.topics or [])]
+
+    # Active curated list ("Blind 73", …). Resolve once to an ordered membership;
+    # an unknown/stale slug is treated as no filter so a bad link isn't an empty
+    # page. When active, the list is shown in its curated study order (position).
+    active_collection = db.scalar(
+        select(Collection).where(Collection.slug == collection)) if collection else None
+    if active_collection is None:
+        collection = None
+    coll_order = {it.problem_id: it.position for it in active_collection.items} \
+        if active_collection else {}
+    if active_collection:
+        problems = [p for p in problems if p.id in coll_order]
 
     solved_ids = store.user_solved_problem_ids(db, request.state.user_id)
     known_ids = store.user_known_problem_ids(db, request.state.user_id)
@@ -259,6 +345,11 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
     if unknown:
         problems = [p for p in problems
                     if p.id not in known_ids and p.id not in solved_ids]
+
+    # When a curated list is active, present it in its study order (position)
+    # rather than by problem id.
+    if active_collection:
+        problems.sort(key=lambda p: coll_order[p.id])
 
     # Category bar: published-problem count per topic, most-common first. If the
     # active topic filter is one of the "extra" (hidden) chips, start expanded so
@@ -276,7 +367,7 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
     # two status chips are mutually exclusive, and clicking an already-active chip
     # clears just that one filter. (Passing an override of None drops that key.)
     current = {
-        "q": q, "difficulty": difficulty, "topic": topic,
+        "q": q, "difficulty": difficulty, "topic": topic, "collection": collection,
         "unsolved": 1 if unsolved else None,
         "unknown": 1 if unknown else None,
         "solved": 1 if solved else None,
@@ -301,6 +392,15 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
          "href": _href(difficulty=None) if difficulty == d else _href(difficulty=d)}
         for d in ("easy", "medium", "hard")
     ]
+    # Curated-list chips (e.g. "Blind 73"). One per system collection, with the
+    # same toggle/keep-context rules: clicking the active one clears it.
+    collection_chips = [
+        {"slug": c.slug, "title": c.title, "count": len(c.items),
+         "active": c.slug == collection,
+         "href": _href(collection=None) if c.slug == collection
+                 else _href(collection=c.slug)}
+        for c in db.scalars(select(Collection).order_by(Collection.id))
+    ]
 
     # Paginate the (fully filtered) list. `page` is clamped to a valid range so
     # stale/oversized links still render the last page rather than an empty one.
@@ -313,6 +413,7 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
     # Current filters as a query string so pagination links keep them.
     base_qs = urlencode({k: v for k, v in (
         ("q", q), ("difficulty", difficulty), ("topic", topic),
+        ("collection", collection),
         ("unsolved", 1 if unsolved else None), ("solved", 1 if solved else None),
         ("unknown", 1 if unknown else None),
     ) if v})
@@ -322,8 +423,11 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
         "solved_ids": solved_ids, "known_ids": known_ids,
         "user_name": request.state.user_name,
         "f_difficulty": difficulty or "", "f_topic": topic or "", "f_q": q or "",
+        "f_collection": collection or "",
         "f_unsolved": bool(unsolved), "f_solved": bool(solved),
         "f_unknown": bool(unknown),
+        "collection_chips": collection_chips,
+        "active_collection": active_collection,
         "difficulty_filters": difficulty_filters,
         "unsolved_href": unsolved_href, "unknown_href": unknown_href,
         "unsolved_counts": unsolved_counts,
@@ -389,7 +493,7 @@ def problem_detail(slug: str, request: Request, submission: str | None = None,
 
 
 @router.get("/me")
-def progress(request: Request, db: Session = Depends(get_db)):
+def progress(request: Request, cal: str | None = None, db: Session = Depends(get_db)):
     uid = request.state.user_id
     subs = list(db.scalars(
         select(Submission).where(Submission.user_id == uid)
@@ -417,12 +521,17 @@ def progress(request: Request, db: Session = Depends(get_db)):
     for p in solved:
         if p.difficulty in solved_counts:
             solved_counts[p.difficulty] += 1
+    tz = _user_tz(request)
+    today = datetime.now(tz).date()
+    year, month = _parse_cal_month(cal, today)
+    units_by_date, blocks_by_date = _blocks_by_local_date(_first_solved(db, uid), tz)
     return templates.TemplateResponse(request, "progress.html", {
         "request": request, "sub_groups": sub_groups, "solved": solved,
         "solved_counts": solved_counts, "user_name": request.state.user_name,
         "topic_cloud": _topic_cloud(solved),
         "unsolved_counts": _unsolved_counts(db, solved_ids | known_ids),
-        "week_streak": _weekly_streak(db, uid, _user_tz(request)),
+        "week_streak": _weekly_streak(units_by_date, blocks_by_date, tz),
+        "month_cal": _month_calendar(units_by_date, tz, year, month),
     })
 
 

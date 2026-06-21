@@ -93,6 +93,29 @@ h2 { font-size: 18px; margin: 28px 0 12px; }
 .status-chip.active .sc-check { display: inline; }
 .status-chip.unknown.active { color: var(--known); background: #e6effd; border-color: #c2d8f7; }
 
+/* Curated-list ("Lists") chips — e.g. "Blind 73". They reuse .status-chip; a
+   leading label names the row, and the active chip takes the primary/topic accent
+   to read distinctly from the green status chips. */
+.collection-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  margin: 0 0 14px; }
+.cf-label { font-size: 12px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .04em; margin-right: 2px; }
+.list-chip .tc-count { display: inline-flex; align-items: center; justify-content: center;
+  flex: none; min-width: 24px; height: 22px; padding: 0 6px;
+  font-size: 11px; font-weight: 700; color: var(--muted);
+  background: var(--bg); border: 1px solid var(--border); border-radius: 999px; }
+.list-chip.active { color: var(--primary); background: #e6f5f3; border-color: #bfe3dd; }
+.list-chip.active .tc-count { color: var(--primary); background: #fff; border-color: #bfe3dd; }
+
+/* Banner above the table when a curated list is the active filter. */
+.collection-banner { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px;
+  margin: 0 0 14px; padding: 11px 14px; border-radius: var(--radius);
+  background: #e6f5f3; border: 1px solid #bfe3dd; }
+.collection-banner strong { color: var(--primary); font-size: 15px; }
+.collection-banner .cb-sub { color: var(--ink); font-size: 13px; }
+.collection-banner .cb-count { margin-left: auto; color: var(--muted); font-size: 12px;
+  font-weight: 600; }
+
 /* Quick "random unsolved problem" picks */
 .quick-picks { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 18px; }
 .qp-label { color: var(--ink); font-size: 16px; font-weight: 700; margin-right: 4px;
@@ -397,14 +420,18 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 .streak-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; margin-bottom: 14px; }
 .streak-head h2 { margin: 0; }
 .streak-sub { color: var(--muted); font-size: 13px; }
-.streak-bars { display: flex; gap: 14px; align-items: flex-end; }
-.streak-day { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-/* Each day is a 2-row x 8-column grid of little square blocks. A grey block is
-   unfilled; solving a problem fills that many blocks with a difficulty colour
-   (easy 1, medium 4, hard 16). Cells fill left-to-right, top row then bottom. */
-.streak-grid { width: 100%; max-width: 116px; display: grid;
-  grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(2, 1fr);
-  gap: 3px; padding: 5px; background: var(--bg);
+/* The week (seven tall day columns) sits on the left; the month calendar fills
+   the space their narrower 8x2 grids free up on the right. Wraps on narrow. */
+.streak-body { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+.streak-bars { display: flex; gap: 26px; align-items: flex-end; }
+.streak-day { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+/* Each day is an 8-row x 2-column grid of little square blocks — a tall, narrow
+   column so the seven days read as separate bars. A grey block is unfilled;
+   solving a problem fills that many blocks with a difficulty colour (easy 1,
+   medium 4, hard 16). Cells fill left-to-right, top row down. */
+.streak-grid { width: 44px; display: grid;
+  grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(8, 1fr);
+  gap: 6px; padding: 6px; background: var(--bg);
   border: 1px solid var(--border); border-radius: 8px; }
 .streak-cell { aspect-ratio: 1; border-radius: 2px; background: #d8d5cc;
   transition: background-color .3s ease; }
@@ -429,6 +456,34 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 .streak-key.easy::before { background: #86efac; }
 .streak-key.medium::before { background: #fde047; }
 .streak-key.hard::before { background: #f87171; }
+
+/* Month calendar (right of the weekly streak): each in-month day shows its date
+   and a tiny green dot when that day's daily 16-block goal was completed. */
+.month-cal { width: 252px; margin-left: auto; }
+.cal-head { display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; margin-bottom: 8px; }
+.cal-title { font-size: 14px; font-weight: 700; color: var(--ink); }
+.cal-nav { display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--ink); font-size: 16px; line-height: 1;
+  text-decoration: none; }
+.cal-nav:hover { background: var(--bg); }
+.cal-nav.disabled { opacity: .35; pointer-events: none; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.cal-dow { text-align: center; font-size: 10px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; }
+.cal-cell { aspect-ratio: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 2px; border-radius: 7px;
+  font-size: 12px; color: var(--ink); background: var(--bg);
+  border: 1px solid var(--border); }
+.cal-cell.out { background: transparent; border-color: transparent; }
+.cal-cell.done { background: #e7f4ec; border-color: #bfe0c9; }
+.cal-cell.today { border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(15, 118, 110, .18); }
+.cal-num { line-height: 1; }
+/* A reserved dot slot keeps every cell the same height; only "done" days fill it. */
+.cal-dot { width: 7px; height: 7px; border-radius: 50%; background: transparent; }
+.cal-cell.done .cal-dot { background: var(--pass); }
 td.pass { color: var(--pass); font-weight: 600; }
 td.fail { color: var(--fail); font-weight: 600; }
 .ok-tag { color: var(--pass); font-size: 12px; }

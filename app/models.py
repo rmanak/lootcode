@@ -91,6 +91,45 @@ class Problem(Base):
     )
 
 
+class Collection(Base):
+    """A curated, **system-defined** list of problems (e.g. "Blind 73").
+
+    Membership and study order live in `content/collections/<slug>.json` and are
+    seeded into the DB on startup (see `store.seed_collections`). There are no
+    user-defined collections — these ship with the app. See docs/collections.md."""
+    __tablename__ = "collections"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    slug: Mapped[str] = mapped_column(String, unique=True, index=True)
+    title: Mapped[str] = mapped_column(String)
+    subtitle: Mapped[str] = mapped_column(String, default="")
+    source: Mapped[str] = mapped_column(String, default="file")  # file (only, for now)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+
+    # Ordered by the curated study position, not problem id.
+    items: Mapped[list["CollectionProblem"]] = relationship(
+        back_populates="collection", cascade="all, delete-orphan",
+        order_by="CollectionProblem.position",
+    )
+
+
+class CollectionProblem(Base):
+    """One problem's membership in one collection, carrying its study-order
+    `position` (the order it appears in the manifest)."""
+    __tablename__ = "collection_problems"
+    __table_args__ = (
+        UniqueConstraint("collection_id", "problem_id", name="uq_collection_problem"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    collection_id: Mapped[int] = mapped_column(ForeignKey("collections.id"), index=True)
+    problem_id: Mapped[int] = mapped_column(ForeignKey("problems.id"), index=True)
+    position: Mapped[int] = mapped_column(Integer, default=0)
+
+    collection: Mapped[Collection] = relationship(back_populates="items")
+    problem: Mapped[Problem] = relationship()
+
+
 class TestCase(Base):
     __tablename__ = "test_cases"
 

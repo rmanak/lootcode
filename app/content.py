@@ -70,6 +70,29 @@ def load_all(content_dir: Path | None = None) -> list[dict]:
     return problems
 
 
+def load_collections(collections_dir: Path | None = None) -> list[dict]:
+    """Parse `content/collections/*.json` into collection dicts.
+
+    Each manifest is `{"slug", "title", "subtitle"?, "problems": [<slug>, ...]}`,
+    where the `problems` order is the canonical study order. Returns `[]` if the
+    directory is absent so older checkouts (and tests with no collections) are
+    unaffected. Files are loaded in sorted name order for deterministic seeding.
+    """
+    base = collections_dir or settings.COLLECTIONS_DIR
+    if not base.exists():
+        return []
+    collections = []
+    for path in sorted(base.glob("*.json")):
+        meta = json.loads(path.read_text(encoding="utf-8"))
+        collections.append({
+            "slug": meta["slug"],
+            "title": meta.get("title", meta["slug"]),
+            "subtitle": meta.get("subtitle", ""),
+            "problems": list(meta.get("problems", [])),
+        })
+    return collections
+
+
 def write_problem_files(data: dict, content_dir: Path | None = None) -> Path:
     """Write a problem dict back to the on-disk content format (so manually- and
     AI-created problems are durable and live alongside the seeded ones)."""

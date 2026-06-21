@@ -32,6 +32,7 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `app/content.py` | Load/write problems to `content/problems/`. |
 | `app/templates/` · `app/static/` | Jinja2 templates, CSS, JS. |
 | `content/problems/` | Problem definitions (see `specs/problem-schema.md`); optional `<slug>/assets/` holds statement figures (see `docs/problem-images.md`). |
+| `content/collections/` | Curated, system-defined problem lists (e.g. `blind-73.json`) used as a list filter (see `docs/collections.md`). |
 | `scripts/seed.py` | Load content into the DB + verify canonical solutions. |
 | `tests/` | pytest (incl. adversarial executor tests). |
 | `docs/` · `specs/` · `.claude/` | Docs, content spec, Claude Code config. |
@@ -81,6 +82,11 @@ works for a fresh checkout.
 - **Statement ↔ judge consistency:** a problem's `compare` mode (meta.json) must
   match what the statement promises about answer order (`exact` / `unordered` /
   `set_of_lists`). `python scripts/audit.py` must stay green.
+- **LLM generation** comes in three modes depending on what's already given —
+  fill-in (full statement / description-only) vs. from-scratch — sharing one
+  "core" output contract. See `docs/problem-generation.md`. The in-app
+  "Auto-generate with AI" admin feature is the from-scratch mode
+  (`app/llm/generator.py`).
 - **Figures:** when a problem needs a diagram, follow `docs/problem-images.md`
   (when to add one, SVG how-to, and the `content/problems/<slug>/assets/` +
   `/problems/{slug}/assets/{filename}` serving API). Bulk text imports go through

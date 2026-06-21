@@ -11,30 +11,66 @@
   to save your progress across browsers and devices.</p>
 {% endif %}
 
+{# Display-name editor is only useful to guests; signed-in accounts already have
+   a name (set it on the account page), so hide it here to free vertical space. #}
+{% if not (request.state.is_account and user_name) %}
 <form class="namebar" method="post" action="/me/name">
   <label>Display name</label>
   <input name="name" value="{{ user_name }}" maxlength="40">
   <button type="submit">Save</button>
 </form>
+{% endif %}
 
 <section class="streak">
   <div class="streak-head">
     <h2>This week</h2>
-    <span class="streak-sub">{{ week_streak.days_met }}/5 days hit the goal ·
+    <span class="streak-sub">{{ week_streak.days_met }}/7 days hit the goal ·
       {{ week_streak.total }} units total</span>
   </div>
-  <div class="streak-bars">
-    {% for day in week_streak.days %}
-    <div class="streak-day{{ ' met' if day.met }}{{ ' today' if day.is_today }}{{ ' future' if day.is_future }}">
-      <div class="streak-grid" title="{{ day.filled }} of {{ week_streak.goal }} blocks · {{ day.units }} units solved">
-        {% for c in day.cells %}
-        <div class="streak-cell {{ c }}"></div>
+  <div class="streak-body">
+    <div class="streak-bars">
+      {% for day in week_streak.days %}
+      <div class="streak-day{{ ' met' if day.met }}{{ ' today' if day.is_today }}{{ ' future' if day.is_future }}">
+        <div class="streak-grid" title="{{ day.filled }} of {{ week_streak.goal }} blocks · {{ day.units }} units solved">
+          {% for c in day.cells %}
+          <div class="streak-cell {{ c }}"></div>
+          {% endfor %}
+        </div>
+        <span class="streak-units">{% if day.met %}✓{% else %}{{ day.filled }}{% endif %}</span>
+        <span class="streak-label">{{ day.label }}</span>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="month-cal" aria-label="Monthly completion calendar">
+      <div class="cal-head">
+        <a class="cal-nav" href="/me?cal={{ month_cal.prev }}" rel="nofollow"
+           aria-label="Previous month" title="Previous month">‹</a>
+        <span class="cal-title">{{ month_cal.label }}</span>
+        {% if month_cal.has_next %}
+        <a class="cal-nav" href="/me?cal={{ month_cal.next }}" rel="nofollow"
+           aria-label="Next month" title="Next month">›</a>
+        {% else %}
+        <span class="cal-nav disabled" aria-hidden="true">›</span>
+        {% endif %}
+      </div>
+      <div class="cal-grid">
+        {% for wl in month_cal.weekday_labels %}
+        <span class="cal-dow">{{ wl }}</span>
+        {% endfor %}
+        {% for week in month_cal.weeks %}
+          {% for cell in week %}
+          <div class="cal-cell{{ ' out' if not cell.in_month }}{{ ' today' if cell.is_today }}{{ ' done' if cell.done }}"
+               {% if cell.in_month %}title="{{ month_cal.label }} {{ cell.day }}{{ ' · daily goal met' if cell.done }}"{% endif %}>
+            {% if cell.in_month %}
+            <span class="cal-num">{{ cell.day }}</span>
+            <span class="cal-dot"></span>
+            {% endif %}
+          </div>
+          {% endfor %}
         {% endfor %}
       </div>
-      <span class="streak-units">{% if day.met %}✓{% else %}{{ day.filled }}{% endif %}</span>
-      <span class="streak-label">{{ day.label }}</span>
     </div>
-    {% endfor %}
   </div>
   <p class="streak-legend muted">Fill each day's <strong>{{ week_streak.goal }} blocks</strong> —
     extra work spills into the next day. <span class="streak-key easy">Easy = 1</span>

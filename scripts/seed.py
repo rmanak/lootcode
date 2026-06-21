@@ -12,7 +12,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 from app.db import SessionLocal, init_db  # noqa: E402
 from app.executor import run_submission  # noqa: E402
 from app.models import Problem  # noqa: E402
-from app.store import seed_from_content  # noqa: E402
+from app.store import seed_collections, seed_from_content  # noqa: E402
 
 
 def main() -> int:
@@ -36,7 +36,16 @@ def main() -> int:
         if failures:
             print(f"\n{failures} problem(s) have a canonical solution that does NOT "
                   "pass all tests — fix the content.")
-        return 1 if failures else 0
+
+        # Curated lists (content/collections/*.json).
+        n_coll, unresolved = seed_collections(db)
+        print(f"\nSeeded/updated {n_coll} collection(s).")
+        if unresolved:
+            print(f"  {len(unresolved)} unknown problem slug(s) referenced (skipped):")
+            for ref in unresolved:
+                print(f"    - {ref}")
+            print("  Fix the manifest slug or add the missing problem.")
+        return 1 if (failures or unresolved) else 0
 
 
 if __name__ == "__main__":
