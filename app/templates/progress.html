@@ -132,14 +132,46 @@
     </ul>
 
     {% if topic_cloud %}
-    <div class="topic-cloud" role="img" aria-label="Solved problems by topic">
-      {% for c in topic_cloud %}
-      <span class="topic-bubble" style="--size: {{ c.size }}px; --hue: {{ c.hue }};"
-            title="{{ c.topic }}: {{ c.count }} solved">
-        <span class="tb-label">{{ c.topic }}</span>
-        <span class="tb-count">{{ c.count }}</span>
-      </span>
-      {% endfor %}
+    <div class="topic-cloud-wrap">
+      <div class="topic-cloud-head">
+        <h3 class="solved-sub topic-cloud-title">Topics solved</h3>
+        <button type="button" class="cloud-zoom-btn" id="cloudZoomBtn"
+                aria-label="Zoom in on the topic cloud" title="Zoom in">
+          <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true">
+            <circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor"
+                    stroke-width="1.8"/>
+            <line x1="12.6" y1="12.6" x2="17.5" y2="17.5" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="8.5" y1="6" x2="8.5" y2="11" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="6" y1="8.5" x2="11" y2="8.5" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="topic-cloud" id="topicCloud" role="img"
+           aria-label="Solved problems by topic">
+        {% for c in topic_cloud %}
+        <span class="topic-bubble" style="--size: {{ c.size }}px; --hue: {{ c.hue }};"
+              title="{{ c.topic }}: {{ c.count }} solved">
+          <span class="tb-label">{{ c.topic }}</span>
+          <span class="tb-count">{{ c.count }}</span>
+        </span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="cloud-modal" id="cloudModal" hidden>
+      <div class="cloud-modal-backdrop" data-cloud-close></div>
+      <div class="cloud-modal-card" role="dialog" aria-modal="true"
+           aria-label="Topics solved, zoomed in">
+        <div class="cloud-modal-head">
+          <h3>Topics solved</h3>
+          <button type="button" class="cloud-modal-close" data-cloud-close
+                  aria-label="Close">&times;</button>
+        </div>
+        <div class="cloud-modal-body" id="cloudModalBody"></div>
+      </div>
     </div>
     {% endif %}
 
@@ -172,5 +204,35 @@
       btn.classList.toggle("open", !open);
     });
   });
+
+  // Topic cloud: a zoom button opens a modal with a scaled-up copy of the same
+  // bubbles, so small (low-count) topics become readable. The scale is one
+  // --zoom custom property the CSS multiplies every dimension/font by.
+  (function () {
+    var zoomBtn = document.getElementById("cloudZoomBtn");
+    var modal = document.getElementById("cloudModal");
+    var cloud = document.getElementById("topicCloud");
+    var body = document.getElementById("cloudModalBody");
+    if (!zoomBtn || !modal || !cloud || !body) return;
+    function openModal() {
+      var clone = cloud.cloneNode(true);
+      clone.removeAttribute("id");
+      clone.style.setProperty("--zoom", "2.2");
+      body.innerHTML = "";
+      body.appendChild(clone);
+      modal.hidden = false;
+      document.addEventListener("keydown", onKey);
+    }
+    function closeModal() {
+      modal.hidden = true;
+      body.innerHTML = "";
+      document.removeEventListener("keydown", onKey);
+    }
+    function onKey(e) { if (e.key === "Escape") closeModal(); }
+    zoomBtn.addEventListener("click", openModal);
+    modal.querySelectorAll("[data-cloud-close]").forEach(function (el) {
+      el.addEventListener("click", closeModal);
+    });
+  })();
 </script>
 {% endblock %}

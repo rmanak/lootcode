@@ -86,25 +86,27 @@ def _topic_cloud(solved: list[Problem]) -> list[dict]:
     """Bubble-cloud data for the My Progress summary: one circle per topic the
     user has solved at least one problem in, sized by how many.
 
-    Diameter scales with sqrt(count) so a circle's *area* is proportional to the
-    count (the honest way to size bubbles). The largest topic fills MAX_PX; the
-    rest shrink toward MIN_PX. Each gets a distinct hue the template paints with.
-    Sorted by count (then name) so the biggest topics lead."""
-    MIN_PX, MAX_PX = 48, 104
+    Diameter scales with log2(1 + count): a single solved problem is the base
+    unit (log2(2) = 1), and past that *doubling* the count adds roughly one unit
+    of diameter (a 32-solve topic is ~1 unit bigger than a 16-solve one). This is
+    deliberately gentle, so heavily-solved topics don't dwarf the rest. Small
+    topics can end up too small to read comfortably — that's fine; the cloud's
+    zoom button blows everything up for a closer look. Each gets a distinct hue
+    the template paints with. Sorted by count (then name) so the biggest lead."""
+    UNIT_PX = 26  # pixels per log2 unit; count == 1 -> one unit -> 26px bubble
     counts: dict[str, int] = {}
     for p in solved:
         for t in (p.topics or []):
             counts[t] = counts.get(t, 0) + 1
     if not counts:
         return []
-    top = max(counts.values())
     cloud = []
     for i, (topic, count) in enumerate(
             sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))):
-        frac = (count / top) ** 0.5  # 1.0 for the largest topic
+        units = math.log2(1 + count)  # 1.0 for a single solved problem
         cloud.append({
             "topic": topic, "count": count,
-            "size": round(MIN_PX + frac * (MAX_PX - MIN_PX)),
+            "size": round(UNIT_PX * units),
             "hue": (i * 67) % 360,  # spread hues around the wheel
         })
     return cloud

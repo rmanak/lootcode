@@ -400,19 +400,55 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
   color: var(--muted); margin: 6px 0 8px; }
 .see-all { margin: 10px 0 0; font-size: 13px; font-weight: 600; }
 
-/* Topic bubble cloud: one circle per solved topic, area ~ count (size set
-   inline per bubble). Distinct hue per topic, also set inline. */
-.topic-cloud { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
-  margin: 4px 0 18px; }
-.topic-bubble { width: var(--size); height: var(--size); flex: none;
-  border-radius: 50%; box-sizing: border-box; padding: 5px; overflow: hidden;
+/* Topic bubble cloud: one circle per solved topic. Diameter (set inline per
+   bubble via --size) scales with log2(1 + count). Distinct hue per topic, also
+   set inline. Every dimension/font is multiplied by --zoom (default 1) so the
+   zoom modal can blow the whole cloud up by overriding that one property. */
+.topic-cloud-wrap { margin: 4px 0 18px; }
+.topic-cloud-head { display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; }
+.topic-cloud-title { margin: 0; }
+.cloud-zoom-btn { flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; padding: 0; cursor: pointer; color: var(--muted);
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px; }
+.cloud-zoom-btn:hover { color: var(--primary); border-color: var(--primary); }
+.topic-cloud { display: flex; flex-wrap: wrap; gap: calc(8px * var(--zoom, 1));
+  justify-content: center; margin: 4px 0 0; }
+.topic-bubble { width: calc(var(--size) * var(--zoom, 1));
+  height: calc(var(--size) * var(--zoom, 1)); flex: none;
+  border-radius: 50%; box-sizing: border-box;
+  padding: calc(var(--size) * var(--zoom, 1) * 0.07);
+  overflow: hidden;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; line-height: 1.1;
+  text-align: center; line-height: 1.05;
   background: hsl(var(--hue, 180) 58% 92%); color: hsl(var(--hue, 180) 42% 28%);
   border: 1px solid hsl(var(--hue, 180) 45% 80%); }
-.tb-label { font-size: clamp(8px, calc(var(--size) / 8.5), 12px); font-weight: 600;
-  max-width: 100%; word-break: break-word; }
-.tb-count { font-size: clamp(11px, calc(var(--size) / 5), 20px); font-weight: 800; }
+/* Font sizes are a pure fraction of the (zoomed) diameter — no min/max floor.
+   A floor would over-size text on small bubbles so long labels overflow the
+   circle and get clipped; keeping it proportional means whatever fits when
+   zoomed also fits in the page view (the zoom just makes it readable). */
+.tb-label { font-size: calc(var(--size) * var(--zoom, 1) / 9);
+  font-weight: 600; max-width: 100%; line-height: 1.05;
+  overflow-wrap: anywhere; word-break: break-word; hyphens: auto; }
+.tb-count { font-size: calc(var(--size) * var(--zoom, 1) / 4.5);
+  font-weight: 800; line-height: 1; margin-top: 0.15em; }
+
+/* Zoom modal: a scaled-up copy of the cloud over a dimmed backdrop. */
+.cloud-modal { position: fixed; inset: 0; z-index: 100; display: flex;
+  align-items: center; justify-content: center; padding: 24px; }
+.cloud-modal[hidden] { display: none; }
+.cloud-modal-backdrop { position: absolute; inset: 0; background: rgba(31, 36, 48, .55); }
+.cloud-modal-card { position: relative; background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .25); max-width: min(920px, 92vw);
+  max-height: 88vh; overflow: auto; padding: 16px 20px 22px; }
+.cloud-modal-head { display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-bottom: 8px; }
+.cloud-modal-head h3 { margin: 0; }
+.cloud-modal-close { flex: none; width: 32px; height: 32px; padding: 0; cursor: pointer;
+  font-size: 22px; line-height: 1; color: var(--muted);
+  background: transparent; border: 0; border-radius: 8px; }
+.cloud-modal-close:hover { color: var(--ink); background: var(--bg); }
 
 /* Weekly streak (My Progress) */
 .streak { background: var(--surface); border: 1px solid var(--border);
