@@ -209,6 +209,13 @@ tr:last-child td { border-bottom: 0; }
 .badge.easy { color: var(--easy); background: #e7f4ec; }
 .badge.medium { color: var(--medium); background: #fbeede; }
 .badge.hard { color: var(--hard); background: #fae8e6; }
+/* Compact single-letter difficulty tag (E/M/H) shown before a title, e.g. in
+   the submission history — same difficulty palette as .badge, just tiny. */
+.diff-tag { display: inline-block; width: 17px; text-align: center; font-size: 11px;
+  font-weight: 700; line-height: 16px; border-radius: 4px; margin-right: 6px; }
+.diff-tag.easy { color: var(--easy); background: #e7f4ec; }
+.diff-tag.medium { color: var(--medium); background: #fbeede; }
+.diff-tag.hard { color: var(--hard); background: #fae8e6; }
 .topic { display: inline-block; font-size: 12px; color: var(--muted);
   background: var(--bg); border: 1px solid var(--border); border-radius: 999px;
   padding: 1px 8px; margin: 2px 4px 2px 0; }
