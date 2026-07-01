@@ -24,7 +24,7 @@
       },
       {
         "name": "root",
-        "type": "int[]"
+        "type": "TreeNode"
       }
     ],
     "returns": {

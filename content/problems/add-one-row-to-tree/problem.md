@@ -1,10 +1,12 @@
-A binary tree is given as a LeetCode **level-order array** (`null`/`None` marks a
-missing child) and rebuilt inside your function. The root is at depth `1`. Insert a
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+A binary tree is given as a `TreeNode` (`null`/`None` marks a
+missing child). The root is at depth `1`. Insert a
 new row of nodes all holding value `v` at depth `d`: for every node `N` at depth
 `d-1`, `N`'s original left subtree becomes the left subtree of a new left child
 (value `v`), and `N`'s original right subtree becomes the right subtree of a new right
 child (value `v`). If `d == 1`, a new root with value `v` is created whose left child
-is the original tree. Return the new tree as a level-order array.
+is the original tree. Return the root of the new tree (a `TreeNode`).
 
 **Examples**
 ```

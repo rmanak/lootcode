@@ -1,5 +1,7 @@
-A binary tree is given as a LeetCode **level-order array** (`null`/`None` marks a
-missing child) and rebuilt inside your function. A camera placed on a node monitors its
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+A binary tree is given as a `TreeNode` (`null`/`None` marks a
+missing child). A camera placed on a node monitors its
 parent, itself, and its immediate children. Return the minimum number of cameras needed
 so that **every** node is monitored.
 

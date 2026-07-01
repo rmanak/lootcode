@@ -1,6 +1,8 @@
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
 A node `X` is **good** if no node on the path from the root down to `X` has a value
 greater than `X` (the root is always good). Return the number of good nodes in the
-binary tree (given as a level-order array, `null` = missing child).
+binary tree (given as a `TreeNode`, `null` = missing child).
 
 ## Constraints
 - The number of nodes is in `[1, 10^5]`.

@@ -39,7 +39,9 @@ def twoSum(nums, target):
 
 The harness calls it once per test as `twoSum(**input)` and compares the return
 value to the test's `expected` using the problem's `compare` mode (see below).
-Return values must be JSON-serializable.
+Return values must be JSON-serializable — **except** for parameters/returns
+declared as a rich type (see "Rich types" below), where the harness converts
+between the JSON wire form and a real object for you.
 
 ## `meta.json`
 
@@ -65,7 +67,31 @@ Return values must be JSON-serializable.
 ```
 
 `type` strings are documentation for the author (`int`, `string`, `bool`,
-`int[]`, `int[][]`, …); values are passed through as plain JSON.
+`int[]`, `int[][]`, …); values are passed through as plain JSON — **with one
+exception**: a small set of *rich types* (see below) are load-bearing and tell
+the harness to build/serialize a real object at the sandbox boundary.
+
+### Rich types (`TreeNode`)
+
+A parameter or return may be declared with type `"TreeNode"`. The **on-disk test
+format stays a plain JSON value** — a binary tree is written as a LeetCode-style
+**level-order array** with `null` holes, e.g. `[3, 9, 20, null, null, 15, 7]`
+(`[]` is the empty tree). The harness then:
+
+- **decodes** a `TreeNode`-typed argument from that array into a real object
+  before calling the solver, and
+- **encodes** a returned `TreeNode` back into a level-order array (trailing
+  `null`s trimmed) before grading.
+
+So the solver works with a real `TreeNode` (`value`, `left`, `right`;
+constructor `TreeNode(value=None, left=None, right=None)`) and may *return* one —
+the "JSON-serializable return" rule is waived for a `TreeNode` return. The
+`TreeNode` class is **injected automatically** into the solution's namespace; do
+not define it yourself. Comparison still happens on the level-order array in the
+trusted parent, so `compare` stays `exact` and `tests/cases.json` needs no
+special format. The codec lives in `app/executor/harness.py` (`_CODECS`); adding
+another rich type (e.g. `ListNode`) means adding an entry there. Reference
+problems: `invert-binary-tree`, `maximum-depth-of-binary-tree`, `same-tree`.
 
 ### `compare` — how the judge matches the returned value to `expected`
 

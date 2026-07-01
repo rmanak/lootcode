@@ -1,3 +1,5 @@
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
 A binary tree obeys: `root.val == 0`, a left child's value is `2*x + 1`, and a right
 child's value is `2*x + 2`, where `x` is the parent's value. The tree is
 *contaminated* — every stored value was replaced by `-1` — and is given as a LeetCode

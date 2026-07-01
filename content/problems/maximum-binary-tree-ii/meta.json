@@ -18,7 +18,7 @@
     "params": [
       {
         "name": "root",
-        "type": "int[]"
+        "type": "TreeNode"
       },
       {
         "name": "val",
@@ -26,7 +26,7 @@
       }
     ],
     "returns": {
-      "type": "int[]"
+      "type": "TreeNode"
     }
   },
   "scoring": {

@@ -1,3 +1,5 @@
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
 The binary trees `root` and `subRoot` are given as level-order arrays, where `null`
 marks a missing child (e.g. `[3,4,5,1,2]`). Return **`true` if some subtree of
 `root` has exactly the same structure and node values as `subRoot`**, otherwise

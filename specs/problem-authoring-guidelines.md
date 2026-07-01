@@ -66,6 +66,13 @@ that a deliberately re-ordered valid answer is still accepted.
   `maxProfit`), matching the existing bank.
 - Parameters match the test-input keys by name. Return values must be
   JSON-serializable.
+- **Binary trees:** declare a tree parameter/return as type `"TreeNode"`. Tests
+  still encode the tree as a level-order array (`null` for a missing child; `[]`
+  is the empty tree), but the solver receives/returns a real `TreeNode`
+  (`value`, `left`, `right`; `TreeNode(value=None, left=None, right=None)`). The
+  `TreeNode` class is provided automatically — never define it, and a `TreeNode`
+  return is allowed even though it isn't JSON-serializable. Keep `compare` as
+  `exact`.
 
 ## Canonical solution & starter
 

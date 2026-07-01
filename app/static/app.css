@@ -92,6 +92,7 @@ h2 { font-size: 18px; margin: 28px 0 12px; }
 .status-chip.active { color: var(--pass); background: #e7f4ec; border-color: #bfe0c9; }
 .status-chip.active .sc-check { display: inline; }
 .status-chip.unknown.active { color: var(--known); background: #e6effd; border-color: #c2d8f7; }
+.status-chip.later.active { color: var(--accent); background: #fbeede; border-color: #f0d9b5; }
 
 /* Curated-list ("Lists") chips — e.g. "Blind 73". They reuse .status-chip; a
    leading label names the row, and the active chip takes the primary/topic accent
@@ -238,6 +239,29 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
   text-decoration: none; }
 .next-known-btn:hover { filter: brightness(.95); text-decoration: none; }
 
+/* Per-problem action row: "Mark as known" + "Visit later" side by side. */
+.solve-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  margin: 0 0 4px; }
+.solve-actions .known-control { margin: 0; }
+
+/* "Visit later" — an amber bookmark, the third axis alongside green "Solved" and
+   blue "Known". The button self-toggles: `.is-later` swaps its label. */
+.later-badge { font: inherit; font-size: 13px; color: var(--accent); margin-left: 8px;
+  background: none; border: 0; padding: 0; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 4px; vertical-align: middle; }
+.later-badge:hover { text-decoration: underline; }
+.later-badge[hidden] { display: none; }
+.later-control .lb-saved { display: none; }
+.later-control.is-later .lb-mark { display: none; }
+.later-control.is-later .lb-saved { display: inline; }
+.later-btn { background: var(--surface); color: var(--accent); border: 1px solid #f0d9b5;
+  padding: 5px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: background .12s, border-color .12s; }
+.later-btn:hover { background: #fbeede; border-color: var(--accent); }
+.later-control.is-later .later-btn { background: #fbeede; border-color: #f0d9b5; }
+/* Bookmark marker next to a flagged problem's title in the list. */
+.later-flag { font-size: 13px; vertical-align: 1px; }
+
 /* Solve layout — two columns with a draggable gutter between them.
    --split is the left column width; defaults to 1fr so each side starts at half. */
 .solve { display: grid; grid-template-columns: var(--split, 1fr) 10px 1fr;
@@ -265,6 +289,11 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
   background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
 .limits { font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--border);
   padding-top: 10px; margin-top: 14px; }
+.provided-types { margin: 10px 0 4px; }
+.provided-types-label { font-size: 12.5px; color: var(--muted); margin: 0 0 6px; }
+.provided-type { background: #0f1720; color: #e6edf3; padding: 10px 12px;
+  border-radius: 8px; overflow: auto; margin: 0 0 8px; font-size: 12.5px; }
+.provided-type code { background: none; padding: 0; }
 .topics-section { border-top: 1px solid var(--border); margin-top: 18px; padding-top: 14px; }
 .topics-title { font-size: 13px; text-transform: uppercase; letter-spacing: .04em;
   color: var(--muted); margin: 0 0 8px; }
@@ -457,16 +486,16 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 .streak-head h2 { margin: 0; }
 .streak-sub { color: var(--muted); font-size: 13px; }
 /* The week (seven tall day columns) sits on the left; the month calendar fills
-   the space their narrower 8x2 grids free up on the right. Wraps on narrow. */
+   the space their narrower 10x2 grids free up on the right. Wraps on narrow. */
 .streak-body { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
 .streak-bars { display: flex; gap: 26px; align-items: flex-end; }
 .streak-day { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-/* Each day is an 8-row x 2-column grid of little square blocks — a tall, narrow
+/* Each day is a 10-row x 2-column grid of little square blocks — a tall, narrow
    column so the seven days read as separate bars. A grey block is unfilled;
    solving a problem fills that many blocks with a difficulty colour (easy 1,
-   medium 4, hard 16). Cells fill left-to-right, top row down. */
+   medium 4, hard 10). Cells fill left-to-right, top row down. */
 .streak-grid { width: 44px; display: grid;
-  grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(8, 1fr);
+  grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(10, 1fr);
   gap: 6px; padding: 6px; background: var(--bg);
   border: 1px solid var(--border); border-radius: 8px; }
 .streak-cell { aspect-ratio: 1; border-radius: 2px; background: #d8d5cc;
@@ -494,7 +523,7 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 .streak-key.hard::before { background: #f87171; }
 
 /* Month calendar (right of the weekly streak): each in-month day shows its date
-   and a tiny green dot when that day's daily 16-block goal was completed. */
+   and a tiny green dot when that day's daily 20-block goal was completed. */
 .month-cal { width: 252px; margin-left: auto; }
 .cal-head { display: flex; align-items: center; justify-content: space-between;
   gap: 8px; margin-bottom: 8px; }

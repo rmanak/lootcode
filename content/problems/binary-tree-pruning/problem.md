@@ -1,9 +1,11 @@
-A binary tree with values `0`/`1` is given as a LeetCode **level-order array**
-(`null`/`None` marks a missing child) and rebuilt inside your function. Remove every
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+A binary tree with values `0`/`1` is given as a `TreeNode`
+(`null`/`None` marks a missing child). Remove every
 subtree that does not contain a `1` (i.e. a subtree whose nodes are all `0`).
 
-Return the resulting tree as a level-order array (`None` for a missing child, with
-trailing `None`s trimmed); return `[]` if the whole tree is removed.
+Return the root of the pruned tree (a `TreeNode`), or `None` if the whole tree is
+removed.
 
 **Examples**
 ```

@@ -1,3 +1,5 @@
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
 Return `true` if the binary tree (level-order array) is a **mirror image of itself**
 around its center.
 

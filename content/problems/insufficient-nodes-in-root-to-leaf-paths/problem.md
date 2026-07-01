@@ -1,9 +1,10 @@
-A binary tree is given as a LeetCode **level-order array** (`null`/`None` marks a
-missing child) and rebuilt inside your function. A node is *insufficient* if every
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+A binary tree is given as a `TreeNode` (`null`/`None` marks a
+missing child). A node is *insufficient* if every
 root-to-leaf path passing through it has sum **strictly less than** `limit`. Delete
-all insufficient nodes simultaneously and return the resulting tree as a level-order
-array (`None` for a missing child, trailing `None`s trimmed); return `[]` if the whole
-tree is deleted.
+all insufficient nodes simultaneously and return the root of the resulting tree (a
+`TreeNode`), or `None` if the whole tree is deleted.
 
 **Examples**
 ```

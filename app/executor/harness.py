@@ -20,6 +20,7 @@ import signal
 import sys
 import time
 import traceback
+from collections import deque
 
 
 class _Timeout(Exception):
@@ -35,12 +36,97 @@ def _short_tb(limit: int = 2000) -> str:
     return tb[-limit:]
 
 
-def _load_solution(path: str, budget_s: float):
-    """Import the user's solution.py, guarding against import-time hangs."""
+# --- Rich input/return types -------------------------------------------------
+# Some problems declare a parameter or return as a custom structure (e.g.
+# TreeNode) instead of a plain JSON value. The on-disk and across-the-boundary
+# wire format stays a plain JSON value (a binary tree is a LeetCode-style
+# level-order array with None holes); these codecs convert array<->object on the
+# untrusted side so solvers work with real objects. Comparison in the trusted
+# parent still happens on the JSON array, so the judge is unchanged.
+#
+# SECURITY: this runs in-sandbox alongside hostile code. Keep it stdlib-only,
+# iterative (no recursion -> no stack-overflow DoS) and node-capped (a cyclic or
+# huge returned object must not hang the harness); the per-test SIGALRM is the
+# backstop and stays armed while a return value is encoded.
+
+# Generously above any realistic tree (problems cap nodes in the 10^4 range) but
+# low enough that a cyclic/hostile returned object fails fast and cheap.
+_MAX_TREE_NODES = 200_000
+
+
+class TreeNode:
+    """Binary-tree node injected into solutions that declare a TreeNode param/return."""
+
+    __slots__ = ("value", "left", "right")
+
+    def __init__(self, value=None, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+
+def _tree_decode(arr):
+    """Level-order array (None marks a missing child) -> TreeNode, or None if empty."""
+    if not arr or arr[0] is None:
+        return None
+    root = TreeNode(arr[0])
+    q = deque([root])
+    i, n = 1, len(arr)
+    while q and i < n:
+        cur = q.popleft()
+        if i < n:
+            v = arr[i]; i += 1
+            if v is not None:
+                cur.left = TreeNode(v); q.append(cur.left)
+        if i < n:
+            v = arr[i]; i += 1
+            if v is not None:
+                cur.right = TreeNode(v); q.append(cur.right)
+    return root
+
+
+def _tree_encode(node):
+    """TreeNode -> level-order array with trailing Nones trimmed.
+
+    Duck-typed on .value/.left/.right (so a user-defined equivalent node also
+    works) and bounded by _MAX_TREE_NODES against cyclic/huge returns.
+    """
+    if node is None:
+        return []
+    out, q, count = [], deque([node]), 0
+    while q:
+        cur = q.popleft()
+        if cur is None:
+            out.append(None)
+            continue
+        count += 1
+        if count > _MAX_TREE_NODES:
+            raise ValueError("Returned tree is too large or contains a cycle.")
+        out.append(cur.value)
+        q.append(cur.left)
+        q.append(cur.right)
+    while out and out[-1] is None:
+        out.pop()
+    return out
+
+
+# type token -> (class to inject, decode JSON->object, encode object->JSON)
+_CODECS = {"TreeNode": (TreeNode, _tree_decode, _tree_encode)}
+
+
+def _load_solution(path: str, budget_s: float, inject: dict | None = None):
+    """Import the user's solution.py, guarding against import-time hangs.
+
+    `inject` maps names (e.g. "TreeNode") to objects placed in the solution's
+    module globals before its top-level code runs, so user code can reference
+    them at import and call time without defining them.
+    """
     signal.setitimer(signal.ITIMER_REAL, budget_s)
     try:
         spec = importlib.util.spec_from_file_location("solution", path)
         module = importlib.util.module_from_spec(spec)
+        for name, obj in (inject or {}).items():
+            setattr(module, name, obj)
         spec.loader.exec_module(module)  # type: ignore[union-attr]
         return module, None
     except _Timeout:
@@ -51,7 +137,7 @@ def _load_solution(path: str, budget_s: float):
         signal.setitimer(signal.ITIMER_REAL, 0)
 
 
-def _run_one(func, params, inp, time_limit_s, max_output) -> dict:
+def _run_one(func, params, decoders, encoder, inp, time_limit_s, max_output) -> dict:
     buf = io.StringIO()
     real_stdout = sys.stdout
     start = time.perf_counter()
@@ -61,9 +147,18 @@ def _run_one(func, params, inp, time_limit_s, max_output) -> dict:
         return {"status": "error", "error": f"Missing input for parameter {exc}.",
                 "time_ms": 0, "stdout": ""}
     try:
+        for name, decode in decoders.items():
+            args[name] = decode(args[name])
+    except Exception:  # noqa: BLE001 - malformed test input for a typed parameter
+        return {"status": "error", "time_ms": 0,
+                "error": "Could not build the typed input for this test:\n" + _short_tb(),
+                "stdout": ""}
+    try:
         sys.stdout = buf
         signal.setitimer(signal.ITIMER_REAL, time_limit_s)
         returned = func(**args)
+        if encoder is not None:
+            returned = encoder(returned)  # bounded; stays under the per-test alarm
         signal.setitimer(signal.ITIMER_REAL, 0)
         sys.stdout = real_stdout
         elapsed = (time.perf_counter() - start) * 1000
@@ -93,14 +188,37 @@ def main() -> None:
         payload = json.load(f)
 
     fn_name = payload["function_name"]
-    params = payload["params"]
+    raw_params = payload["params"]
+    return_type = payload.get("return_type", "") or ""
     tests = payload["tests"]
     max_output = int(payload.get("max_output_bytes", 65536))
+
+    # `params` may be a list of names (legacy) or of {name, type} dicts. Build the
+    # call order, the per-param decoders, the return encoder, and the classes to
+    # inject for any declared custom type.
+    params: list = []
+    decoders: dict = {}
+    inject: dict = {}
+    for p in raw_params:
+        name = p if isinstance(p, str) else p["name"]
+        ptype = "" if isinstance(p, str) else (p.get("type") or "")
+        params.append(name)
+        codec = _CODECS.get(ptype)
+        if codec:
+            decoders[name] = codec[1]
+            inject[codec[0].__name__] = codec[0]
+    encoder = None
+    ret_codec = _CODECS.get(return_type)
+    if ret_codec:
+        encoder = ret_codec[2]
+        inject[ret_codec[0].__name__] = ret_codec[0]
 
     signal.signal(signal.SIGALRM, _on_alarm)
 
     module, load_err = _load_solution(
-        os.path.join(workdir, "solution.py"), float(payload.get("import_budget_s", 5.0))
+        os.path.join(workdir, "solution.py"),
+        float(payload.get("import_budget_s", 5.0)),
+        inject,
     )
     func = getattr(module, fn_name, None) if module else None
     if module and func is None:
@@ -113,7 +231,8 @@ def main() -> None:
                             "error": load_err or "Function not found.",
                             "time_ms": 0, "stdout": ""})
             continue
-        out = _run_one(func, params, t["input"], float(t["time_limit_s"]), max_output)
+        out = _run_one(func, params, decoders, encoder, t["input"],
+                       float(t["time_limit_s"]), max_output)
         out["name"] = t["name"]
         results.append(out)
 

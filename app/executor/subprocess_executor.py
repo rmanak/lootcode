@@ -46,8 +46,8 @@ def _preexec(mem_bytes: int, cpu_seconds: int, fsize_bytes: int):
     return apply
 
 
-def run(code: str, function_name: str, params: list[str],
-        tests: list[TestSpec], limits: Limits) -> dict[str, Outcome]:
+def run(code: str, function_name: str, params: list,
+        return_type: str, tests: list[TestSpec], limits: Limits) -> dict[str, Outcome]:
     workdir = tempfile.mkdtemp(prefix="lc_run_")
     per_test_s = limits.time_limit_ms / 1000.0
     try:
@@ -56,6 +56,7 @@ def run(code: str, function_name: str, params: list[str],
         payload = {
             "function_name": function_name,
             "params": params,
+            "return_type": return_type,
             "import_budget_s": limits.import_budget_s,
             "max_output_bytes": limits.max_output_kb * 1024,
             "tests": [{"name": t.name, "input": t.input, "time_limit_s": per_test_s}

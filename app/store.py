@@ -17,6 +17,7 @@ from .models import (
     Submission,
     TestCase,
     User,
+    VisitLaterProblem,
 )
 from .tags import normalize_tags
 
@@ -151,6 +152,34 @@ def set_problem_known(db: Session, user_id: str, problem_id: int,
     return known
 
 
+def user_visit_later_problem_ids(db: Session, user_id: str) -> set[int]:
+    """Problems the user has flagged "visit later". A pure record of explicit
+    bookmarks — solved/known problems are never folded in, so the "Visit later"
+    filter shows exactly what the user saved."""
+    rows = db.execute(
+        select(VisitLaterProblem.problem_id).where(
+            VisitLaterProblem.user_id == user_id)
+    ).all()
+    return {r[0] for r in rows}
+
+
+def set_problem_visit_later(db: Session, user_id: str, problem_id: int,
+                            visit_later: bool) -> bool:
+    """Flag or unflag a problem as "visit later" for a user. Idempotent: flagging
+    an already-flagged problem (or unflagging one that isn't) is a no-op. Returns
+    the resulting state."""
+    existing = db.scalar(select(VisitLaterProblem).where(
+        VisitLaterProblem.user_id == user_id,
+        VisitLaterProblem.problem_id == problem_id))
+    if visit_later and existing is None:
+        db.add(VisitLaterProblem(user_id=user_id, problem_id=problem_id))
+        db.commit()
+    elif not visit_later and existing is not None:
+        db.delete(existing)
+        db.commit()
+    return visit_later
+
+
 # --- Optional accounts (V2). See docs/user-accounts-v2.md. -------------------
 # All raise ValueError (with a user-facing message) on bad input so routes can
 # surface a single error string. A guest = a User row with no password_hash.
@@ -220,6 +249,14 @@ def merge_user(db: Session, from_id: str, into_id: str) -> None:
     for mark in db.scalars(select(KnownProblem).where(
             KnownProblem.user_id == from_id)):
         if mark.problem_id in account_known:
+            db.delete(mark)
+        else:
+            mark.user_id = into_id
+    # Same for the guest's "visit later" bookmarks.
+    account_later = user_visit_later_problem_ids(db, into_id)
+    for mark in db.scalars(select(VisitLaterProblem).where(
+            VisitLaterProblem.user_id == from_id)):
+        if mark.problem_id in account_later:
             db.delete(mark)
         else:
             mark.user_id = into_id

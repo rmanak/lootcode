@@ -1,5 +1,7 @@
-A binary tree is given as a LeetCode **level-order array** (`null`/`None` marks a
-missing child) and rebuilt inside your function. The root is at column `0`, row `0`;
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+A binary tree is given as a `TreeNode` (`null`/`None` marks a
+missing child). The root is at column `0`, row `0`;
 a left child is at `(col-1, row+1)` and a right child at `(col+1, row+1)`.
 
 Return the vertical order traversal: process columns from left to right; within a

@@ -1,3 +1,5 @@
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
 Return **all root-to-leaf paths** in the binary tree (level-order array) whose node
 values sum to `targetSum`. Each path is the list of values from root to leaf; the
 paths may be returned in any order.

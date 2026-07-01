@@ -1,3 +1,5 @@
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
 A binary tree with `n` nodes (values `1..n`, all distinct) is given as a LeetCode
 **level-order array**. Player 1 colours node `x` red, then Player 2 colours any other
 node blue. Players then alternate, each turn colouring an uncoloured node adjacent to
