@@ -66,7 +66,7 @@
     <label for="code">Your solution</label>
     {% if loaded_submission %}
     <p class="loaded-note">Loaded your submission from
-      {{ loaded_submission.created_at.strftime('%Y-%m-%d %H:%M') }} UTC
+      {{ loaded_submission.created_at | localdt(tz) }}
       ({{ loaded_submission.passed_count }}/{{ loaded_submission.total_count }} passed).
       <a href="/problems/{{ prob.slug }}">Reset to starter code</a></p>
     {% endif %}

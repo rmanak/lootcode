@@ -546,7 +546,7 @@ def problem_detail(slug: str, request: Request, submission: str | None = None,
 
     return templates.TemplateResponse(request, "problem.html", {
         "request": request, "prob": prob, "solved": solved, "known": known,
-        "visit_later": visit_later,
+        "visit_later": visit_later, "tz": _user_tz(request),
         "visible_count": len(prob.tests) - hidden_count, "hidden_count": hidden_count,
         "user_name": request.state.user_name,
         "initial_code": initial_code, "loaded_submission": loaded_submission,
@@ -588,7 +588,7 @@ def progress(request: Request, cal: str | None = None, db: Session = Depends(get
     year, month = _parse_cal_month(cal, today)
     units_by_date, blocks_by_date = _blocks_by_local_date(_first_solved(db, uid), tz)
     return templates.TemplateResponse(request, "progress.html", {
-        "request": request, "sub_groups": sub_groups, "solved": solved,
+        "request": request, "sub_groups": sub_groups, "solved": solved, "tz": tz,
         "solved_counts": solved_counts, "user_name": request.state.user_name,
         "topic_cloud": _topic_cloud(solved),
         "unsolved_counts": _unsolved_counts(db, solved_ids | known_ids),
