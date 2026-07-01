@@ -47,15 +47,17 @@ def _parse_params(text: str) -> list[dict]:
     return out
 
 
-def _form_to_data(*, slug, title, difficulty, topics, statement_md, function_name,
-                  params, return_type, compare, starter_code, canonical_solution,
-                  tests_json, source) -> dict:
+def _form_to_data(*, slug, title, difficulty, topics, hints, statement_md,
+                  function_name, params, return_type, compare, starter_code,
+                  canonical_solution, tests_json, source) -> dict:
     tests = json.loads(tests_json)
     if not isinstance(tests, list) or not tests:
         raise ValueError("Tests must be a non-empty JSON array.")
     return {
         "slug": slug.strip(), "title": title.strip(), "difficulty": difficulty,
         "topics": [t.strip() for t in topics.split(",") if t.strip()],
+        # One hint per line; normalize_hints trims blanks and caps at MAX_HINTS.
+        "hints": content.normalize_hints(hints.splitlines()),
         "statement_md": statement_md, "function_name": function_name.strip(),
         "params": _parse_params(params), "return_type": return_type.strip(),
         "compare": compare if compare in COMPARE_MODES else "exact",
@@ -71,6 +73,7 @@ def _form_view(prob: Problem) -> dict:
     return {
         "slug": prob.slug, "title": prob.title, "difficulty": prob.difficulty,
         "topics": ", ".join(prob.topics or []),
+        "hints": "\n".join(prob.hints or []),
         "statement_md": prob.statement_md or "",
         "function_name": prob.function_name,
         "params": "\n".join(f"{p['name']}: {p.get('type', 'any')}" for p in prob.params),
@@ -109,6 +112,7 @@ def edit_form(slug: str, request: Request, db: Session = Depends(get_db)):
 def edit_submit(
     slug: str, request: Request, db: Session = Depends(get_db),
     title: str = Form(...), difficulty: str = Form("easy"), topics: str = Form(""),
+    hints: str = Form(""),
     statement_md: str = Form(""), function_name: str = Form(...), params: str = Form(""),
     return_type: str = Form(""), compare: str = Form("exact"),
     starter_code: str = Form(""), canonical_solution: str = Form(""),
@@ -119,7 +123,7 @@ def edit_submit(
         raise HTTPException(status_code=404, detail="Problem not found")
     try:
         data = _form_to_data(
-            slug=slug, title=title, difficulty=difficulty, topics=topics,
+            slug=slug, title=title, difficulty=difficulty, topics=topics, hints=hints,
             statement_md=statement_md, function_name=function_name, params=params,
             return_type=return_type, compare=compare, starter_code=starter_code,
             canonical_solution=canonical_solution, tests_json=tests_json,
@@ -131,7 +135,7 @@ def edit_submit(
         return templates.TemplateResponse(request, "admin/edit.html", {
             "request": request, "user_name": request.state.user_name,
             "f": {**_form_view(prob), "title": title, "difficulty": difficulty,
-                  "topics": topics, "statement_md": statement_md,
+                  "topics": topics, "hints": hints, "statement_md": statement_md,
                   "function_name": function_name, "params": params,
                   "return_type": return_type, "compare": compare,
                   "starter_code": starter_code, "canonical_solution": canonical_solution,
@@ -204,14 +208,14 @@ def new_form(request: Request):
 def new_submit(
     request: Request, db: Session = Depends(get_db),
     slug: str = Form(...), title: str = Form(...), difficulty: str = Form("easy"),
-    topics: str = Form(""), statement_md: str = Form(""),
+    topics: str = Form(""), hints: str = Form(""), statement_md: str = Form(""),
     function_name: str = Form(...), params: str = Form(""), return_type: str = Form(""),
     compare: str = Form("exact"), starter_code: str = Form(""),
     canonical_solution: str = Form(""), tests_json: str = Form("[]"),
 ):
     try:
         data = _form_to_data(
-            slug=slug, title=title, difficulty=difficulty, topics=topics,
+            slug=slug, title=title, difficulty=difficulty, topics=topics, hints=hints,
             statement_md=statement_md, function_name=function_name, params=params,
             return_type=return_type, compare=compare, starter_code=starter_code,
             canonical_solution=canonical_solution, tests_json=tests_json, source="manual")
