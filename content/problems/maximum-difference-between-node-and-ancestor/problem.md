@@ -1,5 +1,7 @@
-A binary tree is given as a LeetCode **level-order array** (`null`/`None` marks a
-missing child) and rebuilt inside your function. Return the maximum value `|a - b|`
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+A binary tree is given as a `TreeNode` (`null`/`None` marks a
+missing child). Return the maximum value `|a - b|`
 over all pairs of nodes where one is an **ancestor** of the other.
 
 **Examples**

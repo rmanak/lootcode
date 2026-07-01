@@ -150,6 +150,7 @@ class VerifyBody(BaseModel):
     code: str
     function_name: str
     params: str = ""
+    return_type: str = ""
     tests_json: str = "[]"
     compare: str = "exact"
 
@@ -167,6 +168,7 @@ def verify(slug: str, body: VerifyBody):
 
     prob = SimpleNamespace(
         function_name=body.function_name.strip(), params=_parse_params(body.params),
+        return_type=body.return_type.strip(),
         time_limit_ms=settings.EXEC_TIME_LIMIT_MS,
         memory_limit_mb=settings.EXEC_MEMORY_LIMIT_MB, points=100,
         compare=body.compare if body.compare in COMPARE_MODES else "exact",

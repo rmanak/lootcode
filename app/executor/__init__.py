@@ -75,7 +75,10 @@ def run_submission(code: str, problem, tests) -> GradedRun:
     """`problem` needs .function_name/.params/.time_limit_ms/.memory_limit_mb/.points;
     `tests` is an iterable of objects with .name/.input/.expected/.weight/.hidden."""
     tests = list(tests)
-    param_names = [p["name"] for p in problem.params]
+    # Forward the full param specs ({name, type}) and the return type so the
+    # harness can build/serialize custom types (e.g. TreeNode) at the boundary.
+    params = problem.params
+    return_type = getattr(problem, "return_type", "") or ""
     limits = Limits(
         time_limit_ms=problem.time_limit_ms or settings.EXEC_TIME_LIMIT_MS,
         memory_limit_mb=problem.memory_limit_mb or settings.EXEC_MEMORY_LIMIT_MB,
@@ -83,7 +86,7 @@ def run_submission(code: str, problem, tests) -> GradedRun:
     )
     specs = [TestSpec(name=t.name, input=t.input) for t in tests]
     outcomes: dict[str, Outcome] = _backend()(
-        code, problem.function_name, param_names, specs, limits
+        code, problem.function_name, params, return_type, specs, limits
     )
     compare = getattr(problem, "compare", "exact") or "exact"
 

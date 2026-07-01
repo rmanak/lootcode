@@ -1,5 +1,7 @@
-A binary tree is given as a LeetCode **level-order array** (`null`/`None` marks a
-missing child) and is rebuilt inside your function. Each node's value is `0..25`,
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+A binary tree is given as a `TreeNode` (`null`/`None` marks a
+missing child). Each node's value is `0..25`,
 representing `'a'..'z'`.
 
 Consider every path that starts at a leaf and ends at the root, reading the

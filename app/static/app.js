@@ -104,6 +104,33 @@
     knownBadge.addEventListener("click", () => setKnown(false));
   }
 
+  // "Visit later" toggle: an independent bookmark. Clicking the button (or the
+  // title badge) flips state; `is-later` swaps the button's label and shows the
+  // badge. Unlike "known" it has no "next problem" jump — it just stays flagged.
+  const laterCtl = document.getElementById("later-control");
+  const laterBadge = document.getElementById("later-badge");
+  if (laterCtl && laterBadge) {
+    const laterBtn = laterCtl.querySelector(".later-btn");
+    async function setVisitLater(state) {
+      try {
+        const resp = await fetch(`/api/problems/${slug}/visit-later`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ visit_later: state }),
+        });
+        if (!resp.ok) return;
+        const d = await resp.json();
+        laterCtl.classList.toggle("is-later", d.visit_later);
+        laterBadge.hidden = !d.visit_later;
+      } catch (_) {
+        /* offline / transient — leave the UI as-is */
+      }
+    }
+    laterBtn.addEventListener("click", () =>
+      setVisitLater(!laterCtl.classList.contains("is-later")));
+    laterBadge.addEventListener("click", () => setVisitLater(false));
+  }
+
   async function run() {
     btn.disabled = true;
     statusEl.textContent = "Running…";

@@ -1,6 +1,8 @@
-Exactly two nodes of a binary search tree (given as a level-order array) had their
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+Exactly two nodes of a binary search tree (given as a `TreeNode`) had their
 values swapped by mistake. Recover the tree without changing its structure and
-return its corrected level-order array.
+return its root (a `TreeNode`) with the values corrected.
 
 ## Constraints
 - The number of nodes is in `[2, 1000]`.

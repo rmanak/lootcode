@@ -1,7 +1,9 @@
-Flatten the binary tree (given as a level-order array) into a "linked list" in
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+Flatten the binary tree (given as a `TreeNode`) into a "linked list" in
 **preorder**: every node's left child becomes `null` and its right child is the next
-node in preorder. Return the resulting tree as a level-order array (a right-leaning
-chain like `[1,null,2,null,3,...]`).
+node in preorder. Return the root of the flattened tree (a `TreeNode`) — a
+right-leaning chain shown below like `[1,null,2,null,3,...]`.
 
 ## Constraints
 - The number of nodes is in `[0, 2000]`.

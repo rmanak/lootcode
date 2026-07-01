@@ -1,3 +1,5 @@
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
 The **width** of a level is the distance between its leftmost and rightmost non-null
 nodes, counting the null slots between them as if the tree were a full binary tree.
 Return the **maximum width** across all levels of the binary tree (level-order

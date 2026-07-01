@@ -7,7 +7,7 @@ import os
 import random
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import quote, urlencode
+from urllib.parse import quote, unquote, urlencode
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from fastapi import APIRouter, Depends, Form, HTTPException, Request
@@ -22,6 +22,28 @@ from ..models import Collection, Problem, Submission, User
 from ..templating import templates
 
 router = APIRouter()
+
+# Read-only helper definitions surfaced next to the function signature when a
+# problem declares a rich input/return type, so solvers know the object shape.
+# The harness injects the real class (see app/executor/harness.py); this is just
+# the documentation shown in the UI. Keep the shape in sync with that class.
+PROVIDED_TYPE_DEFS = {
+    "TreeNode": (
+        "class TreeNode:  # binary tree node — provided, do not redefine\n"
+        "    def __init__(self, value=None, left=None, right=None):\n"
+        "        self.value = value\n"
+        "        self.left = left\n"
+        "        self.right = right"
+    ),
+}
+
+
+def _provided_types(prob) -> dict:
+    """Map of declared custom type -> its definition snippet, for types this
+    problem actually uses as a param or return."""
+    used = {(p.get("type") or "") for p in (prob.params or [])}
+    used.add(prob.return_type or "")
+    return {t: PROVIDED_TYPE_DEFS[t] for t in used if t in PROVIDED_TYPE_DEFS}
 
 
 @router.get("/favicon.ico", include_in_schema=False)
@@ -46,11 +68,11 @@ TOPIC_BAR_TOP_N = 8
 RECENT_PROBLEMS_LIMIT = 25
 
 # "Units of work" a solve is worth, by difficulty. Each weekday is drawn as an
-# 8x2 grid of DAY_BLOCKS little blocks; a solve fills that many grey blocks with
-# a difficulty colour (easy 1 light-green, medium 4 yellow, hard 16 red == a full
-# day). Anything past a full day spills forward to pre-fill the next day(s).
-UNIT_WEIGHTS = {"easy": 1, "medium": 4, "hard": 16}
-DAY_BLOCKS = 16  # 8 rows x 2 columns
+# 10x2 grid of DAY_BLOCKS little blocks; a solve fills that many grey blocks with
+# a difficulty colour (easy 1 light-green, medium 4 yellow, hard 10 red). Anything
+# past a full day spills forward to pre-fill the next day(s).
+UNIT_WEIGHTS = {"easy": 1, "medium": 4, "hard": 10}
+DAY_BLOCKS = 20  # 10 rows x 2 columns
 
 
 def _unsolved_counts(db: Session, skip_ids: set[int]) -> dict[str, int]:
@@ -115,11 +137,16 @@ def _topic_cloud(solved: list[Problem]) -> list[dict]:
 def _user_tz(request: Request) -> ZoneInfo:
     """The visitor's timezone, from the client-set `lc_tz` cookie (falling back
     to UTC). The weekly grid buckets solves by the user's *local* day, so a
-    late-night solve fills tonight's column instead of rolling into tomorrow's."""
+    late-night solve fills tonight's column instead of rolling into tomorrow's.
+
+    The client sets the cookie via `encodeURIComponent`, so an IANA name like
+    `America/New_York` arrives percent-encoded (`America%2FNew_York`); Starlette
+    does not decode cookie values, so we `unquote` here before handing it to
+    `ZoneInfo` — otherwise every slashed zone name silently fell back to UTC."""
     name = request.cookies.get("lc_tz")
     if name:
         try:
-            return ZoneInfo(name)
+            return ZoneInfo(unquote(name))
         except (ZoneInfoNotFoundError, ValueError):
             pass
     return ZoneInfo("UTC")
@@ -148,7 +175,7 @@ def _blocks_by_local_date(
     """Bucket each first-solve onto its *local* day, returning per-day units and a
     flat list of coloured blocks (one difficulty tag per unit of work).
 
-    A solve is worth `UNIT_WEIGHTS` blocks (easy 1, medium 4, hard 16). Solve
+    A solve is worth `UNIT_WEIGHTS` blocks (easy 1, medium 4, hard 10). Solve
     times are stored as UTC and bucketed by the user's local day (`tz`), so an
     evening solve lands on the day it felt like, not the next."""
     units_by_date: dict[date, int] = {}
@@ -160,6 +187,26 @@ def _blocks_by_local_date(
         units_by_date[d] = units_by_date.get(d, 0) + weight
         blocks_by_date.setdefault(d, []).extend(diff for _ in range(weight))
     return units_by_date, blocks_by_date
+
+
+def _lay_out_week(
+    week_days: list[date], blocks_by_date: dict[date, list[str]]
+) -> list[list[str]]:
+    """Place each day's difficulty-blocks into its `DAY_BLOCKS`-slot grid, carrying
+    whatever overflows a full day forward to pre-fill later days *in the same week*.
+
+    Returns one placed-block list per day, aligned with `week_days` (assumed to be
+    seven consecutive Sun–Sat dates). Carry starts empty at the week's Sunday, so a
+    week's completion never depends on a different week — this is the single source
+    of truth for "did a day hit the goal", shared by the weekly grid and the month
+    calendar so the two views can't disagree about a day."""
+    placed_per_day: list[list[str]] = []
+    carry: list[str] = []
+    for d in week_days:
+        filled = carry + blocks_by_date.get(d, [])
+        placed, carry = filled[:DAY_BLOCKS], filled[DAY_BLOCKS:]
+        placed_per_day.append(placed)
+    return placed_per_day
 
 
 def _weekly_streak(
@@ -175,13 +222,8 @@ def _weekly_streak(
     sunday = today - timedelta(days=(today.weekday() + 1) % 7)
     week_days = [sunday + timedelta(days=i) for i in range(7)]  # Sun … Sat
 
-    # Lay each day's blocks into its DAY_BLOCKS-slot grid; whatever overflows a
-    # full day is carried forward to pre-fill the following day(s).
     days = []
-    carry: list[str] = []
-    for d in week_days:
-        filled = carry + blocks_by_date.get(d, [])
-        placed, carry = filled[:DAY_BLOCKS], filled[DAY_BLOCKS:]
+    for d, placed in zip(week_days, _lay_out_week(week_days, blocks_by_date)):
         # "" renders as a grey (empty) block; a difficulty name colours it.
         cells = [placed[i] if i < len(placed) else "" for i in range(DAY_BLOCKS)]
         days.append({
@@ -204,31 +246,31 @@ def _weekly_streak(
 
 
 def _month_calendar(
-    units_by_date: dict[date, int], tz: ZoneInfo, year: int, month: int
+    blocks_by_date: dict[date, list[str]], tz: ZoneInfo, year: int, month: int
 ) -> dict:
-    """A month grid (Sunday-first) marking which days hit the daily 16-block goal.
+    """A month grid (Sunday-first) marking which days hit the daily `DAY_BLOCKS` goal.
 
-    A day is `done` only when *that day's own* solves reach `DAY_BLOCKS` — no
-    spillover from other days, so an empty or still-to-come day never lights up
-    green. Cells from adjacent months are rendered blank (`in_month` False)."""
+    A day is `done` when its blocks — including overflow spilled forward from
+    earlier in the *same* Sun–Sat week — fill the day, exactly as the weekly grid
+    counts it (both go through `_lay_out_week`), so a day shown ✓ for this week also
+    lights up green here. Still-to-come days never light up (you can't have hit a
+    day that hasn't happened). Cells from adjacent months render blank (`in_month`
+    False) but still contribute their spillover to in-month days in the same week."""
     today = datetime.now(tz).date()
     cal = calendar.Calendar(firstweekday=6)  # 6 == Sunday
-
-    met = {
-        d: units_by_date.get(d, 0) >= DAY_BLOCKS
-        for d in cal.itermonthdates(year, month) if d.month == month
-    }
 
     weeks = [
         [
             {
                 "day": d.day,
                 "in_month": d.month == month,
-                "done": d.month == month and met.get(d, False),
+                "done": (
+                    d.month == month and d <= today and len(placed) >= DAY_BLOCKS
+                ),
                 "is_today": d == today,
                 "is_future": d > today,
             }
-            for d in week
+            for d, placed in zip(week, _lay_out_week(week, blocks_by_date))
         ]
         for week in cal.monthdatescalendar(year, month)
     ]
@@ -312,7 +354,7 @@ def problem_asset(slug: str, filename: str):
 @router.get("/")
 def index(request: Request, difficulty: str | None = None, topic: str | None = None,
           q: str | None = None, collection: str | None = None, unsolved: int = 0,
-          solved: int = 0, unknown: int = 0, page: int = 1,
+          solved: int = 0, unknown: int = 0, visit_later: int = 0, page: int = 1,
           db: Session = Depends(get_db)):
     stmt = select(Problem).where(Problem.is_published.is_(True))
     if difficulty:
@@ -337,6 +379,7 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
 
     solved_ids = store.user_solved_problem_ids(db, request.state.user_id)
     known_ids = store.user_known_problem_ids(db, request.state.user_id)
+    visit_later_ids = store.user_visit_later_problem_ids(db, request.state.user_id)
     if unsolved:
         problems = [p for p in problems if p.id not in solved_ids]
     # "See all" from the My Progress summary links here with solved=1.
@@ -347,6 +390,11 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
     if unknown:
         problems = [p for p in problems
                     if p.id not in known_ids and p.id not in solved_ids]
+    # "Visit later" is an independent bookmark axis — it shows only flagged
+    # problems and combines freely with every other filter (incl. the status
+    # chips above), so it isn't part of their mutually-exclusive group.
+    if visit_later:
+        problems = [p for p in problems if p.id in visit_later_ids]
 
     # When a curated list is active, present it in its study order (position)
     # rather than by problem id.
@@ -373,6 +421,7 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
         "unsolved": 1 if unsolved else None,
         "unknown": 1 if unknown else None,
         "solved": 1 if solved else None,
+        "visit_later": 1 if visit_later else None,
     }
 
     def _href(**overrides: object) -> str:
@@ -383,6 +432,10 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
         else _href(unsolved=1, unknown=None, solved=None)
     unknown_href = _href(unknown=None) if unknown \
         else _href(unknown=1, unsolved=None, solved=None)
+    # "Visit later" toggles on its own and keeps every other active filter — it
+    # doesn't clear the status chips (and they don't clear it).
+    visit_later_href = _href(visit_later=None) if visit_later \
+        else _href(visit_later=1)
     # Topic chips keep one topic at a time: clicking the active one clears it,
     # clicking another replaces it — while preserving the active status filter.
     for tc in topic_counts:
@@ -418,20 +471,23 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
         ("collection", collection),
         ("unsolved", 1 if unsolved else None), ("solved", 1 if solved else None),
         ("unknown", 1 if unknown else None),
+        ("visit_later", 1 if visit_later else None),
     ) if v})
 
     return templates.TemplateResponse(request, "index.html", {
         "request": request, "problems": page_problems,
         "solved_ids": solved_ids, "known_ids": known_ids,
+        "visit_later_ids": visit_later_ids,
         "user_name": request.state.user_name,
         "f_difficulty": difficulty or "", "f_topic": topic or "", "f_q": q or "",
         "f_collection": collection or "",
         "f_unsolved": bool(unsolved), "f_solved": bool(solved),
-        "f_unknown": bool(unknown),
+        "f_unknown": bool(unknown), "f_visit_later": bool(visit_later),
         "collection_chips": collection_chips,
         "active_collection": active_collection,
         "difficulty_filters": difficulty_filters,
         "unsolved_href": unsolved_href, "unknown_href": unknown_href,
+        "visit_later_href": visit_later_href,
         "unsolved_counts": unsolved_counts,
         "topic_counts": topic_counts, "topic_top_n": TOPIC_BAR_TOP_N,
         "topic_expanded": topic_expanded,
@@ -472,6 +528,8 @@ def problem_detail(slug: str, request: Request, submission: str | None = None,
         raise HTTPException(status_code=404, detail="Problem not found")
     solved = prob.id in store.user_solved_problem_ids(db, request.state.user_id)
     known = prob.id in store.user_known_problem_ids(db, request.state.user_id)
+    visit_later = prob.id in store.user_visit_later_problem_ids(
+        db, request.state.user_id)
     hidden_count = sum(1 for t in prob.tests if t.hidden)
 
     # Linked from the progress page ("?submission=<id>"): pre-fill the editor with
@@ -488,9 +546,11 @@ def problem_detail(slug: str, request: Request, submission: str | None = None,
 
     return templates.TemplateResponse(request, "problem.html", {
         "request": request, "prob": prob, "solved": solved, "known": known,
+        "visit_later": visit_later,
         "visible_count": len(prob.tests) - hidden_count, "hidden_count": hidden_count,
         "user_name": request.state.user_name,
         "initial_code": initial_code, "loaded_submission": loaded_submission,
+        "provided_types": _provided_types(prob),
     })
 
 
@@ -533,7 +593,7 @@ def progress(request: Request, cal: str | None = None, db: Session = Depends(get
         "topic_cloud": _topic_cloud(solved),
         "unsolved_counts": _unsolved_counts(db, solved_ids | known_ids),
         "week_streak": _weekly_streak(units_by_date, blocks_by_date, tz),
-        "month_cal": _month_calendar(units_by_date, tz, year, month),
+        "month_cal": _month_calendar(blocks_by_date, tz, year, month),
     })
 
 

@@ -1,10 +1,12 @@
-Given the level-order array `root` of a binary tree, return **the diameter** — the
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+Given the `TreeNode` `root` of a binary tree, return **the diameter** — the
 number of **edges** on the longest path between any two nodes (the path need not
 pass through the root).
 
 ## Constraints
 - `0 <= number of nodes <= 10^4`.
-- `-100 <= Node.val <= 100`; `null` marks an absent child.
+- `-100 <= node.valueue <= 100`; `null` marks an absent child.
 
 ## Examples
 Input: `root = [1,2,3,4,5]`

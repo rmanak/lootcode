@@ -1,9 +1,11 @@
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
 A *maximum tree* is built from a list `A` of distinct values: the root is the maximum
 of `A`, its left subtree is the maximum tree of the elements before it, and its right
 subtree the maximum tree of the elements after it. You are given such a tree as a
-LeetCode **level-order array** `root` (it was built from some `A`) and a value `val`
-to append to the end of `A`. Return the level-order array of the maximum tree built
-from `A + [val]`.
+`TreeNode` `root` (it was built from some `A`) and a value `val` to append to the
+end of `A`. Return the root of the maximum tree (a `TreeNode`) built from
+`A + [val]`.
 
 **Examples**
 ```

@@ -186,6 +186,22 @@ class KnownProblem(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
 
 
+class VisitLaterProblem(Base):
+    """A user has flagged a problem to "visit later" — a personal bookmark to come
+    back to. Independent of both `solved` (derived from Submissions) and `known`
+    (KnownProblem): it's a pure explicit record, surfaced via the "Visit later"
+    filter on the problem list and never auto-cleared."""
+    __tablename__ = "visit_later_problems"
+    __table_args__ = (
+        UniqueConstraint("user_id", "problem_id", name="uq_visit_later_user_problem"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
+    problem_id: Mapped[int] = mapped_column(ForeignKey("problems.id"), index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+
+
 class TestResult(Base):
     __tablename__ = "test_results"
 

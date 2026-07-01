@@ -1,5 +1,7 @@
-A binary tree with distinct node values is given as a LeetCode **level-order array**
-(`null`/`None` marks a missing child) and rebuilt inside your function. After deleting
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+A binary tree with distinct node values is given as a `TreeNode`
+(`null`/`None` marks a missing child). After deleting
 every node whose value is in `to_delete`, the tree breaks into a forest. Return the
 roots of the remaining trees, each serialized as a level-order array (`None` for a
 missing child, trailing `None`s trimmed). The trees may be returned in **any order**.

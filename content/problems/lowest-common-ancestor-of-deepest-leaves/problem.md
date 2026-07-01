@@ -1,5 +1,7 @@
-A binary tree is given as a LeetCode **level-order array** (`null`/`None` marks a
-missing child) and is rebuilt inside your function. All node values are distinct.
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+A binary tree is given as a `TreeNode` (`null`/`None` marks a
+missing child). All node values are distinct.
 
 The depth of the root is `0`. The *deepest leaves* are the leaves at the maximum
 depth in the tree. Return the **value** of the lowest common ancestor (the deepest
