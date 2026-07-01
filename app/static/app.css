@@ -301,9 +301,35 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 .provided-type { background: #0f1720; color: #e6edf3; padding: 10px 12px;
   border-radius: 8px; overflow: auto; margin: 0 0 8px; font-size: 12.5px; }
 .provided-type code { background: none; padding: 0; }
-.topics-section { border-top: 1px solid var(--border); margin-top: 18px; padding-top: 14px; }
-.topics-title { font-size: 13px; text-transform: uppercase; letter-spacing: .04em;
-  color: var(--muted); margin: 0 0 8px; }
+/* Collapsible disclosure sections under the statement (Topics + Hints share
+   one system). Each is a native <details>: collapsed by default, chevron on the
+   right, with a smooth pure-CSS height animation. `interpolate-size` lets the
+   height animate to/from `auto`; browsers without ::details-content support just
+   snap open/closed. */
+.disclosure { border-top: 1px solid var(--border); margin-top: 14px; padding-top: 14px;
+  interpolate-size: allow-keywords; }
+.disclosure > summary {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 13px; text-transform: uppercase; letter-spacing: .04em;
+  color: var(--muted); margin: 0; cursor: pointer; list-style: none;
+  user-select: none; }
+/* Hide the default disclosure triangle (we render our own chevron on the right). */
+.disclosure > summary::-webkit-details-marker { display: none; }
+.disclosure > summary:hover { color: var(--ink); }
+.disclosure-label { display: inline-flex; align-items: center; gap: 6px; }
+.disclosure-icon { font-size: 14px; }
+.disclosure-chevron { flex: none; width: 8px; height: 8px; margin-right: 2px;
+  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: rotate(45deg); transition: transform .15s ease; }
+.disclosure[open] > summary .disclosure-chevron { transform: rotate(-135deg); }
+.disclosure > summary:focus-visible { outline: 2px solid var(--primary);
+  outline-offset: 2px; border-radius: 4px; }
+.disclosure::details-content { height: 0; overflow: hidden;
+  transition: height .22s ease, content-visibility .22s allow-discrete; }
+.disclosure[open]::details-content { height: auto; }
+.disclosure-body { margin-top: 10px; }
+/* Hint prose is a normal sentence, not the small-caps used by the summary rows. */
+.hint-body { font-size: 14px; color: var(--ink); line-height: 1.5; }
 
 /* Workbench / editor */
 .workbench label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; }

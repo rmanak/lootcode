@@ -28,9 +28,9 @@ def _now() -> datetime:
     return datetime.now(timezone.utc)
 
 _PROBLEM_FIELDS = (
-    "title", "difficulty", "topics", "statement_md", "function_name", "params",
-    "return_type", "time_limit_ms", "memory_limit_mb", "scoring_type", "points",
-    "compare", "starter_code", "canonical_solution", "source",
+    "title", "difficulty", "topics", "hints", "statement_md", "function_name",
+    "params", "return_type", "time_limit_ms", "memory_limit_mb", "scoring_type",
+    "points", "compare", "starter_code", "canonical_solution", "source",
 )
 
 

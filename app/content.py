@@ -11,8 +11,23 @@ from .config import settings
 from .tags import normalize_tags
 
 
+#: A problem may carry at most this many hints (shown as "Hint 1..N").
+MAX_HINTS = 3
+
+
 def _read(path: Path) -> str | None:
     return path.read_text(encoding="utf-8") if path.exists() else None
+
+
+def normalize_hints(raw) -> list[str]:
+    """Coerce a meta.json `hints` value into a clean list of at most MAX_HINTS
+    non-empty strings. Tolerant of a missing field, `null`, or a lone string."""
+    if not raw:
+        return []
+    if isinstance(raw, str):
+        raw = [raw]
+    hints = [str(h).strip() for h in raw if str(h).strip()]
+    return hints[:MAX_HINTS]
 
 
 def load_problem_dir(dir_path: Path) -> dict:
@@ -34,6 +49,7 @@ def load_problem_dir(dir_path: Path) -> dict:
         "title": meta["title"],
         "difficulty": meta.get("difficulty", "easy"),
         "topics": meta.get("tags", meta.get("topics", [])),
+        "hints": normalize_hints(meta.get("hints")),
         "statement_md": statement,
         "function_name": fn.get("name", ""),
         "params": fn.get("params", []),
@@ -102,11 +118,14 @@ def write_problem_files(data: dict, content_dir: Path | None = None) -> Path:
     (base / "solution").mkdir(parents=True, exist_ok=True)
 
     (base / "problem.md").write_text(data.get("statement_md", ""), encoding="utf-8")
+    hints = normalize_hints(data.get("hints"))
     meta = {
         "slug": data["slug"],
         "title": data["title"],
         "difficulty": data.get("difficulty", "easy"),
         "tags": normalize_tags(data.get("topics", [])),
+        # Omitted entirely when there are none, so hint-less problems stay clean.
+        **({"hints": hints} if hints else {}),
         "languages": ["python"],
         "limits": {
             "timeLimitMs": data.get("time_limit_ms", settings.EXEC_TIME_LIMIT_MS),

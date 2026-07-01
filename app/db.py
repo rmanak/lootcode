@@ -46,6 +46,10 @@ def _migrate() -> None:
             conn.exec_driver_sql(
                 "ALTER TABLE problems ADD COLUMN compare VARCHAR "
                 "NOT NULL DEFAULT 'exact'")
+        if "hints" not in cols:
+            # JSON list of up to 3 hint strings; NULL on existing rows until the
+            # next seed upserts them (the template treats NULL/empty as "no hints").
+            conn.exec_driver_sql("ALTER TABLE problems ADD COLUMN hints JSON")
 
         # V2 optional accounts: add nullable auth columns to an existing users
         # table. SQLite forbids adding a UNIQUE column via ALTER, so the columns
