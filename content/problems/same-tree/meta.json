@@ -18,11 +18,11 @@
     "params": [
       {
         "name": "p",
-        "type": "int[]"
+        "type": "TreeNode"
       },
       {
         "name": "q",
-        "type": "int[]"
+        "type": "TreeNode"
       }
     ],
     "returns": {

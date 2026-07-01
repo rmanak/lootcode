@@ -1,10 +1,12 @@
-Given the level-order array `root` of a binary search tree and two values `p` and
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+Given the `TreeNode` `root` of a binary search tree and two values `p` and
 `q` present in it, return **the value of their lowest common ancestor** — the
 deepest node having both as descendants (a node may be a descendant of itself).
 
 ## Constraints
 - `2 <= number of nodes <= 10^5`
-- `-10^9 <= Node.val <= 10^9`; all values unique
+- `-10^9 <= node.valueue <= 10^9`; all values unique
 - `p != q`; both `p` and `q` exist in the tree
 
 ## Examples

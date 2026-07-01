@@ -17,6 +17,7 @@
     {% if f_collection %}<input type="hidden" name="collection" value="{{ f_collection }}">{% endif %}
     {% if f_unsolved %}<input type="hidden" name="unsolved" value="1">{% endif %}
     {% if f_unknown %}<input type="hidden" name="unknown" value="1">{% endif %}
+    {% if f_visit_later %}<input type="hidden" name="visit_later" value="1">{% endif %}
     {% if f_solved %}<input type="hidden" name="solved" value="1">{% endif %}
     <input type="search" name="q" placeholder="Search title…" value="{{ f_q }}">
   </form>
@@ -36,6 +37,8 @@
     <span class="sc-check">✓</span> Unsolved only</a>
   <a class="status-chip unknown {{ 'active' if f_unknown }}" href="{{ unknown_href }}">
     <span class="sc-check">✓</span> Unknown only</a>
+  <a class="status-chip later {{ 'active' if f_visit_later }}" href="{{ visit_later_href }}">
+    <span class="sc-check">✓</span> Visit later</a>
 </div>
 
 {% if collection_chips %}
@@ -92,7 +95,8 @@
         {%- if p.id in solved_ids %}<span title="Solved">✅</span>
         {%- elif p.id in known_ids %}<img class="known-check" src="{{ static('blue_check_mark.svg') }}" alt="Known" title="Known">
         {%- endif %}</td>
-      <td><a class="plink" href="/problems/{{ p.slug }}">{{ p.title }}</a></td>
+      <td><a class="plink" href="/problems/{{ p.slug }}">{{ p.title }}</a>
+        {%- if p.id in visit_later_ids %} <span class="later-flag" title="Saved to visit later">🔖</span>{% endif %}</td>
       <td><span class="badge {{ p.difficulty }}">{{ p.difficulty }}</span></td>
       <td>{% for t in p.topics %}<a class="topic" href="/?topic={{ t | urlencode }}">{{ t }}</a>{% endfor %}</td>
     </tr>

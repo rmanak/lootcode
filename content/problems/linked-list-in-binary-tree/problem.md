@@ -1,3 +1,5 @@
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
 A linked list is given as an array of values `head`, and a binary tree as a LeetCode
 **level-order array** `root` (`null`/`None` for a missing child). Return `True` if the
 values of `head` (starting from its first element) match the values along some

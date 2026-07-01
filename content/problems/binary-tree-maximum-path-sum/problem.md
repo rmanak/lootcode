@@ -1,10 +1,12 @@
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
 A path is a sequence of nodes connected by edges, each used at most once; it need
-not pass through the root. Given the level-order array `root` of a binary tree,
+not pass through the root. Given the `TreeNode` `root` of a binary tree,
 return **the maximum path sum over all non-empty paths**.
 
 ## Constraints
 - `1 <= number of nodes <= 3 * 10^4`
-- `-1000 <= Node.val <= 1000`
+- `-1000 <= node.valueue <= 1000`
 
 ## Examples
 Input: `root = [1,2,3]`

@@ -10,7 +10,7 @@ dev:            ## run the dev server with autoreload (localhost)
 	.venv/bin/uvicorn app.main:app --reload
 
 run:            ## run the server bound to the LAN (HOST=0.0.0.0)
-	.venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000
+	.venv/bin/uvicorn app.main:app --host 10.8.0.1 --port 8000
 
 test:           ## run the test suite
 	.venv/bin/python -m pytest -q

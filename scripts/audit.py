@@ -20,6 +20,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from app.db import SessionLocal, init_db  # noqa: E402
 from app.executor import _equal, run_submission  # noqa: E402
+from app.executor.harness import _CODECS  # noqa: E402 - reuse the in-sandbox codec
 from app.models import Problem  # noqa: E402
 from app.store import seed_collections, seed_from_content  # noqa: E402
 
@@ -34,6 +35,18 @@ def _permute(out, mode):
     if mode == "set_of_lists" and isinstance(out, list):
         return [list(reversed(e)) if isinstance(e, list) else e for e in reversed(out)]
     return out
+
+
+def _codecs_for(p):
+    """Decoder map + return encoder for a problem's declared custom types, reusing
+    the in-sandbox harness codec so this in-process path matches the real run."""
+    decoders = {}
+    for spec in p.params:
+        codec = _CODECS.get(spec.get("type") or "")
+        if codec:
+            decoders[spec["name"]] = codec[1]
+    ret = _CODECS.get(p.return_type or "")
+    return decoders, (ret[2] if ret else None)
 
 
 def audit_problem(p: Problem) -> list[str]:
@@ -59,11 +72,22 @@ def audit_problem(p: Problem) -> list[str]:
     # 3) fairness: re-ordered valid answers must still pass for relaxed modes
     fair = "n/a"
     if mode in ("unordered", "set_of_lists") and p.canonical_solution and canon_ok:
-        ns: dict = {}
+        ns: dict = {codec[0].__name__: codec[0] for codec in _CODECS.values()}
         try:
             exec(p.canonical_solution, ns)
             fn = ns[p.function_name]
-            ok = all(_equal(_permute(fn(**t.input), mode), t.expected, mode) for t in p.tests)
+            decoders, encoder = _codecs_for(p)
+            ok = True
+            for t in p.tests:
+                args = dict(t.input)
+                for name, dec in decoders.items():
+                    args[name] = dec(args[name])
+                out = fn(**args)
+                if encoder is not None:
+                    out = encoder(out)
+                if not _equal(_permute(out, mode), t.expected, mode):
+                    ok = False
+                    break
             fair = "honored" if ok else "BROKEN"
             if not ok:
                 issues.append("compare mode does not actually accept re-ordered answers")

@@ -110,6 +110,23 @@ known without ever being solved.
 > and the random "next" picks hide solved problems too, but solving never writes
 > a KnownProblem row. Marking known is reversible (the row is deleted on unmark).
 
+### VisitLaterProblem (implemented)
+A user's "bookmark to come back to this" mark — the opposite intent of
+KnownProblem. Independent of both `solved` and `known`, and never auto-cleared:
+it's a pure explicit record, surfaced by the "Visit later" filter on the problem
+list (an independent axis that combines with every other filter).
+
+| field | type | notes |
+|-------|------|-------|
+| id | int (pk) | |
+| userId | fk User | |
+| problemId | fk Problem | unique together with userId |
+| createdAt | timestamp | |
+
+> Unlike "known", flagging "visit later" does **not** hide the problem from the
+> random "next" picks — it's a reminder, not a dismissal. Reversible (the row is
+> deleted on unflag).
+
 ### Progress (derived, optional)
 Per `(userId, problemId)`: best status (`solved`/`attempted`), best score,
 firstSolvedAt. Can be a materialized view over Submission.

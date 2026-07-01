@@ -17,13 +17,26 @@
       <button type="button" class="known-badge" id="known-badge"
               title="Marked as known — click to unmark" {{ '' if known else 'hidden' }}>
         <img src="{{ static('blue_check_mark.svg') }}" alt="" class="kb-icon">Known</button>
+      <button type="button" class="later-badge" id="later-badge"
+              title="Saved to visit later — click to remove" {{ '' if visit_later else 'hidden' }}>
+        🔖 Visit later</button>
     </h1>
-    {# Mark-as-known control: marking hides this problem from random/"next" picks
-       and the "unknown only" filter, then offers a jump to the next one. #}
-    <div class="known-control {{ 'is-known' if known }}" id="known-control">
-      <button type="button" class="known-btn"
-              title="You already know this one — hide it from your random picks">Mark as known</button>
-      <a class="next-known-btn" href="/random/{{ prob.difficulty }}">Next {{ prob.difficulty }} problem →</a>
+    {# Per-problem actions. "Mark as known" hides the problem from random/"next"
+       picks and the "unknown only" filter, then offers a jump to the next one.
+       "Visit later" is an independent bookmark that just toggles on/off. #}
+    <div class="solve-actions">
+      <div class="known-control {{ 'is-known' if known }}" id="known-control">
+        <button type="button" class="known-btn"
+                title="You already know this one — hide it from your random picks">Mark as known</button>
+        <a class="next-known-btn" href="/random/{{ prob.difficulty }}">Next {{ prob.difficulty }} problem →</a>
+      </div>
+      <div class="later-control {{ 'is-later' if visit_later }}" id="later-control">
+        <button type="button" class="later-btn"
+                title="Bookmark this one to come back to later">
+          <span class="lb-mark">🔖 Visit later</span>
+          <span class="lb-saved">✓ Saved for later</span>
+        </button>
+      </div>
     </div>
     <div class="md">{{ prob.statement_md | markdown | safe }}</div>
     <p class="limits">
@@ -31,6 +44,12 @@
       · time limit {{ prob.time_limit_ms }} ms
       · {{ visible_count }} visible / {{ hidden_count }} hidden tests · Python 3
     </p>
+    {% if provided_types %}
+    <div class="provided-types">
+      <p class="provided-types-label">Provided to your solution (already in scope — don't redefine):</p>
+      {% for name, defn in provided_types.items() %}<pre class="provided-type"><code>{{ defn }}</code></pre>{% endfor %}
+    </div>
+    {% endif %}
     {% if prob.topics %}
     <div class="topics-section">
       <h2 class="topics-title">Topics</h2>

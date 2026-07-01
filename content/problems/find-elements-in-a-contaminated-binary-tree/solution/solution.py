@@ -1,20 +1,20 @@
 def findElements(root, queries):
     from collections import deque
+
     present = set()
-    if root and root[0] is not None:
-        assigned = {0: 0}
+    if root is not None:
+        root.value = 0
         present.add(0)
-        q = deque([0]); nid, i, n = 1, 1, len(root)
-        while q and i < n:
-            cur = q.popleft()
-            if i < n:
-                v = root[i]; i += 1
-                if v is not None:
-                    cv = 2 * assigned[cur] + 1
-                    assigned[nid] = cv; present.add(cv); q.append(nid); nid += 1
-            if i < n:
-                v = root[i]; i += 1
-                if v is not None:
-                    cv = 2 * assigned[cur] + 2
-                    assigned[nid] = cv; present.add(cv); q.append(nid); nid += 1
+        q = deque([root])
+        while q:
+            node = q.popleft()
+            x = node.value
+            if node.left:
+                node.left.value = 2 * x + 1
+                present.add(node.left.value)
+                q.append(node.left)
+            if node.right:
+                node.right.value = 2 * x + 2
+                present.add(node.right.value)
+                q.append(node.right)
     return [qv in present for qv in queries]

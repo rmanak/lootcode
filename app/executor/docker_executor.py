@@ -22,8 +22,8 @@ from .base import Limits, Outcome, TestSpec
 HARNESS = os.path.join(os.path.dirname(__file__), "harness.py")
 
 
-def run(code: str, function_name: str, params: list[str],
-        tests: list[TestSpec], limits: Limits) -> dict[str, Outcome]:
+def run(code: str, function_name: str, params: list,
+        return_type: str, tests: list[TestSpec], limits: Limits) -> dict[str, Outcome]:
     workdir = tempfile.mkdtemp(prefix="lc_docker_")
     per_test_s = limits.time_limit_ms / 1000.0
     try:
@@ -32,6 +32,7 @@ def run(code: str, function_name: str, params: list[str],
             f.write(code)
         payload = {
             "function_name": function_name, "params": params,
+            "return_type": return_type,
             "import_budget_s": limits.import_budget_s,
             "max_output_bytes": limits.max_output_kb * 1024,
             "tests": [{"name": t.name, "input": t.input, "time_limit_s": per_test_s}

@@ -21,6 +21,7 @@
           code: val("canonical_solution"),
           function_name: val("function_name"),
           params: val("params"),
+          return_type: val("return_type"),
           tests_json: val("tests_json"),
           compare: val("compare"),
         }),

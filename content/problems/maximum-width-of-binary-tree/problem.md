@@ -1,5 +1,7 @@
-A binary tree is given as a LeetCode **level-order array** (`null`/`None` marks a
-missing child) and rebuilt inside your function. The width of a level is the distance
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+A binary tree is given as a `TreeNode` (`null`/`None` marks a
+missing child). The width of a level is the distance
 between its leftmost and rightmost non-null nodes, counting the (possibly null)
 positions a full binary tree would place between them. Return the maximum width over
 all levels.

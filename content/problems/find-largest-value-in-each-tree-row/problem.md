@@ -1,5 +1,7 @@
-A binary tree is given as a LeetCode **level-order array** (`null`/`None` marks a
-missing child) and is rebuilt inside your function. Return a list whose `i`-th entry
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+A binary tree is given as a `TreeNode` (`null`/`None` marks a
+missing child). Return a list whose `i`-th entry
 is the largest value found in the `i`-th row (level) of the tree, top to bottom. An
 empty tree returns an empty list.
 

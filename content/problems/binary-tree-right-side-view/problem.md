@@ -1,3 +1,5 @@
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
 Given a binary tree as a level-order array (`null` marks a missing child), imagine
 standing on the right side. Return the values of the nodes visible from top to
 bottom — the **rightmost node at each depth**.

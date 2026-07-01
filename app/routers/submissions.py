@@ -22,6 +22,10 @@ class KnownBody(BaseModel):
     known: bool
 
 
+class VisitLaterBody(BaseModel):
+    visit_later: bool
+
+
 @router.post("/problems/{slug}/run")
 def run(slug: str, body: RunBody, request: Request, db: Session = Depends(get_db)):
     prob = db.scalar(select(Problem).where(Problem.slug == slug))
@@ -81,3 +85,16 @@ def set_known(slug: str, body: KnownBody, request: Request,
         raise HTTPException(status_code=404, detail="Problem not found")
     known = store.set_problem_known(db, request.state.user_id, prob.id, body.known)
     return {"known": known}
+
+
+@router.post("/problems/{slug}/visit-later")
+def set_visit_later(slug: str, body: VisitLaterBody, request: Request,
+                    db: Session = Depends(get_db)):
+    """Flag/unflag this problem as "visit later" for the current user — a personal
+    bookmark surfaced by the "Visit later" filter on the problem list."""
+    prob = db.scalar(select(Problem).where(Problem.slug == slug))
+    if prob is None:
+        raise HTTPException(status_code=404, detail="Problem not found")
+    visit_later = store.set_problem_visit_later(
+        db, request.state.user_id, prob.id, body.visit_later)
+    return {"visit_later": visit_later}

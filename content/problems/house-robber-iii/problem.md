@@ -1,5 +1,7 @@
-Houses form a binary tree, given as a LeetCode **level-order array** (`null`/`None`
-marks a missing child) and rebuilt inside your function. The alarm triggers if two
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+
+Houses form a binary tree, given as a `TreeNode` (`null`/`None`
+marks a missing child). The alarm triggers if two
 **directly-linked** houses (a parent and its child) are both robbed. Return the
 maximum total amount that can be robbed without alerting the police.
 

@@ -19,11 +19,11 @@
     "params": [
       {
         "name": "root",
-        "type": "int[]"
+        "type": "TreeNode"
       },
       {
         "name": "subRoot",
-        "type": "int[]"
+        "type": "TreeNode"
       }
     ],
     "returns": {
