@@ -62,6 +62,9 @@ class Problem(Base):
     title: Mapped[str] = mapped_column(String)
     difficulty: Mapped[str] = mapped_column(String, index=True)  # easy|medium|hard
     topics: Mapped[list] = mapped_column(JSON, default=list)
+    # Up to 3 optional solving hints, shown as collapsible "Hint N" panels under
+    # the statement. Empty list == no hints (the section is omitted entirely).
+    hints: Mapped[list] = mapped_column(JSON, default=list)
     statement_md: Mapped[str] = mapped_column(Text)
 
     # Function the harness calls (see specs/problem-schema.md)

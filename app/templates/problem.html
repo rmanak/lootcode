@@ -51,13 +51,25 @@
     </div>
     {% endif %}
     {% if prob.topics %}
-    <div class="topics-section">
-      <h2 class="topics-title">Topics</h2>
-      <div class="topics">
+    <details class="disclosure topics-section">
+      <summary>
+        <span class="disclosure-label"><span class="disclosure-icon" aria-hidden="true">🏷️</span> Topics</span>
+        <span class="disclosure-chevron" aria-hidden="true"></span>
+      </summary>
+      <div class="disclosure-body topics">
         {% for t in prob.topics %}<a class="topic" href="/?topic={{ t | urlencode }}">{{ t }}</a>{% endfor %}
       </div>
-    </div>
+    </details>
     {% endif %}
+    {% for hint in (prob.hints or [])[:3] %}
+    <details class="disclosure hint-section">
+      <summary>
+        <span class="disclosure-label"><span class="disclosure-icon" aria-hidden="true">💡</span> Hint {{ loop.index }}</span>
+        <span class="disclosure-chevron" aria-hidden="true"></span>
+      </summary>
+      <div class="disclosure-body hint-body">{{ hint }}</div>
+    </details>
+    {% endfor %}
   </section>
 
   <div class="col-gutter" title="Drag to resize panels"></div>

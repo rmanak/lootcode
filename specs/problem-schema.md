@@ -51,6 +51,9 @@ between the JSON wire form and a real object for you.
   "title": "Two Sum",
   "difficulty": "easy",               // easy | medium | hard
   "tags": ["array", "hash-table"],    // topics, used for filtering
+  "hints": [                          // OPTIONAL: 0–3 progressive hints (see below)
+    "Can you use the fact that lookups in a set are O(1)?"
+  ],
   "languages": ["python"],
   "limits": { "timeLimitMs": 10000, "memoryLimitMb": 512 },
   "function": {
@@ -92,6 +95,25 @@ trusted parent, so `compare` stays `exact` and `tests/cases.json` needs no
 special format. The codec lives in `app/executor/harness.py` (`_CODECS`); adding
 another rich type (e.g. `ListNode`) means adding an entry there. Reference
 problems: `invert-binary-tree`, `maximum-depth-of-binary-tree`, `same-tree`.
+
+### `hints` (optional)
+
+A problem may carry **up to 3** hints — short, progressive nudges shown on the
+problem page as collapsible "Hint 1 … Hint N" panels **below the Topics section**,
+each **collapsed by default** (a solver opts in by expanding one). Order them
+**most general first, most revealing last** so a stuck solver can peek at just one.
+
+- Shape: a JSON array of plain-text strings, e.g.
+  `"hints": ["Think about a hash map.", "What is the complement of each value?"]`.
+- **Optional and back-compatible:** omit the key (or use `[]`) for no hints — the
+  section simply doesn't render. Everything works with or without it.
+- The loader trims blank entries and **caps the list at 3** (`normalize_hints` in
+  `app/content.py`, `MAX_HINTS`); extras are dropped, so authoring 4+ is a no-op.
+- Rendered as plain text (no Markdown), so avoid relying on `*`/`_`/backtick
+  formatting; write hints as ordinary prose. Only render N panels for N hints
+  (1 hint → just "Hint 1").
+- Admin UI: the add/edit forms expose a "Hints (one per line, max 3)" textarea;
+  hints round-trip through `meta.json` (written back only when non-empty).
 
 ### `compare` — how the judge matches the returned value to `expected`
 
