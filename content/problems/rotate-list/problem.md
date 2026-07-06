@@ -1,6 +1,7 @@
-> **Format:** the linked list is given, and returned, as an **array of its node values** (`[]` = empty list).
+Given the `head` of a **singly linked list**, rotate the list to the right by `k`
+places and return the head of the rotated list.
 
-Given the `head` of a linked list, rotate the list to the right by `k` places.
+> **Format:** each node is a `ListNode` with a `.val` and a `.next` pointer (the class is provided — do not redefine it). Lists are shown below as the array of their node values (`[]` = empty list).
 
 **Example 1:**
 

@@ -46,6 +46,12 @@ def parse_type(t: str) -> tuple[str, int]:
 
 _SCALAR_ALIASES = {"num": "int", "integer": "int", "str": "string", "boolean": "bool"}
 
+# Rich types whose declared form is dims-0 but whose on-the-wire (and on-disk)
+# encoding is an *array*: TreeNode is a level-order array; the linked-list nodes
+# are a flat value array. Generators treat these as arrays, not scalars.
+_LINKED_LIST_BASES = ("ListNode", "DoublyLinkedList")
+_RICH_ARRAY_BASES = ("TreeNode",) + _LINKED_LIST_BASES
+
 
 def _base(t: str) -> str:
     return _SCALAR_ALIASES.get(t, t)
@@ -81,6 +87,9 @@ def _rand_value(rng: random.Random, base: str, dims: int,
                 lo: Optional[int], hi: Optional[int], size: int) -> Any:
     if base == "TreeNode":
         return _rand_tree(rng, size, lo, hi)
+    if base in _LINKED_LIST_BASES:
+        # Flat value array (the linked-list wire form): a list of node values.
+        return [_rand_scalar(rng, "int", lo, hi) for _ in range(rng.randint(0, size))]
     if dims == 0:
         return _rand_scalar(rng, base, lo, hi)
     n = rng.randint(0, size)
@@ -136,6 +145,9 @@ def _array_edges(base: str, dims: int, lo: Optional[int], hi: Optional[int]) -> 
     if base == "TreeNode":
         return [[], [1], [1, 2, 3], [1, 2, 3, 4, 5, 6, 7],
                 [1, 2, None, 3, None, 4], [1, None, 2, None, 3]]  # empty/single/full/left/right
+    if base in _LINKED_LIST_BASES:
+        return [[], [1], [1, 2], [2, 1], [1, 1, 1], [1, 2, 3, 4, 5],
+                [5, 4, 3, 2, 1], [1, 1, 2, 2]]  # empty/single/pair/dup/sorted/reversed
     inner = (_array_edges(base, dims - 1, lo, hi) if dims > 1
              else _scalar_edges(base, lo, hi))
     # a representative single element for building shapes
@@ -156,7 +168,7 @@ def _array_edges(base: str, dims: int, lo: Optional[int], hi: Optional[int]) -> 
 
 def edge_values(param_type: str, lo: Optional[int], hi: Optional[int]) -> list[Any]:
     base, dims = parse_type(param_type)
-    if base == "TreeNode":
+    if base in _RICH_ARRAY_BASES:
         return _array_edges(base, 1, lo, hi)
     if dims == 0:
         return _scalar_edges(base, lo, hi)
@@ -197,7 +209,7 @@ def _mutate_json(rng: random.Random, val: Any) -> Any:
 # --------------------------------------------------------------------------- #
 def _stress_value(rng: random.Random, base: str, dims: int,
                   lo: Optional[int], hi: Optional[int], n: int) -> Any:
-    if base == "TreeNode":
+    if base in _RICH_ARRAY_BASES:
         return [rng.randint(1, 100) for _ in range(n)]
     if dims == 0:
         # a scalar "n" param: push it large (bounded by hi if known)
@@ -621,7 +633,7 @@ def generate_candidates(params: list[dict], seeds: list[dict],
     def eb(p: dict) -> tuple[Optional[int], Optional[int]]:
         base, dims = parse_type(p["type"])
         name = p["name"]
-        if dims == 0 and base != "TreeNode":
+        if dims == 0 and base not in _RICH_ARRAY_BASES:
             lo, hi = C.scalar_bounds(bounds, name)
         else:
             lo, hi = C.elem_bounds(bounds, name)

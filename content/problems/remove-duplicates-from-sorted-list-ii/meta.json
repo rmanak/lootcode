@@ -23,11 +23,11 @@
     "params": [
       {
         "name": "head",
-        "type": "int[]"
+        "type": "ListNode"
       }
     ],
     "returns": {
-      "type": "int[]"
+      "type": "ListNode"
     }
   },
   "scoring": {

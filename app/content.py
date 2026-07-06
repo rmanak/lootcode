@@ -86,6 +86,19 @@ def load_all(content_dir: Path | None = None) -> list[dict]:
     return problems
 
 
+def load_all_roots(content_dirs: list[Path] | None = None) -> list[dict]:
+    """Load problems across every configured content root, in order: the committed
+    default set (content/problems/) then the optional, gitignored extended set
+    (content/problems-extended/). Missing roots are skipped. This mirrors how
+    seeding discovers problems (see `settings.content_dirs`), so bank-wide tooling
+    covers the extended set too. Pass an explicit list to override the roots."""
+    roots = content_dirs if content_dirs is not None else settings.content_dirs
+    problems: list[dict] = []
+    for base in roots:
+        problems.extend(load_all(base))
+    return problems
+
+
 def load_collections(collections_dir: Path | None = None) -> list[dict]:
     """Parse `content/collections/*.json` into collection dicts.
 

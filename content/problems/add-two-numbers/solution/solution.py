@@ -1,12 +1,15 @@
 def addTwoNumbers(l1, l2):
-    res, carry, i = [], 0, 0
-    while i < len(l1) or i < len(l2) or carry:
-        d = carry
-        if i < len(l1):
-            d += l1[i]
-        if i < len(l2):
-            d += l2[i]
-        res.append(d % 10)
-        carry = d // 10
-        i += 1
-    return res
+    dummy = tail = ListNode(0)
+    carry = 0
+    while l1 is not None or l2 is not None or carry:
+        total = carry
+        if l1 is not None:
+            total += l1.val
+            l1 = l1.next
+        if l2 is not None:
+            total += l2.val
+            l2 = l2.next
+        carry, digit = divmod(total, 10)
+        tail.next = ListNode(digit)
+        tail = tail.next
+    return dummy.next

@@ -30,6 +30,40 @@ collection reference to them — simply **drop**, with no error. This is by desi
   non-fatal (exit 0). A genuine typo in a manifest shows up in that same list, so
   glance at it when editing collections.
 
+## Bank-wide tooling covers both roots
+
+Anything that operates on "the whole bank" discovers problems the same way seeding
+does — across **every** root in `settings.content_dirs` (default + extended),
+skipping a root that isn't present:
+
+- `scripts/seed.py` / `store.seed_from_content` — loop over `settings.content_dirs`.
+- `scripts/audit.py` — statement ↔ test ↔ judge consistency, both roots.
+- `scripts/verify_bank.py` — runs every canonical against its own tests across both
+  roots by default; pass `--content-dir <dir>` to scope to a single root.
+- `scripts/check_constraint_validators.py` — audits each `validate_input()` against
+  its stored cases across both roots (each problem's validator/meta/cases resolve
+  from its own root).
+
+The shared helper is `content.load_all_roots()` (loads `settings.content_dirs` in
+order, skipping missing roots); `content.load_all(<dir>)` still loads a single root
+when you want to scope to one. So an extended-only problem is verified/audited
+locally exactly like a committed one, and a fresh clone with no extended root just
+sees the default set.
+
+> Not (yet) extended-aware: the offline test-generation scripts
+> (`strengthen_tests.py`, `collect_candidates.py`, `export_strengthened.py`) still
+> call `content.load_all()` (default root only). Swap to `load_all_roots()` if you
+> want them to cover the extended set too.
+
+> **Doing a bulk edit across "all problems" by hand?** The same caution applies to
+> *ad-hoc* sweeps, not just the scripts above. Because `content/problems-extended/`
+> is **gitignored**, it is invisible to `git grep`, `git ls-files`, and any shell
+> glob scoped to `content/problems/` — so a find-by-tag/find-by-type step that only
+> looks at the default dir will silently skip the extended set. Enumerate over
+> `settings.content_dirs` (or glob **both** `content/problems*/`), never a hardcoded
+> `content/problems/`. (This is exactly how the ListNode/TreeNode migration first
+> missed the extended linked-list problems.)
+
 ## Moving a problem into (or out of) the extended set
 
 1. Move the directory: `mv content/problems/<slug> content/problems-extended/<slug>`

@@ -22,7 +22,7 @@
     "params": [
       {
         "name": "head",
-        "type": "int[]"
+        "type": "ListNode"
       },
       {
         "name": "m",
@@ -34,7 +34,7 @@
       }
     ],
     "returns": {
-      "type": "int[]"
+      "type": "ListNode"
     }
   },
   "scoring": {

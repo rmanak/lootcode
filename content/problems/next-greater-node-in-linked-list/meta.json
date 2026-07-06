@@ -24,7 +24,7 @@
     "params": [
       {
         "name": "head",
-        "type": "int[]"
+        "type": "ListNode"
       }
     ],
     "returns": {

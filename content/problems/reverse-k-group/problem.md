@@ -1,10 +1,12 @@
-Given a linked list as an array `head`, reverse its nodes `k` at a time and return
-the resulting list. Nodes left over (fewer than `k`) at the end keep their original
-order.
+Given the `head` of a **singly linked list**, reverse the nodes of the list `k` at a
+time and return the head of the modified list. Nodes left over (fewer than `k`) at
+the end keep their original order.
+
+> **Format:** each node is a `ListNode` with a `.val` and a `.next` pointer (the class is provided — do not redefine it). Lists are shown below as the array of their node values (`[]` = empty list).
 
 ## Constraints
-- `0 <= len(head) <= 5000`
-- `1 <= k <= len(head)` (or `k` may exceed a short list, leaving it unchanged)
+- `0 <= number of nodes <= 5000`
+- `1 <= k <= number of nodes` (or `k` may exceed a short list, leaving it unchanged)
 
 ## Examples
 Input: `head = [1,2,3,4,5], k = 2`

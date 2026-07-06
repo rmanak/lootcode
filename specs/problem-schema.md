@@ -76,27 +76,32 @@ between the JSON wire form and a real object for you.
 exception**: a small set of *rich types* (see below) are load-bearing and tell
 the harness to build/serialize a real object at the sandbox boundary.
 
-### Rich types (`TreeNode`)
+### Rich types (`TreeNode`, `ListNode`, `DoublyLinkedList`)
 
-A parameter or return may be declared with type `"TreeNode"`. The **on-disk test
-format stays a plain JSON value** — a binary tree is written as a LeetCode-style
-**level-order array** with `null` holes, e.g. `[3, 9, 20, null, null, 15, 7]`
-(`[]` is the empty tree). The harness then:
+A parameter or return may be declared with a rich type. The **on-disk test format
+stays a plain JSON value**; the harness decodes it into a real object before
+calling the solver, and encodes a returned object back into that JSON form before
+grading. Comparison still happens on the JSON form in the trusted parent, so
+`compare` stays `exact` and `tests/cases.json` needs no special format. The class
+is **injected automatically** into the solution's namespace — do not define it
+yourself — and the "JSON-serializable return" rule is waived for a rich-type
+return. The codecs live in `app/executor/harness.py` (`_CODECS`); adding another
+rich type means adding an entry there.
 
-- **decodes** a `TreeNode`-typed argument from that array into a real object
-  before calling the solver, and
-- **encodes** a returned `TreeNode` back into a level-order array (trailing
-  `null`s trimmed) before grading.
+| Type | Injected class | Wire form (on disk & compared) | Reference problems |
+|------|----------------|-------------------------------|--------------------|
+| `TreeNode` | `TreeNode(value=None, left=None, right=None)` | LeetCode **level-order array** with `null` holes, e.g. `[3,9,20,null,null,15,7]` (`[]` = empty tree; trailing `null`s trimmed on return) | `invert-binary-tree`, `maximum-depth-of-binary-tree`, `same-tree` |
+| `ListNode` | `ListNode(val=0, next=None)` | flat array of the node values in order, e.g. `[1,2,3]` (`[]` = empty list) | `reverse-linked-list`, `merge-two-sorted-lists`, `add-two-numbers`, `reverse-nodes-in-k-group` |
+| `DoublyLinkedList` | `Node(val=0, prev=None, next=None)` | flat array of the node values in order (the harness wires both `.prev` and `.next` on decode) | *(infra ready; no bank problem uses it yet)* |
 
-So the solver works with a real `TreeNode` (`value`, `left`, `right`;
-constructor `TreeNode(value=None, left=None, right=None)`) and may *return* one —
-the "JSON-serializable return" rule is waived for a `TreeNode` return. The
-`TreeNode` class is **injected automatically** into the solution's namespace; do
-not define it yourself. Comparison still happens on the level-order array in the
-trusted parent, so `compare` stays `exact` and `tests/cases.json` needs no
-special format. The codec lives in `app/executor/harness.py` (`_CODECS`); adding
-another rich type (e.g. `ListNode`) means adding an entry there. Reference
-problems: `invert-binary-tree`, `maximum-depth-of-binary-tree`, `same-tree`.
+**Limitations (same for every rich type today):** the codec matches the **whole**
+declared type, so only a *top-level* rich type is decoded — a nested one like
+`ListNode[]` (e.g. `merge-k-sorted-lists`, `split-linked-list-in-parts`) is not,
+and stays in array form. Decoding is also strictly **per-parameter**: a problem
+that reconstructs structure by combining params (e.g. `linked-list-cycle`, which
+builds a cycle from `head` + `pos`) can't use a rich type and stays in array form.
+A single problem *may* mix rich types across params (e.g. `linked-list-in-binary-tree`
+takes `head: ListNode` **and** `root: TreeNode`).
 
 ### `hints` (optional)
 

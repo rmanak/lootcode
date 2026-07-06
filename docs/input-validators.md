@@ -53,16 +53,22 @@ in-bounds.
 - **`bool` is not `int`:** validators explicitly reject `True`/`False` where an
   integer is required (Python's `bool` is a subclass of `int`).
 
-### Rich types (`TreeNode`, etc.)
+### Rich types (`TreeNode`, `ListNode`, `DoublyLinkedList`)
 
-Parameters whose declared type is a rich type (e.g. `TreeNode`) are stored in
-`tests/cases.json` as their **serialized** form — a `TreeNode` is a LeetCode-style
-level-order list with `null` for absent children. A validator may reasonably
-check *either* the raw list or a decoded node object. The audit tooling
-(`verify_against_cases` in `generate_constraint_validators.py`) therefore scores a
-validator under **both** encodings and accepts it if it passes under either, so
-you don't need to know which convention a given validator chose. See
-`app/executor/harness.py` `_CODECS` for the canonical decoding.
+Parameters whose declared type is a rich type are stored in `tests/cases.json` as
+their **serialized** form: a `TreeNode` is a LeetCode-style level-order list with
+`null` for absent children; a `ListNode`/`DoublyLinkedList` is a **flat list of the
+node values** in order. A validator validates that stored form.
+
+- For linked-list types the stored form is a plain value list, so the natural
+  validator (list type, length bound, per-value bounds — exactly like an `int[]`)
+  works as-is; no decoding needed.
+- For `TreeNode` a validator may reasonably check *either* the raw list or a
+  decoded node object, so the audit tooling (`verify_against_cases` in
+  `generate_constraint_validators.py`) scores it under **both** encodings and
+  accepts it if it passes under either.
+
+See `app/executor/harness.py` `_CODECS` for the canonical decoding.
 
 ## Checking a problem (or the whole bank)
 

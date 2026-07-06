@@ -1,8 +1,10 @@
-> **Format:** the linked list is given, and returned, as an **array of its node values** (`[]` = empty list).
+Given the `head` of a **singly linked list** and a value `x`, partition it so that
+all nodes **less than** `x` come before nodes **greater than or equal to** `x`.
 
-Given the `head` of a linked list and a value `x`, partition it such that all nodes **less than** `x` come before nodes **greater than or equal** to `x`.
+You should **preserve** the original relative order of the nodes in each of the two
+partitions. Return the head of the partitioned list.
 
-You should **preserve** the original relative order of the nodes in each of the two partitions.
+> **Format:** each node is a `ListNode` with a `.val` and a `.next` pointer (the class is provided — do not redefine it). Lists are shown below as the array of their node values (`[]` = empty list).
 
 **Example 1:**
 

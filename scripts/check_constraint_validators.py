@@ -1,7 +1,8 @@
 """Audit each problem's input-constraint validator against its own legal inputs.
 
-Every problem under ``content/problems/`` carries an input validator at
-``content/problems/<slug>/input_validator/input_validator.py`` exposing a
+Every problem under the configured content roots — ``content/problems/`` plus the
+optional, gitignored ``content/problems-extended/`` when present — carries an input
+validator at ``<root>/<slug>/input_validator/input_validator.py`` exposing a
 ``validate_input(...)`` predicate (see ``docs/input-validators.md``). This loads
 each validator and runs it over that problem's own test-case inputs
 (``tests/cases.json``). Every real test input is, by definition, a legal input,
@@ -60,10 +61,16 @@ def _validator_file(slug: str, flat_dir: pathlib.Path | None,
     return flat_dir / f"{slug}_input_test.py"
 
 
-def _iter_problem_dirs(content_dir: pathlib.Path):
-    for child in sorted(content_dir.iterdir()):
-        if child.is_dir() and (child / "meta.json").exists():
-            yield child
+def _iter_problem_dirs(content_dirs):
+    """Yield each problem dir (one that has a meta.json) across the given content
+    roots, in root order then sorted slug. Missing roots are skipped, so the
+    optional content/problems-extended/ is covered only when present."""
+    for root in content_dirs:
+        if not root.exists():
+            continue
+        for child in sorted(root.iterdir()):
+            if child.is_dir() and (child / "meta.json").exists():
+                yield child
 
 
 def main() -> int:
@@ -88,17 +95,20 @@ def main() -> int:
             print(f"ERROR: not a directory: {flat_dir}")
             return 2
 
-    content_dir = settings.CONTENT_DIR
+    # Audit every configured content root: the committed content/problems/ plus the
+    # optional, gitignored content/problems-extended/ when present. Each problem's
+    # validator, meta and cases are resolved from that problem's own root.
+    content_dirs = settings.content_dirs
     wanted = set(args.slug)
 
     checked = passed = failed = errored = no_cases = skipped = 0
     failures: list[tuple[str, str, str]] = []
 
-    for d in _iter_problem_dirs(content_dir):
+    for d in _iter_problem_dirs(content_dirs):
         slug = d.name
         if wanted and slug not in wanted:
             continue
-        vfile = _validator_file(slug, flat_dir, content_dir)
+        vfile = _validator_file(slug, flat_dir, d.parent)
         if not vfile.exists() or vfile.stat().st_size == 0:
             skipped += 1
             continue
@@ -135,7 +145,8 @@ def main() -> int:
             if not args.quiet:
                 print(f"  FAIL {slug}  ({npass}/{total})  {detail}")
 
-    where = "content/problems/<slug>/input_validator/" if flat_dir is None else f"{flat_dir}/"
+    where = ("content/problems[-extended]/<slug>/input_validator/"
+             if flat_dir is None else f"{flat_dir}/")
     missing_hint = ("input_validator.py" if flat_dir is None
                     else "{slug}_input_test.py")
     print()

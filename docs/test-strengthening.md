@@ -136,8 +136,11 @@ in-process grading is wrapped in a **fork + hard-kill watchdog**. The authoritat
 `expected` for every kept case is still computed through the real sandbox. Most
 problems finish in ~0.1 s; a handful hit the ~15 s watchdog cap.
 
-`TreeNode`-typed problems fall back to the (slow) sandbox grading path — an
-in-process TreeNode codec is the obvious follow-up.
+Rich-typed problems (`TreeNode`, `ListNode`, `DoublyLinkedList`) grade **in-process**
+via the harness's own `_CODECS` (see `_rich_codec` / `_fast_available` in
+`strengthen_tests.py`), so a top-level rich type stays on the fast path. Only a
+*nested* rich type (e.g. `TreeNode[]`, `ListNode[]`) falls back to the slow sandbox
+grading path.
 
 ## Why two discriminator sources
 

@@ -37,10 +37,10 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `content/collections/` | Curated, system-defined problem lists (e.g. `blind-73.json`) used as a list filter (see `docs/collections.md`). |
 | `scripts/seed.py` | Load content into the DB + verify canonical solutions. |
 | `scripts/verify_json.py` | Batch-verify a folder of loose problem `.json` files (e.g. AI-generator output) before importing: valid JSON + required fields + canonical passes its tests, via `run_submission`. |
-| `scripts/verify_bank.py` | Run every problem's canonical solution against its own tests (the whole on-disk bank), via the same `run_submission` path; prints per-problem pass/fail + statistics. Args for slug/substring filtering, `-v`/`-q` verbosity, `-j` parallelism, `--failfast`, `--strict`. |
+| `scripts/verify_bank.py` | Run every problem's canonical solution against its own tests (the whole on-disk bank — **both** content roots, default + extended), via the same `run_submission` path; prints per-problem pass/fail + statistics. `--content-dir <dir>` scopes to one root; args for slug/substring filtering, `-v`/`-q` verbosity, `-j` parallelism, `--failfast`, `--strict`. |
 | `scripts/import_collection.py` | Validate + bulk-import a staged `statements/`+`rest/` collection dir (e.g. `user_collection/`) into `content/` and the DB. Runs every existing gate (structural, sandbox behavioral, statement↔judge, slug-collision), imports only what passes, copies figures, carries hints. See `docs/importing-collections.md`. |
 | `scripts/strengthen_tests.py` | Machine-generate hidden test cases that catch buggy *user* solutions: fuzz/edge/mutation-guided selection over `app/testgen/`, canonical as oracle. `--dry-run` by default, `--apply` writes cases back. See `docs/test-strengthening.md`. |
-| `scripts/check_constraint_validators.py` · `generate_constraint_validators.py` | Audit / (LLM-)generate the per-problem input validators (`content/problems/<slug>/input_validator/input_validator.py`): every stored test input must satisfy its problem's `validate_input()`. Run the checker when adding test cases. See `docs/input-validators.md`. |
+| `scripts/check_constraint_validators.py` · `generate_constraint_validators.py` | Audit / (LLM-)generate the per-problem input validators (`<root>/<slug>/input_validator/input_validator.py`): every stored test input must satisfy its problem's `validate_input()`. The checker audits **both** content roots (default + extended). Run it when adding test cases. See `docs/input-validators.md`. |
 | `tests/` | pytest (incl. adversarial executor tests). |
 | `docs/` · `specs/` · `.claude/` | Docs, content spec, Claude Code config. |
 
@@ -74,6 +74,12 @@ works for a fresh checkout.
   human-editable mirror (manual/AI problems are written back to it).
 - Solver code defines a **top-level function** named by the problem's
   `function_name` (no class wrapper).
+- **Rich types:** a param/return `type` may be `TreeNode`, `ListNode` (singly-linked,
+  `val`/`next`) or `DoublyLinkedList` (class `Node`, `val`/`prev`/`next`). Stored on
+  disk as a plain JSON value (tree = level-order array; list = flat value array); a
+  codec in `app/executor/harness.py` (`_CODECS`) builds/serializes the real object at
+  the sandbox boundary and injects the class, so the judge still compares JSON. Adding
+  one = a `_CODECS` entry + `executor-security-reviewer`. See `specs/problem-schema.md`.
 
 ## Working agreements for Claude
 

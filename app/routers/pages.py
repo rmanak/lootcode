@@ -35,6 +35,19 @@ PROVIDED_TYPE_DEFS = {
         "        self.left = left\n"
         "        self.right = right"
     ),
+    "ListNode": (
+        "class ListNode:  # singly-linked list node — provided, do not redefine\n"
+        "    def __init__(self, val=0, next=None):\n"
+        "        self.val = val\n"
+        "        self.next = next"
+    ),
+    "DoublyLinkedList": (
+        "class Node:  # doubly-linked list node — provided, do not redefine\n"
+        "    def __init__(self, val=0, prev=None, next=None):\n"
+        "        self.val = val\n"
+        "        self.prev = prev\n"
+        "        self.next = next"
+    ),
 }
 
 

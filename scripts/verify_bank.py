@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Run every problem's canonical solution against its own tests.
 
-Loads all problems from ``content/problems/`` (the durable problem bank) and,
-for each one, runs its ``canonical_solution`` against its ``tests`` using the
+Loads all problems from every configured content root — ``content/problems/`` (the
+durable problem bank) plus the optional, gitignored ``content/problems-extended/``
+when present — and, for each one, runs its ``canonical_solution`` against its
+``tests`` using the
 *exact* execution + grading path the app uses (:func:`app.executor.run_submission`)
 — the same tooling ``scripts/verify_json.py`` wires up for loose JSON files, only
 pointed at the whole on-disk bank instead of a folder of generator output.
@@ -232,8 +234,13 @@ def print_summary(results: list[Result], elapsed: float, c: Palette, args) -> No
 
 
 def select_problems(args) -> list[dict]:
-    content_dir = args.content_dir  # None -> content.load_all uses settings default
-    problems = content.load_all(content_dir)
+    # No --content-dir: verify every configured root (content/problems/ plus the
+    # optional content/problems-extended/). An explicit --content-dir verifies just
+    # that one dir.
+    if args.content_dir is not None:
+        problems = content.load_all(args.content_dir)
+    else:
+        problems = content.load_all_roots()
     if args.slugs:
         wanted = set(args.slugs)
         found = {p["slug"] for p in problems}
@@ -255,7 +262,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--filter", metavar="SUBSTR",
                     help="restrict to slugs containing this substring")
     ap.add_argument("--content-dir", type=pathlib.Path, default=None,
-                    help="problem bank dir (default: the app's content/problems/)")
+                    help="verify just this one problem bank dir (default: all "
+                         "configured roots — content/problems/ plus the optional "
+                         "content/problems-extended/)")
     ap.add_argument("-v", "--verbose", action="store_true",
                     help="for failing problems, list each failing test (status/expected/actual)")
     ap.add_argument("-q", "--quiet", action="store_true",
@@ -278,7 +287,7 @@ def main(argv: list[str] | None = None) -> int:
         print("No problems to verify.")
         return 0
 
-    where = args.content_dir or "content/problems"
+    where = args.content_dir or "content/problems (+ extended, if present)"
     print(c.bold(f"Verifying {len(problems)} problem(s) from {where}"
                  f"{f' with {args.jobs} workers' if args.jobs > 1 else ''}...\n"))
 

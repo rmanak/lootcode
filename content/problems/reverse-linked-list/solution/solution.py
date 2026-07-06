@@ -1,5 +1,5 @@
 def reverseList(head):
-    result = []
-    for value in head:
-        result.insert(0, value)
-    return result
+    prev = None
+    while head is not None:
+        head.next, prev, head = prev, head, head.next
+    return prev

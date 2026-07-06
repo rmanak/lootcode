@@ -1,13 +1,12 @@
 def mergeTwoLists(list1, list2):
-    res = []
-    i = j = 0
-    while i < len(list1) and j < len(list2):
-        if list1[i] <= list2[j]:
-            res.append(list1[i])
-            i += 1
+    dummy = tail = ListNode(0)
+    while list1 is not None and list2 is not None:
+        if list1.val <= list2.val:
+            tail.next = list1
+            list1 = list1.next
         else:
-            res.append(list2[j])
-            j += 1
-    res.extend(list1[i:])
-    res.extend(list2[j:])
-    return res
+            tail.next = list2
+            list2 = list2.next
+        tail = tail.next
+    tail.next = list1 if list1 is not None else list2
+    return dummy.next

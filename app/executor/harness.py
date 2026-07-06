@@ -53,6 +53,11 @@ def _short_tb(limit: int = 2000) -> str:
 # low enough that a cyclic/hostile returned object fails fast and cheap.
 _MAX_TREE_NODES = 200_000
 
+# Same idea for linked lists: comfortably above any realistic list (problems cap
+# node counts in the 10^4-10^5 range) but bounded so a cyclic/hostile returned
+# chain fails fast instead of hanging while we walk `.next` forever.
+_MAX_LIST_NODES = 1_000_000
+
 
 class TreeNode:
     """Binary-tree node injected into solutions that declare a TreeNode param/return."""
@@ -110,8 +115,90 @@ def _tree_encode(node):
     return out
 
 
+class ListNode:
+    """Singly-linked list node injected into solutions that declare a ListNode
+    param/return. Matches the LeetCode convention (``val``/``next``)."""
+
+    __slots__ = ("val", "next")
+
+    def __init__(self, val=0, next=None):  # noqa: A002 - `next` mirrors LeetCode
+        self.val = val
+        self.next = next
+
+
+def _list_decode(arr):
+    """Flat value array -> head ListNode of a singly-linked chain, or None if empty."""
+    head = nxt = None
+    for v in reversed(arr or []):
+        nxt = ListNode(v, head)
+        head = nxt
+    return head
+
+
+def _list_encode(node):
+    """Head ListNode -> flat value array by walking ``.next``.
+
+    Duck-typed on ``.val``/``.next`` (so a user-defined equivalent node also works)
+    and bounded by _MAX_LIST_NODES so a cyclic/huge returned chain fails fast
+    instead of hanging the harness.
+    """
+    out, count = [], 0
+    while node is not None:
+        count += 1
+        if count > _MAX_LIST_NODES:
+            raise ValueError("Returned list is too long or contains a cycle.")
+        out.append(node.val)
+        node = node.next
+    return out
+
+
+class Node:
+    """Doubly-linked list node injected into solutions that declare a doubly-linked
+    param/return. Matches the LeetCode convention (``val``/``prev``/``next``)."""
+
+    __slots__ = ("val", "prev", "next")
+
+    def __init__(self, val=0, prev=None, next=None):  # noqa: A002 - mirrors LeetCode
+        self.val = val
+        self.prev = prev
+        self.next = next
+
+
+def _dlist_decode(arr):
+    """Flat value array -> head Node of a doubly-linked chain (prev/next both set),
+    or None if empty."""
+    head = prev = None
+    for v in arr or []:
+        cur = Node(v, prev, None)
+        if prev is None:
+            head = cur
+        else:
+            prev.next = cur
+        prev = cur
+    return head
+
+
+def _dlist_encode(node):
+    """Head Node -> flat value array by walking ``.next``.
+
+    Duck-typed on ``.val``/``.next`` and bounded by _MAX_LIST_NODES (same
+    cyclic/huge-return protection as the singly-linked encoder)."""
+    out, count = [], 0
+    while node is not None:
+        count += 1
+        if count > _MAX_LIST_NODES:
+            raise ValueError("Returned list is too long or contains a cycle.")
+        out.append(node.val)
+        node = node.next
+    return out
+
+
 # type token -> (class to inject, decode JSON->object, encode object->JSON)
-_CODECS = {"TreeNode": (TreeNode, _tree_decode, _tree_encode)}
+_CODECS = {
+    "TreeNode": (TreeNode, _tree_decode, _tree_encode),
+    "ListNode": (ListNode, _list_decode, _list_encode),
+    "DoublyLinkedList": (Node, _dlist_decode, _dlist_encode),
+}
 
 
 def _load_solution(path: str, budget_s: float, inject: dict | None = None):

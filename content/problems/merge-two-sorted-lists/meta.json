@@ -22,15 +22,15 @@
     "params": [
       {
         "name": "list1",
-        "type": "int[]"
+        "type": "ListNode"
       },
       {
         "name": "list2",
-        "type": "int[]"
+        "type": "ListNode"
       }
     ],
     "returns": {
-      "type": "int[]"
+      "type": "ListNode"
     }
   },
   "scoring": {

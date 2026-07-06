@@ -46,11 +46,11 @@ sys.path.insert(0, str(_SCRIPTS_DIR))  # so the sibling generator imports
 from app import content  # noqa: E402
 from app.config import settings  # noqa: E402
 from app.executor import run_submission, _equal  # noqa: E402
-# Reuse the harness's own TreeNode codec (exact same array<->object mapping the
-# real judge uses) so TreeNode problems can grade on the fast in-process path
-# instead of the ~100× slower sandbox path. Importing is side-effect-free.
+# Reuse the harness's own rich-type codecs (the exact same array<->object mapping
+# the real judge uses) so TreeNode/ListNode problems can grade on the fast
+# in-process path instead of the ~100× slower sandbox path. Side-effect-free.
 from app.executor.harness import (  # noqa: E402
-    TreeNode, _tree_decode, _tree_encode,
+    _CODECS, TreeNode, _tree_decode, _tree_encode,
 )
 from app.testgen import (  # noqa: E402
     GenConfig,
@@ -228,7 +228,8 @@ def _grade(code: str, prob, inputs: list[dict], expected: list | None = None,
 # canonical is re-verified against the sandbox before anything is written.
 #
 # SIGALRM only fires on the main thread, so the in-process path runs sequentially.
-# TreeNode types need the harness codec, so those problems use the sandbox path.
+# Rich types (TreeNode/ListNode/...) reuse the harness codec in-process; only a
+# *nested* rich type (e.g. TreeNode[]) falls back to the sandbox path.
 # --------------------------------------------------------------------------- #
 class _Timeout(Exception):
     pass
@@ -302,25 +303,29 @@ def _run_forked(fn, timeout_s: float):
 
 
 def _fast_available(prob) -> bool:
-    # A top-level TreeNode param/return is handled in-process by the codec below;
-    # only a *nested* TreeNode (e.g. TreeNode[]) still needs the sandbox path.
+    # A top-level rich-type param/return (TreeNode/ListNode/...) is handled
+    # in-process by the codec below; only a *nested* one (e.g. TreeNode[]) still
+    # needs the sandbox path.
     types = [pp.get("type", "") for pp in prob.params] + [prob.return_type]
     for t in types:
         t = (t or "").strip()
-        if "TreeNode" in t and t != "TreeNode":
-            return False
+        for tok in _CODECS:
+            if tok in t and t != tok:
+                return False
     return True
 
 
-def _tree_codec(prob):
-    """(decoders, encoder) mapping level-order arrays <-> TreeNode for a problem.
+def _rich_codec(prob):
+    """(decoders, encoder) mapping wire arrays <-> rich-type objects for a problem.
 
-    ``decoders`` maps each TreeNode param name to the array->object decoder;
-    ``encoder`` is the object->array encoder when the return type is TreeNode (else
-    None). Matches the sandbox exactly, so in-process grading stays faithful."""
-    decoders = {pp["name"]: _tree_decode for pp in prob.params
-                if (pp.get("type", "") or "").strip() == "TreeNode"}
-    encoder = _tree_encode if (prob.return_type or "").strip() == "TreeNode" else None
+    ``decoders`` maps each rich-typed param name to its array->object decoder;
+    ``encoder`` is the object->array encoder when the return type is a rich type
+    (else None). Uses the harness's own _CODECS table, so in-process grading stays
+    byte-for-byte faithful to the sandbox judge."""
+    decoders = {pp["name"]: _CODECS[t][1] for pp in prob.params
+                if (t := (pp.get("type", "") or "").strip()) in _CODECS}
+    ret = (prob.return_type or "").strip()
+    encoder = _CODECS[ret][2] if ret in _CODECS else None
     return decoders, encoder
 
 
@@ -465,8 +470,8 @@ def strengthen(p: dict, cfg: GenConfig, cap: int, mut_cap: int,
         rep.n_candidates = len(cands)
         compare = prob.compare
         fast = _fast_available(prob)
-        decoders, encoder = _tree_codec(prob)
-        inject = {"TreeNode": TreeNode}
+        decoders, encoder = _rich_codec(prob)
+        inject = {cls.__name__: cls for cls, _dec, _enc in _CODECS.values()}
 
         # Mutation selection runs on everything EXCEPT the T4 stress case (which is
         # force-kept regardless — its value is timing, realized at user-run time).

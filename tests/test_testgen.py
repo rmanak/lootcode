@@ -197,11 +197,29 @@ def test_treenode_codec_roundtrip():
             "    return root\n")
     f = st._compile(code, "bump", {"TreeNode": st.TreeNode})
     prob = NS(params=[{"name": "root", "type": "TreeNode"}], return_type="TreeNode")
-    decoders, encoder = st._tree_codec(prob)
+    decoders, encoder = st._rich_codec(prob)
     assert list(decoders) == ["root"] and encoder is not None
     # array in -> decoded to objects -> bumped -> encoded back to trimmed array
     assert st._call(f, {"root": [1, 2, 3, None, 4]}, decoders, encoder) == [2, 3, 4, None, 5]
     assert st._call(f, {"root": []}, decoders, encoder) == []
+
+
+def test_listnode_codec_roundtrip():
+    from types import SimpleNamespace as NS
+    import scripts.strengthen_tests as st
+    # a solution that doubles every node value — needs real ListNode objects
+    code = ("def dbl(head):\n"
+            "    node = head\n"
+            "    while node is not None:\n"
+            "        node.val *= 2\n"
+            "        node = node.next\n"
+            "    return head\n")
+    f = st._compile(code, "dbl", {"ListNode": st._CODECS["ListNode"][0]})
+    prob = NS(params=[{"name": "head", "type": "ListNode"}], return_type="ListNode")
+    decoders, encoder = st._rich_codec(prob)
+    assert list(decoders) == ["head"] and encoder is not None
+    assert st._call(f, {"head": [1, 2, 3]}, decoders, encoder) == [2, 4, 6]
+    assert st._call(f, {"head": []}, decoders, encoder) == []
 
 
 def test_treenode_fast_path_available():

@@ -183,13 +183,131 @@ def test_cyclic_tree_return_does_not_hang():
     assert graded.results[0].status in ("error", "timeout")
 
 
+# --- rich types: ListNode (decode flat value array <-> singly-linked chain) ---
+def _ll_problem(function_name, params, return_type, time_limit_ms=3000):
+    return NS(function_name=function_name, params=params, return_type=return_type,
+              time_limit_ms=time_limit_ms, memory_limit_mb=512, points=100, compare="exact")
+
+
+SUM_LIST = (
+    "def listSum(head):\n"
+    "    total = 0\n"
+    "    while head is not None:\n"
+    "        total += head.val\n"
+    "        head = head.next\n"
+    "    return total\n"
+)
+
+
+def test_listnode_input_is_decoded_to_object():
+    prob = _ll_problem("listSum", [{"name": "head", "type": "ListNode"}], "int")
+    tests = [
+        NS(name="t1", input={"head": [1, 2, 3]}, expected=6, weight=1, hidden=False),
+        NS(name="empty", input={"head": []}, expected=0, weight=1, hidden=True),
+    ]
+    assert run_submission(SUM_LIST, prob, tests).solved
+
+
+REVERSE_LIST = (
+    "def reverseList(head):\n"
+    "    prev = None\n"
+    "    while head is not None:\n"
+    "        head.next, prev, head = prev, head, head.next\n"
+    "    return prev\n"
+)
+
+
+def test_listnode_return_is_encoded_to_flat_array():
+    prob = _ll_problem("reverseList", [{"name": "head", "type": "ListNode"}], "ListNode")
+    tests = [
+        NS(name="basic", input={"head": [1, 2, 3, 4, 5]}, expected=[5, 4, 3, 2, 1],
+           weight=1, hidden=False),
+        NS(name="empty", input={"head": []}, expected=[], weight=1, hidden=True),
+    ]
+    assert run_submission(REVERSE_LIST, prob, tests).solved
+
+
+def test_listnode_class_is_injected_and_constructible():
+    prob = _ll_problem("f", [{"name": "head", "type": "ListNode"}], "ListNode")
+    code = "def f(head):\n    return ListNode(7, ListNode(8, ListNode(9)))\n"
+    tests = [NS(name="t", input={"head": []}, expected=[7, 8, 9], weight=1, hidden=False)]
+    assert run_submission(code, prob, tests).solved
+
+
+def test_listnode_none_return_is_empty_list():
+    prob = _ll_problem("f", [{"name": "head", "type": "ListNode"}], "ListNode")
+    code = "def f(head):\n    return None\n"
+    tests = [NS(name="t", input={"head": [1]}, expected=[], weight=1, hidden=False)]
+    assert run_submission(code, prob, tests).solved
+
+
+def test_cyclic_list_return_does_not_hang():
+    # A returned chain with a cycle must be bounded (node cap) / killed by the
+    # per-test alarm — never hang the harness while walking `.next`.
+    prob = _ll_problem("f", [{"name": "head", "type": "ListNode"}], "ListNode",
+                       time_limit_ms=5000)
+    code = ("def f(head):\n"
+            "    a = ListNode(1)\n"
+            "    a.next = a\n"
+            "    return a\n")
+    tests = [NS(name="t", input={"head": [1]}, expected=[1], weight=1, hidden=False)]
+    graded = run_submission(code, prob, tests)
+    assert not graded.solved
+    assert graded.results[0].status in ("error", "timeout")
+
+
+# --- rich types: DoublyLinkedList (Node with val/prev/next) -------------------
+def test_doubly_linked_prev_pointers_are_wired():
+    # Walk to the tail via .next, then back via .prev summing values: only correct
+    # if the harness set both links when decoding the flat array.
+    prob = _ll_problem("f", [{"name": "head", "type": "DoublyLinkedList"}], "int")
+    code = ("def f(head):\n"
+            "    if head is None:\n"
+            "        return 0\n"
+            "    node = head\n"
+            "    while node.next is not None:\n"
+            "        node = node.next\n"
+            "    total = 0\n"
+            "    while node is not None:\n"
+            "        total += node.val\n"
+            "        node = node.prev\n"
+            "    return total\n")
+    tests = [NS(name="t", input={"head": [1, 2, 3, 4]}, expected=10, weight=1, hidden=False)]
+    assert run_submission(code, prob, tests).solved
+
+
+def test_doubly_linked_node_class_injected_and_returned():
+    prob = _ll_problem("f", [{"name": "head", "type": "DoublyLinkedList"}],
+                       "DoublyLinkedList")
+    code = ("def f(head):\n"
+            "    a = Node(1)\n"
+            "    b = Node(2)\n"
+            "    a.next = b\n"
+            "    b.prev = a\n"
+            "    return a\n")
+    tests = [NS(name="t", input={"head": []}, expected=[1, 2], weight=1, hidden=False)]
+    assert run_submission(code, prob, tests).solved
+
+
+def _assert_bank_canonical_solved(slug):
+    d = load_problem_dir(REPO_ROOT / "content" / "problems" / slug)
+    prob = NS(function_name=d["function_name"], params=d["params"],
+              return_type=d["return_type"], compare=d["compare"],
+              time_limit_ms=d["time_limit_ms"], memory_limit_mb=d["memory_limit_mb"],
+              points=d["points"])
+    tests = [NS(name=t["name"], input=t["input"], expected=t["expected"],
+                weight=t["weight"], hidden=t["hidden"]) for t in d["tests"]]
+    assert run_submission(d["canonical_solution"], prob, tests).solved, slug
+
+
 def test_migrated_tree_problems_pass_canonical():
     for slug in ("invert-binary-tree", "maximum-depth-of-binary-tree", "same-tree"):
-        d = load_problem_dir(REPO_ROOT / "content" / "problems" / slug)
-        prob = NS(function_name=d["function_name"], params=d["params"],
-                  return_type=d["return_type"], compare=d["compare"],
-                  time_limit_ms=d["time_limit_ms"], memory_limit_mb=d["memory_limit_mb"],
-                  points=d["points"])
-        tests = [NS(name=t["name"], input=t["input"], expected=t["expected"],
-                    weight=t["weight"], hidden=t["hidden"]) for t in d["tests"]]
-        assert run_submission(d["canonical_solution"], prob, tests).solved, slug
+        _assert_bank_canonical_solved(slug)
+
+
+def test_migrated_listnode_problems_pass_canonical():
+    # Singly-linked problems migrated from int[] to the ListNode rich type: the
+    # canonical works with real nodes and the codec de/serializes at the boundary.
+    for slug in ("reverse-linked-list", "merge-two-sorted-lists", "add-two-numbers",
+                 "reverse-nodes-in-k-group", "linked-list-in-binary-tree"):
+        _assert_bank_canonical_solved(slug)

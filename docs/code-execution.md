@@ -50,17 +50,19 @@ Expected outputs never enter the sandbox (only inputs do); comparison and scorin
 happen in the trusted parent (`app/executor/__init__.py`). The adversarial suite
 lives in `tests/test_executor.py` — keep it green.
 
-### Rich types (`TreeNode`)
+### Rich types (`TreeNode`, `ListNode`, `DoublyLinkedList`)
 
-A problem may declare a parameter/return as a rich type (currently `TreeNode`).
-The wire format on disk and across the boundary stays a plain JSON value (a tree
-is a level-order array); a small **codec** in `harness.py` (`_CODECS`) converts
-array⇄object on the **untrusted side** so solvers work with real objects, then
-re-serializes a returned object back to the array *before* the JSON gate — so the
-parent still grades on JSON arrays and the trust boundary is unchanged. Because
-this codec runs in-sandbox next to hostile code it is stdlib-only, **iterative**
-(no recursion → no stack-overflow DoS), and **node-capped** (`_MAX_TREE_NODES`),
-and a returned object is encoded while the per-test `SIGALRM` is still armed, so a
+A problem may declare a parameter/return as a rich type (`TreeNode`; the singly-
+linked `ListNode`; the doubly-linked `Node`, token `DoublyLinkedList`). The wire
+format on disk and across the boundary stays a plain JSON value (a tree is a
+level-order array; a linked list is a flat value array); a small **codec** in
+`harness.py` (`_CODECS`) converts array⇄object on the **untrusted side** so solvers
+work with real objects, then re-serializes a returned object back to the array
+*before* the JSON gate — so the parent still grades on JSON arrays and the trust
+boundary is unchanged. Because these codecs run in-sandbox next to hostile code
+they are stdlib-only, **iterative** (no recursion → no stack-overflow DoS), and
+**node-capped** (`_MAX_TREE_NODES` for trees, `_MAX_LIST_NODES` for lists), and a
+returned object is encoded while the per-test `SIGALRM` is still armed, so a
 cyclic/huge return can't hang the harness. Adding a rich type = one `_CODECS`
 entry; pair any change here with the `executor-security-reviewer`.
 

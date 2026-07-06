@@ -217,6 +217,10 @@ def _gloss(type_str: str) -> str:
     special = {
         "TreeNode": "a binary tree, encoded as a level-order list with null for "
                     "absent children",
+        "ListNode": "a singly linked list, encoded as a flat list of the node "
+                    "values in order",
+        "DoublyLinkedList": "a doubly linked list, encoded as a flat list of the "
+                            "node values in order",
         "object": "a JSON object (dict)",
         "any": "any JSON value",
         "num": "a number (int or float)",

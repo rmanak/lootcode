@@ -1,9 +1,13 @@
-The values of a singly linked list are given in order as an array `head`. Return
-**the values after the list is reversed**.
+Given the `head` of a **singly linked list**, reverse the list and return the
+head of the reversed list.
+
+Each node is a `ListNode` with a `.val` and a `.next` pointer (the class is
+provided — do not redefine it). In the examples below the list is shown as the
+array of its node values in order.
 
 ## Constraints
-- `0 <= len(head) <= 5000`
-- `-5000 <= head[i] <= 5000`
+- `0 <= number of nodes <= 5000`
+- `-5000 <= Node.val <= 5000`
 
 ## Examples
 Input: `head = [1,2,3,4,5]`

@@ -1,14 +1,17 @@
 def isSubPath(head, root):
-    def match(node, k):
-        if k == len(head):
+    def match(tree_node, list_node):
+        if list_node is None:
             return True
-        if node is None or node.value != head[k]:
+        if tree_node is None or tree_node.value != list_node.val:
             return False
-        return match(node.left, k + 1) or match(node.right, k + 1)
+        return (match(tree_node.left, list_node.next)
+                or match(tree_node.right, list_node.next))
 
-    def starts(node):
-        if node is None:
+    def starts(tree_node):
+        if tree_node is None:
             return False
-        return match(node, 0) or starts(node.left) or starts(node.right)
+        return (match(tree_node, head)
+                or starts(tree_node.left)
+                or starts(tree_node.right))
 
     return starts(root)
