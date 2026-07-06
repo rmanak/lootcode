@@ -7,6 +7,11 @@
     "stack",
     "dynamic-programming"
   ],
+  "hints": [
+    "Instead of iterating subarrays, count how many subarrays have each A[i] as the minimum.",
+    "Find the nearest smaller element to the left and right for each index i.",
+    "The count for A[i] is (i - left_bound) * (right_bound - i). Sum these products times A[i]."
+  ],
   "languages": [
     "python"
   ],

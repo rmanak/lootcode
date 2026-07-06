@@ -80,6 +80,33 @@
       "expected": "Two Billion One Hundred Forty Seven Million Four Hundred Eighty Three Thousand Six Hundred Forty Seven",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "num": 0
+      },
+      "expected": "Zero",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "num": 99
+      },
+      "expected": "Ninety Nine",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "num": 19
+      },
+      "expected": "Nineteen",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

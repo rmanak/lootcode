@@ -1,0 +1,42 @@
+{
+  "slug": "isomorphic-strings",
+  "title": "Isomorphic Strings",
+  "difficulty": "easy",
+  "tags": [
+    "hash-table",
+    "string"
+  ],
+  "hints": [
+    "Focus on the mapping rules: each character in s must map to exactly one character in t, and no two characters in s can map to the same character in t.",
+    "Use two hash maps (or arrays) to track the mappings from s to t and from t to s simultaneously as you iterate through the strings.",
+    "For each character pair, check if the mapping exists and is consistent in both directions; if a conflict is found, return false immediately."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "isIsomorphic",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "t",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

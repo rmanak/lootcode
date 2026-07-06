@@ -6,6 +6,11 @@
     "string",
     "simulation"
   ],
+  "hints": [
+    "Parse both sides of the equation to separate terms containing x from constant numbers.",
+    "Calculate the net coefficient of x and the net constant value by moving all x terms to one side and constants to the other.",
+    "Compare the resulting coefficient and constant: if both are zero, infinite solutions; if coefficient is zero but constant is not, no solution; otherwise divide."
+  ],
   "languages": [
     "python"
   ],

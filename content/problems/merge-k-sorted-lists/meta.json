@@ -7,6 +7,11 @@
     "heap",
     "divide-and-conquer"
   ],
+  "hints": [
+    "Consider how you would merge just two sorted lists efficiently, then extend that idea to handle multiple lists simultaneously.",
+    "Use a min-heap to keep track of the smallest available element from each list, allowing you to extract the global minimum in logarithmic time.",
+    "Initialize the heap with the first element of each non-empty list. When extracting a value, push the next element from that same list into the heap."
+  ],
   "languages": [
     "python"
   ],

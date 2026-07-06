@@ -7,6 +7,11 @@
     "sorting",
     "binary-search"
   ],
+  "hints": [
+    "Analyze the conditions carefully to find the exact range of ages that satisfy all criteria for a valid request.",
+    "Notice that the constraints allow many people to share the same age; counting frequencies of each age will simplify the logic significantly.",
+    "Use the frequency array to calculate valid pairs efficiently by iterating through possible age ranges and applying the derived condition."
+  ],
   "languages": [
     "python"
   ],

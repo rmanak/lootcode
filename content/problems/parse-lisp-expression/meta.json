@@ -8,6 +8,11 @@
     "recursion",
     "hash-table"
   ],
+  "hints": [
+    "Parse the string into tokens first, handling nested parentheses carefully to identify each expression's boundaries.",
+    "Use a recursive function that maintains a scope stack to resolve variable names, updating bindings as you enter let blocks.",
+    "For let, bind variables sequentially before evaluating the final expression, ensuring inner scopes shadow outer ones correctly."
+  ],
   "languages": [
     "python"
   ],

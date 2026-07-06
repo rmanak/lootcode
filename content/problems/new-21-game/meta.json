@@ -6,6 +6,11 @@
     "dynamic-programming",
     "sliding-window"
   ],
+  "hints": [
+    "Consider the probability of reaching each specific score i. How can you express P(i) using probabilities of lower scores?",
+    "Use dynamic programming. P(i) is the average of P(i-w) for w in 1 to W, but only for i less than K.",
+    "Optimize the DP transition by maintaining a running sum of the previous W probabilities to achieve O(N) time."
+  ],
   "languages": [
     "python"
   ],

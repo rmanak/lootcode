@@ -132,6 +132,22 @@
       "expected": "aa",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "dictionary": [
+          "babaca",
+          "a",
+          "cdadd",
+          "ab",
+          "dca"
+        ],
+        "sentence": "ab"
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

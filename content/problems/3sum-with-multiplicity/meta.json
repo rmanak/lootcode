@@ -8,6 +8,11 @@
     "two-pointers",
     "counting"
   ],
+  "hints": [
+    "Notice the small range of values in A. Counting frequencies of each number might simplify finding triples that sum to the target.",
+    "Consider iterating over possible values for the first two numbers in the triple. Use their frequencies to calculate valid combinations efficiently.",
+    "Derive the number of ways to pick indices based on whether the three chosen values are distinct, two are equal, or all three are equal."
+  ],
   "languages": [
     "python"
   ],

@@ -240,6 +240,22 @@
       "expected": 27,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "root": [
+          null,
+          3,
+          1,
+          2,
+          null,
+          3
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

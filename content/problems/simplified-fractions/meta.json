@@ -5,6 +5,11 @@
   "tags": [
     "string"
   ],
+  "hints": [
+    "Consider all possible denominators from 2 to n, and for each, all valid numerators less than the denominator.",
+    "A fraction is simplified if the numerator and denominator share no common factors other than 1. How can you check this?",
+    "Use the greatest common divisor function to verify if gcd(numerator, denominator) equals 1 before adding the fraction to your result."
+  ],
   "languages": [
     "python"
   ],

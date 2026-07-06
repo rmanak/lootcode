@@ -6,6 +6,11 @@
     "array",
     "hash-table"
   ],
+  "hints": [
+    "Iterate through the array once, checking for each number if its complement to reach the target has already been seen.",
+    "Use a hash map to store the frequency of each number encountered so far as you iterate through the array.",
+    "For each current number, add the count of its complement from the map to your total, then update the map with the current number."
+  ],
   "languages": [
     "python"
   ],

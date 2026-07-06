@@ -544,6 +544,53 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "operations": [
+          [
+            "push",
+            6
+          ],
+          [
+            "push",
+            1
+          ],
+          [
+            "top"
+          ],
+          [
+            "push",
+            1
+          ],
+          [
+            "push",
+            3
+          ],
+          [
+            "popMax"
+          ],
+          [
+            "top"
+          ],
+          [
+            "peekMax"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        1,
+        null,
+        null,
+        6,
+        3,
+        3
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -6,6 +6,11 @@
     "graph",
     "depth-first-search"
   ],
+  "hints": [
+    "Consider using Depth First Search to traverse the graph and track discovery times for each node.",
+    "Identify edges where the destination node cannot reach any ancestor of the source node via a back edge.",
+    "An edge is a bridge if the low-link value of the child is strictly greater than the discovery time of the parent."
+  ],
   "languages": [
     "python"
   ],

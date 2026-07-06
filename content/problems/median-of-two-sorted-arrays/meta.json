@@ -6,6 +6,11 @@
     "array",
     "binary-search"
   ],
+  "hints": [
+    "Consider the total number of elements. Do you need to find the k-th smallest element in the combined sorted sequence?",
+    "Since both arrays are sorted, you can find the k-th element by comparing elements at index k/2 in each array and discarding the smaller half.",
+    "Implement a recursive or iterative function that finds the k-th smallest element by eliminating half of the remaining candidates in each step."
+  ],
   "languages": [
     "python"
   ],

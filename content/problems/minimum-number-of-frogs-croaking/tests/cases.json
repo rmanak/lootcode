@@ -116,6 +116,24 @@
       "expected": 1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "croakOfFrogs": "crccroroakoakacrkocaroack"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "croakOfFrogs": "caoakcroak"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

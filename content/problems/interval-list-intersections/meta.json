@@ -6,6 +6,11 @@
     "array",
     "two-pointers"
   ],
+  "hints": [
+    "Consider iterating through both lists simultaneously using two pointers, one for each list.",
+    "At each step, calculate the overlap between the current intervals from A and B.",
+    "After processing, advance the pointer for the interval that ends first to find the next potential overlap."
+  ],
   "languages": [
     "python"
   ],

@@ -8,6 +8,11 @@
     "two-pointers",
     "sorting"
   ],
+  "hints": [
+    "Sort the dictionary so longer words come first and ties are broken lexicographically.",
+    "For each word in the sorted list, check if it is a subsequence of s using two pointers.",
+    "Return the first word that passes the subsequence check, as the sorting guarantees it is optimal."
+  ],
   "languages": [
     "python"
   ],

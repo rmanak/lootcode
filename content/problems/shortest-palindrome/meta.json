@@ -6,6 +6,11 @@
     "string",
     "hash-table"
   ],
+  "hints": [
+    "Find the longest prefix of s that is already a palindrome.",
+    "The characters after this palindromic prefix must be reversed and prepended.",
+    "Use KMP or hashing to efficiently find the longest palindromic prefix."
+  ],
   "languages": [
     "python"
   ],

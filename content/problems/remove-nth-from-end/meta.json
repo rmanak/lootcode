@@ -6,6 +6,11 @@
     "linked-list",
     "two-pointers"
   ],
+  "hints": [
+    "Consider how the distance from the end relates to the position from the start.",
+    "Use two pointers separated by n steps to find the target node in one pass.",
+    "Advance the fast pointer n steps first, then move both until the fast pointer reaches the end."
+  ],
   "languages": [
     "python"
   ],

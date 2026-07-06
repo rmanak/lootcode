@@ -149,6 +149,16 @@
       "expected": false,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "stamp": "abc",
+        "target": "adcabc"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

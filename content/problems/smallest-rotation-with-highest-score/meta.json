@@ -6,6 +6,11 @@
     "array",
     "prefix-sum"
   ],
+  "hints": [
+    "Instead of simulating every rotation, track how the score changes when shifting K from i to i+1.",
+    "Identify the range of K values where each element nums[i] contributes a point using modular arithmetic.",
+    "Use a difference array to accumulate these ranges and find the K with the maximum total score."
+  ],
   "languages": [
     "python"
   ],

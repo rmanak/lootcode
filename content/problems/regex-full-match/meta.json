@@ -7,6 +7,11 @@
     "dynamic-programming",
     "recursion"
   ],
+  "hints": [
+    "Consider using dynamic programming or recursion with memoization to handle the overlapping subproblems created by the star operator.",
+    "Define a state dp[i][j] representing whether s[i:] matches p[j:]. Focus on how to transition when p[j] is not a star versus when it is.",
+    "When p[j] is a star, you can either skip the pattern element entirely (match zero) or consume a character from s if it matches the preceding element."
+  ],
   "languages": [
     "python"
   ],

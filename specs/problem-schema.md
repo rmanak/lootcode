@@ -21,8 +21,10 @@ content/problems/<slug>/
 │   └── cases.json              # test cases (visible + hidden)
 ├── starters/
 │   └── python/solution.py      # starter stub shown in the editor
-└── solution/
-    └── solution.py             # canonical reference solution (must pass all tests)
+├── solution/
+│   └── solution.py             # canonical reference solution (must pass all tests)
+└── input_validator/
+    └── input_validator.py      # validate_input(...) predicate for legal inputs (see below)
 ```
 
 `<slug>` is kebab-case, unique, and matches `meta.json.slug`.
@@ -152,6 +154,28 @@ Rules:
 - The platform runs **all** tests on every Run; hidden cases contribute to the
   score but only their pass/fail is shown — never their input/expected/output.
 
+## `input_validator/input_validator.py`
+
+Each problem carries an **input-constraint validator** exposing
+
+```python
+def validate_input(<params>) -> bool:   # params == meta.json function.params, by name
+```
+
+which returns `True` iff its arguments satisfy the input constraints the
+statement promises (value ranges, lengths, shapes, character sets, structural
+invariants). **When you add a new `(input, expected)` case, run its input through
+`validate_input` first** — if it returns `False`, the input is out-of-bounds for
+the problem and must not be added as a case. Check a problem (or the whole bank)
+with:
+
+```bash
+python scripts/check_constraint_validators.py --slug <slug>   # every stored input must pass
+```
+
+Full reference — the contract, rich-type (`TreeNode`) handling, and how to
+generate/regenerate a validator — is in `docs/input-validators.md`.
+
 ## The canonical solution
 
 `solution/solution.py` is a complete, correct solution. `python scripts/seed.py`
@@ -163,4 +187,5 @@ solution doesn't pass everything — keep it green.
 - [ ] `meta.json` is valid; `starters/python/solution.py` exists.
 - [ ] `solution/solution.py` passes **all** tests (`python scripts/seed.py`).
 - [ ] Hidden cases cover edge/large inputs.
+- [ ] Every case input is in-bounds (`python scripts/check_constraint_validators.py --slug <slug>`).
 - [ ] Difficulty and tags are honest.

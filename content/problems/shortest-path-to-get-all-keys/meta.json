@@ -8,6 +8,11 @@
     "breadth-first-search",
     "matrix"
   ],
+  "hints": [
+    "Since you need the shortest path, consider using Breadth-First Search to explore moves level by level.",
+    "Your state must include your position and the set of keys collected, as future possibilities depend on both.",
+    "Use a bitmask to represent the set of keys, allowing you to efficiently track visited states in your BFS queue."
+  ],
   "languages": [
     "python"
   ],

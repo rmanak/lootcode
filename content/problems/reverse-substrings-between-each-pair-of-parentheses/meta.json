@@ -6,6 +6,11 @@
     "string",
     "stack"
   ],
+  "hints": [
+    "Consider processing the string from left to right while keeping track of the current direction of traversal.",
+    "Use a stack to store indices or contexts whenever you encounter an opening parenthesis.",
+    "When you see a closing parenthesis, pop the stack to reverse the segment just processed."
+  ],
   "languages": [
     "python"
   ],

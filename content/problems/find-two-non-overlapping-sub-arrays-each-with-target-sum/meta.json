@@ -7,6 +7,11 @@
     "dynamic-programming",
     "sliding-window"
   ],
+  "hints": [
+    "Identify all subarrays summing to target and record their minimum lengths ending at each index.",
+    "Use a prefix sum or sliding window to find valid subarrays, storing the shortest valid length ending at or before each position.",
+    "Iterate through the array, tracking the best valid subarray length found so far on the left, and combine it with valid subarrays on the right."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Think of this as a variation of the unbounded knapsack problem where you want to maximize the resulting number.",
+    "Use dynamic programming to track if each cost up to target is achievable, but store the best number string for each cost.",
+    "To maximize the number, prefer more digits first, then larger digits. Build the result by checking which digit allows a valid previous state."
+  ],
   "languages": [
     "python"
   ],

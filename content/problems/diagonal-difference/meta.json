@@ -5,6 +5,11 @@
   "tags": [
     "matrix"
   ],
+  "hints": [
+    "Identify the indices (i, j) that belong to each diagonal in a square matrix.",
+    "The primary diagonal has equal row and column indices, while the secondary has indices that sum to n-1.",
+    "Calculate both sums in a single loop and return the absolute difference of the results."
+  ],
   "languages": [
     "python"
   ],

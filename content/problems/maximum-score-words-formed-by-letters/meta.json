@@ -8,6 +8,11 @@
     "dynamic-programming",
     "bitmask"
   ],
+  "hints": [
+    "The small limit on the number of words suggests you can iterate through all possible subsets of words to find the valid one with the highest score.",
+    "Use bit manipulation or recursion to generate each subset, then check if the combined letters of the chosen words fit within the available letter counts.",
+    "For each subset, sum the scores of the words and verify letter usage by comparing the total required count of each character against the provided inventory."
+  ],
   "languages": [
     "python"
   ],

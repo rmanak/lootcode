@@ -6,6 +6,11 @@
     "string",
     "breadth-first-search"
   ],
+  "hints": [
+    "Notice the small string length suggests a search approach rather than a greedy one.",
+    "Use Breadth-First Search to find the minimum swaps, treating each string state as a node.",
+    "At each step, swap the first mismatched character with any other mismatched character that matches the target."
+  ],
   "languages": [
     "python"
   ],

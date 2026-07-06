@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider splitting the timeline into two parts. What is the best profit if you finish your first transaction exactly at a specific day?",
+    "Precompute the maximum profit achievable for one transaction in the prefix ending at each day, and another array for the suffix starting at each day.",
+    "Combine these two arrays. The answer is the maximum sum of a left-prefix profit and a right-suffix profit across all possible split points."
+  ],
   "languages": [
     "python"
   ],

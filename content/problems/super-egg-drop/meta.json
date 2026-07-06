@@ -6,6 +6,11 @@
     "dynamic-programming",
     "binary-search"
   ],
+  "hints": [
+    "Consider the reverse: how many floors can you cover with m moves and k eggs?",
+    "Let dp[m][k] be max floors coverable. If egg breaks, you have m-1 moves and k-1 eggs left.",
+    "If egg survives, you have m-1 moves and k eggs left. Sum both cases plus current floor."
+  ],
   "languages": [
     "python"
   ],

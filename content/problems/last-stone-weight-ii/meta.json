@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Notice that smashing stones is similar to assigning plus or minus signs to each weight and summing them.",
+    "The goal is to minimize the final sum, which means splitting the stones into two subsets with sums as close as possible.",
+    "This becomes a subset sum problem: find the largest subset sum less than or equal to half the total weight."
+  ],
   "languages": [
     "python"
   ],

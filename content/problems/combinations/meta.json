@@ -1,0 +1,41 @@
+{
+  "slug": "combinations",
+  "title": "Combinations",
+  "difficulty": "medium",
+  "tags": [
+    "backtracking"
+  ],
+  "hints": [
+    "Consider using recursion or backtracking to build combinations step-by-step, adding one number at a time.",
+    "To avoid duplicates and ensure sorted order, only append numbers larger than the last added number.",
+    "Track how many numbers you still need to add; stop the current branch when you reach size k."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "combine",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "set_of_lists"
+}

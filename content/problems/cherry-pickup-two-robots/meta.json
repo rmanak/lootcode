@@ -6,6 +6,11 @@
     "matrix",
     "dynamic-programming"
   ],
+  "hints": [
+    "Since both robots move row by row, track their column positions simultaneously as they descend.",
+    "This is a dynamic programming problem; define the state by the current row and both robots' column indices.",
+    "At each step, transition from all valid previous column pairs, summing cherries once if columns match."
+  ],
   "languages": [
     "python"
   ],

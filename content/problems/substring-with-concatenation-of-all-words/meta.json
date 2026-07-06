@@ -1,0 +1,43 @@
+{
+  "slug": "substring-with-concatenation-of-all-words",
+  "title": "Substring with Concatenation of All Words",
+  "difficulty": "hard",
+  "tags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "hints": [
+    "Calculate the total length of the concatenated string. This defines the fixed window size you need to slide across s.",
+    "Instead of checking every character, only check starting indices that align with the word length. This reduces the search space significantly.",
+    "Use a hash map to count required words. For each valid window, extract substrings of word length and compare their counts against the required map."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findSubstring",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      },
+      {
+        "name": "words",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "unordered"
+}

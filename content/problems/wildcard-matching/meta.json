@@ -7,6 +7,11 @@
     "dynamic-programming",
     "greedy"
   ],
+  "hints": [
+    "Consider comparing characters from the end of both strings to handle the greedy nature of '*' more easily.",
+    "Use dynamic programming where dp[i][j] indicates if s[i:] matches p[j:], tracking the last '*' position.",
+    "Track the last '*' index in p and the corresponding s index to allow backtracking when a match fails."
+  ],
   "languages": [
     "python"
   ],

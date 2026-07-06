@@ -6,6 +6,11 @@
     "tree",
     "depth-first-search"
   ],
+  "hints": [
+    "Consider a post-order traversal. Why does processing children before parents help manage the forest structure?",
+    "Use a hash set for fast lookups of values in to_delete. When you visit a node, check if it needs removal.",
+    "If a node is deleted, its non-null children become new roots. If it survives but its parent was deleted, add it to the result list."
+  ],
   "languages": [
     "python"
   ],

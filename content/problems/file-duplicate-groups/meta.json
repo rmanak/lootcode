@@ -6,6 +6,11 @@
     "hash-table",
     "string"
   ],
+  "hints": [
+    "What data structure allows grouping items by a shared property?",
+    "Use a hash map where keys are file contents and values are lists of paths.",
+    "After populating the map, collect only the value lists that contain more than one path."
+  ],
   "languages": [
     "python"
   ],

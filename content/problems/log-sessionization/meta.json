@@ -7,6 +7,11 @@
     "sorting",
     "simulation"
   ],
+  "hints": [
+    "Since events are sorted by time, you can process them sequentially while tracking the last event time for each user.",
+    "Use a dictionary to store the current session start and end times for each user, updating or creating new sessions based on the gap.",
+    "After processing all events, collect all sessions, then sort them by start time, end time, and user to match the required output format."
+  ],
   "languages": [
     "python"
   ],

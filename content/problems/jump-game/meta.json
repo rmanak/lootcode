@@ -7,6 +7,11 @@
     "greedy",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider tracking the furthest index reachable so far as you iterate through the array.",
+    "Use a greedy approach: maintain a variable for the maximum reachable index.",
+    "If your current index exceeds the maximum reachable index, return false; otherwise update the maximum."
+  ],
   "languages": [
     "python"
   ],

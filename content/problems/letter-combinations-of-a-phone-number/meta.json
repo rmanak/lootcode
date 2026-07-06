@@ -1,0 +1,39 @@
+{
+  "slug": "letter-combinations-of-a-phone-number",
+  "title": "Letter Combinations of a Phone Number",
+  "difficulty": "medium",
+  "tags": [
+    "hash-table",
+    "string",
+    "backtracking"
+  ],
+  "hints": [
+    "Consider how the result grows when you add one digit at a time to an existing set of combinations.",
+    "Use recursion or backtracking to build strings character by character, branching for each possible letter of the current digit.",
+    "Start with an empty list of combinations, then for each digit, expand every existing combination by appending each corresponding letter."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "letterCombinations",
+    "params": [
+      {
+        "name": "digits",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "unordered"
+}

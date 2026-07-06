@@ -7,6 +7,11 @@
     "dynamic-programming",
     "sorting"
   ],
+  "hints": [
+    "Consider dynamic programming where the state represents the maximum path length ending at a specific index.",
+    "To efficiently compute transitions, process indices in increasing order of their values to ensure dependencies are resolved.",
+    "For each index, check valid jumps within distance d, ensuring the current value is the strict maximum in that range."
+  ],
   "languages": [
     "python"
   ],

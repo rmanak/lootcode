@@ -223,6 +223,55 @@
       "expected": -3,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "nums": [
+          -9,
+          -7,
+          -1,
+          10,
+          -9,
+          2,
+          2,
+          6
+        ],
+        "target": -9
+      },
+      "expected": -10,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "nums": [
+          -1,
+          0,
+          -2
+        ],
+        "target": 2
+      },
+      "expected": -3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "nums": [
+          -731,
+          953,
+          424,
+          358,
+          781
+        ],
+        "target": 655
+      },
+      "expected": 646,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

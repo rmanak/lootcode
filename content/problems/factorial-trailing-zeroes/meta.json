@@ -1,0 +1,37 @@
+{
+  "slug": "factorial-trailing-zeroes",
+  "title": "Factorial Trailing Zeroes",
+  "difficulty": "medium",
+  "tags": [
+    "math"
+  ],
+  "hints": [
+    "Trailing zeroes come from factors of 10, which are formed by multiplying 2 and 5.",
+    "In any factorial, factors of 2 are much more abundant than factors of 5.",
+    "Count how many multiples of 5, 25, 125, etc., are less than or equal to n."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "trailingZeroes",
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

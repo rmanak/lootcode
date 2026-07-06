@@ -6,6 +6,11 @@
     "tree",
     "breadth-first-search"
   ],
+  "hints": [
+    "Consider processing nodes level by level rather than depth-first. How can you track which nodes belong to the current level?",
+    "Use a queue to store nodes. Process all nodes currently in the queue before adding their children to the next iteration.",
+    "In each loop iteration, record the current queue size. Iterate exactly that many times to collect the current level's values and enqueue children."
+  ],
   "languages": [
     "python"
   ],

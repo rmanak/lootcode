@@ -7,6 +7,11 @@
     "greedy",
     "dynamic-programming"
   ],
+  "hints": [
+    "Track your current fuel as you drive. When you run out before reaching the next station or target, you must have refueled earlier.",
+    "Use a max-heap to store fuel from all stations you have passed but not yet used.",
+    "Whenever current fuel is insufficient, pop the largest fuel value from the heap to refuel and count a stop."
+  ],
   "languages": [
     "python"
   ],

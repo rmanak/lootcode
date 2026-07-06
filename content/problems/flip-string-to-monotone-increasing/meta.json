@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider the split point where all characters to the left are '0' and all to the right are '1'.",
+    "Track the number of '1's seen so far and the number of '0's remaining to decide the cost at each split.",
+    "The answer is the minimum over all split points of (flips to make left all '0's) + (flips to make right all '1's)."
+  ],
   "languages": [
     "python"
   ],

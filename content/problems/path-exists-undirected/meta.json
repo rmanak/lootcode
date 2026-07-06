@@ -7,6 +7,11 @@
     "union-find",
     "breadth-first-search"
   ],
+  "hints": [
+    "Consider modeling the vertices and edges as a graph to explore connectivity.",
+    "Use Breadth-First Search or Depth-First Search starting from source to find destination.",
+    "Stop the search as soon as you visit the destination node to return true."
+  ],
   "languages": [
     "python"
   ],

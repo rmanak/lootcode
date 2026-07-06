@@ -7,6 +7,11 @@
     "breadth-first-search",
     "graph"
   ],
+  "hints": [
+    "Track two things for each box: whether you physically have it and whether you have its key.",
+    "Use a queue to process boxes as soon as you have both the box and its key.",
+    "When you open a box, add its candies, then check if newly found keys or boxes allow opening others."
+  ],
   "languages": [
     "python"
   ],

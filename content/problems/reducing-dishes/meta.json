@@ -8,6 +8,11 @@
     "sorting",
     "dynamic-programming"
   ],
+  "hints": [
+    "Sort the array in descending order to prioritize dishes with higher satisfaction values for later, larger time slots.",
+    "Consider adding dishes from the end of the sorted list. If the current total sum of chosen dishes plus the new dish is positive, it improves the result.",
+    "Iterate through the sorted dishes, accumulating a running sum. Stop when adding the next dish would decrease the total weighted sum."
+  ],
   "languages": [
     "python"
   ],

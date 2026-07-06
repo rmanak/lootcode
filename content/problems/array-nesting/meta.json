@@ -6,6 +6,11 @@
     "array",
     "depth-first-search"
   ],
+  "hints": [
+    "Visualize A as a directed graph where each index points to its value. What structure emerges from this mapping?",
+    "Since A is a permutation, the graph decomposes into disjoint cycles. The set size for any start index equals the cycle length.",
+    "Find all unique cycles in the graph. The answer is the maximum length among these cycles."
+  ],
   "languages": [
     "python"
   ],

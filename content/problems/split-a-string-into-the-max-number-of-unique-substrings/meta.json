@@ -7,6 +7,11 @@
     "backtracking",
     "hash-table"
   ],
+  "hints": [
+    "Since the string length is very small, consider using recursion or backtracking to explore all possible split points.",
+    "Keep a set of used substrings to ensure distinctness. Pass this set through your recursive calls to track validity.",
+    "At each index, try every possible next substring length. If the substring is new, recurse and track the maximum count found."
+  ],
   "languages": [
     "python"
   ],

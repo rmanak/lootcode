@@ -207,6 +207,41 @@
       "expected": 1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "nums": [
+          985,
+          744,
+          855,
+          629,
+          494
+        ],
+        "limit": 268
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "nums": [
+          265,
+          366,
+          287,
+          325,
+          674,
+          757,
+          346,
+          276
+        ],
+        "limit": 466
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -8,6 +8,11 @@
     "sorting",
     "heap"
   ],
+  "hints": [
+    "Count the occurrences of each word using a hash map or dictionary to store frequencies.",
+    "Sort the words based on frequency in descending order, then by alphabetical order for ties.",
+    "Use a min-heap of size k to efficiently track the top k frequent words during iteration."
+  ],
   "languages": [
     "python"
   ],

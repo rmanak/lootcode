@@ -8,6 +8,11 @@
     "dynamic-programming",
     "bitmask"
   ],
+  "hints": [
+    "Since the number of words is small, consider checking all possible orderings of the words to form a superstring.",
+    "To minimize length, calculate the overlap between the suffix of one word and the prefix of another when concatenating them.",
+    "Use dynamic programming with a bitmask to track the set of included words and the last word added to find the minimum total length."
+  ],
   "languages": [
     "python"
   ],

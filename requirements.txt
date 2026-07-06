@@ -8,3 +8,6 @@ markdown>=3.6
 python-dotenv>=1.0
 # Optional: only needed for the admin "generate problem with AI" feature.
 anthropic>=0.40
+# Optional: only needed to generate problem hints via a local OpenAI-compatible
+# LLM server (llama.cpp). See app/llm/hint_generator.py.
+openai>=1.30

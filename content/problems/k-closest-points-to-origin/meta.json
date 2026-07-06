@@ -6,6 +6,11 @@
     "array",
     "heap"
   ],
+  "hints": [
+    "You do not need the exact Euclidean distance; comparing squared distances avoids expensive square roots.",
+    "Since you only need the k smallest values, consider using a max-heap of size k to track the closest points efficiently.",
+    "Alternatively, use the QuickSelect algorithm to partition the array around the k-th smallest squared distance in average linear time."
+  ],
   "languages": [
     "python"
   ],

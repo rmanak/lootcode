@@ -7,6 +7,11 @@
     "breadth-first-search",
     "depth-first-search"
   ],
+  "hints": [
+    "Consider traversing the tree level by level to easily identify the deepest row.",
+    "Use a breadth-first search, processing nodes from left to right at each depth.",
+    "The last node visited in your level-order traversal is the answer."
+  ],
   "languages": [
     "python"
   ],

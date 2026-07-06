@@ -7,6 +7,11 @@
     "dynamic-programming",
     "prefix-sum"
   ],
+  "hints": [
+    "Work backwards from the end of the array, tracking the suffix sum of stones available from any index i.",
+    "Use dynamic programming where the state is defined by the current pile index and the current value of M.",
+    "For each state, iterate over all valid X choices and pick the one that maximizes current stones minus the opponent's best result from the new state."
+  ],
   "languages": [
     "python"
   ],

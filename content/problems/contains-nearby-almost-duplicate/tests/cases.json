@@ -525,6 +525,38 @@
       "expected": true,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "nums": [
+          -1,
+          3
+        ],
+        "indexDiff": 2,
+        "valueDiff": 4
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "nums": [
+          -298,
+          -495,
+          247,
+          954,
+          382,
+          -335
+        ],
+        "indexDiff": 37,
+        "valueDiff": 37
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

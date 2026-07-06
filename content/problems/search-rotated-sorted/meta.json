@@ -6,6 +6,11 @@
     "array",
     "binary-search"
   ],
+  "hints": [
+    "Identify which half of the array is strictly sorted by comparing boundary elements.",
+    "Use binary search to decide whether the target lies in the sorted half.",
+    "If the target is in the sorted half, search there; otherwise, recurse on the other half."
+  ],
   "languages": [
     "python"
   ],

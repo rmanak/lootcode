@@ -204,6 +204,20 @@
       "expected": 2,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "arr": [
+          570,
+          625,
+          353,
+          633
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

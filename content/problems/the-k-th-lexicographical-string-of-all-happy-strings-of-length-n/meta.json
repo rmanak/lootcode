@@ -6,6 +6,11 @@
     "string",
     "backtracking"
   ],
+  "hints": [
+    "How many valid happy strings of length n exist in total? Use this to check if k is too large.",
+    "Think of the strings as a tree where each level adds one character. Each node branches into two choices.",
+    "The count of valid suffixes depends only on the previous character. Use this count to skip whole branches and pick the k-th path."
+  ],
   "languages": [
     "python"
   ],

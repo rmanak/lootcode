@@ -8,6 +8,11 @@
     "union-find",
     "sorting"
   ],
+  "hints": [
+    "Think of the pairs as edges in a graph where indices are nodes. Which indices can reach each other?",
+    "Identify connected components in this graph. All characters within the same component can be rearranged freely.",
+    "Sort the characters in each connected component and place them back into their original indices in sorted order."
+  ],
   "languages": [
     "python"
   ],

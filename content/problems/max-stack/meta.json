@@ -6,6 +6,11 @@
     "stack",
     "heap"
   ],
+  "hints": [
+    "Consider tracking the maximum element alongside each value pushed onto the stack.",
+    "Use an auxiliary stack that stores the current maximum at each level of the main stack.",
+    "When pushing x, store max(x, current_max) on the auxiliary stack; pop both stacks together."
+  ],
   "languages": [
     "python"
   ],

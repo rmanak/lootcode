@@ -7,6 +7,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "Sort the array first to process smaller elements before their doubles.",
+    "Use a frequency map to track available numbers and match each with its double.",
+    "Iterate through sorted unique keys; if count of x is positive, subtract from 2*x count."
+  ],
   "languages": [
     "python"
   ],

@@ -7,6 +7,11 @@
     "stack",
     "dynamic-programming"
   ],
+  "hints": [
+    "Treat each row as the base of a histogram where heights accumulate consecutive 1s from above.",
+    "For each row, compute the largest rectangle area in that histogram using a monotonic stack approach.",
+    "Combine the histogram height calculation with the stack-based area logic for every row to find the global maximum."
+  ],
   "languages": [
     "python"
   ],

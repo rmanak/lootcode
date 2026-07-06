@@ -7,6 +7,11 @@
     "string",
     "simulation"
   ],
+  "hints": [
+    "Identify which words fit on the current line before moving to the next.",
+    "Calculate total extra spaces needed and distribute them starting from the left gaps.",
+    "Handle the last line separately by left-justifying and padding with trailing spaces."
+  ],
   "languages": [
     "python"
   ],

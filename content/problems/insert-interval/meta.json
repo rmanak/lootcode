@@ -5,6 +5,11 @@
   "tags": [
     "array"
   ],
+  "hints": [
+    "Separate the process into three parts: intervals before the new one, the merged interval, and intervals after it.",
+    "Use a linear scan to add all non-overlapping intervals that end before the new interval starts.",
+    "While overlapping, expand the new interval's end to the maximum of current ends, then append remaining intervals."
+  ],
   "languages": [
     "python"
   ],

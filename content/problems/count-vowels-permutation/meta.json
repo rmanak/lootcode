@@ -5,6 +5,11 @@
   "tags": [
     "dynamic-programming"
   ],
+  "hints": [
+    "Track the count of valid strings ending in each vowel separately as you build length by length.",
+    "Use dynamic programming where the next state depends on the specific transitions allowed from each vowel.",
+    "Initialize counts for length 1, then iterate n-1 times updating each vowel's count based on its allowed predecessors."
+  ],
   "languages": [
     "python"
   ],

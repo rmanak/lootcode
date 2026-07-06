@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider the cost to make any substring s[i..j] a palindrome. Precompute these costs for all pairs.",
+    "This is a dynamic programming problem. Let dp[i][k] be the min changes for s[0..i] split into k palindromes.",
+    "To compute dp[i][k], iterate over the last split point p. The cost is dp[p-1][k-1] plus the palindrome cost of s[p..i]."
+  ],
   "languages": [
     "python"
   ],

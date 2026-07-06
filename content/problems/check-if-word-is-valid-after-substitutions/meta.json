@@ -6,6 +6,11 @@
     "string",
     "stack"
   ],
+  "hints": [
+    "Notice that any valid string must contain the substring 'abc'. What happens if you remove one instance of 'abc' from the string?",
+    "Repeatedly removing any occurrence of 'abc' from the string preserves its validity. Can you keep doing this until no 'abc' remains?",
+    "If the string is valid, repeatedly removing 'abc' substrings will eventually reduce it to an empty string. Use a stack to simulate this removal process efficiently."
+  ],
   "languages": [
     "python"
   ],

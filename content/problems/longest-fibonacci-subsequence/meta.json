@@ -7,6 +7,11 @@
     "dynamic-programming",
     "hash-table"
   ],
+  "hints": [
+    "Consider every pair of elements as the potential first two numbers of a Fibonacci-like sequence.",
+    "Use a hash map to store the index of each number for O(1) lookups of the next required sum.",
+    "For each pair (i, j), simulate the sequence forward, updating the maximum length found so far."
+  ],
   "languages": [
     "python"
   ],

@@ -7,6 +7,11 @@
     "hash-table",
     "string"
   ],
+  "hints": [
+    "Track the next available suffix index for each base name to avoid restarting the search from 1 every time.",
+    "Use a hash map to store the current suffix counter for each name, updating it whenever a collision occurs.",
+    "When a name exists, append the stored counter, then increment that counter for future collisions with the same base name."
+  ],
   "languages": [
     "python"
   ],

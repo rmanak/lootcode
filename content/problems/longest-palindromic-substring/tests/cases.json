@@ -89,6 +89,15 @@
       "expected": "bccb",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s": "baaa"
+      },
+      "expected": "aaa",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

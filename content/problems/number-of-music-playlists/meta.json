@@ -6,6 +6,11 @@
     "dynamic-programming",
     "combinatorics"
   ],
+  "hints": [
+    "Consider building the playlist one song at a time, tracking how many unique songs have been played so far.",
+    "Use dynamic programming where the state is defined by the current playlist length and the count of unique songs included.",
+    "For each step, you can either pick a new unique song or replay an old one, provided it respects the cooldown constraint k."
+  ],
   "languages": [
     "python"
   ],

@@ -189,6 +189,20 @@
       "expected": 0,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "hours": [
+          6,
+          6,
+          8,
+          9
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

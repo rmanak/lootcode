@@ -8,6 +8,11 @@
     "backtracking",
     "bitmask"
   ],
+  "hints": [
+    "First, check if the total sum is divisible by k to find the target subset sum.",
+    "Use backtracking to try filling each of the k subsets one by one until they all reach the target sum.",
+    "Optimize by sorting nums descending and skipping duplicate values to prune the search space effectively."
+  ],
   "languages": [
     "python"
   ],

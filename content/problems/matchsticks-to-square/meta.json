@@ -8,6 +8,11 @@
     "bitmask",
     "dynamic-programming"
   ],
+  "hints": [
+    "First, check if the total sum is divisible by 4. If not, a square is impossible.",
+    "This is a partition problem. Use recursion or backtracking to try placing each stick into one of the four sides.",
+    "Sort sticks in descending order first. This prunes the search space significantly by failing fast on large sticks."
+  ],
   "languages": [
     "python"
   ],

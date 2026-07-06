@@ -7,6 +7,11 @@
     "trie",
     "hash-table"
   ],
+  "hints": [
+    "Focus on building the answer bit by bit, starting from the most significant bit.",
+    "Use a trie to store the binary representation of numbers for efficient prefix matching.",
+    "For each number, traverse the trie trying to take the opposite bit at each level to maximize the result."
+  ],
   "languages": [
     "python"
   ],

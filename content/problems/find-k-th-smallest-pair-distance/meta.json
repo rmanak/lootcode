@@ -7,6 +7,11 @@
     "binary-search",
     "sorting"
   ],
+  "hints": [
+    "Sorting the array first helps organize distances. Consider using binary search on the possible distance values.",
+    "Define a function that counts how many pairs have distance less than or equal to a specific value `mid`.",
+    "Use a two-pointer approach to count pairs with distance <= `mid` in linear time after sorting."
+  ],
   "languages": [
     "python"
   ],

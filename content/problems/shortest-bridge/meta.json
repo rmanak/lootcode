@@ -7,6 +7,11 @@
     "breadth-first-search",
     "depth-first-search"
   ],
+  "hints": [
+    "First, identify and separate the two distinct islands in the grid.",
+    "Start a Breadth-First Search from one island to find the shortest distance to the other.",
+    "Expand the search layer by layer; the first time you touch the second island, the layer count is the answer."
+  ],
   "languages": [
     "python"
   ],

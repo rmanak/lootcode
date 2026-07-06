@@ -5,6 +5,11 @@
   "tags": [
     "bit-manipulation"
   ],
+  "hints": [
+    "Handle signs separately by working with absolute values, then apply the correct sign to the final result.",
+    "Use bitwise shifting to repeatedly subtract large chunks of the divisor from the dividend, doubling the chunk size each step.",
+    "Accumulate the quotient by adding powers of two whenever the shifted divisor fits into the remaining dividend."
+  ],
   "languages": [
     "python"
   ],

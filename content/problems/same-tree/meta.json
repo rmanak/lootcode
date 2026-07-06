@@ -6,6 +6,11 @@
     "tree",
     "depth-first-search"
   ],
+  "hints": [
+    "Consider a recursive approach: when are two trees considered identical?",
+    "Both roots must be non-null and have equal values. Then, recursively check their left and right children.",
+    "Handle base cases: if both are None, return true; if only one is None, return false."
+  ],
   "languages": [
     "python"
   ],

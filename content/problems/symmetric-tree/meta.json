@@ -7,6 +7,11 @@
     "binary-tree",
     "depth-first-search"
   ],
+  "hints": [
+    "Compare the left subtree with the right subtree recursively, checking if they are mirror images.",
+    "Two trees are mirrors if their roots match and the left of one matches the right of the other.",
+    "Base cases: both null is true; one null is false; values must match for non-null nodes."
+  ],
   "languages": [
     "python"
   ],

@@ -29,6 +29,11 @@ class Settings:
     DATABASE_URL = f"sqlite:///{DB_PATH}"
 
     CONTENT_DIR = BASE_DIR / "content" / "problems"
+    # Optional "extended" problem set: extra problems kept out of git (see
+    # .gitignore) and seeded alongside CONTENT_DIR when present. Absent on a fresh
+    # clone, so those problems — and any collection references to them — drop
+    # cleanly. See docs/extended-problems.md.
+    EXTENDED_CONTENT_DIR = BASE_DIR / "content" / "problems-extended"
     # Curated, system-defined problem lists (e.g. "Blind 73"). See docs/collections.md.
     COLLECTIONS_DIR = BASE_DIR / "content" / "collections"
     TEMPLATES_DIR = APP_DIR / "templates"
@@ -48,6 +53,12 @@ class Settings:
     @property
     def ai_enabled(self) -> bool:
         return bool(self.ANTHROPIC_API_KEY)
+
+    @property
+    def content_dirs(self) -> list[Path]:
+        """Problem roots to seed from, in order: the committed default set then
+        the optional extended set. Missing dirs are skipped by content.load_all."""
+        return [self.CONTENT_DIR, self.EXTENDED_CONTENT_DIR]
 
 
 settings = Settings()

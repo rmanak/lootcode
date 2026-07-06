@@ -6,6 +6,11 @@
     "matrix",
     "dynamic-programming"
   ],
+  "hints": [
+    "Notice that the minimum path to a cell depends only on the minimum paths to the cells directly above it in the previous row.",
+    "This structure suggests dynamic programming: build up the minimum sum for each cell row by row, starting from the top.",
+    "For each cell, add its value to the minimum of the valid cells in the row above; the answer is the minimum value in the last row."
+  ],
   "languages": [
     "python"
   ],

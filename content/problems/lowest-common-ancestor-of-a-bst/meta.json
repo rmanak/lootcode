@@ -6,6 +6,11 @@
     "tree",
     "binary-search-tree"
   ],
+  "hints": [
+    "Compare p and q with the current node's value to decide which subtree to explore.",
+    "Use the BST property: if both are smaller, go left; if both larger, go right.",
+    "If one value is smaller and the other larger than the current node, that node is the answer."
+  ],
   "languages": [
     "python"
   ],

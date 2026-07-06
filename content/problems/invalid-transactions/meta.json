@@ -7,6 +7,11 @@
     "string",
     "sorting"
   ],
+  "hints": [
+    "First, identify any transaction with an amount over 1000. These are automatically invalid.",
+    "Group transactions by name. For each name, compare every pair to check for city differences and time proximity.",
+    "Two transactions conflict if they share a name, differ in city, and their time difference is at most 60. Mark both as invalid."
+  ],
   "languages": [
     "python"
   ],

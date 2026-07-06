@@ -6,6 +6,11 @@
     "graph",
     "tree"
   ],
+  "hints": [
+    "Consider how the height changes as you move the root from a leaf toward the center of the tree.",
+    "The roots with minimum height are the graph's center(s), found by iteratively removing all leaf nodes.",
+    "Use topological sorting with a queue of leaves; keep peeling layers until one or two nodes remain."
+  ],
   "languages": [
     "python"
   ],

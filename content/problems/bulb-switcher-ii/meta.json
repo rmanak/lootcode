@@ -5,6 +5,11 @@
   "tags": [
     "bit-manipulation"
   ],
+  "hints": [
+    "Notice that pressing a button twice cancels its effect. Thus, only the parity (even or odd) of presses for each button matters.",
+    "Since only parities matter, there are at most 16 distinct combinations of button states to consider.",
+    "Simulate all 16 combinations for a small n. You will observe the number of unique states stabilizes quickly as n increases."
+  ],
   "languages": [
     "python"
   ],

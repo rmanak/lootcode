@@ -7,6 +7,11 @@
     "stack",
     "recursion"
   ],
+  "hints": [
+    "Notice how nested brackets require processing inner content before outer repetition. This suggests a Last-In-First-Out structure.",
+    "Use a stack to track characters and numbers. When you hit a closing bracket, pop until the matching opening bracket to decode that segment.",
+    "Pop the segment, the preceding number, and any characters before that. Repeat the segment that many times and push the result back onto the stack."
+  ],
   "languages": [
     "python"
   ],

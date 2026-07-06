@@ -1,0 +1,45 @@
+{
+  "slug": "construct-binary-tree-from-inorder-and-postorder-traversal",
+  "title": "Construct Binary Tree from Inorder and Postorder Traversal",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "divide-and-conquer",
+    "tree",
+    "binary-tree"
+  ],
+  "hints": [
+    "In postorder, the last element is always the root of the current subtree. Find this root in the inorder array to split left and right children.",
+    "Use the index of the root in inorder to determine the size of the left subtree. This size helps identify the corresponding slice in postorder for the left child.",
+    "Process postorder from right to left. Recursively build the right subtree first, then the left, using a shared pointer to track the current root in postorder."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "buildTree",
+    "params": [
+      {
+        "name": "inorder",
+        "type": "int[]"
+      },
+      {
+        "name": "postorder",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

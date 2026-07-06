@@ -7,6 +7,11 @@
     "graph",
     "depth-first-search"
   ],
+  "hints": [
+    "Start from the border cells that are land and mark all reachable land cells as visited or sea.",
+    "Use BFS or DFS starting from every land cell on the grid's perimeter to flood-fill connected components.",
+    "After marking all reachable land, count the remaining unmarked land cells in the interior of the grid."
+  ],
   "languages": [
     "python"
   ],

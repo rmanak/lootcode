@@ -7,6 +7,11 @@
     "matrix",
     "depth-first-search"
   ],
+  "hints": [
+    "Try starting a search from every cell that matches the first letter of the word.",
+    "Use depth-first search to explore adjacent cells, keeping track of visited positions to avoid reuse.",
+    "Backtrack by marking a cell as visited before recursing and unmarking it after exploring all neighbors."
+  ],
   "languages": [
     "python"
   ],

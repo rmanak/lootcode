@@ -7,6 +7,11 @@
     "greedy",
     "dynamic-programming"
   ],
+  "hints": [
+    "Instead of tracking every path, focus on how far you can reach with your current number of jumps.",
+    "Use a greedy approach: track the farthest index reachable with the current jump count and the boundary of the current jump range.",
+    "Increment the jump count only when you step past the current range's boundary, updating that boundary to the farthest reachable index seen so far."
+  ],
   "languages": [
     "python"
   ],

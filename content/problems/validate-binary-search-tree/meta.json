@@ -7,6 +7,11 @@
     "binary-search-tree",
     "depth-first-search"
   ],
+  "hints": [
+    "Recall that a BST's in-order traversal always yields a strictly increasing sequence.",
+    "Track the valid range of values for each node, narrowing it as you descend the tree.",
+    "Pass min and max bounds to recursive calls, updating them based on left or right child direction."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Notice that after k steps, the remaining nums form a contiguous subarray defined by how many were taken from the left.",
+    "Use dynamic programming where the state tracks the current multiplier index and the number of items taken from the left.",
+    "The recurrence considers taking from either the left or right end, using the current multiplier to update the maximum score."
+  ],
   "languages": [
     "python"
   ],

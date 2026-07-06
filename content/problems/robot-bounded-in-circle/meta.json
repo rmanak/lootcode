@@ -6,6 +6,11 @@
     "string",
     "simulation"
   ],
+  "hints": [
+    "Simulate one pass of the instructions to find the robot's final position and facing direction.",
+    "If the robot ends at the origin, it is bounded. Otherwise, check if its final direction differs from the start.",
+    "If the robot does not face north after one pass, repeated instructions will eventually return it to the origin."
+  ],
   "languages": [
     "python"
   ],

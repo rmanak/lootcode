@@ -7,6 +7,11 @@
     "union-find",
     "depth-first-search"
   ],
+  "hints": [
+    "Start with the assumption that every vertex belongs to its own separate component. Then, process each edge to merge the components of its endpoints.",
+    "Consider using a Union-Find (Disjoint Set Union) data structure to efficiently track and merge sets of connected vertices.",
+    "Initialize the component count to n. For each edge, if the two vertices are in different sets, union them and decrement the count by one."
+  ],
   "languages": [
     "python"
   ],

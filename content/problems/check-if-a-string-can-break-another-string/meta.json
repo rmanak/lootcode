@@ -7,6 +7,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "Sort both strings to align their characters in non-decreasing order.",
+    "Check if sorted s1 dominates sorted s2, or if sorted s2 dominates sorted s1.",
+    "Compare characters at each index; if one string is always greater or equal, return true."
+  ],
   "languages": [
     "python"
   ],

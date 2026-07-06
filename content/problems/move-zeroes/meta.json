@@ -6,6 +6,11 @@
     "array",
     "two-pointers"
   ],
+  "hints": [
+    "Consider using two pointers: one to track where the next non-zero should go, and another to scan the array.",
+    "Move non-zero elements to the front using the first pointer, then fill the remaining positions with zeros.",
+    "After placing all non-zeros, iterate from the first pointer to the end of the array and set each element to zero."
+  ],
   "languages": [
     "python"
   ],

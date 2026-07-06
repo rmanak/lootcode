@@ -7,6 +7,11 @@
     "stack",
     "simulation"
   ],
+  "hints": [
+    "Focus only on pairs where a right-moving asteroid is immediately followed by a left-moving one; other pairs never interact.",
+    "Use a stack to keep track of surviving right-moving asteroids, checking each new left-mover against the top of the stack.",
+    "Process each asteroid: if it moves left, repeatedly pop from the stack while the top is smaller, handling equal sizes by popping both."
+  ],
   "languages": [
     "python"
   ],

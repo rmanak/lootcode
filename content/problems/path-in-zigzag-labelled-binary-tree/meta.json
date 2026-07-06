@@ -6,6 +6,11 @@
     "binary-tree",
     "tree"
   ],
+  "hints": [
+    "Find the row containing the label and work upward to the root, reversing the path at the end.",
+    "In a normal tree, a parent is label // 2. Here, calculate the symmetric counterpart in the row.",
+    "The sum of the first and last label in any row is constant. Use this to find the true parent."
+  ],
   "languages": [
     "python"
   ],

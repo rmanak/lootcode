@@ -259,6 +259,46 @@
       "expected": "99999999999999999999",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "cost": [
+          2,
+          4,
+          7,
+          1,
+          4,
+          7,
+          6,
+          4,
+          2
+        ],
+        "target": 6
+      },
+      "expected": "444444",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "cost": [
+          8,
+          6,
+          3,
+          5,
+          5,
+          6,
+          10,
+          8,
+          8
+        ],
+        "target": 12
+      },
+      "expected": "3333",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

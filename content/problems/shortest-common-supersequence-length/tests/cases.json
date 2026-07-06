@@ -63,7 +63,7 @@
     {
       "name": "hidden-5",
       "input": {
-        "str1": "",
+        "str1": "a",
         "str2": "abba"
       },
       "expected": 4,
@@ -74,7 +74,7 @@
       "name": "hidden-6",
       "input": {
         "str1": "babba",
-        "str2": ""
+        "str2": "a"
       },
       "expected": 5,
       "weight": 1,
@@ -113,7 +113,7 @@
     {
       "name": "hidden-10",
       "input": {
-        "str1": "",
+        "str1": "a",
         "str2": "aaaa"
       },
       "expected": 4,

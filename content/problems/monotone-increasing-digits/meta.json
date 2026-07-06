@@ -5,6 +5,11 @@
   "tags": [
     "greedy"
   ],
+  "hints": [
+    "Convert N to a list of digits. Scan left to right to find the first index where digits decrease.",
+    "Find the first drop. Decrement the digit immediately before the drop, then set all following digits to 9.",
+    "If decrementing causes a new drop to the left, backtrack further left until the sequence is non-decreasing."
+  ],
   "languages": [
     "python"
   ],

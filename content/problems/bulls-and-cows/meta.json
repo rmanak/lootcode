@@ -7,6 +7,11 @@
     "hash-table",
     "counting"
   ],
+  "hints": [
+    "First, count bulls by comparing characters at identical indices in both strings.",
+    "Next, count the frequency of each digit in both strings, ignoring positions already matched as bulls.",
+    "Cows equal the sum of minimum frequencies of each digit across both strings, minus the bull count."
+  ],
   "languages": [
     "python"
   ],

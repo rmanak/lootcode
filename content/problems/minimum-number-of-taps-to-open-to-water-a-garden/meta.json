@@ -7,6 +7,11 @@
     "dynamic-programming",
     "greedy"
   ],
+  "hints": [
+    "Convert each tap into a closed interval [start, end] covering its watering range.",
+    "Sort these intervals by start position, then greedily pick the one extending furthest right.",
+    "Track the current covered end and jump to the best next interval to minimize count."
+  ],
   "languages": [
     "python"
   ],

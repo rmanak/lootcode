@@ -6,6 +6,11 @@
     "array",
     "binary-search"
   ],
+  "hints": [
+    "Notice that if a speed K works, any faster speed also works. This monotonicity suggests a specific search strategy.",
+    "Use binary search on the possible values of K to efficiently find the minimum valid speed.",
+    "Define a helper function to calculate total hours needed for a given K. Binary search for the smallest K where this sum is at most H."
+  ],
   "languages": [
     "python"
   ],

@@ -125,6 +125,15 @@
       "expected": false,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s": "bc"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

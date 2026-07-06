@@ -149,6 +149,23 @@
       "expected": 1.0,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "balls": [
+          4,
+          3,
+          1,
+          4,
+          2,
+          4,
+          6
+        ]
+      },
+      "expected": 0.2869,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

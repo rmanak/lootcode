@@ -1,0 +1,39 @@
+{
+  "slug": "snakes-and-ladders",
+  "title": "Snakes and Ladders",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "breadth-first-search",
+    "matrix"
+  ],
+  "hints": [
+    "Consider this problem as finding the shortest path in a graph where nodes are squares and edges represent dice rolls.",
+    "Use Breadth-First Search starting from square 1, tracking the minimum moves to reach each square.",
+    "Convert between square labels and board coordinates carefully, accounting for the alternating row directions."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "snakesAndLadders",
+    "params": [
+      {
+        "name": "board",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

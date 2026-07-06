@@ -7,6 +7,11 @@
     "stack",
     "binary-search"
   ],
+  "hints": [
+    "Focus on finding the largest possible value for nums[k] that is still smaller than some preceding nums[j].",
+    "Traverse the array from right to left while maintaining a monotonically decreasing stack to track candidates for nums[j].",
+    "Keep a variable recording the maximum valid nums[k] seen so far; return true if any element to its left is smaller than this variable."
+  ],
   "languages": [
     "python"
   ],

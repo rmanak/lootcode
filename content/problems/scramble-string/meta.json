@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Check if both strings have the same character counts; if not, they cannot be scrambles.",
+    "Use recursion with memoization. At each step, try splitting s1 at every possible position.",
+    "For each split of s1, check if s2 matches either the swapped or non-swapped order of those parts."
+  ],
   "languages": [
     "python"
   ],

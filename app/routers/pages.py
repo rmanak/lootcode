@@ -544,12 +544,22 @@ def problem_detail(slug: str, request: Request, submission: str | None = None,
             initial_code = sub.code
             loaded_submission = sub
 
+    # This user's attempts on *this* problem, newest first — backs the
+    # "Submissions" tab in the statement panel.
+    problem_submissions = list(db.scalars(
+        select(Submission).where(
+            Submission.user_id == request.state.user_id,
+            Submission.problem_id == prob.id,
+        ).order_by(Submission.created_at.desc())
+    ))
+
     return templates.TemplateResponse(request, "problem.html", {
         "request": request, "prob": prob, "solved": solved, "known": known,
         "visit_later": visit_later, "tz": _user_tz(request),
         "visible_count": len(prob.tests) - hidden_count, "hidden_count": hidden_count,
         "user_name": request.state.user_name,
         "initial_code": initial_code, "loaded_submission": loaded_submission,
+        "problem_submissions": problem_submissions,
         "provided_types": _provided_types(prob),
     })
 

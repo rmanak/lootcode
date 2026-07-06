@@ -8,6 +8,11 @@
     "bitmask",
     "prefix-sum"
   ],
+  "hints": [
+    "Map each vowel to a bit in a 5-bit integer to track parity of counts.",
+    "Use a running XOR mask and store the first index where each mask value appears.",
+    "The longest valid substring ends at the current index and starts after the first occurrence of the same mask."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "string",
     "recursion"
   ],
+  "hints": [
+    "Process the number in chunks of three digits, starting from the least significant end.",
+    "Create a helper function to convert any value less than one thousand into words.",
+    "Append scale words like Thousand or Million based on the current chunk position."
+  ],
   "languages": [
     "python"
   ],

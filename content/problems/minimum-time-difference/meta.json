@@ -7,6 +7,11 @@
     "string",
     "sorting"
   ],
+  "hints": [
+    "Convert every time string into total minutes from 00:00 to simplify calculations.",
+    "Sort the list of minutes to easily compare adjacent times in chronological order.",
+    "Check differences between adjacent sorted times, including the circular wrap-around gap."
+  ],
   "languages": [
     "python"
   ],

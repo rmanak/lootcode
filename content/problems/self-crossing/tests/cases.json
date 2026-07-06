@@ -200,6 +200,118 @@
       "expected": false,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "x": [
+          402,
+          266,
+          703,
+          589,
+          506,
+          323
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "x": [
+          232,
+          19,
+          772,
+          231,
+          982,
+          680,
+          14,
+          602
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "x": [
+          1,
+          5,
+          3,
+          5,
+          2
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "x": [
+          581,
+          283,
+          776,
+          789,
+          443,
+          284
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "x": [
+          167,
+          446,
+          663,
+          348,
+          635,
+          294
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "x": [
+          312,
+          252,
+          408,
+          920,
+          788,
+          771
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "x": [
+          192,
+          362,
+          950,
+          362,
+          884
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

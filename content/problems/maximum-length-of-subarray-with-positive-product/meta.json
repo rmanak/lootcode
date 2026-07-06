@@ -7,6 +7,11 @@
     "dynamic-programming",
     "greedy"
   ],
+  "hints": [
+    "Split the array at zeros to handle independent segments where the product cannot be zero.",
+    "For each segment, track the count of negative numbers and the indices of the first and last negative number.",
+    "If the negative count is even, the whole segment works; if odd, exclude either the prefix before the first negative or the suffix after the last negative."
+  ],
   "languages": [
     "python"
   ],

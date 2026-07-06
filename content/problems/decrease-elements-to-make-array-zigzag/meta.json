@@ -6,6 +6,11 @@
     "array",
     "greedy"
   ],
+  "hints": [
+    "Consider the two valid zigzag patterns separately: peaks at even indices versus peaks at odd indices.",
+    "For a chosen pattern, each peak must be strictly greater than its neighbors. If it is not, reduce the neighbors.",
+    "Calculate the total reductions needed for both patterns independently and return the smaller sum."
+  ],
   "languages": [
     "python"
   ],

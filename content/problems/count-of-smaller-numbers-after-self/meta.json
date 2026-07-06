@@ -8,6 +8,11 @@
     "divide-and-conquer",
     "sorting"
   ],
+  "hints": [
+    "Consider processing the array from right to left to transform the problem into counting elements smaller than the current one seen so far.",
+    "Use a Binary Indexed Tree or Merge Sort to efficiently query counts of smaller elements while maintaining order.",
+    "Adapt Merge Sort: during the merge step, count how many right-side elements are smaller than the current left-side element."
+  ],
   "languages": [
     "python"
   ],

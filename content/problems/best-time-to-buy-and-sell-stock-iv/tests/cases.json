@@ -227,6 +227,22 @@
       "expected": 15,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "prices": [
+          245,
+          186,
+          952,
+          430,
+          811
+        ],
+        "k": 1
+      },
+      "expected": 766,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

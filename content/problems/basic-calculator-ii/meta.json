@@ -6,6 +6,11 @@
     "string",
     "stack"
   ],
+  "hints": [
+    "Parse the string to extract numbers and operators, handling whitespace.",
+    "Use a stack to store intermediate results, processing multiplication and division immediately.",
+    "Add remaining stack values to get the final sum, respecting operator precedence."
+  ],
   "languages": [
     "python"
   ],

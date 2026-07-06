@@ -7,6 +7,11 @@
     "sliding-window",
     "two-pointers"
   ],
+  "hints": [
+    "Instead of finding the minimum prefix/suffix sum, try finding the maximum length subarray with a specific sum.",
+    "The sum of the removed elements must equal x, so the remaining middle subarray must sum to total_sum - x.",
+    "Use a sliding window to find the longest contiguous subarray that sums to total_sum - x."
+  ],
   "languages": [
     "python"
   ],

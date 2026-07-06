@@ -9,6 +9,11 @@
     "union-find",
     "matrix"
   ],
+  "hints": [
+    "Consider traversing the grid using DFS. How can you track visited cells to distinguish a new path from the one you just came from?",
+    "For each cell, start a DFS only if it is unvisited. During traversal, if you encounter a visited cell that is not your immediate parent, you found a cycle.",
+    "Keep a separate visited set for each DFS run. If a DFS starts from a cell already in the global visited set, skip it to avoid redundant work."
+  ],
   "languages": [
     "python"
   ],

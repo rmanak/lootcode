@@ -6,6 +6,11 @@
     "string",
     "hash-table"
   ],
+  "hints": [
+    "Notice that some digits have unique letters not shared by any other digit, like 'z' for zero.",
+    "Use those unique letters to count specific digits first, then subtract their contributions to find others.",
+    "Process digits in an order where each step reveals a new count based on remaining unique letters."
+  ],
   "languages": [
     "python"
   ],

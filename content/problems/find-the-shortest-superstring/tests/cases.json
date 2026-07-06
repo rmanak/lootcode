@@ -165,6 +165,22 @@
       "expected": 4,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "words": [
+          "hznr",
+          "eegzi",
+          "aaaabd",
+          "c",
+          "baa",
+          "c"
+        ]
+      },
+      "expected": 17,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

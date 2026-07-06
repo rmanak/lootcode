@@ -7,6 +7,11 @@
     "sliding-window",
     "binary-search"
   ],
+  "hints": [
+    "Precompute the cost to change each character at index i into a new array.",
+    "The problem asks for the longest subarray where the sum of costs does not exceed maxCost.",
+    "Use a sliding window technique to expand the right end and shrink the left when the sum exceeds the budget."
+  ],
   "languages": [
     "python"
   ],

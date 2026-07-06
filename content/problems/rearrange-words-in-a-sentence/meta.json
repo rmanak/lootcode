@@ -6,6 +6,11 @@
     "string",
     "sorting"
   ],
+  "hints": [
+    "Split the sentence into a list of words to handle them individually.",
+    "Sort the list of words by their length, ensuring the sort is stable to preserve original order for ties.",
+    "Join the sorted words back into a string and capitalize only the first letter while lowercasing the rest."
+  ],
   "languages": [
     "python"
   ],

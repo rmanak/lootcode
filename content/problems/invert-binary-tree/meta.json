@@ -7,6 +7,11 @@
     "depth-first-search",
     "breadth-first-search"
   ],
+  "hints": [
+    "Consider the base case: what should you return if the current node is None?",
+    "At each node, swap its left and right children before processing them further.",
+    "Use recursion to invert the subtrees rooted at the swapped children, then return the current node."
+  ],
   "languages": [
     "python"
   ],

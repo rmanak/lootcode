@@ -7,6 +7,11 @@
     "breadth-first-search",
     "string"
   ],
+  "hints": [
+    "Extract the hostname from startUrl to identify the target domain for filtering.",
+    "Use BFS or DFS to traverse the graph, visiting only URLs that share the target hostname.",
+    "Maintain a visited set to avoid cycles and duplicates, then sort the collected results."
+  ],
   "languages": [
     "python"
   ],

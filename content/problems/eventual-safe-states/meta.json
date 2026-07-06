@@ -6,6 +6,11 @@
     "graph",
     "depth-first-search"
   ],
+  "hints": [
+    "A node is safe if it cannot reach any cycle. Consider marking nodes based on whether they are part of or lead to a cycle.",
+    "Use three colors: 0 for unvisited, 1 for visiting, and 2 for safe. If you encounter a node with color 1 during traversal, a cycle exists.",
+    "Perform DFS from each node. If a path leads to a node marked 1, mark current as unsafe. If all neighbors are 2, mark current as 2."
+  ],
   "languages": [
     "python"
   ],

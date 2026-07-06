@@ -7,6 +7,11 @@
     "two-pointers",
     "binary-search"
   ],
+  "hints": [
+    "Treat array values as pointers to indices to form a linked list structure.",
+    "The duplicate value creates a cycle in this implicit linked list.",
+    "Use Floyd's Tortoise and Hare algorithm to detect the cycle entry point."
+  ],
   "languages": [
     "python"
   ],

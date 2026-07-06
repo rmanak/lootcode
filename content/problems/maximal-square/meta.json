@@ -1,0 +1,39 @@
+{
+  "slug": "maximal-square",
+  "title": "Maximal Square",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "hints": [
+    "Consider what determines the size of the largest square ending at each cell.",
+    "Use dynamic programming where dp[i][j] stores the side length of the largest square with bottom-right corner at (i, j).",
+    "dp[i][j] depends on the minimum of its top, left, and top-left neighbors if the current cell is '1'."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maximalSquare",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "string[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

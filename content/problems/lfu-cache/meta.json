@@ -5,6 +5,11 @@
   "tags": [
     "hash-table"
   ],
+  "hints": [
+    "Track both frequency and recency for each key to handle eviction ties correctly.",
+    "Use a map from frequency to a doubly linked list of keys with that frequency.",
+    "Maintain a pointer to the minimum frequency to find the eviction candidate in constant time."
+  ],
   "languages": [
     "python"
   ],

@@ -5,6 +5,11 @@
   "tags": [
     "bit-manipulation"
   ],
+  "hints": [
+    "Consider how binary addition works at the bit level, specifically how carries are handled.",
+    "Use bitwise XOR to calculate the sum without carries and bitwise AND shifted left to calculate the carries.",
+    "Repeat the process of updating a and b with these bitwise results until there are no more carries left."
+  ],
   "languages": [
     "python"
   ],

@@ -8,6 +8,11 @@
     "divide-and-conquer",
     "queue"
   ],
+  "hints": [
+    "Consider the maximum subarray sum without wrapping using Kadane's algorithm.",
+    "The wrap-around case equals the total array sum minus the minimum subarray sum.",
+    "Handle the edge case where all numbers are negative by taking the maximum single element."
+  ],
   "languages": [
     "python"
   ],

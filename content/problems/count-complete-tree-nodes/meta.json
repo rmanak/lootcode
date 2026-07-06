@@ -7,6 +7,11 @@
     "binary-tree",
     "binary-search"
   ],
+  "hints": [
+    "Count the height of the leftmost path from the root. Then check the rightmost path height to see if the last level is full.",
+    "If the left height equals the right height, the tree is a perfect binary tree. Use the formula 2^h - 1 to calculate nodes instantly.",
+    "If heights differ, the last level is incomplete. Recursively count nodes in the left and right subtrees, then add one for the root."
+  ],
   "languages": [
     "python"
   ],

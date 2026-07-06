@@ -8,6 +8,11 @@
     "binary-search",
     "union-find"
   ],
+  "hints": [
+    "Notice that if you can reach the destination at time T, you can also do so at any time T' > T. This monotonicity suggests a search strategy.",
+    "Binary search on the answer T. For a fixed T, treat cells with elevation <= T as open and use BFS or DFS to check if a path exists.",
+    "Alternatively, use a modified Dijkstra algorithm where the cost to enter a cell is its elevation. The path cost is the maximum elevation encountered along the way."
+  ],
   "languages": [
     "python"
   ],

@@ -9,6 +9,11 @@
     "sliding-window",
     "prefix-sum"
   ],
+  "hints": [
+    "Start by computing prefix sums to easily calculate the sum of any contiguous subarray in constant time.",
+    "Notice that for a fixed end point, you want the earliest start point where the prefix sum difference is at least K.",
+    "Use a monotonic queue on prefix sums to efficiently find the optimal start indices while skipping invalid candidates."
+  ],
   "languages": [
     "python"
   ],

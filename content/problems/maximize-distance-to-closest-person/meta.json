@@ -5,6 +5,11 @@
   "tags": [
     "array"
   ],
+  "hints": [
+    "Scan the array to find the positions of all occupied seats. How do these positions divide the empty seats?",
+    "Consider three cases: empty seats before the first '1', between two '1's, and after the last '1'.",
+    "Between two '1's, the best distance is half the gap. At the edges, it is the full distance to the nearest '1'."
+  ],
   "languages": [
     "python"
   ],

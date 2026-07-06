@@ -7,6 +7,11 @@
     "binary-tree",
     "depth-first-search"
   ],
+  "hints": [
+    "Track the maximum value seen on the path from the root to the current node.",
+    "Use a recursive traversal, passing the current path maximum as an argument to child calls.",
+    "A node is good if its value is greater than or equal to the passed maximum; update the maximum for its children."
+  ],
   "languages": [
     "python"
   ],

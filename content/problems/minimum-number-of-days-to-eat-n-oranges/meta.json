@@ -7,6 +7,11 @@
     "breadth-first-search",
     "memoization"
   ],
+  "hints": [
+    "Notice that eating one orange repeatedly is too slow; focus on the division operations to reduce n quickly.",
+    "Use memoization or a map to store results for subproblems, since many paths converge to the same n values.",
+    "From n, the optimal next step is usually n-1 then n/2, or n-2 then n*2/3; recurse on these reduced states."
+  ],
   "languages": [
     "python"
   ],

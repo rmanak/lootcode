@@ -6,6 +6,11 @@
     "array",
     "binary-search"
   ],
+  "hints": [
+    "Identify which half of the current search range is sorted, then check if the target lies within that sorted portion.",
+    "Use binary search: compare the middle element with the left boundary to determine which side is sorted.",
+    "If the target is in the sorted half, narrow the search there; otherwise, discard that half and search the other side."
+  ],
   "languages": [
     "python"
   ],

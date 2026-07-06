@@ -7,6 +7,11 @@
     "heap",
     "string"
   ],
+  "hints": [
+    "At each step, greedily pick the character with the most remaining count, unless it would create a forbidden substring.",
+    "If the top character cannot be used without forming 'xxx', use the second most frequent character instead to reset the streak.",
+    "Continue this greedy process, decrementing counts, until no valid character can be appended without violating the rules."
+  ],
   "languages": [
     "python"
   ],

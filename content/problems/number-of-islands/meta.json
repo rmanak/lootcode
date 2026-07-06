@@ -8,6 +8,11 @@
     "depth-first-search",
     "union-find"
   ],
+  "hints": [
+    "Iterate through every cell in the grid to find unvisited land cells.",
+    "When you find a land cell, use DFS or BFS to mark all connected land cells as visited.",
+    "Increment your island count each time you start a new traversal from an unvisited land cell."
+  ],
   "languages": [
     "python"
   ],

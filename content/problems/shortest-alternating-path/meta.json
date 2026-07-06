@@ -6,6 +6,11 @@
     "graph",
     "breadth-first-search"
   ],
+  "hints": [
+    "Treat the color of the last edge used as part of the state. This turns the problem into a standard shortest path search on a modified graph.",
+    "Use BFS starting from node 0. Track visited states as (node, last_color) to avoid cycles and ensure shortest paths.",
+    "Initialize distances for (0, RED) and (0, BLUE) to 0. When traversing, only follow edges with a color different from the current state's color."
+  ],
   "languages": [
     "python"
   ],

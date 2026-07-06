@@ -1,0 +1,39 @@
+{
+  "slug": "game-of-life",
+  "title": "Game of Life",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "hints": [
+    "Create a separate result grid to store the next state, ensuring updates do not affect neighbor counts for other cells.",
+    "Iterate through every cell, count its live neighbors by checking all eight surrounding positions while handling boundary conditions.",
+    "Apply the four rules to the current cell state and neighbor count to determine the value for the corresponding position in the new grid."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "gameOfLife",
+    "params": [
+      {
+        "name": "board",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

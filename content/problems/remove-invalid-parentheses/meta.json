@@ -7,6 +7,11 @@
     "backtracking",
     "breadth-first-search"
   ],
+  "hints": [
+    "Start by determining the minimum number of left and right parentheses that must be removed to balance the string.",
+    "Use Breadth-First Search starting from the original string, generating neighbors by removing one parenthesis at each step.",
+    "Stop searching as soon as you find any valid string, ensuring all results at that depth are collected and duplicates are filtered."
+  ],
   "languages": [
     "python"
   ],

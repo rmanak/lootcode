@@ -8,6 +8,11 @@
     "sliding-window",
     "counting"
   ],
+  "hints": [
+    "Consider counting subarrays with at most K distinct integers instead of exactly K.",
+    "Subtract the count of subarrays with at most K-1 distinct integers from the count of subarrays with at most K distinct integers.",
+    "Use a sliding window with two pointers to efficiently calculate the number of subarrays with at most X distinct integers."
+  ],
   "languages": [
     "python"
   ],

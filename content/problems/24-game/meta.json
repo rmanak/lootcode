@@ -6,6 +6,11 @@
     "array",
     "backtracking"
   ],
+  "hints": [
+    "Consider how two numbers can be combined. There are only a few binary operations.",
+    "Use recursion to reduce the problem: pick two numbers, combine them, and solve for the remaining three.",
+    "At each step, try all pairs and all operations. If the final result is 24 (within a small epsilon for division), return true."
+  ],
   "languages": [
     "python"
   ],

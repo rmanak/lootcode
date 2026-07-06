@@ -8,6 +8,11 @@
     "greedy",
     "prefix-sum"
   ],
+  "hints": [
+    "Consider scanning the array while tracking prefix sums. How can you identify valid subarrays efficiently?",
+    "Use a greedy approach: once you find a valid subarray ending at index i, count it and reset your search after i.",
+    "Store the earliest index where each prefix sum occurs. When current prefix minus target exists, update count and reset reference."
+  ],
   "languages": [
     "python"
   ],

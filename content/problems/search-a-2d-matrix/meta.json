@@ -1,0 +1,43 @@
+{
+  "slug": "search-a-2d-matrix",
+  "title": "Search a 2D Matrix",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "binary-search",
+    "matrix"
+  ],
+  "hints": [
+    "Notice the matrix can be treated as one long sorted array because of the row ordering.",
+    "Map a single index from that virtual array to the corresponding row and column in the matrix.",
+    "Apply standard binary search on the range from 0 to m times n minus 1."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "searchMatrix",
+    "params": [
+      {
+        "name": "matrix",
+        "type": "int[][]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -5,6 +5,11 @@
   "tags": [
     "backtracking"
   ],
+  "hints": [
+    "Try placing queens row by row, ensuring no conflicts with previously placed queens.",
+    "Use sets to track occupied columns and diagonals for O(1) conflict checks.",
+    "Backtrack when a row has no valid moves, restoring state to explore other options."
+  ],
   "languages": [
     "python"
   ],

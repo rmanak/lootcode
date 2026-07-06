@@ -149,6 +149,26 @@
       "expected": -15,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "dividend": -2147483648,
+        "divisor": 1
+      },
+      "expected": -2147483648,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "dividend": -1,
+        "divisor": 1
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

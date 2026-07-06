@@ -6,6 +6,11 @@
     "array",
     "stack"
   ],
+  "hints": [
+    "Consider how the span for today relates to previous days with lower or equal prices.",
+    "Use a monotonic stack to keep track of indices where prices are strictly decreasing.",
+    "Pop elements from the stack that are smaller than or equal to the current price to find the span."
+  ],
   "languages": [
     "python"
   ],

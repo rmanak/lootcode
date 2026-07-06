@@ -6,6 +6,11 @@
     "array",
     "stack"
   ],
+  "hints": [
+    "Maintain a stack to track the currently active function as you process logs chronologically.",
+    "When a start log appears, push the id. When an end log appears, pop the id and calculate the duration.",
+    "Subtract the exclusive time of any nested functions from the parent's total duration to get the correct exclusive time."
+  ],
   "languages": [
     "python"
   ],

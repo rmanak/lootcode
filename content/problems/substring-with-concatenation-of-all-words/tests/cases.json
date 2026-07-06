@@ -1,0 +1,175 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "barfoothefoobarman",
+        "words": [
+          "foo",
+          "bar"
+        ]
+      },
+      "expected": [
+        0,
+        9
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "wordgoodgoodgoodbestword",
+        "words": [
+          "word",
+          "good",
+          "best",
+          "word"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "s": "barfoofoobarthefoobarman",
+        "words": [
+          "bar",
+          "foo",
+          "the"
+        ]
+      },
+      "expected": [
+        6,
+        9,
+        12
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "aaa",
+        "words": [
+          "a",
+          "a"
+        ]
+      },
+      "expected": [
+        0,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "ab",
+        "words": [
+          "ab"
+        ]
+      },
+      "expected": [
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "abc",
+        "words": [
+          "d"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "s": "abbbabbaaaaaab",
+        "words": [
+          "bbb"
+        ]
+      },
+      "expected": [
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "s": "aaaabbbba",
+        "words": [
+          "aa",
+          "ab",
+          "ab"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "b",
+        "words": [
+          "b",
+          "a"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "a",
+        "words": [
+          "aaa",
+          "bba",
+          "abb"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "abaaab",
+        "words": [
+          "abb"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "ababa",
+        "words": [
+          "bba",
+          "bbb"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

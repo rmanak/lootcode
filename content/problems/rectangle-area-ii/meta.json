@@ -6,6 +6,11 @@
     "array",
     "sorting"
   ],
+  "hints": [
+    "Since coordinates are large but few rectangles exist, consider compressing the coordinate space to only relevant x and y values.",
+    "Divide the plane into small regions using unique x and y coordinates. For each region, check if it is covered by any rectangle.",
+    "Sum the areas of all covered regions. Iterate through each x-interval and y-interval formed by sorted coordinates, checking coverage efficiently."
+  ],
   "languages": [
     "python"
   ],

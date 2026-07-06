@@ -7,6 +7,11 @@
     "union-find",
     "depth-first-search"
   ],
+  "hints": [
+    "Model the variables as nodes in a graph where equations define weighted directed edges.",
+    "Use graph traversal like BFS or DFS to find a path between query variables, multiplying edge weights along the way.",
+    "If no path exists or variables are missing, return -1.0; otherwise, return the accumulated product rounded to 5 decimals."
+  ],
   "languages": [
     "python"
   ],

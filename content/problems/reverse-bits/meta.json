@@ -6,6 +6,11 @@
     "bit-manipulation",
     "divide-and-conquer"
   ],
+  "hints": [
+    "Consider extracting bits from n one by one, starting from the least significant bit.",
+    "Use bitwise AND with 1 to get the current bit, then shift the result left before adding it.",
+    "Loop 32 times, shifting n right each iteration to process all bits in order."
+  ],
   "languages": [
     "python"
   ],

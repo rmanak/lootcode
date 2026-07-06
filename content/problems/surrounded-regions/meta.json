@@ -7,6 +7,11 @@
     "graph",
     "depth-first-search"
   ],
+  "hints": [
+    "Identify which 'O's are safe by tracing connections from the board's borders.",
+    "Use BFS or DFS starting from every 'O' on the edge to mark all reachable safe regions.",
+    "After marking safe cells, iterate through the board and flip any unmarked 'O' to 'X'."
+  ],
   "languages": [
     "python"
   ],

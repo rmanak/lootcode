@@ -7,6 +7,11 @@
     "dynamic-programming",
     "bitmask"
   ],
+  "hints": [
+    "Calculate the total sum and length of nums. If a subset of size k has the same average, its sum must be exactly k * total_sum / n.",
+    "Check if total_sum * k is divisible by n for any valid subset size k. This ensures the target subset sum is an integer.",
+    "Use dynamic programming or memoized recursion to find if a subset of size k exists with the calculated target sum."
+  ],
   "languages": [
     "python"
   ],

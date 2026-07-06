@@ -7,7 +7,7 @@ subtrees are themselves valid BSTs.
 
 ## Constraints
 - `1 <= number of nodes <= 10^4`
-- `-2^31 <= node.valueue <= 2^31 - 1`
+- `-2^31 <= node.value <= 2^31 - 1`
 
 ## Examples
 Input: `root = [2,1,3]`

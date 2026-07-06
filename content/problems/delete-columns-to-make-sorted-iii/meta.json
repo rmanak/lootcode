@@ -7,6 +7,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Notice that deleting a column affects all rows simultaneously. A column can be kept only if it maintains order for every row.",
+    "For each column, check if characters are non-decreasing across all rows. If any row violates this, the column must be deleted.",
+    "Count how many columns fail the non-decreasing check across all rows. This count is your answer."
+  ],
   "languages": [
     "python"
   ],

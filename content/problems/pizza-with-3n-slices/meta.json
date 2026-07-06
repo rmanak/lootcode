@@ -8,6 +8,11 @@
     "greedy",
     "heap"
   ],
+  "hints": [
+    "Notice that picking a slice forbids its neighbors, reducing this to selecting non-adjacent elements on a circle.",
+    "This is equivalent to the House Robber II problem: solve for two linear cases and take the maximum.",
+    "Use dynamic programming to find the max sum of k non-adjacent items for both linear subarrays."
+  ],
   "languages": [
     "python"
   ],

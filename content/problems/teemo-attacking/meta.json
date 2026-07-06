@@ -6,6 +6,11 @@
     "array",
     "simulation"
   ],
+  "hints": [
+    "Consider the overlap between consecutive attacks. How much of the current attack's duration is actually new?",
+    "If the gap between current and previous attack is smaller than duration, only the gap adds to total poisoned time.",
+    "Sum the minimum of duration and the difference between consecutive time values, adding duration for the last attack."
+  ],
   "languages": [
     "python"
   ],

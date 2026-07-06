@@ -7,6 +7,11 @@
     "stack",
     "sorting"
   ],
+  "hints": [
+    "Calculate the time each car would take to reach the target if it drove alone.",
+    "Sort the cars by their starting position in descending order, processing those closest to the target first.",
+    "Maintain the arrival time of the current leading fleet; if a car arrives later, it forms a new fleet."
+  ],
   "languages": [
     "python"
   ],

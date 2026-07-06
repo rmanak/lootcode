@@ -6,6 +6,11 @@
     "two-pointers",
     "string"
   ],
+  "hints": [
+    "Convert the integer to a list of digits to manipulate them individually and check the 32-bit limit at the end.",
+    "Find the first digit from the right that is smaller than its right neighbor; this is the pivot point to change.",
+    "Swap the pivot with the smallest larger digit to its right, then reverse the suffix following the pivot to minimize the result."
+  ],
   "languages": [
     "python"
   ],

@@ -37,15 +37,18 @@ def main() -> int:
             print(f"\n{failures} problem(s) have a canonical solution that does NOT "
                   "pass all tests — fix the content.")
 
-        # Curated lists (content/collections/*.json).
+        # Curated lists (content/collections/*.json). A collection may reference a
+        # slug that isn't present — an extended/gitignored problem on a default-only
+        # checkout, or a stale/typo'd slug. Either way the reference is skipped, not
+        # fatal: it's reported for a maintainer's eye but never fails seeding.
         n_coll, unresolved = seed_collections(db)
         print(f"\nSeeded/updated {n_coll} collection(s).")
         if unresolved:
-            print(f"  {len(unresolved)} unknown problem slug(s) referenced (skipped):")
+            print(f"  {len(unresolved)} collection reference(s) skipped (problem not "
+                  "present — e.g. an extended/gitignored problem, or a stale slug):")
             for ref in unresolved:
                 print(f"    - {ref}")
-            print("  Fix the manifest slug or add the missing problem.")
-        return 1 if (failures or unresolved) else 0
+        return 1 if failures else 0
 
 
 if __name__ == "__main__":

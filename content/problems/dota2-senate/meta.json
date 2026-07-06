@@ -7,6 +7,11 @@
     "greedy",
     "queue"
   ],
+  "hints": [
+    "Model the process as a circular queue where each senator acts in turn, banning the nearest future opponent.",
+    "Use two queues to store indices of Radiant and Dire senators, comparing current indices to decide who bans whom.",
+    "When a senator bans an opponent, push their own index plus n to their queue to simulate them acting again in the next round."
+  ],
   "languages": [
     "python"
   ],

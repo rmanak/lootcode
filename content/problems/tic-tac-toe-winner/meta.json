@@ -7,6 +7,11 @@
     "simulation",
     "matrix"
   ],
+  "hints": [
+    "Instead of scanning the whole board after each move, focus only on the row, column, and diagonals affected by the new placement.",
+    "Maintain running counters for each row, column, and the two diagonals to track how many marks each player has in them.",
+    "Increment the relevant counters for the current player; if any counter reaches n, that player has won."
+  ],
   "languages": [
     "python"
   ],

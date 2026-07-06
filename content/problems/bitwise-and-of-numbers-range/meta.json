@@ -1,0 +1,41 @@
+{
+  "slug": "bitwise-and-of-numbers-range",
+  "title": "Bitwise AND of Numbers Range",
+  "difficulty": "medium",
+  "tags": [
+    "bit-manipulation"
+  ],
+  "hints": [
+    "Consider how the least significant bits change as you increment numbers. Do they stabilize or keep flipping?",
+    "Focus on the common prefix of the binary representations of left and right. Bits that differ will eventually become zero.",
+    "Right-shift both numbers until they are equal to find the common prefix, then left-shift back to restore the position."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "rangeBitwiseAnd",
+    "params": [
+      {
+        "name": "left",
+        "type": "int"
+      },
+      {
+        "name": "right",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

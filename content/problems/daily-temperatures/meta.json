@@ -6,6 +6,11 @@
     "array",
     "stack"
   ],
+  "hints": [
+    "Instead of searching forward for each day, look backward from the end of the array.",
+    "Maintain a stack of indices for days whose warmer future hasn't been found yet.",
+    "When a current temperature is higher than the stack top's, pop it and calculate the difference in indices."
+  ],
   "languages": [
     "python"
   ],

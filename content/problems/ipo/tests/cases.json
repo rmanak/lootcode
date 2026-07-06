@@ -1,0 +1,216 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "k": 2,
+        "w": 0,
+        "profits": [
+          1,
+          2,
+          3
+        ],
+        "capital": [
+          0,
+          1,
+          1
+        ]
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "k": 3,
+        "w": 0,
+        "profits": [
+          1,
+          2,
+          3
+        ],
+        "capital": [
+          0,
+          1,
+          2
+        ]
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "k": 1,
+        "w": 0,
+        "profits": [
+          1,
+          2,
+          3
+        ],
+        "capital": [
+          1,
+          1,
+          2
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "k": 10,
+        "w": 0,
+        "profits": [
+          1,
+          2,
+          3
+        ],
+        "capital": [
+          0,
+          0,
+          0
+        ]
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "k": 2,
+        "w": 5,
+        "profits": [
+          4,
+          1
+        ],
+        "capital": [
+          10,
+          3
+        ]
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "k": 3,
+        "w": 0,
+        "profits": [
+          1,
+          6,
+          0,
+          4,
+          5
+        ],
+        "capital": [
+          0,
+          5,
+          3,
+          0,
+          0
+        ]
+      },
+      "expected": 15,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "k": 1,
+        "w": 3,
+        "profits": [
+          4
+        ],
+        "capital": [
+          4
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "k": 1,
+        "w": 4,
+        "profits": [
+          0,
+          3
+        ],
+        "capital": [
+          6,
+          1
+        ]
+      },
+      "expected": 7,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "k": 1,
+        "w": 1,
+        "profits": [
+          1
+        ],
+        "capital": [
+          3
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "k": 3,
+        "w": 0,
+        "profits": [
+          0
+        ],
+        "capital": [
+          2
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "k": 3,
+        "w": 4,
+        "profits": [
+          4,
+          0,
+          6,
+          2,
+          0
+        ],
+        "capital": [
+          2,
+          3,
+          4,
+          4,
+          5
+        ]
+      },
+      "expected": 16,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

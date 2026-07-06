@@ -5,6 +5,11 @@
   "tags": [
     "bit-manipulation"
   ],
+  "hints": [
+    "Notice the problem statement explicitly provides the recurrence formula to solve it.",
+    "The formula f(n) = n XOR f(n >> 1) suggests a recursive approach with bit shifting.",
+    "Implement the recursion directly, handling the base case n=0, or use memoization if needed."
+  ],
   "languages": [
     "python"
   ],

@@ -5,6 +5,11 @@
   "tags": [
     "dynamic-programming"
   ],
+  "hints": [
+    "Notice that reaching n As often involves reaching a smaller multiple of n first. What happens if you reach a divisor d of n?",
+    "Think about the prime factorization of n. How many steps does it take to multiply the current count of As by a prime number p?",
+    "The answer is the sum of the prime factors of n. Try dividing n by its smallest prime factor repeatedly and summing those factors."
+  ],
   "languages": [
     "python"
   ],

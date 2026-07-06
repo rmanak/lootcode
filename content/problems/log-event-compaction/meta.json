@@ -6,6 +6,11 @@
     "array",
     "simulation"
   ],
+  "hints": [
+    "Scan the list linearly, tracking the start timestamp and state of the current run.",
+    "Detect when the state changes to close the current interval and begin a new one.",
+    "Remember to append the final active interval after the loop finishes processing all samples."
+  ],
   "languages": [
     "python"
   ],

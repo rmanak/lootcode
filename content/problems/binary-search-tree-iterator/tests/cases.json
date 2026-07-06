@@ -1,0 +1,150 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "operations": [
+          [
+            "BSTIterator",
+            [
+              7,
+              3,
+              15,
+              null,
+              null,
+              9,
+              20
+            ]
+          ],
+          [
+            "next"
+          ],
+          [
+            "next"
+          ],
+          [
+            "hasNext"
+          ],
+          [
+            "next"
+          ],
+          [
+            "hasNext"
+          ],
+          [
+            "next"
+          ],
+          [
+            "hasNext"
+          ],
+          [
+            "next"
+          ],
+          [
+            "hasNext"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        3,
+        7,
+        true,
+        9,
+        true,
+        15,
+        true,
+        20,
+        false
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "operations": [
+          [
+            "BSTIterator",
+            [
+              1
+            ]
+          ],
+          [
+            "hasNext"
+          ],
+          [
+            "next"
+          ],
+          [
+            "hasNext"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        true,
+        1,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "operations": [
+          [
+            "BSTIterator",
+            [
+              5,
+              3,
+              8,
+              2,
+              4,
+              7,
+              9
+            ]
+          ],
+          [
+            "next"
+          ],
+          [
+            "next"
+          ],
+          [
+            "next"
+          ],
+          [
+            "next"
+          ],
+          [
+            "next"
+          ],
+          [
+            "next"
+          ],
+          [
+            "next"
+          ],
+          [
+            "hasNext"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

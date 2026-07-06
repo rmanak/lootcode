@@ -7,6 +7,11 @@
     "matrix",
     "binary-search"
   ],
+  "hints": [
+    "Treat the entire matrix as a single sorted 1D array of length m*n.",
+    "Perform a standard binary search on this virtual 1D array.",
+    "Map each 1D index to matrix coordinates using division and modulo with the number of columns."
+  ],
   "languages": [
     "python"
   ],

@@ -7,6 +7,11 @@
     "simulation",
     "counting"
   ],
+  "hints": [
+    "Check each friend x against every other friend u to see if both prefer each other over their current partners.",
+    "Precompute a rank map for each friend to quickly compare preference levels in O(1) time.",
+    "Iterate through all pairs of friends (x, u) and check the mutual preference condition to count unhappy individuals."
+  ],
   "languages": [
     "python"
   ],

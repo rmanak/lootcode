@@ -5,6 +5,11 @@
   "tags": [
     "string"
   ],
+  "hints": [
+    "Convert each decimal string into a single rational number represented by a numerator and denominator.",
+    "Use the algebraic method: subtract the non-repeating part from the full number to isolate the repeating fraction.",
+    "Compare the two resulting fractions by cross-multiplying their numerators and denominators to check equality."
+  ],
   "languages": [
     "python"
   ],

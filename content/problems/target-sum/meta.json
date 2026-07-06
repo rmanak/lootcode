@@ -7,6 +7,11 @@
     "dynamic-programming",
     "backtracking"
   ],
+  "hints": [
+    "Notice that assigning signs partitions the numbers into two groups with a fixed difference.",
+    "Consider the sum of all numbers and how the positive and negative subsets relate to it.",
+    "Reformulate the problem as finding a subset with a specific target sum using dynamic programming."
+  ],
   "languages": [
     "python"
   ],

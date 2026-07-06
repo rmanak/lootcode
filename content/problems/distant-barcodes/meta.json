@@ -8,6 +8,11 @@
     "greedy",
     "counting"
   ],
+  "hints": [
+    "Count the frequency of each barcode value to find the most common one.",
+    "Compare the maximum frequency against the length of the list using the given threshold formula.",
+    "Return true if the most frequent element count is less than or equal to the calculated limit."
+  ],
   "languages": [
     "python"
   ],

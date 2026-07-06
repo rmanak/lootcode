@@ -6,6 +6,11 @@
     "queue",
     "hash-table"
   ],
+  "hints": [
+    "Track each user's allowed request timestamps separately to count how many fall within the sliding window.",
+    "Since timestamps are non-decreasing, store timestamps in a list or deque per user and remove those older than `timestamp - window`.",
+    "Before allowing a new request, discard expired timestamps from the front of the user's history, then check if the remaining count is less than `limit`."
+  ],
   "languages": [
     "python"
   ],

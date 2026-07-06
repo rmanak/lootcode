@@ -8,6 +8,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "To maximize the sum, which items should you consider picking first regardless of their labels?",
+    "Sort items by value descending. Then iterate through them, tracking how many items per label you have already picked.",
+    "For each item in sorted order, pick it if its label count is below useLimit and you haven't reached numWanted total items."
+  ],
   "languages": [
     "python"
   ],

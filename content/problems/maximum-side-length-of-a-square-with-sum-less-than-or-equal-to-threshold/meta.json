@@ -8,6 +8,11 @@
     "matrix",
     "prefix-sum"
   ],
+  "hints": [
+    "Notice that if a square of size k has a valid sum, any smaller square inside it also does. This monotonicity suggests a specific search strategy.",
+    "Precompute a 2D prefix sum array to calculate the sum of any rectangular sub-matrix in constant time, avoiding repeated summation loops.",
+    "Combine binary search on the side length with the prefix sum array. For each candidate length, check all possible top-left positions to see if any square fits the threshold."
+  ],
   "languages": [
     "python"
   ],

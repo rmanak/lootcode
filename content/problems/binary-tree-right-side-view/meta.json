@@ -7,6 +7,11 @@
     "binary-tree",
     "breadth-first-search"
   ],
+  "hints": [
+    "Consider traversing the tree level by level to identify nodes at the same depth.",
+    "Use Breadth-First Search (BFS) with a queue to process nodes layer by layer.",
+    "For each level, the last node visited is the rightmost one; add its value to your result."
+  ],
   "languages": [
     "python"
   ],

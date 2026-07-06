@@ -7,6 +7,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "Sort A first. The relative order of elements helps determine which get +K or -K to minimize the range.",
+    "Consider splitting the sorted array into two parts. Add K to the smaller half and subtract K from the larger half.",
+    "The new min is likely min(A[0]+K, A[n-1]-K) and new max is max(A[i]+K, A[i+1]-K). Minimize this difference over all split points i."
+  ],
   "languages": [
     "python"
   ],

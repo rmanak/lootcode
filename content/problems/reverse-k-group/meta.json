@@ -6,6 +6,11 @@
     "linked-list",
     "recursion"
   ],
+  "hints": [
+    "Identify when a full group of size k exists before attempting any reversal.",
+    "Use three pointers to track the segment boundaries and reverse links within that window.",
+    "Connect the tail of the previous segment to the new head of the reversed segment."
+  ],
   "languages": [
     "python"
   ],

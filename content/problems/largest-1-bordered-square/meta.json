@@ -7,6 +7,11 @@
     "dynamic-programming",
     "matrix"
   ],
+  "hints": [
+    "Start by iterating through all possible square sizes, from largest to smallest, to find the first valid one.",
+    "Precompute horizontal and vertical consecutive 1s ending at each cell to check borders in constant time.",
+    "For each cell as a potential bottom-right corner, verify if the top, bottom, left, and right edges are all 1s."
+  ],
   "languages": [
     "python"
   ],

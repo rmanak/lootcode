@@ -61,6 +61,7 @@ pip install -r requirements-dev.txt
 python -m pytest -q          # tests, incl. adversarial executor (TLE / fork-bomb / error)
 python scripts/seed.py       # (re)load content into the DB and verify canonical solutions
 python scripts/audit.py      # check statement ↔ test ↔ judge consistency
+python scripts/verify_json.py <folder>   # batch-verify loose problem JSON (e.g. generator output) before importing
 ```
 
 ## What's in this repo
@@ -71,7 +72,7 @@ python scripts/audit.py      # check statement ↔ test ↔ judge consistency
 |------|------------|
 | `app/` | The FastAPI app: HTML UI (`routers/pages.py`, `templates/`, `static/`), JSON run API (`routers/submissions.py`), admin (`routers/admin.py`), sandboxed `executor/` (`harness.py` runs inside the sandbox), Claude-API generator (`llm/`), and ORM/data layer (`models.py`, `db.py`, `store.py`, `content.py`, `tags.py`, `auth.py`, `config.py`). |
 | `content/problems/` | The 669 problem definitions (Markdown statement + tests + starter + canonical solution; optional `assets/` figures). Durable, human-editable mirror of the DB. |
-| `scripts/seed.py`, `audit.py`, `figures.py` | Operational scripts: seed/verify, consistency audit, SVG figure helpers. |
+| `scripts/seed.py`, `audit.py`, `figures.py`, `verify_json.py` | Operational scripts: seed/verify, consistency audit, SVG figure helpers, and batch-verifying a folder of loose problem JSON (valid JSON + required fields + canonical passes its tests) before importing. |
 | `tests/` | pytest suite. |
 | `docs/`, `specs/` | Engineering docs and the problem-schema / authoring / tags specs. |
 | `Dockerfile`, `docker-compose.yml`, `infra/`, `Makefile`, `requirements*.txt`, `.env.example` | Build / run / deploy config. |

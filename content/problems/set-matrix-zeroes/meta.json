@@ -7,6 +7,11 @@
     "matrix",
     "hash-table"
   ],
+  "hints": [
+    "Can you use the first row and first column of the matrix itself to store which rows and columns need zeroing?",
+    "You must save the initial state of the first row and first column before overwriting them with markers.",
+    "Use the saved flags to clear the first row and column last, ensuring they are processed correctly after the rest of the matrix."
+  ],
   "languages": [
     "python"
   ],

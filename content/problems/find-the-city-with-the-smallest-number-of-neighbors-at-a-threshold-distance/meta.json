@@ -5,6 +5,11 @@
   "tags": [
     "graph"
   ],
+  "hints": [
+    "Consider computing all-pairs shortest paths since the number of cities is small enough for a cubic algorithm.",
+    "The Floyd-Warshall algorithm is ideal here as it directly provides the shortest distance between every pair of nodes.",
+    "After computing distances, count reachable cities for each node and select the one with the minimum count, breaking ties by choosing the higher index."
+  ],
   "languages": [
     "python"
   ],

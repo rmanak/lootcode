@@ -7,6 +7,11 @@
     "dynamic-programming",
     "hash-table"
   ],
+  "hints": [
+    "Notice that picking x affects only x-1 and x+1. This resembles the House Robber problem where adjacent choices conflict.",
+    "First, calculate the total points available for each unique number. Then, solve a dynamic programming problem on the range of possible values.",
+    "Define dp[i] as the max points using values up to i. The recurrence is dp[i] = max(dp[i-1], dp[i-2] + total_points[i])."
+  ],
   "languages": [
     "python"
   ],

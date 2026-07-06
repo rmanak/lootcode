@@ -7,6 +7,11 @@
     "breadth-first-search",
     "graph"
   ],
+  "hints": [
+    "Think of this as finding the shortest path in a graph where nodes are genes.",
+    "Use Breadth-First Search to explore mutations level by level for the minimum count.",
+    "Check only neighbors in the bank that differ by exactly one character."
+  ],
   "languages": [
     "python"
   ],

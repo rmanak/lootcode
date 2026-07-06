@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Sort the cuts and include 0 and n as boundaries to define all segments.",
+    "This is a classic interval DP problem where you minimize cost by choosing the last cut in a range.",
+    "Define dp[i][j] as min cost to cut between boundary i and j; try all possible first cuts k between them."
+  ],
   "languages": [
     "python"
   ],

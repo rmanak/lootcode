@@ -8,6 +8,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "Think about how to compare two numbers to decide their order in the final string.",
+    "Define a custom comparator that checks if concatenating a and b is greater than b and a.",
+    "Sort the numbers using this comparator, join them, and handle the leading zero case."
+  ],
   "languages": [
     "python"
   ],

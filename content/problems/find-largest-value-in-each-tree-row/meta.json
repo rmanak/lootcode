@@ -7,6 +7,11 @@
     "breadth-first-search",
     "depth-first-search"
   ],
+  "hints": [
+    "Process the tree level by level, keeping track of which row you are currently visiting.",
+    "Use a breadth-first search with a queue to visit nodes row by row.",
+    "For each level, iterate through all nodes currently in the queue, tracking the maximum value before adding their children."
+  ],
   "languages": [
     "python"
   ],

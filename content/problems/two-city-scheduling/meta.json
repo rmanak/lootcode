@@ -7,6 +7,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "Consider the extra cost of sending a person to city A instead of city B for each individual.",
+    "Sort the candidates based on this difference to prioritize those who save the most by going to city A.",
+    "Send the first half of the sorted list to city A and the rest to city B to minimize total expense."
+  ],
   "languages": [
     "python"
   ],

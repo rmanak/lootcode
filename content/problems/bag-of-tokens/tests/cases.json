@@ -161,6 +161,25 @@
       "expected": 2,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "tokens": [
+          335,
+          988,
+          837,
+          531,
+          530,
+          462,
+          824,
+          675
+        ],
+        "P": 698
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

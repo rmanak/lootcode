@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Notice how any full parenthesization splits the expression into two smaller sub-expressions at some operator. Can you define a recursive relationship based on this split?",
+    "Consider dynamic programming where you store the number of ways a substring evaluates to true and to false separately for each range.",
+    "When combining results from left and right sub-ranges, multiply the specific true/false counts based on the operator's truth table to accumulate totals."
+  ],
   "languages": [
     "python"
   ],

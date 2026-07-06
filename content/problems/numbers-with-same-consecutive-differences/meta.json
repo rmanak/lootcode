@@ -6,6 +6,11 @@
     "backtracking",
     "breadth-first-search"
   ],
+  "hints": [
+    "Consider building numbers digit by digit from left to right. For each position, the next digit is determined by the previous one and k.",
+    "Use recursion or a queue to explore valid paths. At each step, try adding k and subtracting k from the current last digit, checking bounds.",
+    "Start with digits 1-9 for the first position. Recurse until length n is reached, ensuring new digits are between 0 and 9."
+  ],
   "languages": [
     "python"
   ],

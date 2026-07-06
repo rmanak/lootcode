@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Notice that connecting matching elements without crossing preserves their relative order in both arrays.",
+    "This structure matches the Longest Common Subsequence problem, which is typically solved using dynamic programming.",
+    "Define dp[i][j] as the answer for A[:i] and B[:j]. If A[i-1]==B[j-1], add 1 to dp[i-1][j-1]; otherwise take the max of skipping one element from A or B."
+  ],
   "languages": [
     "python"
   ],

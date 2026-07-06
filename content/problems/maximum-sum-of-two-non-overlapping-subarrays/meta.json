@@ -8,6 +8,11 @@
     "sliding-window",
     "prefix-sum"
   ],
+  "hints": [
+    "Compute prefix sums to quickly find the sum of any contiguous subarray in constant time.",
+    "Precompute the maximum sum of a subarray of length L ending at or before each index, and similarly for length M.",
+    "Iterate through all valid split points, combining the best L-sum before the split with the best M-sum after, and vice versa."
+  ],
   "languages": [
     "python"
   ],

@@ -7,6 +7,11 @@
     "sliding-window",
     "hash-table"
   ],
+  "hints": [
+    "Notice that as you extend the window to the right, the left boundary only moves right to maintain the constraint.",
+    "Use a sliding window with two pointers and a hash map to track fruit counts in the current window.",
+    "Expand the right pointer, adding fruits to the map. If more than two types exist, shrink from the left until valid."
+  ],
   "languages": [
     "python"
   ],

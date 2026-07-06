@@ -6,6 +6,11 @@
     "array",
     "binary-search"
   ],
+  "hints": [
+    "Since you need O(log n) time, consider using binary search to narrow down the search space.",
+    "Compare the middle element with its right neighbor to decide which half contains the peak.",
+    "If the middle element is smaller than its right neighbor, the peak lies to the right; otherwise, it is to the left or at the middle."
+  ],
   "languages": [
     "python"
   ],

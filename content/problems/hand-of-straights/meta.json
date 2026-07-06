@@ -7,6 +7,11 @@
     "greedy",
     "hash-table"
   ],
+  "hints": [
+    "Check if the total number of cards is divisible by groupSize. If not, it's impossible.",
+    "Sort the cards. Try to form groups greedily starting from the smallest available card.",
+    "Use a frequency map. For each smallest card, check if the next groupSize-1 consecutive cards exist."
+  ],
   "languages": [
     "python"
   ],

@@ -8,6 +8,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "Sort the positions first to work with them in increasing order of coordinates.",
+    "Consider binary searching on the answer, the minimum distance, to check feasibility.",
+    "Use a greedy strategy to verify if a distance is possible by placing balls as early as possible."
+  ],
   "languages": [
     "python"
   ],

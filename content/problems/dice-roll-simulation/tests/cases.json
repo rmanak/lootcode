@@ -220,6 +220,23 @@
       "expected": 6,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "n": 580,
+        "rollMax": [
+          4,
+          10,
+          10,
+          11,
+          2,
+          5
+        ]
+      },
+      "expected": 946810450,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -7,6 +7,11 @@
     "dynamic-programming",
     "two-pointers"
   ],
+  "hints": [
+    "Focus on the last character of t. Once you find it in s, how can you efficiently trace back to find the earliest start of the window?",
+    "Use dynamic programming where dp[i][j] stores the starting index of the shortest window in s ending at i that contains t[0..j] as a subsequence.",
+    "To compute dp[i][j], look for the previous occurrence of t[j] in s before index i, then extend the solution for t[0..j-1] ending at that position."
+  ],
   "languages": [
     "python"
   ],

@@ -7,6 +7,11 @@
     "binary-indexed-tree",
     "divide-and-conquer"
   ],
+  "hints": [
+    "Process elements from right to left, maintaining a sorted structure of seen values.",
+    "Use a Binary Indexed Tree or Merge Sort to count smaller elements efficiently.",
+    "During merge sort, count inversions when an element from the right half moves before one from the left."
+  ],
   "languages": [
     "python"
   ],

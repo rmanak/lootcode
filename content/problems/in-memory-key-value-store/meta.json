@@ -5,6 +5,11 @@
   "tags": [
     "hash-table"
   ],
+  "hints": [
+    "Notice that `getAt` requires retrieving values from past states, so you need to preserve history rather than overwriting keys.",
+    "Consider storing a list of (version_id, value) pairs for each key to track changes over time.",
+    "For `getAt`, use binary search on the version list to find the latest entry with an ID less than or equal to the target."
+  ],
   "languages": [
     "python"
   ],

@@ -1,0 +1,38 @@
+{
+  "slug": "remove-duplicates-from-sorted-array-ii",
+  "title": "Remove Duplicates from Sorted Array II",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "two-pointers"
+  ],
+  "hints": [
+    "Since the array is sorted, identical values are adjacent. Track the count of the current element to decide if it should be kept.",
+    "Use two pointers: one to iterate through the array and another to mark the position for the next valid element.",
+    "Always keep the first two occurrences. For subsequent duplicates, only copy the element if it differs from the value two positions back in the result."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "removeDuplicates",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

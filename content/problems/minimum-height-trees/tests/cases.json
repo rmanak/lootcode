@@ -484,6 +484,37 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "n": 3,
+        "edges": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "n": 1,
+        "edges": []
+      },
+      "expected": [
+        0
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

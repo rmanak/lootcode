@@ -7,6 +7,11 @@
     "hash-table",
     "prefix-sum"
   ],
+  "hints": [
+    "Consider prefix sums and how the difference between two prefix sums relates to subarray sums.",
+    "Use the property that if two prefix sums have the same remainder when divided by k, their difference is a multiple of k.",
+    "Store the first occurrence of each remainder in a hash map, ensuring the subarray length is at least 2 by checking indices."
+  ],
   "languages": [
     "python"
   ],

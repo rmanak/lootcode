@@ -8,6 +8,11 @@
     "backtracking",
     "bit-manipulation"
   ],
+  "hints": [
+    "Since the array is small, consider trying every possible subset of strings to form a candidate concatenation.",
+    "Use bitwise integers to represent the set of characters in each string, allowing fast checks for duplicates via bitwise operations.",
+    "Recursively decide for each string to include it or skip it, pruning branches where the current character set overlaps with the new string."
+  ],
   "languages": [
     "python"
   ],

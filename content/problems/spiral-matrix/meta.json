@@ -7,6 +7,11 @@
     "matrix",
     "simulation"
   ],
+  "hints": [
+    "Visualize shrinking the matrix boundaries after traversing each side.",
+    "Maintain four pointers: top, bottom, left, and right.",
+    "Loop while top <= bottom and left <= right, updating boundaries after each directional pass."
+  ],
   "languages": [
     "python"
   ],

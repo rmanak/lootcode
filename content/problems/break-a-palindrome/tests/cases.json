@@ -134,6 +134,15 @@
       "expected": "aaababaab",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "palindrome": "a"
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

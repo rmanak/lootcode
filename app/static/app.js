@@ -5,22 +5,10 @@
 
   const slug = root.dataset.slug;
   const difficulty = root.dataset.difficulty;
-  const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-    mode: "python",
-    lineNumbers: true,
-    indentUnit: 4,
-    tabSize: 4,
-    indentWithTabs: false, // always indent with spaces — avoids Python TabError
-    matchBrackets: true,
-    extraKeys: {
-      // Tab inserts spaces (or indents the selection); Shift-Tab unindents.
-      Tab: (cm) =>
-        cm.somethingSelected()
-          ? cm.indentSelection("add")
-          : cm.execCommand("insertSoftTab"),
-      "Shift-Tab": (cm) => cm.indentSelection("subtract"),
-    },
-  });
+  // CodeMirror 6 editor, bundled in static/vendor/cm6.js as window.LootEditor:
+  // Python syntax, context-aware auto-indent, 4-space Tab/Shift-Tab, and the
+  // vertical indentation guides. Height comes from CSS (.editor-wrap .cm-editor).
+  const editor = LootEditor.create(document.getElementById("code"));
 
   const btn = document.getElementById("run-btn");
   const statusEl = document.getElementById("status");
@@ -34,7 +22,7 @@
     let startY = 0, startH = 0;
     const onMove = (e) => {
       const h = Math.max(160, startH + (e.clientY - startY));
-      editor.setSize(null, h);
+      editor.setHeight(h);
     };
     const onUp = (e) => {
       vHandle.classList.remove("dragging");
@@ -45,7 +33,7 @@
     vHandle.addEventListener("pointerdown", (e) => {
       e.preventDefault();
       startY = e.clientY;
-      startH = editor.getWrapperElement().offsetHeight;
+      startH = editor.height();
       vHandle.classList.add("dragging");
       vHandle.setPointerCapture(e.pointerId);
       window.addEventListener("pointermove", onMove);

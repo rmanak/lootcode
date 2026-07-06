@@ -13,6 +13,7 @@ Exits non-zero if any inconsistency is found.  Run:  python scripts/audit.py
 """
 from __future__ import annotations
 
+import copy
 import pathlib
 import sys
 
@@ -79,7 +80,10 @@ def audit_problem(p: Problem) -> list[str]:
             decoders, encoder = _codecs_for(p)
             ok = True
             for t in p.tests:
-                args = dict(t.input)
+                # Deep-copy: some canonical solutions mutate their input in place
+                # (e.g. the sign-flip trick), and t.input aliases the test data the
+                # importer later writes to disk — see build_bank.py / import_top150.py.
+                args = copy.deepcopy(dict(t.input))
                 for name, dec in decoders.items():
                     args[name] = dec(args[name])
                 out = fn(**args)

@@ -8,6 +8,11 @@
     "binary-search-tree",
     "binary-tree"
   ],
+  "hints": [
+    "Notice how the first element is always the root, and subsequent elements branch left or right based on value comparisons.",
+    "Use a recursive helper that tracks a valid value range (min, max) for each subtree to decide where nodes belong.",
+    "Process the preorder list sequentially; if the current value fits within the allowed range, create the node and recurse for children."
+  ],
   "languages": [
     "python"
   ],

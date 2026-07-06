@@ -191,6 +191,18 @@
       "expected": 51,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "n": 1000000000,
+        "a": 188,
+        "b": 866,
+        "c": 516
+      },
+      "expected": 2000000000,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

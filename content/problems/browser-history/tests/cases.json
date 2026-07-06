@@ -536,6 +536,58 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "homepage": "home.com",
+        "operations": [
+          [
+            "back",
+            1
+          ],
+          [
+            "forward",
+            5
+          ],
+          [
+            "forward",
+            5
+          ],
+          [
+            "visit",
+            "b"
+          ],
+          [
+            "back",
+            3
+          ],
+          [
+            "visit",
+            "b.com"
+          ],
+          [
+            "back",
+            1
+          ],
+          [
+            "forward",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        "home.com",
+        "home.com",
+        "home.com",
+        null,
+        "home.com",
+        null,
+        "home.com",
+        "b.com"
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

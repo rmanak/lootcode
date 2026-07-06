@@ -6,6 +6,11 @@
     "hash-table",
     "simulation"
   ],
+  "hints": [
+    "Track the last delivered time for each key separately to check the window constraint efficiently.",
+    "Use a hash map to store the most recent delivery timestamp for every unique key encountered.",
+    "For each event, compare its time against the stored timestamp; if the gap exceeds the window, deliver it and update the map."
+  ],
   "languages": [
     "python"
   ],

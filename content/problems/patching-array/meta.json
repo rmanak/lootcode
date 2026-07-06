@@ -6,6 +6,11 @@
     "array",
     "greedy"
   ],
+  "hints": [
+    "Focus on the range [1, reach] that is currently coverable. How does adding a new number extend this range?",
+    "Maintain a variable 'reach' representing the maximum continuous sum achievable so far. If the next number in nums is <= reach + 1, it extends the range.",
+    "If the next number is too large, you must add the smallest missing number, which is reach + 1, to maximize the new range efficiently."
+  ],
   "languages": [
     "python"
   ],

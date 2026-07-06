@@ -6,6 +6,11 @@
     "array",
     "prefix-sum"
   ],
+  "hints": [
+    "Track the running total of numbers seen so far to avoid recalculating the sum repeatedly.",
+    "Divide the current running sum by the count of elements processed to get the average at each step.",
+    "Initialize an empty result list and a sum variable to zero, then iterate through the input array."
+  ],
   "languages": [
     "python"
   ],

@@ -82,23 +82,23 @@
         "tickets": [
           [
             "JFK",
-            "A"
+            "AAA"
           ],
           [
-            "A",
+            "AAA",
             "JFK"
           ],
           [
             "JFK",
-            "B"
+            "BBB"
           ]
         ]
       },
       "expected": [
         "JFK",
-        "A",
+        "AAA",
         "JFK",
-        "B"
+        "BBB"
       ],
       "weight": 1,
       "hidden": true

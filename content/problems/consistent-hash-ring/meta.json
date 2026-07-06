@@ -5,6 +5,11 @@
   "tags": [
     "binary-search"
   ],
+  "hints": [
+    "Consider using a data structure that maintains server IDs in sorted order to efficiently find successors.",
+    "Use a balanced binary search tree or a sorted list to support fast insertion, deletion, and lower_bound queries.",
+    "For each getServer, find the smallest ID greater than or equal to the key; if none exists, wrap around to the smallest ID."
+  ],
   "languages": [
     "python"
   ],

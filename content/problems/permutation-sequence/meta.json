@@ -5,6 +5,11 @@
   "tags": [
     "recursion"
   ],
+  "hints": [
+    "Consider how many permutations start with each possible first digit.",
+    "Use factorials to determine which digit belongs at each position.",
+    "Calculate the index by dividing k by the factorial of remaining positions."
+  ],
   "languages": [
     "python"
   ],

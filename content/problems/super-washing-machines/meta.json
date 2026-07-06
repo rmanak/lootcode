@@ -7,6 +7,11 @@
     "greedy",
     "prefix-sum"
   ],
+  "hints": [
+    "Check if the total number of dresses is divisible by the number of machines; otherwise, equalization is impossible.",
+    "Calculate the running balance of dresses needed or supplied relative to the average. The answer relates to the maximum flow across any boundary.",
+    "The minimum moves is the maximum of the absolute cumulative balance and the maximum individual surplus at any single machine."
+  ],
   "languages": [
     "python"
   ],

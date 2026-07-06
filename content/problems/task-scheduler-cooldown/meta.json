@@ -7,6 +7,11 @@
     "greedy",
     "hash-table"
   ],
+  "hints": [
+    "The answer is the larger of the total tasks and the time required by the most frequent task.",
+    "Calculate the time needed for the most frequent tasks using their count and the cooldown n.",
+    "Use the formula (max_freq - 1) * (n + 1) + number_of_max_freq_tasks to find the minimum time."
+  ],
   "languages": [
     "python"
   ],

@@ -1,0 +1,42 @@
+{
+  "slug": "remove-element",
+  "title": "Remove Element",
+  "difficulty": "easy",
+  "tags": [
+    "array",
+    "two-pointers"
+  ],
+  "hints": [
+    "Focus on keeping only the elements not equal to val at the start of the array.",
+    "Use a separate index to track where the next valid element should be placed.",
+    "Iterate through nums; if an element is not val, place it at the tracking index and increment that index."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "removeElement",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "val",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "unordered"
+}

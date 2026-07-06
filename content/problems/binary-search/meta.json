@@ -6,6 +6,11 @@
     "array",
     "binary-search"
   ],
+  "hints": [
+    "Focus on the sorted nature of the array to eliminate half the search space at each step.",
+    "Repeatedly compare the target with the middle element to decide which half to keep.",
+    "Maintain low and high pointers, updating them based on whether the middle value is smaller or larger than the target."
+  ],
   "languages": [
     "python"
   ],

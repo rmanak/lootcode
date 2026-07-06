@@ -5,6 +5,11 @@
   "tags": [
     "string"
   ],
+  "hints": [
+    "If the total count of '1's is not divisible by 3, no valid split exists.",
+    "Identify the ranges of cut positions for the first and second split based on the required '1' count per part.",
+    "The number of ways is the product of the number of valid positions for each cut, considering the zeros between them."
+  ],
   "languages": [
     "python"
   ],

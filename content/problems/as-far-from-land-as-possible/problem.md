@@ -8,4 +8,4 @@ grid = [[1,0,1],[0,0,0],[1,0,1]]  ->  2
 grid = [[1,0,0],[0,0,0],[0,0,0]]  ->  4
 ```
 
-**Constraints:** `1 <= len(grid) == len(grid[0]) <= 100`, cells are `0`/`1`.
+**Constraints:** the grid is rectangular with `1 <= len(grid) <= 100` rows and `1 <= len(grid[0]) <= 100` columns (all rows the same length); cells are `0`/`1`.

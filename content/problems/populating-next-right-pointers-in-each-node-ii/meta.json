@@ -1,0 +1,41 @@
+{
+  "slug": "populating-next-right-pointers-in-each-node-ii",
+  "title": "Populating Next Right Pointers in Each Node II",
+  "difficulty": "medium",
+  "tags": [
+    "linked-list",
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
+  ],
+  "hints": [
+    "Process the tree level by level. How can you use the next pointers of the current level to link nodes in the next level?",
+    "For each node, connect its children to the next available sibling. You can find this sibling by traversing the current level's next chain.",
+    "Maintain a dummy head for the next level. As you traverse the current level, append children to this dummy list, then move to the new level's head."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "connect",
+    "params": [
+      {
+        "name": "root",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

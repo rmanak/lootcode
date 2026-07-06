@@ -7,6 +7,11 @@
     "array",
     "divide-and-conquer"
   ],
+  "hints": [
+    "Identify the root from the first element of preorder and find its index in inorder to split left and right subtrees.",
+    "Use a hash map to store inorder indices for O(1) lookup, then recursively build the tree using index ranges.",
+    "After reconstruction, perform a breadth-first search, appending None for missing children, then strip trailing Nones."
+  ],
   "languages": [
     "python"
   ],

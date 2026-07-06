@@ -8,6 +8,11 @@
     "binary-search",
     "greedy"
   ],
+  "hints": [
+    "Track the last day each lake was filled to detect when a flood is imminent.",
+    "When a lake is about to flood, you must have used a dry day after its previous filling.",
+    "Use a sorted set of available dry-day indices to greedily pick the earliest valid one."
+  ],
   "languages": [
     "python"
   ],

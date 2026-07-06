@@ -1,0 +1,126 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "digits": "23"
+      },
+      "expected": [
+        "ad",
+        "ae",
+        "af",
+        "bd",
+        "be",
+        "bf",
+        "cd",
+        "ce",
+        "cf"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "digits": "2"
+      },
+      "expected": [
+        "a",
+        "b",
+        "c"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "digits": "2"
+      },
+      "expected": [
+        "a",
+        "b",
+        "c"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "digits": "7"
+      },
+      "expected": [
+        "p",
+        "q",
+        "r",
+        "s"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "digits": "234"
+      },
+      "expected": [
+        "adg",
+        "adh",
+        "adi",
+        "aeg",
+        "aeh",
+        "aei",
+        "afg",
+        "afh",
+        "afi",
+        "bdg",
+        "bdh",
+        "bdi",
+        "beg",
+        "beh",
+        "bei",
+        "bfg",
+        "bfh",
+        "bfi",
+        "cdg",
+        "cdh",
+        "cdi",
+        "ceg",
+        "ceh",
+        "cei",
+        "cfg",
+        "cfh",
+        "cfi"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "digits": "99"
+      },
+      "expected": [
+        "ww",
+        "wx",
+        "wy",
+        "wz",
+        "xw",
+        "xx",
+        "xy",
+        "xz",
+        "yw",
+        "yx",
+        "yy",
+        "yz",
+        "zw",
+        "zx",
+        "zy",
+        "zz"
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

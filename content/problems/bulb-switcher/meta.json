@@ -5,6 +5,11 @@
   "tags": [
     "math"
   ],
+  "hints": [
+    "Track how many times each specific bulb index is toggled during the n rounds.",
+    "Notice that a bulb is toggled once for each divisor of its index.",
+    "Count how many integers from 1 to n have an odd number of divisors."
+  ],
   "languages": [
     "python"
   ],

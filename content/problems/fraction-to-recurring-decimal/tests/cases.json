@@ -159,6 +159,26 @@
       "expected": "-13.(3)",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "numerator": 0,
+        "denominator": -39
+      },
+      "expected": "0",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "numerator": -1,
+        "denominator": -47
+      },
+      "expected": "0.(0212765957446808510638297872340425531914893617)",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

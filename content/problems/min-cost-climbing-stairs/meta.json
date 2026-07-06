@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider the minimum cost to reach each stair. How does the cost to reach stair i depend on previous stairs?",
+    "Use dynamic programming. The cost to reach stair i is cost[i] plus the minimum of the costs to reach i-1 and i-2.",
+    "You only need the costs for the last two stairs to compute the next one. Track these two values and iterate through the array."
+  ],
   "languages": [
     "python"
   ],

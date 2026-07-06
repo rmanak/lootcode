@@ -7,6 +7,11 @@
     "bit-manipulation",
     "prefix-sum"
   ],
+  "hints": [
+    "Can you answer each query in constant time after some initial preprocessing of the array?",
+    "Compute a prefix XOR array where prefix[i] is the XOR of all elements before index i.",
+    "The XOR of the subarray from L to R equals prefix[R+1] XOR prefix[L]."
+  ],
   "languages": [
     "python"
   ],

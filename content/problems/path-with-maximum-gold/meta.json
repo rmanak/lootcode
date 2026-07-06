@@ -8,6 +8,11 @@
     "matrix",
     "depth-first-search"
   ],
+  "hints": [
+    "Since you cannot revisit cells, think of this as finding the longest path in a grid graph.",
+    "Try depth-first search starting from every non-zero cell to explore all possible paths.",
+    "Use a visited set to track current path cells, backtracking after each recursive call."
+  ],
   "languages": [
     "python"
   ],

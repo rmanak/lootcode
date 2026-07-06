@@ -1,0 +1,40 @@
+{
+  "slug": "sort-list",
+  "title": "Sort List",
+  "difficulty": "medium",
+  "tags": [
+    "linked-list",
+    "two-pointers",
+    "divide-and-conquer",
+    "sorting"
+  ],
+  "hints": [
+    "Consider how merge sort handles linked lists naturally without needing random access, unlike quick sort or heap sort.",
+    "Use the slow and fast pointer technique to find the middle node, splitting the list into two halves recursively.",
+    "Implement a merge function that combines two sorted linked lists by comparing heads and adjusting pointers, using O(1) extra space."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "sortList",
+    "params": [
+      {
+        "name": "head",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

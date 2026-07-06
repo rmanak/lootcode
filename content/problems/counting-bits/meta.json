@@ -6,6 +6,11 @@
     "bit-manipulation",
     "dynamic-programming"
   ],
+  "hints": [
+    "Look at the binary representation of even numbers versus odd numbers. How does the count for i relate to i/2 or i-1?",
+    "Notice that removing the least significant bit from i gives a number you have already processed. Can you use its result?",
+    "Use the property that ans[i] equals ans[i without its last bit] plus the value of that last bit. This allows O(1) per element."
+  ],
   "languages": [
     "python"
   ],

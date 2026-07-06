@@ -1,0 +1,37 @@
+{
+  "slug": "plus-one",
+  "title": "Plus One",
+  "difficulty": "easy",
+  "tags": [
+    "array"
+  ],
+  "hints": [
+    "Start adding one to the last digit and check if it exceeds 9.",
+    "Handle the carry by setting the current digit to 0 and moving left.",
+    "If a carry remains after processing all digits, prepend 1 to the result."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "plusOne",
+    "params": [
+      {
+        "name": "digits",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

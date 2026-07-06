@@ -7,6 +7,11 @@
     "hash-table",
     "bit-manipulation"
   ],
+  "hints": [
+    "How many distinct binary strings of length k exist in total? Compare this count to the substrings you can extract from s.",
+    "Use a hash set to store every substring of length k found in s. Stop early if the set size reaches the total count.",
+    "If the length of s is less than k plus the total number of required strings, it is impossible to contain them all."
+  ],
   "languages": [
     "python"
   ],

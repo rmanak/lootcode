@@ -7,6 +7,11 @@
     "two-pointers",
     "sorting"
   ],
+  "hints": [
+    "Sort the array first. This lets you easily identify the minimum and maximum elements of any subsequence by picking indices from the sorted list.",
+    "Fix the minimum element at index i and the maximum at index j. If nums[i] + nums[j] <= target, how many valid subsequences can be formed using elements strictly between i and j?",
+    "For a fixed pair (i, j) where i < j, the elements between them can either be included or excluded. Use powers of 2 to count these combinations efficiently."
+  ],
   "languages": [
     "python"
   ],

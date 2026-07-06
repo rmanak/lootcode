@@ -5,6 +5,11 @@
   "tags": [
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider the last move made to reach step n. Which previous steps could you have come from?",
+    "Notice that the number of ways to reach step n depends on the ways to reach the two immediately preceding steps.",
+    "This dependency creates a recurrence relation similar to the Fibonacci sequence, allowing you to build the answer iteratively."
+  ],
   "languages": [
     "python"
   ],

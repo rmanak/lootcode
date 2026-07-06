@@ -7,6 +7,11 @@
     "backtracking",
     "bitmask"
   ],
+  "hints": [
+    "Model the problem as finding Hamiltonian paths in a graph where nodes are indices and edges connect compatible pairs.",
+    "Use backtracking to build permutations, pruning branches where the next element does not form a perfect square sum with the current one.",
+    "Handle duplicate numbers by sorting the array and skipping identical candidates at the same recursion depth to avoid counting identical permutations."
+  ],
   "languages": [
     "python"
   ],

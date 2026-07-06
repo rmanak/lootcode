@@ -6,6 +6,11 @@
     "hash-table",
     "simulation"
   ],
+  "hints": [
+    "Consider how each transaction affects the balance of both the sender and the receiver.",
+    "Use a hash map to store the running total for each account, initializing missing accounts to zero.",
+    "Subtract the amount from the sender's balance and add it to the receiver's balance for each transaction."
+  ],
   "languages": [
     "python"
   ],

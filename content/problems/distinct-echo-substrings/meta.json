@@ -6,6 +6,11 @@
     "string",
     "hash-table"
   ],
+  "hints": [
+    "Focus on substrings with even length. A substring s is valid if its first half equals its second half.",
+    "Iterate through all possible starting positions and even lengths. Check if text[i : i+len/2] matches text[i+len/2 : i+len].",
+    "Store found valid substrings in a set to count distinct ones, avoiding duplicates from overlapping matches."
+  ],
   "languages": [
     "python"
   ],

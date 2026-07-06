@@ -5,6 +5,11 @@
   "tags": [
     "recursion"
   ],
+  "hints": [
+    "Handle negative exponents by flipping the base and exponent sign first.",
+    "Use binary exponentiation: square the base and halve the exponent at each step.",
+    "Multiply the result by the current base only when the exponent is odd."
+  ],
   "languages": [
     "python"
   ],

@@ -7,6 +7,11 @@
     "two-pointers",
     "greedy"
   ],
+  "hints": [
+    "Consider the arrays as segments separated by common values. How does the choice at a common value affect future possibilities?",
+    "Use dynamic programming to track the maximum score reaching each common value. Compare the sums of segments in both arrays.",
+    "At each common value, pick the path with the higher accumulated sum from the previous common value, then add the segment sum."
+  ],
   "languages": [
     "python"
   ],

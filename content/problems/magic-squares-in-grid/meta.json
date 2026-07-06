@@ -6,6 +6,11 @@
     "array",
     "matrix"
   ],
+  "hints": [
+    "Check every possible top-left corner that could start a 3x3 subgrid within the given grid dimensions.",
+    "Verify that each candidate subgrid contains exactly the distinct numbers 1 through 9 before checking sums.",
+    "Confirm that all rows, columns, and both diagonals of the subgrid sum to the same magic constant."
+  ],
   "languages": [
     "python"
   ],

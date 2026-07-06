@@ -126,6 +126,16 @@ python scripts/seed.py     # canonical solution passes ALL of its own tests
 python scripts/audit.py    # statement ↔ compare ↔ fairness are consistent
 ```
 
+When you add or edit test cases, also confirm every case input is **in-bounds**
+for the stated constraints via the problem's input-constraint validator
+(`content/problems/<slug>/input_validator/input_validator.py`):
+
+```bash
+python scripts/check_constraint_validators.py --slug <slug>   # each input must satisfy validate_input()
+```
+
+See `docs/input-validators.md`.
+
 The in-app generator additionally runs every generated problem through the real
 sandbox executor before returning it, and retries once if the reference solution
 fails — but `seed.py`/`audit.py` remain the gate for anything written to

@@ -1,0 +1,37 @@
+{
+  "slug": "sqrtx",
+  "title": "Sqrt(x)",
+  "difficulty": "easy",
+  "tags": [
+    "binary-search"
+  ],
+  "hints": [
+    "Consider the range of possible answers for the square root. Is the function monotonic?",
+    "Use binary search to find the largest integer whose square is less than or equal to x.",
+    "Be careful with integer overflow when squaring the mid value during the search."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "mySqrt",
+    "params": [
+      {
+        "name": "x",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

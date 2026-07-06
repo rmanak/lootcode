@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider the state at each index: do you swap or not? The choice depends on previous elements.",
+    "Use dynamic programming to track min swaps ending with a swap or no swap at index i.",
+    "Compare current and previous values to determine valid transitions between swap and no-swap states."
+  ],
   "languages": [
     "python"
   ],

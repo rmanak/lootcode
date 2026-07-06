@@ -8,6 +8,11 @@
     "sorting",
     "counting"
   ],
+  "hints": [
+    "Sort the array so you can process elements in increasing order and handle conflicts locally.",
+    "For each element, if it is not strictly greater than the previous one, increase it to be exactly one more.",
+    "The cost is the difference between the new value and the original value; sum these differences."
+  ],
   "languages": [
     "python"
   ],

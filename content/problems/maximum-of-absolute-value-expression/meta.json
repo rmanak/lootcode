@@ -5,6 +5,11 @@
   "tags": [
     "array"
   ],
+  "hints": [
+    "Expand the absolute values by considering all sign combinations to remove them.",
+    "Group terms involving i and j separately to rewrite the expression as f(i) - f(j).",
+    "Track the maximum and minimum of each sign combination to find the global maximum efficiently."
+  ],
   "languages": [
     "python"
   ],

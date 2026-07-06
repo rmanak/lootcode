@@ -7,6 +7,11 @@
     "sorting",
     "hash-table"
   ],
+  "hints": [
+    "If a string appears more than once in the list, can it be the longest uncommon subsequence?",
+    "Consider sorting the strings by length in descending order to check candidates efficiently.",
+    "For each unique candidate, verify if it is a subsequence of any other string in the list."
+  ],
   "languages": [
     "python"
   ],

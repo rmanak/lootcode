@@ -8,6 +8,11 @@
     "hash-table",
     "sorting"
   ],
+  "hints": [
+    "Find all people at the given distance from the start using a breadth-first search.",
+    "Count the occurrences of each video watched by those people to determine their frequencies.",
+    "Sort the unique videos by frequency first, then by name for ties to get the final order."
+  ],
   "languages": [
     "python"
   ],

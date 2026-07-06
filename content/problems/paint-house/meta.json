@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider how the choice for the current house restricts the valid choices for the next one.",
+    "Use dynamic programming to store the minimum cost to paint each house with a specific color.",
+    "Calculate the minimum cost for each color at index i by adding its cost to the minimum of the other two colors at index i-1."
+  ],
   "languages": [
     "python"
   ],

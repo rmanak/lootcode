@@ -6,6 +6,11 @@
     "array",
     "matrix"
   ],
+  "hints": [
+    "Collect the coordinates of all 1s in both images into two separate lists of points.",
+    "For every pair of points (one from each list), calculate the translation vector needed to align them.",
+    "Count the frequency of each translation vector; the maximum frequency is your answer."
+  ],
   "languages": [
     "python"
   ],

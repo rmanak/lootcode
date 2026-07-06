@@ -2,14 +2,24 @@
 {% block title %}{{ prob.title }} · {{ app_name }}{% endblock %}
 {% block container_class %}wide{% endblock %}
 {% block head %}
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+{# CodeMirror 6 injects its own styles from the bundled JS — no stylesheet link. #}
 {% endblock %}
 
 {% block content %}
 <div class="solve" data-slug="{{ prob.slug }}" data-difficulty="{{ prob.difficulty }}">
 
   <section class="statement">
+    {# Tabs at the top of the left panel: the problem statement ("Description")
+       vs. this user's attempt history for this problem ("Submissions"). Purely
+       client-side — both panels are rendered; JS toggles which is visible. #}
+    <div class="panel-tabs" role="tablist" aria-label="Problem panel">
+      <button type="button" class="panel-tab is-active" role="tab"
+              aria-selected="true" data-panel="description">📝 Description</button>
+      <button type="button" class="panel-tab" role="tab"
+              aria-selected="false" data-panel="submissions">⏱️ Submissions</button>
+    </div>
+
+    <div class="panel-view" data-panel-view="description">
     <h1>
       {{ prob.title }}
       <span class="badge {{ prob.difficulty }}">{{ prob.difficulty }}</span>
@@ -70,6 +80,28 @@
       <div class="disclosure-body hint-body">{{ hint }}</div>
     </details>
     {% endfor %}
+    </div>{# /description panel #}
+
+    <div class="panel-view" data-panel-view="submissions" hidden>
+      <h2 class="subs-panel-title">Your submissions</h2>
+      {% if problem_submissions %}
+      <table class="subs subs-zebra">
+        <thead><tr><th>When</th><th>Result</th><th>Score</th></tr></thead>
+        <tbody>
+          {% for s in problem_submissions %}
+          <tr class="{{ 'g-even' if loop.index is even else 'g-odd' }}{{ ' sub-current' if loaded_submission and s.id == loaded_submission.id }}">
+            <td><a href="/problems/{{ prob.slug }}?submission={{ s.id }}"
+                   title="Load this submission into the editor">{{ s.created_at | localdt(tz) }}</a></td>
+            <td class="{{ 'pass' if s.solved else 'fail' }}">{{ s.passed_count }}/{{ s.total_count }}</td>
+            <td>{{ s.score }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p class="muted subs-empty">No submissions yet — run your solution to record an attempt.</p>
+      {% endif %}
+    </div>{# /submissions panel #}
   </section>
 
   <div class="col-gutter" title="Drag to resize panels"></div>
@@ -97,7 +129,28 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+<script src="{{ static('vendor/cm6.js') }}"></script>
 <script src="{{ static('app.js') }}"></script>
+<script>
+  // Left-panel tabs: swap between the problem statement ("Description") and this
+  // user's attempt history ("Submissions"). Both panels are in the DOM; we just
+  // toggle visibility and the active-tab styling.
+  (function () {
+    var tabs = document.querySelectorAll(".panel-tab");
+    var views = document.querySelectorAll(".panel-view");
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        var name = tab.dataset.panel;
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.classList.toggle("is-active", on);
+          t.setAttribute("aria-selected", on ? "true" : "false");
+        });
+        views.forEach(function (v) {
+          v.hidden = v.dataset.panelView !== name;
+        });
+      });
+    });
+  })();
+</script>
 {% endblock %}

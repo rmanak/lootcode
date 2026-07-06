@@ -152,6 +152,24 @@
       "expected": 101,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "N": 1
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "N": 11
+      },
+      "expected": 11,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

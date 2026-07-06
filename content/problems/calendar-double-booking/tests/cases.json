@@ -834,6 +834,41 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "operations": [
+          [
+            "book",
+            2,
+            3
+          ],
+          [
+            "book",
+            3,
+            5
+          ],
+          [
+            "book",
+            1,
+            5
+          ],
+          [
+            "book",
+            2,
+            5
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

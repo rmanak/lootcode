@@ -6,6 +6,11 @@
     "string",
     "sliding-window"
   ],
+  "hints": [
+    "Count the total occurrences of each character in the text first.",
+    "Identify contiguous blocks of identical characters and check if two blocks of the same character are separated by exactly one different character.",
+    "For each character type, calculate the maximum length achievable by merging two adjacent blocks with one swap, or extending one block by one using a spare character."
+  ],
   "languages": [
     "python"
   ],

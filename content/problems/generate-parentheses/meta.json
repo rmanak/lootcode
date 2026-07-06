@@ -6,6 +6,11 @@
     "backtracking",
     "string"
   ],
+  "hints": [
+    "Think about building the string character by character. What rule prevents an invalid sequence?",
+    "Track how many open and closing parentheses you have used so far.",
+    "Use recursion to place characters. You can add a closing parenthesis only if you have unused open ones."
+  ],
   "languages": [
     "python"
   ],

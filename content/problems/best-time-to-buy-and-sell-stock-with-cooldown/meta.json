@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider the state you are in on any given day: holding a stock, not holding, or in cooldown.",
+    "Use dynamic programming to track the max profit for each state on day i based on day i-1.",
+    "Define three arrays for holding, sold, and rest states, then derive their recurrence relations."
+  ],
   "languages": [
     "python"
   ],

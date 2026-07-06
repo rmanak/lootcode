@@ -7,6 +7,11 @@
     "sliding-window",
     "hash-table"
   ],
+  "hints": [
+    "Use a sliding window approach to expand and contract a substring of `s` while tracking character counts.",
+    "Maintain a frequency map for `t` and a counter for how many characters from `t` are currently satisfied in the window.",
+    "Shrink the window from the left as long as all characters of `t` are still covered, updating the shortest valid substring found."
+  ],
   "languages": [
     "python"
   ],

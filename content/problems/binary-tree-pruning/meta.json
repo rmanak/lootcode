@@ -6,6 +6,11 @@
     "tree",
     "depth-first-search"
   ],
+  "hints": [
+    "A subtree should be kept only if it contains at least one 1. How can you determine this property for a node based on its children?",
+    "Use post-order traversal to process children before the parent. A node is pruned if it is 0 and both its subtrees are pruned.",
+    "Recursively call on left and right children. Update the current node's children to the returned roots. Return None if current is 0 and both children are None."
+  ],
   "languages": [
     "python"
   ],

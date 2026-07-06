@@ -7,6 +7,11 @@
     "hash-table",
     "two-pointers"
   ],
+  "hints": [
+    "Count frequencies of each number in both arrays to handle duplicates efficiently.",
+    "Iterate through one array, square the element, and find pairs in the other array whose product matches that square.",
+    "For a target product, iterate through divisors of the target to find valid pairs in the frequency map of the second array."
+  ],
   "languages": [
     "python"
   ],

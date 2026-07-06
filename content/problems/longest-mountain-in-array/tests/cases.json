@@ -213,6 +213,40 @@
       "expected": 4,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "arr": [
+          57,
+          980,
+          618,
+          646,
+          631,
+          342,
+          263,
+          199
+        ]
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "arr": [
+          166,
+          445,
+          662,
+          347,
+          634,
+          293
+        ]
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -7,6 +7,11 @@
     "bit-manipulation",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider the total XOR of all numbers initially. How does its value, 0 or non-zero, determine the winner regardless of moves?",
+    "If the initial XOR is non-zero, focus on the number of elements. Does the parity of the array length decide the outcome?",
+    "Alice wins if the initial XOR is 0. If non-zero, she wins only when the number of elements is even, allowing her to maintain a winning state."
+  ],
   "languages": [
     "python"
   ],

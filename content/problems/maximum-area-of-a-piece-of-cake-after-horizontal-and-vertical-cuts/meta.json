@@ -7,6 +7,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "The largest piece is determined by the maximum gap between consecutive horizontal cuts and the maximum gap between consecutive vertical cuts.",
+    "Include the borders (0 and h, 0 and w) in your lists of cuts, then sort them to find the largest difference between adjacent values.",
+    "Compute the max horizontal gap and max vertical gap separately, multiply them, and apply the modulo operation to the final result."
+  ],
   "languages": [
     "python"
   ],

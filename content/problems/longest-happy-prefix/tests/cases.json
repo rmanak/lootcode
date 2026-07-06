@@ -116,6 +116,15 @@
       "expected": "",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s": "bababaab"
+      },
+      "expected": "b",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

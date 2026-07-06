@@ -6,6 +6,11 @@
     "tree",
     "depth-first-search"
   ],
+  "hints": [
+    "Find the maximum depth of the tree first, then identify which nodes are leaves at that specific depth.",
+    "Use a post-order traversal to check if a node's subtree contains any of the deepest leaves.",
+    "Return the current node if both children contain deepest leaves, or the child that does if only one side does."
+  ],
   "languages": [
     "python"
   ],

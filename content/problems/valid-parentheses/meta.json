@@ -6,6 +6,11 @@
     "stack",
     "string"
   ],
+  "hints": [
+    "Notice that the most recently opened bracket must be the first one closed. This suggests a last-in, first-out structure.",
+    "Use a stack to track open brackets. When you encounter a closing bracket, check if it matches the top of the stack.",
+    "Iterate through the string. Push open brackets onto the stack. For closing brackets, pop and verify the match. The string is valid if the stack is empty at the end."
+  ],
   "languages": [
     "python"
   ],

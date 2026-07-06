@@ -7,6 +7,11 @@
     "hash-table",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider processing the array from left to right. For each element, what previous element would extend a valid arithmetic sequence ending at it?",
+    "Use a hash map to store the length of the longest arithmetic subsequence ending at each specific value encountered so far.",
+    "For each element x, check if x - difference exists in the map. If so, the new length is map[x - difference] + 1; otherwise, it is 1."
+  ],
   "languages": [
     "python"
   ],

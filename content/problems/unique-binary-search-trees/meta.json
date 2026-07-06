@@ -6,6 +6,11 @@
     "dynamic-programming",
     "tree"
   ],
+  "hints": [
+    "Consider how the root choice splits the remaining values into left and right subtrees.",
+    "The number of ways for a subtree depends only on the count of nodes, not their specific values.",
+    "Use dynamic programming to sum the products of ways for all possible left and right subtree sizes."
+  ],
   "languages": [
     "python"
   ],

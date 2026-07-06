@@ -5,6 +5,11 @@
   "tags": [
     "bit-manipulation"
   ],
+  "hints": [
+    "Consider the binary representation of a, b, and c. How does each bit position contribute independently to the condition a OR b == c?",
+    "For each bit position, compare the bits of a, b, and c. If the bit in c is 0, how many flips are needed for the corresponding bits in a and b?",
+    "If the bit in c is 1, check if at least one of the bits in a or b is already 1. If both are 0, one flip is required."
+  ],
   "languages": [
     "python"
   ],

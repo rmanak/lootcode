@@ -7,6 +7,11 @@
     "union-find",
     "string"
   ],
+  "hints": [
+    "Check if the sentences have equal length. If not, return false immediately.",
+    "Use Union-Find or BFS to group words into connected components based on the pairs.",
+    "For each word pair at the same index, check if they belong to the same component."
+  ],
   "languages": [
     "python"
   ],

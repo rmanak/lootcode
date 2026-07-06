@@ -1,0 +1,43 @@
+{
+  "slug": "two-sum-ii-input-array-is-sorted",
+  "title": "Two Sum II - Input Array Is Sorted",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "two-pointers",
+    "binary-search"
+  ],
+  "hints": [
+    "Notice the array is sorted. How can you use two pointers starting at opposite ends to find the pair efficiently?",
+    "Compare the sum of the elements at the two pointers with the target. If the sum is too large, move the right pointer left. If too small, move the left pointer right.",
+    "Initialize left at 0 and right at length-1. Loop while left < right, adjusting pointers based on the sum comparison until you find the match."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "twoSum",
+    "params": [
+      {
+        "name": "numbers",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

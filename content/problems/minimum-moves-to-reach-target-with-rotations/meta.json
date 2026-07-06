@@ -7,6 +7,11 @@
     "breadth-first-search",
     "matrix"
   ],
+  "hints": [
+    "Model each state by the snake's head position and its orientation to track visited configurations.",
+    "Perform a breadth-first search from the initial state, exploring all valid moves and rotations.",
+    "Check bounds and empty cells for each new state before adding it to the queue to ensure validity."
+  ],
   "languages": [
     "python"
   ],

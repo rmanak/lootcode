@@ -8,6 +8,11 @@
     "heap",
     "matrix"
   ],
+  "hints": [
+    "Model state as the box position and player position since both matter for reachability.",
+    "Use BFS where each step is a push; verify the player can reach the pushing cell via simple pathfinding.",
+    "Precompute reachable cells for the player from each box position to speed up transition checks."
+  ],
   "languages": [
     "python"
   ],

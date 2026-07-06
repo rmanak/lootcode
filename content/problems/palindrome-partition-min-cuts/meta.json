@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Try dynamic programming. Let dp[i] be the min cuts for s[0..i]. How do you update it using previous values?",
+    "Check if a substring s[j..i] is a palindrome. If yes, dp[i] can be dp[j-1] + 1. Handle j=0 as a special case.",
+    "Precompute palindrome checks for all substrings to avoid redundant work. Then fill the dp table from left to right."
+  ],
   "languages": [
     "python"
   ],

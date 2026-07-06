@@ -7,6 +7,11 @@
     "depth-first-search",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider a post-order traversal where each node computes the maximum gain it can contribute to its parent.",
+    "For each node, calculate the maximum path sum strictly within its subtree, potentially combining left and right branches.",
+    "Maintain a global variable to track the overall maximum path sum found during the traversal, updating it at every node."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider processing days in order and deciding the best pass to buy for the current uncovered day.",
+    "Use dynamic programming where the state is the index of the current day you need to cover.",
+    "For each day, try buying a 1, 7, or 30-day pass and jump to the next uncovered day, taking the minimum cost."
+  ],
   "languages": [
     "python"
   ],

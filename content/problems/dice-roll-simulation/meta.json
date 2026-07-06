@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider dynamic programming where the state tracks the current length, last face, and its consecutive count.",
+    "Define dp[i][j][k] as sequences of length i ending with face j repeated k times consecutively.",
+    "Transition by adding a new face: if it differs from j, reset count to 1; if same, increment k only if within rollMax."
+  ],
   "languages": [
     "python"
   ],

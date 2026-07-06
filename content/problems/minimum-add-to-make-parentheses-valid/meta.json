@@ -7,6 +7,11 @@
     "stack",
     "greedy"
   ],
+  "hints": [
+    "Scan the string left to right, tracking how many open parentheses are currently unmatched.",
+    "Maintain a counter for needed closing parentheses; increment a separate counter for unmatched opening ones.",
+    "If a closing parenthesis appears with no open match, increment the needed closing counter; otherwise decrement the open counter."
+  ],
   "languages": [
     "python"
   ],

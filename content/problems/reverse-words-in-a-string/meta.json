@@ -1,0 +1,38 @@
+{
+  "slug": "reverse-words-in-a-string",
+  "title": "Reverse Words in a String",
+  "difficulty": "medium",
+  "tags": [
+    "two-pointers",
+    "string"
+  ],
+  "hints": [
+    "Start by splitting the string into individual words, ignoring extra spaces. Then reverse that list of words.",
+    "Use the built-in split method to get a clean list of words, then reverse the list or iterate backwards.",
+    "Join the reversed list of words with a single space character to form the final result string."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "reverseWords",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

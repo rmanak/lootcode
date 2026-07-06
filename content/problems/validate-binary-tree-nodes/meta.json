@@ -8,6 +8,11 @@
     "union-find",
     "breadth-first-search"
   ],
+  "hints": [
+    "Check if exactly one node has no parent and all others have exactly one parent.",
+    "Verify the graph is connected by traversing from the root and counting visited nodes.",
+    "Ensure no cycles exist during traversal; if you revisit a node, it is invalid."
+  ],
   "languages": [
     "python"
   ],

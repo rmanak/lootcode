@@ -7,6 +7,11 @@
     "binary-tree",
     "depth-first-search"
   ],
+  "hints": [
+    "Consider how to traverse the tree while keeping track of the current path sum from the root.",
+    "Use Depth First Search to visit nodes, subtracting the current node's value from the remaining target sum at each step.",
+    "A leaf node is a valid endpoint only if both its left and right children are None and the remaining sum is zero."
+  ],
   "languages": [
     "python"
   ],

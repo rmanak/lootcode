@@ -8,6 +8,11 @@
     "binary-search",
     "sorting"
   ],
+  "hints": [
+    "Sort the envelopes by width ascending. How should you handle envelopes with the same width to avoid invalid nesting?",
+    "Once sorted properly, the problem reduces to finding the Longest Increasing Subsequence of heights. Why does this work?",
+    "Use the standard O(n log n) LIS algorithm with binary search on the heights array to find the maximum chain length."
+  ],
   "languages": [
     "python"
   ],

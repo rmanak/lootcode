@@ -7,6 +7,11 @@
     "dynamic-programming",
     "depth-first-search"
   ],
+  "hints": [
+    "Consider the choice at each node: rob it or skip it. How does that choice affect the immediate children?",
+    "Use post-order traversal to return two values for each subtree: max loot if the root is robbed, and max if it is skipped.",
+    "If you rob the current node, you must skip its children. If you skip, you can take the best of robbing or skipping each child."
+  ],
   "languages": [
     "python"
   ],

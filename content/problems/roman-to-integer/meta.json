@@ -1,0 +1,38 @@
+{
+  "slug": "roman-to-integer",
+  "title": "Roman to Integer",
+  "difficulty": "easy",
+  "tags": [
+    "hash-table",
+    "string"
+  ],
+  "hints": [
+    "Look at each character and compare its value to the next character's value.",
+    "If the current value is less than the next, subtract it; otherwise, add it.",
+    "Iterate through the string, handling the last character or using a default zero for the next value to avoid bounds checks."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "romanToInt",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

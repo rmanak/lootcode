@@ -1,0 +1,64 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "haystack": "sadbutsad",
+        "needle": "sad"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "haystack": "leetcode",
+        "needle": "leeto"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "haystack": "a",
+        "needle": "a"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "haystack": "abc",
+        "needle": "c"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "haystack": "mississippi",
+        "needle": "issip"
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "haystack": "aaa",
+        "needle": "aaaa"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

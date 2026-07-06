@@ -5,6 +5,11 @@
   "tags": [
     "binary-search"
   ],
+  "hints": [
+    "The smallest base corresponds to the longest sequence of ones, so iterate possible lengths from max down to 2.",
+    "For a fixed length L, the base k is roughly n^(1/(L-1)). Use binary search or integer root to find exact k.",
+    "Check if the candidate k actually produces n when expanded as 1 + k + ... + k^(L-1). Return the first valid k found."
+  ],
   "languages": [
     "python"
   ],

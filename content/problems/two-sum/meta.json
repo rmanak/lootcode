@@ -6,6 +6,11 @@
     "array",
     "hash-table"
   ],
+  "hints": [
+    "For each number, calculate what value it needs to reach the target.",
+    "Store previously seen numbers and their indices in a hash map for fast lookup.",
+    "Before adding the current number to the map, check if its complement already exists."
+  ],
   "languages": [
     "python"
   ],

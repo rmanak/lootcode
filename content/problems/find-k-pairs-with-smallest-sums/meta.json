@@ -6,6 +6,11 @@
     "array",
     "heap"
   ],
+  "hints": [
+    "Focus on the smallest pair sum first. How can you efficiently find the next smallest sum without checking every possible pair?",
+    "Use a min-heap to track candidate pairs. Start by pushing the sum of the first elements of both arrays into the heap.",
+    "When you pop a pair (i, j) from the heap, consider which new pair involving i or j could be the next smallest candidate to add."
+  ],
   "languages": [
     "python"
   ],

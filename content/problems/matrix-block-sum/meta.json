@@ -7,6 +7,11 @@
     "matrix",
     "prefix-sum"
   ],
+  "hints": [
+    "Naively summing the block for each cell is too slow. Look for a way to reuse previous calculations.",
+    "Consider using a 2D prefix sum array to compute the sum of any rectangular submatrix in constant time.",
+    "Use the inclusion-exclusion principle on the prefix sums to find the sum of the k-sized window centered at each cell."
+  ],
   "languages": [
     "python"
   ],

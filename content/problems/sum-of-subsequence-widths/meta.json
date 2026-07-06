@@ -6,6 +6,11 @@
     "array",
     "sorting"
   ],
+  "hints": [
+    "Sorting the array simplifies determining which elements act as maximums and minimums in subsequences.",
+    "Consider how many times each sorted element contributes as a maximum versus a minimum across all subsequences.",
+    "Each element at index i is a max in 2^i subsequences and a min in 2^(n-1-i) subsequences; sum these contributions."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Compute the length of the LIS ending at each index using dynamic programming.",
+    "Track both the max length and the count of ways to achieve that length at each index.",
+    "For each element, sum counts from previous elements with smaller values that lead to the current LIS length."
+  ],
   "languages": [
     "python"
   ],

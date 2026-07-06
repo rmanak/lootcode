@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider the Longest Common Subsequence. How does it relate to the shortest supersequence?",
+    "The length equals len(str1) + len(str2) - len(LCS). Why does this formula work?",
+    "Use dynamic programming to find the LCS length, then apply the subtraction formula."
+  ],
   "languages": [
     "python"
   ],

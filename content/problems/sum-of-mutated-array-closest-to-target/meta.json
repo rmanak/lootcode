@@ -7,6 +7,11 @@
     "binary-search",
     "sorting"
   ],
+  "hints": [
+    "Notice that the resulting sum increases monotonically as the chosen value increases.",
+    "This monotonicity suggests using binary search on the possible range of values.",
+    "For a candidate value, compute the capped sum and compare it to the target to guide the search."
+  ],
   "languages": [
     "python"
   ],

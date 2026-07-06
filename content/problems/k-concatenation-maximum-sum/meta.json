@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider the maximum subarray sum of a single copy, two copies, and the total sum of the array.",
+    "If the total sum is positive, the optimal subarray likely spans multiple full copies plus prefix and suffix parts.",
+    "Combine the max subarray sum of two concatenated arrays with the positive total sum multiplied by the remaining copies."
+  ],
   "languages": [
     "python"
   ],

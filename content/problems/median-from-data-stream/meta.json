@@ -5,6 +5,11 @@
   "tags": [
     "heap"
   ],
+  "hints": [
+    "Maintain two halves of the numbers so you can access the middle elements in constant time.",
+    "Use two heaps: a max-heap for the lower half and a min-heap for the upper half.",
+    "Balance the heaps so their sizes differ by at most one, then derive the median from their roots."
+  ],
   "languages": [
     "python"
   ],

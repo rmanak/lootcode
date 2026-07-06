@@ -6,7 +6,7 @@ deepest node having both as descendants (a node may be a descendant of itself).
 
 ## Constraints
 - `2 <= number of nodes <= 10^5`
-- `-10^9 <= node.valueue <= 10^9`; all values unique
+- `-10^9 <= node.value <= 10^9`; all values unique
 - `p != q`; both `p` and `q` exist in the tree
 
 ## Examples

@@ -7,6 +7,11 @@
     "breadth-first-search",
     "memoization"
   ],
+  "hints": [
+    "Since both board and hand are very small, try exploring all possible moves using depth-first search or breadth-first search.",
+    "Use memoization to cache the minimum balls needed for each unique board state, preventing redundant calculations.",
+    "Before recursing, always simplify the board by removing adjacent groups of three or more matching balls until stable."
+  ],
   "languages": [
     "python"
   ],

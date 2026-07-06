@@ -6,6 +6,11 @@
     "hash-table",
     "string"
   ],
+  "hints": [
+    "Consider using a hash map to store the file system, where keys are paths and values are either directory contents or file data.",
+    "For directories, store a set or map of child names to handle sorting in ls operations efficiently.",
+    "When processing mkdir, split the path and ensure each parent directory exists in your map before creating the target."
+  ],
   "languages": [
     "python"
   ],

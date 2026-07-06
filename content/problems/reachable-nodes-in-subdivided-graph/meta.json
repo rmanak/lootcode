@@ -6,6 +6,11 @@
     "graph",
     "heap"
   ],
+  "hints": [
+    "Compute the shortest path distance from node 0 to all original nodes using Dijkstra's algorithm.",
+    "For each edge, determine how many intermediate nodes can be reached from its endpoints within the remaining moves.",
+    "Sum the reachable original nodes and intermediate nodes, carefully subtracting overlaps where both endpoints reach into the same edge."
+  ],
   "languages": [
     "python"
   ],

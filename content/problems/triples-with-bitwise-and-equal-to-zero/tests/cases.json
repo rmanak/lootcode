@@ -168,6 +168,22 @@
       "expected": 0,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "A": [
+          462,
+          57,
+          903,
+          141,
+          590,
+          912
+        ]
+      },
+      "expected": 48,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -9,6 +9,11 @@
     "union-find",
     "matrix"
   ],
+  "hints": [
+    "Consider the island sizes if no flip occurred. How can you efficiently identify which cell belongs to which island?",
+    "Label each existing island with a unique ID and store its size. Then, for every 0, check its neighbors' IDs to calculate the potential new island size.",
+    "Iterate through all 0s. Sum the sizes of unique neighboring islands plus one. Track the maximum found, handling the edge case where no 0 exists separately."
+  ],
   "languages": [
     "python"
   ],

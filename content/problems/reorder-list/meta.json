@@ -6,6 +6,11 @@
     "linked-list",
     "two-pointers"
   ],
+  "hints": [
+    "Identify the middle of the list to split it into two halves.",
+    "Reverse the second half of the list so its elements are in descending order.",
+    "Merge the two halves by alternately picking nodes from the start of each half."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "dynamic-programming",
     "binary-search"
   ],
+  "hints": [
+    "Split the count into two parts: numbers with fewer digits than n, and numbers with the same number of digits as n.",
+    "For the first part, use the length of digits to calculate powers. For the second, process n digit by digit from left to right.",
+    "When matching digits of n, add counts for smaller valid digits, then decide whether to continue or stop based on the current digit's presence in digits."
+  ],
   "languages": [
     "python"
   ],

@@ -5,6 +5,11 @@
   "tags": [
     "array"
   ],
+  "hints": [
+    "Reduce k by taking it modulo the array length to handle cases where k exceeds the size.",
+    "Notice that rotating right by k is equivalent to reversing the entire array, then reversing the first k elements, then reversing the remaining elements.",
+    "Implement the reverse operation in-place on the specified subarrays to achieve the final configuration without extra space."
+  ],
   "languages": [
     "python"
   ],

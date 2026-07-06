@@ -6,6 +6,11 @@
     "string",
     "greedy"
   ],
+  "hints": [
+    "If the length is 1, you cannot break the palindrome property by changing one character.",
+    "To minimize lexicographically, change the first character that is not 'a' to 'a'.",
+    "If all characters are 'a', changing the last character to 'b' yields the smallest result."
+  ],
   "languages": [
     "python"
   ],

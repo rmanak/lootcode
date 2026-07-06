@@ -6,6 +6,11 @@
     "array",
     "stack"
   ],
+  "hints": [
+    "Consider each bar as the shortest bar in a potential rectangle. How far left and right can it extend?",
+    "For each bar, find the nearest smaller bar to its left and right. These boundaries define the widest rectangle using that bar's height.",
+    "Use a monotonic stack to efficiently find the nearest smaller elements for all bars in linear time."
+  ],
   "languages": [
     "python"
   ],

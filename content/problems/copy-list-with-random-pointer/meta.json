@@ -1,0 +1,38 @@
+{
+  "slug": "copy-list-with-random-pointer",
+  "title": "Copy List with Random Pointer",
+  "difficulty": "medium",
+  "tags": [
+    "hash-table",
+    "linked-list"
+  ],
+  "hints": [
+    "Consider using a mapping to store the relationship between original nodes and their deep copies to handle random pointers easily.",
+    "Use a hash map where keys are original nodes and values are new nodes, allowing you to resolve random pointers in a second pass.",
+    "Interleave copied nodes directly after their originals in the list to link random pointers without extra space, then separate them."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "copyRandomList",
+    "params": [
+      {
+        "name": "head",
+        "type": "any[][]"
+      }
+    ],
+    "returns": {
+      "type": "any[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

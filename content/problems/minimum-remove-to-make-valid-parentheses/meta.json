@@ -7,6 +7,11 @@
     "stack",
     "greedy"
   ],
+  "hints": [
+    "Track the balance of open and closed parentheses as you scan the string from left to right.",
+    "Ignore letters; only process '(' and ')'. Increment a counter for '(' and decrement for ')'.",
+    "If the counter drops below zero, you found an unmatched ')'. Track these and the final positive counter value."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "string",
     "two-pointers"
   ],
+  "hints": [
+    "Compare suffixes starting at different indices to find the lexicographically largest one.",
+    "Use two pointers to compare suffixes, advancing the pointer with the smaller character.",
+    "If characters match, skip ahead by the mismatch distance to avoid redundant comparisons."
+  ],
   "languages": [
     "python"
   ],

@@ -8,6 +8,11 @@
     "sliding-window",
     "two-pointers"
   ],
+  "hints": [
+    "Focus on character counts rather than order. A permutation matches if the frequency of each letter is identical.",
+    "Use a sliding window on s2 with the same length as s1. Maintain the character count of the current window.",
+    "Compare the window's character counts with s1's counts. Update counts efficiently as the window slides right."
+  ],
   "languages": [
     "python"
   ],

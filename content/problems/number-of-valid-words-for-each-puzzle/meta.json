@@ -8,6 +8,11 @@
     "string",
     "bitmask"
   ],
+  "hints": [
+    "Since puzzle letters are distinct and limited to 7, focus on the unique set of characters in each word rather than the words themselves.",
+    "Convert each word into a bitmask of its unique characters. A word matches a puzzle if its mask is a subset of the puzzle's mask and includes the puzzle's first letter.",
+    "Precompute counts for all possible 7-bit masks. For each puzzle, iterate through its 2^6 subsets to sum the precomputed counts of valid word masks."
+  ],
   "languages": [
     "python"
   ],

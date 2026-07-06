@@ -664,6 +664,52 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "operations": [
+          [
+            "removeServer",
+            2
+          ],
+          [
+            "removeServer",
+            1
+          ],
+          [
+            "addServer",
+            5
+          ],
+          [
+            "addServer",
+            5
+          ],
+          [
+            "removeServer",
+            1
+          ],
+          [
+            "removeServer",
+            5
+          ],
+          [
+            "getServer",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

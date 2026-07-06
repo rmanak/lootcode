@@ -1,0 +1,37 @@
+{
+  "slug": "length-of-last-word",
+  "title": "Length of Last Word",
+  "difficulty": "easy",
+  "tags": [
+    "string"
+  ],
+  "hints": [
+    "Consider scanning the string from the end to avoid processing unnecessary leading spaces.",
+    "Skip any trailing spaces first, then count characters until you hit a space or the start of the string.",
+    "Initialize a counter to zero; increment it for each non-space character encountered from the right until a space appears."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "lengthOfLastWord",
+    "params": [
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

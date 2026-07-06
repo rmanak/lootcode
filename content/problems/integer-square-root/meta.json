@@ -5,6 +5,11 @@
   "tags": [
     "binary-search"
   ],
+  "hints": [
+    "Since the square root function is monotonic, you can search for the answer within a sorted range of possible values.",
+    "Binary search is ideal here. Set your search space from 0 to x and check if mid*mid is less than or equal to x.",
+    "Handle the edge case where mid*mid might overflow. Use integer division or check mid <= x/mid instead of multiplying directly."
+  ],
   "languages": [
     "python"
   ],

@@ -117,6 +117,81 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "heights": [
+          94,
+          27,
+          17,
+          41,
+          93,
+          58,
+          29,
+          18
+        ],
+        "V": 361,
+        "K": 0
+      },
+      "expected": [
+        94,
+        93,
+        93,
+        93,
+        93,
+        91,
+        91,
+        90
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "heights": [
+          0,
+          1,
+          2,
+          3,
+          0,
+          3,
+          2
+        ],
+        "V": 4,
+        "K": 5
+      },
+      "expected": [
+        1,
+        1,
+        2,
+        3,
+        3,
+        3,
+        2
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "heights": [
+          26,
+          88,
+          40
+        ],
+        "V": 32,
+        "K": 1
+      },
+      "expected": [
+        58,
+        88,
+        40
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -6,6 +6,11 @@
     "dynamic-programming",
     "backtracking"
   ],
+  "hints": [
+    "Try a recursive approach that cuts off the largest possible square from one corner at each step.",
+    "Greedy cutting often fails; you may need to try cutting smaller squares to find a better global minimum.",
+    "Use memoization to store results for sub-rectangles, and consider placing squares in multiple positions within the remaining area."
+  ],
   "languages": [
     "python"
   ],

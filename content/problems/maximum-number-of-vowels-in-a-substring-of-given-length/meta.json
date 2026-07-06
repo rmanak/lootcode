@@ -6,6 +6,11 @@
     "string",
     "sliding-window"
   ],
+  "hints": [
+    "Count vowels in the first k characters to start.",
+    "Use a sliding window to update the count as you move right.",
+    "Add the new character's vowel status and remove the old one's."
+  ],
   "languages": [
     "python"
   ],

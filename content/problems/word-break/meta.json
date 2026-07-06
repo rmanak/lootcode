@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider breaking the string at every possible position and checking if the prefix is a valid word.",
+    "Use dynamic programming where dp[i] indicates whether the substring s[0:i] can be segmented into dictionary words.",
+    "For each position i, check all previous positions j to see if s[j:i] is in the dictionary and dp[j] is true."
+  ],
   "languages": [
     "python"
   ],

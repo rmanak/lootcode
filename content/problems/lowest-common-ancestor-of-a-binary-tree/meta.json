@@ -6,6 +6,11 @@
     "tree",
     "depth-first-search"
   ],
+  "hints": [
+    "Consider a post-order traversal. What information does a subtree need to return to its parent?",
+    "A subtree should report whether it found p, q, or both. How do you combine results from left and right children?",
+    "The LCA is the first node where both p and q are found in different subtrees, or where the node itself is p or q."
+  ],
   "languages": [
     "python"
   ],

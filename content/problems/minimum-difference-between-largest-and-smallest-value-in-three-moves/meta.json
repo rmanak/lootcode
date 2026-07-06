@@ -7,6 +7,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "If the array has four or fewer elements, you can make them all equal in at most three moves, resulting in a difference of zero.",
+    "Sort the array first. Changing elements allows you to effectively ignore the smallest or largest values to minimize the range.",
+    "After sorting, consider removing k smallest and (3-k) largest elements for k from 0 to 3, then find the minimum difference between the new max and min."
+  ],
   "languages": [
     "python"
   ],

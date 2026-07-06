@@ -5,6 +5,11 @@
   "tags": [
     "backtracking"
   ],
+  "hints": [
+    "Start by checking if the number of unique letters exceeds 10, as that makes a solution impossible.",
+    "Use backtracking to assign digits to letters one by one, ensuring each digit is used at most once.",
+    "Prune the search early by checking column-wise addition from right to left, verifying carry consistency."
+  ],
   "languages": [
     "python"
   ],

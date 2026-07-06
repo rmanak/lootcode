@@ -3,7 +3,8 @@ multiply it by `multipliers[i]`, and add it to your score. After all `m`
 multipliers, return the **maximum total score**.
 
 ## Constraints
-- `1 <= len(multipliers) <= 300 <= len(nums) <= 10^5`
+- `1 <= len(multipliers) <= 300`
+- `len(multipliers) <= len(nums) <= 10^5`
 - `-1000 <= nums[i], multipliers[i] <= 1000`
 
 ## Examples

@@ -6,6 +6,11 @@
     "trie",
     "depth-first-search"
   ],
+  "hints": [
+    "Consider using a Trie to store words for efficient prefix-based lookups.",
+    "When searching, use recursion to traverse the Trie, branching at every node when the pattern character is a dot.",
+    "Ensure your recursive search function handles base cases where the pattern ends or the Trie path terminates prematurely."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "array",
     "greedy"
   ],
+  "hints": [
+    "Calculate the base value without any reversal first. Then, determine how reversing a specific subarray changes this total sum.",
+    "Focus on the boundary edges of the reversed subarray. The internal differences cancel out, so only the connections at the ends matter.",
+    "Derive a formula for the gain based on the four elements surrounding the reversal boundaries. Iterate through all possible split points to find the maximum gain."
+  ],
   "languages": [
     "python"
   ],

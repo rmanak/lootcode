@@ -6,6 +6,11 @@
     "array",
     "sliding-window"
   ],
+  "hints": [
+    "Start by counting satisfied customers when the owner is never grumpy. This baseline is always included in the final answer.",
+    "Focus only on minutes where the owner is grumpy. The extra satisfied customers come from choosing the best window of length X to flip these grumpy minutes.",
+    "Use a sliding window to find the maximum sum of customers in any consecutive X minutes where grumpy[i] is 1. Add this max sum to your baseline."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "dynamic-programming",
     "array"
   ],
+  "hints": [
+    "Check if the total sum is even; if odd, splitting equally is impossible.",
+    "This is a subset sum problem: can you find a subset that sums to half the total?",
+    "Use dynamic programming to track reachable sums using a boolean array or set."
+  ],
   "languages": [
     "python"
   ],

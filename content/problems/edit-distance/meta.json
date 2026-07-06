@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider how the problem breaks down into smaller subproblems involving prefixes of both strings.",
+    "Use dynamic programming with a 2D table where each cell stores the distance for specific prefix lengths.",
+    "Define the recurrence relation by comparing current characters and choosing the minimum cost among deletion, insertion, or substitution."
+  ],
   "languages": [
     "python"
   ],

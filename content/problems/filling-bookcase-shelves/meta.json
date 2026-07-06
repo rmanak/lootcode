@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "The order of books is fixed, so you must decide where to split the sequence into shelves. Consider how the choice of a split point affects future decisions.",
+    "This problem has optimal substructure. Define a function for the minimum height to place the first k books. How does this relate to placing fewer books?",
+    "For each book, try placing it on the current shelf with all valid previous books. The cost is the max height on that shelf plus the optimal cost for the remaining books."
+  ],
   "languages": [
     "python"
   ],

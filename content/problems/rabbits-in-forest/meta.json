@@ -7,6 +7,11 @@
     "hash-table",
     "greedy"
   ],
+  "hints": [
+    "Count how many rabbits reported each answer x. Each group of size x+1 can accommodate at most x+1 such reports.",
+    "For a specific answer x, if k rabbits reported it, you need ceil(k / (x+1)) groups of that color.",
+    "The total minimum rabbits is the sum over all distinct answers x of ceil(count[x] / (x+1)) * (x+1)."
+  ],
   "languages": [
     "python"
   ],

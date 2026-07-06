@@ -6,6 +6,11 @@
     "array",
     "two-pointers"
   ],
+  "hints": [
+    "Notice that duplicates are always adjacent since the input is sorted.",
+    "Use two pointers: one to track the position of the next unique element, another to scan through the array.",
+    "Move the scan pointer forward; only update the write pointer when you find a value different from the last unique one added."
+  ],
   "languages": [
     "python"
   ],

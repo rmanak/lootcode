@@ -6,6 +6,11 @@
     "string",
     "stack"
   ],
+  "hints": [
+    "Consider how removing a group might cause previously separated characters to become adjacent and form a new group.",
+    "Use a stack to store characters along with their consecutive counts to efficiently track and remove groups.",
+    "When pushing to the stack, merge with the top element if it matches; pop the top if its count reaches k."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "string",
     "sliding-window"
   ],
+  "hints": [
+    "Focus on the characters outside the replaced substring. They must satisfy a specific count constraint for the string to be fixable.",
+    "Identify which characters exceed the target frequency. The substring must contain all these excess counts.",
+    "Use a sliding window to find the shortest subarray that contains all excess characters. Expand and shrink the window while tracking counts."
+  ],
   "languages": [
     "python"
   ],

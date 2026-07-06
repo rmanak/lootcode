@@ -7,6 +7,11 @@
     "dynamic-programming",
     "binary-indexed-tree"
   ],
+  "hints": [
+    "Fix the middle element j and count valid pairs relative to it.",
+    "Count elements smaller than rating[j] to the left and larger to the right.",
+    "Combine left-smaller with right-larger for increasing, and left-larger with right-smaller for decreasing."
+  ],
   "languages": [
     "python"
   ],

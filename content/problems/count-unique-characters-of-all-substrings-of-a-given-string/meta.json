@@ -7,6 +7,11 @@
     "hash-table",
     "dynamic-programming"
   ],
+  "hints": [
+    "Instead of iterating substrings, calculate how many substrings each character contributes to as a unique element.",
+    "For each occurrence of a character, find the distance to its previous and next occurrences to determine its contribution range.",
+    "Sum the product of these distances for all character occurrences, applying modulo arithmetic at each addition."
+  ],
   "languages": [
     "python"
   ],

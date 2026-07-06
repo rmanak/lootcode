@@ -6,6 +6,11 @@
     "array",
     "bit-manipulation"
   ],
+  "hints": [
+    "Consider how numbers are represented in binary. Can you count the occurrences of each bit position across all numbers?",
+    "Since most numbers appear three times, the count of set bits at any position will be a multiple of three, except for the bits of the unique number.",
+    "Use two integer variables to track bits that have appeared once and twice. Update them for each number using bitwise logic to filter out bits seen three times."
+  ],
   "languages": [
     "python"
   ],

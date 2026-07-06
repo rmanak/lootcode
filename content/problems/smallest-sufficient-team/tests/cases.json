@@ -281,6 +281,25 @@
       "expected": 1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "req_skills": [
+          ""
+        ],
+        "people": [
+          [
+            "nodejs"
+          ],
+          [
+            "java"
+          ]
+        ]
+      },
+      "expected": Infinity,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

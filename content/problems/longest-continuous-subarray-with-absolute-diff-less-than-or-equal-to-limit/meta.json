@@ -8,6 +8,11 @@
     "heap",
     "binary-search-tree"
   ],
+  "hints": [
+    "Consider a sliding window approach where you expand the right boundary and shrink the left when the condition is violated.",
+    "To efficiently check the condition, you need to track the maximum and minimum values within the current window.",
+    "Use two monotonic deques to maintain the max and min of the current window in amortized constant time per step."
+  ],
   "languages": [
     "python"
   ],

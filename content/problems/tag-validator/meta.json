@@ -6,6 +6,11 @@
     "string",
     "stack"
   ],
+  "hints": [
+    "Start by ensuring the snippet begins with an opening tag and ends with a matching closing tag. Use a stack to track nested tags.",
+    "When encountering '<', check if it starts a valid tag or CDATA. Valid tags must have uppercase names; CDATA ignores content until ']]>'.",
+    "Push opening tags onto the stack. Pop when a closing tag matches the top. If the stack is not empty at the end or mismatches occur, it is invalid."
+  ],
   "languages": [
     "python"
   ],

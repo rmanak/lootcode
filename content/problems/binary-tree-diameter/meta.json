@@ -6,6 +6,11 @@
     "tree",
     "depth-first-search"
   ],
+  "hints": [
+    "Consider the longest path passing through each node. How does it relate to the depths of its left and right subtrees?",
+    "For each node, calculate the height of its left and right subtrees. The diameter through that node is their sum.",
+    "Recursively compute subtree heights while tracking the maximum diameter found so far across all nodes."
+  ],
   "languages": [
     "python"
   ],

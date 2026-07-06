@@ -5,6 +5,11 @@
   "tags": [
     "math"
   ],
+  "hints": [
+    "Visualize the numbers as nodes in a 10-ary tree where children of x are 10x through 10x+9.",
+    "Traverse this tree in pre-order. Count how many nodes are in the current subtree to decide whether to go deeper or move to the next sibling.",
+    "Calculate the size of the subtree rooted at cur within range [1, n]. If count >= k, descend; otherwise, increment cur and subtract count from k."
+  ],
   "languages": [
     "python"
   ],

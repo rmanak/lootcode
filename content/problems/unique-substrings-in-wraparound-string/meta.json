@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Focus on contiguous substrings of p that follow the alphabetical order found in s. Non-consecutive characters in p break this pattern.",
+    "Use dynamic programming where the state tracks the maximum length of a valid substring ending at each letter a-z.",
+    "Sum the maximum lengths for each letter, as each length k contributes exactly k unique substrings ending with that letter."
+  ],
   "languages": [
     "python"
   ],

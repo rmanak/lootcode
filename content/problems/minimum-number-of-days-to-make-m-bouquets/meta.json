@@ -6,6 +6,11 @@
     "array",
     "binary-search"
   ],
+  "hints": [
+    "First check if total flowers needed exceeds array length. If so, return -1 immediately.",
+    "Notice that if you can make m bouquets by day d, you can also do it by day d+1. This monotonicity suggests binary search on the answer.",
+    "For a fixed day, count consecutive bloomed flowers to see how many bouquets you can form. Use this check inside your binary search."
+  ],
   "languages": [
     "python"
   ],

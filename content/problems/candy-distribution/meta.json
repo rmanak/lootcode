@@ -6,6 +6,11 @@
     "array",
     "greedy"
   ],
+  "hints": [
+    "Consider the constraints from left to right and right to left independently.",
+    "Assign candies based on left neighbors first, then adjust for right neighbors.",
+    "Each child needs max(left_candies, right_candies) + 1 to satisfy both sides."
+  ],
   "languages": [
     "python"
   ],

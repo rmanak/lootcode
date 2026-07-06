@@ -7,6 +7,11 @@
     "recursion",
     "simulation"
   ],
+  "hints": [
+    "Observe the recursive structure: Sn is composed of S(n-1), a middle '1', and a transformed S(n-1).",
+    "Determine if k falls in the first half, middle, or second half of Sn to decide which part to recurse into.",
+    "If k is in the second half, map it to the corresponding index in S(n-1) and flip the resulting bit."
+  ],
   "languages": [
     "python"
   ],

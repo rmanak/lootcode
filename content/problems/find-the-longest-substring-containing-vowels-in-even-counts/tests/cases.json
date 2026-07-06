@@ -30,7 +30,7 @@
     {
       "name": "hidden-1",
       "input": {
-        "s": ""
+        "s": "a"
       },
       "expected": 0,
       "weight": 1,
@@ -111,18 +111,18 @@
     {
       "name": "hidden-10",
       "input": {
-        "s": ""
+        "s": "leetcode"
       },
-      "expected": 0,
+      "expected": 5,
       "weight": 1,
       "hidden": true
     },
     {
       "name": "hidden-11",
       "input": {
-        "s": ""
+        "s": "aabb"
       },
-      "expected": 0,
+      "expected": 4,
       "weight": 1,
       "hidden": true
     },
@@ -141,6 +141,15 @@
         "s": "oeceibccaccubb"
       },
       "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s": "uoaoio"
+      },
+      "expected": 0,
       "weight": 1,
       "hidden": true
     }

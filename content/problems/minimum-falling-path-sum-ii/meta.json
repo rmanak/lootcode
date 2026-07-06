@@ -7,6 +7,11 @@
     "dynamic-programming",
     "matrix"
   ],
+  "hints": [
+    "Consider processing the grid row by row. For each cell, the minimum path sum depends on the best sums from the row above.",
+    "This is a dynamic programming problem. For each row, compute the minimum sum to reach every column using results from the previous row.",
+    "For each cell in the current row, you need the minimum value from the previous row that is not in the same column. Precompute the smallest and second smallest values of the previous row to find this efficiently."
+  ],
   "languages": [
     "python"
   ],

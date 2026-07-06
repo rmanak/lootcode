@@ -7,6 +7,11 @@
     "hash-table",
     "sliding-window"
   ],
+  "hints": [
+    "Focus only on substrings of length minSize, as longer ones cannot appear more frequently.",
+    "Use a hash map to count occurrences of each valid minSize substring.",
+    "Slide a window of size minSize across the string, checking distinct character counts efficiently."
+  ],
   "languages": [
     "python"
   ],

@@ -1,0 +1,37 @@
+{
+  "slug": "summary-ranges",
+  "title": "Summary Ranges",
+  "difficulty": "easy",
+  "tags": [
+    "array"
+  ],
+  "hints": [
+    "Scan the array to find consecutive sequences where the next number is exactly one greater than the current.",
+    "Maintain start and end pointers for each contiguous block; when the sequence breaks, format and store the range.",
+    "Handle the final range after the loop ends, and format single-element ranges without an arrow."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "summaryRanges",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "string[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -6,6 +6,11 @@
     "array",
     "binary-search"
   ],
+  "hints": [
+    "Notice how pairs align with even and odd indices before the single element appears.",
+    "Use binary search on the index parity to locate where the pairing pattern breaks.",
+    "Check if the mid index is even; if so, it should match the next element. Adjust search bounds based on this mismatch."
+  ],
   "languages": [
     "python"
   ],

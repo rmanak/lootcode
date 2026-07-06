@@ -5,6 +5,11 @@
   "tags": [
     "queue"
   ],
+  "hints": [
+    "Store hit timestamps in a list and remove those older than 300 seconds from the start during queries.",
+    "Use a deque to efficiently discard outdated timestamps from the front while appending new hits to the back.",
+    "Since timestamps are non-decreasing, you can also use a fixed-size array of size 300 to store counts per second for O(1) updates and queries."
+  ],
   "languages": [
     "python"
   ],

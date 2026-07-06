@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Notice that a palindrome reads the same forwards and backwards. What if you compared the string with its reverse?",
+    "Consider dynamic programming. If the characters at the start and end match, they contribute to the length. If not, take the maximum of the inner substrings.",
+    "Define dp[i][j] as the longest palindromic subsequence in s[i...j]. Fill the table by increasing substring length, handling matching and non-matching ends separately."
+  ],
   "languages": [
     "python"
   ],

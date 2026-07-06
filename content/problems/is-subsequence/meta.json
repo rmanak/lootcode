@@ -7,6 +7,11 @@
     "two-pointers",
     "dynamic-programming"
   ],
+  "hints": [
+    "Try iterating through t while keeping track of your current position in s.",
+    "Use two pointers: one for s and one for t, advancing the s pointer only on a match.",
+    "If you reach the end of s, return true; if you exhaust t first, return false."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "array",
     "bit-manipulation"
   ],
+  "hints": [
+    "Consider how pairs of identical numbers might cancel each other out mathematically.",
+    "The XOR operation has a unique property: x XOR x equals 0, and x XOR 0 equals x.",
+    "XORing all elements in the array together will leave only the single unique number."
+  ],
   "languages": [
     "python"
   ],

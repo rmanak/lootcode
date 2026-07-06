@@ -6,6 +6,11 @@
     "array",
     "hash-set"
   ],
+  "hints": [
+    "Think about how you would quickly check if a new item has already been seen.",
+    "Use a hash set to store elements as you iterate; check for membership before adding.",
+    "If the input size is large, consider sorting first or using a set for O(n) time."
+  ],
   "languages": [
     "python"
   ],

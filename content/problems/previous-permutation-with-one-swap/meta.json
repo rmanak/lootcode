@@ -6,6 +6,11 @@
     "array",
     "greedy"
   ],
+  "hints": [
+    "Start scanning from the right to find the first index where A[i] is greater than A[i+1].",
+    "To minimize the decrease, swap A[i] with the largest value to its right that is still smaller than A[i].",
+    "If multiple values equal that maximum exist, pick the rightmost one to keep the suffix lexicographically largest."
+  ],
   "languages": [
     "python"
   ],

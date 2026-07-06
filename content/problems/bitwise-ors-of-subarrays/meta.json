@@ -8,6 +8,11 @@
     "hash-table",
     "dynamic-programming"
   ],
+  "hints": [
+    "Notice that for a fixed ending index, the set of OR values from all starting indices is small.",
+    "The number of distinct OR values ending at any position is bounded by the number of bits in the integers.",
+    "Maintain a set of current OR values; for each new element, update the set by OR-ing it with every previous value and adding the element itself."
+  ],
   "languages": [
     "python"
   ],

@@ -6,7 +6,7 @@ return **the maximum path sum over all non-empty paths**.
 
 ## Constraints
 - `1 <= number of nodes <= 3 * 10^4`
-- `-1000 <= node.valueue <= 1000`
+- `-1000 <= node.value <= 1000`
 
 ## Examples
 Input: `root = [1,2,3]`

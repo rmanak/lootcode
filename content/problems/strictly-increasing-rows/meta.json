@@ -5,6 +5,11 @@
   "tags": [
     "matrix"
   ],
+  "hints": [
+    "Iterate through each row of the matrix individually to check its properties.",
+    "For a single row, verify that every element is strictly smaller than the next one.",
+    "Use a flag to track if a row is valid; break early if any adjacent pair fails the condition."
+  ],
   "languages": [
     "python"
   ],

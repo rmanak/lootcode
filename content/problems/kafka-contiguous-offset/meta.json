@@ -6,6 +6,11 @@
     "array",
     "hash-set"
   ],
+  "hints": [
+    "First, check if 0 is present in the list. If it is missing, the answer is immediately -1.",
+    "Sort the unique values in processed to arrange them in ascending order for easier inspection.",
+    "Iterate through the sorted unique values starting from 0. If the next value is not exactly current + 1, stop and return current."
+  ],
   "languages": [
     "python"
   ],

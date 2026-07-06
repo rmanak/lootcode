@@ -7,6 +7,11 @@
     "two-pointers",
     "sliding-window"
   ],
+  "hints": [
+    "Since all numbers are positive, adding elements increases the sum while removing them decreases it.",
+    "Use a sliding window with two pointers to maintain a subarray whose sum is at least target.",
+    "Expand the right pointer until the sum meets the target, then shrink the left pointer to find the minimum length."
+  ],
   "languages": [
     "python"
   ],

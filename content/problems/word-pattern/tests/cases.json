@@ -1,0 +1,74 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "pattern": "abba",
+        "s": "dog cat cat dog"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "pattern": "abba",
+        "s": "dog cat cat fish"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "pattern": "aaaa",
+        "s": "dog cat cat dog"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "pattern": "abc",
+        "s": "b c a"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "pattern": "a",
+        "s": "dog"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "pattern": "ab",
+        "s": "dog dog"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "pattern": "ab",
+        "s": "dog"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

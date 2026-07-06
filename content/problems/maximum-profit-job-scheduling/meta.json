@@ -7,6 +7,11 @@
     "binary-search",
     "sorting"
   ],
+  "hints": [
+    "Sort jobs by end time to process them in chronological order of completion.",
+    "Use dynamic programming where dp[i] is the max profit considering the first i sorted jobs.",
+    "For each job, choose the max of skipping it or taking it plus the best profit from the last non-overlapping job, found via binary search."
+  ],
   "languages": [
     "python"
   ],

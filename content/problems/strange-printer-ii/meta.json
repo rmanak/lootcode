@@ -7,6 +7,11 @@
     "graph",
     "matrix"
   ],
+  "hints": [
+    "Identify the bounding box for each color present in the grid.",
+    "Check if any color's rectangle overlaps another color that must be printed later.",
+    "Model colors as nodes in a graph with edges for overlap dependencies and check for cycles."
+  ],
   "languages": [
     "python"
   ],

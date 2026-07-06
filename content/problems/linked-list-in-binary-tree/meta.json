@@ -8,6 +8,11 @@
     "depth-first-search",
     "binary-tree"
   ],
+  "hints": [
+    "Focus on matching the head's first value with any node in the tree that could start a valid path.",
+    "Use recursion: for each matching node, check if the rest of the head matches the left or right subtree.",
+    "Define a helper function that checks if the current list prefix matches a path starting at the current tree node."
+  ],
   "languages": [
     "python"
   ],

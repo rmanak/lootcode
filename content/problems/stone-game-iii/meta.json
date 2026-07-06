@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Think about the total sum and how the difference between Alice's and Bob's scores changes with each move.",
+    "Use dynamic programming from the end of the array backward, tracking the maximum score difference the current player can achieve.",
+    "For each position, consider taking 1, 2, or 3 stones, then subtract the optimal result the opponent gets from the remaining stones."
+  ],
   "languages": [
     "python"
   ],

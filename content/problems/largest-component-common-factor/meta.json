@@ -6,6 +6,11 @@
     "graph",
     "union-find"
   ],
+  "hints": [
+    "Instead of checking every pair, think about the prime factors of each number as the connecting bridges.",
+    "Use a Union-Find data structure to group numbers that share any prime factor.",
+    "For each number, union it with all its prime factors, then count the largest group of original numbers."
+  ],
   "languages": [
     "python"
   ],

@@ -404,6 +404,32 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "parts": [
+          [
+            4,
+            4
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "expected": 1
+      },
+      "expected": [
+        true,
+        16
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

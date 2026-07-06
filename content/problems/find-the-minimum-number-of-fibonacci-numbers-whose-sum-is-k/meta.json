@@ -5,6 +5,11 @@
   "tags": [
     "greedy"
   ],
+  "hints": [
+    "Consider the greedy strategy: always subtract the largest Fibonacci number less than or equal to k.",
+    "Prove that this greedy choice is optimal by noting that any sum of smaller Fibonacci numbers cannot efficiently replace a larger one.",
+    "Generate Fibonacci numbers up to k, then repeatedly subtract the largest possible one until k reaches zero, counting the steps."
+  ],
   "languages": [
     "python"
   ],

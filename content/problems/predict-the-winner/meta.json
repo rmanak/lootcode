@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider how the game state changes after each move. What information defines the current situation?",
+    "Since both players play optimally, this suggests using recursion with memoization or dynamic programming on the remaining subarray.",
+    "Define a function that returns the maximum score difference (current player score minus opponent score) for a given subarray range."
+  ],
   "languages": [
     "python"
   ],

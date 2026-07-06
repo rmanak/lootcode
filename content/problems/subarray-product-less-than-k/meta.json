@@ -7,6 +7,11 @@
     "sliding-window",
     "two-pointers"
   ],
+  "hints": [
+    "Notice that adding an element to a subarray always increases or maintains the product since elements are positive.",
+    "Use a sliding window approach where you expand the right end and shrink the left end to keep the product under k.",
+    "For each valid right endpoint, the number of valid subarrays ending there is determined by the current window size."
+  ],
   "languages": [
     "python"
   ],

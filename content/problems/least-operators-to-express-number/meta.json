@@ -6,6 +6,11 @@
     "dynamic-programming",
     "memoization"
   ],
+  "hints": [
+    "Think about representing the target in base x. How does each digit relate to operations?",
+    "Multiplication by x is cheap. Focus on how to form each digit of the base-x expansion using additions or subtractions.",
+    "For a digit d, you can add d times x or subtract (x-d) times x. Compare costs for each digit position from least significant."
+  ],
   "languages": [
     "python"
   ],

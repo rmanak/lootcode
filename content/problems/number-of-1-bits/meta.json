@@ -6,6 +6,11 @@
     "bit-manipulation",
     "divide-and-conquer"
   ],
+  "hints": [
+    "Consider how to inspect each bit of the integer individually using bitwise operations.",
+    "Use a mask or shifting to check the least significant bit, then move to the next bit.",
+    "Alternatively, use the operation n & (n - 1) to remove the lowest set bit and count iterations."
+  ],
   "languages": [
     "python"
   ],

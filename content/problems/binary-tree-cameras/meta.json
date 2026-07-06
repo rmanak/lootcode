@@ -8,6 +8,11 @@
     "dynamic-programming",
     "greedy"
   ],
+  "hints": [
+    "Consider a post-order traversal (bottom-up) to decide camera placement based on children's needs.",
+    "Define three states for each node: monitored, needs camera, or has camera. Propagate these up.",
+    "If a child needs a camera, place one on current node. If children have cameras, current is monitored. Else, mark current as needing one."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "heap",
     "array"
   ],
+  "hints": [
+    "Notice that since both arrays are sorted, the smallest sum always involves nums1[0] and nums2[0].",
+    "Use a min-heap to explore pairs in increasing order of sum, starting with the pair (0,0).",
+    "When popping (i,j) from the heap, add (i+1,j) and (i,j+1) as candidates, using a set to avoid duplicates."
+  ],
   "languages": [
     "python"
   ],

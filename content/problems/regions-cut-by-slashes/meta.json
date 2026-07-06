@@ -7,6 +7,11 @@
     "union-find",
     "depth-first-search"
   ],
+  "hints": [
+    "Imagine splitting each cell into 4 small triangles. Connect adjacent triangles if no slash blocks the path.",
+    "Model the 4 triangles per cell as nodes in a graph. Add edges between neighbors based on slash presence.",
+    "Count the number of connected components in this graph using BFS or DFS."
+  ],
   "languages": [
     "python"
   ],

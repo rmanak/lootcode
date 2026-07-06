@@ -5,6 +5,11 @@
   "tags": [
     "string"
   ],
+  "hints": [
+    "Trim leading and trailing spaces first, then scan the remaining characters sequentially.",
+    "Track boolean flags for whether you have seen a digit, a decimal point, or an exponent.",
+    "A valid number must contain at least one digit, and digits must appear in valid positions relative to dots and exponents."
+  ],
   "languages": [
     "python"
   ],

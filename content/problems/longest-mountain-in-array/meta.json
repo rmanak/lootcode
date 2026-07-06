@@ -7,6 +7,11 @@
     "two-pointers",
     "dynamic-programming"
   ],
+  "hints": [
+    "A mountain requires a peak where neighbors are strictly smaller. Scan for such peaks first.",
+    "For each peak, expand left and right as long as values strictly decrease from the peak.",
+    "Track the maximum width of valid expansions. Ignore peaks at array edges or with flat neighbors."
+  ],
   "languages": [
     "python"
   ],

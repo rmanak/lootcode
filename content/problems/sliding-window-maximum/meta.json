@@ -7,6 +7,11 @@
     "sliding-window",
     "queue"
   ],
+  "hints": [
+    "Consider how the maximum changes as the window slides one step to the right.",
+    "Use a deque to maintain indices of potential maximums in decreasing order.",
+    "Remove indices from the front if they fall outside the current window bounds."
+  ],
   "languages": [
     "python"
   ],

@@ -1,0 +1,85 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "num": 3749
+      },
+      "expected": "MMMDCCXLIX",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "num": 58
+      },
+      "expected": "LVIII",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "num": 1994
+      },
+      "expected": "MCMXCIV",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "num": 1
+      },
+      "expected": "I",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "num": 4
+      },
+      "expected": "IV",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "num": 9
+      },
+      "expected": "IX",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "num": 3999
+      },
+      "expected": "MMMCMXCIX",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-5",
+      "input": {
+        "num": 2024
+      },
+      "expected": "MMXXIV",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "num": 466
+      },
+      "expected": "CDLXVI",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

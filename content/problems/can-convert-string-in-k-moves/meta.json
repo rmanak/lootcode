@@ -6,6 +6,11 @@
     "string",
     "hash-table"
   ],
+  "hints": [
+    "Check if s and t have the same length; if not, return false immediately.",
+    "For each differing character, calculate the minimum forward shift needed to match t.",
+    "Sort these required shifts and verify that the i-th smallest shift plus i does not exceed k for all i."
+  ],
   "languages": [
     "python"
   ],

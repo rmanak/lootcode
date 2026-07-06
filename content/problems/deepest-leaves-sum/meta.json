@@ -7,6 +7,11 @@
     "breadth-first-search",
     "depth-first-search"
   ],
+  "hints": [
+    "Find the maximum depth of the tree first, then sum only nodes at that level.",
+    "Use a breadth-first search to process the tree level by level.",
+    "Keep the sum of the current level; when the queue empties, that sum is your answer."
+  ],
   "languages": [
     "python"
   ],

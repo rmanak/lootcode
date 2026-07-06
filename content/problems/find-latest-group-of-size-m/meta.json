@@ -7,6 +7,11 @@
     "hash-table",
     "simulation"
   ],
+  "hints": [
+    "Track contiguous segments of 1s using their boundaries. When a bit flips, merge adjacent segments if they exist.",
+    "Maintain a count of how many segments have length exactly m. Update this count whenever segments merge or split.",
+    "Use a map or array to store segment lengths by their start index. Check if the count of length-m segments is positive after each step."
+  ],
   "languages": [
     "python"
   ],

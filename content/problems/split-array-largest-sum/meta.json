@@ -7,6 +7,11 @@
     "binary-search",
     "dynamic-programming"
   ],
+  "hints": [
+    "Try binary search on the answer. Is it feasible to split the array such that no subarray sum exceeds a certain value?",
+    "Define a helper function that counts the minimum subarrays needed if each sum is capped at a limit. Use a greedy approach.",
+    "Binary search the range from the maximum element to the total sum. Find the smallest limit where the helper returns at most m subarrays."
+  ],
   "languages": [
     "python"
   ],

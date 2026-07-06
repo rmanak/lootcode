@@ -6,6 +6,11 @@
     "string",
     "stack"
   ],
+  "hints": [
+    "Consider how nested brackets suggest a last-in-first-out processing order.",
+    "Use a stack to store partial results and repeat counts while scanning the string.",
+    "When you hit a closing bracket, pop the current word and count, then repeat and prepend."
+  ],
   "languages": [
     "python"
   ],

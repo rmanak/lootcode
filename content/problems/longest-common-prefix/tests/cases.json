@@ -1,0 +1,91 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "strs": [
+          "flower",
+          "flow",
+          "flight"
+        ]
+      },
+      "expected": "fl",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "strs": [
+          "dog",
+          "racecar",
+          "car"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "strs": [
+          "a"
+        ]
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "strs": [
+          "",
+          "abc"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "strs": [
+          "abc",
+          "abc",
+          "abc"
+        ]
+      },
+      "expected": "abc",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-4",
+      "input": {
+        "strs": [
+          "prefix",
+          "pre",
+          "predict"
+        ]
+      },
+      "expected": "pre",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "strs": [
+          "a",
+          ""
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

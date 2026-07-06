@@ -7,6 +7,11 @@
     "binary-indexed-tree",
     "binary-search-tree"
   ],
+  "hints": [
+    "Notice that the height at any x depends only on the maximum base height of overlapping intervals below it.",
+    "Use a segment tree or coordinate compression to handle the large range of coordinates efficiently.",
+    "For each new square, query the max height in its range, then update that range with the new total height."
+  ],
   "languages": [
     "python"
   ],

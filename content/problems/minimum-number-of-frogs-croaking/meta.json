@@ -7,6 +7,11 @@
     "counting",
     "simulation"
   ],
+  "hints": [
+    "First, verify the string length is divisible by 5 and counts of each character are equal.",
+    "Track the count of active frogs at each stage: c, r, o, a, k. Ensure valid transitions.",
+    "The minimum frogs needed is the maximum simultaneous 'c' starts. If any stage has invalid counts, return -1."
+  ],
   "languages": [
     "python"
   ],

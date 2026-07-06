@@ -9,6 +9,11 @@
     "heap",
     "hash-table"
   ],
+  "hints": [
+    "Count the frequency of each unique value in the array.",
+    "Sort these frequencies in descending order to prioritize removing the most common values.",
+    "Accumulate the sorted frequencies until the total removed count reaches at least half the array length."
+  ],
   "languages": [
     "python"
   ],

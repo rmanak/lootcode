@@ -7,6 +7,11 @@
     "stack",
     "tree"
   ],
+  "hints": [
+    "Focus on the balance between available slots for children and consumed slots as you scan the string left to right.",
+    "Use a counter tracking available slots: start with 1, decrement by 1 for each node, and add 2 for each non-null value.",
+    "If the counter drops below zero at any point, or isn't exactly zero at the end, the serialization is invalid."
+  ],
   "languages": [
     "python"
   ],

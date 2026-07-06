@@ -7,6 +7,11 @@
     "backtracking",
     "bit-manipulation"
   ],
+  "hints": [
+    "Try placing numbers one by one into positions 1 to N, checking divisibility rules at each step.",
+    "Use backtracking with a bitmask to efficiently track which numbers from 1 to N have already been used.",
+    "At each recursive step, iterate through available numbers and recurse only if the divisibility condition with the current position holds."
+  ],
   "languages": [
     "python"
   ],

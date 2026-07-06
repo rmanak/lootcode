@@ -6,6 +6,11 @@
     "array",
     "two-pointers"
   ],
+  "hints": [
+    "Consider how you would merge two piles of sorted cards manually, always picking the smaller top card.",
+    "Maintain two pointers, one for each array, and compare the elements they currently point to.",
+    "Append the smaller element to your result and advance that pointer; handle remaining elements from the non-empty array at the end."
+  ],
   "languages": [
     "python"
   ],

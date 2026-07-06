@@ -8,6 +8,11 @@
     "depth-first-search",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider computing the answer for one root, then efficiently updating it for neighbors.",
+    "A depth-first search helps count subtree sizes and initial distances from a fixed root.",
+    "Use a second DFS to propagate results: moving the root to a neighbor changes the total distance based on subtree size."
+  ],
   "languages": [
     "python"
   ],

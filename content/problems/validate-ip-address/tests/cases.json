@@ -161,6 +161,15 @@
       "expected": "Neither",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "IP": "a"
+      },
+      "expected": "Neither",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

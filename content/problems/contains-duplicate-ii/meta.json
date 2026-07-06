@@ -1,0 +1,43 @@
+{
+  "slug": "contains-duplicate-ii",
+  "title": "Contains Duplicate II",
+  "difficulty": "easy",
+  "tags": [
+    "array",
+    "hash-table",
+    "sliding-window"
+  ],
+  "hints": [
+    "Track the most recent index where each number appeared using a map.",
+    "As you iterate, check if the current number is already in the map.",
+    "If present, verify if the distance between current and stored index is within k."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "containsNearbyDuplicate",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

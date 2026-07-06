@@ -1,0 +1,42 @@
+{
+  "slug": "rotate-list",
+  "title": "Rotate List",
+  "difficulty": "medium",
+  "tags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "hints": [
+    "What happens to the rotation when k is larger than the list length?",
+    "Find the list length and reduce k modulo the length to find the effective rotation.",
+    "Connect the tail to the head to form a cycle, then break the link at the new tail position."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "rotateRight",
+    "params": [
+      {
+        "name": "head",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

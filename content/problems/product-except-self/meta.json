@@ -6,6 +6,11 @@
     "array",
     "prefix-sum"
   ],
+  "hints": [
+    "Consider how each output element is formed by multiplying values to its left and values to its right.",
+    "Compute prefix products and suffix products separately to avoid recalculating values for each index.",
+    "Use two passes: one to store left products in the result array, another to multiply by right products on the fly."
+  ],
   "languages": [
     "python"
   ],

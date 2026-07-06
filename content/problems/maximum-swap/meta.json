@@ -5,6 +5,11 @@
   "tags": [
     "greedy"
   ],
+  "hints": [
+    "Convert the number to a string or list of digits to easily swap positions.",
+    "Find the first digit from the left that is smaller than some digit to its right.",
+    "Swap that digit with the largest possible digit appearing later, preferring the rightmost occurrence of that largest digit."
+  ],
   "languages": [
     "python"
   ],

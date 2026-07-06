@@ -6,6 +6,11 @@
     "array",
     "binary-search"
   ],
+  "hints": [
+    "Consider how the number of papers with at least h citations relates to the array index.",
+    "Since the array is sorted, use binary search to find the largest valid h efficiently.",
+    "Check if citations[mid] >= n - mid; if true, try larger h in the right half, else search left."
+  ],
   "languages": [
     "python"
   ],

@@ -7,6 +7,11 @@
     "hash-table",
     "sorting"
   ],
+  "hints": [
+    "Convert freq to seconds and calculate the total number of buckets needed using endTime and startTime.",
+    "For each timestamp, determine its bucket index by subtracting startTime and dividing by the bucket size.",
+    "Initialize an array of zeros for the buckets and increment the appropriate index for each valid timestamp."
+  ],
   "languages": [
     "python"
   ],

@@ -5,6 +5,11 @@
   "tags": [
     "greedy"
   ],
+  "hints": [
+    "To maximize a - b, independently maximize a and minimize b. Consider greedy digit replacements for each.",
+    "For a, replace the first non-9 digit with 9. For b, replace the first digit with 1, or the first non-0, non-1 digit with 0.",
+    "Handle b carefully: if the first digit is 1, find the first digit > 1 to replace with 0. Otherwise, replace the first digit with 1."
+  ],
   "languages": [
     "python"
   ],

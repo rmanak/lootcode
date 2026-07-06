@@ -8,6 +8,11 @@
     "dynamic-programming",
     "hash-table"
   ],
+  "hints": [
+    "Sort the words by length to process shorter words before their potential successors.",
+    "Use a hash map to store the longest chain ending at each word for quick lookup.",
+    "For each word, try removing one character at a time and check if the resulting string exists in the map."
+  ],
   "languages": [
     "python"
   ],

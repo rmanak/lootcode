@@ -6,6 +6,11 @@
     "graph",
     "depth-first-search"
   ],
+  "hints": [
+    "Model the airports and tickets as a directed graph where each ticket is an edge.",
+    "Sort the destination airports for each source alphabetically to prioritize lexicographically smaller choices during traversal.",
+    "Use a depth-first search to find an Eulerian path, appending airports to the result only after fully exploring all outgoing edges."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "string",
     "sliding-window"
   ],
+  "hints": [
+    "Consider using a sliding window approach where you expand the right boundary and shrink the left when necessary.",
+    "Track the frequency of characters within the current window to identify the most common letter.",
+    "The window is valid if its length minus the count of the most frequent character is at most k."
+  ],
   "languages": [
     "python"
   ],

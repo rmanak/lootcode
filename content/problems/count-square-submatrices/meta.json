@@ -6,6 +6,11 @@
     "matrix",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider how the largest square ending at a cell depends on its neighbors.",
+    "Use dynamic programming where each cell stores the side length of the largest square ending there.",
+    "The value at a cell is the minimum of its top, left, and top-left neighbors plus one."
+  ],
   "languages": [
     "python"
   ],

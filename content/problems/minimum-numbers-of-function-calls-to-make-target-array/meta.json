@@ -7,6 +7,11 @@
     "greedy",
     "bit-manipulation"
   ],
+  "hints": [
+    "Work backwards from nums to all zeros using inverse operations: subtract 1 or divide by 2.",
+    "Dividing by 2 costs one operation for the whole array, while subtracting 1 costs one per element.",
+    "Count total subtractions needed for all elements, plus the number of divisions required by the largest element."
+  ],
   "languages": [
     "python"
   ],

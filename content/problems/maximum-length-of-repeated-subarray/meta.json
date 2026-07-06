@@ -7,6 +7,11 @@
     "dynamic-programming",
     "binary-search"
   ],
+  "hints": [
+    "Notice that matching subarrays must end at specific indices in both arrays. What happens if the current elements match?",
+    "This structure suggests dynamic programming. Define a state based on the ending positions in both arrays to track the current match length.",
+    "If elements at current indices match, the length extends the previous match. Otherwise, reset to zero. Track the global maximum."
+  ],
   "languages": [
     "python"
   ],

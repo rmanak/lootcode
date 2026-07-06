@@ -6,6 +6,11 @@
     "stack",
     "queue"
   ],
+  "hints": [
+    "Maintain a single list to store elements. Append new items to the end for push operations.",
+    "For pop, remove and return the first element. For peek, return the first element without removing it.",
+    "Check if the list is empty for the empty operation. Process operations in order to build the result list."
+  ],
   "languages": [
     "python"
   ],

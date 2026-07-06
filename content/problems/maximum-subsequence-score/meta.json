@@ -7,6 +7,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "Sort pairs by nums2 in descending order. This fixes the minimum nums2 as you iterate.",
+    "For each fixed minimum, you need the largest sum of k nums1 values from available candidates.",
+    "Use a min-heap of size k to track the largest nums1 sums seen so far."
+  ],
   "languages": [
     "python"
   ],

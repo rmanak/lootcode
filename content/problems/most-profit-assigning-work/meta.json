@@ -8,6 +8,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "Sort the jobs by difficulty to easily find which ones a worker can perform.",
+    "Preprocess jobs so that for any difficulty threshold, you know the maximum profit available among all feasible jobs.",
+    "Sort the workers. For each worker, find the best profit using binary search or a two-pointer approach on the sorted jobs."
+  ],
   "languages": [
     "python"
   ],

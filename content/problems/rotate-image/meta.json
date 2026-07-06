@@ -6,6 +6,11 @@
     "array",
     "matrix"
   ],
+  "hints": [
+    "Notice how rows transform into columns when rotated clockwise.",
+    "Try transposing the matrix first, then reverse each row.",
+    "Transposing swaps matrix[i][j] with matrix[j][i]; reversing rows completes the rotation."
+  ],
   "languages": [
     "python"
   ],

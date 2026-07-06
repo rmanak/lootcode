@@ -7,6 +7,11 @@
     "hash-table",
     "depth-first-search"
   ],
+  "hints": [
+    "Observe how parent-child value relations mimic binary indexing. Can you map a value to a unique path from the root?",
+    "Convert each query value to its binary path. Then traverse the tree shape using these bits to check existence.",
+    "Start at root for each query. Use the value's binary representation (ignoring MSB) to navigate left/right, stopping if a node is missing."
+  ],
   "languages": [
     "python"
   ],

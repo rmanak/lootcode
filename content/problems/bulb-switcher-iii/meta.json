@@ -6,6 +6,11 @@
     "array",
     "hash-table"
   ],
+  "hints": [
+    "Track the rightmost bulb turned on so far after each step.",
+    "Compare this maximum position with the count of bulbs lit so far.",
+    "Each time the maximum position equals the number of lit bulbs, all previous bulbs are blue."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "array",
     "binary-search"
   ],
+  "hints": [
+    "Since the array is sorted and you need logarithmic time, binary search is the natural approach to narrow down the location.",
+    "When the target is not found, the standard binary search loop termination condition usually points directly to the correct insertion index.",
+    "Track the left and right boundaries; when the loop ends, the left boundary indicates exactly where the target belongs."
+  ],
   "languages": [
     "python"
   ],

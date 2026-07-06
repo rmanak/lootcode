@@ -8,6 +8,11 @@
     "greedy",
     "bit-manipulation"
   ],
+  "hints": [
+    "Most rows are empty. Calculate how many families fit in a completely empty row, then subtract losses caused by reserved seats.",
+    "Only rows with reservations matter. Use a hash map to group reserved seats by row, ignoring rows with no conflicts.",
+    "For each affected row, check the three valid windows. Count up to two families per row based on which windows remain free."
+  ],
   "languages": [
     "python"
   ],

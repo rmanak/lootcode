@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Focus on contiguous segments where the difference between adjacent elements remains constant.",
+    "Identify the longest arithmetic run ending at each index using the previous result.",
+    "If a run of length k ends at index i, it contributes k-1 new arithmetic slices."
+  ],
   "languages": [
     "python"
   ],

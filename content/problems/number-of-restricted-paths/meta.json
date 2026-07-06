@@ -6,6 +6,11 @@
     "graph",
     "dynamic-programming"
   ],
+  "hints": [
+    "First compute dist(x) for all nodes using Dijkstra's algorithm starting from node n.",
+    "Next, count valid paths using dynamic programming or memoized recursion, processing nodes in order of increasing dist(x).",
+    "The number of paths to node n is the sum of paths from neighbors with strictly greater dist, modulo 10^9 + 7."
+  ],
   "languages": [
     "python"
   ],

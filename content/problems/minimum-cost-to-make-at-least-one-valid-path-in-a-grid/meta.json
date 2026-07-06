@@ -8,6 +8,11 @@
     "graph",
     "matrix"
   ],
+  "hints": [
+    "Think of the grid as a graph where each cell connects to its neighbors. Existing arrows are free edges; changing arrows creates edges with cost 1.",
+    "This is a shortest path problem on a graph with edge weights 0 and 1. Use 0-1 BFS or Dijkstra's algorithm to find the minimum cost.",
+    "Initialize distances to infinity and start at (0,0) with cost 0. Process neighbors: free moves push to front, paid moves push to back of the deque."
+  ],
   "languages": [
     "python"
   ],

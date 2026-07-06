@@ -6,6 +6,11 @@
     "array",
     "hash-table"
   ],
+  "hints": [
+    "Notice that a valid rectangle is defined by two points sharing the same x-coordinate and two points sharing the same y-coordinate.",
+    "Group points by their x-coordinates. For each pair of x-values, find common y-coordinates to form vertical sides.",
+    "For each pair of x-values, sort their shared y-coordinates. The minimum area comes from the smallest difference between consecutive shared y-values."
+  ],
   "languages": [
     "python"
   ],

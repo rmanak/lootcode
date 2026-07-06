@@ -7,6 +7,11 @@
     "dynamic-programming",
     "prefix-sum"
   ],
+  "hints": [
+    "Notice that any partition splits the array at specific indices. Can you define a state based on the current index and remaining groups?",
+    "This problem exhibits optimal substructure, suggesting dynamic programming. Define dp[i][k] as the max score for A[i:] using k groups.",
+    "To compute dp[i][k], iterate over all possible split points j. The score is average(A[i:j]) plus dp[j][k-1]. Precompute prefix sums for fast averages."
+  ],
   "languages": [
     "python"
   ],

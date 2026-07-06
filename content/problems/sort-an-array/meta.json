@@ -7,6 +7,11 @@
     "sorting",
     "divide-and-conquer"
   ],
+  "hints": [
+    "Consider algorithms with O(n log n) time complexity to handle the array size efficiently.",
+    "Think about divide and conquer strategies like merge sort or heap sort.",
+    "You can also use counting sort since the range of values is limited and small."
+  ],
   "languages": [
     "python"
   ],

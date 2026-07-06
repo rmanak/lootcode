@@ -7,6 +7,11 @@
     "dynamic-programming",
     "greedy"
   ],
+  "hints": [
+    "Consider the maximum reach you can achieve using exactly one clip, then two clips, and so on.",
+    "Sort clips by start time. For each step, pick the clip that extends the current coverage the furthest.",
+    "If the next best clip starts after the current end, you cannot cover the gap and should return -1."
+  ],
   "languages": [
     "python"
   ],

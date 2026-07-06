@@ -8,6 +8,11 @@
     "hash-table",
     "counting"
   ],
+  "hints": [
+    "Check if the string length is at least k, since each palindrome must be non-empty.",
+    "Count the frequency of each character and determine how many have an odd count.",
+    "Each odd-frequency character requires its own palindrome center, so ensure odd counts do not exceed k."
+  ],
   "languages": [
     "python"
   ],

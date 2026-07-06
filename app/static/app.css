@@ -164,13 +164,24 @@ h2 { font-size: 18px; margin: 28px 0 12px; }
   background: var(--bg); border: 1px solid var(--border); border-radius: 999px; }
 .topic-chip:hover .tc-count { background: var(--surface); }
 .topic-chip.active .tc-count { color: var(--primary); background: #fff; border-color: #bfe3dd; }
-.topic-extra { display: none; }
+/* The overflow topics occupy a full-width row (flex-basis 100% forces them onto
+   their own line below the first row). Height animates via the grid 0fr↔1fr
+   trick — no magic max-height. The inner div holds the chips and is the grid row
+   that grows; its overflow is clipped while collapsed. */
+.topic-extra { flex: 0 0 100%; display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows .2s ease; }
+.topic-extra-inner { overflow: hidden; min-height: 0;
+  display: flex; flex-wrap: wrap; gap: 8px 6px; }
+.topic-expand-cb:checked ~ .topic-bar .topic-extra { grid-template-rows: 1fr; }
+/* A little breathing room between the first row and the revealed rows, but only
+   while open (margin doesn't participate in the collapsed 0fr height). */
+.topic-expand-cb:checked ~ .topic-bar .topic-extra-inner { margin-top: 2px; }
+
 .topic-toggle { margin-left: auto; cursor: pointer; user-select: none;
   white-space: nowrap; color: var(--muted); font-size: 13px; font-weight: 600;
   padding: 5px 11px; border-radius: 999px; transition: background .12s, color .12s; }
 .topic-toggle:hover { color: var(--ink); background: var(--bg); }
 .topic-toggle .tt-collapse { display: none; }
-.topic-expand-cb:checked ~ .topic-bar .topic-extra { display: inline-flex; }
 .topic-expand-cb:checked ~ .topic-bar .topic-toggle .tt-expand { display: none; }
 .topic-expand-cb:checked ~ .topic-bar .topic-toggle .tt-collapse { display: inline; }
 /* Keyboard focus lands on the hidden checkbox; ring its label so it's visible. */
@@ -287,6 +298,21 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 18px 20px;
 }
+/* Left-panel tabs (Description / Submissions) sitting just above the title. The
+   non-selected tab is greyed out; the selected one takes the ink colour with a
+   primary underline. Both panels stay in the DOM — JS toggles [hidden]. */
+.panel-tabs { display: flex; gap: 2px; margin: -2px 0 16px;
+  border-bottom: 1px solid var(--border); }
+.panel-tab { appearance: none; background: none; border: 0; cursor: pointer;
+  font: inherit; font-size: 13px; font-weight: 600; color: var(--muted);
+  padding: 7px 12px; margin-bottom: -1px; border-bottom: 2px solid transparent;
+  transition: color .12s, border-color .12s; }
+.panel-tab:hover { color: var(--ink); }
+.panel-tab.is-active { color: var(--ink); border-bottom-color: var(--primary); }
+.panel-tab:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px;
+  border-radius: 4px; }
+.subs-panel-title { margin: 2px 0 12px; font-size: 16px; }
+.subs-empty { padding: 6px 0; }
 .statement .md { font-size: 14.5px; }
 .statement .md pre { background: #0f1720; color: #e6edf3; padding: 12px 14px;
   border-radius: 8px; overflow: auto; }
@@ -337,11 +363,19 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
   padding: 8px 10px; background: var(--bg); border: 1px solid var(--border);
   border-radius: 8px; }
 .editor-wrap { position: relative; }
-/* Selector intentionally more specific than CodeMirror's own `.CodeMirror`
-   rule (which sets height:300px and loads after this file), so our default
-   editor height actually takes effect. */
-.editor-wrap .CodeMirror { border: 1px solid var(--border); border-radius: 8px;
-  height: 510px; font-size: 13.5px; }
+/* CodeMirror 6 (see static/vendor/cm6.js). The editor is a fixed-height scroll
+   box; the height set here is the default — the resize strip overrides it with
+   an inline height. `--indent-marker-*` colours the vertical indentation guides
+   (subtle at every level, stronger on the active block). */
+.editor-wrap .cm-editor { border: 1px solid var(--border); border-radius: 8px;
+  height: 510px; font-size: 13.5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --indent-marker-bg-color: var(--border);
+  --indent-marker-active-bg-color: var(--muted); }
+.editor-wrap .cm-editor.cm-focused { outline: none; border-color: var(--primary); }
+.editor-wrap .cm-scroller { border-radius: 0 0 8px 8px; }
+.editor-wrap .cm-gutters { background: var(--bg); border-right: 1px solid var(--border);
+  border-radius: 8px 0 0 8px; color: var(--muted); }
 /* Drag this strip to make the editor taller/shorter. */
 .editor-resize { height: 14px; cursor: ns-resize; display: flex; align-items: center;
   justify-content: center; touch-action: none; }
@@ -456,6 +490,9 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 .subs-zebra thead th { border-bottom: 1px solid var(--border); }
 .subs-zebra tr.g-odd td { background: var(--surface); }
 .subs-zebra tr.g-even td { background: var(--bg); }
+/* The submission currently loaded into the editor (via ?submission=) gets a
+   teal tint so you can tell which attempt you're looking at. */
+.subs tr.sub-current td { background: #e6f2f0; }
 
 .panel-summary .solved-head { margin: 0 0 10px; font-size: 16px; }
 .solved-sub { font-size: 12px; text-transform: uppercase; letter-spacing: .04em;

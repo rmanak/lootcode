@@ -1,0 +1,39 @@
+{
+  "slug": "sum-root-to-leaf-numbers",
+  "title": "Sum Root to Leaf Numbers",
+  "difficulty": "medium",
+  "tags": [
+    "tree",
+    "depth-first-search",
+    "binary-tree"
+  ],
+  "hints": [
+    "Focus on how numbers are built digit by digit. How does the number at a child node relate to the number formed by its parent?",
+    "Use Depth First Search. Pass the number formed by the path so far as a parameter to your recursive function.",
+    "At each node, update the current number by multiplying the previous sum by 10 and adding the node's value. Add to total only at leaves."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "sumNumbers",
+    "params": [
+      {
+        "name": "root",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

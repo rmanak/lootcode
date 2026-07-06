@@ -7,6 +7,11 @@
     "two-pointers",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider the forces acting on each dot from the nearest L to its left and R to its right.",
+    "Calculate the distance to the nearest active force on both sides for every dot.",
+    "Compare these distances: if closer to R, it falls right; if closer to L, it falls left; if equal, it stays."
+  ],
   "languages": [
     "python"
   ],

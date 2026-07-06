@@ -52,3 +52,13 @@ Thumbs.db
 /s1.png
 /s2.png
 /*.png
+testgen_cache/
+
+# Machine-generated input-constraint validators (scripts/generate_constraint_validators.py)
+/constraint_validators/
+
+# Extended (extra) problem set — kept local, not committed. Seeded alongside the
+# default set when present; a fresh clone simply drops these problems (and any
+# collection references to them) with no error. See docs/extended-problems.md.
+/content/problems-extended/
+/content/collections/top-google.json

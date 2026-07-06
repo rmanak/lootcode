@@ -7,6 +7,11 @@
     "depth-first-search",
     "breadth-first-search"
   ],
+  "hints": [
+    "Consider what the maximum depth of a tree is in terms of its left and right subtrees.",
+    "This problem has an optimal substructure; try solving it recursively by adding one to the deeper subtree.",
+    "Handle the base case where the node is None, then return 1 plus the max of the recursive calls on children."
+  ],
   "languages": [
     "python"
   ],

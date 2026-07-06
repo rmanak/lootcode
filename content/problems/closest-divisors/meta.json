@@ -5,6 +5,11 @@
   "tags": [
     "math"
   ],
+  "hints": [
+    "Check both num+1 and num+2 separately to find the best factor pair for each.",
+    "Start checking factors from the square root of the number downwards.",
+    "The first divisor found from the square root yields the pair with the smallest difference."
+  ],
   "languages": [
     "python"
   ],

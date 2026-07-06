@@ -7,6 +7,11 @@
     "hash-table",
     "counting"
   ],
+  "hints": [
+    "Consider the remainder of each element when divided by k. How do remainders pair up to sum to a multiple of k?",
+    "Count the frequency of each remainder. Remainder 0 must pair with itself, and remainder r must pair with remainder k-r.",
+    "Ensure the count of remainder 0 is even. For every other remainder r, verify its count matches the count of k-r."
+  ],
   "languages": [
     "python"
   ],

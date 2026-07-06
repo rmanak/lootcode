@@ -71,9 +71,9 @@
       "input": {
         "a": 7,
         "b": 7,
-        "c": 0
+        "c": 1
       },
-      "expected": 6,
+      "expected": 4,
       "weight": 1,
       "hidden": true
     },

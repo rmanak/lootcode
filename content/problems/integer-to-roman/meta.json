@@ -1,0 +1,38 @@
+{
+  "slug": "integer-to-roman",
+  "title": "Integer to Roman",
+  "difficulty": "medium",
+  "tags": [
+    "hash-table",
+    "string"
+  ],
+  "hints": [
+    "Consider processing the number from the largest place value to the smallest, handling thousands, hundreds, tens, and ones individually.",
+    "Create a mapping of integer values to their specific Roman numeral strings, including the special subtractive cases like 900 and 40.",
+    "Iterate through the mapping from largest to smallest value; while the remaining number is greater than or equal to the current value, append the symbol and subtract the value."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "intToRoman",
+    "params": [
+      {
+        "name": "num",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

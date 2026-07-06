@@ -7,6 +7,11 @@
     "binary-search",
     "binary-indexed-tree"
   ],
+  "hints": [
+    "Consider what the threshold condition implies about the frequency of the answer relative to the subarray length.",
+    "Use a randomized approach: pick several random indices within the range and check their values' counts.",
+    "Count occurrences of sampled values using precomputed position lists for each unique number to answer queries efficiently."
+  ],
   "languages": [
     "python"
   ],

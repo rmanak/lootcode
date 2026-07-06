@@ -7,6 +7,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "Focus on which projects you can afford with your current capital w.",
+    "Among affordable projects, always pick the one with the highest profit.",
+    "Use a max-heap for affordable profits and a min-heap for capital to efficiently find the next affordable set."
+  ],
   "languages": [
     "python"
   ],

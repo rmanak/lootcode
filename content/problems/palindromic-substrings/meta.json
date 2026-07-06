@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Try expanding outward from each character to find all palindromes centered there.",
+    "Consider both odd-length and even-length palindromes by using single and paired centers.",
+    "Iterate through every possible center and expand left and right while characters match."
+  ],
   "languages": [
     "python"
   ],

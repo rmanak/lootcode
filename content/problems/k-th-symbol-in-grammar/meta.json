@@ -6,6 +6,11 @@
     "bit-manipulation",
     "recursion"
   ],
+  "hints": [
+    "Observe that each row is exactly twice as long as the previous one. How does the parent of position K in row N relate to K?",
+    "The symbol at K in row N depends on the symbol at a specific position in row N-1. Determine that parent index using integer division.",
+    "The value flips if the parent index was odd, and stays the same if it was even. This suggests counting the number of 1s in the binary representation of K-1."
+  ],
   "languages": [
     "python"
   ],

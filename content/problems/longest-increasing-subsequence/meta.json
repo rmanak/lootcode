@@ -7,6 +7,11 @@
     "dynamic-programming",
     "binary-search"
   ],
+  "hints": [
+    "Consider a dynamic programming approach where dp[i] represents the length of the longest increasing subsequence ending at index i.",
+    "To compute dp[i] efficiently, you can maintain an auxiliary array 'tails' where tails[k] stores the smallest tail of all increasing subsequences of length k+1.",
+    "Use binary search to find the position to update or extend the 'tails' array for each element in nums, ensuring strictly increasing order."
+  ],
   "languages": [
     "python"
   ],

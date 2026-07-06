@@ -1,0 +1,37 @@
+{
+  "slug": "palindrome-number",
+  "title": "Palindrome Number",
+  "difficulty": "easy",
+  "tags": [
+    "math"
+  ],
+  "hints": [
+    "Negative numbers can never be palindromes because of the sign. Also, any positive number ending in 0 (except 0 itself) is not a palindrome.",
+    "Reverse the integer mathematically by repeatedly taking the remainder modulo 10 and dividing by 10. Compare the reversed number with the original.",
+    "To avoid overflow, only reverse half of the number. If the original equals the reversed half (or reversed half divided by 10), it is a palindrome."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "isPalindrome",
+    "params": [
+      {
+        "name": "x",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

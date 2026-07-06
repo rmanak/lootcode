@@ -6,6 +6,11 @@
     "array",
     "sorting"
   ],
+  "hints": [
+    "Sorting takes O(n log n), but the problem asks for linear time. Can you solve it without sorting?",
+    "Consider the range of values and the number of elements. What is the theoretical minimum possible maximum gap?",
+    "Use the Pigeonhole Principle with buckets. The maximum gap must occur between buckets, not within them."
+  ],
   "languages": [
     "python"
   ],

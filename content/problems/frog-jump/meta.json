@@ -7,6 +7,11 @@
     "dynamic-programming",
     "hash-table"
   ],
+  "hints": [
+    "Check if the second stone is at position 1, otherwise the frog cannot make the mandatory first jump.",
+    "Use dynamic programming where the state tracks the current stone index and the previous jump size.",
+    "For each reachable state, try jumping k-1, k, or k+1 steps forward and check if a stone exists at that position."
+  ],
   "languages": [
     "python"
   ],

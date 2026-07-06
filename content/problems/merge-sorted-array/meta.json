@@ -1,0 +1,51 @@
+{
+  "slug": "merge-sorted-array",
+  "title": "Merge Sorted Array",
+  "difficulty": "easy",
+  "tags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "hints": [
+    "Since both input arrays are already sorted, you can merge them efficiently by comparing elements from the end rather than the beginning.",
+    "Use three pointers: one for the last valid element of nums1, one for the last element of nums2, and one for the end of the merged array in nums1.",
+    "Compare the elements pointed to by the two source pointers and place the larger one at the current end position of nums1, then move the corresponding pointers backward."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "merge",
+    "params": [
+      {
+        "name": "nums1",
+        "type": "int[]"
+      },
+      {
+        "name": "m",
+        "type": "int"
+      },
+      {
+        "name": "nums2",
+        "type": "int[]"
+      },
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

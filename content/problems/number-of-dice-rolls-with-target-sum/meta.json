@@ -5,6 +5,11 @@
   "tags": [
     "dynamic-programming"
   ],
+  "hints": [
+    "Notice the problem involves making a choice for each die. Can you define a subproblem based on the number of dice remaining and the current target sum?",
+    "This structure suggests dynamic programming. The state should depend on the number of dice processed and the sum achieved so far.",
+    "For the transition, iterate through all possible face values of the current die. Add the ways to reach the previous sum for the remaining dice."
+  ],
   "languages": [
     "python"
   ],

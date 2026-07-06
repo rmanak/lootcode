@@ -8,6 +8,11 @@
     "stack",
     "sorting"
   ],
+  "hints": [
+    "Process indices from right to left, determining reachability based on future states.",
+    "Use a sorted structure to efficiently find the next valid jump target for each index.",
+    "Track two booleans per index: whether it can reach the end via odd or even jumps."
+  ],
   "languages": [
     "python"
   ],

@@ -5,6 +5,11 @@
   "tags": [
     "string"
   ],
+  "hints": [
+    "Check if the string contains '@' to distinguish emails from phone numbers.",
+    "For emails, lowercase the domain and replace the middle of the local part with five asterisks.",
+    "For phones, count digits to find the country code length, then format as stars plus the last four digits."
+  ],
   "languages": [
     "python"
   ],

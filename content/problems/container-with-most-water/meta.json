@@ -7,6 +7,11 @@
     "two-pointers",
     "greedy"
   ],
+  "hints": [
+    "Try using two pointers, one at the start and one at the end of the array.",
+    "The area is determined by the shorter line. Moving the taller pointer inward cannot increase the area.",
+    "Always move the pointer pointing to the shorter line inward to potentially find a taller line and larger area."
+  ],
   "languages": [
     "python"
   ],

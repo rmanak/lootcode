@@ -7,6 +7,11 @@
     "union-find",
     "depth-first-search"
   ],
+  "hints": [
+    "Consider traversing the graph using DFS or BFS to explore connected components.",
+    "During traversal, if you encounter a visited neighbor that is not your parent, a cycle exists.",
+    "Alternatively, use Union-Find: if two nodes in an edge already share the same root, a cycle is present."
+  ],
   "languages": [
     "python"
   ],

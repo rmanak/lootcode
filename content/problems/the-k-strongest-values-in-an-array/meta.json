@@ -7,6 +7,11 @@
     "two-pointers",
     "sorting"
   ],
+  "hints": [
+    "Find the median by sorting a copy of the array, then use two pointers at the ends of the sorted array to compare strengths.",
+    "Compare the absolute difference from the median for the left and right pointers; pick the stronger one and move that pointer inward.",
+    "Repeat the comparison and selection process k times to collect the strongest values without fully sorting by strength."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "dynamic-programming",
     "combinatorics"
   ],
+  "hints": [
+    "Consider adding orders one by one. How many valid positions exist for a new pair given existing events?",
+    "Use dynamic programming. Let dp[i] be valid sequences for i orders. Find how dp[i] relates to dp[i-1].",
+    "For the i-th order, there are 2i-1 slots before or between existing events. Choose 2 spots for P_i and D_i."
+  ],
   "languages": [
     "python"
   ],

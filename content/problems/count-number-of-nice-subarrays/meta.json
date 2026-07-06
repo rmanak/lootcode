@@ -8,6 +8,11 @@
     "sliding-window",
     "prefix-sum"
   ],
+  "hints": [
+    "Transform the array into 1s for odd numbers and 0s for even numbers. The problem then becomes finding subarrays with a specific sum.",
+    "Use a prefix sum approach. For each index, you need to find how many previous prefix sums are exactly k less than the current one.",
+    "Maintain a frequency map of prefix sums encountered so far. For each step, add the count of (current_sum - k) from the map to your answer."
+  ],
   "languages": [
     "python"
   ],

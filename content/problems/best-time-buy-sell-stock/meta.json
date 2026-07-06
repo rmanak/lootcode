@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Track the lowest price seen so far as you iterate through the array.",
+    "Calculate the potential profit at each day by subtracting the minimum price from the current price.",
+    "Update the maximum profit found so far if the current potential profit is higher."
+  ],
   "languages": [
     "python"
   ],

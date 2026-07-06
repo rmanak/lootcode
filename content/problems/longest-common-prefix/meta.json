@@ -1,0 +1,39 @@
+{
+  "slug": "longest-common-prefix",
+  "title": "Longest Common Prefix",
+  "difficulty": "easy",
+  "tags": [
+    "array",
+    "string",
+    "trie"
+  ],
+  "hints": [
+    "Start by comparing the first string in the array with every other string to find the common prefix.",
+    "Iterate through the characters of the first string. For each character index, check if all other strings have the same character at that position.",
+    "If a mismatch or end-of-string is found at any index, stop and return the substring of the first string up to that index."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "longestCommonPrefix",
+    "params": [
+      {
+        "name": "strs",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

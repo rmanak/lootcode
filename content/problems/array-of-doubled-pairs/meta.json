@@ -8,6 +8,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "Sort the array by absolute value to process smaller numbers before their doubles.",
+    "Use a frequency map to count occurrences of each number as you iterate.",
+    "For each number, check if its double exists in the map and decrement counts accordingly."
+  ],
   "languages": [
     "python"
   ],

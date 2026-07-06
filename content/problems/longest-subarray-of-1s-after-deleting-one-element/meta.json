@@ -7,6 +7,11 @@
     "sliding-window",
     "dynamic-programming"
   ],
+  "hints": [
+    "The deletion must target a zero to merge two groups of ones; deleting a one never helps maximize the run.",
+    "Use a sliding window that contains at most one zero, tracking the count of ones inside that window.",
+    "Expand the right edge; if zeros exceed one, shrink the left edge. The max window size minus one is your answer."
+  ],
   "languages": [
     "python"
   ],

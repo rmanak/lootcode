@@ -8,6 +8,11 @@
     "dynamic-programming",
     "memoization"
   ],
+  "hints": [
+    "Think of this as a game on states defined by mouse position, cat position, and whose turn it is.",
+    "Work backwards from terminal states using BFS to determine winning/losing positions for each player.",
+    "Use degree counting to identify states where a player has no safe moves, propagating results until no changes occur."
+  ],
   "languages": [
     "python"
   ],

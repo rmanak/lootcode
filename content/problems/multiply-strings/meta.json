@@ -6,6 +6,11 @@
     "string",
     "simulation"
   ],
+  "hints": [
+    "Recall how you multiply numbers by hand, processing digits one by one and carrying over values.",
+    "Each digit in num1 multiplies with each digit in num2. The result digit at index i+j+1 depends on these products.",
+    "Use an array of size len1+len2 to store partial products. Add to positions i+j+1 and handle carries in reverse order."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "counting",
     "sorting"
   ],
+  "hints": [
+    "Since N is small, list all powers of 2 up to 10^9. How many are there?",
+    "Compare the digits of N with those of each power of 2. Sorting digits helps.",
+    "Check if sorted digits of N match sorted digits of any power of 2."
+  ],
   "languages": [
     "python"
   ],

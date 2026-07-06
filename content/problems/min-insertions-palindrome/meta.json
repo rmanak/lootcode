@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider the longest subsequence of s that is already a palindrome. How does its length relate to the insertions needed?",
+    "Calculate the Longest Palindromic Subsequence (LPS) length. The answer is the total length minus the LPS length.",
+    "Find the LPS using dynamic programming. Compare s with its reverse to compute the Longest Common Subsequence."
+  ],
   "languages": [
     "python"
   ],

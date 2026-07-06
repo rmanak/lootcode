@@ -7,6 +7,11 @@
     "breadth-first-search",
     "matrix"
   ],
+  "hints": [
+    "Consider starting a search from all land cells simultaneously rather than checking each water cell individually.",
+    "Use a multi-source breadth-first search where all land cells are added to the queue initially with distance zero.",
+    "The distance of the last processed cell in the BFS represents the maximum shortest distance to any land."
+  ],
   "languages": [
     "python"
   ],

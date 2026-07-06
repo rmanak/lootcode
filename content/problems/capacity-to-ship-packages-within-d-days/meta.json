@@ -6,6 +6,11 @@
     "array",
     "binary-search"
   ],
+  "hints": [
+    "Consider the range of possible answers. What are the absolute minimum and maximum capacities needed?",
+    "The answer has a monotonic property: if a capacity works, any larger capacity also works. This suggests binary search on the answer.",
+    "For a fixed capacity, greedily pack packages into days. Check if the total days used is within the limit."
+  ],
   "languages": [
     "python"
   ],

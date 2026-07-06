@@ -7,6 +7,11 @@
     "breadth-first-search",
     "depth-first-search"
   ],
+  "hints": [
+    "Assign each node an index based on its position in a complete binary tree, where the root is 0.",
+    "For any node with index i, its left child is 2i and right child is 2i+1.",
+    "The width of a level is the difference between the maximum and minimum indices in that level plus one."
+  ],
   "languages": [
     "python"
   ],

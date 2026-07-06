@@ -6,6 +6,11 @@
     "dynamic-programming",
     "combinatorics"
   ],
+  "hints": [
+    "Counting numbers with repeated digits directly is hard. Try counting the complement: numbers with all unique digits.",
+    "Use digit dynamic programming to count unique-digit numbers up to n. Process digits from most significant to least.",
+    "Track used digits with a bitmask. At each position, iterate allowed digits, ensuring they haven't been used yet."
+  ],
   "languages": [
     "python"
   ],

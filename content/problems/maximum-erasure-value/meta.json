@@ -7,6 +7,11 @@
     "sliding-window",
     "hash-set"
   ],
+  "hints": [
+    "Consider how the valid subarray changes as you extend it to the right. What happens when you encounter a duplicate?",
+    "Use a sliding window with a hash map or set to track elements. When a duplicate is found, shrink the window from the left.",
+    "Maintain a running sum of the current window. Update the maximum sum whenever the window is valid, adjusting the sum as you add or remove elements."
+  ],
   "languages": [
     "python"
   ],

@@ -5,6 +5,11 @@
   "tags": [
     "math"
   ],
+  "hints": [
+    "Consider the sum of k consecutive integers starting at a. Express this sum using a and k.",
+    "Rearrange the equation to isolate a. Notice that a must be a positive integer.",
+    "The number of solutions equals the number of odd divisors of N greater than 1."
+  ],
   "languages": [
     "python"
   ],

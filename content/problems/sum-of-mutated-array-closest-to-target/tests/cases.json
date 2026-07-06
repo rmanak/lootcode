@@ -76,7 +76,7 @@
           6,
           9
         ],
-        "target": 0
+        "target": 1
       },
       "expected": 0,
       "weight": 1,

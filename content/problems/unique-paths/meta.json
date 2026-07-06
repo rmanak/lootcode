@@ -6,6 +6,11 @@
     "dynamic-programming",
     "combinatorics"
   ],
+  "hints": [
+    "Notice that reaching any cell depends only on the cells immediately above and to its left. This suggests a dynamic programming approach.",
+    "Define a 2D array where each entry stores the number of paths to that cell. The value at (i, j) is the sum of values from (i-1, j) and (i, j-1).",
+    "Initialize the first row and first column with 1s, since there is only one way to reach any cell in those edges. Then fill the rest using the recurrence."
+  ],
   "languages": [
     "python"
   ],

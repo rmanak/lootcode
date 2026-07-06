@@ -217,6 +217,15 @@
       "expected": 13,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "prices": []
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

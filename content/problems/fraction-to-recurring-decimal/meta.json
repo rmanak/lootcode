@@ -6,6 +6,11 @@
     "hash-table",
     "string"
   ],
+  "hints": [
+    "Handle the sign and integer part first, then focus on generating the fractional digits one by one using long division.",
+    "Use a hash map to store each remainder and the index where it first appeared to detect when the sequence starts repeating.",
+    "When a remainder repeats, insert an opening parenthesis at the stored index and a closing one at the current end."
+  ],
   "languages": [
     "python"
   ],

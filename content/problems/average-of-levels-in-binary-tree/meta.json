@@ -1,0 +1,40 @@
+{
+  "slug": "average-of-levels-in-binary-tree",
+  "title": "Average of Levels in Binary Tree",
+  "difficulty": "easy",
+  "tags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
+  ],
+  "hints": [
+    "Consider traversing the tree level by level rather than depth-first to group nodes by their depth.",
+    "Use a queue to perform a breadth-first search, processing all nodes currently in the queue before moving to the next level.",
+    "For each level, sum the node values and divide by the number of nodes processed at that depth before pushing children."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "averageOfLevels",
+    "params": [
+      {
+        "name": "root",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "float[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -7,6 +7,11 @@
     "hash-table",
     "sorting"
   ],
+  "hints": [
+    "Anagrams share the same letters in the same frequencies regardless of order.",
+    "Sort the characters of each word to create a common key for grouping.",
+    "Use a hash map where keys are sorted words and values are lists of original words."
+  ],
   "languages": [
     "python"
   ],

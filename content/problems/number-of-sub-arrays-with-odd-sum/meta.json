@@ -7,6 +7,11 @@
     "dynamic-programming",
     "prefix-sum"
   ],
+  "hints": [
+    "Focus on the parity of prefix sums rather than their exact values.",
+    "Track how many prefix sums have been even and odd so far.",
+    "A subarray sum is odd if its endpoints have different prefix sum parities."
+  ],
   "languages": [
     "python"
   ],

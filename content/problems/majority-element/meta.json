@@ -1,0 +1,41 @@
+{
+  "slug": "majority-element",
+  "title": "Majority Element",
+  "difficulty": "easy",
+  "tags": [
+    "array",
+    "hash-table",
+    "divide-and-conquer",
+    "sorting",
+    "counting"
+  ],
+  "hints": [
+    "Since the answer appears more than half the time, sorting the array places it at the exact middle index.",
+    "Consider pairing every distinct element with a counter. Increment if the current element matches, decrement otherwise.",
+    "If the counter drops to zero, switch the candidate to the current element. The final candidate is the majority."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "majorityElement",
+    "params": [
+      {
+        "name": "nums",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

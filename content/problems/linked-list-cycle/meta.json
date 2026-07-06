@@ -6,6 +6,11 @@
     "linked-list",
     "two-pointers"
   ],
+  "hints": [
+    "Consider using two pointers moving at different speeds through the list.",
+    "If a cycle exists, a faster pointer will eventually catch up to a slower one.",
+    "Use slow and fast pointers; if they meet, a cycle is present."
+  ],
   "languages": [
     "python"
   ],

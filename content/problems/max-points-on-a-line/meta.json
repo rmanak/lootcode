@@ -1,0 +1,38 @@
+{
+  "slug": "max-points-on-a-line",
+  "title": "Max Points on a Line",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "hash-table"
+  ],
+  "hints": [
+    "Two points always define a line. For each point, count how many other points share the same slope relative to it.",
+    "Group other points by their slope relative to the current point using a hash map to track counts efficiently.",
+    "Handle vertical lines and duplicate slopes carefully. The answer is the maximum count found for any starting point."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxPoints",
+    "params": [
+      {
+        "name": "points",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

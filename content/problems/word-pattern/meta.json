@@ -1,0 +1,42 @@
+{
+  "slug": "word-pattern",
+  "title": "Word Pattern",
+  "difficulty": "easy",
+  "tags": [
+    "hash-table",
+    "string"
+  ],
+  "hints": [
+    "Split s into words. If the count of words differs from pattern length, return false immediately.",
+    "Use two maps: one from pattern char to word, and another from word to pattern char to enforce bijection.",
+    "Iterate through pattern and words simultaneously. For each pair, check both maps for consistency or update them if new."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "wordPattern",
+    "params": [
+      {
+        "name": "pattern",
+        "type": "string"
+      },
+      {
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

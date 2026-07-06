@@ -7,6 +7,11 @@
     "hash-table",
     "sorting"
   ],
+  "hints": [
+    "Collect all unique food items and table numbers from the input orders first.",
+    "Use a hash map to count food orders per table, then sort food items alphabetically and tables numerically.",
+    "Construct the result by iterating through sorted tables and filling counts for each sorted food item."
+  ],
   "languages": [
     "python"
   ],

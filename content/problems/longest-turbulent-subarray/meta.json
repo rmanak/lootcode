@@ -7,6 +7,11 @@
     "dynamic-programming",
     "sliding-window"
   ],
+  "hints": [
+    "Focus on the comparison signs between adjacent elements rather than the values themselves.",
+    "Consider using a sliding window approach where you track the length of the current turbulent sequence.",
+    "Maintain counters for sequences ending with an increase versus a decrease, updating them based on the current comparison."
+  ],
   "languages": [
     "python"
   ],

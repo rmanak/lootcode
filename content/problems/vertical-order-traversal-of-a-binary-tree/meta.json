@@ -8,6 +8,11 @@
     "breadth-first-search",
     "sorting"
   ],
+  "hints": [
+    "Assign a coordinate to each node during traversal. The root is at (0,0), left moves column left and row down, right moves column right and row down.",
+    "Group nodes by their column index. Within each column, sort the nodes first by row index, then by value to handle ties.",
+    "Use a map where keys are columns and values are lists of (row, value) tuples. Iterate through sorted keys to build the final result."
+  ],
   "languages": [
     "python"
   ],

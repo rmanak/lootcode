@@ -5,6 +5,11 @@
   "tags": [
     "string"
   ],
+  "hints": [
+    "Extract the real and imaginary integer parts from each input string before performing arithmetic.",
+    "Apply the formula (a+bi)(c+di) = (ac-bd) + (ad+bc)i to compute the new real and imaginary components.",
+    "Format the resulting integers into the required string pattern, ensuring correct signs are included."
+  ],
   "languages": [
     "python"
   ],

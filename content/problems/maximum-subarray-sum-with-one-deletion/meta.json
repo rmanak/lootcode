@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Extend Kadane's algorithm by tracking two states: max sum ending here with no deletion and with one deletion.",
+    "For each element, the no-deletion state is standard Kadane. The one-deletion state is max of current no-deletion state (delete current) or previous one-deletion state plus current.",
+    "Carefully handle the base case and ensure the subarray remains non-empty after deletion by initializing states correctly with the first element."
+  ],
   "languages": [
     "python"
   ],

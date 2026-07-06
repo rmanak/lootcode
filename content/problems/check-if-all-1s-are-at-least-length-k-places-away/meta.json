@@ -5,6 +5,11 @@
   "tags": [
     "array"
   ],
+  "hints": [
+    "Scan the array once and record the index of the most recently seen 1.",
+    "When you encounter a new 1, compare its index with the previous 1's index.",
+    "The difference between current and previous indices must be strictly greater than k."
+  ],
   "languages": [
     "python"
   ],

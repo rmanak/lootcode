@@ -6,6 +6,11 @@
     "array",
     "greedy"
   ],
+  "hints": [
+    "Calculate the net fuel gain or loss at each station by subtracting cost from gas.",
+    "If the total net fuel across all stations is negative, completing the circuit is impossible.",
+    "Start at index 0 and track current tank fuel. If it drops below zero, restart from the next station."
+  ],
   "languages": [
     "python"
   ],

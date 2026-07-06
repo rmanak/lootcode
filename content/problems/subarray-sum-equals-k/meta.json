@@ -7,6 +7,11 @@
     "hash-table",
     "prefix-sum"
   ],
+  "hints": [
+    "Consider computing prefix sums to represent subarray sums efficiently.",
+    "Use a hash map to store the frequency of each prefix sum encountered so far.",
+    "For each current prefix sum, check if (current_sum - k) exists in the map to find valid subarrays."
+  ],
   "languages": [
     "python"
   ],

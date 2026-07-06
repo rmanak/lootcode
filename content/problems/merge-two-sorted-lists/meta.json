@@ -5,6 +5,11 @@
   "tags": [
     "linked-list"
   ],
+  "hints": [
+    "Visualize two pointers, one for each list, starting at index zero. Which element is smaller?",
+    "Compare the current elements of both lists. Append the smaller one to your result and advance that pointer.",
+    "Keep comparing and appending until one list is exhausted, then append all remaining elements from the other list."
+  ],
   "languages": [
     "python"
   ],

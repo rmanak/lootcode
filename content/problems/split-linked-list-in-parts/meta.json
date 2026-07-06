@@ -5,6 +5,11 @@
   "tags": [
     "linked-list"
   ],
+  "hints": [
+    "Calculate the base size for each part by dividing the total length by k.",
+    "Determine how many parts need one extra element using the remainder of the division.",
+    "Iterate through the list, assigning the base size plus one to the first remainder parts."
+  ],
   "languages": [
     "python"
   ],

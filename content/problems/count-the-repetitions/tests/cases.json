@@ -167,6 +167,18 @@
       "expected": 10,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s1": "aad",
+        "n1": 1,
+        "s2": "aa",
+        "n2": 1
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

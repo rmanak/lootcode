@@ -7,6 +7,11 @@
     "depth-first-search",
     "breadth-first-search"
   ],
+  "hints": [
+    "Consider the special case where d equals 1 separately from the general recursive logic.",
+    "Use BFS or DFS to traverse the tree until you reach nodes at depth d-1.",
+    "At depth d-1, replace each child with a new node of value v, and attach the original child as the new node's child."
+  ],
   "languages": [
     "python"
   ],

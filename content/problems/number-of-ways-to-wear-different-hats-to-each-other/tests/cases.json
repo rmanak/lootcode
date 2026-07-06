@@ -310,6 +310,20 @@
       "expected": 4,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "hats": [
+          [
+            40,
+            37
+          ]
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

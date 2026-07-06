@@ -5,6 +5,11 @@
   "tags": [
     "array"
   ],
+  "hints": [
+    "Find min and max by scanning count for the first and last non-zero entries.",
+    "Calculate mean by summing k * count[k] and dividing by the total number of samples.",
+    "Find median by tracking cumulative count until reaching half the total samples."
+  ],
   "languages": [
     "python"
   ],

@@ -7,6 +7,11 @@
     "dynamic-programming",
     "bitmask"
   ],
+  "hints": [
+    "Since n is small, track which people have hats using a bitmask. Process hats one by one to assign them.",
+    "Use dynamic programming where the state is (current hat index, mask of people assigned). Iterate through hats 1 to 40.",
+    "For each hat, decide which subset of unassigned people who like it will wear it. Sum the ways to reach the full mask."
+  ],
   "languages": [
     "python"
   ],

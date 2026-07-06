@@ -1,0 +1,52 @@
+{
+  "slug": "ipo",
+  "title": "IPO",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "greedy",
+    "sorting",
+    "heap"
+  ],
+  "hints": [
+    "Sort projects by required capital to easily identify which ones become available as your capital grows.",
+    "Use a max-heap to store profits of all currently affordable projects, allowing efficient selection of the highest profit at each step.",
+    "Iterate k times: add all newly affordable projects to the heap, then pop the largest profit and add it to your capital."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "findMaximizedCapital",
+    "params": [
+      {
+        "name": "k",
+        "type": "int"
+      },
+      {
+        "name": "w",
+        "type": "int"
+      },
+      {
+        "name": "profits",
+        "type": "int[]"
+      },
+      {
+        "name": "capital",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

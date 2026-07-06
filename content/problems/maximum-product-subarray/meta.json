@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Negative numbers can flip a small product into a large one. Track both the maximum and minimum products ending at each position.",
+    "Use two variables to store the running max and min products. When you see a negative number, swap them before updating.",
+    "Initialize your trackers with the first element. For each subsequent number, update max and min by considering the current number, max*current, and min*current."
+  ],
   "languages": [
     "python"
   ],

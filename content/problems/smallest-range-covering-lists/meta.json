@@ -7,6 +7,11 @@
     "sliding-window",
     "sorting"
   ],
+  "hints": [
+    "Consider the smallest range that must include the current minimum element across all lists. How do you efficiently find this minimum?",
+    "Use a min-heap to track the smallest element from each list, along with a variable to track the current maximum element seen so far.",
+    "Repeatedly extract the minimum from the heap, update the best range if the current span is smaller, then insert the next element from that same list."
+  ],
   "languages": [
     "python"
   ],

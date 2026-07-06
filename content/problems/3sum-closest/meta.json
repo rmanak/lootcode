@@ -7,6 +7,11 @@
     "two-pointers",
     "sorting"
   ],
+  "hints": [
+    "Sort the array first to enable efficient searching for pairs that complement a chosen number.",
+    "Fix one number and use two pointers on the remaining subarray to find the best pair sum.",
+    "Track the closest sum found so far, updating it whenever a new sum is nearer to the target or equally close but smaller."
+  ],
   "languages": [
     "python"
   ],

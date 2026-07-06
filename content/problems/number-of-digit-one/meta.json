@@ -5,6 +5,11 @@
   "tags": [
     "recursion"
   ],
+  "hints": [
+    "Consider counting occurrences of digit 1 at each decimal position (units, tens, hundreds) separately.",
+    "For a specific position, split the number n into higher, current, and lower parts to determine contributions.",
+    "The count for a position depends on whether the current digit is less than, equal to, or greater than 1."
+  ],
   "languages": [
     "python"
   ],

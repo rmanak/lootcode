@@ -8,6 +8,11 @@
     "dynamic-programming",
     "stack"
   ],
+  "hints": [
+    "Water at each index depends on the highest bar to its left and right.",
+    "The water level at any index is determined by the minimum of the maximum heights on both sides.",
+    "Calculate prefix maximums from the left and suffix maximums from the right, then sum the trapped water at each index."
+  ],
   "languages": [
     "python"
   ],

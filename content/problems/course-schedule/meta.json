@@ -6,6 +6,11 @@
     "graph",
     "depth-first-search"
   ],
+  "hints": [
+    "Model the courses and prerequisites as a directed graph where edges point from prerequisite to dependent course.",
+    "The problem reduces to detecting a cycle in this directed graph. If a cycle exists, you cannot finish all courses.",
+    "Use topological sorting via Kahn's algorithm or DFS. Track visited nodes and in-degrees to detect back-edges."
+  ],
   "languages": [
     "python"
   ],

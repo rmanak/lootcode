@@ -7,6 +7,11 @@
     "hash-table",
     "breadth-first-search"
   ],
+  "hints": [
+    "Think of this as finding the shortest path in an unweighted graph where indices are nodes.",
+    "Use BFS starting from index 0 to find the minimum steps to the last index.",
+    "Preprocess indices by value to jump efficiently, then clear used values to avoid redundant work."
+  ],
   "languages": [
     "python"
   ],

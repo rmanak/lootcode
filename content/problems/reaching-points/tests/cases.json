@@ -167,6 +167,54 @@
       "expected": false,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "sx": 1,
+        "sy": 1,
+        "tx": 2,
+        "ty": 7
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "sx": 2,
+        "sy": 1,
+        "tx": 2,
+        "ty": 2
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "sx": 2,
+        "sy": 2,
+        "tx": 13,
+        "ty": 11
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "sx": 3,
+        "sy": 2,
+        "tx": 17,
+        "ty": 14
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

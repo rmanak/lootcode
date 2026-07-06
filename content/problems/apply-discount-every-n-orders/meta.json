@@ -6,6 +6,11 @@
     "array",
     "hash-table"
   ],
+  "hints": [
+    "Calculate the raw bill for each customer by summing price times amount for their ordered items.",
+    "Check if the customer index is a multiple of n to decide whether to apply the discount formula.",
+    "Apply the discount to the raw bill and round the final result to 5 decimal places for each customer."
+  ],
   "languages": [
     "python"
   ],

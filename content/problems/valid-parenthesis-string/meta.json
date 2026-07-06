@@ -8,6 +8,11 @@
     "stack",
     "greedy"
   ],
+  "hints": [
+    "Track the possible range of open parentheses counts as you scan the string.",
+    "Maintain a minimum and maximum balance; increment both for '(', decrement for ')', and expand the range for '*'.",
+    "If the maximum balance drops below zero, return false; ensure the minimum balance never goes below zero and ends at zero."
+  ],
   "languages": [
     "python"
   ],

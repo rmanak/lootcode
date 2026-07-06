@@ -6,6 +6,11 @@
     "bit-manipulation",
     "greedy"
   ],
+  "hints": [
+    "Notice that even numbers have only one choice, but odd numbers offer two paths to explore.",
+    "Compare the outcomes of n+1 and n-1 for odd n, focusing on which path reduces the number of steps faster.",
+    "For odd n, prefer n+1 when the next two bits are 11, and n-1 otherwise, except for n=3."
+  ],
   "languages": [
     "python"
   ],

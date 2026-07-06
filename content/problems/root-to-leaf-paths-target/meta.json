@@ -7,6 +7,11 @@
     "binary-tree",
     "backtracking"
   ],
+  "hints": [
+    "Focus on traversing from the root to each leaf, keeping track of the current path and the running sum of node values.",
+    "Use Depth First Search to explore each branch, adding the current node to your path and subtracting its value from the target sum.",
+    "When you reach a leaf node, check if the remaining target sum is zero; if so, save the current path before backtracking to explore other branches."
+  ],
   "languages": [
     "python"
   ],

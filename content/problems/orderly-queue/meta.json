@@ -6,6 +6,11 @@
     "string",
     "sorting"
   ],
+  "hints": [
+    "Consider how the allowed moves affect the relative order of characters in the string.",
+    "If k is greater than 1, you can effectively swap any two adjacent characters.",
+    "When k is 1, the string can only be rotated; find the rotation that is lexicographically smallest."
+  ],
   "languages": [
     "python"
   ],

@@ -5,6 +5,11 @@
   "tags": [
     "graph"
   ],
+  "hints": [
+    "This is a shortest-path variant where you maximize a product instead of minimizing a sum. How can you adapt Dijkstra's algorithm?",
+    "Use a max-heap to always expand the path with the highest probability found so far. Track the best probability for each node.",
+    "Initialize start probability to 1.0. When relaxing an edge, multiply the current node's probability by the edge weight."
+  ],
   "languages": [
     "python"
   ],

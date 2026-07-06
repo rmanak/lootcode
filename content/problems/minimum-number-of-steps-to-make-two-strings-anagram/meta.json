@@ -7,6 +7,11 @@
     "hash-table",
     "counting"
   ],
+  "hints": [
+    "Count character frequencies in both strings to see how many of each letter are needed versus available.",
+    "Calculate the total deficit for each character in t by comparing it against s's requirements.",
+    "Sum the positive differences between s's counts and t's counts to find the minimum replacements needed."
+  ],
   "languages": [
     "python"
   ],

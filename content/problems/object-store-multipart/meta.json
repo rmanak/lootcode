@@ -6,6 +6,11 @@
     "hash-set",
     "array"
   ],
+  "hints": [
+    "First, calculate the total bytes by summing the second element of each part regardless of completeness.",
+    "Use a set to store the part numbers from the input list for efficient lookup.",
+    "Check if the set contains every integer from 1 to expected to determine the complete status."
+  ],
   "languages": [
     "python"
   ],

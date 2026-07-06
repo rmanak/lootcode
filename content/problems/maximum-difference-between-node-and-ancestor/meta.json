@@ -6,6 +6,11 @@
     "tree",
     "depth-first-search"
   ],
+  "hints": [
+    "Consider the path from the root to any node. The maximum difference must occur between the current node and either the minimum or maximum value on that path.",
+    "Use a depth-first search traversal. As you recurse, pass down the minimum and maximum values encountered so far along the current branch.",
+    "At each node, calculate the absolute difference with the passed min and max, update the global answer, then recurse with updated min/max values for children."
+  ],
   "languages": [
     "python"
   ],

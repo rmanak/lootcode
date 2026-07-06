@@ -7,6 +7,11 @@
     "sorting",
     "divide-and-conquer"
   ],
+  "hints": [
+    "Consider processing events at building start and end coordinates to track height changes.",
+    "Sort all coordinate events. Use a max-heap to track active building heights at each step.",
+    "For each event, update the heap: add heights at starts, remove at ends. Record new max height."
+  ],
   "languages": [
     "python"
   ],

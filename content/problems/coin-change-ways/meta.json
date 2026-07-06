@@ -6,6 +6,11 @@
     "dynamic-programming",
     "array"
   ],
+  "hints": [
+    "Consider processing one coin denomination at a time. How does adding a new coin change the number of ways to form smaller subtotals?",
+    "Use dynamic programming where the state represents the number of ways to form a specific sum using a subset of available coins.",
+    "Update your DP array by iterating through each coin and then through all possible sums from that coin's value up to the target amount."
+  ],
   "languages": [
     "python"
   ],

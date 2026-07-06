@@ -6,6 +6,11 @@
     "tree",
     "breadth-first-search"
   ],
+  "hints": [
+    "Process the tree level by level to track the sum of values at each depth.",
+    "Use a breadth-first search to visit nodes and accumulate sums for each level.",
+    "Keep track of the maximum sum and its corresponding level index while traversing."
+  ],
   "languages": [
     "python"
   ],

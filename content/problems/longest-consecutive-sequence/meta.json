@@ -6,6 +6,11 @@
     "array",
     "hash-set"
   ],
+  "hints": [
+    "Use a hash set for O(1) lookups to avoid sorting.",
+    "Only start counting a sequence if the current number has no predecessor in the set.",
+    "Expand the sequence forward as long as the next consecutive integer exists in the set."
+  ],
   "languages": [
     "python"
   ],

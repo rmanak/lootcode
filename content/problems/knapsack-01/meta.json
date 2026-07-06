@@ -6,6 +6,11 @@
     "dynamic-programming",
     "array"
   ],
+  "hints": [
+    "Consider the decision for each item: include it or leave it out. How does this choice affect the remaining capacity?",
+    "This problem exhibits optimal substructure and overlapping subproblems. Try using dynamic programming with a table indexed by item index and current capacity.",
+    "Define dp[i][w] as the max value using the first i items with capacity w. The recurrence compares skipping item i versus including it if it fits."
+  ],
   "languages": [
     "python"
   ],

@@ -7,6 +7,11 @@
     "sorting",
     "counting"
   ],
+  "hints": [
+    "Sort the citations array in descending order to easily count papers meeting a threshold.",
+    "Iterate through the sorted array; the h-index is the largest index i (1-based) where citations[i-1] >= i.",
+    "If citations[i-1] < i at any point, stop; the answer is the previous valid index."
+  ],
   "languages": [
     "python"
   ],

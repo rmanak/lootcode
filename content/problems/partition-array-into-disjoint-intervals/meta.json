@@ -6,6 +6,11 @@
     "array",
     "greedy"
   ],
+  "hints": [
+    "Track the maximum value seen so far while iterating through the array.",
+    "A valid split occurs when the current maximum equals the maximum of the left part seen so far.",
+    "The answer is the index where the running maximum first matches the maximum of all elements to its left."
+  ],
   "languages": [
     "python"
   ],

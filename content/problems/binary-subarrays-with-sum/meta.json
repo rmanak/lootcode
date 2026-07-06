@@ -8,6 +8,11 @@
     "prefix-sum",
     "sliding-window"
   ],
+  "hints": [
+    "Calculate prefix sums to transform subarray sums into differences between two prefix sums.",
+    "Use a hash map to count how many times each prefix sum value has occurred so far.",
+    "For each current prefix sum, add the count of previous prefix sums equal to current minus S to your answer."
+  ],
   "languages": [
     "python"
   ],

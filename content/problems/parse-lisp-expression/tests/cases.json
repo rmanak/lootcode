@@ -80,6 +80,15 @@
       "expected": 1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "expression": "(addd1 2)"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

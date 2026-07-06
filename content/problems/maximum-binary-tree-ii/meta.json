@@ -6,6 +6,11 @@
     "tree",
     "binary-tree"
   ],
+  "hints": [
+    "Trace where `val` would end up in the original tree by comparing it to node values during a traversal.",
+    "If `val` is larger than the current node, it must become the new parent, pushing the current node to the left.",
+    "If `val` is smaller, recurse to the right subtree, since the new element was appended to the end of the array."
+  ],
   "languages": [
     "python"
   ],

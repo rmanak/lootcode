@@ -5,6 +5,11 @@
   "tags": [
     "binary-search"
   ],
+  "hints": [
+    "The count of magical numbers up to X is monotonic, suggesting binary search on the answer.",
+    "To count magical numbers up to X, use inclusion-exclusion with floor division and the least common multiple of a and b.",
+    "Binary search for the smallest X where the inclusion-exclusion count equals n, applying modular arithmetic only at the final step."
+  ],
   "languages": [
     "python"
   ],

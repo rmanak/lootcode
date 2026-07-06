@@ -7,6 +7,11 @@
     "depth-first-search",
     "matrix"
   ],
+  "hints": [
+    "Instead of tracing water flow from each cell, reverse the perspective: start from the ocean edges and flow uphill.",
+    "Use two separate visited grids or boolean arrays to track which cells can reach the Pacific and which can reach the Atlantic.",
+    "Perform a BFS or DFS starting from all Pacific-adjacent cells, then repeat for Atlantic-adjacent cells, and finally find the intersection of both reachable sets."
+  ],
   "languages": [
     "python"
   ],

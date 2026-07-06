@@ -6,6 +6,11 @@
     "string",
     "stack"
   ],
+  "hints": [
+    "Split the path by slashes to isolate directory names, ignoring empty segments caused by redundant slashes.",
+    "Use a stack to process components: push regular names, pop for '..', and ignore '.'.",
+    "Join the remaining stack items with a single slash, ensuring the result starts with '/'."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "array",
     "binary-search"
   ],
+  "hints": [
+    "Notice that as d increases, the sum of ceilings decreases. This monotonicity suggests searching for the smallest valid d.",
+    "Use binary search on the possible values of d to efficiently find the minimum divisor that satisfies the threshold condition.",
+    "Define a helper function to compute the sum of ceilings for a given d, then binary search between 1 and the maximum value in nums."
+  ],
   "languages": [
     "python"
   ],

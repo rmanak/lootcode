@@ -5,6 +5,11 @@
   "tags": [
     "string"
   ],
+  "hints": [
+    "Focus on processing the string character by character from left to right, tracking your current state.",
+    "Identify distinct phases: skipping spaces, determining the sign, and accumulating digits.",
+    "Check for integer overflow during digit accumulation by comparing against limits before multiplying."
+  ],
   "languages": [
     "python"
   ],

@@ -7,6 +7,11 @@
     "hash-table",
     "graph"
   ],
+  "hints": [
+    "Think of emails as nodes in a graph where shared emails create edges between accounts.",
+    "Use a Union-Find data structure to group accounts that share at least one email.",
+    "Map each root account to a set of all its emails, then sort and format the result."
+  ],
   "languages": [
     "python"
   ],

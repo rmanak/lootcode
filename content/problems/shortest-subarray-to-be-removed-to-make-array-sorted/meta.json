@@ -8,6 +8,11 @@
     "binary-search",
     "stack"
   ],
+  "hints": [
+    "Identify the longest non-decreasing prefix and suffix of the array independently.",
+    "Determine the minimum overlap or gap needed to merge these two sorted segments.",
+    "Find the shortest removal by checking how far the prefix and suffix can extend without violating order."
+  ],
   "languages": [
     "python"
   ],

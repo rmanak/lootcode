@@ -7,6 +7,11 @@
     "sorting",
     "binary-search"
   ],
+  "hints": [
+    "Start by computing the sum of every contiguous subarray. There are n*(n+1)/2 such subarrays.",
+    "Store all these subarray sums in a list and sort them in non-decreasing order.",
+    "Sum the elements from index left-1 to right-1 in the sorted list, applying modulo at the end."
+  ],
   "languages": [
     "python"
   ],

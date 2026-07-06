@@ -6,6 +6,11 @@
     "array",
     "greedy"
   ],
+  "hints": [
+    "Look for a number that can be the middle element of the triplet. What conditions must the numbers before and after it satisfy?",
+    "Track the smallest value seen so far and the smallest value that has a smaller predecessor. Update these as you scan the array.",
+    "If you find a number larger than your tracked 'second' value, you have found a valid triplet. Initialize your trackers to infinity."
+  ],
   "languages": [
     "python"
   ],

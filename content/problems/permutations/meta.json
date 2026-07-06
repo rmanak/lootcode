@@ -6,6 +6,11 @@
     "backtracking",
     "array"
   ],
+  "hints": [
+    "Think about building permutations one element at a time by choosing which number goes next.",
+    "Use recursion to explore choices, keeping track of which numbers have already been used.",
+    "Backtrack by removing the last choice after the recursive call returns to try other options."
+  ],
   "languages": [
     "python"
   ],

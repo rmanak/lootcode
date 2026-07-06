@@ -5,6 +5,11 @@
   "tags": [
     "dynamic-programming"
   ],
+  "hints": [
+    "Notice that the pointer can only reach indices up to steps. If arrLen is larger, treat it as steps + 1 to limit the state space.",
+    "Use dynamic programming where dp[i][j] represents the number of ways to be at index j after i steps.",
+    "For each step, transition from previous positions: dp[i][j] = dp[i-1][j-1] + dp[i-1][j] + dp[i-1][j+1], handling boundaries carefully."
+  ],
   "languages": [
     "python"
   ],

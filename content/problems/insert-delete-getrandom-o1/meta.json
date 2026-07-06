@@ -1,0 +1,38 @@
+{
+  "slug": "insert-delete-getrandom-o1",
+  "title": "Insert Delete GetRandom O(1)",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table"
+  ],
+  "hints": [
+    "To achieve O(1) average time for all operations, you need a data structure that supports fast random access and a hash map for O(1) lookups.",
+    "Use a dynamic array (like a list or vector) to store values for O(1) random access and a hash map to store each value's index in the array.",
+    "When removing a value, swap it with the last element in the array, update the hash map for the swapped element, then remove the last element to maintain O(1) complexity."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "randomizedSet",
+    "params": [
+      {
+        "name": "operations",
+        "type": "any[][]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

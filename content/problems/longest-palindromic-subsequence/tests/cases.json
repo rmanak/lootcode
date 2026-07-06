@@ -170,6 +170,15 @@
       "expected": 9,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s": "a"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

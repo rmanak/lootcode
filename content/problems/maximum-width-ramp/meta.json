@@ -6,6 +6,11 @@
     "array",
     "stack"
   ],
+  "hints": [
+    "Start by identifying candidate starting indices i. Only indices where A[i] is a prefix maximum can possibly be the start of the widest ramp.",
+    "Create a list of these candidate indices in increasing order of their values. This list will be sorted by value and index.",
+    "Iterate through the array backwards from the end. For each element, find the earliest candidate index whose value is less than or equal to the current element using binary search or a pointer."
+  ],
   "languages": [
     "python"
   ],

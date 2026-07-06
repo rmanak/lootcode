@@ -7,6 +7,11 @@
     "binary-tree",
     "depth-first-search"
   ],
+  "hints": [
+    "Consider traversing every node in root to find potential matches with subRoot's root value.",
+    "For each matching node, implement a helper function to check if two trees are structurally identical.",
+    "Recursively compare values and structures of both trees; return false immediately if any mismatch occurs."
+  ],
   "languages": [
     "python"
   ],

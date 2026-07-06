@@ -7,6 +7,11 @@
     "backtracking",
     "matrix"
   ],
+  "hints": [
+    "Use backtracking to fill empty cells one by one, checking validity before placing a digit.",
+    "Track used digits in each row, column, and 3x3 box with sets or bitmasks for O(1) validation.",
+    "Prioritize cells with fewer valid options to prune the search tree faster."
+  ],
   "languages": [
     "python"
   ],

@@ -7,6 +7,11 @@
     "prefix-sum",
     "sorting"
   ],
+  "hints": [
+    "Consider prefix sums to transform subarray sums into differences between two prefix sums.",
+    "Use a merge sort based approach to count valid pairs while merging sorted halves.",
+    "During the merge step, use two pointers to efficiently count valid prefix sum differences for each element in the left half."
+  ],
   "languages": [
     "python"
   ],

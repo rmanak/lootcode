@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider the order in which balloons are burst. Instead of picking the first one to burst, think about which balloon is the LAST one to burst in a given range.",
+    "This suggests a dynamic programming approach on intervals. Define a state dp[i][j] representing the max coins obtained by bursting all balloons strictly between indices i and j.",
+    "To compute dp[i][j], iterate through every possible last balloon k in the range. The coins earned are nums[i]*nums[k]*nums[j] plus the optimal results from the left and right sub-ranges."
+  ],
   "languages": [
     "python"
   ],

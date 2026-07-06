@@ -7,6 +7,11 @@
     "stack",
     "greedy"
   ],
+  "hints": [
+    "To minimize the number, prioritize smaller digits at the most significant positions. Consider what happens when a digit is larger than the one following it.",
+    "Use a stack to build the result. Iterate through digits, popping larger previous digits from the stack until you have removed k digits or the stack is empty.",
+    "After processing all digits, if removals remain, truncate the end of the stack. Finally, strip leading zeros and handle the empty case by returning '0'."
+  ],
   "languages": [
     "python"
   ],

@@ -189,6 +189,21 @@
       "expected": 3,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "ratings": [
+          3,
+          4,
+          6,
+          6,
+          1
+        ]
+      },
+      "expected": 9,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

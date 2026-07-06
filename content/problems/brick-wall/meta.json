@@ -6,6 +6,11 @@
     "array",
     "hash-table"
   ],
+  "hints": [
+    "Minimize crossed bricks by maximizing gaps where the line passes between bricks in each row.",
+    "Track the cumulative distance from the left edge where internal brick edges occur across all rows.",
+    "Use a hash map to count edge positions; the answer is total rows minus the highest count."
+  ],
   "languages": [
     "python"
   ],

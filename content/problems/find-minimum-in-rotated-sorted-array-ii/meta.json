@@ -6,6 +6,11 @@
     "array",
     "binary-search"
   ],
+  "hints": [
+    "Compare the middle element with the rightmost element to decide which half contains the rotation point.",
+    "When the middle equals the right element, you cannot determine the side; reduce the search space by moving the right pointer left.",
+    "If the middle is greater than the right, the minimum is in the right half; otherwise, it is in the left half including the middle."
+  ],
   "languages": [
     "python"
   ],

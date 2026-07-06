@@ -8,6 +8,11 @@
     "two-pointers",
     "hash-table"
   ],
+  "hints": [
+    "Consider checking the shortest possible prefix and suffix. If they match, you can count two parts and recurse on the middle. If not, try slightly longer prefixes.",
+    "This is a greedy problem. Always take the smallest valid matching prefix and suffix to maximize the total number of parts.",
+    "Use two pointers starting at the ends. Expand the current prefix and suffix strings until they match, then increment the count and move pointers inward."
+  ],
   "languages": [
     "python"
   ],

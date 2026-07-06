@@ -173,6 +173,20 @@
       "expected": 75.0,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "A": [
+          4,
+          3,
+          1
+        ],
+        "K": 1
+      },
+      "expected": 2.66667,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

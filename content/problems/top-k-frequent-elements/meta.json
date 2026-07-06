@@ -7,6 +7,11 @@
     "hash-table",
     "heap"
   ],
+  "hints": [
+    "Count the occurrences of each number first. What data structure stores these counts efficiently?",
+    "You need the top k counts. Consider using a min-heap of size k to track the most frequent elements.",
+    "When frequencies tie, compare the values themselves. Ensure your heap or sorting logic prioritizes smaller values in ties."
+  ],
   "languages": [
     "python"
   ],

@@ -7,6 +7,11 @@
     "greedy",
     "stack"
   ],
+  "hints": [
+    "Think backwards: if a window matches the stamp, it might have been the last stamp applied.",
+    "Scan for windows matching the stamp, replacing matched chars with wildcards to allow overlaps.",
+    "Repeat until no changes occur; if the result is all wildcards, return true."
+  ],
   "languages": [
     "python"
   ],

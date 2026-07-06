@@ -292,6 +292,36 @@
       "expected": true,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "blocked": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            6,
+            2
+          ]
+        ],
+        "source": [
+          0,
+          0
+        ],
+        "target": [
+          3,
+          3
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

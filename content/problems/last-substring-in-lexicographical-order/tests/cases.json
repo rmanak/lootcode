@@ -134,6 +134,24 @@
       "expected": "cccaccabbc",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s": "bcbbacdbacba"
+      },
+      "expected": "dbacba",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "s": "ccaacb"
+      },
+      "expected": "ccaacb",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

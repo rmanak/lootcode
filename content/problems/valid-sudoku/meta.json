@@ -7,6 +7,11 @@
     "hash-table",
     "matrix"
   ],
+  "hints": [
+    "Check rows, columns, and 3x3 boxes independently for duplicates.",
+    "Use sets to track seen digits in each row, column, and box while iterating.",
+    "Map each cell to its unique box index using integer division of row and column by 3."
+  ],
   "languages": [
     "python"
   ],

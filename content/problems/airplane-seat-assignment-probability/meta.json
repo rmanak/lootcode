@@ -5,6 +5,11 @@
   "tags": [
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider the state when a displaced passenger chooses a seat. What happens if they pick seat 1 versus seat n?",
+    "The process effectively ends when someone picks seat 1 or seat n. All other choices just delay the decision.",
+    "Seats 1 and n are symmetric targets for the random choice. The probability is 0.5 for n > 1."
+  ],
   "languages": [
     "python"
   ],

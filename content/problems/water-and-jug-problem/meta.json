@@ -6,6 +6,11 @@
     "depth-first-search",
     "breadth-first-search"
   ],
+  "hints": [
+    "Check if z exceeds the total capacity of both jugs combined or is negative.",
+    "Consider the mathematical relationship between the jug capacities and the target amount.",
+    "The target must be a multiple of the greatest common divisor of the two capacities."
+  ],
   "languages": [
     "python"
   ],

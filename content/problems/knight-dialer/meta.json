@@ -5,6 +5,11 @@
   "tags": [
     "dynamic-programming"
   ],
+  "hints": [
+    "Notice the number of paths depends only on the current digit and remaining moves, suggesting dynamic programming.",
+    "Track the count of valid sequences ending at each digit after k steps, using the adjacency list to transition counts.",
+    "Update all 10 digit counts simultaneously for each step from 1 to n-1, summing final counts modulo 10^9+7."
+  ],
   "languages": [
     "python"
   ],

@@ -5,7 +5,7 @@ return **the `k`-th smallest value** (1-indexed) among all node values.
 
 ## Constraints
 - `1 <= k <= n` where `n` is the number of nodes, `1 <= n <= 10^4`
-- `0 <= node.valueue <= 10^4`
+- `-10^4 <= node.value <= 10^4`
 
 ## Examples
 Input: `root = [3,1,4,null,2], k = 1`

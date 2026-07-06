@@ -8,6 +8,11 @@
     "breadth-first-search",
     "union-find"
   ],
+  "hints": [
+    "Explore each land cell to find its connected component, tracking the size of each island.",
+    "Use depth-first search or breadth-first search starting from every unvisited land cell.",
+    "Mark visited cells as water to avoid recounting, updating the maximum size found so far."
+  ],
   "languages": [
     "python"
   ],

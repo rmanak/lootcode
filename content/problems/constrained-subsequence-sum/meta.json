@@ -8,6 +8,11 @@
     "heap",
     "sliding-window"
   ],
+  "hints": [
+    "Consider dynamic programming where the state at index i represents the maximum sum ending at i.",
+    "For each index i, you need the maximum value among previous valid indices to transition efficiently.",
+    "Use a monotonic deque or segment tree to query the maximum in the sliding window of size k."
+  ],
   "languages": [
     "python"
   ],

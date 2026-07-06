@@ -6,6 +6,11 @@
     "array",
     "hash-table"
   ],
+  "hints": [
+    "Focus on tracking the frequency of each number and how many numbers share each frequency as you extend the prefix.",
+    "Maintain a map of frequencies and a secondary map counting how many numbers have a specific frequency to check validity in constant time.",
+    "Check if the current state has only one unique frequency, or two frequencies where one count is one and the other frequency is one higher."
+  ],
   "languages": [
     "python"
   ],

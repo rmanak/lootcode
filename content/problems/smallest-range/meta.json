@@ -8,6 +8,11 @@
     "sliding-window",
     "sorting"
   ],
+  "hints": [
+    "Consider the smallest and largest values currently picked from each list. The range must cover this span.",
+    "Use a min-heap to track the smallest element across all lists, moving forward in the list that provides it.",
+    "Update the range whenever the difference between the current max and min from the heap shrinks."
+  ],
   "languages": [
     "python"
   ],

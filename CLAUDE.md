@@ -30,10 +30,17 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `app/llm/` | Claude-API problem generation (`generator.py`). |
 | `app/models.py` · `db.py` · `store.py` | ORM models, engine, DB operations. |
 | `app/content.py` | Load/write problems to `content/problems/`. |
+| `app/testgen/` | Test-strengthening library (generators/constraints/mutate/select). Machine-generates hidden cases to catch buggy *user* solutions. See `docs/test-strengthening.md`. |
 | `app/templates/` · `app/static/` | Jinja2 templates, CSS, JS. |
-| `content/problems/` | Problem definitions (see `specs/problem-schema.md`); optional `<slug>/assets/` holds statement figures (see `docs/problem-images.md`). |
+| `content/problems/` | Problem definitions (see `specs/problem-schema.md`); optional `<slug>/assets/` holds statement figures (see `docs/problem-images.md`); `<slug>/input_validator/input_validator.py` is the per-problem `validate_input()` legal-input predicate (see `docs/input-validators.md`). |
+| `content/problems-extended/` | Optional **extended** problem set — extra problems kept local (**gitignored**), seeded alongside the default set when present. A fresh clone drops these (and any collection references to them) cleanly; skipped references are reported by `seed.py` but non-fatal. See `docs/extended-problems.md`. |
 | `content/collections/` | Curated, system-defined problem lists (e.g. `blind-73.json`) used as a list filter (see `docs/collections.md`). |
 | `scripts/seed.py` | Load content into the DB + verify canonical solutions. |
+| `scripts/verify_json.py` | Batch-verify a folder of loose problem `.json` files (e.g. AI-generator output) before importing: valid JSON + required fields + canonical passes its tests, via `run_submission`. |
+| `scripts/verify_bank.py` | Run every problem's canonical solution against its own tests (the whole on-disk bank), via the same `run_submission` path; prints per-problem pass/fail + statistics. Args for slug/substring filtering, `-v`/`-q` verbosity, `-j` parallelism, `--failfast`, `--strict`. |
+| `scripts/import_collection.py` | Validate + bulk-import a staged `statements/`+`rest/` collection dir (e.g. `user_collection/`) into `content/` and the DB. Runs every existing gate (structural, sandbox behavioral, statement↔judge, slug-collision), imports only what passes, copies figures, carries hints. See `docs/importing-collections.md`. |
+| `scripts/strengthen_tests.py` | Machine-generate hidden test cases that catch buggy *user* solutions: fuzz/edge/mutation-guided selection over `app/testgen/`, canonical as oracle. `--dry-run` by default, `--apply` writes cases back. See `docs/test-strengthening.md`. |
+| `scripts/check_constraint_validators.py` · `generate_constraint_validators.py` | Audit / (LLM-)generate the per-problem input validators (`content/problems/<slug>/input_validator/input_validator.py`): every stored test input must satisfy its problem's `validate_input()`. Run the checker when adding test cases. See `docs/input-validators.md`. |
 | `tests/` | pytest (incl. adversarial executor tests). |
 | `docs/` · `specs/` · `.claude/` | Docs, content spec, Claude Code config. |
 
@@ -46,6 +53,12 @@ pip install -r requirements-dev.txt       # + pytest/httpx for tests
 python scripts/seed.py                     # seed DB from content/ and verify
 python scripts/audit.py                    # check statement/test/judge consistency
 python scripts/build_bank.py               # (re)generate the bundled problem bank
+python scripts/verify_json.py test_output  # batch-verify loose problem JSON before importing
+python scripts/verify_bank.py -j 8          # run every canonical solution against its tests
+python scripts/import_collection.py user_collection --dry-run  # validate a staged collection (statements/+rest/)
+python scripts/import_collection.py user_collection            # ...then import the ones that pass every gate
+python scripts/strengthen_tests.py --filter tree -j 8          # dry-run: generate discriminating hidden cases
+python scripts/check_constraint_validators.py                  # audit that every test input satisfies its validate_input()
 uvicorn app.main:app --reload              # dev server (http://127.0.0.1:8000)
 HOST=0.0.0.0 uvicorn app.main:app          # reachable on your home network
 python -m pytest -q                        # run tests
@@ -82,6 +95,12 @@ works for a fresh checkout.
 - **Statement ↔ judge consistency:** a problem's `compare` mode (meta.json) must
   match what the statement promises about answer order (`exact` / `unordered` /
   `set_of_lists`). `python scripts/audit.py` must stay green.
+- **Adding test cases?** Each problem has an input-constraint validator at
+  `content/problems/<slug>/input_validator/input_validator.py` exposing
+  `validate_input(<params>) -> bool`. A new `(input, expected)` case's input must
+  satisfy it (i.e. be in-bounds for the stated constraints) before you add it —
+  run `python scripts/check_constraint_validators.py --slug <slug>`. See
+  `docs/input-validators.md`.
 - **LLM generation** comes in three modes depending on what's already given —
   fill-in (full statement / description-only) vs. from-scratch — sharing one
   "core" output contract. See `docs/problem-generation.md`. The in-app

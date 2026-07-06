@@ -164,6 +164,17 @@
       "expected": false,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s": "abb",
+        "t": "bbc",
+        "k": 26
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

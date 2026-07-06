@@ -7,6 +7,11 @@
     "greedy",
     "matrix"
   ],
+  "hints": [
+    "Count trailing zeros in each row. The top row needs n-1 zeros, the next n-2, etc.",
+    "Process rows from top to bottom. Find the first available row with enough zeros.",
+    "Use adjacent swaps to move that row up. If impossible, return -1."
+  ],
   "languages": [
     "python"
   ],

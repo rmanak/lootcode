@@ -7,6 +7,11 @@
     "binary-tree",
     "depth-first-search"
   ],
+  "hints": [
+    "Consider the order in which nodes are visited in a standard preorder traversal.",
+    "Try flattening the left and right subtrees first, then attach the flattened left subtree to the current node's right pointer.",
+    "Store the head of the flattened right subtree temporarily, splice the flattened left subtree, then traverse to its end to attach the stored right subtree."
+  ],
   "languages": [
     "python"
   ],

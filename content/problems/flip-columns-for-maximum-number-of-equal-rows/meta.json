@@ -7,6 +7,11 @@
     "hash-table",
     "matrix"
   ],
+  "hints": [
+    "Focus on the relationship between rows rather than individual column flips. Which rows can simultaneously become all equal?",
+    "Two rows can both become all equal if they are identical or bitwise inverses of each other. Group rows by this pattern.",
+    "Normalize each row by XORing it with its first element so it starts with 0. Count the frequency of each normalized pattern."
+  ],
   "languages": [
     "python"
   ],

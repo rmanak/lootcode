@@ -173,6 +173,22 @@
       "expected": 9,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "slices": [
+          881,
+          761,
+          484,
+          286,
+          893,
+          324
+        ]
+      },
+      "expected": 1774,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

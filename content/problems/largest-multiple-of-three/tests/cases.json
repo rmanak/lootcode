@@ -193,6 +193,68 @@
       "expected": "",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "digits": [
+          9,
+          1,
+          7,
+          7,
+          6,
+          4,
+          4
+        ]
+      },
+      "expected": "97764",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "digits": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      "expected": "0",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "digits": [
+          6,
+          5,
+          5,
+          6,
+          8,
+          8,
+          9,
+          8
+        ]
+      },
+      "expected": "988866",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "digits": [
+          2,
+          9,
+          8
+        ]
+      },
+      "expected": "9",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

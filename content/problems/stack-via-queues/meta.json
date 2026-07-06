@@ -6,6 +6,11 @@
     "stack",
     "queue"
   ],
+  "hints": [
+    "Consider how to reorder elements during a push so the newest item is always at the front of the queue.",
+    "Use two queues to transfer elements, ensuring the most recently added item remains accessible for pop and top operations.",
+    "Maintain the invariant that one queue holds elements in reverse order of arrival, allowing immediate access to the stack top."
+  ],
   "languages": [
     "python"
   ],

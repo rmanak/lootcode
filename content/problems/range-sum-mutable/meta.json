@@ -5,6 +5,11 @@
   "tags": [
     "binary-indexed-tree"
   ],
+  "hints": [
+    "A naive loop for each query is too slow; consider a data structure that supports fast range sums and point updates.",
+    "A Binary Indexed Tree (Fenwick Tree) or Segment Tree allows both operations in logarithmic time.",
+    "For a BIT, update involves adding the difference to the target index, while query uses prefix sum logic."
+  ],
   "languages": [
     "python"
   ],

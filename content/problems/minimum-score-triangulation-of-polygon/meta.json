@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider the first triangle formed involving vertex 0. It splits the polygon into two smaller sub-polygons.",
+    "This structure suggests dynamic programming. Define dp[i][j] as the minimum score for the polygon from vertex i to j.",
+    "For each possible third vertex k between i and j, the cost is values[i]*values[j]*values[k] plus the optimal scores of the sub-polygons."
+  ],
   "languages": [
     "python"
   ],

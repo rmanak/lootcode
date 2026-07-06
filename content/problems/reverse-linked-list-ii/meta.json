@@ -5,6 +5,11 @@
   "tags": [
     "linked-list"
   ],
+  "hints": [
+    "Identify the node immediately before position m to anchor the reversed segment.",
+    "Iterate from m to n, moving each subsequent node to the front of the segment.",
+    "Maintain pointers to the start of the segment and the current node being moved."
+  ],
   "languages": [
     "python"
   ],

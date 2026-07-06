@@ -7,6 +7,11 @@
     "depth-first-search",
     "breadth-first-search"
   ],
+  "hints": [
+    "Model the rooms and keys as a graph where rooms are nodes and keys define directed edges.",
+    "Perform a graph traversal like BFS or DFS starting from room 0 to find all reachable rooms.",
+    "Count the number of unique rooms visited during traversal and compare it to the total number of rooms N."
+  ],
   "languages": [
     "python"
   ],

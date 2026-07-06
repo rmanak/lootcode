@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "The problem statement explicitly provides the formula to solve it. Focus on computing the missing component.",
+    "You need to find the length of the longest common subsequence of the two strings.",
+    "Use dynamic programming with a 2D table to compute the LCS length efficiently."
+  ],
   "languages": [
     "python"
   ],

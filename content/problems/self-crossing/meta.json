@@ -5,6 +5,11 @@
   "tags": [
     "array"
   ],
+  "hints": [
+    "Simulate the walk and store every visited point in a set. Check for duplicates.",
+    "Storing all points is too slow. Look for patterns in how the path spirals inward.",
+    "Focus on the last few moves. A crossing happens only if the current segment hits a specific previous one."
+  ],
   "languages": [
     "python"
   ],

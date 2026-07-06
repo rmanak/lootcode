@@ -7,6 +7,11 @@
     "bit-manipulation",
     "array"
   ],
+  "hints": [
+    "Consider each element as a binary choice: either include it in the current subset or exclude it.",
+    "You can use recursion to explore both choices for every element, building subsets as you go.",
+    "Alternatively, iterate through all numbers from 0 to 2^n - 1 and use their binary representation to select elements."
+  ],
   "languages": [
     "python"
   ],

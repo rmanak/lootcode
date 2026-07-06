@@ -8,6 +8,11 @@
     "dynamic-programming",
     "bit-manipulation"
   ],
+  "hints": [
+    "Consider iterating through every possible split position. How can you efficiently track distinct characters in both parts?",
+    "Precompute the count of distinct characters in every prefix using a set. Then iterate from right to left for suffixes.",
+    "Maintain a running set for the left part and a precomputed frequency map for the right part to update distinct counts in O(1)."
+  ],
   "languages": [
     "python"
   ],

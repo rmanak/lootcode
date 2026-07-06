@@ -8,6 +8,11 @@
     "depth-first-search",
     "counting"
   ],
+  "hints": [
+    "Calculate the sum for every subtree using a post-order traversal to process children before parents.",
+    "Use a hash map to count the frequency of each subtree sum as you compute them.",
+    "Find the maximum frequency in your map and return all sums that match it."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "dynamic-programming",
     "bit-manipulation"
   ],
+  "hints": [
+    "Consider how many valid binary strings of length k exist without consecutive 1s. This relates to Fibonacci numbers.",
+    "Decompose the problem by processing bits of n from most significant to least significant, counting valid numbers smaller than the prefix.",
+    "When a '11' pattern appears in n, stop counting. Otherwise, add Fibonacci counts for remaining positions based on current bit value."
+  ],
   "languages": [
     "python"
   ],

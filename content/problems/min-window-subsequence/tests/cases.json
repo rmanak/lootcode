@@ -189,6 +189,16 @@
       "expected": "",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s": "babaa",
+        "t": "baa"
+      },
+      "expected": "baa",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

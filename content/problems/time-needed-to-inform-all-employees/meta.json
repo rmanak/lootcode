@@ -7,6 +7,11 @@
     "depth-first-search",
     "breadth-first-search"
   ],
+  "hints": [
+    "Build an adjacency list mapping each manager to their subordinates to easily traverse the hierarchy downwards.",
+    "Use depth-first search from the head, accumulating informTime as you move down each branch of the tree.",
+    "The answer is the maximum accumulated time found among all leaf nodes in the tree."
+  ],
   "languages": [
     "python"
   ],

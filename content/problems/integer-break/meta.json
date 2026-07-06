@@ -5,6 +5,11 @@
   "tags": [
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider small values of n to spot a pattern in the optimal factors.",
+    "Think about which integers maximize the product when summing to a fixed total.",
+    "Prioritize using 3s in your sum, handling remainders of 1 or 2 carefully."
+  ],
   "languages": [
     "python"
   ],

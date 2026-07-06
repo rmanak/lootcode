@@ -7,6 +7,11 @@
     "hash-table",
     "prefix-sum"
   ],
+  "hints": [
+    "Compute the total sum modulo p. If it is already 0, the answer is 0.",
+    "You need to remove a subarray whose sum is congruent to the total remainder modulo p.",
+    "Use prefix sums and a hash map to find the shortest subarray with that specific remainder."
+  ],
   "languages": [
     "python"
   ],

@@ -8,6 +8,11 @@
     "greedy",
     "dynamic-programming"
   ],
+  "hints": [
+    "Focus on groups of consecutive identical characters. Within each group, you must keep exactly one character to satisfy the adjacency rule.",
+    "For each group of identical adjacent characters, calculate the total cost of all characters in that group.",
+    "To minimize deletion cost, keep the character with the highest cost in the group and delete all others. Sum these minimal deletion costs across all groups."
+  ],
   "languages": [
     "python"
   ],

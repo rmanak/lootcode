@@ -7,6 +7,11 @@
     "hash-table",
     "breadth-first-search"
   ],
+  "hints": [
+    "Consider buses as nodes in a graph where an edge exists if two buses share a stop.",
+    "Use BFS on this graph of buses to find the shortest path from any bus containing source to any bus containing target.",
+    "Preprocess stops to map each stop to the list of buses that visit it to efficiently build the graph edges."
+  ],
   "languages": [
     "python"
   ],

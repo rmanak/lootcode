@@ -5,6 +5,11 @@
   "tags": [
     "math"
   ],
+  "hints": [
+    "Working forward branches exponentially. Try reversing the moves from target to start instead.",
+    "Reverse moves are unique: subtract the smaller coordinate from the larger one repeatedly.",
+    "Use modulo arithmetic to subtract multiples at once, like in the Euclidean algorithm."
+  ],
   "languages": [
     "python"
   ],

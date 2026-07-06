@@ -116,6 +116,15 @@
       "expected": "Ca9",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "formula": "K4(ON(SO3)2d2"
+      },
+      "expected": "K4",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

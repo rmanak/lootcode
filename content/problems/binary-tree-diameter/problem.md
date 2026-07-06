@@ -6,7 +6,7 @@ pass through the root).
 
 ## Constraints
 - `0 <= number of nodes <= 10^4`.
-- `-100 <= node.valueue <= 100`; `null` marks an absent child.
+- `-100 <= node.value <= 100`; `null` marks an absent child.
 
 ## Examples
 Input: `root = [1,2,3,4,5]`

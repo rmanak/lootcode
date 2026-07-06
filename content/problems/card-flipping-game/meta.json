@@ -6,6 +6,11 @@
     "array",
     "hash-table"
   ],
+  "hints": [
+    "Identify all numbers that appear on both sides of the same card. These numbers can never be the answer.",
+    "Filter out those forbidden numbers. Then look at every number appearing on any card side.",
+    "Return the smallest remaining number. If none remain, return 0."
+  ],
   "languages": [
     "python"
   ],

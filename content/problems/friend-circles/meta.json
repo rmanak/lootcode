@@ -7,6 +7,11 @@
     "union-find",
     "depth-first-search"
   ],
+  "hints": [
+    "View students as nodes and direct friendships as edges in an undirected graph.",
+    "Use Depth-First Search or Union-Find to identify connected components.",
+    "Count how many times you start a new traversal from an unvisited node."
+  ],
   "languages": [
     "python"
   ],

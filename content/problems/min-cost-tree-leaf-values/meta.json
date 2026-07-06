@@ -7,6 +7,11 @@
     "dynamic-programming",
     "stack"
   ],
+  "hints": [
+    "Consider the problem as deciding where to make the last split in the array range.",
+    "This structure suggests dynamic programming over subarrays. Define a function for the minimum cost of a range.",
+    "The cost of a range is the max leaf in it times the split point's cost plus the costs of the two resulting subranges."
+  ],
   "languages": [
     "python"
   ],

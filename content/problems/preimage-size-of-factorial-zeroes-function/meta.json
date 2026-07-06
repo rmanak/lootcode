@@ -5,6 +5,11 @@
   "tags": [
     "binary-search"
   ],
+  "hints": [
+    "Notice that f(x) is a non-decreasing function. Consider using binary search to find an x where f(x) equals K.",
+    "Since f(x) counts factors of 5 in x!, recall the formula: f(x) = x/5 + x/25 + x/125 + ... Use this to evaluate f(x) efficiently.",
+    "If you find any x such that f(x) == K, the answer is 5 because f(x) stays constant for 5 consecutive integers. Otherwise, the answer is 0."
+  ],
   "languages": [
     "python"
   ],

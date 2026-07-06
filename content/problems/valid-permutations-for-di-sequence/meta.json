@@ -5,6 +5,11 @@
   "tags": [
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider building the permutation by inserting numbers 0 to n one by one. How does the relative order of elements change?",
+    "Use dynamic programming where the state tracks the number of elements placed and the rank of the last element among the remaining available slots.",
+    "When inserting the next number, update the DP table by summing over valid previous ranks, using prefix sums to handle 'I' and 'D' transitions efficiently."
+  ],
   "languages": [
     "python"
   ],

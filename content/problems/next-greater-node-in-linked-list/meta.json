@@ -7,6 +7,11 @@
     "linked-list",
     "stack"
   ],
+  "hints": [
+    "Consider processing the list from right to left. How does the answer for a node relate to the nodes to its right?",
+    "Maintain a stack of candidate values to the right that are increasing. When moving left, pop smaller values to find the first larger one.",
+    "For each element, pop from the stack until you find a value larger than the current node. That value is the answer; then push the current node."
+  ],
   "languages": [
     "python"
   ],

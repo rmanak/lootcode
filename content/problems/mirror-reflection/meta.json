@@ -5,6 +5,11 @@
   "tags": [
     "math"
   ],
+  "hints": [
+    "Unfold the room into a grid of reflected squares to trace the laser as a straight line.",
+    "Find the smallest integer k where k*q is a multiple of p to determine the number of reflections.",
+    "Check if the number of horizontal and vertical reflections are even or odd to identify the receptor."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Notice that the order of elements matters, which distinguishes this from the standard subset sum problem.",
+    "Consider using dynamic programming where the state depends on the current sum needed to reach the target.",
+    "The number of ways to reach a sum i equals the sum of ways to reach i minus each available number in nums."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "trie",
     "string"
   ],
+  "hints": [
+    "Consider how suffixes relate to prefixes if you reverse the strings.",
+    "Reverse every word in `words` and store them in a structure that supports efficient prefix matching.",
+    "Reverse the incoming stream characters and check if any reversed word is a prefix of the reversed stream."
+  ],
   "languages": [
     "python"
   ],

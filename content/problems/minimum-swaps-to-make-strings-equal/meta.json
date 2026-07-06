@@ -6,6 +6,11 @@
     "string",
     "greedy"
   ],
+  "hints": [
+    "First, check if a solution is possible by counting total 'x's across both strings.",
+    "Focus only on indices where s1 and s2 differ. Group these mismatches into pairs like xx and xy.",
+    "Resolve xx mismatches using one swap each. For remaining xy mismatches, pair them up to resolve with two swaps."
+  ],
   "languages": [
     "python"
   ],

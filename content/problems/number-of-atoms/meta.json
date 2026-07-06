@@ -8,6 +8,11 @@
     "stack",
     "sorting"
   ],
+  "hints": [
+    "Parse the formula left to right, treating parentheses as nested scopes that multiply their contents.",
+    "Use a stack to track the current count of atoms, pushing a new map when entering parentheses and merging results when leaving.",
+    "Maintain a map of element counts at each nesting level; multiply the inner map by the multiplier before adding it to the outer map."
+  ],
   "languages": [
     "python"
   ],

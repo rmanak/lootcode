@@ -8,6 +8,11 @@
     "prefix-sum",
     "stack"
   ],
+  "hints": [
+    "Map each hour to +1 if tiring, -1 otherwise. The problem becomes finding the longest subarray with a positive sum.",
+    "Use a prefix sum array. A valid interval from i to j exists if prefix[j] > prefix[i].",
+    "To maximize length, store the first index where each prefix sum value occurs, then iterate to find the best j."
+  ],
   "languages": [
     "python"
   ],

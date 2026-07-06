@@ -5,6 +5,11 @@
   "tags": [
     "graph"
   ],
+  "hints": [
+    "This is a topological sort problem. Check for cycles first; if none exist, an ordering is possible.",
+    "Use Kahn's algorithm with a min-heap instead of a queue to ensure lexicographically smallest output.",
+    "Initialize the heap with all courses having zero in-degree. Repeatedly extract the minimum, add it to the result, and decrease neighbors' in-degrees."
+  ],
   "languages": [
     "python"
   ],

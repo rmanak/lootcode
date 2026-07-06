@@ -346,7 +346,7 @@
           [
             "get",
             "b",
-            0
+            1
           ],
           [
             "get",
@@ -531,12 +531,12 @@
           [
             "get",
             "b",
-            0
+            1
           ],
           [
             "get",
             "foo",
-            0
+            1
           ],
           [
             "get",
@@ -572,7 +572,7 @@
         null,
         null,
         "",
-        "",
+        "y",
         "",
         "x",
         "",
@@ -788,7 +788,7 @@
           [
             "get",
             "a",
-            0
+            1
           ],
           [
             "set",
@@ -892,6 +892,71 @@
       "expected": [
         "",
         null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "operations": [
+          [
+            "set",
+            "b",
+            "c",
+            2
+          ],
+          [
+            "set",
+            "a",
+            "z",
+            4
+          ],
+          [
+            "set",
+            "b",
+            "a",
+            6
+          ],
+          [
+            "set",
+            "b",
+            "c",
+            1
+          ],
+          [
+            "set",
+            "a",
+            "a",
+            6
+          ],
+          [
+            "set",
+            "c",
+            "bar",
+            6
+          ],
+          [
+            "get",
+            "foo",
+            4
+          ],
+          [
+            "get",
+            "b",
+            6
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "",
+        "c"
       ],
       "weight": 1,
       "hidden": true

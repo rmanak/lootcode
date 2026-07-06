@@ -294,6 +294,17 @@
       "expected": 1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "n": 23,
+        "edges": [],
+        "distanceThreshold": 646
+      },
+      "expected": 22,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

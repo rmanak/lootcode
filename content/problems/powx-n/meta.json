@@ -5,6 +5,11 @@
   "tags": [
     "recursion"
   ],
+  "hints": [
+    "Handle negative exponents by using the reciprocal of the base and a positive exponent.",
+    "Use exponentiation by squaring to reduce the number of multiplications needed.",
+    "Recursively or iteratively square the base and halve the exponent, handling odd exponents separately."
+  ],
   "languages": [
     "python"
   ],

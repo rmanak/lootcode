@@ -91,6 +91,20 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "expression": "{{a,bd,{b,c}}"
+      },
+      "expected": [
+        "a",
+        "b",
+        "bd",
+        "c"
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -7,6 +7,11 @@
     "sliding-window",
     "heap"
   ],
+  "hints": [
+    "Sliding window problems require updating the structure efficiently as elements enter and leave.",
+    "Maintain two heaps to track the lower and upper halves of the current window.",
+    "Balance the heaps after each slide so their sizes differ by at most one."
+  ],
   "languages": [
     "python"
   ],

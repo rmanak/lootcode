@@ -386,6 +386,27 @@
       "expected": true,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "matrix": [
+          [
+            4,
+            2,
+            3,
+            4
+          ],
+          [
+            8,
+            11
+          ]
+        ],
+        "target": 3
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

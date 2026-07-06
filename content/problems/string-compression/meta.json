@@ -6,6 +6,11 @@
     "string",
     "two-pointers"
   ],
+  "hints": [
+    "Scan the string from left to right, identifying contiguous blocks of identical characters.",
+    "Maintain a count for the current character block, resetting it whenever the character changes.",
+    "Append the character and its count (if greater than 1) to your result when a block ends."
+  ],
   "languages": [
     "python"
   ],

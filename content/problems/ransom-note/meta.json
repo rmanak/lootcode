@@ -1,0 +1,43 @@
+{
+  "slug": "ransom-note",
+  "title": "Ransom Note",
+  "difficulty": "easy",
+  "tags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "hints": [
+    "Count the frequency of each character in the magazine first.",
+    "Subtract the count of each character in the ransom note from the magazine's counts.",
+    "If any character count drops below zero, the ransom note cannot be constructed."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "canConstruct",
+    "params": [
+      {
+        "name": "ransomNote",
+        "type": "string"
+      },
+      {
+        "name": "magazine",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "bool"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

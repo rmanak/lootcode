@@ -7,6 +7,11 @@
     "sliding-window",
     "binary-search-tree"
   ],
+  "hints": [
+    "Consider maintaining a sliding window of size indexDiff + 1 to satisfy the index constraint.",
+    "Within this window, you need to efficiently query if any existing number is within valueDiff of the current number.",
+    "Use a balanced binary search tree or a sorted list to store window elements, allowing fast range queries for nearby values."
+  ],
   "languages": [
     "python"
   ],

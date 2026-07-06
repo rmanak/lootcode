@@ -6,6 +6,11 @@
     "array",
     "sorting"
   ],
+  "hints": [
+    "Consider sorting the array first. What property does the target value have in a sorted sequence?",
+    "The optimal target value is the median of the array, not the mean.",
+    "Calculate the sum of absolute differences between each element and the median."
+  ],
   "languages": [
     "python"
   ],

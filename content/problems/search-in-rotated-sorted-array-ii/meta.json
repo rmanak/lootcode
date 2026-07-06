@@ -6,6 +6,11 @@
     "array",
     "binary-search"
   ],
+  "hints": [
+    "Recall how binary search works on a sorted array. How does rotation affect the comparison between the middle element and the boundaries?",
+    "Identify which half of the array is guaranteed to be sorted. You can search in that half if the target falls within its range.",
+    "When the left, middle, and right elements are equal, you cannot determine the sorted side. Increment the left pointer to skip duplicates."
+  ],
   "languages": [
     "python"
   ],

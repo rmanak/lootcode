@@ -7,6 +7,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "Sort the intervals by their end coordinates to process them in a specific order.",
+    "Iterate through the sorted intervals and shoot an arrow at the current end if it misses the previous group.",
+    "An arrow bursts all balloons overlapping the current end; increment count only when a new disjoint interval starts."
+  ],
   "languages": [
     "python"
   ],

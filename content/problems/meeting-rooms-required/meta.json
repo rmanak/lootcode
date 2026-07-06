@@ -6,6 +6,11 @@
     "sorting",
     "heap"
   ],
+  "hints": [
+    "Sort the start and end times separately to track when rooms become free.",
+    "Use a min-heap to store end times and efficiently remove finished meetings.",
+    "Push start times to the heap; if the earliest end time is less than the current start, pop it before pushing."
+  ],
   "languages": [
     "python"
   ],

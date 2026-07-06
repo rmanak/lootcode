@@ -6,6 +6,11 @@
     "string",
     "sorting"
   ],
+  "hints": [
+    "Separate the logs into two groups: those containing letters and those containing only digits.",
+    "Sort the letter logs by their content words, using the identifier as a tiebreaker.",
+    "Keep the digit logs in their original relative order and append them after the sorted letter logs."
+  ],
   "languages": [
     "python"
   ],

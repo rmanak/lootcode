@@ -5,6 +5,11 @@
   "tags": [
     "sorting"
   ],
+  "hints": [
+    "Track how many events overlap at any point. You need to detect if adding a new interval causes any point to reach three overlaps.",
+    "Use a difference array or a sorted map of events to track overlap counts at start and end points efficiently.",
+    "Process operations by maintaining a sorted map of time points to overlap changes. Check if max overlap exceeds 2 before committing."
+  ],
   "languages": [
     "python"
   ],

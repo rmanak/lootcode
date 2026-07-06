@@ -7,6 +7,11 @@
     "sliding-window",
     "prefix-sum"
   ],
+  "hints": [
+    "Consider the cards you do not pick. They form a single contiguous subarray of fixed length. Maximizing your score is equivalent to minimizing the sum of these unpicked cards.",
+    "Calculate the sum of the first n - k cards. This represents the initial window of unpicked cards. Then slide this window one position to the right at a time.",
+    "As you slide the window, subtract the element leaving the window and add the element entering it. Track the minimum sum encountered during this process to find the maximum possible score."
+  ],
   "languages": [
     "python"
   ],

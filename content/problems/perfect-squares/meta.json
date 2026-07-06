@@ -6,6 +6,11 @@
     "dynamic-programming",
     "breadth-first-search"
   ],
+  "hints": [
+    "Consider whether this problem can be modeled as finding the shortest path in a graph.",
+    "Use dynamic programming where the state represents the minimum squares needed for each value up to n.",
+    "For each number, iterate through all perfect squares less than or equal to it to find the optimal substructure."
+  ],
   "languages": [
     "python"
   ],

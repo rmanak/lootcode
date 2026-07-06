@@ -6,6 +6,11 @@
     "hash-table",
     "simulation"
   ],
+  "hints": [
+    "Keep track of remaining stock for each SKU as you process requests sequentially.",
+    "Use the stock map directly, updating values in place to reflect decrements.",
+    "For each request, check if current stock is sufficient, then subtract if accepted."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Check if the number of jobs is less than d. If so, return -1 immediately since each day needs at least one job.",
+    "Use dynamic programming where the state tracks the current job index and the number of days remaining.",
+    "For each state, iterate through possible split points for the current day, taking the max difficulty of that day's jobs and adding the result of the subproblem."
+  ],
   "languages": [
     "python"
   ],

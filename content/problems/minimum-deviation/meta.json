@@ -7,6 +7,11 @@
     "heap",
     "greedy"
   ],
+  "hints": [
+    "Odd numbers can only increase via doubling, while even numbers can decrease via halving. Consider the reachable range for each element.",
+    "Use a max-heap to always access the current maximum element. Track the current minimum value separately as you process the array.",
+    "Repeatedly halve the largest element if it is even, updating the global minimum. Stop when the largest element is odd, as further reduction is impossible."
+  ],
   "languages": [
     "python"
   ],

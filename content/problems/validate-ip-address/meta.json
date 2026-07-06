@@ -5,6 +5,11 @@
   "tags": [
     "string"
   ],
+  "hints": [
+    "Check if the string contains dots or colons to decide which validation logic to apply.",
+    "For IPv4, split by dots and ensure there are exactly four parts, each a number between 0 and 255 with no leading zeros.",
+    "For IPv6, split by colons and ensure there are exactly eight parts, each 1-4 hex digits long."
+  ],
   "languages": [
     "python"
   ],

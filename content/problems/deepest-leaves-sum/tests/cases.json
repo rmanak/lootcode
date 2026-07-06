@@ -195,6 +195,23 @@
       "expected": 37,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "root": [
+          null,
+          null,
+          7,
+          3,
+          4,
+          5,
+          7
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

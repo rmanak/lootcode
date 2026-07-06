@@ -8,6 +8,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "Sort engineers by efficiency in descending order to fix the minimum efficiency.",
+    "As you iterate, maintain a running sum of the top k speeds using a min-heap.",
+    "Update the maximum performance at each step before applying the modulo."
+  ],
   "languages": [
     "python"
   ],

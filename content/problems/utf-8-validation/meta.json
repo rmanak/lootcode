@@ -6,6 +6,11 @@
     "array",
     "bit-manipulation"
   ],
+  "hints": [
+    "Scan the array left to right. When you see a start byte, determine how many total bytes the character needs.",
+    "Use bitmasks to count leading ones in the start byte. This count tells you how many continuation bytes follow.",
+    "Ensure every continuation byte matches the 10xxxxxx pattern. If a byte is missing or invalid, return false immediately."
+  ],
   "languages": [
     "python"
   ],

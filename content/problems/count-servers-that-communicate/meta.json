@@ -7,6 +7,11 @@
     "matrix",
     "counting"
   ],
+  "hints": [
+    "Count how many servers exist in each row and each column separately.",
+    "A server at grid[i][j] communicates if its row count or column count is greater than one.",
+    "Sum the values of grid[i][j] where row_counts[i] > 1 or col_counts[j] > 1."
+  ],
   "languages": [
     "python"
   ],

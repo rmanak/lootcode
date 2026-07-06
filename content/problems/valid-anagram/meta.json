@@ -7,6 +7,11 @@
     "hash-table",
     "sorting"
   ],
+  "hints": [
+    "Compare the sorted versions of both strings to see if they match.",
+    "Count the frequency of each character in both strings and check equality.",
+    "Use a hash map or array to track character counts for efficient comparison."
+  ],
   "languages": [
     "python"
   ],

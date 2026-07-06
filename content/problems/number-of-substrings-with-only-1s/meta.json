@@ -5,6 +5,11 @@
   "tags": [
     "string"
   ],
+  "hints": [
+    "Focus on contiguous blocks of 1s. How does a block of length k contribute to the total count?",
+    "The number of substrings in a block of length k is k * (k + 1) / 2. Sum this for each block.",
+    "Scan the string to find lengths of consecutive 1s. Apply the formula to each length and sum the results."
+  ],
   "languages": [
     "python"
   ],

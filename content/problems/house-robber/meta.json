@@ -6,6 +6,11 @@
     "dynamic-programming",
     "array"
   ],
+  "hints": [
+    "Consider the decision at each house: do you include it or skip it?",
+    "This problem has overlapping subproblems, so dynamic programming is a natural fit.",
+    "Define dp[i] as the max loot up to house i using only previous dp values."
+  ],
   "languages": [
     "python"
   ],

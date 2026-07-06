@@ -284,6 +284,32 @@
       "expected": 28,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "matrix": [
+          [
+            -15,
+            -14,
+            -15
+          ],
+          [
+            -11,
+            -4,
+            0
+          ],
+          [
+            8,
+            10,
+            38
+          ]
+        ],
+        "k": 2
+      },
+      "expected": -14,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

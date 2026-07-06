@@ -5,6 +5,11 @@
   "tags": [
     "sorting"
   ],
+  "hints": [
+    "Consider finding the union of all working intervals across every employee first, then identify the gaps between these merged blocks.",
+    "Flatten all intervals into a single list and sort them by start time to prepare for merging overlapping or adjacent ranges.",
+    "After merging the sorted intervals, the answer consists of the spaces between the end of one merged interval and the start of the next."
+  ],
   "languages": [
     "python"
   ],

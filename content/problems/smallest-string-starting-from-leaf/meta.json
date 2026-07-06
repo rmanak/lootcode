@@ -7,6 +7,11 @@
     "depth-first-search",
     "string"
   ],
+  "hints": [
+    "Start a depth-first search from the root, accumulating the path of characters as you descend toward the leaves.",
+    "When you reach a leaf, reverse the accumulated characters to form the string from leaf to root, then compare it with the current best.",
+    "Track the lexicographically smallest string found across all leaf-to-root paths; since shorter prefixes are smaller, prioritize shorter valid paths when comparing."
+  ],
   "languages": [
     "python"
   ],

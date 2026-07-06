@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider how the number of ways to decode the string up to index i depends on the ways to decode it up to i-1 and i-2.",
+    "This structure suggests dynamic programming. Define dp[i] as the number of ways to decode the prefix s[0...i-1].",
+    "For each position, add dp[i-1] if the current digit is valid alone, and add dp[i-2] if the two-digit number ending there is between 10 and 26."
+  ],
   "languages": [
     "python"
   ],

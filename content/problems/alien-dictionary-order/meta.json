@@ -6,6 +6,11 @@
     "graph",
     "string"
   ],
+  "hints": [
+    "Compare adjacent words to find the first differing character. This reveals a directed edge from the first char to the second.",
+    "Model these character dependencies as a directed graph. A valid order requires the graph to have no cycles.",
+    "Use topological sort with a min-priority queue to pick the lexicographically smallest character at each step."
+  ],
   "languages": [
     "python"
   ],

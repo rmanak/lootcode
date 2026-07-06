@@ -6,6 +6,11 @@
     "tree",
     "depth-first-search"
   ],
+  "hints": [
+    "Consider a post-order traversal: process children before the parent to decide if they should be kept.",
+    "For each node, compute the maximum path sum from that node to any leaf in its subtree.",
+    "If a child's max path sum plus the current node's value is less than the limit, prune that child."
+  ],
   "languages": [
     "python"
   ],

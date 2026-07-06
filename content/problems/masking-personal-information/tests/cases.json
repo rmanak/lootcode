@@ -71,6 +71,15 @@
       "expected": "+*-***-***-8901",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "S": "a"
+      },
+      "expected": "***-***-",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Notice that matching s2 repeatedly within S1 follows a repeating pattern. Track your position in s1 and how many s2 copies you have completed.",
+    "Since s1 is short, the state (position in s1, copies of s2 matched) must eventually repeat. Detect this cycle to skip large portions of the simulation.",
+    "Calculate how many full cycles occur, multiply by the s2 copies gained per cycle, then simulate the remaining steps for the final answer."
+  ],
   "languages": [
     "python"
   ],

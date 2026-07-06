@@ -6,6 +6,11 @@
     "stack",
     "array"
   ],
+  "hints": [
+    "Model the history as a sequence where you can move left or right. How do you track your current position?",
+    "Use two stacks: one for back history and one for forward history. What happens to the forward stack when you visit a new URL?",
+    "When moving back, pop from the back stack and push to the forward stack. Clamp steps so you never underflow the back stack."
+  ],
   "languages": [
     "python"
   ],

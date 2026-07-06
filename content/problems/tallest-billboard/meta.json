@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Notice that the total sum of all rods must be even for a solution to exist.",
+    "Use dynamic programming where the state tracks the difference between the two groups.",
+    "Track reachable differences using a set, updating it for each rod by adding or subtracting its value."
+  ],
   "languages": [
     "python"
   ],

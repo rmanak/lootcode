@@ -7,6 +7,11 @@
     "string",
     "depth-first-search"
   ],
+  "hints": [
+    "Parse the string into a list of (depth, value) pairs to simplify processing.",
+    "Use a stack to track ancestors; pop nodes deeper than the current depth to find the parent.",
+    "Attach the current node as a child of the stack's top, preferring the left slot if empty."
+  ],
   "languages": [
     "python"
   ],

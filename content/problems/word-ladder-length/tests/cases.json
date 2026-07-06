@@ -91,6 +91,36 @@
       "expected": 3,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "beginWord": "a",
+        "endWord": "a",
+        "wordList": [
+          "d"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "beginWord": "hit",
+        "endWord": "dog",
+        "wordList": [
+          "hot",
+          "dat",
+          "dog",
+          "loa",
+          "log"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

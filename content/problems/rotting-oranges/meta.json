@@ -6,6 +6,11 @@
     "matrix",
     "breadth-first-search"
   ],
+  "hints": [
+    "Consider processing rotten oranges layer by layer using a queue to simulate the spreading process minute by minute.",
+    "Track the number of fresh oranges remaining and decrement it each time one rots; if any remain after the queue empties, return -1.",
+    "Initialize the queue with all initially rotten oranges; use a distance array or modify the grid to avoid reprocessing cells."
+  ],
   "languages": [
     "python"
   ],

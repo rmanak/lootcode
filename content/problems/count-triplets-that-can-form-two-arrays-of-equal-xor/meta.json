@@ -8,6 +8,11 @@
     "bit-manipulation",
     "prefix-sum"
   ],
+  "hints": [
+    "Notice that a == b implies a ^ b == 0. What does the XOR sum of the entire subarray from i to k equal?",
+    "If the XOR sum of arr[i...k] is 0, how many valid split points j exist within that range?",
+    "Iterate over all pairs (i, k). If their prefix XORs match, add the number of valid j values to the answer."
+  ],
   "languages": [
     "python"
   ],

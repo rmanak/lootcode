@@ -8,6 +8,11 @@
     "sliding-window",
     "prefix-sum"
   ],
+  "hints": [
+    "Process the array from left to right; if the current bit is 0, you must flip it immediately using a window starting here.",
+    "Use a difference array or a running counter to track the cumulative number of active flips affecting the current position efficiently.",
+    "Maintain a variable for the current flip parity; update it when entering or leaving a flip window to decide if a new flip is needed."
+  ],
   "languages": [
     "python"
   ],

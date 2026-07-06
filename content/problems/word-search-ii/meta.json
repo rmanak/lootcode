@@ -7,6 +7,11 @@
     "backtracking",
     "matrix"
   ],
+  "hints": [
+    "Since the board is small but the word list is large, avoid searching for each word independently on the grid.",
+    "Insert all words into a Trie data structure to efficiently prune search paths that do not match any prefix.",
+    "Perform a DFS from each board cell, traversing the Trie simultaneously to find complete words while tracking visited cells."
+  ],
   "languages": [
     "python"
   ],

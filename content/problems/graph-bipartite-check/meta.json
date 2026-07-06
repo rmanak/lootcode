@@ -7,6 +7,11 @@
     "breadth-first-search",
     "union-find"
   ],
+  "hints": [
+    "Try assigning a color to each node as you traverse the graph. What happens if a neighbor already has the same color?",
+    "Use BFS or DFS to visit every node. Maintain an array to store the color (e.g., 0 and 1) of each visited node.",
+    "Start from any unvisited node, color it, and recursively check its neighbors. If a conflict arises, the graph is not bipartite."
+  ],
   "languages": [
     "python"
   ],

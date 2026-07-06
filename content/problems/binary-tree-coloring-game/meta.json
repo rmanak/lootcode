@@ -7,6 +7,11 @@
     "depth-first-search",
     "binary-tree"
   ],
+  "hints": [
+    "Think of the tree as three regions separated by the red node x: its left subtree, right subtree, and the rest of the tree via its parent.",
+    "Calculate the node counts for these three regions. Player 2 wins by picking a neighbor of x that leads to the largest region, provided it has more than n/2 nodes.",
+    "Use DFS to count nodes in the left and right subtrees of x. The parent region size is n minus the sum of x's subtree size and 1. Check if any region exceeds n/2."
+  ],
   "languages": [
     "python"
   ],

@@ -7,6 +7,11 @@
     "dynamic-programming",
     "depth-first-search"
   ],
+  "hints": [
+    "Consider tracking the current zigzag length and direction as you traverse the tree.",
+    "Use DFS to pass the accumulated length and direction to children, resetting when the direction changes.",
+    "Update the global maximum at every node based on the incoming zigzag length from its parent."
+  ],
   "languages": [
     "python"
   ],

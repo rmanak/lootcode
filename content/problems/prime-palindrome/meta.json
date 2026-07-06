@@ -5,6 +5,11 @@
   "tags": [
     "math"
   ],
+  "hints": [
+    "Check numbers sequentially starting from N, but verify if a number is a palindrome before testing for primality to save time.",
+    "Most prime palindromes have an odd number of digits. Generating palindromes by mirroring the first half of digits is much faster than checking every integer.",
+    "Focus on generating palindromes with 1, 3, 5, 7, and 9 digits. For each generated palindrome, check if it is prime and greater than or equal to N."
+  ],
   "languages": [
     "python"
   ],

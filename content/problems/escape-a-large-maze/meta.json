@@ -8,6 +8,11 @@
     "breadth-first-search",
     "depth-first-search"
   ],
+  "hints": [
+    "Notice the grid is huge but blocked cells are few. BFS/DFS will time out if exploring everything. What limits the reachable area?",
+    "The blocked cells can only trap the source or target in a tiny region. If you can step out of that small boundary, you can reach anywhere else.",
+    "Perform two separate BFS searches. If either search visits more cells than the maximum area encloseable by all blocked cells, return true immediately."
+  ],
   "languages": [
     "python"
   ],

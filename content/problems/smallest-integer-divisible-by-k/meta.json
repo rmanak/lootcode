@@ -5,6 +5,11 @@
   "tags": [
     "hash-table"
   ],
+  "hints": [
+    "If K is even or a multiple of 5, no repunit is divisible by K. Why does the last digit matter?",
+    "Instead of storing huge numbers, track only the remainder when dividing by K. How does the remainder change when you append a 1?",
+    "Since there are only K possible remainders, you must repeat a remainder within K steps. What does a repeat imply about existence?"
+  ],
   "languages": [
     "python"
   ],

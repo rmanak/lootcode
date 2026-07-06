@@ -6,6 +6,11 @@
     "array",
     "sliding-window"
   ],
+  "hints": [
+    "Consider using a sliding window approach where you expand the right boundary and shrink the left boundary when necessary.",
+    "The window is invalid only when the count of zeros exceeds k. Track the number of zeros in your current window.",
+    "Move the left pointer forward whenever the zero count exceeds k, ensuring the window always contains at most k zeros."
+  ],
   "languages": [
     "python"
   ],

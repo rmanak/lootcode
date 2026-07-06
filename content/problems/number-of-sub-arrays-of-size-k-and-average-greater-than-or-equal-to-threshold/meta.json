@@ -6,6 +6,11 @@
     "array",
     "sliding-window"
   ],
+  "hints": [
+    "Instead of computing averages, compare the sum of each subarray to k times the threshold.",
+    "Use a sliding window to maintain the sum of the current k-length subarray as you iterate.",
+    "Update the window sum by adding the new element and subtracting the element leaving the window."
+  ],
   "languages": [
     "python"
   ],

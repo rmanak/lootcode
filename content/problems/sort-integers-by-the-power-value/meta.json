@@ -7,6 +7,11 @@
     "sorting",
     "memoization"
   ],
+  "hints": [
+    "Compute the Collatz step count for each integer from lo to hi individually.",
+    "Store pairs of (power, value) and sort them by power first, then by value.",
+    "Select the element at index k-1 from the sorted list of pairs."
+  ],
   "languages": [
     "python"
   ],

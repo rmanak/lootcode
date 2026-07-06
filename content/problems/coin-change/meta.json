@@ -6,6 +6,11 @@
     "dynamic-programming",
     "array"
   ],
+  "hints": [
+    "Consider how the solution for a smaller amount relates to the current amount.",
+    "Use dynamic programming to store the minimum coins needed for each value up to the target amount.",
+    "For each amount, iterate through all coins and find the minimum previous result plus one."
+  ],
   "languages": [
     "python"
   ],

@@ -7,6 +7,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "Sort the intervals by their end times to prioritize keeping intervals that finish earliest.",
+    "Iterate through the sorted list and keep track of the end time of the last kept interval.",
+    "If the current interval starts before the last end time, it overlaps; increment the removal count and skip it."
+  ],
   "languages": [
     "python"
   ],

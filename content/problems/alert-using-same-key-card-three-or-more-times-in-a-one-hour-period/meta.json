@@ -8,6 +8,11 @@
     "string",
     "sorting"
   ],
+  "hints": [
+    "Group swipe times by worker name to analyze each person's activity independently.",
+    "Convert time strings to total minutes for easy arithmetic comparison of intervals.",
+    "For each worker, sort their times and check if any three consecutive swipes fit within a 60-minute window."
+  ],
   "languages": [
     "python"
   ],

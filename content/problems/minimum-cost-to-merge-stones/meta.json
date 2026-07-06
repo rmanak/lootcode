@@ -7,6 +7,11 @@
     "dynamic-programming",
     "prefix-sum"
   ],
+  "hints": [
+    "First, determine if merging is possible by checking how many piles reduce after each move.",
+    "Use interval dynamic programming to find the minimum cost to merge subarrays into fewer piles.",
+    "Track both the cost and the remaining pile count in your DP state to handle partial merges."
+  ],
   "languages": [
     "python"
   ],

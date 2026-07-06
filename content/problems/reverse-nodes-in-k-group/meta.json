@@ -6,6 +6,11 @@
     "linked-list",
     "recursion"
   ],
+  "hints": [
+    "Process the list in chunks of size k. Identify the start and end of each chunk before reversing.",
+    "Reverse only the current chunk of k nodes. Keep the rest of the list intact and link the reversed chunk back.",
+    "Use a dummy node to simplify head updates. Track the tail of the previously reversed segment to connect it to the new chunk's tail."
+  ],
   "languages": [
     "python"
   ],

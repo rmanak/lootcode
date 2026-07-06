@@ -290,6 +290,25 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "nums": [
+          538,
+          -567,
+          -224,
+          -729
+        ],
+        "k": 2
+      },
+      "expected": [
+        538,
+        -224,
+        -224
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

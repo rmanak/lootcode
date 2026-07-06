@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider dynamic programming where the state tracks how many characters you have processed and how many you have deleted.",
+    "The key is to decide for each character whether to keep it or delete it, tracking the current run's character and length to compute encoding cost.",
+    "Define dp[i][j] as the min encoded length using first i chars with j deletions, iterating over possible run lengths to transition states."
+  ],
   "languages": [
     "python"
   ],

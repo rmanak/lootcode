@@ -7,6 +7,11 @@
     "matrix",
     "greedy"
   ],
+  "hints": [
+    "Calculate the maximum height for each row and each column to establish the skyline constraints.",
+    "For each building, the new height is bounded by both its row maximum and column maximum.",
+    "Sum the difference between min(rowMax[i], colMax[j]) and the original grid[i][j] for all cells."
+  ],
   "languages": [
     "python"
   ],

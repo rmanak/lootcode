@@ -6,6 +6,11 @@
     "array",
     "simulation"
   ],
+  "hints": [
+    "Simulate the process step by step, tracking the current winner's consecutive win count.",
+    "Notice that once the maximum element reaches the front, it will never lose.",
+    "If k is larger than the array length, the answer must be the maximum element."
+  ],
   "languages": [
     "python"
   ],

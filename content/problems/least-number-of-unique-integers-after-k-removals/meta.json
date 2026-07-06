@@ -9,6 +9,11 @@
     "sorting",
     "counting"
   ],
+  "hints": [
+    "Count the frequency of each number. Removing an element affects the count of its value.",
+    "Sort the values by their frequencies. Prioritize removing numbers with the lowest counts.",
+    "Accumulate the sorted frequencies until the sum reaches k. Each full frequency removed reduces the distinct count by one."
+  ],
   "languages": [
     "python"
   ],

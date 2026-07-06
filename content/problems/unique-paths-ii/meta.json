@@ -1,0 +1,39 @@
+{
+  "slug": "unique-paths-ii",
+  "title": "Unique Paths II",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "hints": [
+    "Consider the number of ways to reach each cell based on the cells above and to its left.",
+    "Use dynamic programming where the value at each cell depends on its neighbors, but skip cells with obstacles.",
+    "If a cell has an obstacle, set its path count to zero; otherwise, sum the paths from the top and left cells."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "uniquePathsWithObstacles",
+    "params": [
+      {
+        "name": "obstacleGrid",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

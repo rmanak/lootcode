@@ -328,6 +328,15 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "root": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

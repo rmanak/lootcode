@@ -9,6 +9,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from . import auth, content
+from .config import settings
 from .models import (
     Collection,
     CollectionProblem,
@@ -59,11 +60,15 @@ def upsert_problem(db: Session, data: dict) -> Problem:
 
 
 def seed_from_content(db: Session) -> int:
-    """Load every problem under content/problems/ into the database."""
+    """Load every problem under the configured content roots into the database:
+    the committed default set (content/problems/) plus the optional, gitignored
+    extended set (content/problems-extended/) when it is present. A missing root
+    is skipped, so a fresh clone seeds the default set alone."""
     count = 0
-    for data in content.load_all():
-        upsert_problem(db, data)
-        count += 1
+    for base in settings.content_dirs:
+        for data in content.load_all(base):
+            upsert_problem(db, data)
+            count += 1
     return count
 
 

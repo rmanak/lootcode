@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider digit-by-digit construction, tracking whether the current prefix is already strictly inside the bounds or still tight against s1 or s2.",
+    "Use the KMP failure function for evil to track how much of it matches the current suffix, preventing the forbidden substring from forming.",
+    "Combine these states in a DP: dp[i][tight_low][tight_high][kmp_state], iterating through each position and valid characters."
+  ],
   "languages": [
     "python"
   ],

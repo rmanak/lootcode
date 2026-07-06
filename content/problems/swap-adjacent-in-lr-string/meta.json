@@ -6,6 +6,11 @@
     "string",
     "two-pointers"
   ],
+  "hints": [
+    "Remove all 'X' characters from both strings and check if the resulting sequences of 'L' and 'R' are identical.",
+    "Verify that every 'L' in start is at an index greater than or equal to its matching 'L' in end.",
+    "Ensure every 'R' in start is at an index less than or equal to its matching 'R' in end."
+  ],
   "languages": [
     "python"
   ],

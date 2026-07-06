@@ -7,6 +7,11 @@
     "greedy",
     "sorting"
   ],
+  "hints": [
+    "Consider how sorting the piles helps you control which values Alice, you, and Bob receive.",
+    "Think about pairing the largest available pile with the second largest to maximize your share.",
+    "Sort the array in ascending order, then sum every second element starting from index n."
+  ],
   "languages": [
     "python"
   ],

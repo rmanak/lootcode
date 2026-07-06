@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider how the maximum profit changes as you vary the number of allowed transactions from 1 up to k.",
+    "Use dynamic programming where the state tracks the current day and the number of transactions completed.",
+    "Define states for being in a buying phase versus a selling phase, updating them based on the previous day's values."
+  ],
   "languages": [
     "python"
   ],

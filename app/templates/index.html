@@ -60,8 +60,8 @@
 <div class="topic-bar-wrap">
   <input type="checkbox" id="topic-expand" class="topic-expand-cb" {{ 'checked' if topic_expanded }}>
   <div class="topic-bar">
-    {% for tc in topic_counts %}
-    <a class="topic-chip {{ 'active' if f_topic == tc.topic }}{{ ' topic-extra' if loop.index0 >= topic_top_n }}"
+    {% for tc in topic_counts[:topic_top_n] %}
+    <a class="topic-chip {{ 'active' if f_topic == tc.topic }}"
        href="{{ tc.href }}">{{ tc.topic }}
       <span class="tc-count">{{ tc.count }}</span></a>
     {% endfor %}
@@ -70,6 +70,17 @@
       <span class="tt-expand">Expand ⌄</span>
       <span class="tt-collapse">Collapse ⌃</span>
     </label>
+    {# The overflow topics live in a full-width block that reveals on its own
+       line(s) below the first row, with a smooth grid-fr height animation. #}
+    <div class="topic-extra">
+      <div class="topic-extra-inner">
+        {% for tc in topic_counts[topic_top_n:] %}
+        <a class="topic-chip {{ 'active' if f_topic == tc.topic }}"
+           href="{{ tc.href }}">{{ tc.topic }}
+          <span class="tc-count">{{ tc.count }}</span></a>
+        {% endfor %}
+      </div>
+    </div>
     {% endif %}
   </div>
 </div>

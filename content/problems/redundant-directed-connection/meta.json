@@ -7,6 +7,11 @@
     "union-find",
     "tree"
   ],
+  "hints": [
+    "Check if any node has more than one parent. This happens when two edges point to the same child.",
+    "If a node has two parents, the answer is one of those two incoming edges. Otherwise, a cycle exists.",
+    "If no node has two parents, find the cycle and remove the edge that appears last in the input list."
+  ],
   "languages": [
     "python"
   ],

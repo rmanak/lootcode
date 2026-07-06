@@ -5,6 +5,11 @@
   "tags": [
     "math"
   ],
+  "hints": [
+    "Notice that the total sum of elements never changes during any operation.",
+    "The target value for all elements must be the average of the array.",
+    "Calculate the sum of positive differences between elements and the target value."
+  ],
   "languages": [
     "python"
   ],

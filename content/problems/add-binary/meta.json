@@ -1,0 +1,43 @@
+{
+  "slug": "add-binary",
+  "title": "Add Binary",
+  "difficulty": "easy",
+  "tags": [
+    "string",
+    "bit-manipulation",
+    "simulation"
+  ],
+  "hints": [
+    "Start adding from the rightmost characters of both strings, just like manual addition.",
+    "Track a carry value that propagates to the next position when the sum of digits exceeds one.",
+    "Process characters until both strings are exhausted and no carry remains, then reverse the result."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "addBinary",
+    "params": [
+      {
+        "name": "a",
+        "type": "string"
+      },
+      {
+        "name": "b",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "string"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

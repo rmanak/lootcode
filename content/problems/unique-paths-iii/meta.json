@@ -7,6 +7,11 @@
     "backtracking",
     "matrix"
   ],
+  "hints": [
+    "Count how many empty squares exist to know the exact path length required.",
+    "Use depth-first search from the start, tracking visited cells to avoid cycles.",
+    "Backtrack after exploring each neighbor; increment count if end is reached with all cells visited."
+  ],
   "languages": [
     "python"
   ],

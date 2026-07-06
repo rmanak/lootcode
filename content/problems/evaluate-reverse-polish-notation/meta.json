@@ -5,6 +5,11 @@
   "tags": [
     "stack"
   ],
+  "hints": [
+    "Notice how operators always follow their operands in this notation. What data structure naturally handles this last-in, first-out relationship?",
+    "Use a stack to store numbers. Push operands onto it, and when you encounter an operator, pop the required number of operands to perform the calculation.",
+    "Push the result of each operation back onto the stack. After processing all tokens, the single remaining value on the stack is your final answer."
+  ],
   "languages": [
     "python"
   ],

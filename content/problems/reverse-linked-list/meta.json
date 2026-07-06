@@ -6,6 +6,11 @@
     "linked-list",
     "recursion"
   ],
+  "hints": [
+    "Consider how you would traverse the list and store elements to retrieve them in reverse order.",
+    "Using a stack data structure allows you to push elements as you traverse and pop them to build the result.",
+    "Alternatively, you can reverse the input array directly since the output format is an array, not a linked list structure."
+  ],
   "languages": [
     "python"
   ],

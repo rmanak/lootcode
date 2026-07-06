@@ -5,6 +5,11 @@
   "tags": [
     "stack"
   ],
+  "hints": [
+    "Notice that getMin must be O(1), so you cannot scan the stack. What extra data can you maintain to track the minimum?",
+    "Consider maintaining a secondary stack that stores the current minimum value alongside each element in the main stack.",
+    "When pushing x, push min(x, current_min) onto the auxiliary stack. Pop from both stacks simultaneously on pop."
+  ],
   "languages": [
     "python"
   ],

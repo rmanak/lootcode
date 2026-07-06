@@ -6,6 +6,11 @@
     "graph",
     "heap"
   ],
+  "hints": [
+    "Calculate the shortest time to reach every node from the source node k.",
+    "Use Dijkstra's algorithm to find these minimum distances efficiently.",
+    "The answer is the maximum distance among all nodes, or -1 if any node is unreachable."
+  ],
   "languages": [
     "python"
   ],

@@ -120,6 +120,17 @@
       "expected": 24,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "n": 47,
+        "goal": 84,
+        "k": 25
+      },
+      "expected": 479920793,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Since days are sorted, consider processing them in order to make decisions for each travel day.",
+    "Use dynamic programming where the state tracks the minimum cost to cover all travel days up to a certain day.",
+    "For each travel day, decide whether to buy a 1, 7, or 30-day pass and transition to the next uncovered day."
+  ],
   "languages": [
     "python"
   ],

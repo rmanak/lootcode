@@ -7,6 +7,11 @@
     "string",
     "greedy"
   ],
+  "hints": [
+    "Focus on when a column causes a violation between adjacent rows.",
+    "Use dynamic programming where the state represents the set of columns kept so far.",
+    "Track the last kept column index and ensure new columns maintain order for all rows."
+  ],
   "languages": [
     "python"
   ],

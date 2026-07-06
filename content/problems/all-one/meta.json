@@ -6,6 +6,11 @@
     "hash-table",
     "linked-list"
   ],
+  "hints": [
+    "Track counts with a hash map, but you need fast access to min/max counts. How can you group keys by their current count?",
+    "Use a second map linking each count value to a set of keys having that count. This lets you find min/max counts and resolve ties efficiently.",
+    "Maintain pointers to the current min and max count values. When counts change, update these pointers by checking if the old min/max sets become empty."
+  ],
   "languages": [
     "python"
   ],

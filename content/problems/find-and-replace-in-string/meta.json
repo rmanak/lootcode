@@ -7,6 +7,11 @@
     "string",
     "sorting"
   ],
+  "hints": [
+    "Which operations actually succeed? Check each operation against the original string before modifying anything.",
+    "Sort the successful operations by their starting index to handle them in order from left to right.",
+    "Build the result by appending unmatched original segments and the new target strings sequentially."
+  ],
   "languages": [
     "python"
   ],

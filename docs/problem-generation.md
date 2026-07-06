@@ -111,7 +111,11 @@ Two independent checks, both required:
    a substitute for it. It requires *executing untrusted code*, which only happens
    inside the sandbox (`docs/code-execution.md`): `app.llm.generator` does it
    inline via `run_submission`, and `python scripts/seed.py` re-verifies every
-   problem on disk.
+   problem on disk. For **loose generator output not yet imported** — a folder of
+   per-problem `.json` files in this core-contract shape (e.g. `test_output/`) —
+   `python scripts/verify_json.py <folder>` runs both checks in batch (valid JSON
+   + required fields, then `run_submission` per file) and reports each file's
+   pass ratio, so you can gate a batch before importing.
 
 `test_llm_output.py` deliberately does **not** execute code — keep it that way and
 let the sandbox own behavioral grading.

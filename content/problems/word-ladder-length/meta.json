@@ -7,6 +7,11 @@
     "breadth-first-search",
     "string"
   ],
+  "hints": [
+    "Model the words as nodes in a graph where edges connect words differing by one letter.",
+    "Use Breadth-First Search starting from beginWord to find the shortest path to endWord.",
+    "Track the number of steps as you traverse layers; return the count when you reach endWord."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "array",
     "two-pointers"
   ],
+  "hints": [
+    "Look for the longest suffix that is non-increasing. The element just before this suffix is the pivot.",
+    "Swap the pivot with the smallest element in the suffix that is larger than the pivot.",
+    "Reverse the suffix to make it the smallest possible permutation, completing the next lexicographical order."
+  ],
   "languages": [
     "python"
   ],

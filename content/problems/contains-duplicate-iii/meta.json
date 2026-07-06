@@ -7,6 +7,11 @@
     "sliding-window",
     "sorting"
   ],
+  "hints": [
+    "Notice the sliding window of size k+1. You only need to check elements currently inside this window against each other.",
+    "A balanced binary search tree or sorted set allows efficient insertion, deletion, and range queries within the window.",
+    "For each element, query if any value in the range [nums[i]-t, nums[i]+t] exists in the set before inserting nums[i]. Remove nums[i-k] when the window slides."
+  ],
   "languages": [
     "python"
   ],

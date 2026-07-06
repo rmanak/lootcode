@@ -7,6 +7,11 @@
     "hash-table",
     "simulation"
   ],
+  "hints": [
+    "Notice the state space is tiny. Since there are only 256 possible configurations, the sequence of states must eventually repeat.",
+    "Simulate day by day while storing each seen state and its day index. Stop as soon as a state repeats to find the cycle length.",
+    "Use the cycle length to fast-forward N days. The final answer is the state at index (N minus start of cycle) modulo cycle length, plus the start offset."
+  ],
   "languages": [
     "python"
   ],

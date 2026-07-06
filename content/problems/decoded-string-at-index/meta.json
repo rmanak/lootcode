@@ -6,6 +6,11 @@
     "string",
     "stack"
   ],
+  "hints": [
+    "Calculate the total length of the decoded string without actually building it, as it can be huge.",
+    "Work backwards from the end of S. If K falls in the repeated part, use modulo to map it to an earlier position.",
+    "When K exceeds the current length after processing a digit, update K to K modulo the length before that digit."
+  ],
   "languages": [
     "python"
   ],

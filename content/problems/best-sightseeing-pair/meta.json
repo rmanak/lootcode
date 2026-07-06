@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Rewrite the score as (values[i] + i) + (values[j] - j) to separate terms depending on i and j.",
+    "As you iterate j from left to right, you need the maximum of (values[i] + i) for all i < j.",
+    "Maintain a running maximum of (values[i] + i) while iterating j, updating the answer at each step."
+  ],
   "languages": [
     "python"
   ],

@@ -8,6 +8,11 @@
     "breadth-first-search",
     "matrix"
   ],
+  "hints": [
+    "Notice the grid is tiny (at most 3x3). This suggests trying every possible sequence of moves.",
+    "Since flipping a cell twice is useless, each cell is either flipped once or never. There are only 2^(m*n) combinations to check.",
+    "Iterate through all subsets of cells to flip. For each subset, simulate the flips and check if the grid becomes all zeros. Track the minimum steps."
+  ],
   "languages": [
     "python"
   ],

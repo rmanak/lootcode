@@ -5,6 +5,11 @@
   "tags": [
     "array"
   ],
+  "hints": [
+    "Precompute the length of the consecutive run ending at each index to simplify range checks.",
+    "Use a prefix maximum array to quickly find the longest run entirely contained within a query range.",
+    "Handle the edge case where a run starts before l by checking the run length at index l separately."
+  ],
   "languages": [
     "python"
   ],

@@ -5,6 +5,11 @@
   "tags": [
     "backtracking"
   ],
+  "hints": [
+    "Think about placing queens row by row, ensuring each new queen does not conflict with previously placed ones.",
+    "Use backtracking to explore valid positions, keeping track of occupied columns and diagonals to prune invalid branches early.",
+    "Represent occupied columns and diagonals using boolean arrays or bitmasks for efficient conflict checking during recursion."
+  ],
   "languages": [
     "python"
   ],

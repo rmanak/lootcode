@@ -1,0 +1,41 @@
+{
+  "slug": "minimum-absolute-difference-in-bst",
+  "title": "Minimum Absolute Difference in BST",
+  "difficulty": "easy",
+  "tags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-search-tree",
+    "binary-tree"
+  ],
+  "hints": [
+    "In a BST, an in-order traversal visits nodes in strictly increasing order. The minimum difference must occur between two adjacent values in this sorted sequence.",
+    "Perform an in-order traversal while keeping track of the previous node's value. Update the global minimum difference using the current and previous values.",
+    "Initialize a variable for the previous value to negative infinity and the minimum difference to infinity. During traversal, compute the absolute difference between the current and previous values, then update the minimum."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "getMinimumDifference",
+    "params": [
+      {
+        "name": "root",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

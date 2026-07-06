@@ -7,6 +7,11 @@
     "greedy",
     "stack"
   ],
+  "hints": [
+    "Consider how the required number of operations changes as you move from one element to the next in the target array.",
+    "Focus on the difference between adjacent elements. When does target[i] require new operations compared to target[i-1]?",
+    "The answer is the first element plus the sum of all positive differences between adjacent elements target[i] - target[i-1]."
+  ],
   "languages": [
     "python"
   ],

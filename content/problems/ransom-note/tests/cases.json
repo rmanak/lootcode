@@ -1,0 +1,64 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "ransomNote": "a",
+        "magazine": "b"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "ransomNote": "aa",
+        "magazine": "ab"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "ransomNote": "aa",
+        "magazine": "aab"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "ransomNote": "abc",
+        "magazine": "cba"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "ransomNote": "aab",
+        "magazine": "aabbb"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "ransomNote": "z",
+        "magazine": "zz"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

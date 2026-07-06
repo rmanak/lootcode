@@ -1,0 +1,40 @@
+{
+  "slug": "construct-quad-tree",
+  "title": "Construct Quad Tree",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "divide-and-conquer",
+    "tree",
+    "matrix"
+  ],
+  "hints": [
+    "Consider a recursive function that processes a subgrid defined by its top-left corner and size. The base case checks if all values in the current subgrid are identical.",
+    "If the subgrid is not uniform, recursively call the function for the four quadrants: top-left, top-right, bottom-left, and bottom-right.",
+    "When creating an internal node, set isLeaf to false and assign the results of the four recursive calls to the corresponding child pointers."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "construct",
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

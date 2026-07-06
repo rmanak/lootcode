@@ -7,6 +7,11 @@
     "bitmask",
     "bit-manipulation"
   ],
+  "hints": [
+    "Map each skill to a bit index, and represent every person's skills as a bitmask integer.",
+    "Use dynamic programming where the state is a bitmask of covered skills, tracking the minimum team size needed.",
+    "For each person, update the DP table by combining their mask with previous states using bitwise OR to find new coverage."
+  ],
   "languages": [
     "python"
   ],

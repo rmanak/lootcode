@@ -5,6 +5,11 @@
   "tags": [
     "matrix"
   ],
+  "hints": [
+    "Focus on any single element and compare it to the element directly below and to its right.",
+    "A matrix is Toeplitz if and only if every element equals the one diagonally adjacent to it in the top-left direction.",
+    "Iterate through rows and columns starting from index 1, checking if matrix[i][j] equals matrix[i-1][j-1]."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "array",
     "sorting"
   ],
+  "hints": [
+    "Sorting the intervals by their start times simplifies the merging process significantly.",
+    "Iterate through the sorted intervals, comparing the current interval's start with the last merged interval's end.",
+    "If they overlap, update the end of the last merged interval; otherwise, add the current interval to the result."
+  ],
   "languages": [
     "python"
   ],

@@ -7,6 +7,11 @@
     "two-pointers",
     "sorting"
   ],
+  "hints": [
+    "Consider maintaining three regions for 0s, 1s, and 2s within the array using pointers.",
+    "Use three pointers: one for the boundary of 0s, one for current element, and one for 2s.",
+    "Swap elements to move 0s to the start and 2s to the end, advancing pointers as needed."
+  ],
   "languages": [
     "python"
   ],

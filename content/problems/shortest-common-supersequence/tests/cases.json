@@ -129,6 +129,16 @@
       "expected": 9,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "str1": "abb",
+        "str2": "abd"
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -5,6 +5,11 @@
   "tags": [
     "greedy"
   ],
+  "hints": [
+    "Consider working backward from target to startValue instead of forward.",
+    "When reversing, if target is even, dividing by 2 is the inverse of doubling.",
+    "If target is odd, adding 1 is the only valid reverse step before division."
+  ],
   "languages": [
     "python"
   ],

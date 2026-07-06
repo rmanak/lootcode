@@ -6,6 +6,11 @@
     "string",
     "trie"
   ],
+  "hints": [
+    "Consider storing words in a way that allows efficient retrieval by both prefix and suffix.",
+    "Use a nested hash map or trie where keys are prefixes and values map suffixes to the maximum index.",
+    "For each word, insert it into the structure under its prefix, mapping its suffix to its index, updating if the new index is larger."
+  ],
   "languages": [
     "python"
   ],

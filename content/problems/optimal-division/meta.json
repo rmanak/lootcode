@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider how placing parentheses affects the value of the divisor to maximize the overall result.",
+    "Think about what happens to the intermediate numbers when you divide by a quotient of other numbers.",
+    "The maximum value is achieved by keeping the first number as the numerator and the rest as a nested denominator."
+  ],
   "languages": [
     "python"
   ],

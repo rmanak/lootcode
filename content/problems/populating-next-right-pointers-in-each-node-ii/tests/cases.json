@@ -1,0 +1,146 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "root": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          null,
+          7
+        ]
+      },
+      "expected": [
+        1,
+        null,
+        2,
+        3,
+        null,
+        4,
+        5,
+        7,
+        null
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "root": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "root": [
+          1
+        ]
+      },
+      "expected": [
+        1,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "root": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        1,
+        null,
+        2,
+        3,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "root": [
+          1,
+          2,
+          3,
+          4,
+          null,
+          null,
+          5
+        ]
+      },
+      "expected": [
+        1,
+        null,
+        2,
+        3,
+        null,
+        4,
+        5,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "root": [
+          null,
+          null,
+          3,
+          4,
+          2,
+          2,
+          5
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "root": [
+          1,
+          0,
+          3,
+          5,
+          5,
+          7,
+          null,
+          6
+        ]
+      },
+      "expected": [
+        1,
+        null,
+        0,
+        3,
+        null,
+        5,
+        5,
+        7,
+        null,
+        6,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

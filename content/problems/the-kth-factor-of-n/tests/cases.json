@@ -134,7 +134,7 @@
       "name": "hidden-11",
       "input": {
         "n": 3,
-        "k": 8
+        "k": 3
       },
       "expected": -1,
       "weight": 1,

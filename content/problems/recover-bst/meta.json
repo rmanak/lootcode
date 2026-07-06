@@ -7,6 +7,11 @@
     "binary-search-tree",
     "depth-first-search"
   ],
+  "hints": [
+    "In-order traversal of a BST yields values in strictly increasing order. What does the sequence look like when two nodes are swapped?",
+    "Identify the two nodes where the sorted order is violated during the in-order traversal. These are the candidates to swap.",
+    "You only need to swap the values of the two identified nodes. The first violation marks the first node; the second marks the other."
+  ],
   "languages": [
     "python"
   ],

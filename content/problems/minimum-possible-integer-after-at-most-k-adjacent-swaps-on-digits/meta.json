@@ -7,6 +7,11 @@
     "greedy",
     "binary-indexed-tree"
   ],
+  "hints": [
+    "Focus on the leftmost position first; try to bring the smallest available digit there within the remaining k swaps.",
+    "Use a sorted list of available digits to quickly find the smallest candidate that can reach the current position within k steps.",
+    "Track original indices with a Fenwick tree to efficiently calculate current positions and update them after each move."
+  ],
   "languages": [
     "python"
   ],

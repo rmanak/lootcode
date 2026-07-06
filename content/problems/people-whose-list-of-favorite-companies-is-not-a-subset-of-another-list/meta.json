@@ -7,6 +7,11 @@
     "hash-table",
     "string"
   ],
+  "hints": [
+    "Convert each list to a set to enable efficient subset checks.",
+    "For each person, check if their set is a subset of any other person's set.",
+    "If a person's set is not a subset of any other, include their index in the result."
+  ],
   "languages": [
     "python"
   ],

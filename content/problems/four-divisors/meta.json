@@ -5,6 +5,11 @@
   "tags": [
     "array"
   ],
+  "hints": [
+    "For each number, determine if it has exactly four divisors. If so, calculate their sum.",
+    "A number has exactly four divisors if it is the square of a prime or the product of two distinct primes.",
+    "Check divisibility up to the square root. If you find one divisor, check if the quotient is prime or if the number is a prime square."
+  ],
   "languages": [
     "python"
   ],

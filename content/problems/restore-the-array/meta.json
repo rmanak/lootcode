@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider building the answer from left to right, deciding where each number ends.",
+    "Use dynamic programming where dp[i] counts valid splits for the prefix s[0...i-1].",
+    "To find valid previous positions, check substrings ending at i that fit in [1, k] and lack leading zeros."
+  ],
   "languages": [
     "python"
   ],

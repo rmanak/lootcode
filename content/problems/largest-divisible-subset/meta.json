@@ -7,6 +7,11 @@
     "dynamic-programming",
     "sorting"
   ],
+  "hints": [
+    "Sort the array first. This simplifies the divisibility check to only looking backwards.",
+    "Use dynamic programming. Let dp[i] be the size of the largest valid subset ending at index i.",
+    "For each i, check all j < i. If nums[i] is divisible by nums[j], update dp[i] using dp[j]."
+  ],
   "languages": [
     "python"
   ],

@@ -6,6 +6,11 @@
     "string",
     "two-pointers"
   ],
+  "hints": [
+    "Focus only on alphanumeric characters and treat uppercase and lowercase as identical.",
+    "Use two pointers, one starting at the beginning and one at the end of the string.",
+    "Move pointers inward, skipping non-alphanumeric characters, and compare the characters they point to."
+  ],
   "languages": [
     "python"
   ],

@@ -8,6 +8,11 @@
     "suffix-array",
     "hash-function"
   ],
+  "hints": [
+    "Can you efficiently check if a duplicated substring of a specific length k exists?",
+    "Use binary search on the answer length to reduce the problem to existence checks.",
+    "Hash all substrings of length k using rolling hashes to find duplicates in linear time."
+  ],
   "languages": [
     "python"
   ],

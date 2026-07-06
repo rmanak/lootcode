@@ -8,6 +8,11 @@
     "bit-manipulation",
     "matrix"
   ],
+  "hints": [
+    "Maximize the most significant bit first by ensuring every row starts with 1.",
+    "Flip columns to maximize 1s in each position, ignoring rows already fixed.",
+    "For each column, count 1s aligned with the first column's value to decide flips."
+  ],
   "languages": [
     "python"
   ],

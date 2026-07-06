@@ -6,6 +6,11 @@
     "string",
     "dynamic-programming"
   ],
+  "hints": [
+    "Consider building the answer by adding characters one by one. How does adding a new character affect the count of subsequences formed so far?",
+    "Without duplicates, each new character doubles the count plus one. How do you adjust this when a character has appeared before?",
+    "Subtract the count of subsequences that existed just before the previous occurrence of the current character to avoid double counting."
+  ],
   "languages": [
     "python"
   ],

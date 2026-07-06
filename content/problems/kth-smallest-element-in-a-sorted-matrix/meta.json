@@ -8,6 +8,11 @@
     "binary-search",
     "matrix"
   ],
+  "hints": [
+    "Notice that for any value x, you can count elements less than or equal to x in O(n) time using the sorted property of rows and columns.",
+    "Use binary search on the value range from matrix[0][0] to matrix[n-1][n-1] to find the smallest value where the count of smaller or equal elements is at least k.",
+    "The count function starts at the bottom-left corner; move up if the current element is less than or equal to the target, otherwise move right."
+  ],
   "languages": [
     "python"
   ],

@@ -1,0 +1,58 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "s": "the sky is blue"
+      },
+      "expected": "blue is sky the",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "s": "  hello world  "
+      },
+      "expected": "world hello",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "s": "a good   example"
+      },
+      "expected": "example good a",
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "hidden-1",
+      "input": {
+        "s": "single"
+      },
+      "expected": "single",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-2",
+      "input": {
+        "s": "  lead"
+      },
+      "expected": "lead",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-3",
+      "input": {
+        "s": "trail  "
+      },
+      "expected": "trail",
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

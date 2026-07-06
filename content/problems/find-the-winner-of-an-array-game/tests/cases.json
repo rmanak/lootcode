@@ -246,6 +246,21 @@
       "expected": 27,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "arr": [
+          3,
+          2,
+          25,
+          5
+        ],
+        "k": 1
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

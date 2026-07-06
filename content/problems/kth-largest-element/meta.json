@@ -7,6 +7,11 @@
     "heap",
     "sorting"
   ],
+  "hints": [
+    "Sorting the entire array is O(n log n). Can you find a faster way to isolate the top k elements without fully sorting?",
+    "Consider using a Min-Heap of size k. How does maintaining this heap help you track the k-th largest element efficiently?",
+    "Iterate through the array, adding elements to the Min-Heap. If the heap exceeds size k, remove the smallest element. The root is your answer."
+  ],
   "languages": [
     "python"
   ],

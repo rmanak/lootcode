@@ -6,6 +6,11 @@
     "array",
     "dynamic-programming"
   ],
+  "hints": [
+    "The circular constraint makes the first and last houses adjacent, so you can never rob both. Consider breaking the circle into two linear cases.",
+    "Split the problem into two subproblems: one excluding the last house, and another excluding the first house. Solve each as a standard linear house robber problem.",
+    "For each linear subproblem, use dynamic programming where the state at index i depends on the maximum value from i-1 and i-2. Return the maximum of the two results."
+  ],
   "languages": [
     "python"
   ],

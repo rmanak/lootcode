@@ -6,6 +6,11 @@
     "dynamic-programming",
     "matrix"
   ],
+  "hints": [
+    "Can you determine the minimum cost to reach any specific cell using only the costs of its top and left neighbors?",
+    "This problem exhibits optimal substructure, making dynamic programming the ideal approach to build up solutions cell by cell.",
+    "Initialize a DP table where each entry is the cell value plus the minimum of the valid previous entries from the top or left."
+  ],
   "languages": [
     "python"
   ],

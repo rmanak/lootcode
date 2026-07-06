@@ -7,6 +7,11 @@
     "stack",
     "depth-first-search"
   ],
+  "hints": [
+    "Split the input string by newlines to process each file or directory name individually.",
+    "Use a stack or array to store the length of the current path at each depth level.",
+    "When processing a line, pop entries deeper than the current line's tab count, then add the current name's length plus one for the slash."
+  ],
   "languages": [
     "python"
   ],

@@ -289,6 +289,31 @@
       "expected": "jxfm",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "root": [
+          null,
+          9,
+          null,
+          18,
+          null,
+          null,
+          null,
+          null,
+          24,
+          15,
+          7,
+          null,
+          6,
+          4,
+          22
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -7,6 +7,11 @@
     "binary-search-tree",
     "depth-first-search"
   ],
+  "hints": [
+    "What traversal order visits BST nodes in ascending sorted sequence?",
+    "Use an in-order traversal to process nodes from smallest to largest.",
+    "Count visited nodes during in-order traversal and stop when the count reaches k."
+  ],
   "languages": [
     "python"
   ],

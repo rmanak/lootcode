@@ -6,6 +6,11 @@
     "backtracking",
     "array"
   ],
+  "hints": [
+    "Consider using backtracking to explore all possible combinations that sum to the target.",
+    "Sort the candidates first to help prune branches where the current sum exceeds the target.",
+    "At each step, try adding the current candidate and recursively solve for the remaining target value."
+  ],
   "languages": [
     "python"
   ],

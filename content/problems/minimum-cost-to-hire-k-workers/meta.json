@@ -8,6 +8,11 @@
     "heap",
     "sorting"
   ],
+  "hints": [
+    "Focus on the ratio wage[i]/quality[i]. If you pick a group, which worker's ratio determines the actual pay rate for everyone?",
+    "Sort workers by their wage-to-quality ratio in ascending order. Iterate through them, treating each as the one setting the pay rate.",
+    "As you iterate, maintain a collection of the K smallest qualities seen so far using a max-heap to minimize the cost sum."
+  ],
   "languages": [
     "python"
   ],

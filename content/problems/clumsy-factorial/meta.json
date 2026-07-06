@@ -6,6 +6,11 @@
     "stack",
     "simulation"
   ],
+  "hints": [
+    "Observe that multiplication and division bind tighter than addition and subtraction, grouping terms into blocks separated by + or -.",
+    "Evaluate each block of * and / independently, then sum or subtract these block results in order from left to right.",
+    "Notice a repeating pattern in the final results for N >= 4 that depends only on N modulo 4, allowing an O(1) solution."
+  ],
   "languages": [
     "python"
   ],

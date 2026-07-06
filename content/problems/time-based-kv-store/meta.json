@@ -6,6 +6,11 @@
     "hash-table",
     "binary-search"
   ],
+  "hints": [
+    "Store each key's history as a list of (timestamp, value) pairs, keeping them sorted by time.",
+    "For get operations, use binary search on the list to find the largest timestamp less than or equal to the query time.",
+    "If the found timestamp matches the query's requirement, return the corresponding value; otherwise return empty string."
+  ],
   "languages": [
     "python"
   ],
