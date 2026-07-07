@@ -1,4 +1,4 @@
-> **Format:** the input tree is a LeetCode **level-order array**. After wiring each node's `next` pointer to its right neighbor on the same level, return the tree serialized level by level following those `next` pointers: each level's node values left-to-right, each level terminated by `null` (the `#` shown in the examples). `[]` for an empty tree.
+> **Format:** your function receives `root` as a `TreeNode` (`value`, `left`, `right`); `None` is an empty tree. The input tree is shown below in LeetCode **level-order array** form (`null` = missing child). After wiring each node's `next` pointer to its right neighbor on the same level, return the tree serialized level by level following those `next` pointers: each level's node values left-to-right, each level terminated by `null` (the `#` shown in the examples). `[]` for an empty tree.
 
 Given a binary tree
 

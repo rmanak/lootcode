@@ -1,6 +1,6 @@
-> **Format:** the binary tree is given as a LeetCode **level-order array** (`null` = missing child; `[]` = empty tree).
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
 
-Given the `root` of a Binary Search Tree (BST), return *the minimum absolute difference between the values of any two different nodes in the tree*.
+Given the `TreeNode` `root` of a Binary Search Tree (BST), return *the minimum absolute difference between the values of any two different nodes in the tree*.
 
 **Example 1:**
 

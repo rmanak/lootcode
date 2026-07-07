@@ -1,4 +1,4 @@
-> **Format:** the binary tree is given as a LeetCode **level-order array** (`null` = missing child; `[]` = empty tree). Return each level's average **rounded to 5 decimal places**.
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped). Return each level's average **rounded to 5 decimal places**.
 
 Given the `root` of a binary tree, return the average value of the nodes on each level in the form of an array. Answers within `10^-5` of the actual answer will be accepted.
 

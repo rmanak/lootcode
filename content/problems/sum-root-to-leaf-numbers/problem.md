@@ -1,4 +1,4 @@
-> **Format:** the binary tree is given as a LeetCode **level-order array** (`null` = missing child; `[]` = empty tree).
+> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
 
 You are given the `root` of a binary tree containing digits from `0` to `9` only.
 
