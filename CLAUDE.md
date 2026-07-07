@@ -40,6 +40,7 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `scripts/verify_bank.py` | Run every problem's canonical solution against its own tests (the whole on-disk bank — **both** content roots, default + extended), via the same `run_submission` path; prints per-problem pass/fail + statistics. `--content-dir <dir>` scopes to one root; args for slug/substring filtering, `-v`/`-q` verbosity, `-j` parallelism, `--failfast`, `--strict`. |
 | `scripts/import_collection.py` | Validate + bulk-import a staged `statements/`+`rest/` collection dir (e.g. `user_collection/`) into `content/` and the DB. Runs every existing gate (structural, sandbox behavioral, statement↔judge, slug-collision), imports only what passes, copies figures, carries hints. See `docs/importing-collections.md`. |
 | `scripts/strengthen_tests.py` | Machine-generate hidden test cases that catch buggy *user* solutions: fuzz/edge/mutation-guided selection over `app/testgen/`, canonical as oracle. `--dry-run` by default, `--apply` writes cases back. See `docs/test-strengthening.md`. |
+| `scripts/oracle.py` | Differential test-case analysis for **one** problem, driven by the `test-strengthener` agent: `suite` runs a candidate solution against the stored suite (does a wrong solution still pass?); `analyze` computes each input's `expected` from the canonical (the only oracle), gates it through the input validator, and — with `--solution` — flags inputs where a plausibly-wrong solution DIVERGES (the cases worth adding). Reasoning-driven complement to `strengthen_tests.py`; both go through `run_submission`. |
 | `scripts/check_constraint_validators.py` · `generate_constraint_validators.py` | Audit / (LLM-)generate the per-problem input validators (`<root>/<slug>/input_validator/input_validator.py`): every stored test input must satisfy its problem's `validate_input()`. The checker audits **both** content roots (default + extended). Run it when adding test cases. See `docs/input-validators.md`. |
 | `tests/` | pytest (incl. adversarial executor tests). |
 | `docs/` · `specs/` · `.claude/` | Docs, content spec, Claude Code config. |
@@ -106,7 +107,12 @@ works for a fresh checkout.
   `validate_input(<params>) -> bool`. A new `(input, expected)` case's input must
   satisfy it (i.e. be in-bounds for the stated constraints) before you add it —
   run `python scripts/check_constraint_validators.py --slug <slug>`. See
-  `docs/input-validators.md`.
+  `docs/input-validators.md`. To *strengthen* a weak suite (a wrong solution
+  scores full marks — the "passes here, fails on LeetCode" gap), use the
+  **`test-strengthener` subagent** (reasoning-driven, per problem, via
+  `scripts/oracle.py`) or the mechanical **`scripts/strengthen_tests.py`** sweep;
+  both keep the canonical as the only oracle and gate every input through the
+  validator.
 - **LLM generation** comes in three modes depending on what's already given —
   fill-in (full statement / description-only) vs. from-scratch — sharing one
   "core" output contract. See `docs/problem-generation.md`. The in-app

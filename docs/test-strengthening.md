@@ -30,6 +30,25 @@ solutions to select against; the canonical computes every expected value.
 > served as a timing test, not baked as a correctness case. Every run is still
 > `--dry-run` by default. Rationale/findings: `test-strengthening-plan.md` (§11).
 
+## Two ways to strengthen a suite
+
+This document covers the **mechanical sweep** (`scripts/strengthen_tests.py`) —
+best run bank-wide, it fuzzes and mutation-selects with no per-problem thought.
+
+For a single problem where a *specific* wrong solution scored full marks, there is
+also a **reasoning-driven** path: the **`test-strengthener` subagent**, which reads
+the statement/canonical, hypothesizes the exact bug classes the suite misses, writes
+the plausibly-wrong solutions a user would submit, and finds the in-domain input
+that separates each from the canonical — using `scripts/oracle.py` (`suite`:
+does a candidate slip through the stored suite? · `analyze`: which inputs make it
+diverge, and what is each one's canonical-computed `expected`?). It targets the
+*from-scratch* bugs mutation can't reach (see "Why two discriminator sources"),
+one problem at a time. Both paths share the two invariants below — **canonical is
+the only oracle**, **every input gated through the stated-constraint validator** —
+and both grade through `app.executor.run_submission`. Reach for the agent when you
+have a concrete failing solution in hand; reach for the sweep to harden the whole
+bank at once.
+
 ## Why
 
 Tests were largely LLM-generated: a handful of hand-picked inputs with
