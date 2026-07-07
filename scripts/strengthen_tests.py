@@ -60,6 +60,8 @@ from app.testgen import (  # noqa: E402
 )
 from app.testgen.mutate import Mutant  # noqa: E402
 from app.testgen.select import select_cases  # noqa: E402
+from app.testgen.coverage import CanonicalTracer  # noqa: E402
+from app.testgen.features import input_features, expression_params  # noqa: E402
 
 # Population of LLM candidate solutions (collected by scripts/collect_candidates.py).
 # A wrong candidate is a discriminator exactly like a mutant — the difference the
@@ -464,6 +466,7 @@ def strengthen(p: dict, cfg: GenConfig, cap: int, mut_cap: int,
     try:
         bounds = parse_constraints(p.get("statement_md", ""))
         seeds = [t["input"] for t in p.get("tests", [])]
+        expr_hint = expression_params(prob.params, seeds)
         validator = _load_input_validator(slug, prob.params) if use_validator else None
         rep.validator = validator is not None
         cands = generate_candidates(prob.params, seeds, bounds, cfg, validator=validator)
@@ -512,23 +515,42 @@ def strengthen(p: dict, cfg: GenConfig, cap: int, mut_cap: int,
         vinputs = [c.input for c, _ in valid]
         vexpected = [e for _, e in valid]
 
-        # 5. Discriminators = single-edit mutants (local-bug proxy) + the LLM
-        #    candidate population (from-scratch-bug proxy; plan §11.3). Both are just
-        #    code we grade against the canonical — a candidate that diverges on an
-        #    input is "killed" by it exactly as a mutant is, so the whole kill-matrix
-        #    / stillborn / selection machinery below is shared. Indices < pop_start
-        #    are mutants; indices >= pop_start are population.
+        # 5. COVERAGE TOKENS per valid input — the backbone of selection. Each input
+        #    is valued by how much *new behavior* it covers (solution-independent),
+        #    NOT by whether some invented wrong solution fails on it. Two universes:
+        #      * structural input features (app/testgen/features.py)
+        #      * canonical execution regimes: line + joint value-signature + output
+        #        class (app/testgen/coverage.py)
+        #    Mutant/population kills are folded in below as one MORE universe of
+        #    ('kill', i) tokens — add-only, never a gate. This is the fix to the old
+        #    flaw where a genuinely-discriminating input was discarded merely because
+        #    it killed no canonical-mutant (see docs/test-strengthening.md).
+        def _cov_tokens(inputs: list[dict]) -> list[set]:
+            feats = [input_features(inp, prob.params, expr_hint) for inp in inputs]
+            if not fast or not inputs:
+                return feats  # nested rich type: skip exec trace, features only
+            def _fn():
+                tr = CanonicalTracer(canonical, prob.function_name, inject,
+                                     decoders, encoder)
+                return [tr.tokens(inp) for inp in inputs]
+            try:
+                exec_toks = _run_forked(_fn, timeout_s=max(20.0, 0.06 * len(inputs) + 10))
+            except Exception:  # noqa: BLE001 - tracing is best-effort, must never break a run
+                exec_toks = [set() for _ in inputs]
+            return [f | e for f, e in zip(feats, exec_toks)]
+
+        cov = _cov_tokens(vinputs)   # aligned to `valid`
+
+        # Discriminator populations (OPTIONAL, add-only): single-edit mutants of the
+        # canonical (local-bug proxy) + cached LLM candidate solutions (from-scratch-
+        # bug proxy). Each discriminator an input 'kills' adds one ('kill', idx) token
+        # to that input — one extra coverage universe. Selection works fine with none.
         mutants = make_mutants(canonical, cap=mut_cap, seed=cfg.seed) if use_mutants else []
         pop = ([Mutant(desc=f"pop:{label}", code=code)
                 for label, code in _load_candidate_codes(slug, canonical)]
                if use_population else [])
         pop_start = len(mutants)
         discriminators = mutants + pop
-        if not discriminators:
-            rep.status = "ok"
-            rep.error = "no discriminators (no mutants/candidates to select against)"
-            rep.elapsed_s = time.time() - t0
-            return rep
 
         def grade(code):
             if fast:
@@ -542,29 +564,21 @@ def strengthen(p: dict, cfg: GenConfig, cap: int, mut_cap: int,
             rs = _grade(code, prob, vinputs, vexpected)
             return {ci for ci, r in enumerate(rs) if r is None or r.status != "passed"}
 
-        if fast:
-            # Grade all discriminators inside one forked child with a hard kill: one
-            # stuck in an un-interruptible C call can't hang the whole run. The cap
-            # scales with the discriminator count so a problem with many looping
-            # mutants (e.g. flipped-comparison binary search) doesn't false-error at
-            # a fixed budget — each looping one is bounded to budget_s in _inproc_grade.
-            fork_budget = max(30.0, 0.7 * len(discriminators) + 10.0)
-            def _grade_all():
-                return [(mi, grade(d.code)) for mi, d in enumerate(discriminators)]
-            try:
-                results = _run_forked(_grade_all, timeout_s=fork_budget)
-            except _Timeout:
-                rep.status = "error"
-                rep.error = "in-process grading timed out (runaway discriminator)"
-                rep.elapsed_s = time.time() - t0
-                return rep
-        else:
-            results = [(mi, grade(d.code)) for mi, d in enumerate(discriminators)]
+        results: list[tuple[int, set]] = []
+        if discriminators:
+            if fast:
+                fork_budget = max(30.0, 0.7 * len(discriminators) + 10.0)
+                def _grade_all():
+                    return [(mi, grade(d.code)) for mi, d in enumerate(discriminators)]
+                try:
+                    results = _run_forked(_grade_all, timeout_s=fork_budget)
+                except _Timeout:
+                    results = []  # grading failure just means no 'kill' tokens; coverage stands
+            else:
+                results = [(mi, grade(d.code)) for mi, d in enumerate(discriminators)]
 
-        # Drop stillborn discriminators: those killed by *every* input give no signal
-        # about which inputs matter (per the plan's Q1 reply; also catches a broken
-        # candidate that errors on everything). Keep ones killed by some-but-not-all;
-        # ones killed by none are reported as survivors.
+        # Drop stillborn discriminators (killed by *every* input -> no signal); the
+        # rest fold into per-input coverage as ('kill', mi) tokens.
         n_valid = len(vinputs)
         live = {mi for mi, kb in results if len(kb) < n_valid}
         live_mut = {mi for mi in live if mi < pop_start}
@@ -572,42 +586,47 @@ def strengthen(p: dict, cfg: GenConfig, cap: int, mut_cap: int,
         rep.n_mutants = len(live_mut)
         rep.n_pop = len(live_pop)
 
-        kills: list[set[int]] = [set() for _ in vinputs]
         killed_any: set[int] = set()
         for mi, killed_by in results:
             if mi not in live:
                 continue
-            for ci in killed_by:
-                kills[ci].add(mi)
             if killed_by:
                 killed_any.add(mi)
+            for ci in killed_by:
+                cov[ci].add(("kill", mi))
 
-        # Baseline: mutants already killed by the EXISTING (seed) tests.
-        baseline: set[int] = set()
+        # Baseline = every token the EXISTING (seed) suite already covers.
+        baseline: set = set()
         for i, (c, _) in enumerate(valid):
             if c.origin == "seed":
-                baseline |= kills[i]
+                baseline |= cov[i]
 
-        # 6. Greedily select new discriminating cases from the non-seed pool.
+        # 6. Greedily select new cases that widen coverage beyond the baseline.
         pool = [i for i, (c, _) in enumerate(valid) if c.origin != "seed"]
-        pool_kills = [kills[i] for i in pool]
-        sel = select_cases(pool_kills, [], len(discriminators), cap, baseline=baseline)
+        pool_tokens = [cov[i] for i in pool]
+        pool_sizes = [len(json.dumps(valid[i][0].input, default=str)) for i in pool]
+        all_coverable: set = set(baseline)
+        for t in cov:
+            all_coverable |= t
+        sel = select_cases(pool_tokens, [], len(all_coverable), cap,
+                           baseline=baseline, sizes=pool_sizes)
 
-        rep.killable = len(killed_any)
-        rep.killed_before = len(baseline)
+        rep.killable = len(all_coverable)
+        rep.killed_before = len(baseline & all_coverable)
         rep.killed_after = sel.killed_by_chosen
         rep.survivors = [discriminators[mi].desc for mi in sorted(live)
                          if mi not in killed_any]
 
-        # Population-specific accounting (the headline for the §11.3 capability):
-        # how many from-scratch wrong solutions we now catch that the seed tests
-        # missed. `covered` = discriminators killed by baseline + the chosen picks.
-        covered: set[int] = set(baseline)
+        # Population accounting: from-scratch wrong solutions now caught (a 'kill'
+        # token for a live population discriminator appearing in the covered set).
+        covered: set = set(baseline)
         for local_i, _gain in sel.per_pick:
-            covered |= kills[pool[local_i]]
+            covered |= cov[pool[local_i]]
+        def _pop_caught(tokens: set) -> int:
+            return sum(1 for mi in live_pop if ("kill", mi) in tokens)
         rep.pop_killable = len(live_pop & killed_any)
-        rep.pop_caught_before = len(live_pop & baseline)
-        rep.pop_caught_after = len(live_pop & covered)
+        rep.pop_caught_before = _pop_caught(baseline)
+        rep.pop_caught_after = _pop_caught(covered)
 
         # Assemble selected cases: greedy picks + the force-kept stress case.
         picks: list[dict] = []
@@ -682,7 +701,7 @@ def _print(rep: Report, verbose: bool) -> None:
         pop = (f"; pop-bugs caught {rep.pop_caught_before}->{rep.pop_caught_after}"
                f"/{rep.pop_killable} (of {rep.n_pop})")
     print(f"[OK]    {rep.slug} ({rep.difficulty}): "
-          f"discriminators killed {score}/{rep.killable} killable; "
+          f"coverage {score}/{rep.killable} tokens; "
           f"mut={rep.n_mutants} pop={rep.n_pop}{pop}; "
           f"+{len(rep.selected)} cases; {rep.elapsed_s:.1f}s")
     if verbose:
@@ -690,7 +709,7 @@ def _print(rep: Report, verbose: bool) -> None:
             inp = json.dumps(s["input"])
             if len(inp) > 100:
                 inp = inp[:97] + "..."
-            print(f"          + {s['name']} [{s['_origin']}, kills {s['_kills']}] "
+            print(f"          + {s['name']} [{s['_origin']}, +{s['_kills']} cov] "
                   f"exp={json.dumps(s['expected'])[:60]}  in={inp}")
         if rep.survivors:
             print(f"          surviving discriminators ({len(rep.survivors)}): "
@@ -793,7 +812,7 @@ def main() -> int:
     pop_gained = sum(r.pop_caught_after - r.pop_caught_before for r in ok)
     pop_probs = sum(1 for r in ok if r.pop_caught_after > r.pop_caught_before)
     print(f"\n{len(ok)} problems processed, {added} cases selected, "
-          f"+{gained} discriminator kills total "
+          f"+{gained} coverage tokens total "
           f"(+{pop_gained} population-bug catches across {pop_probs} problems), "
           f"{time.time() - t0:.1f}s{' (dry-run)' if not args.apply else ''}")
     return 0

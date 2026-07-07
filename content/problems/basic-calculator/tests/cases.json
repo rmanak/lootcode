@@ -197,6 +197,33 @@
       "expected": 16,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-unary-minus-after-paren",
+      "input": {
+        "s": "2-(-3)"
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-nested-trailing-terms",
+      "input": {
+        "s": "10-(5-(2)-3)"
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-nested-negative-splice",
+      "input": {
+        "s": "(-(-6))-1"
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

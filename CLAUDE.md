@@ -30,7 +30,7 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `app/llm/` | Claude-API problem generation (`generator.py`). |
 | `app/models.py` · `db.py` · `store.py` | ORM models, engine, DB operations. |
 | `app/content.py` | Load/write problems to `content/problems/`. |
-| `app/testgen/` | Test-strengthening library (generators/constraints/mutate/select). Machine-generates hidden cases to catch buggy *user* solutions. See `docs/test-strengthening.md`. |
+| `app/testgen/` | Test-strengthening engine. Machine-generates hidden cases to catch buggy *user* solutions by **coverage**, not by beating an invented wrong solution: `features.py` (structural input tokens) + `coverage.py` (canonical execution tokens) are the backbone; `mutate.py`/`candidates.py` kills are add-only universes; `select.py` set-covers the union; `shrink.py` minimizes; `generators.py`/`constraints.py` build the input pool. See `docs/test-strengthening.md`. |
 | `app/templates/` · `app/static/` | Jinja2 templates, CSS, JS. |
 | `content/problems/` | Problem definitions (see `specs/problem-schema.md`); optional `<slug>/assets/` holds statement figures (see `docs/problem-images.md`); `<slug>/input_validator/input_validator.py` is the per-problem `validate_input()` legal-input predicate (see `docs/input-validators.md`). |
 | `content/problems-extended/` | Optional **extended** problem set — extra problems kept local (**gitignored**), seeded alongside the default set when present. A fresh clone drops these (and any collection references to them) cleanly; skipped references are reported by `seed.py` but non-fatal. See `docs/extended-problems.md`. |
@@ -39,8 +39,8 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `scripts/verify_json.py` | Batch-verify a folder of loose problem `.json` files (e.g. AI-generator output) before importing: valid JSON + required fields + canonical passes its tests, via `run_submission`. |
 | `scripts/verify_bank.py` | Run every problem's canonical solution against its own tests (the whole on-disk bank — **both** content roots, default + extended), via the same `run_submission` path; prints per-problem pass/fail + statistics. `--content-dir <dir>` scopes to one root; args for slug/substring filtering, `-v`/`-q` verbosity, `-j` parallelism, `--failfast`, `--strict`. |
 | `scripts/import_collection.py` | Validate + bulk-import a staged `statements/`+`rest/` collection dir (e.g. `user_collection/`) into `content/` and the DB. Runs every existing gate (structural, sandbox behavioral, statement↔judge, slug-collision), imports only what passes, copies figures, carries hints. See `docs/importing-collections.md`. |
-| `scripts/strengthen_tests.py` | Machine-generate hidden test cases that catch buggy *user* solutions: fuzz/edge/mutation-guided selection over `app/testgen/`, canonical as oracle. `--dry-run` by default, `--apply` writes cases back. See `docs/test-strengthening.md`. |
-| `scripts/oracle.py` | Differential test-case analysis for **one** problem, driven by the `test-strengthener` agent: `suite` runs a candidate solution against the stored suite (does a wrong solution still pass?); `analyze` computes each input's `expected` from the canonical (the only oracle), gates it through the input validator, and — with `--solution` — flags inputs where a plausibly-wrong solution DIVERGES (the cases worth adding). Reasoning-driven complement to `strengthen_tests.py`; both go through `run_submission`. |
+| `scripts/strengthen_tests.py` | Batch sweep: generate hidden cases that widen behavioral **coverage** of the canonical (structural + execution tokens; mutant/population kills add-only) over `app/testgen/`. `--dry-run` by default, `--apply` writes cases back. See `docs/test-strengthening.md`. |
+| `scripts/oracle.py` | Single-problem hardening on the same `app/testgen` engine, agent-facing: `cover` (coverage-first selection — the backbone, no adversary needed), `fuzz --solution X --shrink` (a concrete failing solution IS in hand → keep every in-domain input it fails on, shrunk to minimal reproducers; **add-only**), `suite` (does a wrong solution slip the stored suite?), `analyze` (per-input oracle table). Canonical is the only oracle; every input gated through the validator; all via `run_submission`. |
 | `scripts/check_constraint_validators.py` · `generate_constraint_validators.py` | Audit / (LLM-)generate the per-problem input validators (`<root>/<slug>/input_validator/input_validator.py`): every stored test input must satisfy its problem's `validate_input()`. The checker audits **both** content roots (default + extended). Run it when adding test cases. See `docs/input-validators.md`. |
 | `tests/` | pytest (incl. adversarial executor tests). |
 | `docs/` · `specs/` · `.claude/` | Docs, content spec, Claude Code config. |
@@ -58,7 +58,9 @@ python scripts/verify_json.py test_output  # batch-verify loose problem JSON bef
 python scripts/verify_bank.py -j 8          # run every canonical solution against its tests
 python scripts/import_collection.py user_collection --dry-run  # validate a staged collection (statements/+rest/)
 python scripts/import_collection.py user_collection            # ...then import the ones that pass every gate
-python scripts/strengthen_tests.py --filter tree -j 8          # dry-run: generate discriminating hidden cases
+python scripts/strengthen_tests.py --filter tree -j 8          # dry-run: coverage-widening hidden cases (batch)
+python scripts/oracle.py cover <slug>                          # coverage-first hardening for one problem
+python scripts/oracle.py fuzz <slug> --solution bad.py --shrink  # add minimal cases a known-bad solution fails
 python scripts/check_constraint_validators.py                  # audit that every test input satisfies its validate_input()
 uvicorn app.main:app --reload              # dev server (http://127.0.0.1:8000)
 HOST=0.0.0.0 uvicorn app.main:app          # reachable on your home network
@@ -108,11 +110,13 @@ works for a fresh checkout.
   satisfy it (i.e. be in-bounds for the stated constraints) before you add it —
   run `python scripts/check_constraint_validators.py --slug <slug>`. See
   `docs/input-validators.md`. To *strengthen* a weak suite (a wrong solution
-  scores full marks — the "passes here, fails on LeetCode" gap), use the
-  **`test-strengthener` subagent** (reasoning-driven, per problem, via
-  `scripts/oracle.py`) or the mechanical **`scripts/strengthen_tests.py`** sweep;
-  both keep the canonical as the only oracle and gate every input through the
-  validator.
+  scores full marks — the "passes here, fails on LeetCode" gap), the principle is
+  **coverage keeps an input; wrong solutions only ever add cases, never veto one**
+  (see `docs/test-strengthening.md`). Use the **`test-strengthener` subagent** or
+  `scripts/oracle.py cover <slug>` (coverage-first) for one problem;
+  `oracle.py fuzz <slug> --solution X --shrink` when a concrete failing solution is
+  in hand; or the **`scripts/strengthen_tests.py`** sweep for the whole bank. All
+  keep the canonical as the only oracle and gate every input through the validator.
 - **LLM generation** comes in three modes depending on what's already given —
   fill-in (full statement / description-only) vs. from-scratch — sharing one
   "core" output contract. See `docs/problem-generation.md`. The in-app

@@ -2,52 +2,76 @@
 
 A tool that **machine-generates hidden test cases to catch buggy _user_
 solutions** — solutions that pass a problem's stored tests but are actually wrong.
-It trusts the canonical solution as the oracle (runs it to compute expected
-values) and selects the few inputs that best discriminate correct from buggy
-solutions, using **two kinds of discriminator**:
+It trusts the canonical solution as the oracle (runs it to compute every expected
+value) and selects the few inputs that most widen the suite's **behavioral
+coverage**.
 
-- **Mutants** of the canonical — small plausible-wrong edits (catch *local* bugs).
-- A **population** of independently-written LLM candidate solutions — some subtly
-  wrong (catch *from-scratch* bugs that mutation structurally can't; see below).
+## Coverage, not adversaries (the core principle)
 
-An input that makes a discriminator **disagree with the canonical** is a candidate
-hidden test. The model is never an oracle — it only supplies realistic wrong
-solutions to select against; the canonical computes every expected value.
+An input earns a hidden case by **exercising behavior the current suite doesn't
+cover** — full stop. It is *not* gated on whether some invented wrong solution (or
+canonical-mutant) happens to fail on it.
 
-> Status (2026-07-05): **APPLIED.** 274 hidden cases were written across 219
-> problems (`--apply --no-stress`, excluding 3 under-specified problems — see
-> below). The blocker that paused apply on 2026-07-04 — the generator emitting
-> *out-of-domain* inputs that would unfairly fail correct solutions (27 of the
-> owner's 93 solved solutions flagged, **all** by illegal inputs) — was closed by
-> gating every candidate through the problem's **stated-constraint validator**
-> (`content/problems/<slug>/input_validator/input_validator.py`; see "Fairness"
-> below, and `docs/input-validators.md`). Acceptance
-> re-run after the gate: **27 → 0** of the owner's correct solutions flagged by an
-> applied case. The stress case (T4) is **not** applied: it added zero
-> discriminating power (+696 mutant / +152 population kills with or without it) and
-> its oversized input/output poisons the app's single-batch grader
-> (`run_submission(code, prob, prob.tests)` — no chunking), so it can only be
-> served as a timing test, not baked as a correctness case. Every run is still
-> `--dry-run` by default. Rationale/findings: `test-strengthening-plan.md` (§11).
+This is a deliberate correction of an earlier design that scored each input by
+"does a member of our synthetic wrong-solution population fail on it?" — mutants
+for the sweep, hand-invented adversaries for the agent. Every such population has
+systematic blind spots, so that gate **discarded genuinely discriminating inputs**.
+The canonical demonstration: on `basic-calculator`, the input `(-(-6))-1` crashes a
+whole class of "evaluate the inner group, splice its value back as a string" wrong
+parsers, yet it kills *no* mutant of the sign-stack canonical (the stored suite
+already kills them all) — so mutation-guided selection scored it zero marginal
+value and threw it away. Under coverage it is kept on its own merits: it is the
+only case reaching a `)` while the canonical's running `result` is negative and the
+paren stack is ≥2 deep — a joint value regime no stored case covers.
 
-## Two ways to strengthen a suite
+**The rule everywhere:** coverage *keeps* an input; wrong solutions (mutants, the
+LLM population, or a concrete solution handed to you) may only ever *add* cases —
+they are just extra token universes, never a veto.
 
-This document covers the **mechanical sweep** (`scripts/strengthen_tests.py`) —
-best run bank-wide, it fuzzes and mutation-selects with no per-problem thought.
+### The coverage model (`app/testgen/`)
 
-For a single problem where a *specific* wrong solution scored full marks, there is
-also a **reasoning-driven** path: the **`test-strengthener` subagent**, which reads
-the statement/canonical, hypothesizes the exact bug classes the suite misses, writes
-the plausibly-wrong solutions a user would submit, and finds the in-domain input
-that separates each from the canonical — using `scripts/oracle.py` (`suite`:
-does a candidate slip through the stored suite? · `analyze`: which inputs make it
-diverge, and what is each one's canonical-computed `expected`?). It targets the
-*from-scratch* bugs mutation can't reach (see "Why two discriminator sources"),
-one problem at a time. Both paths share the two invariants below — **canonical is
-the only oracle**, **every input gated through the stated-constraint validator** —
-and both grade through `app.executor.run_submission`. Reach for the agent when you
-have a concrete failing solution in hand; reach for the sweep to harden the whole
-bank at once.
+Each candidate input is valued by the set of **coverage tokens** it covers, drawn
+from a union of universes — all computed from the input and the *trusted canonical*
+alone, no wrong solution required:
+
+| Universe | Module | What it captures |
+|----------|--------|------------------|
+| `feat:*` | `features.py` | Structural shape of the input (size/nesting/sign/dup/tie/sortedness buckets; expression paren-depth & unary; tree skew…). Solution-independent backbone. |
+| `line:*` | `coverage.py` | Statements/branches of the canonical the run executes. |
+| `val:*`  | `coverage.py` | Coarse **joint** signature of the canonical's live numeric & container locals per line (int sign, list/str length bucket). The joint is the point — it separates value regimes single-variable buckets miss. |
+| `out:*`  | `coverage.py` | Class of the returned value (sign/magnitude/shape). |
+| `('kill', i)` | `mutate.py` + `candidates.py` | **Add-only bonus:** a mutant or LLM-population solution `i` this input kills. Helps an input get picked; never gates one. |
+
+`select.py` runs a greedy set-cover over the union: baseline = the tokens the
+*existing* suite already covers; each pick adds the most new tokens (ties broken
+toward the smaller input, so cases stay compact); capped at `--cap`. `shrink.py`
+delta-debugs a fuzz catcher down to a minimal reproducer.
+
+### Two entry points, one engine
+
+- **`scripts/strengthen_tests.py`** — the batch sweep. Best run bank-wide; selects
+  coverage-widening cases per problem with no per-problem thought. `--dry-run` by
+  default; `--apply` writes cases back.
+- **`scripts/oracle.py`** — single-problem, agent-facing, same `app/testgen` engine:
+  - `cover <slug>` — coverage-first hardening (the backbone; no adversary needed).
+  - `fuzz <slug> --solution X [--shrink]` — when a concrete failing/suspect solution
+    is in hand, target it: keep every in-domain input it fails on, shrink to minimal
+    reproducers, add them (adversary **add-only**).
+  - `suite` / `analyze` — inspect whether a candidate slips the stored suite / read a
+    single input's canonical `expected`.
+
+Both share the two invariants: **the canonical is the only oracle** (it computes
+every `expected`), and **every input is gated through the stated-constraint
+validator** (`content/problems/<slug>/input_validator/input_validator.py`; see
+`docs/input-validators.md`). A validator that is too *weak* (wrongly accepts an
+out-of-domain input the fuzzer/shrinker can drift into) is itself a bug to fix — as
+`basic-calculator`'s charset-only validator was, replaced with a grammar check.
+
+> History: an earlier mutation/population-only sweep applied 274 hidden cases across
+> 219 problems (2026-07-05) after closing an out-of-domain-input fairness leak with
+> the validator gate (**27 → 0** of the owner's correct solutions wrongly flagged).
+> That accounting predates the coverage rewrite; mutants/population now live on as
+> add-only token universes. Rationale/findings: `test-strengthening-plan.md` (§11).
 
 ## Why
 

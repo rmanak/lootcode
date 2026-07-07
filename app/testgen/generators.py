@@ -114,6 +114,67 @@ def _rand_tree(rng: random.Random, size: int, lo: Optional[int], hi: Optional[in
 
 
 # --------------------------------------------------------------------------- #
+# Arithmetic-expression string params (calculator-style problems)
+#
+# A plain string fuzz emits random letters, which the input validator rejects
+# wholesale for an expression problem — so the pool never contains the *nested*
+# expressions where whole classes of wrong evaluators go wrong. When a string
+# param's seeds look like arithmetic, we instead generate structurally diverse
+# *valid* expressions (varying nesting depth, subtraction/`+` mix, unary-minus
+# after `(`, spacing). We only generate here; coverage decides which to keep.
+# --------------------------------------------------------------------------- #
+def looks_expression(vals: list) -> bool:
+    """Do these string values look like arithmetic expressions (digits/ops/parens)?"""
+    hit = 0
+    for s in vals:
+        if not isinstance(s, str) or not s:
+            continue
+        chars = set(s)
+        if chars <= set("0123456789+-*/()[]. ") and any(c in chars for c in "+-*/()"):
+            hit += 1
+    return hit >= 1
+
+
+def _gen_expression(rng: random.Random, max_depth: int,
+                    sub_bias: float = 0.6, space_prob: float = 0.25,
+                    max_int: int = 12) -> str:
+    """A random *valid* +/-/() integer expression up to ``max_depth`` nesting.
+
+    Deliberately compact (≤1 extra term per level) so selected cases stay small
+    and readable: depth 2 already reaches the nested-negative regime that trips
+    whole classes of wrong evaluators. Subtraction is over-weighted (``sub_bias``)
+    because that is what drives inner groups negative — the regime the seeds
+    (happy-path, mostly additive) leave uncovered. Unary minus is only ever
+    emitted right after ``(`` (the one place the statement permits it), never as a
+    leading top-level sign."""
+    def atom(depth: int) -> str:
+        if depth > 0 and rng.random() < 0.5:
+            inner = expr(depth - 1)
+            if rng.random() < 0.35:
+                return f"(-{inner})"
+            return f"({inner})"
+        return str(rng.randint(0, max_int))
+
+    def expr(depth: int) -> str:
+        parts = [atom(depth)]
+        for _ in range(rng.randint(0, 1) + (1 if depth == max_depth else 0)):
+            op = "-" if rng.random() < sub_bias else "+"
+            sp = " " if rng.random() < space_prob else ""
+            parts.append(f"{sp}{op}{sp}{atom(depth)}")
+        return "".join(parts)
+
+    return expr(max_depth)
+
+
+def _expr_edges() -> list[str]:
+    """Generic structural edges for an expression param (shape, not a specific answer):
+    single number, a parenthesized number, deep positive nesting, spacing, unary,
+    multi-digit. The *negative-inner-group* regime is left for random fuzz +
+    coverage selection to discover, not hard-coded here."""
+    return ["0", "(0)", "(((((7)))))", "1 + 2 + 3", "(-1)", "12 - 34"]
+
+
+# --------------------------------------------------------------------------- #
 # T1 — structured edge shapes (per param type)
 # --------------------------------------------------------------------------- #
 def _scalar_edges(base: str, lo: Optional[int], hi: Optional[int]) -> list[Any]:
@@ -646,11 +707,23 @@ def generate_candidates(params: list[dict], seeds: list[dict],
         if obs and _is_ops(obs):
             ops_vocab[p["name"]] = _learn_ops(obs)
 
+    # Detect arithmetic-expression string params (calculator-style): their seeds
+    # are digit/operator/paren strings. These get the grammar fuzzer, not letters.
+    expr_names: set[str] = set()
+    for p in params:
+        base, dims = parse_type(p["type"])
+        if dims == 0 and base in ("string", "str"):
+            obs = [s[p["name"]] for s in seeds if isinstance(s.get(p["name"]), str)]
+            if looks_expression(obs):
+                expr_names.add(p["name"])
+
     def gen_param(p: dict, size: int, small_ints: bool = True):
         name = p["name"]
         if name in ops_vocab:
             return _gen_ops_seq(rng, ops_vocab[name], rng.randint(1, max(2, size)),
                                 small_ints)
+        if name in expr_names:
+            return _gen_expression(rng, max_depth=rng.randint(1, 3))
         base, dims = parse_type(p["type"])
         lo, hi = eb(p)
         return _rand_value(rng, base, dims, lo, hi, size)
@@ -663,6 +736,8 @@ def generate_candidates(params: list[dict], seeds: list[dict],
         name = p["name"]
         if name in ops_vocab:
             evs = _ops_edges(rng, ops_vocab[name])
+        elif name in expr_names:
+            evs = _expr_edges()
         else:
             lo, hi = eb(p)
             evs = edge_values(p["type"], lo, hi)

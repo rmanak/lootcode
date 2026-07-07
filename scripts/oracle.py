@@ -19,18 +19,34 @@ Everything runs through the real judge (``app.executor.run_submission``), so
 `compare` semantics (exact / unordered / set_of_lists) and the rich-type codecs
 (TreeNode / ListNode / DoublyLinkedList) match the running app exactly.
 
+Coverage-first, adversaries add-only
+------------------------------------
+The suite's backbone is *behavioral coverage*, not "beat an invented wrong
+solution": an input earns a hidden case by exercising a structural/execution
+regime the current suite misses (see ``cover`` and docs/test-strengthening.md).
+A concrete wrong solution — invented or handed to you — only ever ADDS cases via
+``fuzz``; it never gates the coverage suite. This is the fix to the old flaw
+where a genuinely-discriminating input was discarded merely because no adversary
+or canonical-mutant happened to fail on it.
+
 Subcommands
 -----------
-  suite    Run a candidate solution against the problem's *stored* suite. A wrong
-           candidate that still solves it proves the suite is too weak — this is
-           the bug to close.
+  cover    Coverage-first hardening (the default backbone). Generates inputs and
+           selects the few that most widen behavioral coverage of the canonical —
+           no adversary required. Shares one engine with strengthen_tests.py.
 
-  analyze  For each candidate input, report: in-domain? (validator), the
-           canonical's output (== the correct `expected`), its runtime, and —
-           with ``--solution`` — whether the candidate DIVERGES from the canonical
-           there. Diverging in-domain inputs are printed back as ready-to-paste
-           hidden cases: they catch the candidate's bug while staying fair to
-           correct code.
+  fuzz     When a concrete failing/suspect solution IS in hand, target it: fuzz a
+           broad in-domain pool, keep every input on which it diverges from (or
+           crashes where) the canonical, shrink each to a minimal reproducer, and
+           add them. The reliable way to catch a known-bad solution — no guessing.
+
+  suite    Run a candidate solution against the problem's *stored* suite. A wrong
+           candidate that still solves it proves the suite is too weak.
+
+  analyze  Per-input oracle table: in-domain? (validator), the canonical's output
+           (== the correct `expected`), runtime, and — with ``--solution`` —
+           whether a candidate diverges there. Enrichment/inspection; to actually
+           harden, prefer ``cover`` (coverage) or ``fuzz`` (a concrete solution).
 
 Examples
 --------
@@ -47,6 +63,8 @@ Examples
 from __future__ import annotations
 
 import argparse
+import contextlib
+import io
 import json
 import pathlib
 import sys
@@ -59,6 +77,7 @@ sys.path.insert(0, str(_SCRIPTS_DIR))  # so sibling scripts (strengthen_tests) i
 from app import content              # noqa: E402
 from app.config import settings      # noqa: E402
 from app.executor import run_submission, _equal  # noqa: E402
+from app.executor.harness import _CODECS  # noqa: E402
 
 # A grade status of "passed"/"wrong" both mean the code *ran cleanly* and produced
 # a value (`.returned`); only "timeout"/"error" mean it never returned one. We
@@ -280,6 +299,203 @@ def cmd_analyze(args) -> int:
 
 
 # --------------------------------------------------------------------------- #
+# fuzz — when a concrete failing/suspect solution IS in hand, target it directly.
+#
+# This is the principled replacement for hand-inventing adversaries and hoping a
+# curated probe catches them. We generate a broad pool of in-domain inputs and
+# keep every one on which the provided solution diverges from (or crashes where)
+# the canonical, then shrink each to a minimal reproducer. Adversaries here only
+# ever ADD cases — never gate the coverage-driven suite (`cover`).
+# --------------------------------------------------------------------------- #
+def _append_cases(slug: str, cases: list[dict]) -> int:
+    path = settings.CONTENT_DIR / slug / "tests" / "cases.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
+    existing = {c["name"] for c in data.get("cases", [])}
+    n = 0
+    for c in cases:
+        name = c["name"]
+        while name in existing:
+            n += 1
+            name = f"{c['name']}-{n}"
+        existing.add(name)
+        data.setdefault("cases", []).append(
+            {"name": name, "input": c["input"], "expected": c["expected"],
+             "weight": 1, "hidden": True})
+    path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+    return len(cases)
+
+
+def _has_rich_type(prob: dict) -> bool:
+    types = [p.get("type", "") for p in prob.get("params", [])] + [prob.get("return_type", "")]
+    return any(tok in (t or "") for t in types for tok in _CODECS)
+
+
+def cmd_fuzz(args) -> int:
+    from app.testgen.generators import generate_candidates, GenConfig
+    from app.testgen.constraints import parse_constraints
+    from app.testgen.shrink import shrink
+
+    prob = _find_problem(args.slug)
+    if prob is None:
+        return _die(f"no problem '{args.slug}' in any content root")
+    canonical = (prob.get("canonical_solution") or "").strip()
+    if not canonical:
+        return _die(f"'{args.slug}' has no canonical solution to use as oracle")
+    cand_code = pathlib.Path(args.solution).read_text(encoding="utf-8")
+    prob_ns = _as_prob(prob)
+    compare = prob.get("compare", "exact")
+    params = prob.get("params", [])
+    validator = None if args.no_validator else _load_validator(args.slug, params)
+
+    bounds = parse_constraints(prob.get("statement_md", ""))
+    seeds = [t["input"] for t in prob["tests"]]
+    cfg = GenConfig(n_fuzz=args.fuzz, seed=args.seed, include_stress=False)
+    cands = generate_candidates(params, seeds, bounds, cfg, validator=validator)
+    inputs = [c.input for c in cands]
+
+    canon_res = _run(canonical, prob_ns, inputs)
+    cand_res = _run(cand_code, prob_ns, inputs)
+
+    catchers: list[tuple[int, dict]] = []   # (size, input)
+    for inp, cr, dr in zip(inputs, canon_res, cand_res):
+        if cr.status not in _RAN:
+            continue                         # canonical can't run it -> unusable
+        if validator is not None and not validator(inp):
+            continue
+        diverge = dr.status not in _RAN or not _equal(dr.returned, cr.returned, compare)
+        if diverge:
+            catchers.append((len(json.dumps(inp, default=str)), inp))
+
+    print(f"# fuzz: {args.slug}  ({len(inputs)} in-domain inputs, "
+          f"{len(catchers)} catch the candidate)")
+    if not catchers:
+        print("# candidate diverges on none — it agrees with the canonical here "
+              "(either correct, or the pool missed its bug; raise --fuzz).")
+        return 0
+
+    catchers.sort(key=lambda t: t[0])
+    can_shrink = not _has_rich_type(prob)
+    shrunk_inputs: list[dict] = []
+    seen: set[str] = set()
+    for _sz, inp in catchers:
+        best = _shrink_catcher(inp, canonical, cand_code, prob, compare,
+                               validator) if (args.shrink and can_shrink) else inp
+        key = json.dumps(best, default=str)
+        if key in seen:
+            continue
+        seen.add(key)
+        shrunk_inputs.append(best)
+        if len(shrunk_inputs) >= args.limit:
+            break
+
+    # Authoritative expected + confirm each still diverges, via the real judge.
+    fresh_canon = _run(canonical, prob_ns, shrunk_inputs)
+    fresh_cand = _run(cand_code, prob_ns, shrunk_inputs)
+    keep: list[dict] = []
+    for inp, cr, dr in zip(shrunk_inputs, fresh_canon, fresh_cand):
+        if cr.status not in _RAN:
+            continue
+        diverge = dr.status not in _RAN or not _equal(dr.returned, cr.returned, compare)
+        if not diverge:
+            continue
+        keep.append({"name": "hidden-fuzz", "input": inp, "expected": cr.returned})
+
+    for k in keep:
+        cand_r = _run(cand_code, prob_ns, [k["input"]])[0]
+        how = "crashes" if cand_r.status not in _RAN else f"returns {_trunc(cand_r.returned)}"
+        print(f"#   {json.dumps(k['input'])}  -> expected {_trunc(k['expected'])}  "
+              f"(candidate {how})")
+
+    if args.apply and keep:
+        added = _append_cases(args.slug, keep)
+        print(f"\n# applied {added} case(s) to content/problems/{args.slug}/tests/cases.json"
+              f" — now run check_constraint_validators.py --slug {args.slug} && seed.py && audit.py")
+    elif keep:
+        print("\n# paste-ready (add --apply to write, --shrink to minimize):")
+        print(json.dumps([{**k, "weight": 1, "hidden": True} for k in keep], indent=2))
+    return 0
+
+
+def _shrink_catcher(inp, canonical, cand_code, prob, compare, validator):
+    """Delta-debug a catcher to a minimal in-domain input the candidate still fails.
+
+    Uses fast in-process evaluation of the (trusted) canonical and the provided
+    candidate for the search; the caller re-verifies the result through the real
+    judge. Only used for non-rich-type problems."""
+    import signal as _signal
+    fname = (prob.get("function_name") or "").strip()
+
+    def _compile(code):
+        g: dict = {}
+        exec(compile(code, "<s>", "exec"), g)  # noqa: S102 - authoring tool, operator-provided
+        return g[fname]
+    try:
+        cf, df = _compile(canonical), _compile(cand_code)
+    except Exception:  # noqa: BLE001
+        return inp
+
+    def _run1(fn, d):
+        def _a(*_):
+            raise TimeoutError
+        old = _signal.signal(_signal.SIGALRM, _a)
+        _signal.setitimer(_signal.ITIMER_REAL, 0.5)
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):  # mute solution debug prints
+                return ("ok", fn(**d))
+        except Exception:  # noqa: BLE001
+            return ("err", None)
+        finally:
+            _signal.setitimer(_signal.ITIMER_REAL, 0)
+            _signal.signal(_signal.SIGALRM, old)
+
+    def keep(d) -> bool:
+        if validator is not None and not validator(d):
+            return False
+        ck, cv = _run1(cf, d)
+        if ck != "ok":
+            return False                      # canonical must run cleanly
+        dk, dv = _run1(df, d)
+        return dk != "ok" or not _equal(dv, cv, compare)
+
+    if not keep(inp):
+        return inp
+    from app.testgen.shrink import shrink
+    return shrink(inp, keep)
+
+
+def cmd_cover(args) -> int:
+    """Coverage-first hardening for one problem via the shared app.testgen engine
+    (the same engine strengthen_tests.py drives in batch) — selects inputs that
+    widen behavioral coverage, no adversary required."""
+    from strengthen_tests import strengthen, apply_cases  # sibling; shares the engine
+    from app.testgen import GenConfig
+
+    by_slug = {p["slug"]: p for p in content.load_all()}
+    if args.slug not in by_slug:
+        return _die(f"no problem '{args.slug}' in any content root")
+    cfg = GenConfig(n_fuzz=args.fuzz, seed=args.seed, include_stress=not args.no_stress)
+    rep = strengthen(by_slug[args.slug], cfg, cap=args.cap, mut_cap=args.mut_cap,
+                     use_population=args.population)
+    if rep.status != "ok":
+        print(f"# cover: {args.slug} — {rep.status}: {rep.error or ''}")
+        return 0
+    print(f"# cover: {args.slug}  coverage {rep.killed_before}->{rep.killed_after}"
+          f"/{rep.killable} tokens; +{len(rep.selected)} case(s)")
+    for s in rep.selected:
+        print(f"#   {json.dumps(s['input'])}  -> expected {_trunc(s['expected'])}")
+    if args.apply and rep.selected:
+        applied = apply_cases(args.slug, rep.selected)
+        print(f"\n# applied {applied} case(s) — now run "
+              f"check_constraint_validators.py --slug {args.slug} && seed.py && audit.py")
+    elif rep.selected:
+        print("\n# paste-ready (add --apply to write):")
+        print(json.dumps([{"name": s["name"], "input": s["input"],
+                           "expected": s["expected"], "weight": 1, "hidden": True}
+                          for s in rep.selected], indent=2))
+    return 0
+
+
+# --------------------------------------------------------------------------- #
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -300,6 +516,32 @@ def main(argv=None) -> int:
     a.add_argument("--no-validator", action="store_true",
                    help="skip the in-domain fairness gate")
     a.set_defaults(func=cmd_analyze)
+
+    f = sub.add_parser("fuzz", help="differential-fuzz a concrete solution; add every "
+                                    "in-domain input it fails on (adversary add-only)")
+    f.add_argument("slug")
+    f.add_argument("--solution", required=True, help="path to the suspect/failing .py")
+    f.add_argument("--fuzz", type=int, default=200, help="candidate inputs to generate")
+    f.add_argument("--limit", type=int, default=3, help="max minimal catchers to report")
+    f.add_argument("--shrink", action="store_true",
+                   help="delta-debug each catcher to a minimal reproducer")
+    f.add_argument("--apply", action="store_true", help="append catchers to cases.json")
+    f.add_argument("--no-validator", action="store_true", help="skip the in-domain gate")
+    f.add_argument("--seed", type=int, default=1234)
+    f.set_defaults(func=cmd_fuzz)
+
+    c = sub.add_parser("cover", help="coverage-first hardening (shared engine; no "
+                                     "adversary needed) — select inputs that widen coverage")
+    c.add_argument("slug")
+    c.add_argument("--cap", type=int, default=12, help="max new cases")
+    c.add_argument("--mut-cap", type=int, default=60)
+    c.add_argument("--fuzz", type=int, default=80)
+    c.add_argument("--no-stress", action="store_true")
+    c.add_argument("--seed", type=int, default=1234)
+    c.add_argument("--population", action=argparse.BooleanOptionalAction, default=False,
+                   help="also fold in cached LLM candidate kills as a token universe")
+    c.add_argument("--apply", action="store_true", help="write selected cases back")
+    c.set_defaults(func=cmd_cover)
 
     args = ap.parse_args(argv)
     return args.func(args)
