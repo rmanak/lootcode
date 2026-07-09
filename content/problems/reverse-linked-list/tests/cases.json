@@ -356,6 +356,45 @@
       "expected": [],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "head": [
+          4
+        ]
+      },
+      "expected": [
+        4
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "head": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "head": [
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": [
+        1,
+        1,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

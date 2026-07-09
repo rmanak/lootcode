@@ -240,6 +240,92 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "nums": [
+          0
+        ],
+        "val": 98
+      },
+      "expected": [
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "nums": [
+          1,
+          1
+        ],
+        "val": 0
+      },
+      "expected": [
+        1,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "nums": [
+          30,
+          42
+        ],
+        "val": 1
+      },
+      "expected": [
+        30,
+        42
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "nums": [],
+        "val": 0
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "nums": [
+          5
+        ],
+        "val": 3
+      },
+      "expected": [
+        5
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "nums": [
+          0,
+          1
+        ],
+        "val": 78
+      },
+      "expected": [
+        0,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

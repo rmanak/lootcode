@@ -190,6 +190,141 @@
       "expected": 4.5,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "nums1": [
+          18
+        ],
+        "nums2": [
+          -39
+        ]
+      },
+      "expected": -10.5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "nums1": [
+          0,
+          1
+        ],
+        "nums2": []
+      },
+      "expected": 0.5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "nums1": [],
+        "nums2": [
+          -33,
+          7
+        ]
+      },
+      "expected": -13.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "nums1": [],
+        "nums2": [
+          0,
+          0,
+          0
+        ]
+      },
+      "expected": 0.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "nums1": [
+          -45
+        ],
+        "nums2": [
+          0,
+          1
+        ]
+      },
+      "expected": 0.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "nums1": [
+          1
+        ],
+        "nums2": [
+          2,
+          2,
+          2
+        ]
+      },
+      "expected": 2.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "nums1": [
+          0,
+          0,
+          0
+        ],
+        "nums2": [
+          32
+        ]
+      },
+      "expected": 0.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "nums1": [
+          -9,
+          0,
+          3,
+          7
+        ],
+        "nums2": [
+          -3,
+          8
+        ]
+      },
+      "expected": 1.5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "nums1": [
+          -6,
+          -4,
+          2,
+          7,
+          7
+        ],
+        "nums2": []
+      },
+      "expected": 2.0,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -71,6 +71,177 @@
       "expected": 1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-6",
+      "input": {
+        "s": "V"
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-7",
+      "input": {
+        "s": "X"
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "L"
+      },
+      "expected": 50,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "C"
+      },
+      "expected": 100,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-10",
+      "input": {
+        "s": "D"
+      },
+      "expected": 500,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "s": "M"
+      },
+      "expected": 1000,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "s": "XC"
+      },
+      "expected": 90,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "s": "CD"
+      },
+      "expected": 400,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "s": "CM"
+      },
+      "expected": 900,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "s": "DC"
+      },
+      "expected": 600,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-16",
+      "input": {
+        "s": "DCC"
+      },
+      "expected": 700,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-17",
+      "input": {
+        "s": "DCCC"
+      },
+      "expected": 800,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-18",
+      "input": {
+        "s": "MM"
+      },
+      "expected": 2000,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-19",
+      "input": {
+        "s": "CC"
+      },
+      "expected": 200,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-20",
+      "input": {
+        "s": "VI"
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-21",
+      "input": {
+        "s": "VII"
+      },
+      "expected": 7,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-22",
+      "input": {
+        "s": "VIII"
+      },
+      "expected": 8,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-23",
+      "input": {
+        "s": "MCM"
+      },
+      "expected": 1900,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-24",
+      "input": {
+        "s": "MMM"
+      },
+      "expected": 3000,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

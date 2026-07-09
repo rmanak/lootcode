@@ -206,6 +206,94 @@
       "expected": 1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "grid": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            1,
+            2
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "grid": [
+          [
+            2,
+            1,
+            1
+          ]
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "grid": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "grid": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            2
+          ]
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "grid": [
+          [
+            0,
+            1,
+            2
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

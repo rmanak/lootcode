@@ -759,6 +759,78 @@
       "expected": 2,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "intervals": [
+          [
+            -6,
+            -2
+          ],
+          [
+            -2,
+            3
+          ],
+          [
+            -4,
+            -1
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "intervals": [
+          [
+            0,
+            4
+          ]
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "intervals": [
+          [
+            18,
+            43
+          ]
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz",
+      "input": {
+        "intervals": [
+          [
+            6,
+            7
+          ],
+          [
+            5,
+            9
+          ],
+          [
+            7,
+            11
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

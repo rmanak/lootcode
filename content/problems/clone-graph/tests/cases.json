@@ -302,6 +302,21 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "adjList": [
+          [],
+          []
+        ]
+      },
+      "expected": [
+        [],
+        []
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

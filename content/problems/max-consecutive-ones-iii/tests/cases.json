@@ -427,6 +427,38 @@
       "expected": 15,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "nums": [
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        "k": 2
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "nums": [
+          1,
+          1,
+          1
+        ],
+        "k": 3
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

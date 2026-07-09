@@ -227,6 +227,60 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "head": [
+          -25,
+          8
+        ],
+        "k": 1
+      },
+      "expected": [
+        8,
+        -25
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "head": [
+          11
+        ],
+        "k": 0
+      },
+      "expected": [
+        11
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "head": [
+          0
+        ],
+        "k": 99
+      },
+      "expected": [
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "head": [],
+        "k": 2000000000
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

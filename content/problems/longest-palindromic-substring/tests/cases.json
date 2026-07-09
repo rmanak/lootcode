@@ -98,6 +98,60 @@
       "expected": "aaa",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "s": "aa"
+      },
+      "expected": "aa",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "s": "bcdddd"
+      },
+      "expected": "dddd",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "s": "abdcdfgdcaba"
+      },
+      "expected": "dcd",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "s": "bdc"
+      },
+      "expected": "b",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "s": "aaba"
+      },
+      "expected": "aba",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "s": "aqlguh"
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

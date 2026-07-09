@@ -224,6 +224,225 @@
       "expected": -8,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-single-negative-element",
+      "input": {
+        "nums": [
+          -804
+        ],
+        "k": 1
+      },
+      "expected": -804,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-zero-negative-min",
+      "input": {
+        "nums": [
+          0,
+          -2
+        ],
+        "k": 2
+      },
+      "expected": -2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-mixed-with-zero-k1",
+      "input": {
+        "nums": [
+          5,
+          0,
+          1,
+          3,
+          6
+        ],
+        "k": 1
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-mixed-sign-medium",
+      "input": {
+        "nums": [
+          -882,
+          -874,
+          829,
+          -144,
+          114
+        ],
+        "k": 2
+      },
+      "expected": 114,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-extreme-values",
+      "input": {
+        "nums": [
+          -1000000000,
+          1000000000,
+          0
+        ],
+        "k": 2
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-all-zeros",
+      "input": {
+        "nums": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "k": 3
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-two-elements-k1",
+      "input": {
+        "nums": [
+          -5,
+          3
+        ],
+        "k": 1
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-sorted-ascending-k1",
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "k": 1
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-sorted-descending-kn",
+      "input": {
+        "nums": [
+          5,
+          4,
+          3,
+          2,
+          1
+        ],
+        "k": 5
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-all-same-negative",
+      "input": {
+        "nums": [
+          -3,
+          -3,
+          -3,
+          -3
+        ],
+        "k": 2
+      },
+      "expected": -3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-heavy-duplicates",
+      "input": {
+        "nums": [
+          5,
+          5,
+          5,
+          5,
+          3,
+          3,
+          3,
+          1,
+          1
+        ],
+        "k": 5
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-min-bound-max",
+      "input": {
+        "nums": [
+          -1000000000,
+          -1000000000,
+          -999999999
+        ],
+        "k": 1
+      },
+      "expected": -999999999,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-max-bound-min",
+      "input": {
+        "nums": [
+          1000000000,
+          1000000000,
+          999999999
+        ],
+        "k": 3
+      },
+      "expected": 999999999,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-single-negative-bound",
+      "input": {
+        "nums": [
+          -1000000000
+        ],
+        "k": 1
+      },
+      "expected": -1000000000,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-single-positive-bound",
+      "input": {
+        "nums": [
+          1000000000
+        ],
+        "k": 1
+      },
+      "expected": 1000000000,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

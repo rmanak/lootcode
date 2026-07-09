@@ -119,6 +119,46 @@
       "expected": "EEBCBECDAEDCCE",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s": "PAYPALISHIRING",
+        "numRows": 2
+      },
+      "expected": "PYAIHRNAPLSIIG",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "s": "l",
+        "numRows": 71
+      },
+      "expected": "l",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "s": "EACEAEDCDD",
+        "numRows": 3
+      },
+      "expected": "EADAEECDCD",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "s": "cqzyn",
+        "numRows": 1000
+      },
+      "expected": "cqzyn",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

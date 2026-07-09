@@ -217,6 +217,85 @@
       "expected": 1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "nums": [
+          70,
+          -67
+        ],
+        "target": 12
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "nums": [
+          -70,
+          163
+        ],
+        "target": -5
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "nums": [
+          3
+        ],
+        "target": -2
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+{
+      "name": "gen-7",
+      "input": {
+        "nums": [
+          -474,
+          460,
+          909,
+          960
+        ],
+        "target": 27
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+{
+      "name": "gen-9",
+      "input": {
+        "nums": [
+          0
+        ],
+        "target": 1
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "nums": [
+          869,
+          -621,
+          434
+        ],
+        "target": -46
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

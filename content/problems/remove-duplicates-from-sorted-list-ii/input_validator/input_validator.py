@@ -15,4 +15,8 @@ def validate_input(head):
     for x in head:
         if not isinstance(x, int) or isinstance(x, bool):
             return False
+    # Enforce non-decreasing order (problem constraint: "sorted in non-decreasing order")
+    for i in range(1, len(head)):
+        if head[i] < head[i - 1]:
+            return False
     return True

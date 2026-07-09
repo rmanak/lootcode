@@ -188,6 +188,36 @@
       "expected": 11,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "tasks": [
+          "D",
+          "D"
+        ],
+        "n": 1
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-minimal-many-types",
+      "input": {
+        "tasks": [
+          "A",
+          "A",
+          "B",
+          "B",
+          "C",
+          "C"
+        ],
+        "n": 1
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

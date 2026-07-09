@@ -119,6 +119,86 @@
       "expected": 3,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "text1": "bb",
+        "text2": "aa"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "text1": "aab",
+        "text2": "a"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "text1": "ab",
+        "text2": "b"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "text1": "c",
+        "text2": "cb"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "text1": "dca",
+        "text2": "ab"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "text1": "c",
+        "text2": "a"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "text1": "bbbbb",
+        "text2": "a"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "text1": "b",
+        "text2": "aaaaad"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -119,6 +119,56 @@
       "expected": 4,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s": "AAAA",
+        "k": 1
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz",
+      "input": {
+        "s": "DAA",
+        "k": 0
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-1",
+      "input": {
+        "s": "CBB",
+        "k": 1
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-2",
+      "input": {
+        "s": "ABB",
+        "k": 0
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-3",
+      "input": {
+        "s": "ABA",
+        "k": 1
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

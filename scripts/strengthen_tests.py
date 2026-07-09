@@ -78,8 +78,17 @@ CANDIDATE_CACHE = (pathlib.Path(__file__).resolve().parent.parent
 # no real bugs).
 
 
+def _find_slug_root(slug: str) -> pathlib.Path | None:
+    """Find the content root directory containing a slug (default or extended)."""
+    for root in settings.content_dirs:
+        if (root / slug / "meta.json").exists():
+            return root
+    return None
+
+
 def _validator_file(slug: str) -> pathlib.Path:
-    return settings.CONTENT_DIR / slug / "input_validator" / "input_validator.py"
+    root = _find_slug_root(slug) or settings.CONTENT_DIR
+    return root / slug / "input_validator" / "input_validator.py"
 
 
 def _load_input_validator(slug: str, params: list[dict]):
@@ -674,7 +683,8 @@ def strengthen(p: dict, cfg: GenConfig, cap: int, mut_cap: int,
 
 def apply_cases(slug: str, selected: list[dict]) -> int:
     """Append selected cases (as hidden) to tests/cases.json, preserving the rest."""
-    path = settings.CONTENT_DIR / slug / "tests" / "cases.json"
+    root = _find_slug_root(slug) or settings.CONTENT_DIR
+    path = root / slug / "tests" / "cases.json"
     data = json.loads(path.read_text(encoding="utf-8"))
     cases = data.get("cases", [])
     for s in selected:

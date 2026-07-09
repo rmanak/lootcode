@@ -187,6 +187,195 @@
       "expected": "cd",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "words": [
+          "ltmutw",
+          "fou",
+          "caaa",
+          "adbd",
+          "ab",
+          "c",
+          "addcbd"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "words": [
+          "n",
+          "ca",
+          "ba",
+          "e",
+          "acacaa",
+          "awyj"
+        ]
+      },
+      "expected": "jncbeawy",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "words": [
+          "bc",
+          "aqlguh",
+          "b",
+          "vy",
+          "bbbb",
+          "cccbb",
+          "aajws",
+          "abba"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "words": [
+          "bbba",
+          "cb",
+          "bb",
+          "qjjm",
+          "bb",
+          "vx",
+          "cabc"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "words": [
+          "ule",
+          "wo",
+          "cdc",
+          "baab",
+          "bjr",
+          "bddcca"
+        ]
+      },
+      "expected": "aejdloruwcb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "words": [
+          "cccdb",
+          "babaa",
+          "aac",
+          "ukpnh",
+          "bb",
+          "ivtkqd",
+          "az",
+          "adac"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "words": [
+          "aabba",
+          "pybc",
+          "b",
+          "cdaca"
+        ]
+      },
+      "expected": "adpbcy",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "words": [
+          "dadad",
+          "ab",
+          "ccb",
+          "bac",
+          "bb"
+        ]
+      },
+      "expected": "dacb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "words": [
+          "zjuloh",
+          "aab",
+          "lvqpx",
+          "bbc"
+        ]
+      },
+      "expected": "chjopquvxzalb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-11",
+      "input": {
+        "words": [
+          "bbbdd",
+          "kqizn",
+          "vsp",
+          "cb"
+        ]
+      },
+      "expected": "bdiknpqsvcz",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-12",
+      "input": {
+        "words": [
+          "b",
+          "c",
+          "wfioi",
+          "abccad",
+          "h",
+          "aagsm"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-13",
+      "input": {
+        "words": [
+          "a",
+          "bba",
+          "cgcl",
+          "dca"
+        ]
+      },
+      "expected": "abcdgl",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

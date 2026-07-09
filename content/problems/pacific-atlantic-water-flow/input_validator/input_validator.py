@@ -13,11 +13,15 @@ def validate_input(heights):
     m = len(heights)
     if not (1 <= m <= 200):
         return False
+    if not isinstance(heights[0], list):
+        return False
+    n = len(heights[0])
+    if not (1 <= n <= 200):
+        return False
     for row in heights:
         if not isinstance(row, list):
             return False
-        n = len(row)
-        if not (1 <= n <= 200):
+        if len(row) != n:
             return False
         for h in row:
             if isinstance(h, bool) or not isinstance(h, int):

@@ -503,6 +503,167 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            4
+          ]
+        ]
+      },
+      "expected": [
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            4
+          ],
+          [
+            "addNum",
+            5
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            2
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "addNum",
+            3
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        2.0,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            2
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "findMedian"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        2.0,
+        2.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            6
+          ],
+          [
+            "findMedian"
+          ],
+          [
+            "addNum",
+            4
+          ],
+          [
+            "addNum",
+            2
+          ],
+          [
+            "addNum",
+            2
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        6.0,
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "operations": [
+          [
+            "addNum",
+            1
+          ],
+          [
+            "addNum",
+            1
+          ],
+          [
+            "addNum",
+            1
+          ],
+          [
+            "addNum",
+            5
+          ],
+          [
+            "addNum",
+            1
+          ],
+          [
+            "findMedian"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        1.0
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

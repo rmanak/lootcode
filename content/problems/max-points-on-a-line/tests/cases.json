@@ -293,6 +293,70 @@
       "expected": 2,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "points": [
+          [
+            5,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            -1,
+            4
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "points": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            4,
+            3
+          ]
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

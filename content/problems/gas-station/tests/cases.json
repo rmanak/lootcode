@@ -225,6 +225,72 @@
       "expected": -1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "gas": [
+          2,
+          2
+        ],
+        "cost": [
+          2,
+          5
+        ]
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "gas": [
+          3,
+          2,
+          3
+        ],
+        "cost": [
+          1,
+          1,
+          0
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "gas": [
+          21
+        ],
+        "cost": [
+          18
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "gas": [
+          4,
+          5,
+          1
+        ],
+        "cost": [
+          1,
+          6,
+          2
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

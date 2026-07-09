@@ -206,6 +206,264 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "operations": [
+          [
+            "insert",
+            2
+          ],
+          [
+            "insert",
+            5
+          ],
+          [
+            "remove",
+            5
+          ],
+          [
+            "remove",
+            4
+          ],
+          [
+            "getRandom"
+          ],
+          [
+            "getRandom"
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        true,
+        false,
+        2,
+        2
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "operations": [
+          [
+            "remove",
+            3
+          ],
+          [
+            "remove",
+            3
+          ],
+          [
+            "insert",
+            3
+          ],
+          [
+            "insert",
+            2
+          ],
+          [
+            "remove",
+            2
+          ],
+          [
+            "RandomizedSet"
+          ],
+          [
+            "insert",
+            5
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        false,
+        true,
+        true,
+        true,
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "operations": [
+          [
+            "remove",
+            1
+          ],
+          [
+            "remove",
+            3
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "operations": [
+          [
+            "insert",
+            1
+          ],
+          [
+            "RandomizedSet"
+          ],
+          [
+            "insert",
+            2
+          ],
+          [
+            "insert",
+            5
+          ],
+          [
+            "insert",
+            6
+          ],
+          [
+            "getRandom"
+          ],
+          [
+            "RandomizedSet"
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        null,
+        true,
+        true,
+        true,
+        2,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+{
+      "name": "gen-8",
+      "input": {
+        "operations": [
+          [
+            "insert",
+            5
+          ],
+          [
+            "remove",
+            5
+          ],
+          [
+            "RandomizedSet"
+          ]
+        ]
+      },
+      "expected": [
+        true,
+        true,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "operations": [
+          [
+            "remove",
+            5
+          ],
+          [
+            "RandomizedSet"
+          ],
+          [
+            "remove",
+            4
+          ],
+          [
+            "RandomizedSet"
+          ],
+          [
+            "insert",
+            1
+          ],
+          [
+            "getRandom"
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        null,
+        false,
+        null,
+        true,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-11",
+      "input": {
+        "operations": [
+          [
+            "remove",
+            3
+          ],
+          [
+            "insert",
+            3
+          ],
+          [
+            "remove",
+            5
+          ],
+          [
+            "remove",
+            5
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-13",
+      "input": {
+        "operations": [
+          [
+            "remove",
+            1
+          ]
+        ]
+      },
+      "expected": [
+        false
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

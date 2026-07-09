@@ -125,6 +125,42 @@
       "expected": false,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "s": "*)"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "s": "(*"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-14",
+      "input": {
+        "s": "("
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "s": ")*"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

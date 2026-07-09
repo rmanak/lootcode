@@ -200,6 +200,54 @@
       "expected": 1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-fuzz",
+      "input": {
+        "nums": [
+          2,
+          3,
+          1,
+          0,
+          0
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-1",
+      "input": {
+        "nums": [
+          3,
+          0,
+          4,
+          1,
+          0,
+          0
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-2",
+      "input": {
+        "nums": [
+          4,
+          5,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

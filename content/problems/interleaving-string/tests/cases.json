@@ -164,6 +164,61 @@
       "expected": true,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s1": "bd",
+        "s2": "aa",
+        "s3": "abbb"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "s1": "albst",
+        "s2": "c",
+        "s3": "rfsbiq"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "s1": "baca",
+        "s2": "bc",
+        "s3": "ccbbca"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "s1": "bbab",
+        "s2": "",
+        "s3": "aaba"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "s1": "",
+        "s2": "b",
+        "s3": "a"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

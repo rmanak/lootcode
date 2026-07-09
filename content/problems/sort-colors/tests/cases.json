@@ -292,6 +292,73 @@
       "expected": [],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "nums": [
+          1,
+          0
+        ]
+      },
+      "expected": [
+        0,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "nums": [
+          0
+        ]
+      },
+      "expected": [
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "nums": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "nums": [
+          0,
+          1
+        ]
+      },
+      "expected": [
+        0,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "nums": [
+          1,
+          1
+        ]
+      },
+      "expected": [
+        1,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

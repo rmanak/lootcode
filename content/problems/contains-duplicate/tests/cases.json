@@ -156,6 +156,41 @@
       "expected": false,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "nums": [
+          -33,
+          7
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "nums": [
+          0
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "nums": [
+          0,
+          1
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

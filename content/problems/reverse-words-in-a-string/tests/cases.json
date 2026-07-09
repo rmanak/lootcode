@@ -53,6 +53,51 @@
       "expected": "trail",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s": "a"
+      },
+      "expected": "a",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "s": "aa"
+      },
+      "expected": "aa",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz",
+      "input": {
+        "s": " l"
+      },
+      "expected": "l",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-1",
+      "input": {
+        "s": "l "
+      },
+      "expected": "l",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-2",
+      "input": {
+        "s": "d "
+      },
+      "expected": "d",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

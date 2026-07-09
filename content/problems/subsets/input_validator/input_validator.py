@@ -15,4 +15,6 @@ def validate_input(nums):
     for x in nums:
         if not isinstance(x, int) or isinstance(x, bool):
             return False
+    if len(nums) != len(set(nums)):
+        return False
     return True

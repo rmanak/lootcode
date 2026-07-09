@@ -89,7 +89,9 @@ def _lookup(bounds: dict, keys: list[str]) -> tuple[Optional[int], Optional[int]
 
 def elem_bounds(bounds: dict, param: str) -> tuple[Optional[int], Optional[int]]:
     """Value range for the *elements* of an array param (``nums[i]`` forms)."""
-    return _lookup(bounds, [f"{param}[i]", f"{param}[i][j]", f"{param}[j]"])
+    # Try more-specific (deeper-indexed) forms first so that e.g. board[i][j]
+    # is preferred over board[i] when both are present in the bounds dict.
+    return _lookup(bounds, [f"{param}[i][j]", f"{param}[i]", f"{param}[j]"])
 
 
 def size_bounds(bounds: dict, param: str) -> tuple[Optional[int], Optional[int]]:

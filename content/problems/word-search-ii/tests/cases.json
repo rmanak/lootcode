@@ -228,6 +228,326 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "board": [
+          [
+            "e",
+            "a",
+            "a",
+            "c"
+          ],
+          [
+            "o",
+            "c",
+            "c",
+            "c"
+          ]
+        ],
+        "words": [
+          "ccaac",
+          "abccd",
+          "jjmce",
+          "cdbbd",
+          "cbb"
+        ]
+      },
+      "expected": [
+        "ccaac"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "board": [
+          [
+            "c",
+            "b"
+          ],
+          [
+            "a",
+            "a"
+          ]
+        ],
+        "words": [
+          "accc",
+          "aaccac",
+          "b",
+          "bccc",
+          "a",
+          "jns"
+        ]
+      },
+      "expected": [
+        "b",
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "board": [
+          [
+            "o",
+            "a",
+            "a",
+            "b"
+          ]
+        ],
+        "words": [
+          "cdaca",
+          "ca",
+          "a",
+          "baaa",
+          "wgf",
+          "baadab",
+          "bab",
+          "b"
+        ]
+      },
+      "expected": [
+        "a",
+        "b"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "board": [
+          [
+            "i",
+            "c",
+            "c",
+            "r"
+          ],
+          [
+            "e",
+            "a",
+            "a",
+            "a"
+          ],
+          [
+            "i",
+            "a",
+            "l",
+            "r"
+          ]
+        ],
+        "words": [
+          "aa",
+          "dca",
+          "cdb"
+        ]
+      },
+      "expected": [
+        "aa"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "board": [
+          [
+            "b",
+            "b"
+          ],
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "words": [
+          "da",
+          "c",
+          "bb",
+          "ca",
+          "ccdb"
+        ]
+      },
+      "expected": [
+        "bb"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "board": [
+          [
+            "o",
+            "a",
+            "a",
+            "b"
+          ]
+        ],
+        "words": [
+          "baacb",
+          "yqr",
+          "ac",
+          "abbaa",
+          "babab",
+          "lol",
+          "bbbabb",
+          "d"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "board": [
+          [
+            "b",
+            "b"
+          ],
+          [
+            "b",
+            "c"
+          ]
+        ],
+        "words": [
+          "bba",
+          "cbaba"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "board": [
+          [
+            "o",
+            "c",
+            "a",
+            "c"
+          ]
+        ],
+        "words": [
+          "bcab",
+          "c"
+        ]
+      },
+      "expected": [
+        "c"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "board": [
+          [
+            "o",
+            "b",
+            "a",
+            "b"
+          ],
+          [
+            "e",
+            "t",
+            "b",
+            "a"
+          ],
+          [
+            "e",
+            "c",
+            "a",
+            "a"
+          ]
+        ],
+        "words": [
+          "abcacc"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "board": [
+          [
+            "c",
+            "c"
+          ]
+        ],
+        "words": [
+          "ca",
+          "llnjm",
+          "jiwtfo",
+          "ba",
+          "osuye"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-11",
+      "input": {
+        "board": [
+          [
+            "e",
+            "a",
+            "a",
+            "b"
+          ]
+        ],
+        "words": [
+          "a"
+        ]
+      },
+      "expected": [
+        "a"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-12",
+      "input": {
+        "board": [
+          [
+            "b",
+            "c"
+          ],
+          [
+            "c",
+            "b"
+          ],
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "words": [
+          "db",
+          "ccbaa"
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

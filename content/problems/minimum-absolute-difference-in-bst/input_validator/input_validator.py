@@ -10,7 +10,7 @@ Do not edit by hand; re-run the generator instead.
 def validate_input(root):
     if not isinstance(root, list):
         return False
-    
+
     # The number of nodes in the tree is in the range [2, 10^4].
     # In LeetCode level-order representation, 'null' (None) represents missing children.
     # We must count only the actual nodes (non-None values) to check the node count constraint.
@@ -23,8 +23,53 @@ def validate_input(root):
         if not (0 <= item <= 10**5):
             return False
         node_count += 1
-    
+
     if not (2 <= node_count <= 10**4):
         return False
-        
+
+    # The problem states the input is a Binary Search Tree (BST).
+    # Build the tree from level-order and verify the BST property:
+    # for every node, all values in left subtree < node.val < all values in right subtree.
+    if not _is_valid_bst(root):
+        return False
+
     return True
+
+
+def _is_valid_bst(level_order):
+    """Check if the level-order array represents a valid BST (strict ordering)."""
+    if not level_order or level_order[0] is None:
+        return True
+
+    # Build tree nodes as a simple dict: index -> value
+    class _N:
+        __slots__ = ('v', 'l', 'r')
+        def __init__(self, v):
+            self.v = v
+            self.l = None
+            self.r = None
+
+    root = _N(level_order[0])
+    queue = [root]
+    i = 1
+    while queue and i < len(level_order):
+        node = queue.pop(0)
+        if i < len(level_order) and level_order[i] is not None:
+            node.l = _N(level_order[i])
+            queue.append(node.l)
+        i += 1
+        if i < len(level_order) and level_order[i] is not None:
+            node.r = _N(level_order[i])
+            queue.append(node.r)
+        i += 1
+
+    def check(n, lo, hi):
+        if n is None:
+            return True
+        if lo is not None and n.v <= lo:
+            return False
+        if hi is not None and n.v >= hi:
+            return False
+        return check(n.l, lo, n.v) and check(n.r, n.v, hi)
+
+    return check(root, None, None)

@@ -169,6 +169,156 @@
       "expected": -1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "dividend": 0,
+        "divisor": -39
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "dividend": 45,
+        "divisor": -15
+      },
+      "expected": -3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "dividend": 2,
+        "divisor": 3
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "dividend": -1,
+        "divisor": 4
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "dividend": -1,
+        "divisor": 1
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "dividend": 4,
+        "divisor": -7
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "dividend": -1,
+        "divisor": -47
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "dividend": -24,
+        "divisor": -7
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-11",
+      "input": {
+        "dividend": 12,
+        "divisor": 1
+      },
+      "expected": 12,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-12",
+      "input": {
+        "dividend": -2147483648,
+        "divisor": 1
+      },
+      "expected": -2147483648,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-13",
+      "input": {
+        "dividend": 20000,
+        "divisor": 20000
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz",
+      "input": {
+        "dividend": 1,
+        "divisor": -2
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-1",
+      "input": {
+        "dividend": -1,
+        "divisor": 3
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-2",
+      "input": {
+        "dividend": 9,
+        "divisor": -2
+      },
+      "expected": -4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-3",
+      "input": {
+        "dividend": -1,
+        "divisor": -1
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

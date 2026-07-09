@@ -272,6 +272,210 @@
       "expected": 646,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "nums": [
+          -66,
+          -804,
+          -56,
+          206,
+          -769
+        ],
+        "target": 0
+      },
+      "expected": 84,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "nums": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "target": -99
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "nums": [
+          992,
+          -505,
+          -493,
+          -87,
+          83
+        ],
+        "target": 106
+      },
+      "expected": -6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "nums": [
+          -9,
+          -3,
+          7,
+          0,
+          -4,
+          -2,
+          -2,
+          -3,
+          4
+        ],
+        "target": -1
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "nums": [
+          -10,
+          6,
+          -2,
+          -6,
+          -3,
+          -1,
+          -2,
+          -10,
+          4
+        ],
+        "target": -2
+      },
+      "expected": -2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "nums": [
+          -91,
+          87,
+          590,
+          -793,
+          940
+        ],
+        "target": 104
+      },
+      "expected": 56,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "nums": [
+          593,
+          50,
+          -328,
+          251,
+          -261
+        ],
+        "target": -69
+      },
+      "expected": -27,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-11",
+      "input": {
+        "nums": [
+          2,
+          2,
+          -1,
+          -10,
+          -2,
+          11,
+          6,
+          -1
+        ],
+        "target": 7
+      },
+      "expected": 7,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-12",
+      "input": {
+        "nums": [
+          647,
+          120,
+          -947,
+          -614,
+          326,
+          -708
+        ],
+        "target": 500
+      },
+      "expected": 359,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-13",
+      "input": {
+        "nums": [
+          -4,
+          0,
+          -5,
+          5,
+          -4
+        ],
+        "target": 0
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-14",
+      "input": {
+        "nums": [
+          -602,
+          -724,
+          -495
+        ],
+        "target": 914
+      },
+      "expected": -1821,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-15",
+      "input": {
+        "nums": [
+          -9,
+          -7,
+          -1,
+          10,
+          -9,
+          2,
+          2,
+          6
+        ],
+        "target": -9
+      },
+      "expected": -10,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

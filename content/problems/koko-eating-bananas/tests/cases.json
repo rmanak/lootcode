@@ -179,6 +179,157 @@
       "expected": 5,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "piles": [
+          718,
+          34
+        ],
+        "H": 579
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "piles": [
+          1,
+          1
+        ],
+        "H": 2
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "piles": [
+          1,
+          2
+        ],
+        "H": 324
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz",
+      "input": {
+        "piles": [
+          322
+        ],
+        "H": 3
+      },
+      "expected": 108,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-1",
+      "input": {
+        "piles": [
+          935
+        ],
+        "H": 22
+      },
+      "expected": 43,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-2",
+      "input": {
+        "piles": [
+          978
+        ],
+        "H": 7
+      },
+      "expected": 140,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-3",
+      "input": {
+        "piles": [
+          322
+        ],
+        "H": 1
+      },
+      "expected": 322,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-4",
+      "input": {
+        "piles": [
+          978
+        ],
+        "H": 1
+      },
+      "expected": 978,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-5",
+      "input": {
+        "piles": [
+          321
+        ],
+        "H": 1
+      },
+      "expected": 321,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-6",
+      "input": {
+        "piles": [
+          15,
+          2
+        ],
+        "H": 3
+      },
+      "expected": 8,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-7",
+      "input": {
+        "piles": [
+          3,
+          14
+        ],
+        "H": 3
+      },
+      "expected": 7,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-8",
+      "input": {
+        "piles": [
+          7,
+          15,
+          2
+        ],
+        "H": 5
+      },
+      "expected": 7,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

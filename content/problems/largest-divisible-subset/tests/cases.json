@@ -212,6 +212,75 @@
       "expected": 1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-fuzz",
+      "input": {
+        "nums": [
+          6,
+          3,
+          4
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-1",
+      "input": {
+        "nums": [
+          3,
+          5,
+          9
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-2",
+      "input": {
+        "nums": [
+          5,
+          7,
+          10
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-3",
+      "input": {
+        "nums": [
+          32,
+          44,
+          54,
+          30,
+          18
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-4",
+      "input": {
+        "nums": [
+          33,
+          15,
+          49,
+          50,
+          10
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

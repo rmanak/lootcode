@@ -960,6 +960,727 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "operations": [
+          [
+            "get",
+            "a",
+            5
+          ],
+          [
+            "set",
+            "a",
+            "a",
+            3
+          ],
+          [
+            "get",
+            "c",
+            3
+          ],
+          [
+            "set",
+            "a",
+            "v2",
+            3
+          ],
+          [
+            "get",
+            "z",
+            1
+          ],
+          [
+            "get",
+            "foo",
+            6
+          ],
+          [
+            "set",
+            "b",
+            "c",
+            2
+          ],
+          [
+            "get",
+            "a",
+            4
+          ],
+          [
+            "set",
+            "c",
+            "y",
+            6
+          ],
+          [
+            "get",
+            "k",
+            3
+          ],
+          [
+            "set",
+            "foo",
+            "c",
+            5
+          ],
+          [
+            "get",
+            "k",
+            2
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        null,
+        "",
+        null,
+        "",
+        "",
+        null,
+        "v2",
+        null,
+        "",
+        null,
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "operations": [
+          [
+            "get",
+            "k",
+            3
+          ],
+          [
+            "set",
+            "a",
+            "b",
+            3
+          ],
+          [
+            "set",
+            "foo",
+            "v2",
+            5
+          ],
+          [
+            "get",
+            "z",
+            3
+          ],
+          [
+            "get",
+            "a",
+            3
+          ],
+          [
+            "set",
+            "c",
+            "v1",
+            1
+          ],
+          [
+            "get",
+            "k",
+            2
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        null,
+        null,
+        "",
+        "b",
+        null,
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "operations": [
+          [
+            "get",
+            "k",
+            5
+          ],
+          [
+            "get",
+            "c",
+            2
+          ],
+          [
+            "get",
+            "k",
+            2
+          ],
+          [
+            "get",
+            "a",
+            5
+          ],
+          [
+            "get",
+            "z",
+            3
+          ],
+          [
+            "set",
+            "b",
+            "bar",
+            2
+          ],
+          [
+            "get",
+            "foo",
+            5
+          ],
+          [
+            "get",
+            "b",
+            2
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        null,
+        "",
+        "bar"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "operations": [
+          [
+            "set",
+            "b",
+            "v2",
+            1
+          ],
+          [
+            "get",
+            "a",
+            6
+          ],
+          [
+            "get",
+            "b",
+            2
+          ],
+          [
+            "get",
+            "a",
+            3
+          ],
+          [
+            "get",
+            "b",
+            4
+          ],
+          [
+            "set",
+            "b",
+            "z",
+            3
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        "",
+        "v2",
+        "",
+        "v2",
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "operations": [
+          [
+            "set",
+            "a",
+            "c",
+            3
+          ],
+          [
+            "set",
+            "b",
+            "b",
+            2
+          ],
+          [
+            "get",
+            "a",
+            1
+          ],
+          [
+            "set",
+            "k",
+            "v2",
+            3
+          ],
+          [
+            "get",
+            "a",
+            6
+          ],
+          [
+            "get",
+            "k",
+            5
+          ],
+          [
+            "set",
+            "c",
+            "bar",
+            5
+          ],
+          [
+            "get",
+            "a",
+            3
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        "",
+        null,
+        "c",
+        "v2",
+        null,
+        "c"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "operations": [
+          [
+            "get",
+            "foo",
+            4
+          ],
+          [
+            "set",
+            "b",
+            "bar",
+            6
+          ],
+          [
+            "set",
+            "a",
+            "b",
+            1
+          ],
+          [
+            "get",
+            "a",
+            6
+          ],
+          [
+            "get",
+            "foo",
+            6
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        null,
+        null,
+        "b",
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "operations": [
+          [
+            "set",
+            "a",
+            "x",
+            5
+          ],
+          [
+            "set",
+            "a",
+            "a",
+            2
+          ],
+          [
+            "get",
+            "foo",
+            4
+          ],
+          [
+            "get",
+            "a",
+            6
+          ],
+          [
+            "set",
+            "c",
+            "c",
+            1
+          ],
+          [
+            "get",
+            "b",
+            5
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        "",
+        "a",
+        null,
+        ""
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "operations": [
+          [
+            "set",
+            "a",
+            "v2",
+            6
+          ],
+          [
+            "set",
+            "foo",
+            "b",
+            2
+          ],
+          [
+            "set",
+            "b",
+            "a",
+            6
+          ],
+          [
+            "get",
+            "a",
+            2
+          ],
+          [
+            "set",
+            "c",
+            "y",
+            2
+          ],
+          [
+            "set",
+            "foo",
+            "c",
+            3
+          ],
+          [
+            "get",
+            "foo",
+            5
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        "",
+        null,
+        null,
+        "c"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "operations": [
+          [
+            "get",
+            "b",
+            5
+          ],
+          [
+            "set",
+            "c",
+            "c",
+            6
+          ],
+          [
+            "get",
+            "a",
+            4
+          ],
+          [
+            "set",
+            "c",
+            "x",
+            1
+          ],
+          [
+            "set",
+            "k",
+            "b",
+            3
+          ],
+          [
+            "set",
+            "b",
+            "y",
+            6
+          ],
+          [
+            "set",
+            "c",
+            "bar",
+            2
+          ],
+          [
+            "get",
+            "a",
+            1
+          ],
+          [
+            "set",
+            "c",
+            "c",
+            3
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        null,
+        "",
+        null,
+        null,
+        null,
+        null,
+        "",
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-11",
+      "input": {
+        "operations": [
+          [
+            "get",
+            "foo",
+            3
+          ],
+          [
+            "get",
+            "k",
+            2
+          ],
+          [
+            "set",
+            "c",
+            "c",
+            6
+          ],
+          [
+            "get",
+            "foo",
+            4
+          ],
+          [
+            "set",
+            "b",
+            "c",
+            3
+          ],
+          [
+            "get",
+            "a",
+            1
+          ],
+          [
+            "get",
+            "a",
+            5
+          ],
+          [
+            "set",
+            "b",
+            "a",
+            5
+          ],
+          [
+            "set",
+            "b",
+            "x",
+            5
+          ],
+          [
+            "get",
+            "k",
+            6
+          ],
+          [
+            "set",
+            "b",
+            "x",
+            3
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        "",
+        null,
+        "",
+        null,
+        "",
+        "",
+        null,
+        null,
+        "",
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-12",
+      "input": {
+        "operations": [
+          [
+            "set",
+            "b",
+            "bar",
+            2
+          ],
+          [
+            "set",
+            "b",
+            "v2",
+            6
+          ],
+          [
+            "get",
+            "foo",
+            5
+          ],
+          [
+            "set",
+            "b",
+            "v1",
+            1
+          ],
+          [
+            "set",
+            "k",
+            "bar",
+            4
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        "",
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-13",
+      "input": {
+        "operations": [
+          [
+            "get",
+            "z",
+            4
+          ],
+          [
+            "set",
+            "a",
+            "v1",
+            5
+          ],
+          [
+            "get",
+            "k",
+            6
+          ],
+          [
+            "get",
+            "z",
+            3
+          ],
+          [
+            "set",
+            "c",
+            "v2",
+            6
+          ],
+          [
+            "get",
+            "a",
+            6
+          ],
+          [
+            "set",
+            "foo",
+            "b",
+            6
+          ]
+        ]
+      },
+      "expected": [
+        "",
+        null,
+        "",
+        "",
+        null,
+        "v1",
+        null
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

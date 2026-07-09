@@ -409,6 +409,73 @@ def _ops_edges(rng: random.Random, v: _OpVocab) -> list[list]:
 
 
 # --------------------------------------------------------------------------- #
+# Split-ops generation helpers (correlated ops/args params)
+# --------------------------------------------------------------------------- #
+def _gen_split_op_args(rng: random.Random, v: _OpVocab, name: str,
+                       small_ints: bool) -> tuple[str, list]:
+    """Generate one (op_name, arg_list) pair for split-ops problems."""
+    op = _gen_op(rng, v, name, small_ints)
+    return op[0], op[1:]
+
+
+def _gen_split_ops_seq(rng: random.Random, v: _OpVocab, length: int,
+                       small_ints: bool = True) -> tuple[list[str], list[list]]:
+    """Generate correlated (ops, args) sequences for split-ops problems."""
+    ops_out: list[str] = []
+    args_out: list[list] = []
+    for _ in range(length):
+        name = rng.choice(v.names)
+        op_name, op_args = _gen_split_op_args(rng, v, name, small_ints)
+        ops_out.append(op_name)
+        args_out.append(op_args)
+    return ops_out, args_out
+
+
+def _gen_split_ops_stress(rng: random.Random, v: _OpVocab, n: int) -> tuple[list[str], list[list]]:
+    """A large split-ops sequence for T4 stress testing."""
+    mutators = [x for x in v.names if v.arg_types.get(x)] or v.names
+    queries = [x for x in v.names if not v.arg_types.get(x)]
+    every = max(1, n // 50)
+    ops_out: list[str] = []
+    args_out: list[list] = []
+    for i in range(n):
+        if queries and i % every == every - 1:
+            q = rng.choice(queries)
+            ops_out.append(q)
+            args_out.append([])
+        else:
+            op_name, op_args = _gen_split_op_args(rng, v, rng.choice(mutators), False)
+            ops_out.append(op_name)
+            args_out.append(op_args)
+    return ops_out, args_out
+
+
+def _split_ops_edges(rng: random.Random, v: _OpVocab) -> list[tuple[list[str], list[list]]]:
+    """Structured edge (ops, args) pairs for split-ops problems."""
+    out: list[tuple[list[str], list[list]]] = [([], [])]  # empty program
+    # single of each op
+    for n in v.names:
+        op_name, op_args = _gen_split_op_args(rng, v, n, True)
+        out.append(([op_name], [op_args]))
+    # a burst of the first mutating op then query ops
+    mutators = [n for n in v.names if v.arg_types.get(n)]
+    queries = [n for n in v.names if not v.arg_types.get(n)]
+    if mutators:
+        m = mutators[0]
+        burst_ops: list[str] = []
+        burst_args: list[list] = []
+        for _ in range(5):
+            op_name, op_args = _gen_split_op_args(rng, v, m, True)
+            burst_ops.append(op_name)
+            burst_args.append(op_args)
+        if queries:
+            burst_ops.extend(queries)
+            burst_args.extend([[] for _ in queries])
+        out.append((burst_ops, burst_args))
+    return out
+
+
+# --------------------------------------------------------------------------- #
 # Structural invariants learned from a problem's OWN example inputs
 # --------------------------------------------------------------------------- #
 # Many problems carry an input *precondition* that prose-parsing can't reliably
@@ -700,6 +767,54 @@ def generate_candidates(params: list[dict], seeds: list[dict],
             lo, hi = C.elem_bounds(bounds, name)
         return lo, hi
 
+        # --------------------------------------------------------------------- #
+    # Split-ops detection: problems with separate `ops` (string[]) and
+    # `args` (int[][]) params that must be generated together.
+    # E.g., design-linked-list: ops=["MyLinkedList","addAtHead",...],
+    # args=[[],[1],...].  The generator must produce correlated pairs.
+    # --------------------------------------------------------------------- #
+    def _is_split_ops(ops_vals: list, args_vals: list) -> bool:
+        """Check if (ops_vals, args_vals) look like correlated split-ops params."""
+        if len(ops_vals) != len(args_vals):
+            return False
+        for ov, av in zip(ops_vals, args_vals):
+            if not isinstance(ov, list) or not isinstance(av, list):
+                return False
+            if len(ov) != len(av):
+                return False
+            for o in ov:
+                if not isinstance(o, str):
+                    return False
+            for a in av:
+                if not isinstance(a, list):
+                    return False
+        return True
+
+    split_ops_names: tuple[str, str] | None = None
+    split_ops_vocab: _OpVocab | None = None
+    for ops_p in params:
+        o_base, o_dims = parse_type(ops_p["type"])
+        if o_base != "string" or o_dims != 1:
+            continue
+        for args_p in params:
+            a_base, a_dims = parse_type(args_p["type"])
+            if a_base != "int" or a_dims != 2:
+                continue
+            ops_obs = [s[ops_p["name"]] for s in seeds if ops_p["name"] in s]
+            args_obs = [s[args_p["name"]] for s in seeds if args_p["name"] in s]
+            if ops_obs and args_obs and _is_split_ops(ops_obs, args_obs):
+                # Learn vocab from zipped (ops, args) pairs — wrap as list of sequences
+                # so _learn_ops(list[list[list]]) gets the expected format.
+                combined_sequences: list = []
+                for ov, av in zip(ops_obs, args_obs):
+                    seq = [[o] + list(a) for o, a in zip(ov, av)]
+                    combined_sequences.append(seq)
+                split_ops_vocab = _learn_ops(combined_sequences)
+                split_ops_names = (ops_p["name"], args_p["name"])
+                break
+        if split_ops_names:
+            break
+
     # Detect "operations" params (design/streaming) and learn their vocab.
     ops_vocab: dict[str, _OpVocab] = {}
     for p in params:
@@ -717,8 +832,13 @@ def generate_candidates(params: list[dict], seeds: list[dict],
             if looks_expression(obs):
                 expr_names.add(p["name"])
 
+    # Set of param names handled by split-ops (generated together, not individually)
+    _split_ops_set: set[str] = set(split_ops_names) if split_ops_names else set()
+
     def gen_param(p: dict, size: int, small_ints: bool = True):
         name = p["name"]
+        if name in _split_ops_set:
+            return None  # handled by split-ops generation
         if name in ops_vocab:
             return _gen_ops_seq(rng, ops_vocab[name], rng.randint(1, max(2, size)),
                                 small_ints)
@@ -729,11 +849,29 @@ def generate_candidates(params: list[dict], seeds: list[dict],
         return _rand_value(rng, base, dims, lo, hi, size)
 
     def a_small_input() -> dict:
-        return {p["name"]: gen_param(p, rng.randint(1, 4)) for p in params}
+        size = rng.randint(1, 4)
+        inp = {}
+        for p in params:
+            name = p["name"]
+            if name in _split_ops_set:
+                continue  # handled below
+            val = gen_param(p, size)
+            if val is not None:
+                inp[name] = val
+        # Fill split-ops params together
+        if split_ops_names and split_ops_vocab:
+            ops_n, args_n = split_ops_names
+            ops_val, args_val = _gen_split_ops_seq(
+                rng, split_ops_vocab, rng.randint(1, max(2, size)), True)
+            inp[ops_n] = ops_val
+            inp[args_n] = args_val
+        return inp
 
     # T1 — edges: vary one param to each edge shape, others small-random.
     for p in params:
         name = p["name"]
+        if name in _split_ops_set:
+            continue  # handled by split-ops edges below
         if name in ops_vocab:
             evs = _ops_edges(rng, ops_vocab[name])
         elif name in expr_names:
@@ -746,6 +884,15 @@ def generate_candidates(params: list[dict], seeds: list[dict],
             inp[name] = copy.deepcopy(ev)
             emit(inp, "edge", protected=True)
 
+    # T1 — split-ops edges: generate correlated (ops, args) edge pairs.
+    if split_ops_names and split_ops_vocab:
+        ops_n, args_n = split_ops_names
+        for ev_ops, ev_args in _split_ops_edges(rng, split_ops_vocab):
+            inp = a_small_input()
+            inp[ops_n] = copy.deepcopy(ev_ops)
+            inp[args_n] = copy.deepcopy(ev_args)
+            emit(inp, "edge", protected=True)
+
     # Existing examples as seeds + their perturbations (T3). Op-sequence params
     # (design/streaming) must NOT go through _mutate_json: it flips characters
     # inside operation-name strings ("findMedian" -> "fbndMedian"), producing an
@@ -756,28 +903,55 @@ def generate_candidates(params: list[dict], seeds: list[dict],
         for _ in range(cfg.n_seed_mut):
             m = {}
             for k, v in s.items():
+                if k in _split_ops_set:
+                    continue  # handled below
                 if k in ops_vocab:
                     length = len(v) if isinstance(v, list) and v else 4
                     m[k] = _gen_ops_seq(rng, ops_vocab[k], rng.randint(1, max(2, length)))
                 else:
                     m[k] = _mutate_json(rng, copy.deepcopy(v))
+            # Fill split-ops params together
+            if split_ops_names and split_ops_vocab:
+                ops_n, args_n = split_ops_names
+                seed_len = len(s.get(ops_n, [])) if isinstance(s.get(ops_n), list) else 4
+                ops_val, args_val = _gen_split_ops_seq(
+                    rng, split_ops_vocab, rng.randint(1, max(2, seed_len)), True)
+                m[ops_n] = ops_val
+                m[args_n] = args_val
             emit(m, "fuzz")
 
     # T3 — small random fuzz.
     for _ in range(cfg.n_fuzz):
-        emit({p["name"]: gen_param(p, cfg.fuzz_size) for p in params}, "fuzz")
+        inp = a_small_input()
+        # Override non-split-ops params with fresh fuzz values
+        for p in params:
+            name = p["name"]
+            if name in _split_ops_set:
+                continue
+            val = gen_param(p, cfg.fuzz_size)
+            if val is not None:
+                inp[name] = val
+        emit(inp, "fuzz")
 
     # T4 — one large-stress input.
     if cfg.include_stress:
         out = {}
         for p in params:
             name = p["name"]
+            if name in _split_ops_set:
+                continue  # handled below
             if name in ops_vocab:
                 out[name] = _gen_ops_stress(rng, ops_vocab[name], cfg.stress_n)
             else:
                 base, dims = parse_type(p["type"])
                 lo, hi = eb(p)
                 out[name] = _stress_value(rng, base, dims, lo, hi, cfg.stress_n)
+        # Fill split-ops params together
+        if split_ops_names and split_ops_vocab:
+            ops_n, args_n = split_ops_names
+            ops_val, args_val = _gen_split_ops_stress(rng, split_ops_vocab, cfg.stress_n)
+            out[ops_n] = ops_val
+            out[args_n] = args_val
         emit(out, "stress", protected=True)
 
     # Cap: keep protected (edges/seeds/stress) first, then as many fuzz as fit.

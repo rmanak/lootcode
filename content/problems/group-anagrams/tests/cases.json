@@ -186,6 +186,230 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "strs": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "strs": [
+          "a",
+          ""
+        ]
+      },
+      "expected": [
+        [
+          ""
+        ],
+        [
+          "a"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "strs": [
+          "a",
+          "bb",
+          "a"
+        ]
+      },
+      "expected": [
+        [
+          "a",
+          "a"
+        ],
+        [
+          "bb"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "strs": [
+          "acaab",
+          "bbbbba",
+          "bplrv",
+          "bb",
+          "c",
+          "b",
+          "bbac",
+          "bb"
+        ]
+      },
+      "expected": [
+        [
+          "acaab"
+        ],
+        [
+          "b"
+        ],
+        [
+          "bb",
+          "bb"
+        ],
+        [
+          "bbac"
+        ],
+        [
+          "bbbbba"
+        ],
+        [
+          "bplrv"
+        ],
+        [
+          "c"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "strs": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "expected": [
+        [
+          "",
+          "",
+          ""
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "strs": [
+          ""
+        ]
+      },
+      "expected": [
+        [
+          ""
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "strs": [
+          "bb"
+        ]
+      },
+      "expected": [
+        [
+          "bb"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "strs": [
+          "aaa"
+        ]
+      },
+      "expected": [
+        [
+          "aaa"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "strs": [
+          "",
+          ""
+        ]
+      },
+      "expected": [
+        [
+          "",
+          ""
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "strs": [
+          "a",
+          "ba"
+        ]
+      },
+      "expected": [
+        [
+          "a"
+        ],
+        [
+          "ba"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-11",
+      "input": {
+        "strs": [
+          "a",
+          "a"
+        ]
+      },
+      "expected": [
+        [
+          "a",
+          "a"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-12",
+      "input": {
+        "strs": [
+          "ccc",
+          "ccc"
+        ]
+      },
+      "expected": [
+        [
+          "ccc",
+          "ccc"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

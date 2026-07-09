@@ -125,6 +125,87 @@
       "expected": 1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-single-digit",
+      "input": {
+        "s": "1"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-pair-both-valid",
+      "input": {
+        "s": "11"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-pair-both-valid-22",
+      "input": {
+        "s": "22"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-triple-fibonacci",
+      "input": {
+        "s": "111"
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-quad-fibonacci",
+      "input": {
+        "s": "2222"
+      },
+      "expected": 5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-zero-after-two",
+      "input": {
+        "s": "20"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-zero-after-three",
+      "input": {
+        "s": "30"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-ten-followed-by-digit",
+      "input": {
+        "s": "106"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-twenty-followed-by-digit",
+      "input": {
+        "s": "207"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

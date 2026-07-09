@@ -15,4 +15,8 @@ def validate_input(nums, k):
     for x in nums:
         if not isinstance(x, int) or isinstance(x, bool):
             return False
+    if len(nums) < 1:
+        return False
+    if k < 1 or k > len(nums):
+        return False
     return True

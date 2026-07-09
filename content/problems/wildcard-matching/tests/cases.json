@@ -169,6 +169,86 @@
       "expected": false,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "s": "a",
+        "p": "a"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "s": "f",
+        "p": "caacab"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-trailing-star-empty",
+      "input": {
+        "s": "d",
+        "p": "d*"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-star-start-one-char",
+      "input": {
+        "s": "ab",
+        "p": "*b"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-star-empty-between-anchors",
+      "input": {
+        "s": "ab",
+        "p": "a*b"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-star-single-char-middle",
+      "input": {
+        "s": "abc",
+        "p": "a*c"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-question-adjacent-star",
+      "input": {
+        "s": "abc",
+        "p": "?*c"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "s": "ababa",
+        "p": "cdcc"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -38,7 +38,7 @@ Output: [[1,1],[1,1]]
 - `m == board.length`
 - `n == board[i].length`
 - `1 <= m, n <= 25`
-- `board[i][j]` is `0` or `1`.
+- `0 <= board[i][j] <= 1`
 
 **Follow up:**
 

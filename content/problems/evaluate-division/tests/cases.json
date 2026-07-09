@@ -879,6 +879,214 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-self-loop-all-unknown",
+      "input": {
+        "equations": [
+          [
+            "a",
+            "a"
+          ]
+        ],
+        "values": [
+          29.494
+        ],
+        "queries": [
+          [
+            "x",
+            "x"
+          ],
+          [
+            "d",
+            "b"
+          ],
+          [
+            "b",
+            "b"
+          ],
+          [
+            "c",
+            "d"
+          ],
+          [
+            "d",
+            "b"
+          ],
+          [
+            "z",
+            "c"
+          ],
+          [
+            "c",
+            "a"
+          ]
+        ]
+      },
+      "expected": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-disconnected-components-chain",
+      "input": {
+        "equations": [
+          [
+            "e",
+            "d"
+          ],
+          [
+            "b",
+            "d"
+          ],
+          [
+            "c",
+            "b"
+          ],
+          [
+            "d",
+            "a"
+          ],
+          [
+            "x",
+            "y"
+          ],
+          [
+            "a",
+            "c"
+          ]
+        ],
+        "values": [
+          32.756,
+          35.925,
+          15.197,
+          39.191,
+          3.01,
+          27.507
+        ],
+        "queries": [
+          [
+            "a",
+            "a"
+          ],
+          [
+            "x",
+            "b"
+          ],
+          [
+            "e",
+            "b"
+          ],
+          [
+            "e",
+            "c"
+          ],
+          [
+            "e",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        1.0,
+        -1.0,
+        0.91179,
+        35311.84707,
+        0.91179
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-star-graph-unknown-queries",
+      "input": {
+        "equations": [
+          [
+            "e",
+            "a"
+          ],
+          [
+            "c",
+            "a"
+          ]
+        ],
+        "values": [
+          2.377,
+          2.135
+        ],
+        "queries": [
+          [
+            "b",
+            "a"
+          ],
+          [
+            "c",
+            "d"
+          ]
+        ]
+      },
+      "expected": [
+        -1.0,
+        -1.0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-empty-queries",
+      "input": {
+        "equations": [
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "values": [
+          2.0
+        ],
+        "queries": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-tiny-product-rounds-zero",
+      "input": {
+        "equations": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "c"
+          ]
+        ],
+        "values": [
+          0.001,
+          0.001
+        ],
+        "queries": [
+          [
+            "a",
+            "c"
+          ]
+        ]
+      },
+      "expected": [
+        0.0
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

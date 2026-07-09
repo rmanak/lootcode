@@ -80,6 +80,78 @@
       "expected": "CDLXVI",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "num": 60
+      },
+      "expected": "LX",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "num": 788
+      },
+      "expected": "DCCLXXXVIII",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz",
+      "input": {
+        "num": 47
+      },
+      "expected": "XLVII",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-1",
+      "input": {
+        "num": 49
+      },
+      "expected": "XLIX",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-2",
+      "input": {
+        "num": 45
+      },
+      "expected": "XLV",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-3",
+      "input": {
+        "num": 90
+      },
+      "expected": "XC",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-4",
+      "input": {
+        "num": 98
+      },
+      "expected": "XCVIII",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-5",
+      "input": {
+        "num": 962
+      },
+      "expected": "CMLXII",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

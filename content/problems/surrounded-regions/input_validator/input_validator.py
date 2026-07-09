@@ -12,10 +12,13 @@ def validate_input(board):
         return False
     if not (1 <= len(board) <= 200):
         return False
+    if not (1 <= len(board[0]) <= 200):
+        return False
+    cols = len(board[0])
     for row in board:
         if not isinstance(row, list):
             return False
-        if not (1 <= len(row) <= 200):
+        if len(row) != cols:
             return False
         for cell in row:
             if cell not in ("X", "O"):

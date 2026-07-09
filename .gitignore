@@ -54,6 +54,9 @@ Thumbs.db
 /*.png
 testgen_cache/
 
+# Background test-strengthening scheduler state (queue + per-run logs)
+/.strengthen/
+
 # Machine-generated input-constraint validators (scripts/generate_constraint_validators.py)
 /constraint_validators/
 

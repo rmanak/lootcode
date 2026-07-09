@@ -487,6 +487,118 @@
       "expected": 2,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-fuzz",
+      "input": {
+        "envelopes": [
+          [
+            10,
+            10
+          ],
+          [
+            10,
+            12
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-1",
+      "input": {
+        "envelopes": [
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-2",
+      "input": {
+        "envelopes": [
+          [
+            5,
+            8
+          ],
+          [
+            5,
+            9
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-6",
+      "input": {
+        "envelopes": [
+          [
+            4,
+            7
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            10,
+            6
+          ]
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-7",
+      "input": {
+        "envelopes": [
+          [
+            6,
+            12
+          ],
+          [
+            10,
+            5
+          ],
+          [
+            11,
+            10
+          ]
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "envelopes": [
+          [
+            18,
+            43
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

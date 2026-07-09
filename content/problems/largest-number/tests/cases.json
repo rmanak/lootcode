@@ -171,6 +171,44 @@
       "expected": "47220",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "nums": [
+          239,
+          292,
+          8,
+          920,
+          320
+        ]
+      },
+      "expected": "9208320292239",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "nums": [
+          121
+        ]
+      },
+      "expected": "121",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "nums": [
+          35,
+          238
+        ]
+      },
+      "expected": "35238",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

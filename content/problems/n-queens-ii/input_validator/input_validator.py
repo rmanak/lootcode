@@ -10,6 +10,6 @@ Do not edit by hand; re-run the generator instead.
 def validate_input(n):
     if not isinstance(n, int) or isinstance(n, bool):
         return False
-    if not (1 <= n <= 9):
+    if not (1 <= n <= 10):
         return False
     return True

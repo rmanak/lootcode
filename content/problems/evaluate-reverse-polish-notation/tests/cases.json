@@ -103,6 +103,37 @@
       "expected": 7,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-1",
+      "input": {
+        "tokens": [
+          "10",
+          "6",
+          "9",
+          "3",
+          "+",
+          "-11",
+          "*",
+          "/",
+          "*"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-2",
+      "input": {
+        "tokens": [
+          "7",
+          "2"
+        ]
+      },
+      "expected": 7,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

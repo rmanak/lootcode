@@ -119,6 +119,116 @@
       "expected": "25134",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "n": 7,
+        "k": 1
+      },
+      "expected": "1234567",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "n": 2,
+        "k": 1
+      },
+      "expected": "12",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "n": 8,
+        "k": 35
+      },
+      "expected": "12356847",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "n": 1,
+        "k": 1
+      },
+      "expected": "1",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "n": 3,
+        "k": 1
+      },
+      "expected": "123",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "n": 6,
+        "k": 37
+      },
+      "expected": "135246",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "n": 5,
+        "k": 25
+      },
+      "expected": "21345",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "n": 9,
+        "k": 20000
+      },
+      "expected": "159763284",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz",
+      "input": {
+        "n": 3,
+        "k": 3
+      },
+      "expected": "213",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-1",
+      "input": {
+        "n": 5,
+        "k": 3
+      },
+      "expected": "12435",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-2",
+      "input": {
+        "n": 2,
+        "k": 2
+      },
+      "expected": "21",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

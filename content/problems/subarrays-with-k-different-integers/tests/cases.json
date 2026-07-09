@@ -203,6 +203,101 @@
       "expected": 6,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-two-distinct-k2",
+      "input": {
+        "A": [
+          1,
+          2
+        ],
+        "K": 2
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-mixed-repeats-k3",
+      "input": {
+        "A": [
+          3,
+          2,
+          7,
+          2,
+          2,
+          2,
+          4,
+          4,
+          4,
+          1,
+          2,
+          6
+        ],
+        "K": 3
+      },
+      "expected": 20,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-k-exceeds-distinct-count",
+      "input": {
+        "A": [
+          3,
+          3,
+          1
+        ],
+        "K": 3
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-k1-duplicate-prefix",
+      "input": {
+        "A": [
+          2,
+          2,
+          1
+        ],
+        "K": 1
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-k1-two-equal-runs",
+      "input": {
+        "A": [
+          1,
+          1,
+          2,
+          2
+        ],
+        "K": 1
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-alternating-palindrome",
+      "input": {
+        "A": [
+          1,
+          2,
+          1,
+          2,
+          1
+        ],
+        "K": 2
+      },
+      "expected": 10,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

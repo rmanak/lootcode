@@ -107,6 +107,24 @@
       "expected": false,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-8",
+      "input": {
+        "s": "(((())))"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-9",
+      "input": {
+        "s": "({[()]})"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

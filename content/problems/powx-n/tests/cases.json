@@ -139,6 +139,76 @@
       "expected": -19.90251,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "x": 75.57,
+        "n": 29
+      },
+      "expected": 2.9657411582484497e+54,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "x": 37.81,
+        "n": 20000
+      },
+      "expected": Infinity,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz",
+      "input": {
+        "x": 2.1,
+        "n": 1
+      },
+      "expected": 2.1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-1",
+      "input": {
+        "x": 0.5,
+        "n": 1
+      },
+      "expected": 0.5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-2",
+      "input": {
+        "x": 2.0,
+        "n": -1
+      },
+      "expected": 0.5,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "x": 0.0,
+        "n": 5
+      },
+      "expected": 0.0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-13",
+      "input": {
+        "x": -1.0,
+        "n": -2147483648
+      },
+      "expected": 1.0,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

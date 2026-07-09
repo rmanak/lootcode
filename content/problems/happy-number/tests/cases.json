@@ -62,6 +62,24 @@
       "expected": false,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "n": 1001
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "n": 20000
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -316,6 +316,170 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "asteroids": [
+          -451,
+          4,
+          -264,
+          936,
+          -42,
+          -336,
+          989,
+          -785
+        ]
+      },
+      "expected": [
+        -451,
+        -264,
+        936,
+        989
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "asteroids": [
+          -6
+        ]
+      },
+      "expected": [
+        -6
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "asteroids": [
+          9,
+          -8
+        ]
+      },
+      "expected": [
+        9
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "asteroids": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "asteroids": [
+          -727,
+          -77
+        ]
+      },
+      "expected": [
+        -727,
+        -77
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "asteroids": [
+          -1,
+          -3,
+          9,
+          1,
+          -1
+        ]
+      },
+      "expected": [
+        -1,
+        -3,
+        9
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "asteroids": [
+          3,
+          4,
+          6,
+          6,
+          1
+        ]
+      },
+      "expected": [
+        3,
+        4,
+        6,
+        6,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "asteroids": [
+          8,
+          5,
+          -8,
+          1,
+          -6
+        ]
+      },
+      "expected": [
+        -6
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "asteroids": [
+          3,
+          -2,
+          -2,
+          -2,
+          -3
+        ]
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "asteroids": [
+          708,
+          340,
+          -333,
+          955
+        ]
+      },
+      "expected": [
+        708,
+        340,
+        955
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

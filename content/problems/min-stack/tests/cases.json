@@ -587,6 +587,347 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "operations": [
+          [
+            "push",
+            4
+          ]
+        ]
+      },
+      "expected": [
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "operations": [
+          [
+            "push",
+            3
+          ],
+          [
+            "top"
+          ],
+          [
+            "pop"
+          ],
+          [
+            "push",
+            3
+          ],
+          [
+            "push",
+            5
+          ],
+          [
+            "push",
+            2
+          ],
+          [
+            "pop"
+          ],
+          [
+            "getMin"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        3,
+        null,
+        null,
+        null,
+        null,
+        null,
+        3
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "operations": [
+          [
+            "push",
+            2
+          ],
+          [
+            "pop"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "operations": [
+          [
+            "push",
+            1
+          ],
+          [
+            "push",
+            1
+          ],
+          [
+            "push",
+            1
+          ],
+          [
+            "push",
+            5
+          ],
+          [
+            "push",
+            1
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "pop"
+          ],
+          [
+            "top"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        5
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "operations": [
+          [
+            "push",
+            3
+          ],
+          [
+            "pop"
+          ],
+          [
+            "push",
+            5
+          ],
+          [
+            "push",
+            2
+          ],
+          [
+            "pop"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "operations": [
+          [
+            "push",
+            5
+          ],
+          [
+            "top"
+          ],
+          [
+            "push",
+            2
+          ],
+          [
+            "pop"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        5,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "operations": [
+          [
+            "push",
+            5
+          ],
+          [
+            "top"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        5
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "operations": [
+          [
+            "push",
+            5
+          ],
+          [
+            "push",
+            1
+          ],
+          [
+            "pop"
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "top"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        5,
+        5
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "operations": [
+          [
+            "push",
+            4
+          ],
+          [
+            "getMin"
+          ],
+          [
+            "top"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        4,
+        4
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "operations": [
+          [
+            "push",
+            2
+          ],
+          [
+            "getMin"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        2
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-11",
+      "input": {
+        "operations": [
+          [
+            "push",
+            3
+          ],
+          [
+            "top"
+          ],
+          [
+            "pop"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        3,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-12",
+      "input": {
+        "operations": [
+          [
+            "push",
+            6
+          ],
+          [
+            "push",
+            6
+          ],
+          [
+            "push",
+            2
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

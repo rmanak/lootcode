@@ -328,6 +328,285 @@
       "expected": true,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "board": [
+          [
+            "D",
+            "B",
+            "B",
+            "b"
+          ],
+          [
+            "S",
+            "c",
+            "b",
+            "c"
+          ]
+        ],
+        "word": "bd"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "board": [
+          [
+            "S",
+            "a",
+            "a",
+            "S"
+          ],
+          [
+            "A",
+            "A",
+            "D",
+            "c"
+          ],
+          [
+            "S",
+            "a",
+            "C",
+            "b"
+          ],
+          [
+            "D",
+            "A",
+            "b",
+            "a"
+          ]
+        ],
+        "word": "cb"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "board": [
+          [
+            "D",
+            "a",
+            "a",
+            "c"
+          ]
+        ],
+        "word": "ab"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "board": [
+          [
+            "S",
+            "a",
+            "b",
+            "b"
+          ],
+          [
+            "A",
+            "c",
+            "C",
+            "E"
+          ],
+          [
+            "A",
+            "b",
+            "E",
+            "b"
+          ]
+        ],
+        "word": "c"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "board": [
+          [
+            "C",
+            "a"
+          ],
+          [
+            "C",
+            "b"
+          ]
+        ],
+        "word": "aabbdc"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "board": [
+          [
+            "S",
+            "F",
+            "c",
+            "a"
+          ],
+          [
+            "D",
+            "B",
+            "B",
+            "b"
+          ]
+        ],
+        "word": "b"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "board": [
+          [
+            "D",
+            "D",
+            "c",
+            "c"
+          ],
+          [
+            "A",
+            "c",
+            "c",
+            "E"
+          ]
+        ],
+        "word": "AC"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "board": [
+          [
+            "A",
+            "a",
+            "C",
+            "E"
+          ]
+        ],
+        "word": "a"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "board": [
+          [
+            "A",
+            "A",
+            "c",
+            "b"
+          ],
+          [
+            "A",
+            "b",
+            "b",
+            "E"
+          ]
+        ],
+        "word": "c"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "board": [
+          [
+            "A",
+            "D",
+            "D",
+            "a"
+          ],
+          [
+            "A",
+            "b",
+            "c",
+            "c"
+          ],
+          [
+            "D",
+            "a",
+            "B",
+            "a"
+          ],
+          [
+            "D",
+            "b",
+            "B",
+            "C"
+          ],
+          [
+            "S",
+            "c",
+            "a",
+            "c"
+          ]
+        ],
+        "word": "a"
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-11",
+      "input": {
+        "board": [
+          [
+            "C",
+            "C"
+          ]
+        ],
+        "word": "c"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-12",
+      "input": {
+        "board": [
+          [
+            "B"
+          ]
+        ],
+        "word": "AbCB"
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

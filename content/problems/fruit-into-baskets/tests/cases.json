@@ -1210,6 +1210,214 @@
       "expected": 5,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-minimal-two-types",
+      "input": {
+        "tree": [
+          0,
+          1
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-three-types-interleaved",
+      "input": {
+        "tree": [
+          0,
+          4,
+          2,
+          4,
+          0
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-two-distinct-types",
+      "input": {
+        "tree": [
+          1,
+          0
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-three-types-middle-window",
+      "input": {
+        "tree": [
+          4,
+          1,
+          0,
+          1,
+          3
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-all-same-type",
+      "input": {
+        "tree": [
+          0,
+          0,
+          0
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-high-variety-low-result",
+      "input": {
+        "tree": [
+          6,
+          4,
+          0,
+          3,
+          4,
+          6,
+          2,
+          3,
+          0,
+          1,
+          4
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-perfect-alternation",
+      "input": {
+        "tree": [
+          2,
+          3,
+          2,
+          3
+        ]
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-best-window-at-end",
+      "input": {
+        "tree": [
+          1,
+          3,
+          1,
+          4,
+          4
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-consecutive-equal-blocks",
+      "input": {
+        "tree": [
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          4,
+          4
+        ]
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-all-distinct",
+      "input": {
+        "tree": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-best-window-at-start",
+      "input": {
+        "tree": [
+          1,
+          2,
+          1,
+          2,
+          1,
+          2,
+          0,
+          3,
+          4
+        ]
+      },
+      "expected": 6,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-two-types-long-run",
+      "input": {
+        "tree": [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      "expected": 12,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-block-transition",
+      "input": {
+        "tree": [
+          1,
+          3,
+          3,
+          0,
+          0
+        ]
+      },
+      "expected": 4,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

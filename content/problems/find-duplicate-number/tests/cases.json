@@ -163,6 +163,86 @@
       "expected": 1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-fuzz",
+      "input": {
+        "nums": [
+          2,
+          2,
+          2
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-1",
+      "input": {
+        "nums": [
+          2,
+          1,
+          1
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-2",
+      "input": {
+        "nums": [
+          1,
+          2,
+          2
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-3",
+      "input": {
+        "nums": [
+          1,
+          3,
+          3,
+          2
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+{
+      "name": "hidden-fuzz-5",
+      "input": {
+        "nums": [
+          3,
+          1,
+          3,
+          2
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-6",
+      "input": {
+        "nums": [
+          1,
+          1,
+          2
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

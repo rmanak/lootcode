@@ -589,6 +589,488 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "operations": [
+          [
+            "startsWith",
+            "aaaa"
+          ],
+          [
+            "startsWith",
+            "ab"
+          ],
+          [
+            "search",
+            "bba"
+          ],
+          [
+            "search",
+            "baaa"
+          ],
+          [
+            "startsWith",
+            "aaa"
+          ],
+          [
+            "startsWith",
+            "b"
+          ],
+          [
+            "startsWith",
+            "bb"
+          ],
+          [
+            "search",
+            "aa"
+          ],
+          [
+            "search",
+            "baaa"
+          ],
+          [
+            "insert",
+            "b"
+          ],
+          [
+            "search",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "operations": [
+          [
+            "insert",
+            "ab"
+          ],
+          [
+            "insert",
+            "baa"
+          ],
+          [
+            "insert",
+            "app"
+          ],
+          [
+            "insert",
+            "c"
+          ],
+          [
+            "insert",
+            "ab"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "operations": [
+          [
+            "insert",
+            "abba"
+          ],
+          [
+            "insert",
+            "bb"
+          ],
+          [
+            "startsWith",
+            "c"
+          ],
+          [
+            "startsWith",
+            "abc"
+          ],
+          [
+            "search",
+            "b"
+          ],
+          [
+            "search",
+            "bab"
+          ],
+          [
+            "insert",
+            "aba"
+          ],
+          [
+            "insert",
+            "abab"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        false,
+        false,
+        false,
+        false,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "operations": [
+          [
+            "startsWith",
+            "app"
+          ],
+          [
+            "search",
+            "app"
+          ],
+          [
+            "startsWith",
+            "bbab"
+          ],
+          [
+            "insert",
+            "c"
+          ],
+          [
+            "search",
+            "c"
+          ],
+          [
+            "insert",
+            "baa"
+          ],
+          [
+            "insert",
+            "aba"
+          ],
+          [
+            "startsWith",
+            "bb"
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        false,
+        false,
+        null,
+        true,
+        null,
+        null,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "operations": [
+          [
+            "search",
+            "b"
+          ],
+          [
+            "insert",
+            "aa"
+          ],
+          [
+            "search",
+            "bbb"
+          ],
+          [
+            "startsWith",
+            "ab"
+          ],
+          [
+            "insert",
+            "baaa"
+          ],
+          [
+            "insert",
+            "bbb"
+          ],
+          [
+            "startsWith",
+            "bb"
+          ],
+          [
+            "search",
+            "bbb"
+          ],
+          [
+            "startsWith",
+            "b"
+          ],
+          [
+            "insert",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        null,
+        false,
+        false,
+        null,
+        null,
+        true,
+        true,
+        true,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "operations": [
+          [
+            "insert",
+            "baab"
+          ],
+          [
+            "insert",
+            "aa"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "operations": [
+          [
+            "insert",
+            "abba"
+          ],
+          [
+            "insert",
+            "ab"
+          ],
+          [
+            "insert",
+            "apple"
+          ],
+          [
+            "search",
+            "c"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "operations": [
+          [
+            "insert",
+            "b"
+          ],
+          [
+            "insert",
+            "baab"
+          ],
+          [
+            "startsWith",
+            "a"
+          ],
+          [
+            "insert",
+            "baa"
+          ],
+          [
+            "insert",
+            "abba"
+          ],
+          [
+            "insert",
+            "b"
+          ],
+          [
+            "startsWith",
+            "aaaa"
+          ],
+          [
+            "search",
+            "c"
+          ],
+          [
+            "search",
+            "bbab"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        false,
+        null,
+        null,
+        null,
+        false,
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "operations": [
+          [
+            "search",
+            "a"
+          ],
+          [
+            "search",
+            "bab"
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "operations": [
+          [
+            "search",
+            "bbb"
+          ],
+          [
+            "search",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-11",
+      "input": {
+        "operations": [
+          [
+            "insert",
+            "a"
+          ],
+          [
+            "insert",
+            "b"
+          ],
+          [
+            "insert",
+            "bb"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-12",
+      "input": {
+        "operations": [
+          [
+            "search",
+            "ab"
+          ],
+          [
+            "search",
+            "ab"
+          ],
+          [
+            "search",
+            "a"
+          ],
+          [
+            "search",
+            "aaba"
+          ],
+          [
+            "search",
+            "a"
+          ],
+          [
+            "search",
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -372,20 +372,33 @@
       "weight": 1,
       "hidden": true
     },
-    {
-      "name": "gen-2",
+{
+      "name": "gen-3",
       "input": {
         "heights": [
           [
-            6
+            0
+          ]
+        ]
+      },
+      "expected": [
+        [
+          0,
+          0
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "heights": [
+          [
+            3
           ],
           [
-            5,
-            4
-          ],
-          [
-            1,
-            2
+            3
           ]
         ]
       },
@@ -397,10 +410,78 @@
         [
           1,
           0
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "heights": [
+          [
+            46
+          ]
+        ]
+      },
+      "expected": [
+        [
+          0,
+          0
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "heights": [
+          [
+            5,
+            3,
+            1
+          ],
+          [
+            4,
+            0,
+            1
+          ],
+          [
+            4,
+            1,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          2
         ],
         [
           2,
           0
+        ],
+        [
+          2,
+          2
         ]
       ],
       "weight": 1,

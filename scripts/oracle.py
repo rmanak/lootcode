@@ -307,8 +307,17 @@ def cmd_analyze(args) -> int:
 # the canonical, then shrink each to a minimal reproducer. Adversaries here only
 # ever ADD cases — never gate the coverage-driven suite (`cover`).
 # --------------------------------------------------------------------------- #
+def _find_slug_root(slug: str) -> pathlib.Path | None:
+    """Find the content root directory containing a slug (default or extended)."""
+    for root in settings.content_dirs:
+        if (root / slug / "meta.json").exists():
+            return root
+    return None
+
+
 def _append_cases(slug: str, cases: list[dict]) -> int:
-    path = settings.CONTENT_DIR / slug / "tests" / "cases.json"
+    root = _find_slug_root(slug) or settings.CONTENT_DIR
+    path = root / slug / "tests" / "cases.json"
     data = json.loads(path.read_text(encoding="utf-8"))
     existing = {c["name"] for c in data.get("cases", [])}
     n = 0
@@ -470,7 +479,7 @@ def cmd_cover(args) -> int:
     from strengthen_tests import strengthen, apply_cases  # sibling; shares the engine
     from app.testgen import GenConfig
 
-    by_slug = {p["slug"]: p for p in content.load_all()}
+    by_slug = {p["slug"]: p for p in content.load_all_roots()}
     if args.slug not in by_slug:
         return _die(f"no problem '{args.slug}' in any content root")
     cfg = GenConfig(n_fuzz=args.fuzz, seed=args.seed, include_stress=not args.no_stress)

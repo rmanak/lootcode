@@ -538,6 +538,45 @@
         "board": [
           [
             "O",
+            "O"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "O",
+          "O"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "board": [
+          [
+            "O",
+            "X"
+          ]
+        ]
+      },
+      "expected": [
+        [
+          "O",
+          "X"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "board": [
+          [
+            "X",
+            "X",
             "X"
           ],
           [
@@ -549,7 +588,8 @@
       },
       "expected": [
         [
-          "O",
+          "X",
+          "X",
           "X"
         ],
         [

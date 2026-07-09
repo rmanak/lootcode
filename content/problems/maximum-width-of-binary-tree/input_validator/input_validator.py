@@ -23,10 +23,13 @@ def validate_input(root):
     
     if not isinstance(root, list):
         return False
-    
+
+    if len(root) == 0 or root[0] is None:
+        # Empty list or null root means 0 nodes, which violates "1 <= number of nodes <= 3000"
+        return False
+
     # Constraint: 1 <= number of nodes <= 3000
-    # We need to count the number of non-null nodes.
-    
+    # Count non-null nodes in the level-order list.
     node_count = 0
     for val in root:
         if val is None:
@@ -35,8 +38,8 @@ def validate_input(root):
         if not isinstance(val, int) or isinstance(val, bool):
             return False
         node_count += 1
-        
+
     if not (1 <= node_count <= 3000):
         return False
-        
+
     return True

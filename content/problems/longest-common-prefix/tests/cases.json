@@ -86,6 +86,153 @@
       "expected": "",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "strs": [
+          "sdyn",
+          "p"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "strs": [
+          "qwelqr",
+          "aa"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "strs": [
+          "bcaba",
+          "fifn"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "strs": [
+          "abdd",
+          "b",
+          "abcc",
+          "ab"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "strs": [
+          "dcaccc",
+          "cb",
+          "ca",
+          "b"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "strs": [
+          "",
+          "",
+          "a",
+          "a"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "strs": [
+          "a",
+          ""
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "strs": [
+          "",
+          "a"
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "strs": [
+          "bh",
+          "bddada"
+        ]
+      },
+      "expected": "b",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-11",
+      "input": {
+        "strs": [
+          ""
+        ]
+      },
+      "expected": "",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-12",
+      "input": {
+        "strs": [
+          "bb"
+        ]
+      },
+      "expected": "bb",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-13",
+      "input": {
+        "strs": [
+          "aaa"
+        ]
+      },
+      "expected": "aaa",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

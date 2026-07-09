@@ -122,6 +122,267 @@
       "expected": [],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "numbers": [
+          -808,
+          0,
+          107,
+          640
+        ],
+        "target": -313
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "numbers": [
+          -1,
+          -1,
+          -1
+        ],
+        "target": 0
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "numbers": [
+          0,
+          0,
+          0
+        ],
+        "target": 615
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "numbers": [
+          1,
+          3
+        ],
+        "target": 0
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "numbers": [
+          93,
+          169,
+          215
+        ],
+        "target": -244
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "numbers": [
+          -1,
+          1
+        ],
+        "target": 2
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "numbers": [
+          -12,
+          -1,
+          -1,
+          5,
+          9,
+          13
+        ],
+        "target": 2
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "numbers": [
+          -32,
+          346
+        ],
+        "target": -1
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "numbers": [
+          -930,
+          -524
+        ],
+        "target": 180
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-11",
+      "input": {
+        "numbers": [
+          2,
+          4
+        ],
+        "target": 7
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-12",
+      "input": {
+        "numbers": [
+          -276,
+          937
+        ],
+        "target": 519
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-13",
+      "input": {
+        "numbers": [
+          -292,
+          924,
+          924
+        ],
+        "target": 67
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-all-negative-middle-solution",
+      "input": {
+        "numbers": [
+          -1000,
+          -500,
+          -1
+        ],
+        "target": -501
+      },
+      "expected": [
+        2,
+        3
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-solution-at-last-two",
+      "input": {
+        "numbers": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "target": 19
+      },
+      "expected": [
+        9,
+        10
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-solution-first-and-last-zero-target",
+      "input": {
+        "numbers": [
+          -1000,
+          0,
+          1000
+        ],
+        "target": 0
+      },
+      "expected": [
+        1,
+        3
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-all-same-values",
+      "input": {
+        "numbers": [
+          5,
+          5,
+          5,
+          5
+        ],
+        "target": 10
+      },
+      "expected": [
+        1,
+        4
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-all-zeros",
+      "input": {
+        "numbers": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "target": 0
+      },
+      "expected": [
+        1,
+        5
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

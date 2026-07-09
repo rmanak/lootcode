@@ -129,19 +129,102 @@
       "input": {
         "matrix": [
           [
-            11,
-            21,
-            10,
-            17
-          ],
-          [
-            32,
-            30,
-            60,
-            24
+            2,
+            3
           ]
         ],
-        "target": 11
+        "target": 4
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "matrix": [
+          [
+            671
+          ]
+        ],
+        "target": -500
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "matrix": [
+          [
+            -1,
+            2
+          ]
+        ],
+        "target": 2
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "matrix": [
+          [
+            -1
+          ]
+        ],
+        "target": 2
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "matrix": [
+          [
+            587
+          ]
+        ],
+        "target": 229
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "matrix": [
+          [
+            -5,
+            -2
+          ],
+          [
+            1,
+            8
+          ]
+        ],
+        "target": -6
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "matrix": [
+          [
+            1,
+            1
+          ]
+        ],
+        "target": 1
       },
       "expected": true,
       "weight": 1,

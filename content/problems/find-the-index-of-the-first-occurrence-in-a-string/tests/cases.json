@@ -59,6 +59,106 @@
       "expected": -1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "haystack": "ab",
+        "needle": "b"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "haystack": "b",
+        "needle": "vy"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "haystack": "bb",
+        "needle": "aa"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "haystack": "b",
+        "needle": "dca"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "haystack": "aa",
+        "needle": "abb"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "haystack": "baa",
+        "needle": "bc"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "haystack": "abbb",
+        "needle": "adb"
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-exact-match",
+      "input": {
+        "haystack": "abc",
+        "needle": "abc"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-repeated-char-skip",
+      "input": {
+        "haystack": "aaaaac",
+        "needle": "aaac"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-repeated-char-end",
+      "input": {
+        "haystack": "baaaa",
+        "needle": "aaaa"
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

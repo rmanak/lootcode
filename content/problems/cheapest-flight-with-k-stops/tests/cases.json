@@ -388,6 +388,45 @@
       "expected": 0,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "n": 80,
+        "flights": [],
+        "src": 41,
+        "dst": 1,
+        "k": 35
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "n": 4,
+        "flights": [],
+        "src": 2,
+        "dst": 1,
+        "k": 2
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "n": 28,
+        "flights": [],
+        "src": 3,
+        "dst": 24,
+        "k": 25
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

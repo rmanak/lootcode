@@ -312,6 +312,48 @@
       "expected": true,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-17",
+      "input": {
+        "root": [
+          2,
+          2,
+          2,
+          4
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-18",
+      "input": {
+        "root": [
+          3,
+          2,
+          2,
+          -1,
+          null,
+          0
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-19",
+      "input": {
+        "root": [
+          0,
+          0
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

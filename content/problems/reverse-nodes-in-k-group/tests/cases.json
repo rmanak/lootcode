@@ -257,6 +257,54 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-11",
+      "input": {
+        "head": [
+          0,
+          4,
+          3,
+          6
+        ],
+        "k": 4
+      },
+      "expected": [
+        6,
+        3,
+        4,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-12",
+      "input": {
+        "head": [
+          -48,
+          -48,
+          -4,
+          6,
+          -20,
+          37,
+          47,
+          -49
+        ],
+        "k": 3
+      },
+      "expected": [
+        -4,
+        -48,
+        -48,
+        37,
+        -20,
+        6,
+        47,
+        -49
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

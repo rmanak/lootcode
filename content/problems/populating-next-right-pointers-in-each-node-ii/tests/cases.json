@@ -141,6 +141,107 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "root": [
+          1
+        ]
+      },
+      "expected": [
+        1,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "root": [
+          12,
+          25,
+          11,
+          42,
+          44,
+          -37,
+          17,
+          24
+        ]
+      },
+      "expected": [
+        12,
+        null,
+        25,
+        11,
+        null,
+        42,
+        44,
+        -37,
+        17,
+        null,
+        24,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "root": [
+          2,
+          2
+        ]
+      },
+      "expected": [
+        2,
+        null,
+        2,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "root": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "root": [
+          -46,
+          null,
+          10,
+          -1,
+          36,
+          -14,
+          21,
+          3
+        ]
+      },
+      "expected": [
+        -46,
+        null,
+        10,
+        null,
+        -1,
+        36,
+        null,
+        -14,
+        21,
+        3,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

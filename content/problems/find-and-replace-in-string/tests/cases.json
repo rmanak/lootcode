@@ -257,6 +257,69 @@
       "expected": "bba",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "S": "amokgggqzp",
+        "indexes": [
+          2,
+          6,
+          1
+        ],
+        "sources": [
+          "kg",
+          "bgq",
+          "md"
+        ],
+        "targets": [
+          "d",
+          "cfr",
+          "so"
+        ]
+      },
+      "expected": "amokgggqzp",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "S": "zdalzp",
+        "indexes": [
+          1,
+          0
+        ],
+        "sources": [
+          "ccb",
+          "b"
+        ],
+        "targets": [
+          "caab",
+          "bad"
+        ]
+      },
+      "expected": "zdalzp",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "S": "aaa",
+        "indexes": [
+          2
+        ],
+        "sources": [
+          "a"
+        ],
+        "targets": [
+          "b"
+        ]
+      },
+      "expected": "aab",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

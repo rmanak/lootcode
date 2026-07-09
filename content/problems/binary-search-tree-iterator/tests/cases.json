@@ -145,6 +145,158 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "operations": [
+          [
+            "BSTIterator",
+            [
+              7,
+              3,
+              15,
+              null,
+              null,
+              9,
+              20
+            ]
+          ],
+          [
+            "next"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        3
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "operations": [
+          [
+            "BSTIterator",
+            [
+              7,
+              3,
+              15,
+              null,
+              null,
+              9,
+              20
+            ]
+          ]
+        ]
+      },
+      "expected": [
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "operations": [
+          [
+            "BSTIterator",
+            [
+              7,
+              3,
+              15,
+              null,
+              null,
+              9,
+              20
+            ]
+          ],
+          [
+            "hasNext"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "operations": [
+          [
+            "BSTIterator",
+            [
+              7,
+              3,
+              15,
+              null,
+              null,
+              9,
+              20
+            ]
+          ],
+          [
+            "hasNext"
+          ],
+          [
+            "hasNext"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "operations": [
+          [
+            "BSTIterator",
+            [
+              7,
+              3,
+              15,
+              null,
+              null,
+              9,
+              20
+            ]
+          ],
+          [
+            "next"
+          ],
+          [
+            "hasNext"
+          ],
+          [
+            "hasNext"
+          ],
+          [
+            "next"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        3,
+        true,
+        true,
+        7
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

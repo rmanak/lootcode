@@ -121,6 +121,106 @@
       "expected": 0,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "beginWord": "a",
+        "endWord": "d",
+        "wordList": [
+          "d",
+          "c",
+          "c"
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "beginWord": "hot",
+        "endWord": "dog",
+        "wordList": [
+          "dog"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "beginWord": "b",
+        "endWord": "a",
+        "wordList": [
+          "a"
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "beginWord": "a",
+        "endWord": "a",
+        "wordList": [
+          "b",
+          "b"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "beginWord": "b",
+        "endWord": "a",
+        "wordList": [
+          "b",
+          "a",
+          "a"
+        ]
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "beginWord": "hot",
+        "endWord": "ddg",
+        "wordList": [
+          "hot",
+          "hot",
+          "dog"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+
+      "name": "gen-11",
+      "input": {
+        "beginWord": "hot",
+        "endWord": "cog",
+        "wordList": [
+          "hod",
+          "doc"
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

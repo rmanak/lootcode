@@ -15,7 +15,7 @@ def validate_input(adjList):
     if not (0 <= n <= 100):
         return False
     
-    for neighbors in adjList:
+    for i, neighbors in enumerate(adjList):
         if not isinstance(neighbors, list):
             return False
         for val in neighbors:
@@ -30,7 +30,7 @@ def validate_input(adjList):
         # The index in adjList is 0-based, representing node i+1.
         # So for adjList[i], the node value is i+1.
         # A self-loop would mean i+1 is in neighbors.
-        if (adjList.index(neighbors) + 1) in neighbors:
+        if (i + 1) in neighbors:
             return False
             
     return True

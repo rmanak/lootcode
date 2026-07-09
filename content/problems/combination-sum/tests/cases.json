@@ -176,6 +176,176 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "candidates": [
+          2,
+          3
+        ],
+        "target": 8
+      },
+      "expected": [
+        [
+          2,
+          2,
+          2,
+          2
+        ],
+        [
+          2,
+          3,
+          3
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "candidates": [
+          2
+        ],
+        "target": 23
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "candidates": [
+          3,
+          4
+        ],
+        "target": 8
+      },
+      "expected": [
+        [
+          4,
+          4
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "candidates": [
+          3
+        ],
+        "target": 3
+      },
+      "expected": [
+        [
+          3
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "candidates": [
+          4,
+          5
+        ],
+        "target": 4
+      },
+      "expected": [
+        [
+          4
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "candidates": [
+          4,
+          23
+        ],
+        "target": 36
+      },
+      "expected": [
+        [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "candidates": [
+          3,
+          7,
+          9
+        ],
+        "target": 6
+      },
+      "expected": [
+        [
+          3,
+          3
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "candidates": [
+          22,
+          40
+        ],
+        "target": 7
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "candidates": [
+          6
+        ],
+        "target": 39
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "candidates": [
+          6,
+          25
+        ],
+        "target": 11
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -107,6 +107,24 @@
       "expected": 3675728730,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "n": 72
+      },
+      "expected": 301989888,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "n": 20000
+      },
+      "expected": 74579968,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

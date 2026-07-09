@@ -2012,6 +2012,40 @@
       "expected": 117,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "grid": [
+          [
+            "0",
+            "0",
+            "0",
+            "1",
+            "1"
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "grid": [
+          [
+            "0",
+            "0",
+            "0",
+            "0",
+            "1"
+          ]
+        ]
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

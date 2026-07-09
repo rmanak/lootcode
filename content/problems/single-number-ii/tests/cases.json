@@ -248,14 +248,32 @@
       "name": "gen-1",
       "input": {
         "nums": [
-          3,
-          4,
-          6,
-          6,
+          0
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "nums": [
+          -1
+        ]
+      },
+      "expected": -1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "nums": [
           1
         ]
       },
-      "expected": 11,
+      "expected": 1,
       "weight": 1,
       "hidden": true
     }

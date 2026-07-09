@@ -218,6 +218,52 @@
       "expected": [],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "root": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "root": [
+          -12,
+          17,
+          7,
+          14,
+          -15,
+          7,
+          18,
+          6,
+          2,
+          0,
+          -10
+        ]
+      },
+      "expected": [
+        -12,
+        7,
+        17,
+        18,
+        7,
+        -15,
+        14,
+        null,
+        null,
+        null,
+        null,
+        -10,
+        0,
+        2,
+        6
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -206,6 +206,141 @@
       "expected": 0,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s": "0"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "s": "c2"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "s": "+b"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "s": "a  "
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "s": "-21474d3649"
+      },
+      "expected": -21474,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "s": "-2c47483649"
+      },
+      "expected": -2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "s": "babaaa"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-plus-sign-alone",
+      "input": {
+        "s": "+"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-exact-int-max",
+      "input": {
+        "s": "2147483647"
+      },
+      "expected": 2147483647,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-exact-int-min",
+      "input": {
+        "s": "-2147483648"
+      },
+      "expected": -2147483648,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-negative-zero",
+      "input": {
+        "s": "-0"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-plus-overflow",
+      "input": {
+        "s": "+2147483648"
+      },
+      "expected": 2147483647,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-all-zeros",
+      "input": {
+        "s": "00000"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-spaces-before-plus",
+      "input": {
+        "s": "  +42"
+      },
+      "expected": 42,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-digit-sign-digit",
+      "input": {
+        "s": "0+9"
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

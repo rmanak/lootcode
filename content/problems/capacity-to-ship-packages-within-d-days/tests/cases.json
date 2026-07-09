@@ -204,6 +204,93 @@
       "expected": 9,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "weights": [
+          385,
+          109,
+          195,
+          68
+        ],
+        "days": 2
+      },
+      "expected": 385,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-order-sensitive-small",
+      "input": {
+        "weights": [
+          1,
+          7,
+          2
+        ],
+        "days": 2
+      },
+      "expected": 8,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-order-sensitive-large",
+      "input": {
+        "weights": [
+          10,
+          1,
+          8,
+          9
+        ],
+        "days": 2
+      },
+      "expected": 17,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-equal-capacity-boundary",
+      "input": {
+        "weights": [
+          8,
+          4,
+          7
+        ],
+        "days": 3
+      },
+      "expected": 8,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-minimal-equal-boundary",
+      "input": {
+        "weights": [
+          3,
+          2
+        ],
+        "days": 2
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-dominant-weight",
+      "input": {
+        "weights": [
+          500,
+          1,
+          1,
+          1,
+          1
+        ],
+        "days": 3
+      },
+      "expected": 500,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

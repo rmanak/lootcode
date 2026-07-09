@@ -294,6 +294,23 @@
       "expected": false,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "root": [
+          -6,
+          5,
+          null,
+          null,
+          null,
+          7
+        ],
+        "targetSum": -2
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

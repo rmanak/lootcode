@@ -251,6 +251,205 @@
       "expected": [],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "root": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "expected": [
+        [
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "root": []
+      },
+      "expected": [],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "root": [
+          -46,
+          null,
+          10,
+          -1,
+          36,
+          -14,
+          21,
+          3
+        ]
+      },
+      "expected": [
+        [
+          -46
+        ],
+        [
+          10
+        ],
+        [
+          -1,
+          36
+        ],
+        [
+          -14,
+          21,
+          3
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "root": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        [
+          1
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "root": [
+          12,
+          25,
+          11,
+          42,
+          44,
+          -37,
+          17,
+          24
+        ]
+      },
+      "expected": [
+        [
+          12
+        ],
+        [
+          25,
+          11
+        ],
+        [
+          42,
+          44,
+          -37,
+          17
+        ],
+        [
+          24
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "root": [
+          -2,
+          null,
+          14,
+          null,
+          -15,
+          -48,
+          2,
+          -47
+        ]
+      },
+      "expected": [
+        [
+          -2
+        ],
+        [
+          14
+        ],
+        [
+          -15
+        ],
+        [
+          -48,
+          2
+        ],
+        [
+          -47
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "root": [
+          -1,
+          1,
+          -19,
+          null,
+          null,
+          11,
+          -15,
+          null,
+          null,
+          null,
+          null,
+          -6
+        ]
+      },
+      "expected": [
+        [
+          -1
+        ],
+        [
+          1,
+          -19
+        ],
+        [
+          11,
+          -15
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -80,6 +80,24 @@
       "expected": 39,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s": "aa"
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "s": "ab"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

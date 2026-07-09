@@ -78,6 +78,161 @@
       "expected": true,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "s": "aa",
+        "wordDict": []
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "s": "aaaadaa",
+        "wordDict": [
+          "aaaa"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "s": "appledenapple",
+        "wordDict": [
+          "apple",
+          "pcn",
+          "pcn"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "s": "aba",
+        "wordDict": []
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "s": "ad",
+        "wordDict": [
+          "yc",
+          "cb",
+          "gr"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "s": "applepenapple",
+        "wordDict": [
+          "appbe"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "s": "iugldw",
+        "wordDict": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "s": "pkeeb",
+        "wordDict": [
+          "",
+          "",
+          "a",
+          "a"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "s": "c",
+        "wordDict": [
+          "j",
+          "tryv",
+          "acabbc",
+          "acd",
+          "c"
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "s": "a",
+        "wordDict": []
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-11",
+      "input": {
+        "s": "a",
+        "wordDict": [
+          "baaa",
+          "bb"
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-12",
+      "input": {
+        "s": "ab",
+        "wordDict": [
+          "aabab",
+          "bc",
+          "cr",
+          "ab"
+        ]
+      },
+      "expected": true,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

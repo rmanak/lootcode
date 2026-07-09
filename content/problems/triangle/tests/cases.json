@@ -233,6 +233,41 @@
       "expected": -11,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "triangle": [
+          [
+            -75
+          ]
+        ]
+      },
+      "expected": -75,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "triangle": [
+          [
+            1
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            -1,
+            1,
+            -4
+          ]
+        ]
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

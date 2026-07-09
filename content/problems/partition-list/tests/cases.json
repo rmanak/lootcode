@@ -107,6 +107,164 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "head": [
+          -41
+        ],
+        "x": -75
+      },
+      "expected": [
+        -41
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "head": [
+          39,
+          2,
+          -20,
+          -26,
+          6,
+          -16,
+          43,
+          -28
+        ],
+        "x": -19
+      },
+      "expected": [
+        -20,
+        -26,
+        -28,
+        39,
+        2,
+        6,
+        -16,
+        43
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "head": [
+          3,
+          0,
+          0
+        ],
+        "x": 2
+      },
+      "expected": [
+        0,
+        0,
+        3
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "head": [
+          -2,
+          0
+        ],
+        "x": -196
+      },
+      "expected": [
+        -2,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz",
+      "input": {
+        "head": [
+          2,
+          1
+        ],
+        "x": 4
+      },
+      "expected": [
+        2,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-1",
+      "input": {
+        "head": [
+          2,
+          1
+        ],
+        "x": -107
+      },
+      "expected": [
+        2,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-fuzz-2",
+      "input": {
+        "head": [
+          2,
+          -1,
+          0
+        ],
+        "x": 4
+      },
+      "expected": [
+        2,
+        -1,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "head": [
+          0,
+          3,
+          -2
+        ],
+        "x": 0
+      },
+      "expected": [
+        -2,
+        0,
+        3
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "head": [
+          0
+        ],
+        "x": -194
+      },
+      "expected": [
+        0
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

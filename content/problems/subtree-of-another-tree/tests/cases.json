@@ -641,6 +641,78 @@
       "expected": false,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-subroot-larger-than-root",
+      "input": {
+        "root": [
+          1
+        ],
+        "subRoot": [
+          0,
+          0
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-subroot-deeper-than-matching-subtree",
+      "input": {
+        "root": [
+          3,
+          4,
+          null,
+          0,
+          null,
+          null
+        ],
+        "subRoot": [
+          4,
+          -2,
+          2,
+          2,
+          2
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-string-serialization-digit-boundary",
+      "input": {
+        "root": [
+          3,
+          -1
+        ],
+        "subRoot": [
+          1
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-value-only-match-deeper-subtree",
+      "input": {
+        "root": [
+          1,
+          null,
+          3
+        ],
+        "subRoot": [
+          3,
+          2,
+          3,
+          3
+        ]
+      },
+      "expected": false,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

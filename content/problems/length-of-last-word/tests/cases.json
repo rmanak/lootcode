@@ -53,6 +53,24 @@
       "expected": 3,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-single-word-length-2",
+      "input": {
+        "s": "aa"
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-trailing-double-space",
+      "input": {
+        "s": "b a  "
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

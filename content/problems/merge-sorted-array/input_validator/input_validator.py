@@ -49,5 +49,15 @@ def validate_input(nums1, m, nums2, n):
             return False
         if not (-10**9 <= x <= 10**9):
             return False
-            
+
+    # Check that the first m elements of nums1 are sorted in non-decreasing order
+    for i in range(1, m):
+        if nums1[i] < nums1[i - 1]:
+            return False
+
+    # Check that nums2 is sorted in non-decreasing order
+    for i in range(1, n):
+        if nums2[i] < nums2[i - 1]:
+            return False
+
     return True

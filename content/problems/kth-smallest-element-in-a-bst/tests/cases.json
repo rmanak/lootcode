@@ -193,6 +193,99 @@
       "expected": -18,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "root": [
+          -20,
+          -24,
+          31,
+          null,
+          null,
+          3,
+          null,
+          5,
+          null,
+          -9,
+          null,
+          23,
+          null,
+          -4,
+          9
+        ],
+        "k": 4
+      },
+      "expected": 23,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "root": [
+          0
+        ],
+        "k": 1
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "root": [
+          2,
+          1
+        ],
+        "k": 1
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "root": [
+          -26,
+          -24,
+          -2,
+          null,
+          null,
+          null,
+          null,
+          -5
+        ],
+        "k": 1
+      },
+      "expected": -24,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "root": [
+          -11,
+          -16,
+          15,
+          null,
+          null,
+          4,
+          22,
+          -9,
+          7,
+          null,
+          30,
+          -1
+        ],
+        "k": 4
+      },
+      "expected": -9,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

@@ -109,6 +109,314 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "words": [
+          "we",
+          "everyching",
+          "a",
+          "de",
+          "to",
+          "acience",
+          "da",
+          "co",
+          "ds",
+          "elbe",
+          "crt",
+          "undedstand",
+          "wdll",
+          "whad",
+          "expbain",
+          "computerb",
+          "enougb",
+          "cs"
+        ],
+        "maxWidth": 19
+      },
+      "expected": [
+        "we  everyching a de",
+        "to acience da co ds",
+        "elbe crt undedstand",
+        "wdll  whad  expbain",
+        "computerb enougb cs"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "words": [
+          "Sciende",
+          "is",
+          "wcat",
+          "wb",
+          "understand",
+          "weld",
+          "enougd",
+          "ao",
+          "explaid",
+          "to",
+          "a",
+          "compucer.",
+          "Act",
+          "ic",
+          "everythicg",
+          "else",
+          "dd"
+        ],
+        "maxWidth": 18
+      },
+      "expected": [
+        "Sciende is wcat wb",
+        "understand    weld",
+        "enougd  ao explaid",
+        "to a compucer. Act",
+        "ic everythicg else",
+        "dd                "
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "words": [
+          "acaab",
+          "bbbbba",
+          "bplrv",
+          "bb",
+          "c",
+          "b",
+          "bbac",
+          "bb"
+        ],
+        "maxWidth": 9
+      },
+      "expected": [
+        "acaab    ",
+        "bbbbba   ",
+        "bplrv  bb",
+        "c  b bbac",
+        "bb       "
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "words": [
+          "This",
+          "is",
+          "an",
+          "oa",
+          "cxample",
+          "oa",
+          "dext",
+          "jdstification."
+        ],
+        "maxWidth": 17
+      },
+      "expected": [
+        "This   is  an  oa",
+        "cxample  oa  dext",
+        "jdstification.   "
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "words": [
+          "wfioi",
+          "abccad",
+          "h",
+          "aagsm",
+          "aaac",
+          "baabba",
+          "b",
+          "aac"
+        ],
+        "maxWidth": 18
+      },
+      "expected": [
+        "wfioi   abccad   h",
+        "aagsm  aaac baabba",
+        "b aac             "
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "words": [
+          "acknowlebgment",
+          "ae",
+          "ba",
+          "Wdat",
+          "shald",
+          "must"
+        ],
+        "maxWidth": 14
+      },
+      "expected": [
+        "acknowlebgment",
+        "ae   ba   Wdat",
+        "shald must    "
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "words": [
+          "abbaa",
+          "dabc",
+          "bcd",
+          "baaaba",
+          "badb",
+          "n",
+          "aaa",
+          "cbda"
+        ],
+        "maxWidth": 6
+      },
+      "expected": [
+        "abbaa ",
+        "dabc  ",
+        "bcd   ",
+        "baaaba",
+        "badb n",
+        "aaa   ",
+        "cbda  "
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "words": [
+          "c",
+          "dbdaad",
+          "baabb",
+          "bw",
+          "ccddcb"
+        ],
+        "maxWidth": 12
+      },
+      "expected": [
+        "c     dbdaad",
+        "baabb     bw",
+        "ccddcb      "
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "words": [
+          "badacb",
+          "bbbaab",
+          "aaa",
+          "rfsbiq",
+          "stb",
+          "cbaba",
+          "a",
+          "b"
+        ],
+        "maxWidth": 36
+      },
+      "expected": [
+        "badacb bbbaab aaa rfsbiq stb cbaba a",
+        "b                                   "
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "words": [
+          "a",
+          "a",
+          "a",
+          "c"
+        ],
+        "maxWidth": 2
+      },
+      "expected": [
+        "a ",
+        "a ",
+        "a ",
+        "c "
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-11",
+      "input": {
+        "words": [
+          "tebt",
+          "Tdis",
+          "df",
+          "exadple",
+          "justificatibn.",
+          "ic",
+          "an"
+        ],
+        "maxWidth": 15
+      },
+      "expected": [
+        "tebt   Tdis  df",
+        "exadple        ",
+        "justificatibn. ",
+        "ic an          "
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-12",
+      "input": {
+        "words": [
+          "Sccence",
+          "is",
+          "what",
+          "we",
+          "undbrstand",
+          "wedl",
+          "cnough",
+          "to",
+          "explbin",
+          "ao",
+          "b",
+          "Arb",
+          "bs",
+          "evebything",
+          "elsc",
+          "we",
+          "da"
+        ],
+        "maxWidth": 20
+      },
+      "expected": [
+        "Sccence  is  what we",
+        "undbrstand      wedl",
+        "cnough to explbin ao",
+        "b  Arb bs evebything",
+        "elsc we da          "
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

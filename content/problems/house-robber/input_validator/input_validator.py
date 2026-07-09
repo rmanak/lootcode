@@ -10,7 +10,11 @@ Do not edit by hand; re-run the generator instead.
 def validate_input(nums):
     if not isinstance(nums, list):
         return False
+    if len(nums) < 0 or len(nums) > 100:
+        return False
     for x in nums:
         if isinstance(x, bool) or not isinstance(x, int):
+            return False
+        if x < 0 or x > 400:
             return False
     return True

@@ -143,6 +143,42 @@
       "expected": "/x",
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "path": "/a//b////c/d//././b.."
+      },
+      "expected": "/a/b/c/d/b..",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "path": "/a/./b/b./../c/"
+      },
+      "expected": "/a/b/c",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "path": "/bb/.././c."
+      },
+      "expected": "/c.",
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "path": "/home/bb/x/d./."
+      },
+      "expected": "/home/bb/x/d.",
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

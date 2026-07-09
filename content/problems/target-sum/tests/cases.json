@@ -239,6 +239,199 @@
       "expected": 2,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "nums": [
+          0,
+          2,
+          2,
+          2,
+          1,
+          0,
+          5,
+          2,
+          5,
+          1,
+          4
+        ],
+        "S": -15
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "nums": [
+          7,
+          8,
+          3,
+          8,
+          1,
+          2,
+          4,
+          9,
+          4,
+          8,
+          10
+        ],
+        "S": 1
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "nums": [
+          39,
+          31,
+          38,
+          5,
+          32,
+          50,
+          48,
+          27
+        ],
+        "S": 36
+      },
+      "expected": 1,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-4",
+      "input": {
+        "nums": [
+          30,
+          42
+        ],
+        "S": 1
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-5",
+      "input": {
+        "nums": [
+          3,
+          3
+        ],
+        "S": -1
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-6",
+      "input": {
+        "nums": [
+          0,
+          0,
+          3,
+          4,
+          3,
+          4,
+          1,
+          0,
+          5
+        ],
+        "S": 28
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-7",
+      "input": {
+        "nums": [
+          2
+        ],
+        "S": -1
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "nums": [
+          1,
+          0,
+          1,
+          2
+        ],
+        "S": 1
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "nums": [
+          2,
+          0
+        ],
+        "S": 5
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "nums": [
+          29,
+          2,
+          27,
+          1,
+          12,
+          7,
+          41,
+          19
+        ],
+        "S": -27
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-11",
+      "input": {
+        "nums": [
+          0,
+          1
+        ],
+        "S": 28
+      },
+      "expected": 0,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-12",
+      "input": {
+        "nums": [
+          0
+        ],
+        "S": 0
+      },
+      "expected": 2,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }
