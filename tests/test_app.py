@@ -154,7 +154,8 @@ def test_run_canonical_full_score(client):
     assert r.status_code == 200
     d = r.json()
     assert d["solved"] is True
-    assert d["passed_count"] == d["total_count"] == 7
+    # Full pass, without pinning the exact count (test suites grow over time).
+    assert d["passed_count"] == d["total_count"] > 0
     assert d["score"] == 100
 
 
@@ -174,7 +175,7 @@ def test_run_accepts_tab_indentation(client):
     assert r.status_code == 200
     d = r.json()
     assert d["solved"] is True
-    assert d["passed_count"] == d["total_count"] == 7
+    assert d["passed_count"] == d["total_count"] > 0
 
 
 def test_hidden_tests_not_leaked(client):

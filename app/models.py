@@ -1,6 +1,7 @@
 """SQLAlchemy ORM models. See docs/data-model.md."""
 from __future__ import annotations
 
+import json
 import uuid
 from datetime import datetime, timezone
 
@@ -12,11 +13,36 @@ from sqlalchemy import (
     Integer,
     String,
     Text,
+    TypeDecorator,
     UniqueConstraint,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .db import Base
+
+
+class JSONText(TypeDecorator):
+    """A JSON value stored as ``TEXT`` (not the generic ``JSON`` type).
+
+    SQLite gives a column whose declared type is ``JSON`` **NUMERIC affinity**, so
+    a JSON payload that is a bare integer larger than 2**63 is silently coerced to
+    a lossy float on insert — e.g. an exact answer like ``4697…0`` is stored back
+    as ``4.697e+52`` and then compares unequal to the true value, mis-grading a
+    correct solution. Declaring the column ``TEXT`` gives it TEXT affinity, so
+    SQLite keeps the serialized JSON verbatim and big-integer inputs/answers
+    round-trip exactly. Serialization matches the generic JSON type
+    (``json.dumps``/``json.loads``); a Python ``None`` is stored as JSON ``null``.
+    """
+    impl = Text
+    cache_ok = True
+
+    def process_bind_param(self, value, dialect):
+        return json.dumps(value)
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return None
+        return json.loads(value)
 
 
 def _uuid() -> str:
@@ -139,8 +165,10 @@ class TestCase(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     problem_id: Mapped[int] = mapped_column(ForeignKey("problems.id"))
     name: Mapped[str] = mapped_column(String)
-    input: Mapped[dict] = mapped_column(JSON)       # {param_name: value}
-    expected: Mapped[object] = mapped_column(JSON)  # any JSON value
+    # Stored as TEXT (JSONText), not JSON: a JSON column has NUMERIC affinity in
+    # SQLite, which corrupts bare big-integer inputs/answers (> 2**63) into floats.
+    input: Mapped[dict] = mapped_column(JSONText)       # {param_name: value}
+    expected: Mapped[object] = mapped_column(JSONText)  # any JSON value
     weight: Mapped[int] = mapped_column(Integer, default=1)
     hidden: Mapped[bool] = mapped_column(Boolean, default=False)
 

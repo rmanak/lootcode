@@ -70,3 +70,34 @@ def _migrate() -> None:
             "CREATE UNIQUE INDEX IF NOT EXISTS ix_users_username ON users(username)")
         conn.exec_driver_sql(
             "CREATE UNIQUE INDEX IF NOT EXISTS ix_users_email ON users(email)")
+
+        # Fix SQLite NUMERIC affinity on the test-case JSON columns. A column
+        # declared JSON gets NUMERIC affinity, so a bare big-integer JSON payload
+        # (> 2**63) is coerced to a lossy float on insert (a huge exact answer
+        # becomes e.g. 4.697e+52 and then mis-grades a correct solution). Rebuild
+        # test_cases with TEXT-affinity columns (matching models.JSONText) so JSON
+        # is stored verbatim. Existing rows are copied so a restart never sees an
+        # empty suite; any value that was already corrupted is restored by the next
+        # content re-seed (scripts/seed.py). Detected by the old declared type, so
+        # this runs once. SQLite can't ALTER a column's type, hence the rebuild.
+        tcols = {row[1]: (row[2] or "") for row in conn.exec_driver_sql(
+            "PRAGMA table_info(test_cases)").fetchall()}
+        if tcols and tcols.get("expected", "").upper() == "JSON":
+            conn.exec_driver_sql("ALTER TABLE test_cases RENAME TO _test_cases_old")
+            conn.exec_driver_sql(
+                "CREATE TABLE test_cases ("
+                " id INTEGER NOT NULL,"
+                " problem_id INTEGER NOT NULL,"
+                " name VARCHAR NOT NULL,"
+                " input TEXT NOT NULL,"
+                " expected TEXT NOT NULL,"
+                " weight INTEGER NOT NULL,"
+                " hidden BOOLEAN NOT NULL,"
+                " PRIMARY KEY (id),"
+                " FOREIGN KEY(problem_id) REFERENCES problems (id))")
+            conn.exec_driver_sql(
+                "INSERT INTO test_cases"
+                " (id, problem_id, name, input, expected, weight, hidden)"
+                " SELECT id, problem_id, name, input, expected, weight, hidden"
+                " FROM _test_cases_old")
+            conn.exec_driver_sql("DROP TABLE _test_cases_old")
