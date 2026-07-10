@@ -565,7 +565,7 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
    solving a problem fills that many blocks with a difficulty colour (easy 1,
    medium 4, hard 10). Cells fill left-to-right, top row down. */
 .streak-grid { width: 44px; display: grid;
-  grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(8, 1fr);
   gap: 6px; padding: 6px; background: var(--bg);
   border: 1px solid var(--border); border-radius: 8px; }
 .streak-cell { aspect-ratio: 1; border-radius: 2px; background: #d8d5cc;

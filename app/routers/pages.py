@@ -81,11 +81,11 @@ TOPIC_BAR_TOP_N = 8
 RECENT_PROBLEMS_LIMIT = 25
 
 # "Units of work" a solve is worth, by difficulty. Each weekday is drawn as an
-# 10x2 grid of DAY_BLOCKS little blocks; a solve fills that many grey blocks with
-# a difficulty colour (easy 1 light-green, medium 4 yellow, hard 10 red). Anything
+# 8x2 grid of DAY_BLOCKS little blocks; a solve fills that many grey blocks with
+# a difficulty colour (easy 1 light-green, medium 4 yellow, hard 8 red). Anything
 # past a full day spills forward to pre-fill the next day(s).
-UNIT_WEIGHTS = {"easy": 1, "medium": 4, "hard": 10}
-DAY_BLOCKS = 20  # 10 rows x 2 columns
+UNIT_WEIGHTS = {"easy": 1, "medium": 4, "hard": 8}
+DAY_BLOCKS = 16  # 8 rows x 2 columns
 
 
 def _unsolved_counts(db: Session, skip_ids: set[int]) -> dict[str, int]:
@@ -188,7 +188,7 @@ def _blocks_by_local_date(
     """Bucket each first-solve onto its *local* day, returning per-day units and a
     flat list of coloured blocks (one difficulty tag per unit of work).
 
-    A solve is worth `UNIT_WEIGHTS` blocks (easy 1, medium 4, hard 10). Solve
+    A solve is worth `UNIT_WEIGHTS` blocks (easy 1, medium 4, hard 8). Solve
     times are stored as UTC and bucketed by the user's local day (`tz`), so an
     evening solve lands on the day it felt like, not the next."""
     units_by_date: dict[date, int] = {}
