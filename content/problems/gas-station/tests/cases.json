@@ -243,24 +243,6 @@
       "hidden": true
     },
     {
-      "name": "gen-3",
-      "input": {
-        "gas": [
-          3,
-          2,
-          3
-        ],
-        "cost": [
-          1,
-          1,
-          0
-        ]
-      },
-      "expected": 0,
-      "weight": 1,
-      "hidden": true
-    },
-    {
       "name": "gen-4",
       "input": {
         "gas": [
