@@ -6,12 +6,14 @@ trusted network, put this router behind authentication.
 from __future__ import annotations
 
 import json
+import math
 from types import SimpleNamespace
+from urllib.parse import urlencode
 
 from fastapi import APIRouter, Depends, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
-from sqlalchemy import select
+from sqlalchemy import or_, select
 from sqlalchemy.orm import Session
 
 from .. import content, store
@@ -20,10 +22,15 @@ from ..db import get_db
 from ..executor import run_submission
 from ..models import Problem
 from ..templating import templates
+from .pages import _page_window
 
 router = APIRouter(prefix="/admin")
 
 COMPARE_MODES = ("exact", "unordered", "set_of_lists")
+
+# The admin table is happy to show far more per page than the public list; only
+# once the bank grows past this do we paginate.
+ADMIN_PROBLEMS_PER_PAGE = 1000
 
 
 def _save(db: Session, data: dict) -> Problem:
@@ -88,10 +95,34 @@ def _form_view(prob: Problem) -> dict:
 
 # --- list -----------------------------------------------------------------
 @router.get("")
-def dashboard(request: Request, db: Session = Depends(get_db)):
-    problems = list(db.scalars(select(Problem).order_by(Problem.id)))
+def dashboard(request: Request, q: str | None = None, page: int = 1,
+              db: Session = Depends(get_db)):
+    stmt = select(Problem)
+    if q:
+        # Admin search is a bit wider than the public list: match slug or title,
+        # since the admin identifies problems by slug.
+        like = f"%{q}%"
+        stmt = stmt.where(or_(Problem.slug.ilike(like), Problem.title.ilike(like)))
+    problems = list(db.scalars(stmt.order_by(Problem.id)))
+
+    # Paginate. `page` is clamped so a stale/oversized link lands on the last page
+    # rather than an empty one.
+    total = len(problems)
+    pages = max(1, math.ceil(total / ADMIN_PROBLEMS_PER_PAGE))
+    page = max(1, min(page, pages))
+    start = (page - 1) * ADMIN_PROBLEMS_PER_PAGE
+    page_problems = problems[start:start + ADMIN_PROBLEMS_PER_PAGE]
+
+    base_qs = urlencode({k: v for k, v in (("q", q),) if v})
+
     return templates.TemplateResponse(request, "admin/index.html", {
-        "request": request, "problems": problems, "user_name": request.state.user_name,
+        "request": request, "problems": page_problems,
+        "user_name": request.state.user_name,
+        "f_q": q or "", "total": total,
+        "page": page, "pages": pages, "base_qs": base_qs,
+        "page_items": _page_window(page, pages),
+        "range_start": start + 1 if total else 0,
+        "range_end": start + len(page_problems),
     })
 
 

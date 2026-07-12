@@ -10,8 +10,18 @@
 <p class="muted">AI generation is off. Set <code>ANTHROPIC_API_KEY</code> in <code>.env</code> to enable it.</p>
 {% endif %}
 
-<h2>Problems ({{ problems|length }})</h2>
+<h2>Problems ({{ total }})</h2>
 <p class="muted">Click a problem to view and edit its source, solution, and tests.</p>
+
+{# Search by slug or title. Submitting (Enter) reloads the filtered, paginated
+   list; "Reset" clears it. #}
+<div class="filter-bar">
+  <form class="search-form" method="get">
+    <input type="search" name="q" placeholder="Search slug or title…" value="{{ f_q }}">
+  </form>
+  {% if f_q %}<a class="reset-all" href="/admin">Reset search</a>{% endif %}
+</div>
+
 <table class="problems">
   <thead><tr><th>Slug</th><th>Title</th><th>Difficulty</th><th>Tests</th><th>Compare</th><th></th></tr></thead>
   <tbody>
@@ -25,7 +35,34 @@
       <td><a href="/problems/{{ p.slug }}">solve ↗</a></td>
     </tr>
     {% endfor %}
-    {% if not problems %}<tr><td colspan="6" class="empty">No problems yet.</td></tr>{% endif %}
+    {% if not problems %}<tr><td colspan="6" class="empty">No problems match your search.</td></tr>{% endif %}
   </tbody>
 </table>
+
+{% if total %}
+<nav class="pagination" aria-label="Problem pages">
+  <span class="pginfo">Showing {{ range_start }}–{{ range_end }} of {{ total }}</span>
+  {% if pages > 1 %}
+    {% if page > 1 %}
+      <a href="?{{ base_qs }}{{ '&' if base_qs }}page={{ page - 1 }}" rel="prev">‹ Prev</a>
+    {% else %}
+      <span class="pg disabled">‹ Prev</span>
+    {% endif %}
+    {% for n in page_items %}
+      {% if n is none %}
+        <span class="pg gap">…</span>
+      {% elif n == page %}
+        <span class="pg current">{{ n }}</span>
+      {% else %}
+        <a href="?{{ base_qs }}{{ '&' if base_qs }}page={{ n }}">{{ n }}</a>
+      {% endif %}
+    {% endfor %}
+    {% if page < pages %}
+      <a href="?{{ base_qs }}{{ '&' if base_qs }}page={{ page + 1 }}" rel="next">Next ›</a>
+    {% else %}
+      <span class="pg disabled">Next ›</span>
+    {% endif %}
+  {% endif %}
+</nav>
+{% endif %}
 {% endblock %}
