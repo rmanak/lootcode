@@ -367,8 +367,8 @@ def problem_asset(slug: str, filename: str):
 @router.get("/")
 def index(request: Request, difficulty: str | None = None, topic: str | None = None,
           q: str | None = None, collection: str | None = None, unsolved: int = 0,
-          solved: int = 0, unknown: int = 0, visit_later: int = 0, page: int = 1,
-          db: Session = Depends(get_db)):
+          solved: int = 0, unknown: int = 0, known: int = 0, visit_later: int = 0,
+          page: int = 1, db: Session = Depends(get_db)):
     stmt = select(Problem).where(Problem.is_published.is_(True))
     if difficulty:
         stmt = stmt.where(Problem.difficulty == difficulty)
@@ -403,6 +403,10 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
     if unknown:
         problems = [p for p in problems
                     if p.id not in known_ids and p.id not in solved_ids]
+    # "Known only" — the complement of `unknown`: show just the problems this user
+    # has explicitly marked known. URL-only (no UI chip); combines with other filters.
+    if known:
+        problems = [p for p in problems if p.id in known_ids]
     # "Visit later" is an independent bookmark axis — it shows only flagged
     # problems and combines freely with every other filter (incl. the status
     # chips above), so it isn't part of their mutually-exclusive group.
@@ -483,7 +487,7 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
         ("q", q), ("difficulty", difficulty), ("topic", topic),
         ("collection", collection),
         ("unsolved", 1 if unsolved else None), ("solved", 1 if solved else None),
-        ("unknown", 1 if unknown else None),
+        ("unknown", 1 if unknown else None), ("known", 1 if known else None),
         ("visit_later", 1 if visit_later else None),
     ) if v})
 
