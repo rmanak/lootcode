@@ -116,6 +116,20 @@ h2 { font-size: 18px; margin: 28px 0 12px; }
 .collection-banner .cb-sub { color: var(--ink); font-size: 13px; }
 .collection-banner .cb-count { margin-left: auto; color: var(--muted); font-size: 12px;
   font-weight: 600; }
+/* Solved/total progress line — forced onto its own row below the title. */
+.collection-banner .cb-stats { flex-basis: 100%; display: flex; flex-wrap: wrap;
+  align-items: center; gap: 6px 8px; margin-top: 2px; }
+.collection-banner .cb-solved { color: var(--ink); font-size: 13px; font-weight: 600; }
+/* Numerators inherit their surroundings' color (the `.collection-banner strong`
+   rule above would otherwise force them all to the teal title color): the overall
+   count matches the black denominator, each difficulty numerator matches its pill. */
+.collection-banner .cb-solved strong { color: inherit; font-size: inherit; }
+.collection-banner .cb-diff strong { color: inherit; font-size: inherit; }
+.collection-banner .cb-diff { font-size: 12px; font-weight: 600; padding: 2px 9px;
+  border-radius: 999px; border: 1px solid transparent; }
+.collection-banner .cb-diff.easy { color: var(--easy); background: #e7f4ec; border-color: #cfe9da; }
+.collection-banner .cb-diff.medium { color: var(--medium); background: #fbeede; border-color: #f2dcc0; }
+.collection-banner .cb-diff.hard { color: var(--hard); background: #fae8e6; border-color: #f3d2cd; }
 
 /* Quick "random unsolved problem" picks */
 .quick-picks { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 18px; }

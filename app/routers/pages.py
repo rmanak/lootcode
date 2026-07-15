@@ -418,6 +418,29 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
     if active_collection:
         problems.sort(key=lambda p: coll_order[p.id])
 
+    # Banner progress for the active list: solved/total for the whole collection
+    # (its published members), plus an easy/medium/hard breakdown. Computed over
+    # the full membership — independent of the difficulty/status/topic filters —
+    # so the banner always describes the list as a whole, not the filtered view.
+    coll_stats = None
+    if active_collection:
+        by_diff = {d: {"solved": 0, "total": 0} for d in ("easy", "medium", "hard")}
+        for it in active_collection.items:
+            prob = it.problem
+            if prob is None or not prob.is_published or prob.difficulty not in by_diff:
+                continue
+            by_diff[prob.difficulty]["total"] += 1
+            if prob.id in solved_ids:
+                by_diff[prob.difficulty]["solved"] += 1
+        coll_stats = {
+            "total": sum(d["total"] for d in by_diff.values()),
+            "solved": sum(d["solved"] for d in by_diff.values()),
+            "by_difficulty": [
+                {"name": name, "solved": d["solved"], "total": d["total"]}
+                for name, d in by_diff.items()
+            ],
+        }
+
     # Category bar: published-problem count per topic, most-common first. If the
     # active topic filter is one of the "extra" (hidden) chips, start expanded so
     # the highlighted chip is visible.
@@ -502,6 +525,7 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
         "f_unknown": bool(unknown), "f_visit_later": bool(visit_later),
         "collection_chips": collection_chips,
         "active_collection": active_collection,
+        "coll_stats": coll_stats,
         "difficulty_filters": difficulty_filters,
         "unsolved_href": unsolved_href, "unknown_href": unknown_href,
         "visit_later_href": visit_later_href,

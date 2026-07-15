@@ -15,7 +15,7 @@ at an input we should bake. So the model stays entirely out of the trust path â€
 same footing as a mutant.
 
 We reuse the existing local-server convention (llama.cpp ``llama-server`` on
-:8090, model id ``qwen36``), mirroring ``app/llm/hint_generator.py``.
+:8080, model id ``qwen36``), mirroring ``app/llm/hint_generator.py``.
 """
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ import time
 from dataclasses import dataclass, field
 from typing import Optional
 
-LLM_SERVER_URL = os.environ.get("LLM_SERVER_URL", "http://localhost:8090")
+LLM_SERVER_URL = os.environ.get("LLM_SERVER_URL", "http://localhost:8080")
 LLM_MODEL = os.environ.get("LLM_MODEL", "qwen36")
 LLM_API_KEY = os.environ.get("LLM_API_KEY", "sk-no-key-required")
 

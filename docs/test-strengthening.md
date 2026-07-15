@@ -145,7 +145,7 @@ and canonical re-verification go through `app.executor.run_submission`, so
 | `app/testgen/generators.py` | Candidate **inputs** by param type (`int[]`, grids, strings, `TreeNode`, …) **plus** a vocabulary-aware generator for design/"operations" problems. Covers edge shapes, seed perturbations, small fuzz, and one large stress input. Enforces parsed length bounds and **learned structural invariants** (see Fairness). |
 | `app/testgen/constraints.py` | Best-effort parser for prose bounds in `problem.md` (`1 <= n <= 10^5`, comma-lists, `len(x)`/`x.length`). |
 | `app/testgen/mutate.py` | AST **mutants** of the canonical: single-token edits (comparison/arithmetic/boolean swaps, off-by-one constants, `min`/`max`) **and statement-deletion (SDL)** — the missing-logic class. |
-| `app/testgen/candidates.py` | LLM **candidate-solution population**: prompts the local qwen server (`:8090`) for several independent attempts per problem across temperatures / prompt styles. Screened + parsed into gradeable functions. |
+| `app/testgen/candidates.py` | LLM **candidate-solution population**: prompts the local qwen server (`:8080`) for several independent attempts per problem across temperatures / prompt styles. Screened + parsed into gradeable functions. |
 | `scripts/collect_candidates.py` | Resumable, checkpointed collector for the population (2 workers = 2 server slots). |
 | `app/testgen/select.py` | Greedy set-cover: minimal set of new cases that kills the discriminators (mutants + population) the existing suite misses; always keeps the stress case. |
 

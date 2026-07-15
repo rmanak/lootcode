@@ -91,6 +91,14 @@
   <strong>{{ active_collection.title }}</strong>
   {% if active_collection.subtitle %}<span class="cb-sub">{{ active_collection.subtitle }}</span>{% endif %}
   <span class="cb-count">{{ active_collection.items | length }} problems · study order</span>
+  {% if coll_stats %}
+  <div class="cb-stats">
+    <span class="cb-solved">Solved <strong>{{ coll_stats.solved }}</strong> / {{ coll_stats.total }}</span>
+    {% for d in coll_stats.by_difficulty %}
+    <span class="cb-diff {{ d.name }}">{{ d.name | capitalize }} <strong>{{ d.solved }}</strong>/{{ d.total }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
 </div>
 {% endif %}
 
