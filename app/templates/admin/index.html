@@ -4,10 +4,13 @@
 <h1>Admin</h1>
 <div class="admin-actions">
   <a class="btn" href="/admin/new">+ New problem (manual)</a>
-  <a class="btn {{ '' if ai_enabled else 'disabled' }}" href="/admin/generate">✨ Generate with AI</a>
+  <a class="btn {{ '' if gen_enabled else 'disabled' }}" href="/admin/generate">✨ Generate with AI</a>
 </div>
-{% if not ai_enabled %}
-<p class="muted">AI generation is off. Set <code>ANTHROPIC_API_KEY</code> in <code>.env</code> to enable it.</p>
+{% if gen_enabled %}
+<p class="muted">AI generation is on — using the {{ gen_backend }}.</p>
+{% else %}
+<p class="muted">AI generation is off. Set <code>ANTHROPIC_API_KEY</code> in <code>.env</code>,
+  or point <code>LLM_HELP_URL</code> at a running OpenAI-compatible endpoint and restart, to enable it.</p>
 {% endif %}
 
 <h2>Problems ({{ total }})</h2>

@@ -1,0 +1,37 @@
+You are an expert programming mentor helping a student who is stuck on the coding
+problem below. The student has already read every hint listed under "Hints they
+have already seen" and is STILL unable to find the solution. Your job is to give
+them ONE more hint that carries them a concrete step forward from where those
+existing hints leave off.
+
+# Problem title
+{{TITLE}}
+
+# Problem statement
+{{STATEMENT}}
+
+# Hints they have already seen
+{{EXISTING_HINTS}}
+
+# What to write
+Write a single fresh hint of about 3 to 5 sentences that:
+- Does NOT repeat, paraphrase, or merely restate any hint above. Assume the
+  student already understands all of them and needs the NEXT idea, not a rewording
+  of an old one.
+- Advances beyond those hints: name the specific data structure, technique,
+  invariant, sub-problem, or key observation that unlocks the solution, and explain
+  WHY it helps for this particular problem.
+- Guides the student to discover the rest themselves rather than handing it over.
+  Do not spell out the full algorithm as a numbered step-by-step recipe, and do not
+  include a complete, copy-pasteable code solution. A short illustrative snippet or
+  the single key formula is acceptable only when a sentence of prose genuinely
+  cannot convey the same idea.
+- Is concrete and specific to THIS problem, referring to its actual quantities,
+  inputs, and terms. Never give generic study advice.
+
+It is fine for this hint to be more revealing than the earlier ones — the student
+is stuck and needs real traction. Aim to be maximally helpful while still leaving
+the final "aha" for them to reach.
+
+Respond with the hint text only: no preamble, no heading, no "Hint:" label, and no
+surrounding quotation marks.

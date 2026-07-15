@@ -371,6 +371,42 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 /* Hint prose is a normal sentence, not the small-caps used by the summary rows. */
 .hint-body { font-size: 14px; color: var(--ink); line-height: 1.5; }
 
+/* "Get More Help with AI": on-demand extra hint, below the last stored hint. The
+   button mirrors the admin "Generate with AI" look (teal fill, ✨), greys out via
+   `.btn.disabled` when the LLM endpoint isn't reachable. */
+.ai-help-sep { margin-top: 20px; }
+.ai-help { margin-top: 2px; }
+.ai-help-btn { display: inline-flex; align-items: center; gap: 7px; margin-top: 0; }
+.ai-help-btn:not(.disabled):hover { background: var(--primary-d); }
+.ai-help-btn.is-busy { cursor: progress; }
+.ai-help-note { font-size: 12.5px; margin: 8px 0 0; }
+
+/* Streaming progress shown next to the button while a hint is generated. */
+.ai-help-progress { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+.ai-help-bar { flex: 0 1 220px; height: 6px; border-radius: 999px;
+  background: var(--border); overflow: hidden; }
+.ai-help-bar > span { display: block; height: 100%; width: 0; border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transition: width .3s ease; }
+.ai-help-status { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+
+/* The generated hint, styled like a warmer, AI-flavoured cousin of a stored hint. */
+.ai-help-output { margin-top: 14px; border: 1px solid #f0d9b5; border-radius: 10px;
+  padding: 12px 14px; background: linear-gradient(180deg, #fffdf7, var(--surface)); }
+.ai-help-head { display: inline-flex; align-items: center; gap: 6px; font-size: 12px;
+  text-transform: uppercase; letter-spacing: .04em; color: var(--accent);
+  font-weight: 700; margin-bottom: 8px; }
+.ai-help-text { font-size: 14px; color: var(--ink); line-height: 1.55; white-space: pre-wrap; }
+.ai-help-output.is-error { border-color: #f3d2cd; background: #fbe7e6; }
+.ai-help-output.is-error .ai-help-head { color: var(--fail); }
+.ai-help-output.is-error .ai-help-text { color: var(--fail); }
+
+/* Sparkle pulses while the hint streams in. */
+@keyframes ai-sparkle { 0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(1.2); } }
+.ai-help-btn.is-busy .ai-spark { display: inline-block;
+  animation: ai-sparkle 1s ease-in-out infinite; }
+
 /* Workbench / editor */
 .workbench label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; }
 .loaded-note { font-size: 13px; color: var(--muted); margin: 0 0 8px;

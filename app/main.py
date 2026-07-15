@@ -27,6 +27,15 @@ async def lifespan(_: FastAPI):
         # every startup — a manifest edit takes effect on restart without a full
         # problem re-seed. Unknown slugs are logged, not fatal (see store).
         seed_collections(db)
+
+    # Probe the optional "Get More Help with AI" endpoint once. The problem page
+    # enables the button only when this succeeds; any failure just leaves it off.
+    try:
+        from .llm.help_generator import probe_endpoint
+
+        settings.llm_help_available = probe_endpoint()
+    except Exception:  # noqa: BLE001 - never let an optional probe block startup
+        settings.llm_help_available = False
     yield
 
 

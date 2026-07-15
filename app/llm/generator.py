@@ -1,9 +1,20 @@
-"""Generate coding problems with the Claude API, then verify them.
+"""Generate coding problems with an LLM, then verify them.
 
 A generated problem is only trustworthy if its reference solution actually
 passes its own tests — so every generated problem is run through the sandbox
-executor before it is returned. Uses the Anthropic Python SDK; the model
-defaults to claude-opus-4-8 (override with ANTHROPIC_MODEL).
+executor before it is returned.
+
+Two backends, chosen automatically by :func:`active_backend`:
+
+* **anthropic** — the Claude API (preferred when ``ANTHROPIC_API_KEY`` is set);
+  model defaults to claude-opus-4-8 (override with ``ANTHROPIC_MODEL``).
+* **openai** — any OpenAI-compatible endpoint (llama.cpp's ``llama-server`` or a
+  cloud provider), the same one the "Get More Help with AI" button uses
+  (``LLM_HELP_URL`` / ``LLM_HELP_API_KEY`` / ``LLM_HELP_MODEL``). Used as a fallback
+  when no Claude key is configured but the startup probe found a live endpoint.
+
+Both paths ask for the same JSON schema and run through the same verify step, so
+the rest of the app doesn't care which produced a given problem.
 """
 from __future__ import annotations
 
@@ -65,6 +76,27 @@ PROBLEM_SCHEMA = {
     "required": ["slug", "title", "difficulty", "topics", "statement_md",
                  "function_name", "params", "return_type", "starter_code",
                  "canonical_solution", "compare", "tests"],
+}
+
+# Schema for the "plan a batch" step of generate_from_text: a list of briefs.
+PLAN_SCHEMA = {
+    "type": "object",
+    "additionalProperties": False,
+    "properties": {
+        "problems": {
+            "type": "array",
+            "items": {
+                "type": "object", "additionalProperties": False,
+                "properties": {
+                    "title": {"type": "string"},
+                    "brief": {"type": "string"},
+                    "difficulty": {"type": "string", "enum": ["easy", "medium", "hard"]},
+                },
+                "required": ["title", "brief", "difficulty"],
+            },
+        },
+    },
+    "required": ["problems"],
 }
 
 SYSTEM = """You are an expert author of coding-practice problems for a LeetCode-style platform.
@@ -134,14 +166,28 @@ class _TestLike:
     hidden: bool
 
 
-def _client():
-    import anthropic
+def active_backend() -> str:
+    """Which LLM backend problem generation will use, or '' if none is available.
 
-    return anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
-
-
-def _extract_text(resp) -> str:
-    return "".join(b.text for b in resp.content if getattr(b, "type", None) == "text")
+    ``LLM_GEN_BACKEND`` picks a preference (``auto`` | ``anthropic`` | ``openai``);
+    ``auto`` prefers the Claude API when an ``ANTHROPIC_API_KEY`` is set (far
+    stronger at authoring a correct canonical + tests) and otherwise uses the
+    OpenAI-compatible endpoint the startup probe found live. A forced-but-
+    unavailable preference falls back to whatever is reachable.
+    """
+    available = []
+    if settings.ai_enabled:
+        available.append("anthropic")
+    if settings.llm_help_available:
+        available.append("openai")
+    if not available:
+        return ""
+    pref = settings.LLM_GEN_BACKEND
+    if pref in available:
+        return pref
+    # 'auto', or a forced preference that isn't reachable: take the default order
+    # (anthropic first when both are present).
+    return available[0]
 
 
 def _loads_loose(text: str) -> dict:
@@ -159,18 +205,92 @@ def _loads_loose(text: str) -> dict:
         return json.loads(text[i:j + 1])
 
 
-def _complete_json(user: str) -> dict:
-    client = _client()
-    common = dict(model=settings.ANTHROPIC_MODEL, max_tokens=16000,
-                  system=_system_prompt(), messages=[{"role": "user", "content": user}])
+# --- Anthropic backend ----------------------------------------------------
+def _anthropic_client():
+    import anthropic
+
+    return anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
+
+
+def _extract_text(resp) -> str:
+    return "".join(b.text for b in resp.content if getattr(b, "type", None) == "text")
+
+
+def _anthropic_json(system: str, user: str, schema: dict, max_tokens: int) -> dict:
+    client = _anthropic_client()
+    common = dict(model=settings.ANTHROPIC_MODEL, max_tokens=max_tokens,
+                  system=system, messages=[{"role": "user", "content": user}])
     try:
         resp = client.messages.create(
-            output_config={"format": {"type": "json_schema", "schema": PROBLEM_SCHEMA}},
+            output_config={"format": {"type": "json_schema", "schema": schema}},
             **common,
         )
     except Exception:  # noqa: BLE001 - older SDK / unsupported param: plain JSON ask
         resp = client.messages.create(**common)
     return _loads_loose(_extract_text(resp))
+
+
+# --- OpenAI-compatible backend --------------------------------------------
+def _openai_client():
+    from openai import OpenAI
+
+    base = settings.LLM_HELP_URL.rstrip("/")
+    if not base.endswith("/v1"):
+        base = f"{base}/v1"
+    # Generation is heavy (a full problem + canonical + tests), so allow plenty of
+    # time and one retry; unlike the interactive hint path this isn't latency-bound.
+    return OpenAI(base_url=base, api_key=settings.LLM_HELP_API_KEY,
+                  timeout=300.0, max_retries=1)
+
+
+def _openai_json(system: str, user: str, schema: dict, max_tokens: int) -> dict:
+    client = _openai_client()
+    messages = [{"role": "system", "content": system},
+                {"role": "user", "content": user}]
+    # Reasoning off: keeps generation from stalling and its tokens from crowding out
+    # the JSON (a llama.cpp/Qwen convention; plain OpenAI servers ignore it). The
+    # canonical is verified afterwards, with one corrective retry, either way.
+    extra_body = {"chat_template_kwargs": {"enable_thinking": False}}
+    # Enforce structure when supported, degrading to laxer modes for bare endpoints.
+    response_formats = [
+        {"type": "json_schema",
+         "json_schema": {"name": "problem", "schema": schema, "strict": True}},
+        {"type": "json_object"},
+        None,
+    ]
+    last_err: Exception | None = None
+    for rf in response_formats:
+        kwargs = dict(model=settings.LLM_HELP_MODEL, messages=messages,
+                      max_tokens=max_tokens, temperature=0.3, extra_body=extra_body)
+        if rf is not None:
+            kwargs["response_format"] = rf
+        try:
+            resp = client.chat.completions.create(**kwargs)
+            return _loads_loose(resp.choices[0].message.content or "")
+        except Exception as e:  # noqa: BLE001
+            last_err = e
+            # A network failure won't be fixed by a laxer response_format; only a
+            # rejected/unsupported param is worth retrying with the next mode.
+            if any(k in type(e).__name__ for k in ("Connection", "Timeout")):
+                break
+            continue
+    raise RuntimeError(f"LLM problem generation failed: {last_err}") from last_err
+
+
+def _llm_json(system: str, user: str, schema: dict, max_tokens: int) -> dict:
+    """Route a JSON-returning completion to whichever backend is configured."""
+    backend = active_backend()
+    if backend == "anthropic":
+        return _anthropic_json(system, user, schema, max_tokens)
+    if backend == "openai":
+        return _openai_json(system, user, schema, max_tokens)
+    raise RuntimeError(
+        "No LLM backend configured: set ANTHROPIC_API_KEY, or point LLM_HELP_URL at "
+        "a reachable OpenAI-compatible endpoint and restart.")
+
+
+def _complete_json(user: str) -> dict:
+    return _llm_json(_system_prompt(), user, PROBLEM_SCHEMA, max_tokens=16000)
 
 
 def _to_internal(raw: dict) -> dict:
@@ -241,13 +361,10 @@ def generate_from_text(text: str, count: int = 3) -> list[dict]:
         '{"problems":[{"title":...,"brief":...,"difficulty":"easy|medium|hard"}]}.\n\n'
         f"MATERIAL:\n{text[:8000]}"
     )
-    client = _client()
-    resp = client.messages.create(
-        model=settings.ANTHROPIC_MODEL, max_tokens=4000,
-        system="You plan coding-practice problem sets. Output only the requested JSON.",
-        messages=[{"role": "user", "content": brief_prompt}],
-    )
-    briefs = _loads_loose(_extract_text(resp)).get("problems", [])[:count]
+    planned = _llm_json(
+        "You plan coding-practice problem sets. Output only the requested JSON.",
+        brief_prompt, PLAN_SCHEMA, max_tokens=4000)
+    briefs = planned.get("problems", [])[:count]
 
     out = []
     for b in briefs:

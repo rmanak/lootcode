@@ -5,8 +5,11 @@
 <h1>Generate a problem with AI</h1>
 
 {% if disabled %}
-<p class="muted">Set <code>ANTHROPIC_API_KEY</code> in <code>.env</code> and restart to enable this.</p>
+<p class="muted">AI generation is off. Set <code>ANTHROPIC_API_KEY</code> in <code>.env</code>,
+  or point <code>LLM_HELP_URL</code> at a running OpenAI-compatible endpoint, then restart to enable this.</p>
 {% else %}
+
+<p class="muted gen-backend">Using the <strong>{{ backend }}</strong>.</p>
 
 {% if error %}<div class="run-error">{{ error }}</div>{% endif %}
 {% if results %}
@@ -51,7 +54,7 @@
 
   <button type="submit">Generate &amp; verify</button>
   <p class="muted">Each generated problem is run against its own tests before saving.
-     This calls the Claude API and may take a minute.</p>
+     This calls the {{ backend }} and may take a minute (longer on a local endpoint).</p>
 </form>
 {% endif %}
 {% endblock %}

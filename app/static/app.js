@@ -177,3 +177,116 @@
       ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
 })();
+
+// "Get More Help with AI": stream one extra, more-concrete hint from the server's
+// optional LLM endpoint (Server-Sent Events). Inert when the button is greyed out.
+(function () {
+  const root = document.querySelector(".solve");
+  const wrap = document.getElementById("ai-help");
+  if (!root || !wrap || wrap.dataset.enabled !== "1") return;
+
+  const btn = document.getElementById("ai-help-btn");
+  const label = btn.querySelector(".ai-help-label");
+  const progress = document.getElementById("ai-help-progress");
+  const bar = document.getElementById("ai-help-bar-fill");
+  const statusEl = document.getElementById("ai-help-status");
+  const output = document.getElementById("ai-help-output");
+  const slug = root.dataset.slug;
+
+  // Rough target length (chars) for a 3-5 sentence hint. The bar eases toward 92%
+  // as text arrives, then snaps to 100% when the stream finishes — a real, if
+  // approximate, sense of progress before we know the true length.
+  const TARGET = 460;
+
+  let busy = false, timer = null, t0 = 0;
+
+  const showStatus = (t) => { statusEl.textContent = t; };
+  const tick = () =>
+    showStatus(`Writing your hint… ${((Date.now() - t0) / 1000).toFixed(1)}s`);
+
+  function paint(kind, text) {
+    // kind: "hint" (accent) or "error" (red). Rebuilds the box once, then updates
+    // only the text node on subsequent streamed deltas.
+    output.hidden = false;
+    output.classList.toggle("is-error", kind === "error");
+    let textEl = output.querySelector(".ai-help-text");
+    if (!textEl) {
+      const icon = kind === "error" ? "⚠️" : "✨";
+      output.innerHTML =
+        `<div class="ai-help-head"><span aria-hidden="true">${icon}</span> AI hint</div>` +
+        `<div class="ai-help-text"></div>`;
+      textEl = output.querySelector(".ai-help-text");
+    }
+    textEl.textContent = text;
+  }
+
+  async function getHelp() {
+    if (busy) return;
+    busy = true;
+    btn.disabled = true;
+    btn.classList.add("is-busy");
+    progress.hidden = false;
+    output.hidden = true;
+    output.classList.remove("is-error");
+    output.innerHTML = "";
+    bar.style.width = "6%";
+    showStatus("Contacting the AI…");
+    t0 = Date.now();
+
+    let text = "", errored = false;
+    try {
+      const resp = await fetch(`/api/problems/${slug}/help`, { method: "POST" });
+      if (!resp.ok || !resp.body) {
+        let detail = "Request failed";
+        try { detail = (await resp.json()).detail || detail; } catch (_) { /* non-JSON */ }
+        throw new Error(detail);
+      }
+      timer = setInterval(tick, 200);
+
+      const reader = resp.body.getReader();
+      const dec = new TextDecoder();
+      let buf = "";
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buf += dec.decode(value, { stream: true });
+        let sep;
+        while ((sep = buf.indexOf("\n\n")) !== -1) {
+          const frame = buf.slice(0, sep);
+          buf = buf.slice(sep + 2);
+          const line = frame.split("\n").find((l) => l.startsWith("data:"));
+          if (!line) continue;
+          let evt;
+          try { evt = JSON.parse(line.slice(5).trim()); } catch (_) { continue; }
+          if (evt.type === "delta") {
+            text += evt.text;
+            paint("hint", text);
+            bar.style.width = Math.min(92, 6 + (text.length / TARGET) * 86) + "%";
+          } else if (evt.type === "error") {
+            errored = true;
+            paint("error", evt.message || "AI help failed.");
+          }
+        }
+      }
+    } catch (err) {
+      errored = true;
+      paint("error", err.message || "AI help failed.");
+    } finally {
+      if (timer) { clearInterval(timer); timer = null; }
+      bar.style.width = "100%";
+      busy = false;
+      btn.disabled = false;
+      btn.classList.remove("is-busy");
+      if (errored) {
+        progress.hidden = true;
+        showStatus("");
+      } else {
+        showStatus("Done ✓");
+        label.textContent = "Get another hint";
+        setTimeout(() => { progress.hidden = true; }, 1600);
+      }
+    }
+  }
+
+  btn.addEventListener("click", getHelp);
+})();

@@ -50,9 +50,38 @@ class Settings:
     ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
     ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-opus-4-8")
 
+    # On-the-fly "Get More Help with AI" hints on the problem page (optional).
+    # Points at any OpenAI-compatible chat endpoint — llama.cpp's ``llama-server``
+    # (default ``http://localhost:8080``) or a cloud provider that speaks the
+    # OpenAI API. Falls back to the same env vars the bulk hint generator
+    # (app/llm/hint_generator.py) already uses, so an existing local Qwen setup
+    # works out of the box.
+    LLM_HELP_URL = os.environ.get(
+        "LLM_HELP_URL", os.environ.get("LLM_SERVER_URL", "http://localhost:8080"))
+    LLM_HELP_API_KEY = os.environ.get(
+        "LLM_HELP_API_KEY", os.environ.get("LLM_API_KEY", "sk-no-key-required"))
+    LLM_HELP_MODEL = os.environ.get(
+        "LLM_HELP_MODEL", os.environ.get("LLM_MODEL", "local-model"))
+
+    # Which backend admin "Generate with AI" prefers: "auto" (Claude if a key is
+    # set, else the OpenAI-compatible endpoint), or force "anthropic" / "openai".
+    # A forced-but-unavailable choice falls back to whatever is reachable.
+    LLM_GEN_BACKEND = os.environ.get("LLM_GEN_BACKEND", "auto").strip().lower()
+
+    # Set once at startup by a health probe (see app/main.py lifespan). The problem
+    # page enables the "Get More Help with AI" button only when this is True.
+    llm_help_available: bool = False
+
     @property
     def ai_enabled(self) -> bool:
         return bool(self.ANTHROPIC_API_KEY)
+
+    @property
+    def generation_enabled(self) -> bool:
+        """Whether admin "Generate with AI" can run: either the Claude API is
+        configured (preferred) or a reachable OpenAI-compatible endpoint was found
+        at startup (the same one the "Get More Help with AI" button uses)."""
+        return self.ai_enabled or self.llm_help_available
 
     @property
     def content_dirs(self) -> list[Path]:

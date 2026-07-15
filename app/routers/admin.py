@@ -28,6 +28,20 @@ router = APIRouter(prefix="/admin")
 
 COMPARE_MODES = ("exact", "unordered", "set_of_lists")
 
+# Human-readable label for the LLM backend the generator will use, for the UI.
+_BACKEND_LABELS = {
+    "anthropic": "Claude API",
+    "openai": "local LLM endpoint (LLM_HELP_URL)",
+}
+
+
+def _active_backend() -> str:
+    """Which generation backend is live ('anthropic' | 'openai' | ''). Imported
+    lazily so admin listing doesn't pull in the generator's LLM deps."""
+    from ..llm.generator import active_backend
+
+    return active_backend()
+
 # The admin table is happy to show far more per page than the public list; only
 # once the bank grows past this do we paginate.
 ADMIN_PROBLEMS_PER_PAGE = 1000
@@ -123,6 +137,8 @@ def dashboard(request: Request, q: str | None = None, page: int = 1,
         "page_items": _page_window(page, pages),
         "range_start": start + 1 if total else 0,
         "range_end": start + len(page_problems),
+        "gen_enabled": settings.generation_enabled,
+        "gen_backend": _BACKEND_LABELS.get(_active_backend(), ""),
     })
 
 
@@ -264,7 +280,8 @@ def new_submit(
 def generate_form(request: Request):
     return templates.TemplateResponse(request, "admin/generate.html", {
         "request": request, "user_name": request.state.user_name,
-        "disabled": not settings.ai_enabled, "results": None, "error": None,
+        "disabled": not settings.generation_enabled, "results": None, "error": None,
+        "backend": _BACKEND_LABELS.get(_active_backend(), ""),
     })
 
 
@@ -274,7 +291,7 @@ def generate_submit(
     brief: str = Form(""), difficulty: str = Form(""),
     bulk_text: str = Form(""), count: int = Form(3),
 ):
-    if not settings.ai_enabled:
+    if not settings.generation_enabled:
         raise HTTPException(status_code=400, detail="AI generation is not configured.")
     from ..llm import generator
 
@@ -297,4 +314,5 @@ def generate_submit(
     return templates.TemplateResponse(request, "admin/generate.html", {
         "request": request, "user_name": request.state.user_name,
         "disabled": False, "results": results, "error": error,
+        "backend": _BACKEND_LABELS.get(_active_backend(), ""),
     })

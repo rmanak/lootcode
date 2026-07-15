@@ -80,6 +80,28 @@
       <div class="disclosure-body hint-body">{{ hint }}</div>
     </details>
     {% endfor %}
+
+    {# On-the-fly AI help: one extra, more-concrete hint generated on demand from
+       the title + statement + existing hints. Enabled only when the server's
+       startup probe found a reachable OpenAI-compatible LLM endpoint. #}
+    <hr class="section-sep ai-help-sep">
+    <div class="ai-help" id="ai-help" data-enabled="{{ '1' if ai_help_enabled else '0' }}">
+      <button type="button" class="btn ai-help-btn {{ '' if ai_help_enabled else 'disabled' }}"
+              id="ai-help-btn" {{ '' if ai_help_enabled else 'disabled' }}>
+        <span class="ai-spark" aria-hidden="true">✨</span>
+        <span class="ai-help-label">Get More Help with AI</span>
+      </button>
+      <div class="ai-help-progress" id="ai-help-progress" hidden>
+        <div class="ai-help-bar"><span id="ai-help-bar-fill"></span></div>
+        <span class="ai-help-status" id="ai-help-status"></span>
+      </div>
+      {% if not ai_help_enabled %}
+      <p class="muted ai-help-note">AI help is off. Point <code>LLM_HELP_URL</code>
+        (and <code>LLM_HELP_API_KEY</code> if your endpoint needs auth) at a running
+        OpenAI-compatible endpoint and restart to enable this.</p>
+      {% endif %}
+      <div class="ai-help-output" id="ai-help-output" hidden></div>
+    </div>
     </div>{# /description panel #}
 
     <div class="panel-view" data-panel-view="submissions" hidden>

@@ -45,5 +45,4 @@ def _static_url(path: str) -> str:
 templates.env.filters["markdown"] = _render_markdown
 templates.env.filters["localdt"] = _local_dt
 templates.env.globals["app_name"] = settings.APP_NAME
-templates.env.globals["ai_enabled"] = settings.ai_enabled
 templates.env.globals["static"] = _static_url

@@ -123,7 +123,10 @@ works for a fresh checkout.
   fill-in (full statement / description-only) vs. from-scratch — sharing one
   "core" output contract. See `docs/problem-generation.md`. The in-app
   "Auto-generate with AI" admin feature is the from-scratch mode
-  (`app/llm/generator.py`).
+  (`app/llm/generator.py`). It runs on either backend — the Claude API when
+  `ANTHROPIC_API_KEY` is set (preferred), otherwise the same OpenAI-compatible
+  `LLM_HELP_URL` endpoint the AI-help button uses (`generator.active_backend()`);
+  the button is enabled when either is available (`settings.generation_enabled`).
 - **Figures:** when a problem needs a diagram, follow `docs/problem-images.md`
   (when to add one, SVG how-to, and the `content/problems/<slug>/assets/` +
   `/problems/{slug}/assets/{filename}` serving API). Bulk text imports go through
@@ -133,5 +136,9 @@ works for a fresh checkout.
   quality gate is a generate→judge→regenerate loop that grades hints against the
   canonical solution — use `scripts/improve_hints.py audit`/`fix` (or the
   `generate_hints_verified` engine), not the older ungated `generate_hints.py`. Tier
-  rules in `specs/problem-schema.md`; pipeline in `docs/hint-generation.md`.
+  rules in `specs/problem-schema.md`; pipeline in `docs/hint-generation.md`. A
+  separate **on-demand** "Get More Help with AI" button on the problem page streams
+  one extra, more-revealing hint from an OpenAI-compatible LLM endpoint
+  (`LLM_HELP_URL`, probed once at startup → `settings.llm_help_available`); engine in
+  `app/llm/help_generator.py`, see `docs/ai-help.md`.
 - Keep this file and `docs/` in sync with reality as the app grows.

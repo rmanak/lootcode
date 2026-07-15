@@ -98,6 +98,27 @@ not as a default the save path applies on its own.
 > different paths stop being interchangeable. Prefer converging on one core
 > prompt + one core validator that each mode extends.
 
+### Backends (Mode C)
+
+`generator.active_backend()` picks the LLM at call time:
+
+- **anthropic** — the Claude API, used whenever `ANTHROPIC_API_KEY` is set
+  (preferred: far stronger at authoring a correct canonical + tests).
+- **openai** — any OpenAI-compatible endpoint (`LLM_HELP_URL` / `LLM_HELP_API_KEY`
+  / `LLM_HELP_MODEL`), the same one the "Get More Help with AI" button uses (see
+  `docs/ai-help.md`). Used as a fallback when no Claude key is set but the startup
+  probe found a live endpoint (`settings.llm_help_available`).
+
+Both request the same `PROBLEM_SCHEMA` (with a structured-output fallback chain on
+the openai path) and run through the same sandbox verify + one corrective retry, so
+generated problems are interchangeable regardless of backend. The admin button is
+enabled when **either** backend is available (`settings.generation_enabled`).
+
+`LLM_GEN_BACKEND` overrides the choice: `auto` (default — Claude if keyed, else the
+endpoint), or force `anthropic` / `openai` (e.g. to author on the local endpoint
+even with a Claude key set, to save API spend). A forced-but-unavailable preference
+falls back to whatever is reachable.
+
 ## Validation & verification (all modes)
 
 Two independent checks, both required:
