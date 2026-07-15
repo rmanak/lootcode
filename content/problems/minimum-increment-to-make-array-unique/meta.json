@@ -9,9 +9,9 @@
     "counting"
   ],
   "hints": [
-    "Sort the array so you can process elements in increasing order and handle conflicts locally.",
-    "For each element, if it is not strictly greater than the previous one, increase it to be exactly one more.",
-    "The cost is the difference between the new value and the original value; sum these differences."
+    "Sort the array first to process elements in non-decreasing order.",
+    "Use a greedy approach: ensure each element is strictly greater than the previous one.",
+    "Track the minimum valid value for the current element based on the previous one's final value."
   ],
   "languages": [
     "python"

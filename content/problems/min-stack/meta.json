@@ -6,9 +6,9 @@
     "stack"
   ],
   "hints": [
-    "Notice that getMin must be O(1), so you cannot scan the stack. What extra data can you maintain to track the minimum?",
-    "Consider maintaining a secondary stack that stores the current minimum value alongside each element in the main stack.",
-    "When pushing x, push min(x, current_min) onto the auxiliary stack. Pop from both stacks simultaneously on pop."
+    "Focus on the getMin requirement: how can you track the minimum without scanning all elements every time?",
+    "Use a secondary stack to store the current minimum alongside each push.",
+    "The secondary stack's top always mirrors the primary stack's minimum; handle duplicates carefully."
   ],
   "languages": [
     "python"

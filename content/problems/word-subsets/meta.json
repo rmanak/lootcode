@@ -8,9 +8,9 @@
     "string"
   ],
   "hints": [
-    "Instead of checking each word in A against every word in B, consider what character counts a universal word must satisfy overall.",
-    "Compute the maximum frequency required for each letter across all words in B. A word in A is universal if its letter counts meet or exceed these maximums.",
-    "For each word in A, count its letter frequencies. Compare this count against the precomputed maximum requirements from B to determine universality."
+    "Instead of checking each word in A against every word in B, can you combine all requirements from B into a single target profile?",
+    "Compute the maximum frequency needed for each letter across all words in B to form one universal frequency map.",
+    "A word in A is universal if its letter counts are all greater than or equal to the combined maximums from B."
   ],
   "languages": [
     "python"

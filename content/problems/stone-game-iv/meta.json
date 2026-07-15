@@ -6,9 +6,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "This is an impartial game. Can you determine if a position is winning or losing by looking at smaller pile sizes?",
-    "A position is losing if every possible move leads to a winning position for the opponent. Otherwise, it is winning.",
-    "Use dynamic programming. For each size `i`, check if removing a square `k*k` leaves the opponent in a losing state `(i - k*k)`."
+    "Consider smaller pile sizes to see if a pattern emerges in who wins or loses.",
+    "Use dynamic programming where each state represents whether the current player can force a win from that pile size.",
+    "A position is winning if you can make a move that leaves your opponent in a losing position."
   ],
   "languages": [
     "python"

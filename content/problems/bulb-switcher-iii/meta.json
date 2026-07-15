@@ -7,9 +7,9 @@
     "hash-table"
   ],
   "hints": [
-    "Track the rightmost bulb turned on so far after each step.",
-    "Compare this maximum position with the count of bulbs lit so far.",
-    "Each time the maximum position equals the number of lit bulbs, all previous bulbs are blue."
+    "Focus on the rightmost lit bulb at each moment. What must be true about its position for all lit bulbs to be blue?",
+    "Track the maximum index lit so far. Compare it to the count of bulbs lit so far.",
+    "At any moment, if the maximum index lit equals the number of bulbs lit, the prefix is fully blue."
   ],
   "languages": [
     "python"

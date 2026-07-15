@@ -6,9 +6,9 @@
     "greedy"
   ],
   "hints": [
-    "Convert N to a list of digits. Scan left to right to find the first index where digits decrease.",
-    "Find the first drop. Decrement the digit immediately before the drop, then set all following digits to 9.",
-    "If decrementing causes a new drop to the left, backtrack further left until the sequence is non-decreasing."
+    "Look at the first position where the digit decreases. What happens to all digits before that point if you want to maximize the result?",
+    "Identify the first index where a digit is strictly greater than the next one. This is where the monotonicity breaks.",
+    "Decreasing the digit at that break point might violate the rule with its predecessor, so you may need to backtrack further left."
   ],
   "languages": [
     "python"

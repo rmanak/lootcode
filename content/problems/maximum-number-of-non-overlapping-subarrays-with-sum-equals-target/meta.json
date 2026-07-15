@@ -9,9 +9,9 @@
     "prefix-sum"
   ],
   "hints": [
-    "Consider scanning the array while tracking prefix sums. How can you identify valid subarrays efficiently?",
-    "Use a greedy approach: once you find a valid subarray ending at index i, count it and reset your search after i.",
-    "Store the earliest index where each prefix sum occurs. When current prefix minus target exists, update count and reset reference."
+    "Focus on the prefix sums of the array. A subarray sum equals target if the difference between two prefix sums is target.",
+    "Use a hash map to store the most recent index where a specific prefix sum occurred, allowing O(1) lookups for valid subarrays ending at the current position.",
+    "Greedy approach: once a valid subarray is found ending at index i, update the last completed end to i and ignore any future matches that start before i to ensure non-overlapping."
   ],
   "languages": [
     "python"

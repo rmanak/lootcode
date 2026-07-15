@@ -7,9 +7,9 @@
     "recursion"
   ],
   "hints": [
-    "Observe that each row is exactly twice as long as the previous one. How does the parent of position K in row N relate to K?",
-    "The symbol at K in row N depends on the symbol at a specific position in row N-1. Determine that parent index using integer division.",
-    "The value flips if the parent index was odd, and stays the same if it was even. This suggests counting the number of 1s in the binary representation of K-1."
+    "Notice that each symbol in a row generates two symbols in the next row. Which parent symbol at position ceil(K/2) in the previous row determines the value at K?",
+    "This structure forms a binary tree where the root is 0. The value at any node depends on its parent and whether it is a left or right child.",
+    "The value flips if the path from the root to the node contains an odd number of right turns (or 1-bits in the zero-indexed path)."
   ],
   "languages": [
     "python"

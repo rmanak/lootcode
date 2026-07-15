@@ -8,9 +8,9 @@
     "matrix"
   ],
   "hints": [
-    "Consider the number of ways to reach each cell based on the cells above and to its left.",
-    "Use dynamic programming where the value at each cell depends on its neighbors, but skip cells with obstacles.",
-    "If a cell has an obstacle, set its path count to zero; otherwise, sum the paths from the top and left cells."
+    "Since the robot only moves down or right, the paths to any cell depend solely on the paths to its top and left neighbors.",
+    "Use dynamic programming to store the number of unique paths to each cell in a 2D array.",
+    "If a cell contains an obstacle, its path count is zero. The starting cell has one path if it is not an obstacle."
   ],
   "languages": [
     "python"

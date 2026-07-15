@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider comparing characters from the end of both strings. What happens if they match versus if they differ?",
-    "This problem has optimal substructure and overlapping subproblems, making dynamic programming a natural fit.",
-    "Define dp[i][j] as the LCS length for text1[i:] and text2[j:]. The recurrence depends on whether text1[i] equals text2[j]."
+    "Consider the last characters of both strings. How does their match or mismatch affect the solution for the remaining prefixes?",
+    "This problem exhibits optimal substructure and overlapping subproblems, suggesting dynamic programming over the string indices.",
+    "Define the state by the indices of the current characters being compared. If they match, extend the previous best; otherwise, take the maximum of skipping one character from either string."
   ],
   "languages": [
     "python"

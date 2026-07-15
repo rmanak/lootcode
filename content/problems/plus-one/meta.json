@@ -6,9 +6,9 @@
     "array"
   ],
   "hints": [
-    "Start adding one to the last digit and check if it exceeds 9.",
-    "Handle the carry by setting the current digit to 0 and moving left.",
-    "If a carry remains after processing all digits, prepend 1 to the result."
+    "Consider how adding one affects digits from right to left, similar to manual arithmetic.",
+    "Scan from the last digit backward; if it is less than nine, you are done.",
+    "If all digits are nine, the result has one more digit. How does the array need to change?"
   ],
   "languages": [
     "python"

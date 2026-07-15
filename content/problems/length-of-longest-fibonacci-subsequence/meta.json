@@ -8,9 +8,9 @@
     "hash-table"
   ],
   "hints": [
-    "Since the array is sorted, any valid subsequence must also be sorted. Try fixing the first two elements to start building a sequence.",
-    "Use a hash map to store the index of each number for O(1) lookups. Given two starting numbers, can you generate the rest of the sequence?",
-    "Iterate over all pairs (arr[i], arr[j]) as the first two elements. Use binary search or a set to find subsequent terms and track the maximum length found."
+    "Focus on pairs of elements that could start a Fibonacci-like sequence, since the next term is determined by the sum of the previous two.",
+    "Use dynamic programming where the state is defined by the indices of the last two elements in the current subsequence.",
+    "The value represents the length of the longest valid chain ending with that specific pair; look up the required previous term using a hash map for efficiency."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "binary-search"
   ],
   "hints": [
-    "Consider the total number of elements. Do you need to find the k-th smallest element in the combined sorted sequence?",
-    "Since both arrays are sorted, you can find the k-th element by comparing elements at index k/2 in each array and discarding the smaller half.",
-    "Implement a recursive or iterative function that finds the k-th smallest element by eliminating half of the remaining candidates in each step."
+    "Consider the problem of finding the k-th smallest element in two sorted arrays. The median is just a specific case of this.",
+    "Solve the k-th element problem by comparing the k/2-th elements of both arrays to discard the smaller half safely.",
+    "Handle edge cases where one array is empty or has fewer than k/2 elements, and adjust k accordingly until it reaches 1."
   ],
   "languages": [
     "python"

@@ -6,9 +6,9 @@
     "array"
   ],
   "hints": [
-    "For each number, determine if it has exactly four divisors. If so, calculate their sum.",
+    "Check each number individually to see if it has exactly four divisors, then sum their divisors if so.",
     "A number has exactly four divisors if it is the square of a prime or the product of two distinct primes.",
-    "Check divisibility up to the square root. If you find one divisor, check if the quotient is prime or if the number is a prime square."
+    "To find divisors efficiently, iterate only up to the square root of the number and count pairs."
   ],
   "languages": [
     "python"

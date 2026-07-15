@@ -7,9 +7,9 @@
     "two-pointers"
   ],
   "hints": [
-    "Remove all 'X' characters from both strings and check if the resulting sequences of 'L' and 'R' are identical.",
-    "Verify that every 'L' in start is at an index greater than or equal to its matching 'L' in end.",
-    "Ensure every 'R' in start is at an index less than or equal to its matching 'R' in end."
+    "Ignore the 'X' characters entirely and compare the remaining sequences of 'L' and 'R' in both strings.",
+    "The relative order of non-'X' characters must match, and 'L' can only move left while 'R' can only move right.",
+    "For every matched 'L' or 'R', verify its index in the start string is valid relative to its index in the end string."
   ],
   "languages": [
     "python"

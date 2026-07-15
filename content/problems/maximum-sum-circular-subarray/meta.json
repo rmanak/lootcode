@@ -9,9 +9,9 @@
     "queue"
   ],
   "hints": [
-    "Consider the maximum subarray sum without wrapping using Kadane's algorithm.",
-    "The wrap-around case equals the total array sum minus the minimum subarray sum.",
-    "Handle the edge case where all numbers are negative by taking the maximum single element."
+    "Consider two cases: the maximum subarray does not wrap around, or it wraps around the end.",
+    "For the non-wrapping case, apply Kadane's algorithm directly on the original array.",
+    "For the wrapping case, the sum equals the total array sum minus the minimum subarray sum."
   ],
   "languages": [
     "python"

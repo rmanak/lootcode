@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Try expanding outward from each character to find all palindromes centered there.",
-    "Consider both odd-length and even-length palindromes by using single and paired centers.",
-    "Iterate through every possible center and expand left and right while characters match."
+    "Consider what property defines a palindrome relative to its center point.",
+    "Expand outward from each possible center to find all valid palindromes.",
+    "Count each palindrome as you find it, handling both odd and even length centers."
   ],
   "languages": [
     "python"

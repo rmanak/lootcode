@@ -8,9 +8,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Find the maximum depth of the tree first, then sum only nodes at that level.",
-    "Use a breadth-first search to process the tree level by level.",
-    "Keep the sum of the current level; when the queue empties, that sum is your answer."
+    "Identify the maximum depth of the tree first, or process level by level.",
+    "Use Breadth-First Search (level-order traversal) to visit nodes layer by layer.",
+    "The sum of the last level visited during traversal is the answer; reset the sum at each new level."
   ],
   "languages": [
     "python"

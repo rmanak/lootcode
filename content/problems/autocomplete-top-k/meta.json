@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Use a trie where each node stores a list of sentences and their frequencies passing through it.",
-    "When querying, traverse to the prefix node, collect all stored sentences, then sort them by frequency descending and lexicographically ascending.",
-    "To handle updates efficiently, update the frequency in every trie node along the sentence's path, keeping the lists small by pruning less relevant entries if needed."
+    "Consider how a Trie naturally groups sentences by shared prefixes for efficient retrieval.",
+    "Store frequency counts within the Trie nodes or leaves to aggregate data during insertion.",
+    "For queries, collect all matching sentences and sort them by frequency descending, then alphabetically."
   ],
   "languages": [
     "python"

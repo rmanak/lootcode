@@ -9,9 +9,9 @@
     "hash-table"
   ],
   "hints": [
-    "Sort the words by length to process shorter words before their potential successors.",
-    "Use a hash map to store the longest chain ending at each word for quick lookup.",
-    "For each word, try removing one character at a time and check if the resulting string exists in the map."
+    "Sort the words by length so you only need to look at shorter words when processing a longer one.",
+    "Use dynamic programming where the value for each word is the longest chain ending at that word.",
+    "The base case is a chain length of 1 for every word; check if removing one character yields a previously seen word."
   ],
   "languages": [
     "python"

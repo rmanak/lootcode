@@ -10,9 +10,9 @@
     "counting"
   ],
   "hints": [
-    "Count how many times each team appears at each ranking position across all votes.",
-    "Store these counts as a tuple or list for each team to enable multi-key comparison.",
-    "Sort the teams using the count tuples as primary keys and alphabetical order as the tie-breaker."
+    "Consider how you would compare two teams if you had to do it manually, position by position.",
+    "Aggregate the votes into a count for each position and each team to capture preference strength.",
+    "Sort the teams using these aggregated counts, ensuring alphabetical order breaks any remaining ties."
   ],
   "languages": [
     "python"

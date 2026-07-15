@@ -7,9 +7,9 @@
     "binary-search"
   ],
   "hints": [
-    "Consider the reverse: how many floors can you cover with m moves and k eggs?",
-    "Let dp[m][k] be max floors coverable. If egg breaks, you have m-1 moves and k-1 eggs left.",
-    "If egg survives, you have m-1 moves and k eggs left. Sum both cases plus current floor."
+    "Think about what happens in the worst case for a single drop at a specific floor: either the egg breaks or it does not.",
+    "This problem is well-suited for dynamic programming, where the state depends on the number of eggs and floors remaining.",
+    "Instead of finding moves for floors, consider the maximum floors coverable with k eggs and m moves; track this sum to find the minimum m."
   ],
   "languages": [
     "python"

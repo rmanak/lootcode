@@ -7,9 +7,9 @@
     "simulation"
   ],
   "hints": [
-    "Simulate the process step by step, tracking the current winner's consecutive win count.",
-    "Notice that once the maximum element reaches the front, it will never lose.",
-    "If k is larger than the array length, the answer must be the maximum element."
+    "Notice that once the current maximum of the array reaches the front, it can never lose. How does this affect the search if k is very large?",
+    "Simulate the game round by round, keeping a counter for consecutive wins. You do not need to actually rotate the array; just track the current winner.",
+    "Stop the simulation as soon as a winner reaches k consecutive wins, or when the global maximum reaches the front, since it will then win indefinitely."
   ],
   "languages": [
     "python"

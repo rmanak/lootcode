@@ -6,9 +6,9 @@
     "matrix"
   ],
   "hints": [
-    "Iterate through each row of the matrix individually to check its properties.",
-    "For a single row, verify that every element is strictly smaller than the next one.",
-    "Use a flag to track if a row is valid; break early if any adjacent pair fails the condition."
+    "Focus on a single row first: what specific relationship between adjacent elements defines a strictly increasing sequence?",
+    "Check each pair of neighboring elements in a row to see if the left one is strictly smaller than the right one.",
+    "If any adjacent pair fails the strict increase condition, that row is disqualified; otherwise, it counts toward the total."
   ],
   "languages": [
     "python"

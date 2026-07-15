@@ -8,9 +8,9 @@
     "breadth-first-search"
   ],
   "hints": [
-    "Treat valid indices as nodes in a graph where edges represent possible jumps from each position.",
-    "Use Breadth-First Search or Depth-First Search to explore reachable indices, tracking visited ones to avoid cycles.",
-    "Start from `start`, enqueue it, and process each index by adding valid next positions until you find a zero or exhaust options."
+    "Treat each index as a node and valid jumps as edges to form a graph.",
+    "Use breadth-first search or depth-first search to explore reachable indices.",
+    "Track visited indices to avoid cycles and redundant work during traversal."
   ],
   "languages": [
     "python"

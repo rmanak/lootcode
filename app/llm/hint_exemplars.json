@@ -1,0 +1,192 @@
+{
+  "_comment": "Hand-curated 'gold' hint sets used two ways: (1) a few are injected as before/after few-shot into hint_prompt.txt / hint_judge_prompt.txt to calibrate the local model, and (2) the whole set is the calibration bench for scripts/improve_hints.py --calibrate: the Qwen judge should label every `leak` example as 'reveals' and every `gold` hint as 'ok'. See docs/hint-generation.md. Each entry: slug, gist (approximate problem summary, NOT the live statement), optional leak (a real too-revealing hint pulled from the old bank) + why, and gold (the target 3-tier hint set: nudge / technique / insight-without-transition).",
+  "few_shot_slugs": ["coin-change", "valid-parentheses", "trapping-rain-water"],
+  "exemplars": [
+    {
+      "slug": "coin-change",
+      "pattern": "1d-dp",
+      "gist": "Given coin denominations (each reusable) and a target amount, return the fewest coins that sum to it, or -1 if impossible.",
+      "leak": "For each amount, iterate through all coins and find the minimum previous result plus one.",
+      "why_leak": "States the exact recurrence (min over coins of dp[a-c] + 1); the solver has nothing left to derive or implement.",
+      "gold": [
+        "Since coins are reusable, the best way to form an amount is closely tied to the best way to form smaller amounts.",
+        "This is an optimal-substructure problem: consider solving it for every amount from 0 up to the target, not just the target.",
+        "Keep an array indexed by amount holding the fewest coins to form it; amount 0 needs none, and some amounts stay impossible to form at all."
+      ]
+    },
+    {
+      "slug": "valid-parentheses",
+      "pattern": "stack",
+      "gist": "Decide whether a string of brackets ()[]{} is properly opened and closed.",
+      "leak": "Iterate through the string. Push open brackets onto the stack. For closing brackets, pop and verify the match. The string is valid if the stack is empty at the end.",
+      "why_leak": "Spells out the complete algorithm end to end, including the terminal condition; it is prose pseudocode, not a nudge.",
+      "gold": [
+        "The most recently opened bracket must be the first one to close — order matters in a specific way.",
+        "That last-in, first-out behavior is exactly what a stack captures.",
+        "As you scan, each closing bracket must pair with the most recent still-open bracket — so what should happen the moment one doesn't match?"
+      ]
+    },
+    {
+      "slug": "trapping-rain-water",
+      "pattern": "two-pointers / prefix-max",
+      "gist": "Given bar heights forming an elevation map, compute how much rainwater is trapped.",
+      "leak": "Calculate prefix maximums from the left and suffix maximums from the right, then sum the trapped water at each index.",
+      "why_leak": "Hands over the entire solution structure; it reveals both the key quantity and the exact way to compute it, leaving nothing to discover.",
+      "gold": [
+        "Focus on a single position: what determines how much water can sit on top of it?",
+        "Water above an index is capped by the tallest bars to its left and to its right.",
+        "It is capped by the shorter of those two flanking maxima — so the only real challenge left is knowing both of them for every bar without rescanning each time."
+      ]
+    },
+    {
+      "slug": "two-sum",
+      "pattern": "hash-map",
+      "gist": "Return the indices of the two numbers in an array that add up to a target.",
+      "gold": [
+        "For each number there is exactly one other value that would complete the pair — what is it?",
+        "A hash map lets you check in one step whether a value you need has already appeared.",
+        "By the time you reach a number, any valid partner is one you have already passed — so what is the single thing worth checking before you move on from it?"
+      ]
+    },
+    {
+      "slug": "edit-distance",
+      "pattern": "2d-dp",
+      "gist": "Minimum number of insert/delete/replace operations to turn one string into another.",
+      "leak": "Consider how the problem breaks down into smaller subproblems involving prefixes of both strings.",
+      "why_leak": "Too vague, not too revealing — this could be pasted onto almost any string DP; it names no concrete handle for THIS problem.",
+      "gold": [
+        "Think about transforming just prefixes of the two strings, growing them one character at a time.",
+        "This is a classic two-dimensional dynamic program indexed by the two prefix lengths.",
+        "The answer for a pair of prefixes turns on whether their last characters match and on three nearby smaller subproblems — one per edit operation."
+      ]
+    },
+    {
+      "slug": "number-of-islands",
+      "pattern": "grid-dfs-bfs",
+      "gist": "Count connected groups of land cells ('1') in a 2D grid.",
+      "gold": [
+        "Each island is a maximal blob of connected land — how do you make sure you count a blob only once?",
+        "A flood fill (DFS or BFS) starting at one land cell can reach and mark that cell's whole island.",
+        "If you mark an island completely the first time you touch it, any still-unmarked land you meet later must belong to a brand-new one — so the answer is just how many fresh starts you make."
+      ]
+    },
+    {
+      "slug": "course-schedule",
+      "pattern": "topological-sort / cycle-detection",
+      "gist": "Given prerequisite pairs, decide whether all courses can be finished (no cyclic dependency).",
+      "leak": "Use topological sorting via Kahn's algorithm or DFS. Track visited nodes and in-degrees to detect back-edges.",
+      "why_leak": "Names the exact algorithm(s) and all of the bookkeeping; it is an implementation checklist rather than an insight.",
+      "gold": [
+        "Model courses and prerequisites as a directed graph, then ask what structure would make finishing impossible.",
+        "You can finish everything exactly when the dependency graph contains no cycle.",
+        "So the task reduces to detecting a cycle in a directed graph — think about ordering nodes so every prerequisite comes first, and what it means when no such order exists."
+      ]
+    },
+    {
+      "slug": "climbing-stairs",
+      "pattern": "1d-dp / fibonacci",
+      "gist": "Count the distinct ways to climb n stairs taking 1 or 2 steps at a time.",
+      "gold": [
+        "Think about the very last step you take to reach the top — how many options are there for it?",
+        "The number of ways to reach a stair is fixed once you know the answers for the few stairs just below it — a bottom-up one-dimensional count.",
+        "That yields a Fibonacci-like relation you can roll up from the bottom with only a couple of running values."
+      ]
+    },
+    {
+      "slug": "word-break",
+      "pattern": "string-dp",
+      "gist": "Decide whether a string can be segmented into a sequence of dictionary words.",
+      "gold": [
+        "Try to decide segmentability of the whole string in terms of its prefixes.",
+        "Frame it as reachability over positions: which cut points in the string can be reached as the end of a valid segmentation? Build that up left to right.",
+        "The crux at each position is whether some dictionary word ends there beginning from an already-reachable point — that overlap is what makes solving each prefix once pay off."
+      ]
+    },
+    {
+      "slug": "binary-tree-maximum-path-sum",
+      "pattern": "tree-dp",
+      "gist": "Find the maximum path sum between any two nodes in a binary tree (a path need not pass through the root).",
+      "gold": [
+        "A path can bend at a node and dip into both children, but what can that node hand back up to its parent?",
+        "Use a post-order traversal in which each node reports the best single downward branch it can offer.",
+        "Keep a separate global best that, at each node, may join the node with its two best downward branches — even though only one branch can be passed upward."
+      ]
+    },
+    {
+      "slug": "longest-palindromic-substring",
+      "pattern": "expand-around-center",
+      "gist": "Return the longest palindromic substring (smallest start index breaks ties).",
+      "leak": "How can we reuse a previously computed palindrome to compute a larger palindrome?",
+      "why_leak": "Too thin — a lone rhetorical question that quietly forces the O(n^2) DP framing and gives no foothold for actually starting.",
+      "gold": [
+        "Every palindrome is symmetric around a center — how many possible centers does the string have?",
+        "Instead of checking all substrings, grow outward from each candidate center while the two sides keep matching.",
+        "Remember centers come in two flavors — on a single character and between two characters — so both must be tried."
+      ]
+    },
+    {
+      "slug": "burst-balloons",
+      "pattern": "interval-dp",
+      "gist": "Burst balloons for coins nums[left]*nums[i]*nums[right] (adjacent surviving balloons); maximize total coins.",
+      "leak": "To compute dp[i][j], iterate through every possible last balloon k in the range. The coins earned are nums[i]*nums[k]*nums[j] plus the optimal results from the left and right sub-ranges.",
+      "why_leak": "The full interval-DP transition, including the exact product and the two recursive terms — it is the solution transcribed.",
+      "gold": [
+        "Bursting order is confusing because neighbors keep changing — try reasoning about which balloon in a range is burst last, not first.",
+        "For a range of balloons, the one popped last has clean, fixed neighbors: the balloons just outside that range.",
+        "That turns it into an interval dynamic program over subranges, where you pick the last balloon to burst and combine the two independent sides."
+      ]
+    },
+    {
+      "slug": "132-pattern",
+      "pattern": "monotonic-stack",
+      "gist": "Given an array, decide whether there exist indices i<j<k with nums[i] < nums[k] < nums[j] (a 132 pattern).",
+      "leak": "Use a monotonic stack to maintain candidates for nums[j]. When a smaller value arrives, it acts as nums[k]; pop larger values from the stack to find the best nums[j] that satisfies the condition with the current minimum.",
+      "why_leak": "Names the structure AND narrates the pop/compare loop that operates it — a student could transcribe the loop body directly, even with no literal code and no 'first/then' wording. This is the mechanism-narration failure mode.",
+      "gold": [
+        "Fix each element as the middle, largest value of the pattern — what must exist before it, and what must exist after it?",
+        "A stack of candidate peaks scanned in one pass can track this without rechecking every triple.",
+        "You need the smallest value seen before the peak and, after it, some value landing strictly between that minimum and the peak — think about what is cheapest to remember as you scan."
+      ]
+    },
+    {
+      "slug": "container-with-most-water",
+      "pattern": "two-pointers",
+      "gist": "Two vertical lines and the x-axis form a container; choose two lines to maximize the water area.",
+      "gold": [
+        "The area a pair holds is set by the shorter of the two lines and how far apart they stand.",
+        "Start from the widest possible pair and ask which side it could ever help to move inward.",
+        "Because the shorter line caps the height, moving the taller boundary inward sacrifices width for no possible gain — the entire upside sits on the shorter side."
+      ]
+    },
+    {
+      "slug": "koko-eating-bananas",
+      "pattern": "binary-search-on-answer",
+      "gist": "Find the minimum eating speed so Koko finishes all banana piles within h hours.",
+      "gold": [
+        "The faster Koko eats, the fewer hours she needs — feasibility only ever improves with speed.",
+        "That monotonicity means you can search over candidate speeds instead of trying them one by one.",
+        "Binary-search the speed, and for each candidate check whether the hours it would take fit within the limit."
+      ]
+    },
+    {
+      "slug": "longest-substring-without-repeating-characters",
+      "pattern": "sliding-window",
+      "gist": "Return the length of the longest substring containing no repeated character.",
+      "gold": [
+        "A run of distinct characters can only extend so far before a repeat forces you to abandon its left end.",
+        "Maintain a window and push its right edge forward, pulling the left edge in whenever a character repeats.",
+        "Remember which characters are currently inside the window so you know exactly how far to pull the left edge."
+      ]
+    },
+    {
+      "slug": "jump-game",
+      "pattern": "greedy",
+      "gist": "Each value is a maximum jump length from that index; decide whether the last index is reachable.",
+      "gold": [
+        "Rather than exploring every possible sequence of jumps, track a single quantity as you scan left to right.",
+        "Keep the farthest index reachable so far, updating it at every position you can still get to.",
+        "The only way to fail is to stand on a spot your running reach has not already covered — so everything hinges on that reach never falling behind your position."
+      ]
+    }
+  ]
+}

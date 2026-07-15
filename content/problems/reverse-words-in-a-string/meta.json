@@ -7,9 +7,9 @@
     "string"
   ],
   "hints": [
-    "Start by splitting the string into individual words, ignoring extra spaces. Then reverse that list of words.",
-    "Use the built-in split method to get a clean list of words, then reverse the list or iterate backwards.",
-    "Join the reversed list of words with a single space character to form the final result string."
+    "Focus on isolating the words while ignoring the variable spacing; how can you cleanly extract the sequence of tokens?",
+    "Consider splitting the string by whitespace to get a list of words, then reversing that list before joining with single spaces.",
+    "For the in-place follow-up, think about reversing the entire character array first, then reversing each individual word back to correct orientation."
   ],
   "languages": [
     "python"

@@ -8,9 +8,9 @@
     "greedy"
   ],
   "hints": [
-    "Try using two pointers, one at the start and one at the end of the array.",
-    "The area is determined by the shorter line. Moving the taller pointer inward cannot increase the area.",
-    "Always move the pointer pointing to the shorter line inward to potentially find a taller line and larger area."
+    "Consider the area formula: width times the minimum of the two heights. How does moving the shorter line affect the potential maximum area?",
+    "Use two pointers starting at opposite ends of the array. Which pointer should move inward to potentially find a larger area?",
+    "Moving the taller pointer can only decrease the width while the height remains capped by the shorter line. Thus, only move the shorter pointer to seek a taller wall."
   ],
   "languages": [
     "python"

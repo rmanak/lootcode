@@ -9,9 +9,9 @@
     "sliding-window"
   ],
   "hints": [
-    "Calculate prefix sums to transform subarray sums into differences between two prefix sums.",
-    "Use a hash map to count how many times each prefix sum value has occurred so far.",
-    "For each current prefix sum, add the count of previous prefix sums equal to current minus S to your answer."
+    "Since the array contains only 0s and 1s, the sum of any subarray is simply its count of 1s. How can you track these counts efficiently?",
+    "Compute prefix sums of the array. The sum of a subarray from i to j is the difference between two prefix sums.",
+    "Use a hash map to store frequencies of prefix sums encountered so far. For each current prefix sum, check how many previous sums satisfy the difference condition."
   ],
   "languages": [
     "python"

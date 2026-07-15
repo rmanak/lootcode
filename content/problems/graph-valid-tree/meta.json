@@ -8,9 +8,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Check if the number of edges equals n minus 1; if not, it cannot be a tree.",
-    "If the edge count is correct, verify connectivity using BFS, DFS, or Union-Find.",
-    "Ensure every node is visited exactly once during traversal to confirm a single component."
+    "Check if the number of edges equals n - 1. If not, it cannot be a valid tree.",
+    "If the edge count is correct, verify the graph is connected using BFS or DFS.",
+    "A connected graph with n - 1 edges is guaranteed to be a tree with no cycles."
   ],
   "languages": [
     "python"

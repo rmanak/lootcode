@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Compute the length of the LIS ending at each index using dynamic programming.",
-    "Track both the max length and the count of ways to achieve that length at each index.",
-    "For each element, sum counts from previous elements with smaller values that lead to the current LIS length."
+    "Consider computing the length of the longest increasing subsequence ending at each index. How does this help you count the total number of such subsequences?",
+    "Use dynamic programming with two arrays: one for the maximum length ending at each index, and another for the count of subsequences achieving that length.",
+    "For each index, look back at all previous indices with smaller values. If a previous length plus one matches the current max length, add its count; if it exceeds, reset the count."
   ],
   "languages": [
     "python"

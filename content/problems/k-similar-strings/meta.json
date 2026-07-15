@@ -7,9 +7,9 @@
     "breadth-first-search"
   ],
   "hints": [
-    "Notice the small string length suggests a search approach rather than a greedy one.",
-    "Use Breadth-First Search to find the minimum swaps, treating each string state as a node.",
-    "At each step, swap the first mismatched character with any other mismatched character that matches the target."
+    "Focus on positions where A differs from B. Each swap can fix at most two such positions, so you want to maximize the impact of every swap.",
+    "This is a shortest-path problem on a graph where nodes are string states. Breadth-First Search finds the minimum number of swaps efficiently.",
+    "A state is defined by the current string configuration. The base case is when the string matches B. Only swap characters that actually move the string closer to B."
   ],
   "languages": [
     "python"

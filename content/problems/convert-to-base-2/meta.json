@@ -6,9 +6,9 @@
     "math"
   ],
   "hints": [
-    "Think about standard base conversion using division and remainders. How does a negative base change how you handle negative remainders?",
-    "When dividing by a negative number, a negative remainder requires adjusting the quotient up by one to keep the remainder positive.",
-    "Use the relation N = q * (-2) + r. If r is negative, set r to 1 and increment q by 1 before repeating the process."
+    "Think about how standard base conversion uses division and remainders. What happens when the remainder must be non-negative but the divisor is negative?",
+    "Use repeated division by -2. If the remainder is negative, adjust it to be positive by adding the base magnitude and incrementing the quotient.",
+    "This adjustment ensures digits are always 0 or 1. The process terminates when the quotient reaches zero, collecting digits in reverse order."
   ],
   "languages": [
     "python"

@@ -8,9 +8,9 @@
     "backtracking"
   ],
   "hints": [
-    "Consider how the result grows when you add one digit at a time to an existing set of combinations.",
-    "Use recursion or backtracking to build strings character by character, branching for each possible letter of the current digit.",
-    "Start with an empty list of combinations, then for each digit, expand every existing combination by appending each corresponding letter."
+    "Notice that each digit adds a new layer of choices; the total combinations are the Cartesian product of the letter sets for each digit.",
+    "Use recursion or backtracking: build the string character by character, branching for each letter option of the current digit.",
+    "The base case is when the current string length equals the input length; add it to results and backtrack to try other letters."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "string"
   ],
   "hints": [
-    "Notice that the most recently opened bracket must be the first one closed. This suggests a last-in, first-out structure.",
-    "Use a stack to track open brackets. When you encounter a closing bracket, check if it matches the top of the stack.",
-    "Iterate through the string. Push open brackets onto the stack. For closing brackets, pop and verify the match. The string is valid if the stack is empty at the end."
+    "Consider how opening brackets must wait for their matching closing brackets later in the string.",
+    "A stack data structure naturally handles this last-in, first-out pairing requirement.",
+    "Each closing bracket must match the most recent unmatched opening bracket; if not, the sequence is invalid."
   ],
   "languages": [
     "python"

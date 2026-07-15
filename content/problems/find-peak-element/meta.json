@@ -7,9 +7,9 @@
     "binary-search"
   ],
   "hints": [
-    "Since you need O(log n) time, consider using binary search to narrow down the search space.",
-    "Compare the middle element with its right neighbor to decide which half contains the peak.",
-    "If the middle element is smaller than its right neighbor, the peak lies to the right; otherwise, it is to the left or at the middle."
+    "An O(log n) runtime suggests using binary search to eliminate half the search space at each step.",
+    "Compare the middle element with its right neighbor to determine if the peak lies to the left or right.",
+    "The peak is the unique index where the sequence stops increasing; use the middle element's relation to its neighbors to discard the half that cannot contain the peak."
   ],
   "languages": [
     "python"

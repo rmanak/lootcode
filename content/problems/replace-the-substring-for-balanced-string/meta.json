@@ -7,9 +7,9 @@
     "sliding-window"
   ],
   "hints": [
-    "Focus on the characters outside the replaced substring. They must satisfy a specific count constraint for the string to be fixable.",
-    "Identify which characters exceed the target frequency. The substring must contain all these excess counts.",
-    "Use a sliding window to find the shortest subarray that contains all excess characters. Expand and shrink the window while tracking counts."
+    "Focus on the characters outside the replaced substring. They must be sufficient to cover the required count for each character.",
+    "Use a sliding window. Expand the right end to include excess characters, then shrink the left end while the remaining string stays valid.",
+    "The window is valid if, for every character, the count outside the window is less than or equal to the target frequency."
   ],
   "languages": [
     "python"

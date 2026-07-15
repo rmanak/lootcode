@@ -8,9 +8,9 @@
     "breadth-first-search"
   ],
   "hints": [
-    "Consider what the maximum depth of a tree is in terms of its left and right subtrees.",
-    "This problem has an optimal substructure; try solving it recursively by adding one to the deeper subtree.",
-    "Handle the base case where the node is None, then return 1 plus the max of the recursive calls on children."
+    "Consider the empty tree case first. What should the depth be when the root is None?",
+    "Try solving the problem recursively. How does the depth of a tree relate to the depths of its left and right subtrees?",
+    "The depth of any node is one plus the maximum depth of its children. Combine these results to find the total height."
   ],
   "languages": [
     "python"

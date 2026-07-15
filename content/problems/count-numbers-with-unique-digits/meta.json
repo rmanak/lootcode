@@ -7,9 +7,9 @@
     "backtracking"
   ],
   "hints": [
-    "Consider the count for small n. Notice that for n=1, all 10 digits are valid. For n=2, you pick the first digit, then any different second digit.",
-    "This is a permutation problem. For n>1, the first digit has 9 choices (1-9), and each subsequent position has fewer choices based on previous picks.",
-    "Use the product rule: 9 * 9 * 8 * ... * (11-n). Handle n=0 and n=1 as special cases since the pattern changes slightly."
+    "Notice that for small n, the count is just 10^n, but constraints on distinct digits reduce this as n grows.",
+    "This is a permutation problem: calculate how many ways you can choose and order distinct digits for each position.",
+    "The count depends on multiplying choices for each digit slot; handle the leading digit and n=0 or n=1 edge cases carefully."
   ],
   "languages": [
     "python"

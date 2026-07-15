@@ -8,9 +8,9 @@
     "hash-table"
   ],
   "hints": [
-    "Consider how the length of an arithmetic subsequence ending at index j depends on a previous index i and their difference.",
-    "Use dynamic programming with a map at each index to store the longest arithmetic subsequence length for every possible common difference ending there.",
-    "For each pair i < j, look up the length of the subsequence with difference d ending at i, then extend it to j. Update the map for j accordingly."
+    "Focus on pairs of indices and the difference between their values. How does extending a sequence depend on previous elements?",
+    "Use dynamic programming where the state tracks the ending index and the common difference. A map or 2D array works well.",
+    "The value represents the length of the longest arithmetic subsequence ending at a specific index with a specific difference. Base cases have length 2."
   ],
   "languages": [
     "python"

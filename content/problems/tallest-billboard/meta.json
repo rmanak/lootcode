@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Notice that the total sum of all rods must be even for a solution to exist.",
-    "Use dynamic programming where the state tracks the difference between the two groups.",
-    "Track reachable differences using a set, updating it for each rod by adding or subtracting its value."
+    "Since n is small, consider the state of each rod: added to group A, added to group B, or unused.",
+    "Use dynamic programming where the state tracks the difference between the two group sums.",
+    "Store the maximum total weight used for each possible difference; the answer is the max total at difference 0."
   ],
   "languages": [
     "python"

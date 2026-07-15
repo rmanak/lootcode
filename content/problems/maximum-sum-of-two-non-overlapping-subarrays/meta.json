@@ -9,9 +9,9 @@
     "prefix-sum"
   ],
   "hints": [
-    "Compute prefix sums to quickly find the sum of any contiguous subarray in constant time.",
-    "Precompute the maximum sum of a subarray of length L ending at or before each index, and similarly for length M.",
-    "Iterate through all valid split points, combining the best L-sum before the split with the best M-sum after, and vice versa."
+    "Focus on the boundary between the two subarrays. Once you fix the split point, the problem becomes finding the best window of length L to the left and the best of length M to the right.",
+    "Precompute the maximum sum of a contiguous subarray of length K ending at or before index i for all valid i. This allows O(1) lookup for the best left or right candidate.",
+    "Calculate prefix sums to get any subarray sum in O(1). Then, for each possible split point, combine the precomputed best-left and best-right sums to find the global maximum."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "array"
   ],
   "hints": [
-    "Consider using backtracking to explore all possible combinations that sum to the target.",
-    "Sort the candidates first to help prune branches where the current sum exceeds the target.",
-    "At each step, try adding the current candidate and recursively solve for the remaining target value."
+    "Treat this as a search problem: at each step, decide whether to include a candidate or move to the next one.",
+    "Use backtracking (DFS) to explore combinations. Pass the current sum and a list of chosen numbers to track progress.",
+    "To avoid duplicates, always consider candidates starting from the current index or later, allowing reuse of the same number."
   ],
   "languages": [
     "python"

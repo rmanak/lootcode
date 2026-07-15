@@ -8,9 +8,9 @@
     "greedy"
   ],
   "hints": [
-    "Notice that a wiggle sequence is defined by the pattern of peaks and valleys in the data.",
-    "Focus on how the sign of the difference between adjacent elements changes as you scan the array.",
-    "Count every time the difference sign flips from positive to negative or vice versa, ignoring equal adjacent values."
+    "Focus on the direction of changes rather than absolute values. What defines a valid step in a wiggle sequence?",
+    "Consider a greedy approach: keep the current element only if it continues the alternating pattern from the previous one.",
+    "Track the length of the longest wiggle ending with an upward move and one ending with a downward move separately."
   ],
   "languages": [
     "python"

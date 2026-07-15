@@ -6,9 +6,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Notice the problem involves making a choice for each die. Can you define a subproblem based on the number of dice remaining and the current target sum?",
-    "This structure suggests dynamic programming. The state should depend on the number of dice processed and the sum achieved so far.",
-    "For the transition, iterate through all possible face values of the current die. Add the ways to reach the previous sum for the remaining dice."
+    "Consider how the problem changes if you fix the result of the last die rolled.",
+    "This is a dynamic programming problem where the state depends on the number of dice remaining and the current sum needed.",
+    "Define a state for the number of ways to reach a specific sum with a specific number of dice, handling the base case of zero dice carefully."
   ],
   "languages": [
     "python"

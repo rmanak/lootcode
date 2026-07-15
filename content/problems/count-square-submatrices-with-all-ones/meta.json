@@ -8,9 +8,9 @@
     "matrix"
   ],
   "hints": [
-    "Consider how the largest square ending at a specific cell relates to its neighbors.",
-    "Use dynamic programming where each cell stores the side length of the largest square ending there.",
-    "The value at a cell is the minimum of its top, left, and top-left neighbors plus one, if the cell is 1."
+    "Count individual 1s first, then look for larger squares. A square of size k contains smaller squares of size k-1 within it.",
+    "Use dynamic programming where the state at each cell represents the side length of the largest square ending there.",
+    "For a cell with 1, its max square side depends on the three neighboring cells (left, top, top-left). Sum all resulting side lengths."
   ],
   "languages": [
     "python"

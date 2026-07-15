@@ -7,9 +7,9 @@
     "backtracking"
   ],
   "hints": [
-    "Consider how two numbers can be combined. There are only a few binary operations.",
-    "Use recursion to reduce the problem: pick two numbers, combine them, and solve for the remaining three.",
-    "At each step, try all pairs and all operations. If the final result is 24 (within a small epsilon for division), return true."
+    "Think of this as a reduction: combine any two cards into one result, then solve for the remaining three.",
+    "This is a recursive search over all pairs, operators, and orderings until one card remains.",
+    "Base case: check if the single remaining value is 24 (within a small epsilon for division)."
   ],
   "languages": [
     "python"

@@ -8,9 +8,9 @@
     "string"
   ],
   "hints": [
-    "At each step, greedily pick the character with the most remaining count, unless it would create a forbidden substring.",
-    "If the top character cannot be used without forming 'xxx', use the second most frequent character instead to reset the streak.",
-    "Continue this greedy process, decrementing counts, until no valid character can be appended without violating the rules."
+    "Start by always picking the character with the most remaining copies to delay exhaustion.",
+    "A greedy strategy works: pick the most frequent char, but if it would create three in a row, pick the second most frequent instead.",
+    "The key is that you can always append two of the most frequent char unless it hits the limit, forcing a switch to the next best option to break the streak."
   ],
   "languages": [
     "python"

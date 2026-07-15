@@ -9,9 +9,9 @@
     "binary-tree"
   ],
   "hints": [
-    "Store only the nodes on the path from the root to the current position using a stack to avoid traversing the whole tree upfront.",
-    "In the constructor and next(), push all left children of the current node onto the stack until you hit a null pointer.",
-    "The stack top always holds the next in-order element; after returning it, move to its right child and repeat the left-pushing process."
+    "In-order traversal visits the leftmost node first. How can you reach that node without storing the entire tree?",
+    "Use a stack to simulate the path from the root to the current leftmost node. Push nodes as you go left.",
+    "The stack stores the path to the next smallest unvisited node. Popping gives the value, then explore the popped node's right subtree."
   ],
   "languages": [
     "python"

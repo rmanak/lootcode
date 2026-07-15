@@ -7,9 +7,9 @@
     "array"
   ],
   "hints": [
-    "Notice that since both arrays are sorted, the smallest sum always involves nums1[0] and nums2[0].",
-    "Use a min-heap to explore pairs in increasing order of sum, starting with the pair (0,0).",
-    "When popping (i,j) from the heap, add (i+1,j) and (i,j+1) as candidates, using a set to avoid duplicates."
+    "Since the arrays are sorted, the smallest sums are concentrated near the top-left of the pair matrix. You only need to explore candidates in increasing order of their sum.",
+    "Use a min-heap to track the next best candidate pairs. Start by inserting the pair formed by the first elements of both arrays.",
+    "When you extract a pair (i, j) from the heap, the next potential candidates involve moving to the next index in one of the arrays. Be careful to avoid adding duplicate pairs to the heap."
   ],
   "languages": [
     "python"

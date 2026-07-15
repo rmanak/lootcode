@@ -8,9 +8,9 @@
     "string"
   ],
   "hints": [
-    "Preprocess the wordlist into three separate hash maps for fast lookups: one for exact matches, one for case-insensitive matches, and one for vowel-decorated matches.",
-    "For the case-insensitive map, store the lowercase version of each word as the key. For the vowel map, replace all vowels with a placeholder character like '*' and also convert to lowercase.",
-    "When processing queries, check the exact map first. If not found, check the case-insensitive map. If still not found, check the vowel-decorated map. Return the first match found or an empty string."
+    "Consider preprocessing the wordlist into lookup structures to avoid scanning it for every query, leveraging the small word length constraint.",
+    "Use three separate hash maps: one for exact matches, one for case-insensitive keys, and one for keys with vowels replaced by a placeholder.",
+    "For the vowel map, store the first occurrence of each canonical form (lowercased with vowels removed or masked) to handle precedence correctly."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "hash-table"
   ],
   "hints": [
-    "Notice that binary representations of numbers up to N have limited length. How does this relate to the length of S?",
-    "Since S is short, you only need to check numbers whose binary forms fit within S. What is the maximum number of bits needed?",
-    "Focus on the smallest numbers. If S contains all binary strings of length k, it likely contains all numbers up to 2^k - 1."
+    "Consider the length of binary representations. Do you really need to check all numbers up to N?",
+    "Focus on the largest numbers in the range. Their binary forms are the longest and hardest to fit.",
+    "If S contains all binary strings of a certain length, it automatically contains all shorter ones. Check the longest required lengths."
   ],
   "languages": [
     "python"

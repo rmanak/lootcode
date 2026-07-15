@@ -6,9 +6,9 @@
     "bit-manipulation"
   ],
   "hints": [
-    "Consider how binary addition works at the bit level, specifically how carries are handled.",
-    "Use bitwise XOR to calculate the sum without carries and bitwise AND shifted left to calculate the carries.",
-    "Repeat the process of updating a and b with these bitwise results until there are no more carries left."
+    "Think about how addition works in binary, specifically how carries are handled.",
+    "Separate the problem into calculating the sum without carries and calculating the carries themselves.",
+    "Use XOR for the sum without carries and AND shifted left for the carries; repeat until no carry remains."
   ],
   "languages": [
     "python"

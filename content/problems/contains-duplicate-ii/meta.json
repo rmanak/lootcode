@@ -8,9 +8,9 @@
     "sliding-window"
   ],
   "hints": [
-    "Track the most recent index where each number appeared using a map.",
-    "As you iterate, check if the current number is already in the map.",
-    "If present, verify if the distance between current and stored index is within k."
+    "Focus on the most recent occurrence of each number you encounter. How does tracking that help check the distance constraint?",
+    "Use a hash map to store the last seen index for each value. This allows O(1) lookups for previous positions.",
+    "When you see a value already in the map, compare its stored index with the current index. If their difference is within k, you are done."
   ],
   "languages": [
     "python"

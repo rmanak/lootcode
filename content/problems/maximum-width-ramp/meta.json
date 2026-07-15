@@ -7,9 +7,9 @@
     "stack"
   ],
   "hints": [
-    "Start by identifying candidate starting indices i. Only indices where A[i] is a prefix maximum can possibly be the start of the widest ramp.",
-    "Create a list of these candidate indices in increasing order of their values. This list will be sorted by value and index.",
-    "Iterate through the array backwards from the end. For each element, find the earliest candidate index whose value is less than or equal to the current element using binary search or a pointer."
+    "Consider the right endpoint j. Which left endpoints i are candidates for maximizing width?",
+    "Focus on the left endpoints. A stack of indices with strictly decreasing values captures all potential starts.",
+    "For each right endpoint, pop indices from the stack while the condition holds. The first valid pop gives the max width for that j."
   ],
   "languages": [
     "python"

@@ -8,9 +8,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Try binary search on the answer. Is it feasible to split the array such that no subarray sum exceeds a certain value?",
-    "Define a helper function that counts the minimum subarrays needed if each sum is capped at a limit. Use a greedy approach.",
-    "Binary search the range from the maximum element to the total sum. Find the smallest limit where the helper returns at most m subarrays."
+    "Notice that if you raise the allowed maximum subarray sum, it becomes easier to fit the array into `m` parts. This monotonic relationship suggests a specific search strategy.",
+    "Use binary search on the answer. The search space ranges from the largest single element to the total sum of the array.",
+    "For a fixed candidate maximum sum, greedily pack elements into subarrays. If the number of required subarrays exceeds `m`, the candidate is too small."
   ],
   "languages": [
     "python"

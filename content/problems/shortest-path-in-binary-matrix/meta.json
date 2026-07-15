@@ -7,9 +7,9 @@
     "breadth-first-search"
   ],
   "hints": [
-    "Since you need the shortest path on an unweighted grid, think about using Breadth-First Search to explore neighbors level by level.",
-    "Remember that movement is allowed in all 8 directions, including diagonals, so your neighbor generation must check all surrounding cells.",
-    "Track the distance to each visited cell to avoid cycles and ensure you find the minimal steps to the bottom-right corner."
+    "Think of this as finding the shortest path in an unweighted graph where each cell is a node.",
+    "Use Breadth-First Search (BFS) starting from the top-left corner to explore neighbors layer by layer.",
+    "Track visited cells to avoid cycles; the first time you reach the bottom-right, the current depth is the answer."
   ],
   "languages": [
     "python"

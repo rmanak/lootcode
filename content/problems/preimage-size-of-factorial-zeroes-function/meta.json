@@ -6,9 +6,9 @@
     "binary-search"
   ],
   "hints": [
-    "Notice that f(x) is a non-decreasing function. Consider using binary search to find an x where f(x) equals K.",
-    "Since f(x) counts factors of 5 in x!, recall the formula: f(x) = x/5 + x/25 + x/125 + ... Use this to evaluate f(x) efficiently.",
-    "If you find any x such that f(x) == K, the answer is 5 because f(x) stays constant for 5 consecutive integers. Otherwise, the answer is 0."
+    "f(x) depends on how many times 5 divides x!. Can you find a formula for f(x) using floor division?",
+    "f(x) is non-decreasing. Use binary search to find the smallest x where f(x) >= K.",
+    "If f(x) equals K, exactly five consecutive integers share this value. Check if your found x actually yields K."
   ],
   "languages": [
     "python"

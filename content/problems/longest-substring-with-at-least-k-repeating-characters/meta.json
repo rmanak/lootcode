@@ -9,9 +9,9 @@
     "sliding-window"
   ],
   "hints": [
-    "Identify a character that appears fewer than k times in the entire string. This character can never be part of the valid substring.",
-    "Use this character as a split point. The longest valid substring must lie entirely within one of the segments created by removing this character.",
-    "Recursively solve the problem for each segment. The answer is the maximum result from all segments. Base case: if all characters appear at least k times, return the length."
+    "Identify characters in the string that appear fewer than k times; these characters can never be part of the valid substring.",
+    "This observation suggests a divide-and-conquer approach: split the string at each invalid character and solve recursively for the resulting segments.",
+    "The longest valid substring must exist entirely within one of these segments, so return the maximum length found among all recursive calls."
   ],
   "languages": [
     "python"

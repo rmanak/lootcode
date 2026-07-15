@@ -8,9 +8,9 @@
     "binary-search"
   ],
   "hints": [
-    "Notice the array is sorted. How can you use two pointers starting at opposite ends to find the pair efficiently?",
-    "Compare the sum of the elements at the two pointers with the target. If the sum is too large, move the right pointer left. If too small, move the left pointer right.",
-    "Initialize left at 0 and right at length-1. Loop while left < right, adjusting pointers based on the sum comparison until you find the match."
+    "The array is sorted. How does that property help you decide whether to look at smaller or larger values when a sum is too high or too low?",
+    "Use two pointers, one at the start and one at the end of the array, moving them inward based on the current sum.",
+    "If the sum of the two pointed numbers is less than target, move the left pointer right; if greater, move the right pointer left."
   ],
   "languages": [
     "python"

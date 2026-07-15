@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Consider dynamic programming where the state represents the maximum path length ending at a specific index.",
-    "To efficiently compute transitions, process indices in increasing order of their values to ensure dependencies are resolved.",
-    "For each index, check valid jumps within distance d, ensuring the current value is the strict maximum in that range."
+    "Think about the order in which you process elements. If you sort indices by value, can you solve subproblems independently?",
+    "Use dynamic programming where the state for an index is the max jumps starting there. Process indices in increasing order of their values.",
+    "When computing the result for an index, check all valid jumps to smaller values within distance d. Ensure no larger blocker exists between them."
   ],
   "languages": [
     "python"

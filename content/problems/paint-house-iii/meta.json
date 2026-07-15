@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Think about processing houses one by one. What state do you need to track to decide the cost of the next house while counting neighborhoods?",
-    "Use dynamic programming where the state includes the current house index, the number of neighborhoods formed so far, and the color of the previous house.",
-    "For each unpainted house, iterate over all possible colors. If the color matches the previous house, the neighborhood count stays the same; otherwise, it increases by one."
+    "Consider processing houses sequentially, tracking how many neighborhoods formed so far and the color of the last house.",
+    "Use dynamic programming where the state includes the current house index, the number of neighborhoods created, and the previous house's color.",
+    "The neighborhood count increases only when the current house's color differs from the previous one; otherwise, it stays the same."
   ],
   "languages": [
     "python"

@@ -57,6 +57,9 @@ testgen_cache/
 # Background test-strengthening scheduler state (queue + per-run logs)
 /.strengthen/
 
+# Hint-quality audit report (scripts/improve_hints.py audit)
+/.hints/
+
 # Machine-generated input-constraint validators (scripts/generate_constraint_validators.py)
 /constraint_validators/
 

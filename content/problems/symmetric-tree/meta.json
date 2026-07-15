@@ -8,9 +8,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Compare the left subtree with the right subtree recursively, checking if they are mirror images.",
-    "Two trees are mirrors if their roots match and the left of one matches the right of the other.",
-    "Base cases: both null is true; one null is false; values must match for non-null nodes."
+    "Consider how the left subtree of the root must relate to the right subtree for the tree to be symmetric.",
+    "Compare two nodes recursively: check if their values match and if their children are mirror images of each other.",
+    "Two nodes are mirrors if their values are equal and the left child of one mirrors the right child of the other."
   ],
   "languages": [
     "python"

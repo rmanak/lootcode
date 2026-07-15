@@ -8,9 +8,9 @@
     "bitmask"
   ],
   "hints": [
-    "Calculate the total sum and length of nums. If a subset of size k has the same average, its sum must be exactly k * total_sum / n.",
-    "Check if total_sum * k is divisible by n for any valid subset size k. This ensures the target subset sum is an integer.",
-    "Use dynamic programming or memoized recursion to find if a subset of size k exists with the calculated target sum."
+    "Consider the relationship between the sum of elements and the number of elements in each list to avoid floating-point issues.",
+    "This is a variation of the subset sum problem; you need to find a subset of a specific size with a specific sum.",
+    "Since the list length is small, use dynamic programming where the state tracks the number of items chosen and their total sum."
   ],
   "languages": [
     "python"

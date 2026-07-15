@@ -7,9 +7,9 @@
     "divide-and-conquer"
   ],
   "hints": [
-    "Consider extracting bits from n one by one, starting from the least significant bit.",
-    "Use bitwise AND with 1 to get the current bit, then shift the result left before adding it.",
-    "Loop 32 times, shifting n right each iteration to process all bits in order."
+    "Think of the 32 bits as an array of length 32. How would you reverse a standard array?",
+    "Use bitwise operations to extract one bit at a time from the input and shift it into the correct position in the output.",
+    "Loop 32 times: in each iteration, append the least significant bit of n to the result, then right-shift n."
   ],
   "languages": [
     "python"

@@ -6,9 +6,9 @@
     "greedy"
   ],
   "hints": [
-    "Convert the number to a string or list of digits to easily swap positions.",
-    "Find the first digit from the left that is smaller than some digit to its right.",
-    "Swap that digit with the largest possible digit appearing later, preferring the rightmost occurrence of that largest digit."
+    "Convert the number to a list of digits to manipulate positions easily.",
+    "To maximize the value, swap the first digit from the left that is smaller than a digit appearing later.",
+    "Identify the rightmost occurrence of the largest digit available to swap with the chosen left digit."
   ],
   "languages": [
     "python"

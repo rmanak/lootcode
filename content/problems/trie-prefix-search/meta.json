@@ -7,9 +7,9 @@
     "string"
   ],
   "hints": [
-    "Focus on implementing the core Trie data structure first, ensuring nodes can track if they mark the end of a word.",
-    "Use a hash map or array at each node to store children, allowing efficient character-by-character traversal for all operations.",
-    "Handle insert by adding missing nodes, search by verifying the final node marks a word end, and startsWith by confirming prefix traversal succeeds."
+    "Focus on how to store characters so that sharing common prefixes saves space and speeds up lookups.",
+    "Use a Trie (prefix tree) where each node branches by character and marks if a word ends there.",
+    "Search and prefix checks follow paths; if you hit a missing branch or a non-terminal node, the answer is false."
   ],
   "languages": [
     "python"

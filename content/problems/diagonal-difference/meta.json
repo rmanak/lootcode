@@ -6,9 +6,9 @@
     "matrix"
   ],
   "hints": [
-    "Identify the indices (i, j) that belong to each diagonal in a square matrix.",
-    "The primary diagonal has equal row and column indices, while the secondary has indices that sum to n-1.",
-    "Calculate both sums in a single loop and return the absolute difference of the results."
+    "Identify the row and column indices that belong to each diagonal.",
+    "The primary diagonal has equal row and column indices; the secondary has indices that sum to the matrix size minus one.",
+    "Accumulate the values at these specific indices into two separate sums, then return the absolute difference."
   ],
   "languages": [
     "python"

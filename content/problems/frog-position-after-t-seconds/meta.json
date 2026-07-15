@@ -8,9 +8,9 @@
     "breadth-first-search"
   ],
   "hints": [
-    "Model the frog's movement as a random walk on the tree, tracking the probability of being at each node at each second.",
-    "Use dynamic programming where state is (current_node, time), updating probabilities based on the number of unvisited neighbors at each step.",
-    "Since the path is unique in a tree, the probability to reach a node is the product of inverse degrees of ancestors, adjusted for stopping conditions."
+    "Model the frog's movement as a random walk on the tree. Since it never revisits nodes, the path is unique once the sequence of neighbors is chosen.",
+    "Use dynamic programming where the state is the current vertex and the time elapsed. Transition probabilities depend on the number of unvisited neighbors at each step.",
+    "If the frog reaches a leaf before time t, it stays there. Thus, the probability accumulates at leaves and persists until time t."
   ],
   "languages": [
     "python"

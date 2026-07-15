@@ -7,9 +7,9 @@
     "two-pointers"
   ],
   "hints": [
-    "Focus on identifying groups of identical values. Only values that appear exactly once should be kept.",
-    "Use two pointers or a dummy head to help manage the start of the list when duplicates are removed.",
-    "Traverse the list: if a node's value equals its next node's value, skip all nodes with that value."
+    "Since the list is sorted, duplicates are always adjacent. Focus on how to detect and skip entire groups of identical values.",
+    "Use two pointers: one to track the last unique node, and another to scan ahead and find the end of any duplicate group.",
+    "Be careful with the head node itself; it might be part of a duplicate group, so consider using a dummy node before the head to simplify edge cases."
   ],
   "languages": [
     "python"

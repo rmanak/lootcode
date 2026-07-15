@@ -7,9 +7,9 @@
     "string"
   ],
   "hints": [
-    "What data structure allows grouping items by a shared property?",
-    "Use a hash map where keys are file contents and values are lists of paths.",
-    "After populating the map, collect only the value lists that contain more than one path."
+    "Notice that files with the same content should end up in the same group, regardless of their path.",
+    "Use a hash map where the key is the file content and the value is a list of paths.",
+    "After populating the map, discard any group that contains fewer than two paths."
   ],
   "languages": [
     "python"

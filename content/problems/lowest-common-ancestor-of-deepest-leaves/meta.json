@@ -7,9 +7,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Find the maximum depth of the tree first, then identify which nodes are leaves at that specific depth.",
-    "Use a post-order traversal to check if a node's subtree contains any of the deepest leaves.",
-    "Return the current node if both children contain deepest leaves, or the child that does if only one side does."
+    "Consider what information a node needs from its children to decide if it is the LCA of the deepest leaves.",
+    "Use a recursive function that returns both the maximum depth of the subtree and the LCA node for that subtree.",
+    "If both children return the same maximum depth, the current node is the LCA; otherwise, return the result from the deeper child."
   ],
   "languages": [
     "python"

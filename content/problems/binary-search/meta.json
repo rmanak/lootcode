@@ -7,9 +7,9 @@
     "binary-search"
   ],
   "hints": [
-    "Focus on the sorted nature of the array to eliminate half the search space at each step.",
-    "Repeatedly compare the target with the middle element to decide which half to keep.",
-    "Maintain low and high pointers, updating them based on whether the middle value is smaller or larger than the target."
+    "Consider how you can eliminate half of the remaining search space in each step.",
+    "Use binary search by repeatedly checking the middle element.",
+    "Compare the middle value to the target to decide which half contains the answer, stopping when the range is empty."
   ],
   "languages": [
     "python"

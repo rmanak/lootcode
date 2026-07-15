@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider how the number of ways to decode the string up to index i depends on the ways to decode it up to i-1 and i-2.",
-    "This structure suggests dynamic programming. Define dp[i] as the number of ways to decode the prefix s[0...i-1].",
-    "For each position, add dp[i-1] if the current digit is valid alone, and add dp[i-2] if the two-digit number ending there is between 10 and 26."
+    "Consider how the number of ways to decode a prefix depends on whether the last digit or the last two digits form a valid character.",
+    "This problem can be solved using dynamic programming, where you build the answer by extending solutions for shorter prefixes.",
+    "Track the number of ways to decode up to each index; remember that a zero is only valid if it follows a 1 or 2, and invalid prefixes result in zero ways."
   ],
   "languages": [
     "python"

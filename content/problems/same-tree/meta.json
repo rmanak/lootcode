@@ -7,9 +7,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Consider a recursive approach: when are two trees considered identical?",
-    "Both roots must be non-null and have equal values. Then, recursively check their left and right children.",
-    "Handle base cases: if both are None, return true; if only one is None, return false."
+    "Consider how you would verify two trees match by checking their roots, then their children, and so on recursively.",
+    "Use a recursive function that compares the current nodes and then calls itself on their respective left and right subtrees.",
+    "The base cases are when both nodes are null (match) or only one is null (mismatch); if both exist, check values and recurse on children."
   ],
   "languages": [
     "python"

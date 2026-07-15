@@ -7,9 +7,9 @@
     "string"
   ],
   "hints": [
-    "Look at each character and compare its value to the next character's value.",
-    "If the current value is less than the next, subtract it; otherwise, add it.",
-    "Iterate through the string, handling the last character or using a default zero for the next value to avoid bounds checks."
+    "Consider how the value of a symbol changes based on the symbol that follows it.",
+    "A map from character to integer value is essential for looking up each symbol's worth.",
+    "If a symbol's value is less than the next one, it contributes negatively; otherwise, it contributes positively."
   ],
   "languages": [
     "python"

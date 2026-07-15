@@ -8,9 +8,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Start with a depth-first traversal to explore every path from the root to the leaves.",
-    "Maintain the current path and its running sum as you recurse deeper into the tree.",
-    "When you hit a leaf node, check if the sum matches targetSum; if so, save the path."
+    "Consider traversing the tree from the root down, keeping track of the current path and its running sum as you visit each node.",
+    "Use Depth First Search (DFS) to explore paths, passing the current path list and remaining target sum to recursive calls.",
+    "When you reach a leaf node, check if the remaining sum is zero; if so, add a copy of the current path to your results."
   ],
   "languages": [
     "python"

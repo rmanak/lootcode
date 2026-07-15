@@ -9,9 +9,9 @@
     "sorting"
   ],
   "hints": [
-    "To maximize the sum, which items should you consider picking first regardless of their labels?",
-    "Sort items by value descending. Then iterate through them, tracking how many items per label you have already picked.",
-    "For each item in sorted order, pick it if its label count is below useLimit and you haven't reached numWanted total items."
+    "Focus on the items with the highest values first, since you want to maximize the total sum.",
+    "Sort the items by value in descending order and iterate through them to make greedy choices.",
+    "Track how many items of each label you have already selected; skip an item if its label count reaches the limit."
   ],
   "languages": [
     "python"

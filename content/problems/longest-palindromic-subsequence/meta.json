@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Notice that a palindrome reads the same forwards and backwards. What if you compared the string with its reverse?",
-    "Consider dynamic programming. If the characters at the start and end match, they contribute to the length. If not, take the maximum of the inner substrings.",
-    "Define dp[i][j] as the longest palindromic subsequence in s[i...j]. Fill the table by increasing substring length, handling matching and non-matching ends separately."
+    "Consider how palindromes are built from the outside in. If the first and last characters match, does that simplify the problem for the inner substring?",
+    "This is a classic interval dynamic programming problem. Define a state representing the longest palindromic subsequence within a specific substring range.",
+    "The base cases are empty substrings (length 0) and single characters (length 1). The answer for a range depends on whether its endpoints match or not."
   ],
   "languages": [
     "python"

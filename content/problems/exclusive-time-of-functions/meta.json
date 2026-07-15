@@ -7,9 +7,9 @@
     "stack"
   ],
   "hints": [
-    "Maintain a stack to track the currently active function as you process logs chronologically.",
-    "When a start log appears, push the id. When an end log appears, pop the id and calculate the duration.",
-    "Subtract the exclusive time of any nested functions from the parent's total duration to get the correct exclusive time."
+    "Notice that functions are properly nested like parentheses, suggesting a last-in-first-out structure to track the currently executing function.",
+    "Use a stack to keep track of active function calls and maintain a variable for the previous timestamp to calculate elapsed time.",
+    "When a function ends, pop it from the stack; the time spent is the current timestamp minus the previous timestamp, plus one. When a new function starts, subtract the elapsed time since the previous timestamp from the function currently on top of the stack."
   ],
   "languages": [
     "python"

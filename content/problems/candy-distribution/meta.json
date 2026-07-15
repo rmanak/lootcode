@@ -7,9 +7,9 @@
     "greedy"
   ],
   "hints": [
-    "Consider the constraints from left to right and right to left independently.",
-    "Assign candies based on left neighbors first, then adjust for right neighbors.",
-    "Each child needs max(left_candies, right_candies) + 1 to satisfy both sides."
+    "Consider the constraints from the left neighbor and the right neighbor separately. How does each side independently dictate a minimum candy count?",
+    "Make two passes: one left-to-right and one right-to-left. In each pass, enforce the rule for the immediate neighbor visited so far.",
+    "The final count for each child is the maximum of the values determined by the two passes. This satisfies both neighbors while minimizing the total."
   ],
   "languages": [
     "python"

@@ -6,9 +6,9 @@
     "binary-search"
   ],
   "hints": [
-    "Since the answer is bounded and monotonic, consider using binary search on the possible values of the nth ugly number.",
-    "To check if a candidate value x is large enough, count how many ugly numbers are <= x using the inclusion-exclusion principle.",
-    "Use GCD to compute LCM for pairs and triples of a, b, c to correctly apply inclusion-exclusion when counting multiples."
+    "The answer is monotonic: a larger candidate number always contains at least as many ugly numbers as a smaller one.",
+    "Use binary search on the answer to find the smallest value with at least n ugly numbers.",
+    "Count how many numbers up to X are divisible by a, b, or c using the Inclusion-Exclusion Principle and LCMs."
   ],
   "languages": [
     "python"

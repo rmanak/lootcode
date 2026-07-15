@@ -6,9 +6,9 @@
     "linked-list"
   ],
   "hints": [
-    "Simulate manual addition by processing digits from index 0 upwards, tracking the carry.",
-    "In each step, sum the current digits from both lists plus any carry, then update the carry.",
-    "Continue until both lists are exhausted and no carry remains, appending the final carry if needed."
+    "Think about how you add numbers by hand, starting from the ones place and carrying over to the next.",
+    "Since the digits are stored in reverse order, you can process both lists simultaneously from head to tail.",
+    "Maintain a carry variable as you iterate; remember to create one final node if a carry remains after both lists end."
   ],
   "languages": [
     "python"

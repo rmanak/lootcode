@@ -7,9 +7,9 @@
     "two-pointers"
   ],
   "hints": [
-    "Consider how the distance from the end relates to the position from the start.",
-    "Use two pointers separated by n steps to find the target node in one pass.",
-    "Advance the fast pointer n steps first, then move both until the fast pointer reaches the end."
+    "Consider how the distance between two pointers changes as they move forward through the list.",
+    "Use two pointers separated by n steps to identify the target node in a single pass.",
+    "The first pointer reaches the end exactly when the second pointer is at the node preceding the one to remove."
   ],
   "languages": [
     "python"

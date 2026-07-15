@@ -8,9 +8,9 @@
     "tree"
   ],
   "hints": [
-    "Focus on the balance between available slots for children and consumed slots as you scan the string left to right.",
-    "Use a counter tracking available slots: start with 1, decrement by 1 for each node, and add 2 for each non-null value.",
-    "If the counter drops below zero at any point, or isn't exactly zero at the end, the serialization is invalid."
+    "Consider slots available for children. Each node consumes one slot and provides two, while null consumes one and provides none.",
+    "Track the net change in available slots as you scan the sequence, starting with one slot for the root.",
+    "The sequence is valid if slots never drop below zero during the scan and end exactly at zero."
   ],
   "languages": [
     "python"

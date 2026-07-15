@@ -7,9 +7,9 @@
     "stack"
   ],
   "hints": [
-    "Consider how removing a group might cause previously separated characters to become adjacent and form a new group.",
-    "Use a stack to store characters along with their consecutive counts to efficiently track and remove groups.",
-    "When pushing to the stack, merge with the top element if it matches; pop the top if its count reaches k."
+    "Notice that deleting a group can merge previously separated identical characters, creating new groups to remove.",
+    "Use a stack to track characters and their consecutive counts as you scan the string.",
+    "Each stack entry holds a character and its current run length; when a count reaches k, discard that entry entirely."
   ],
   "languages": [
     "python"

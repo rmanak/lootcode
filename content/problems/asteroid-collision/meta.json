@@ -8,9 +8,9 @@
     "simulation"
   ],
   "hints": [
-    "Focus only on pairs where a right-moving asteroid is immediately followed by a left-moving one; other pairs never interact.",
-    "Use a stack to keep track of surviving right-moving asteroids, checking each new left-mover against the top of the stack.",
-    "Process each asteroid: if it moves left, repeatedly pop from the stack while the top is smaller, handling equal sizes by popping both."
+    "Collisions only happen when a right-moving asteroid is immediately followed by a left-moving one. All other adjacent pairs simply pass each other or move apart.",
+    "Process asteroids from left to right. Use a stack to keep track of the asteroids that have survived so far.",
+    "When a new left-moving asteroid arrives, it may collide with the right-moving asteroids at the top of the stack. Resolve these collisions before deciding what to push."
   ],
   "languages": [
     "python"

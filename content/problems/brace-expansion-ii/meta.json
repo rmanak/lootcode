@@ -8,9 +8,9 @@
     "breadth-first-search"
   ],
   "hints": [
-    "Parse the expression into a tree where nodes represent unions or concatenations of sub-expressions.",
-    "Recursively evaluate each node: unions merge sets, concatenations combine every word from the left set with every word from the right.",
-    "Use a set data structure at each step to automatically handle distinct words before sorting the final result."
+    "The structure is recursive: unions and concatenations nest inside each other. Can you parse the expression into a tree of operations?",
+    "Use a recursive descent parser. Handle braces by finding matching pairs to isolate sub-expressions for union or concatenation.",
+    "A union merges word sets; concatenation forms all pairs from two sets. Process sub-expressions first, then combine their resulting word lists."
   ],
   "languages": [
     "python"

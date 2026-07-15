@@ -8,9 +8,9 @@
     "hash-table"
   ],
   "hints": [
-    "Since the string length is very small, consider generating all possible sequences by trying every tile at every step.",
-    "Use a frequency map of the letters to track availability instead of indices, allowing you to skip duplicate branches.",
-    "Recursively subtract one from a letter's count, add the current path length to the total, then backtrack to restore the count."
+    "Since the input length is very small, consider generating all possible sequences and counting the unique ones.",
+    "Use depth-first search to build sequences character by character, tracking the remaining count of each available letter.",
+    "The key to avoiding duplicates is iterating over distinct letter types at each step rather than individual tile indices."
   ],
   "languages": [
     "python"

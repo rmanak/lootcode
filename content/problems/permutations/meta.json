@@ -7,9 +7,9 @@
     "array"
   ],
   "hints": [
-    "Think about building permutations one element at a time by choosing which number goes next.",
-    "Use recursion to explore choices, keeping track of which numbers have already been used.",
-    "Backtrack by removing the last choice after the recursive call returns to try other options."
+    "Think about building the result one element at a time, deciding which unused number goes next.",
+    "Use recursion to build partial sequences, tracking which numbers have already been placed.",
+    "When the partial sequence matches the input length, you found a valid permutation to save."
   ],
   "languages": [
     "python"

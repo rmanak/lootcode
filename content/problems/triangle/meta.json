@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider working backwards from the bottom row to the top. At each step, which of the two adjacent numbers below leads to a smaller total sum?",
-    "Use dynamic programming. For each element in a row, add the minimum of the two possible paths from the row below. You can update the triangle in place to save space.",
-    "Start with the second-to-last row. Update each element by adding the minimum of its two children in the row below. Repeat upwards until you reach the top."
+    "Work backward from the bottom row upward to simplify decision-making at each step.",
+    "Use dynamic programming where each cell stores the minimum path sum from that position to the base.",
+    "The bottom row's values are the base cases; each upper cell depends only on its two direct children below."
   ],
   "languages": [
     "python"

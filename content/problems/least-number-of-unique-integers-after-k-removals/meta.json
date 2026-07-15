@@ -10,9 +10,9 @@
     "counting"
   ],
   "hints": [
-    "Count the frequency of each number. Removing an element affects the count of its value.",
-    "Sort the values by their frequencies. Prioritize removing numbers with the lowest counts.",
-    "Accumulate the sorted frequencies until the sum reaches k. Each full frequency removed reduces the distinct count by one."
+    "Consider the frequency of each distinct integer. Which integers contribute most to the total count?",
+    "Sort the integers by their frequencies in ascending order. How does this ordering help you minimize the number of distinct integers remaining?",
+    "Removing all occurrences of the least frequent integers first is optimal. Count how many distinct integers you can fully eliminate with your budget k."
   ],
   "languages": [
     "python"

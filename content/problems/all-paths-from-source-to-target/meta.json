@@ -8,9 +8,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Explore every possible route from node 0 using depth-first search, keeping track of the current path.",
-    "Since the graph is acyclic, you do not need to track visited nodes to avoid cycles.",
-    "Backtrack by adding the current node to the path, recursing on neighbors, then removing it before trying the next neighbor."
+    "Since the graph has no cycles, you can explore every route from node 0 without worrying about infinite loops or revisiting nodes in the current path.",
+    "Use depth-first search to traverse the graph, maintaining a list that records the sequence of nodes visited so far.",
+    "Whenever you reach the target node, save a copy of the current path list before backtracking to explore other branches."
   ],
   "languages": [
     "python"

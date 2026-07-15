@@ -7,9 +7,9 @@
     "prefix-sum"
   ],
   "hints": [
-    "Track the running total of numbers seen so far to avoid recalculating the sum repeatedly.",
-    "Divide the current running sum by the count of elements processed to get the average at each step.",
-    "Initialize an empty result list and a sum variable to zero, then iterate through the input array."
+    "Notice that each new average depends on the previous count and sum, not on recalculating from scratch.",
+    "Maintain a running total of the numbers seen so far as you iterate through the list.",
+    "For each index, divide the current running sum by the number of elements processed to get the average."
   ],
   "languages": [
     "python"

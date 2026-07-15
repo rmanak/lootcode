@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Convert freq to seconds and calculate the total number of buckets needed using endTime and startTime.",
-    "For each timestamp, determine its bucket index by subtracting startTime and dividing by the bucket size.",
-    "Initialize an array of zeros for the buckets and increment the appropriate index for each valid timestamp."
+    "Notice the total window size is small, so you can iterate through each time bucket individually rather than processing all timestamps at once.",
+    "Instead of a loop, compute the bucket index for each timestamp directly using integer arithmetic to determine which interval it belongs to.",
+    "Be careful with the final bucket: if a timestamp falls exactly on endTime + 1, it should not be counted in the last interval."
   ],
   "languages": [
     "python"

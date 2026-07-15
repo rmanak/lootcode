@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Find the median by sorting a copy of the array, then use two pointers at the ends of the sorted array to compare strengths.",
-    "Compare the absolute difference from the median for the left and right pointers; pick the stronger one and move that pointer inward.",
-    "Repeat the comparison and selection process k times to collect the strongest values without fully sorting by strength."
+    "Calculate the median first by sorting a copy of the array, then focus on how to pick the strongest elements without re-sorting everything.",
+    "Use two pointers starting at the ends of the sorted array to compare which element is stronger at each step.",
+    "Always pick the stronger of the two current endpoints and move that pointer inward, repeating until you have selected k elements."
   ],
   "languages": [
     "python"

@@ -8,9 +8,9 @@
     "greedy"
   ],
   "hints": [
-    "To minimize the number, prioritize smaller digits at the most significant positions. Consider what happens when a digit is larger than the one following it.",
-    "Use a stack to build the result. Iterate through digits, popping larger previous digits from the stack until you have removed k digits or the stack is empty.",
-    "After processing all digits, if removals remain, truncate the end of the stack. Finally, strip leading zeros and handle the empty case by returning '0'."
+    "Consider how the relative order of digits affects the final number's value. Does removing a larger digit that appears before a smaller one help?",
+    "Use a stack to build the result digit by digit. When should you discard the top digit to ensure the sequence stays as small as possible?",
+    "Maintain a monotonic increasing sequence by popping larger predecessors. After processing all digits, remove any remaining excess digits from the end."
   ],
   "languages": [
     "python"

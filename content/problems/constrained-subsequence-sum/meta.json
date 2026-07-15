@@ -9,9 +9,9 @@
     "sliding-window"
   ],
   "hints": [
-    "Consider dynamic programming where the state at index i represents the maximum sum ending at i.",
-    "For each index i, you need the maximum value among previous valid indices to transition efficiently.",
-    "Use a monotonic deque or segment tree to query the maximum in the sliding window of size k."
+    "Focus on the last element included in the subsequence. How does its index constrain which previous elements could have preceded it?",
+    "This problem is best solved with dynamic programming, tracking the maximum sum ending at each index.",
+    "To efficiently find the best previous sum within the distance limit, maintain a data structure that provides the maximum value in a sliding window."
   ],
   "languages": [
     "python"

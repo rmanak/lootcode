@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Sort the array first. This simplifies the divisibility check to only looking backwards.",
-    "Use dynamic programming. Let dp[i] be the size of the largest valid subset ending at index i.",
-    "For each i, check all j < i. If nums[i] is divisible by nums[j], update dp[i] using dp[j]."
+    "Sorting the array first simplifies the divisibility check, as you only need to verify if the larger number is divisible by the smaller one.",
+    "Use dynamic programming where each entry stores the size of the largest divisible subset ending at that specific number.",
+    "The length of the best subset ending at a number depends on the best subsets ending at its divisors that appear earlier in the sorted list."
   ],
   "languages": [
     "python"

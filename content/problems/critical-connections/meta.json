@@ -7,9 +7,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Consider using Depth First Search to traverse the graph and track discovery times for each node.",
-    "Identify edges where the destination node cannot reach any ancestor of the source node via a back edge.",
-    "An edge is a bridge if the low-link value of the child is strictly greater than the discovery time of the parent."
+    "An edge is a bridge if it does not belong to any cycle in the graph.",
+    "Use a depth-first search to compute discovery times and the lowest reachable ancestor for each node.",
+    "An edge to a child is a bridge if the child cannot reach any ancestor of the current node via other paths."
   ],
   "languages": [
     "python"

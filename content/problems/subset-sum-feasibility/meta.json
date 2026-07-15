@@ -7,9 +7,9 @@
     "array"
   ],
   "hints": [
-    "Can you determine if a specific sum is reachable using only the first k elements?",
-    "Use dynamic programming where dp[i] tracks whether sum i is achievable so far.",
-    "For each number, update reachable sums from high to low to avoid reusing items."
+    "Consider processing the numbers one by one and tracking which sums are possible so far.",
+    "Use dynamic programming where the state is a boolean value for each possible sum up to target.",
+    "The array tracks reachable sums; start with sum 0 as reachable and update reachability for each number without recomputing from scratch."
   ],
   "languages": [
     "python"

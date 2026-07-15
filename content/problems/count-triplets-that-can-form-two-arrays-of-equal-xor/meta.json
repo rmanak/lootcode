@@ -9,9 +9,9 @@
     "prefix-sum"
   ],
   "hints": [
-    "Notice that a == b implies a ^ b == 0. What does the XOR sum of the entire subarray from i to k equal?",
-    "If the XOR sum of arr[i...k] is 0, how many valid split points j exist within that range?",
-    "Iterate over all pairs (i, k). If their prefix XORs match, add the number of valid j values to the answer."
+    "a == b is equivalent to a ^ b == 0, which means the XOR sum of the entire segment from i to k must be zero.",
+    "Precompute prefix XORs so that the XOR sum of any subarray can be retrieved in constant time using exclusive or properties.",
+    "Once you identify a pair (i, k) with zero total XOR, every index j strictly between i and k forms a valid triple."
   ],
   "languages": [
     "python"

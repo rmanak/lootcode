@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Sort the array first to process smaller elements before their doubles.",
-    "Use a frequency map to track available numbers and match each with its double.",
-    "Iterate through sorted unique keys; if count of x is positive, subtract from 2*x count."
+    "Sort the input array to process smaller numbers first, ensuring their doubles appear later.",
+    "Use a frequency map to track available numbers and greedily pair each smallest remaining value with its double.",
+    "Zero must be handled separately since it doubles to itself, requiring an even count to form valid pairs."
   ],
   "languages": [
     "python"

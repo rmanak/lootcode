@@ -6,9 +6,9 @@
     "string"
   ],
   "hints": [
-    "Check if the string contains '@' to distinguish emails from phone numbers.",
-    "For emails, lowercase the domain and replace the middle of the local part with five asterisks.",
-    "For phones, count digits to find the country code length, then format as stars plus the last four digits."
+    "Start by determining if the input is an email or a phone number to apply the correct masking rules.",
+    "Identify the local part of the email or the digit sequence of the phone number to isolate what needs masking.",
+    "For emails, replace the middle of the local part with asterisks; for phones, format based on the count of digits."
   ],
   "languages": [
     "python"

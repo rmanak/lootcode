@@ -8,9 +8,9 @@
     "binary-tree"
   ],
   "hints": [
-    "Focus on how numbers are built digit by digit. How does the number at a child node relate to the number formed by its parent?",
-    "Use Depth First Search. Pass the number formed by the path so far as a parameter to your recursive function.",
-    "At each node, update the current number by multiplying the previous sum by 10 and adding the node's value. Add to total only at leaves."
+    "Consider how moving from a parent to a child updates the number formed so far by the path.",
+    "Use depth-first search to traverse the tree, passing the current accumulated value down to each child.",
+    "The accumulated value at a leaf is the final number for that path; sum these values for all leaves."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "stack"
   ],
   "hints": [
-    "Notice that each pair of parentheses contributes to the score based on how deeply it is nested.",
-    "Track the current nesting depth using a counter that increments on '(' and decrements on ')'.",
-    "The score for a specific pair '()' is 2 raised to the power of its nesting depth."
+    "Consider how the score changes as you move deeper into nested parentheses versus staying at the same level.",
+    "Track the current nesting depth while scanning the string from left to right.",
+    "The score contribution of a primitive pair depends on its depth; sum these contributions for all primitive pairs."
   ],
   "languages": [
     "python"

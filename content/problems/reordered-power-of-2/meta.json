@@ -7,9 +7,9 @@
     "sorting"
   ],
   "hints": [
-    "Since N is small, list all powers of 2 up to 10^9. How many are there?",
-    "Compare the digits of N with those of each power of 2. Sorting digits helps.",
-    "Check if sorted digits of N match sorted digits of any power of 2."
+    "Consider the maximum number of digits N can have and how many powers of 2 fit in that range.",
+    "Compare the sorted digits of N against the sorted digits of each valid power of 2.",
+    "Since the upper bound is small, precomputing all candidate powers and comparing their digit signatures is efficient."
   ],
   "languages": [
     "python"

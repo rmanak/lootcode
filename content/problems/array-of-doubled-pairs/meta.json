@@ -9,9 +9,9 @@
     "sorting"
   ],
   "hints": [
-    "Sort the array by absolute value to process smaller numbers before their doubles.",
-    "Use a frequency map to count occurrences of each number as you iterate.",
-    "For each number, check if its double exists in the map and decrement counts accordingly."
+    "Consider sorting the array by absolute value. Why might processing smaller magnitudes first help you pair elements greedily?",
+    "Use a frequency map to track available numbers. For each number, check if its required partner (double or half) is present.",
+    "Handle negative numbers carefully: for negatives, the 'double' is actually smaller in absolute value, so the pairing logic remains consistent with sorting by absolute value."
   ],
   "languages": [
     "python"

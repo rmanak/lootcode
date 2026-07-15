@@ -8,9 +8,9 @@
     "sliding-window"
   ],
   "hints": [
-    "Identify all subarrays summing to target and record their minimum lengths ending at each index.",
-    "Use a prefix sum or sliding window to find valid subarrays, storing the shortest valid length ending at or before each position.",
-    "Iterate through the array, tracking the best valid subarray length found so far on the left, and combine it with valid subarrays on the right."
+    "Consider finding all minimal-length subarrays that sum to target. How can you efficiently locate these candidates as you scan the array?",
+    "Use a sliding window to find the shortest valid subarray ending at each index. Store these lengths in an auxiliary array for quick lookup.",
+    "For each valid subarray ending at i, pair it with the shortest valid subarray ending before it starts. Maintain a running minimum of previous valid lengths."
   ],
   "languages": [
     "python"

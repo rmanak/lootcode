@@ -8,9 +8,9 @@
     "matrix"
   ],
   "hints": [
-    "Count a ship only when you encounter its first cell, ignoring subsequent parts of the same ship.",
-    "A cell is the start of a ship if it is 'X' and neither the cell above nor the cell to the left is 'X'.",
-    "Iterate through the board and increment your count whenever you find an 'X' with no 'X' neighbor above or to the left."
+    "Count only the 'first' part of each ship to avoid double-counting cells that belong to the same vessel.",
+    "Scan the board linearly; for each 'X', decide if it is the head of a new ship based on its neighbors.",
+    "A cell is a ship head if it has no 'X' immediately above or to its left; handle edge cells carefully."
   ],
   "languages": [
     "python"

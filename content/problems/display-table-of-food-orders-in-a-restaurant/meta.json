@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Collect all unique food items and table numbers from the input orders first.",
-    "Use a hash map to count food orders per table, then sort food items alphabetically and tables numerically.",
-    "Construct the result by iterating through sorted tables and filling counts for each sorted food item."
+    "Start by collecting all unique food items and table numbers from the input data.",
+    "Use a dictionary or hash map to count food orders for each table, keyed by table number.",
+    "Sort the unique food items alphabetically for columns and table numbers numerically for rows to align counts correctly."
   ],
   "languages": [
     "python"

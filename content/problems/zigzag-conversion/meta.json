@@ -6,9 +6,9 @@
     "string"
   ],
   "hints": [
-    "Simulate the zigzag path by tracking the current row index and the direction of movement.",
-    "Use an array of strings, one for each row, to collect characters as you traverse the input string.",
-    "Toggle the movement direction whenever you reach the first or last row index."
+    "Consider the path of each character as it moves down and up the rows. Can you determine the row index for the i-th character directly?",
+    "The row index follows a periodic pattern with a cycle length related to numRows. Use this cycle to map characters to rows.",
+    "Each row collects characters at specific intervals derived from the cycle. Identify the start index and step for each row."
   ],
   "languages": [
     "python"

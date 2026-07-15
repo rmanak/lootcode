@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider the cost to make any substring s[i..j] a palindrome. Precompute these costs for all pairs.",
-    "This is a dynamic programming problem. Let dp[i][k] be the min changes for s[0..i] split into k palindromes.",
-    "To compute dp[i][k], iterate over the last split point p. The cost is dp[p-1][k-1] plus the palindrome cost of s[p..i]."
+    "Consider the cost to make any single substring a palindrome independently of k.",
+    "Use dynamic programming where the state tracks the prefix length and the number of palindromes formed so far.",
+    "The cost to extend a solution is the palindrome conversion cost of the new segment; base case is zero cost for zero characters."
   ],
   "languages": [
     "python"

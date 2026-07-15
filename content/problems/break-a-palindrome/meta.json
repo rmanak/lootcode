@@ -7,9 +7,9 @@
     "greedy"
   ],
   "hints": [
-    "If the length is 1, you cannot break the palindrome property by changing one character.",
-    "To minimize lexicographically, change the first character that is not 'a' to 'a'.",
-    "If all characters are 'a', changing the last character to 'b' yields the smallest result."
+    "Since the string is a palindrome, changing one character affects its mirror. To minimize lexicographically, you want to make the earliest possible character as small as possible.",
+    "Focus on the first half of the string. The goal is to find the first character that is not 'a' and change it to 'a'.",
+    "If every character in the first half is already 'a', you must change the last character of the entire string to 'b' to break the palindrome."
   ],
   "languages": [
     "python"

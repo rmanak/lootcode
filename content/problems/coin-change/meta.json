@@ -7,9 +7,9 @@
     "array"
   ],
   "hints": [
-    "Consider how the solution for a smaller amount relates to the current amount.",
-    "Use dynamic programming to store the minimum coins needed for each value up to the target amount.",
-    "For each amount, iterate through all coins and find the minimum previous result plus one."
+    "Consider how the answer for a smaller amount relates to the target amount. If you knew the best way to make amount minus one coin, could you extend that?",
+    "Use dynamic programming. Define an array where each index represents a specific amount and stores the minimum coins needed to reach it.",
+    "The value at index i depends on values at smaller indices. Initialize the array with infinity, except for index 0 which is zero, to handle impossible cases."
   ],
   "languages": [
     "python"

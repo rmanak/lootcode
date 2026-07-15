@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Rewrite the score as (values[i] + i) + (values[j] - j) to separate terms depending on i and j.",
-    "As you iterate j from left to right, you need the maximum of (values[i] + i) for all i < j.",
-    "Maintain a running maximum of (values[i] + i) while iterating j, updating the answer at each step."
+    "Rewrite the score formula to separate terms involving i from those involving j.",
+    "This separation lets you maximize the i-part independently as you iterate through j.",
+    "Track the maximum value of values[i] + i seen so far while scanning j from left to right."
   ],
   "languages": [
     "python"

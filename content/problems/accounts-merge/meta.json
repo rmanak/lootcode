@@ -8,9 +8,9 @@
     "graph"
   ],
   "hints": [
-    "Think of emails as nodes in a graph where shared emails create edges between accounts.",
-    "Use a Union-Find data structure to group accounts that share at least one email.",
-    "Map each root account to a set of all its emails, then sort and format the result."
+    "Focus on the emails as the primary identifiers; the name is just metadata attached to a group of connected emails.",
+    "Model the emails as nodes in a graph where shared emails create edges; use Union-Find or BFS to find connected components.",
+    "Each connected component of emails belongs to one person; collect all emails in a component, sort them, and attach the associated name."
   ],
   "languages": [
     "python"

@@ -8,9 +8,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider this a variation of the knapsack problem where you have two distinct capacity limits instead of one.",
-    "Use dynamic programming with a 2D table where dp[j][k] represents the maximum strings using exactly j zeros and k ones.",
-    "Iterate through each string and update the DP table backwards to avoid reusing the same string in a single selection step."
+    "Consider each string as an item with a specific cost in zeros and ones. You must choose a subset to maximize count within budget limits.",
+    "This is a variation of the knapsack problem with two resource constraints instead of one.",
+    "Use dynamic programming where the state tracks remaining zeros and ones. Process each string and update the maximum count achievable for each resource combination."
   ],
   "languages": [
     "python"

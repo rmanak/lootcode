@@ -7,9 +7,9 @@
     "binary-search"
   ],
   "hints": [
-    "Store each key's history as a list of (timestamp, value) pairs, keeping them sorted by time.",
-    "For get operations, use binary search on the list to find the largest timestamp less than or equal to the query time.",
-    "If the found timestamp matches the query's requirement, return the corresponding value; otherwise return empty string."
+    "Group operations by key to handle each independently, since keys do not interact.",
+    "For each key, store its timestamps and values in sorted order to enable efficient lookups.",
+    "When getting a value, find the largest stored timestamp less than or equal to the query timestamp using binary search."
   ],
   "languages": [
     "python"

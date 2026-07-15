@@ -8,9 +8,9 @@
     "prefix-sum"
   ],
   "hints": [
-    "Can you answer each query in constant time after some initial preprocessing of the array?",
-    "Compute a prefix XOR array where prefix[i] is the XOR of all elements before index i.",
-    "The XOR of the subarray from L to R equals prefix[R+1] XOR prefix[L]."
+    "XOR is its own inverse, so repeating a value cancels it out. How can you use this to simplify range queries?",
+    "Precompute a prefix array where each entry stores the XOR of all elements from the start up to that index.",
+    "The answer for a range is derived from two prefix values. What special value serves as the identity for XOR to handle the start of the array correctly?"
   ],
   "languages": [
     "python"

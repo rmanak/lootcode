@@ -7,9 +7,9 @@
     "hash-table"
   ],
   "hints": [
-    "For each number, calculate what value it needs to reach the target.",
-    "Store previously seen numbers and their indices in a hash map for fast lookup.",
-    "Before adding the current number to the map, check if its complement already exists."
+    "Instead of comparing every pair, ask what value would complete the sum for the current number you are looking at.",
+    "Use a hash map to store each number and its index as you iterate, allowing you to check for the complement in constant time.",
+    "The map links a value to its original position; if the needed complement is already there, you have found your pair."
   ],
   "languages": [
     "python"

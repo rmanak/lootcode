@@ -8,9 +8,9 @@
     "heap"
   ],
   "hints": [
-    "Sliding window problems require updating the structure efficiently as elements enter and leave.",
-    "Maintain two heaps to track the lower and upper halves of the current window.",
-    "Balance the heaps after each slide so their sizes differ by at most one."
+    "A sliding window moves one step at a time, so the sorted order changes slightly; how can you update the median efficiently instead of resorting?",
+    "Maintain two heaps: a max-heap for the lower half and a min-heap for the upper half of the current window.",
+    "The median is the top of the larger heap; balance sizes by moving elements when sliding, handling removals lazily."
   ],
   "languages": [
     "python"

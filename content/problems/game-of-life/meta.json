@@ -8,9 +8,9 @@
     "simulation"
   ],
   "hints": [
-    "Create a separate result grid to store the next state, ensuring updates do not affect neighbor counts for other cells.",
-    "Iterate through every cell, count its live neighbors by checking all eight surrounding positions while handling boundary conditions.",
-    "Apply the four rules to the current cell state and neighbor count to determine the value for the corresponding position in the new grid."
+    "Since updates must be simultaneous, you cannot modify the input grid in place while reading from it. Consider creating a separate structure to store the result.",
+    "Iterate through every cell in the grid. For each cell, count its live neighbors by checking the eight surrounding positions, being careful with boundary checks.",
+    "A live cell survives with 2 or 3 neighbors; a dead cell is born with exactly 3. All other cases result in death. Apply these rules to build the new grid."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "simulation"
   ],
   "hints": [
-    "Parse both sides of the equation to separate terms containing x from constant numbers.",
-    "Calculate the net coefficient of x and the net constant value by moving all x terms to one side and constants to the other.",
-    "Compare the resulting coefficient and constant: if both are zero, infinite solutions; if coefficient is zero but constant is not, no solution; otherwise divide."
+    "Move all terms with x to one side and constants to the other, simplifying to ax = b.",
+    "Parse the string to compute the net coefficient of x and the net constant value.",
+    "If the coefficient is zero, check the constant to decide between infinite or no solution; otherwise divide."
   ],
   "languages": [
     "python"

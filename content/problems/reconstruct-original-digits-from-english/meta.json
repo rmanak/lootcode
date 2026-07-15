@@ -7,9 +7,9 @@
     "hash-table"
   ],
   "hints": [
-    "Notice that some digits have unique letters not shared by any other digit, like 'z' for zero.",
-    "Use those unique letters to count specific digits first, then subtract their contributions to find others.",
-    "Process digits in an order where each step reveals a new count based on remaining unique letters."
+    "Count the frequency of every letter in the input string to understand the composition of the mixed words.",
+    "Look for letters that appear in only one digit's spelling, such as 'z' for zero or 'w' for two, to identify them first.",
+    "Once unique digits are identified, subtract their letter counts from the total to reveal digits with shared letters."
   ],
   "languages": [
     "python"

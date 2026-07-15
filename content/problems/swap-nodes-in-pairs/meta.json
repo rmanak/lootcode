@@ -7,9 +7,9 @@
     "recursion"
   ],
   "hints": [
-    "Focus on pairs of nodes rather than individual nodes. How does handling two nodes at a time simplify the swapping logic?",
-    "Use a dummy node before the head to handle edge cases uniformly. Maintain a pointer to the node preceding the current pair.",
-    "For each pair, reverse the links: connect the predecessor to the second node, the second to the first, and the first to the rest."
+    "Focus on how pairs connect to each other rather than just swapping values within a pair.",
+    "Use a dummy node pointing to the head to simplify handling the first pair and edge cases.",
+    "Track the node preceding the current pair to correctly rewire pointers after each swap."
   ],
   "languages": [
     "python"

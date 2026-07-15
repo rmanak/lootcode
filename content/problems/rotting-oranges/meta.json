@@ -7,9 +7,9 @@
     "breadth-first-search"
   ],
   "hints": [
-    "Consider processing rotten oranges layer by layer using a queue to simulate the spreading process minute by minute.",
-    "Track the number of fresh oranges remaining and decrement it each time one rots; if any remain after the queue empties, return -1.",
-    "Initialize the queue with all initially rotten oranges; use a distance array or modify the grid to avoid reprocessing cells."
+    "This problem involves spreading a state over time in steps, similar to how a fire spreads or ripples expand in water.",
+    "Use Breadth-First Search (BFS) starting from all initially rotten oranges simultaneously to simulate the rotting process minute by minute.",
+    "Track the maximum distance any fresh orange is from a rotten one; if any fresh orange is unreachable after the search, return -1."
   ],
   "languages": [
     "python"

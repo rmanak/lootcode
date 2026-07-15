@@ -6,9 +6,9 @@
     "stack"
   ],
   "hints": [
-    "Notice how operators always follow their operands in this notation. What data structure naturally handles this last-in, first-out relationship?",
-    "Use a stack to store numbers. Push operands onto it, and when you encounter an operator, pop the required number of operands to perform the calculation.",
-    "Push the result of each operation back onto the stack. After processing all tokens, the single remaining value on the stack is your final answer."
+    "Reverse Polish Notation processes operands before the operator acts on them. What data structure naturally stores items to be used later in last-in-first-out order?",
+    "Use a stack to store operands. When you encounter an operator, pop the required number of values, apply the operation, and push the result back.",
+    "Be careful with division: it must truncate toward zero, not floor. Also, ensure you pop the second operand before the first to maintain correct order for non-commutative operations."
   ],
   "languages": [
     "python"

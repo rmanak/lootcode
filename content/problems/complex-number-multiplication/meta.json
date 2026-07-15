@@ -6,9 +6,9 @@
     "string"
   ],
   "hints": [
-    "Extract the real and imaginary integer parts from each input string before performing arithmetic.",
-    "Apply the formula (a+bi)(c+di) = (ac-bd) + (ad+bc)i to compute the new real and imaginary components.",
-    "Format the resulting integers into the required string pattern, ensuring correct signs are included."
+    "Parse the two input strings to extract the integer real and imaginary components for each number.",
+    "Apply the algebraic expansion formula for multiplying two binomials, remembering that the square of the imaginary unit is negative one.",
+    "Combine the resulting terms into a new real and imaginary part, then format the output strictly as 'a+bi'."
   ],
   "languages": [
     "python"

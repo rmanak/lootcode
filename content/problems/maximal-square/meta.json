@@ -8,9 +8,9 @@
     "matrix"
   ],
   "hints": [
-    "Consider what determines the size of the largest square ending at each cell.",
-    "Use dynamic programming where dp[i][j] stores the side length of the largest square with bottom-right corner at (i, j).",
-    "dp[i][j] depends on the minimum of its top, left, and top-left neighbors if the current cell is '1'."
+    "Consider what determines if a cell can be the bottom-right corner of a square of 1s.",
+    "This structure suggests dynamic programming, where the value at each cell depends on its neighbors.",
+    "If a cell is 1, the largest square ending there is limited by the smallest square ending at its top, left, and top-left neighbors."
   ],
   "languages": [
     "python"

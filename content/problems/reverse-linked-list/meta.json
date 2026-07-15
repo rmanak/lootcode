@@ -7,9 +7,9 @@
     "recursion"
   ],
   "hints": [
-    "Walk the list keeping a `prev` pointer that trails one node behind the node you are visiting.",
-    "At each node, save `head.next`, point `head.next` back to `prev`, then advance both `prev` and `head`.",
-    "When `head` reaches `None`, `prev` is the new head of the fully reversed list."
+    "Consider how you would reverse the links between just two adjacent nodes. How can you extend this pairwise operation to the entire list?",
+    "Use three pointers: one for the previous node, one for the current node, and one for the next node. Update them as you traverse.",
+    "The critical insight is saving the next node before reversing the current link, otherwise the rest of the list is lost. Handle the empty list case."
   ],
   "languages": [
     "python"

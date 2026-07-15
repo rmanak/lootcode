@@ -6,9 +6,9 @@
     "string"
   ],
   "hints": [
-    "Consider scanning the string from the end to avoid processing unnecessary leading spaces.",
-    "Skip any trailing spaces first, then count characters until you hit a space or the start of the string.",
-    "Initialize a counter to zero; increment it for each non-space character encountered from the right until a space appears."
+    "Consider scanning the string from the end rather than the beginning to find the last word quickly.",
+    "Trailing spaces do not belong to the last word, so skip them first before counting characters.",
+    "The last word ends where the string ends or at the first space encountered when moving backward from the right."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Check if the number of jobs is less than d. If so, return -1 immediately since each day needs at least one job.",
-    "Use dynamic programming where the state tracks the current job index and the number of days remaining.",
-    "For each state, iterate through possible split points for the current day, taking the max difficulty of that day's jobs and adding the result of the subproblem."
+    "If the number of jobs is less than the number of days, it is impossible to assign at least one job per day. What should you return in that case?",
+    "This problem has optimal substructure: the minimum difficulty for the first k jobs over i days depends on how you split them. Consider dynamic programming.",
+    "Define a state representing the minimum difficulty to schedule the first i jobs in exactly j days. The base case is 0 jobs in 0 days having 0 difficulty."
   ],
   "languages": [
     "python"

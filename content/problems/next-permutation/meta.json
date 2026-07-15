@@ -7,9 +7,9 @@
     "two-pointers"
   ],
   "hints": [
-    "Look for the longest suffix that is non-increasing. The element just before this suffix is the pivot.",
-    "Swap the pivot with the smallest element in the suffix that is larger than the pivot.",
-    "Reverse the suffix to make it the smallest possible permutation, completing the next lexicographical order."
+    "Find the rightmost index where an element is smaller than its right neighbor.",
+    "Swap that element with the smallest larger value to its right, then reverse the suffix.",
+    "Reversing the suffix after the swap transforms the descending tail into the smallest ascending order."
   ],
   "languages": [
     "python"

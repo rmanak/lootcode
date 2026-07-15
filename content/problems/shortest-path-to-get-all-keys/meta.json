@@ -9,9 +9,9 @@
     "matrix"
   ],
   "hints": [
-    "Since you need the shortest path, consider using Breadth-First Search to explore moves level by level.",
-    "Your state must include your position and the set of keys collected, as future possibilities depend on both.",
-    "Use a bitmask to represent the set of keys, allowing you to efficiently track visited states in your BFS queue."
+    "Notice that your ability to move depends entirely on which keys you have collected, not just your location.",
+    "Model the state as a combination of your grid coordinates and a bitmask representing the set of keys held.",
+    "Use Breadth-First Search on these combined states to find the shortest path to any position where all keys are collected."
   ],
   "languages": [
     "python"

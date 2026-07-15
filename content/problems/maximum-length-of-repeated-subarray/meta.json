@@ -8,9 +8,9 @@
     "binary-search"
   ],
   "hints": [
-    "Notice that matching subarrays must end at specific indices in both arrays. What happens if the current elements match?",
-    "This structure suggests dynamic programming. Define a state based on the ending positions in both arrays to track the current match length.",
-    "If elements at current indices match, the length extends the previous match. Otherwise, reset to zero. Track the global maximum."
+    "Consider what happens when you compare elements from both arrays starting at different indices. How does a match extend or break?",
+    "This problem can be modeled with dynamic programming where the state depends on the current indices in both arrays.",
+    "The value at a state represents the length of the matching suffix ending at those indices, resetting if elements differ."
   ],
   "languages": [
     "python"

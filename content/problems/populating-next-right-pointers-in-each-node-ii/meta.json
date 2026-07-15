@@ -10,9 +10,9 @@
     "binary-tree"
   ],
   "hints": [
-    "Process the tree level by level. How can you use the next pointers of the current level to link nodes in the next level?",
-    "For each node, connect its children to the next available sibling. You can find this sibling by traversing the current level's next chain.",
-    "Maintain a dummy head for the next level. As you traverse the current level, append children to this dummy list, then move to the new level's head."
+    "Consider processing the tree level by level. How can you traverse all nodes at the current depth to link them, then move to the next depth?",
+    "If you cannot use a queue for BFS, think about using the `next` pointers of the current level to traverse and link the nodes of the next level.",
+    "When linking children of the current level, handle gaps between siblings by connecting a node's right child to the leftmost child of its `next` neighbor's subtree."
   ],
   "languages": [
     "python"

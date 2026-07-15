@@ -7,9 +7,9 @@
     "two-pointers"
   ],
   "hints": [
-    "Since the process repeats, you will eventually see a number you have seen before. Detecting this repetition is key.",
-    "Use a set to store every number encountered. If the current number is already in the set, a cycle exists.",
-    "Keep replacing n with the sum of squared digits. Return true if n becomes 1; return false if you find a duplicate."
+    "If the process never reaches 1, it must repeat a value. How can you detect a repetition?",
+    "Use a set to track every number you encounter. If you see a number already in the set, a cycle exists.",
+    "The set stores the history of the sequence. An empty set starts the check; finding a duplicate means false, reaching one means true."
   ],
   "languages": [
     "python"

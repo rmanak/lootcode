@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Sorting the entire array is O(n log n). Can you find a faster way to isolate the top k elements without fully sorting?",
-    "Consider using a Min-Heap of size k. How does maintaining this heap help you track the k-th largest element efficiently?",
-    "Iterate through the array, adding elements to the Min-Heap. If the heap exceeds size k, remove the smallest element. The root is your answer."
+    "Sorting the whole array works but is slower than necessary. Can you find the target without fully ordering all elements?",
+    "Consider using a min-heap of size k to keep track of the k largest elements seen so far.",
+    "As you iterate through nums, maintain a heap of the k largest items. The root of this min-heap is your answer."
   ],
   "languages": [
     "python"

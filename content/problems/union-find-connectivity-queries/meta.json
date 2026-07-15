@@ -7,9 +7,9 @@
     "graph"
   ],
   "hints": [
-    "Think about how to efficiently track which group each node belongs to as unions happen.",
-    "Use a Union-Find data structure with path compression and union by rank to manage components.",
-    "Initialize each node as its own parent; for unions, link roots; for queries, check if roots match."
+    "Each node starts in its own group. How can you efficiently track which group each node belongs to as unions happen?",
+    "Use a Disjoint Set Union (DSU) structure to maintain connected components with path compression.",
+    "The 'connected' query is true if and only if the two nodes share the same representative root in the DSU structure."
   ],
   "languages": [
     "python"

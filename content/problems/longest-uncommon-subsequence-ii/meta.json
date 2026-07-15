@@ -8,9 +8,9 @@
     "hash-table"
   ],
   "hints": [
-    "If a string appears more than once in the list, can it be the longest uncommon subsequence?",
-    "Consider sorting the strings by length in descending order to check candidates efficiently.",
-    "For each unique candidate, verify if it is a subsequence of any other string in the list."
+    "If a string appears more than once, it can never be the answer since it is a subsequence of its duplicate. Focus only on unique candidates.",
+    "Check each unique string against all other strings in the list to see if it is a subsequence of any of them.",
+    "The answer is the length of the longest string that is not a subsequence of any other string in the input list."
   ],
   "languages": [
     "python"

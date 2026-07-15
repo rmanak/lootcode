@@ -6,9 +6,9 @@
     "backtracking"
   ],
   "hints": [
-    "Consider using recursion or backtracking to build combinations step-by-step, adding one number at a time.",
-    "To avoid duplicates and ensure sorted order, only append numbers larger than the last added number.",
-    "Track how many numbers you still need to add; stop the current branch when you reach size k."
+    "Since order doesn't matter, enforce a rule like always picking the next number larger than the previous one to avoid duplicates.",
+    "Use recursion or backtracking to build combinations one number at a time, deciding whether to include the current number or skip it.",
+    "Prune your search early: if the remaining numbers are fewer than needed to complete a combination, stop exploring that path immediately."
   ],
   "languages": [
     "python"

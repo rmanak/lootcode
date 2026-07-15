@@ -10,9 +10,9 @@
     "binary-tree"
   ],
   "hints": [
-    "In postorder, the last element is always the root of the current subtree. Find this root in the inorder array to split left and right children.",
-    "Use the index of the root in inorder to determine the size of the left subtree. This size helps identify the corresponding slice in postorder for the left child.",
-    "Process postorder from right to left. Recursively build the right subtree first, then the left, using a shared pointer to track the current root in postorder."
+    "Notice that the last element of the postorder array is always the root of the current subtree.",
+    "Use the root value to split the inorder array into left and right subtrees, then recursively build them.",
+    "The root's position in the inorder array determines the sizes of the left and right subtrees for slicing the postorder array."
   ],
   "languages": [
     "python"

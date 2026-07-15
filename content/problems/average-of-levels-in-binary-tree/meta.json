@@ -9,9 +9,9 @@
     "binary-tree"
   ],
   "hints": [
-    "Consider traversing the tree level by level rather than depth-first to group nodes by their depth.",
-    "Use a queue to perform a breadth-first search, processing all nodes currently in the queue before moving to the next level.",
-    "For each level, sum the node values and divide by the number of nodes processed at that depth before pushing children."
+    "What traversal visits all nodes at a given depth before moving deeper?",
+    "Use a breadth-first search to process the tree level by level.",
+    "For each level, you only need the sum of node values and the count of nodes to compute the average."
   ],
   "languages": [
     "python"

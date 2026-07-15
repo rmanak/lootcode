@@ -8,9 +8,9 @@
     "matrix"
   ],
   "hints": [
-    "Since you can only move right or down, this is a grid path problem solvable with dynamic programming.",
-    "Negative numbers flip signs, so you must track both the maximum and minimum product at each cell.",
-    "At each cell, update max and min from the top and left neighbors using the current cell's value."
+    "Since you can only move right or down, the path to any cell depends only on the cells immediately above and to its left.",
+    "Because negative numbers flip signs, track both the maximum and minimum products reaching each cell to handle sign changes.",
+    "The value at (0,0) is the base case; for other cells, the max/min depends on whether the current cell value is positive, negative, or zero."
   ],
   "languages": [
     "python"

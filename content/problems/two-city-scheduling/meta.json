@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Consider the extra cost of sending a person to city A instead of city B for each individual.",
-    "Sort the candidates based on this difference to prioritize those who save the most by going to city A.",
-    "Send the first half of the sorted list to city A and the rest to city B to minimize total expense."
+    "Consider the extra cost sent to city A versus city B for each person.",
+    "Sort people by the difference between their costs for city A and city B.",
+    "Send the n people with the largest savings to the city where they are cheaper."
   ],
   "languages": [
     "python"

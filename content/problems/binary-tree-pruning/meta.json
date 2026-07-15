@@ -7,9 +7,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "A subtree should be kept only if it contains at least one 1. How can you determine this property for a node based on its children?",
-    "Use post-order traversal to process children before the parent. A node is pruned if it is 0 and both its subtrees are pruned.",
-    "Recursively call on left and right children. Update the current node's children to the returned roots. Return None if current is 0 and both children are None."
+    "Focus on the condition for keeping a node: it must contain a 1 in its subtree.",
+    "Use post-order traversal to process children before the parent, allowing you to decide whether to keep or prune each subtree.",
+    "A subtree should be pruned if it contains no 1s; recursively determine this for children, then decide for the current node based on its value and children's results."
   ],
   "languages": [
     "python"

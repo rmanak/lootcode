@@ -7,9 +7,9 @@
     "sliding-window"
   ],
   "hints": [
-    "Consider using a sliding window approach where you expand the right boundary and shrink the left boundary when necessary.",
-    "The window is invalid only when the count of zeros exceeds k. Track the number of zeros in your current window.",
-    "Move the left pointer forward whenever the zero count exceeds k, ensuring the window always contains at most k zeros."
+    "Focus on maintaining a valid window of consecutive elements where the count of zeros stays within your flip limit.",
+    "Use the sliding window technique to expand the right boundary and shrink the left boundary when the zero count exceeds k.",
+    "The maximum length of the window achieved during the process is your answer, regardless of whether the final window is optimal."
   ],
   "languages": [
     "python"

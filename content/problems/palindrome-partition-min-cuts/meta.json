@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Try dynamic programming. Let dp[i] be the min cuts for s[0..i]. How do you update it using previous values?",
-    "Check if a substring s[j..i] is a palindrome. If yes, dp[i] can be dp[j-1] + 1. Handle j=0 as a special case.",
-    "Precompute palindrome checks for all substrings to avoid redundant work. Then fill the dp table from left to right."
+    "Consider the prefix of the string ending at each index. What is the minimum cuts needed to make that prefix entirely palindromic?",
+    "This problem is well-suited for dynamic programming. You can build the answer for longer prefixes using results from shorter ones.",
+    "You need a fast way to check if any substring is a palindrome. Precomputing this with a boolean table avoids repeated checks during the DP."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "binary-tree"
   ],
   "hints": [
-    "Trace where `val` would end up in the original tree by comparing it to node values during a traversal.",
-    "If `val` is larger than the current node, it must become the new parent, pushing the current node to the left.",
-    "If `val` is smaller, recurse to the right subtree, since the new element was appended to the end of the array."
+    "Notice that appending val changes only the rightmost path of the original tree. Can you trace how the new node fits into that existing structure without rebuilding everything?",
+    "Think about the position of val relative to the nodes on the right spine of the current tree. Where does the new root or parent relationship change?",
+    "Find the first node on the rightmost path whose value is greater than val. The new node becomes its right child, and that node's previous right child becomes the new node's left child."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "binary-search"
   ],
   "hints": [
-    "Since the array is sorted and you need logarithmic time, binary search is the natural approach to narrow down the location.",
-    "When the target is not found, the standard binary search loop termination condition usually points directly to the correct insertion index.",
-    "Track the left and right boundaries; when the loop ends, the left boundary indicates exactly where the target belongs."
+    "The O(log n) requirement and sorted input strongly suggest a specific search technique.",
+    "Binary search is the standard approach for finding elements or positions in sorted arrays.",
+    "Adjust your search range until the left boundary converges on the correct insertion point or match index."
   ],
   "languages": [
     "python"

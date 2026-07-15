@@ -8,9 +8,9 @@
     "hash-table"
   ],
   "hints": [
-    "Use a sliding window approach to expand and contract a substring of `s` while tracking character counts.",
-    "Maintain a frequency map for `t` and a counter for how many characters from `t` are currently satisfied in the window.",
-    "Shrink the window from the left as long as all characters of `t` are still covered, updating the shortest valid substring found."
+    "Consider how the set of required characters changes as you scan s from left to right.",
+    "Use a sliding window with two pointers to maintain the current substring bounds.",
+    "Track character counts in the window; shrink from the left only when all requirements are met."
   ],
   "languages": [
     "python"

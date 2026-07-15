@@ -6,9 +6,9 @@
     "linked-list"
   ],
   "hints": [
-    "Calculate the base size for each part by dividing the total length by k.",
-    "Determine how many parts need one extra element using the remainder of the division.",
-    "Iterate through the list, assigning the base size plus one to the first remainder parts."
+    "Calculate the total number of nodes and determine how many parts must be larger than the others to distribute them evenly.",
+    "Use integer division to find the base size for each part and the modulus to find how many parts get an extra node.",
+    "The first few parts should have one more node than the rest; figure out exactly how many parts get that extra node based on the remainder."
   ],
   "languages": [
     "python"

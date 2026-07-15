@@ -7,9 +7,9 @@
     "hash-table"
   ],
   "hints": [
-    "Check if s and t have the same length; if not, return false immediately.",
-    "For each differing character, calculate the minimum forward shift needed to match t.",
-    "Sort these required shifts and verify that the i-th smallest shift plus i does not exceed k for all i."
+    "Start by matching characters that already equal their target; these require zero shifts and cost nothing.",
+    "For each mismatch, calculate the minimal positive shift needed. Notice that shifts repeat every 26 steps, so you must handle collisions when multiple characters need the same base shift.",
+    "Group mismatches by their required base shift. For each group, check if the cumulative cost of resolving all collisions within that group fits within k."
   ],
   "languages": [
     "python"

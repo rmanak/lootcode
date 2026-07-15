@@ -8,9 +8,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Track the maximum value seen on the path from the root to the current node.",
-    "Use a recursive traversal, passing the current path maximum as an argument to child calls.",
-    "A node is good if its value is greater than or equal to the passed maximum; update the maximum for its children."
+    "Track the maximum value seen so far along the path from the root to the current node.",
+    "Recursively traverse the tree, passing the current maximum value down to child nodes.",
+    "A node is good if its value is at least the maximum value passed down from its ancestors."
   ],
   "languages": [
     "python"

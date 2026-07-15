@@ -7,9 +7,9 @@
     "combinatorics"
   ],
   "hints": [
-    "Counting numbers with repeated digits directly is hard. Try counting the complement: numbers with all unique digits.",
-    "Use digit dynamic programming to count unique-digit numbers up to n. Process digits from most significant to least.",
-    "Track used digits with a bitmask. At each position, iterate allowed digits, ensuring they haven't been used yet."
+    "Counting numbers with repeated digits is hard; try counting those with all distinct digits instead and subtract from n.",
+    "Use combinatorics or DFS to count integers up to n with unique digits by processing digit by digit.",
+    "Split the count into numbers strictly shorter than n's length and those with the same length, handling leading zeros and the upper bound carefully."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Notice that the order of elements matters, which distinguishes this from the standard subset sum problem.",
-    "Consider using dynamic programming where the state depends on the current sum needed to reach the target.",
-    "The number of ways to reach a sum i equals the sum of ways to reach i minus each available number in nums."
+    "Consider how the target sum is built by adding one number from nums at a time.",
+    "Use dynamic programming where the state represents the number of ways to form a specific sum.",
+    "The base case is sum 0 having one way; any positive sum depends on smaller sums formed by subtracting available numbers."
   ],
   "languages": [
     "python"

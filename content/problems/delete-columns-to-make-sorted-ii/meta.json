@@ -8,9 +8,9 @@
     "greedy"
   ],
   "hints": [
-    "Focus on when a column causes a violation between adjacent rows.",
-    "Use dynamic programming where the state represents the set of columns kept so far.",
-    "Track the last kept column index and ensure new columns maintain order for all rows."
+    "Consider processing columns from left to right; once a row's order is strictly determined, subsequent columns become irrelevant for that pair.",
+    "This problem can be modeled as finding a maximum subset of columns to keep such that the resulting strings remain sorted.",
+    "For each column, check if keeping it maintains the sorted property for all rows that are not yet strictly ordered by previous kept columns."
   ],
   "languages": [
     "python"

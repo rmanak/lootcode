@@ -8,9 +8,9 @@
     "prefix-sum"
   ],
   "hints": [
-    "Notice that applying shifts in order is inefficient. Consider how many total shifts each character at index i receives from all operations.",
-    "Each character S[i] is affected by shifts[j] for all j >= i. Calculate the total shift amount for each position by summing relevant values.",
-    "Compute a suffix sum of the shifts array. Apply the total shift for each index modulo 26 to get the final character."
+    "Notice that the character at index i is affected by shifts[i], shifts[i+1], and all subsequent shift values.",
+    "Calculate the total shift amount for each index by computing the suffix sums of the shifts array.",
+    "Apply the cumulative shift to each character modulo 26 to handle the alphabet wrapping correctly."
   ],
   "languages": [
     "python"

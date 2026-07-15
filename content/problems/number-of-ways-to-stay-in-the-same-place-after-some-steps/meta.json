@@ -6,9 +6,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Notice that the pointer can only reach indices up to steps. If arrLen is larger, treat it as steps + 1 to limit the state space.",
-    "Use dynamic programming where dp[i][j] represents the number of ways to be at index j after i steps.",
-    "For each step, transition from previous positions: dp[i][j] = dp[i-1][j-1] + dp[i-1][j] + dp[i-1][j+1], handling boundaries carefully."
+    "Notice that you can never reach positions beyond `steps` from the start, so the effective array length is much smaller than `arrLen`.",
+    "This problem involves counting paths with overlapping subproblems, suggesting dynamic programming where the state depends on current position and steps remaining.",
+    "The number of ways to be at a position is the sum of ways to arrive from the left, right, or staying put; use modulo arithmetic at each addition to prevent overflow."
   ],
   "languages": [
     "python"

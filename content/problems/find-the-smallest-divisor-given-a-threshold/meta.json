@@ -7,9 +7,9 @@
     "binary-search"
   ],
   "hints": [
-    "Notice that as d increases, the sum of ceilings decreases. This monotonicity suggests searching for the smallest valid d.",
-    "Use binary search on the possible values of d to efficiently find the minimum divisor that satisfies the threshold condition.",
-    "Define a helper function to compute the sum of ceilings for a given d, then binary search between 1 and the maximum value in nums."
+    "Notice that as the divisor increases, the rounded-up sum never increases. This monotonicity suggests a specific search strategy.",
+    "Binary search is ideal here. You need to define a search range for the divisor and a check function to validate candidates.",
+    "Focus on efficiently computing the ceiling division sum for a given divisor. What is the mathematical trick to avoid floating-point arithmetic?"
   ],
   "languages": [
     "python"

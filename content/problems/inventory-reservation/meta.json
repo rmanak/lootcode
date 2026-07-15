@@ -7,9 +7,9 @@
     "simulation"
   ],
   "hints": [
-    "Keep track of remaining stock for each SKU as you process requests sequentially.",
-    "Use the stock map directly, updating values in place to reflect decrements.",
-    "For each request, check if current stock is sufficient, then subtract if accepted."
+    "Focus on how to efficiently track and update the remaining quantity for each SKU as requests arrive.",
+    "Use a hash map to store current stock levels, allowing quick lookups and updates for any SKU.",
+    "Initialize missing SKUs with zero stock; a request is valid only if the current stock meets or exceeds the requested amount."
   ],
   "languages": [
     "python"

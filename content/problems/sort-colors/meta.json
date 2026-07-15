@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Consider maintaining three regions for 0s, 1s, and 2s within the array using pointers.",
-    "Use three pointers: one for the boundary of 0s, one for current element, and one for 2s.",
-    "Swap elements to move 0s to the start and 2s to the end, advancing pointers as needed."
+    "Notice that the array can be partitioned into three contiguous sections for 0s, 1s, and 2s. How can you maintain these boundaries while scanning?",
+    "Use three pointers to track the boundaries of the 0, 1, and 2 regions. This is known as the Dutch National Flag algorithm.",
+    "Maintain invariants where elements before the low pointer are 0s, after the high pointer are 2s, and between them are 1s or unsorted items."
   ],
   "languages": [
     "python"

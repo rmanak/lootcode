@@ -8,9 +8,9 @@
     "divide-and-conquer"
   ],
   "hints": [
-    "Consider processing events at building start and end coordinates to track height changes.",
-    "Sort all coordinate events. Use a max-heap to track active building heights at each step.",
-    "For each event, update the heap: add heights at starts, remove at ends. Record new max height."
+    "Focus on x-coordinates where height changes: building starts and ends. Process these events left to right.",
+    "Use a sweep-line approach with a max-heap to track active building heights as you scan.",
+    "The heap must support removal of ended buildings; use lazy deletion or a multiset to maintain the current max height efficiently."
   ],
   "languages": [
     "python"

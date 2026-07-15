@@ -7,9 +7,9 @@
     "combinatorics"
   ],
   "hints": [
-    "Notice the small constraints on colors and counts; this suggests an exponential-time approach over colors is feasible.",
-    "Use dynamic programming over colors, tracking the number of distinct colors in the first box and the total items placed so far.",
-    "For each color, iterate over how many of its balls go to the first box, updating the DP state for distinct counts and item totals."
+    "Focus on the distribution of each color independently. The constraint on total distinct colors links them.",
+    "Use dynamic programming where the state tracks the current count of distinct colors in both boxes.",
+    "The DP value is the number of ways to achieve a specific distinct-color pair; sum valid pairs at the end and divide by total permutations."
   ],
   "languages": [
     "python"

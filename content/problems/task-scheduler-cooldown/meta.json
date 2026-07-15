@@ -8,9 +8,9 @@
     "hash-table"
   ],
   "hints": [
-    "The answer is the larger of the total tasks and the time required by the most frequent task.",
-    "Calculate the time needed for the most frequent tasks using their count and the cooldown n.",
-    "Use the formula (max_freq - 1) * (n + 1) + number_of_max_freq_tasks to find the minimum time."
+    "Focus on the most frequent task. Its count and the cooldown dictate the minimum spacing required between its occurrences.",
+    "Calculate the theoretical minimum time based solely on the most frequent task's constraints. Compare this against the total number of tasks.",
+    "The answer is the larger of the total task count or the time forced by the most frequent task's spacing requirements."
   ],
   "languages": [
     "python"

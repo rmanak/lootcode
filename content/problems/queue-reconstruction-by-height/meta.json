@@ -9,9 +9,9 @@
     "sorting"
   ],
   "hints": [
-    "Sort the people to process them in an order where inserting a person does not affect the k values of previously placed people.",
-    "Sort by height descending, and for equal heights, sort by k ascending. Insert each person at index k in the result list.",
-    "Iterate through the sorted list and insert each person at the position specified by their k value in the growing result list."
+    "Consider processing people in a specific order so that inserting one person never invalidates the 'k' counts of people already placed.",
+    "Sort by height descending, then by 'k' ascending. This way, taller people are fixed first, and shorter people don't affect their counts.",
+    "Insert each person into the result list at index 'k'. Since they are shorter or equal, they won't shift the positions of taller people already in the list."
   ],
   "languages": [
     "python"

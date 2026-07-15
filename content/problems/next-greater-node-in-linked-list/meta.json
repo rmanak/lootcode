@@ -8,9 +8,9 @@
     "stack"
   ],
   "hints": [
-    "Consider processing the list from right to left. How does the answer for a node relate to the nodes to its right?",
-    "Maintain a stack of candidate values to the right that are increasing. When moving left, pop smaller values to find the first larger one.",
-    "For each element, pop from the stack until you find a value larger than the current node. That value is the answer; then push the current node."
+    "Look at the output for each node: it is the first larger value to its right. This resembles finding the 'next greater element' in an array, but the input is a linked list.",
+    "Convert the linked list to an array first. Then, use a monotonic stack to efficiently find the next greater element for each index in a single pass.",
+    "The stack should store indices of elements whose next greater element is not yet found. When a larger element appears, it resolves the pending queries for smaller elements currently in the stack."
   ],
   "languages": [
     "python"

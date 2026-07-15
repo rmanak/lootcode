@@ -7,9 +7,9 @@
     "matrix"
   ],
   "hints": [
-    "Can you determine the minimum cost to reach any specific cell using only the costs of its top and left neighbors?",
-    "This problem exhibits optimal substructure, making dynamic programming the ideal approach to build up solutions cell by cell.",
-    "Initialize a DP table where each entry is the cell value plus the minimum of the valid previous entries from the top or left."
+    "Focus on the minimum cost to reach each cell rather than the whole path at once.",
+    "Use dynamic programming where each cell stores the minimum sum to reach it from the start.",
+    "The value for a cell depends on its top and left neighbors; handle the first row and column as edge cases."
   ],
   "languages": [
     "python"

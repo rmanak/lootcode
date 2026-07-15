@@ -7,9 +7,9 @@
     "simulation"
   ],
   "hints": [
-    "Simulate one pass of the instructions to find the robot's final position and facing direction.",
-    "If the robot ends at the origin, it is bounded. Otherwise, check if its final direction differs from the start.",
-    "If the robot does not face north after one pass, repeated instructions will eventually return it to the origin."
+    "Focus on the robot's state after exactly one full pass of instructions rather than simulating forever.",
+    "Track the final position and facing direction after one cycle to determine boundedness.",
+    "The path is bounded if the robot returns to origin or ends facing a direction other than north."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider the last characters of s and t. How does matching or skipping the last character of s affect the count?",
-    "Define dp[i][j] as the number of ways t[:j] is a subsequence of s[:i]. Find the recurrence relation.",
-    "Initialize dp[0][0] to 1. Iterate through s and t, updating dp[i][j] based on whether s[i-1] equals t[j-1]."
+    "Consider how the solution changes if you remove the last character of s. Does it help to build the answer by processing s one character at a time?",
+    "Use dynamic programming with a 2D table where rows represent prefixes of s and columns represent prefixes of t.",
+    "Each cell stores the count of ways to form the current t-prefix using the current s-prefix. Handle the base case where t is empty carefully."
   ],
   "languages": [
     "python"

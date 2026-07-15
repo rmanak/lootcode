@@ -7,7 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "How can we reuse a previously computed palindrome to compute a larger palindrome?"
+    "Consider every possible center in the string, including positions between characters, and expand outward to find palindromes.",
+    "Use the expand around center technique, checking both odd and even length palindromes starting from each index.",
+    "Compare the length of each found palindrome with the current maximum, updating only if it is strictly longer to preserve the smallest start index."
   ],
   "languages": [
     "python"

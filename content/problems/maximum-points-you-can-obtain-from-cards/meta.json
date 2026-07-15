@@ -8,9 +8,9 @@
     "prefix-sum"
   ],
   "hints": [
-    "Consider the cards you do not pick. They form a single contiguous subarray of fixed length. Maximizing your score is equivalent to minimizing the sum of these unpicked cards.",
-    "Calculate the sum of the first n - k cards. This represents the initial window of unpicked cards. Then slide this window one position to the right at a time.",
-    "As you slide the window, subtract the element leaving the window and add the element entering it. Track the minimum sum encountered during this process to find the maximum possible score."
+    "Instead of choosing k cards from the ends, consider which n-k cards remain in the middle.",
+    "Find the contiguous subarray of length n-k with the minimum sum.",
+    "Maximize the total sum minus the minimum window sum; the window size is fixed."
   ],
   "languages": [
     "python"

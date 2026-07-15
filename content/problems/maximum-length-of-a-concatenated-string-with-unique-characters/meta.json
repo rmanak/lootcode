@@ -9,9 +9,9 @@
     "bit-manipulation"
   ],
   "hints": [
-    "Since the array is small, consider trying every possible subset of strings to form a candidate concatenation.",
-    "Use bitwise integers to represent the set of characters in each string, allowing fast checks for duplicates via bitwise operations.",
-    "Recursively decide for each string to include it or skip it, pruning branches where the current character set overlaps with the new string."
+    "Notice the small constraint on the number of strings. This suggests an exponential approach might be feasible.",
+    "Since you must choose a subset of strings, consider using recursion or bit manipulation to explore all possible combinations.",
+    "Represent each string's characters as a bitmask. A valid concatenation requires that the bitwise OR of chosen masks has no overlapping bits."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "stack"
   ],
   "hints": [
-    "Consider how parentheses affect the sign of subsequent terms. Can you track the current sign as you scan the string?",
-    "Use a stack to store the running result and the current sign when entering a parenthesis, popping them when exiting.",
-    "Maintain a current number and result. When hitting + or -, add the previous number * current sign to result. Push result and sign on (, pop on )."
+    "Focus on how parentheses create nested scopes that must be resolved before combining with the outer expression.",
+    "Use a stack to save the current running total and the sign effect whenever you encounter an opening parenthesis.",
+    "The stack preserves the context outside the current parentheses; the base case is an empty stack representing the global scope."
   ],
   "languages": [
     "python"

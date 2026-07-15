@@ -6,9 +6,9 @@
     "greedy"
   ],
   "hints": [
-    "Consider working backward from target to startValue instead of forward.",
-    "When reversing, if target is even, dividing by 2 is the inverse of doubling.",
-    "If target is odd, adding 1 is the only valid reverse step before division."
+    "Consider working backwards from target to startValue to simplify the decision process.",
+    "In reverse, the allowed moves are halving (if even) or adding 1. Choose the path that reduces the distance fastest.",
+    "When the current value is larger than startValue, halving even numbers is always optimal to shrink the gap quickly."
   ],
   "languages": [
     "python"

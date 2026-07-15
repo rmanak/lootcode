@@ -9,9 +9,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Focus on groups of consecutive identical characters. Within each group, you must keep exactly one character to satisfy the adjacency rule.",
-    "For each group of identical adjacent characters, calculate the total cost of all characters in that group.",
-    "To minimize deletion cost, keep the character with the highest cost in the group and delete all others. Sum these minimal deletion costs across all groups."
+    "Consider groups of consecutive identical characters; within each group, all but one must be deleted to satisfy the condition.",
+    "For each contiguous block of identical letters, you want to keep exactly one character to minimize the total deletion cost.",
+    "To minimize cost, keep the character with the highest deletion cost in each block, as deleting all others is cheaper than deleting the most expensive one."
   ],
   "languages": [
     "python"

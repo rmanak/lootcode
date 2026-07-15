@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Consider the smallest range that must include the current minimum element across all lists. How do you efficiently find this minimum?",
-    "Use a min-heap to track the smallest element from each list, along with a variable to track the current maximum element seen so far.",
-    "Repeatedly extract the minimum from the heap, update the best range if the current span is smaller, then insert the next element from that same list."
+    "Consider the smallest range formed by picking one element from each list. How can you systematically explore combinations of elements to find the minimum span?",
+    "Maintain a pointer for each list and track the current minimum and maximum values among the pointed-to elements.",
+    "The optimal range must start at one of the current elements. When you advance the pointer of the smallest element, the range's lower bound increases; consider when to stop."
   ],
   "languages": [
     "python"

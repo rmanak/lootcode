@@ -7,9 +7,9 @@
     "bit-manipulation"
   ],
   "hints": [
-    "Notice the array has n elements but the range is 0 to n, meaning exactly one number is missing.",
-    "Consider calculating the sum of all numbers from 0 to n and subtracting the sum of the array elements.",
-    "The difference between the expected sum of the range and the actual sum of nums is the missing number."
+    "Notice the perfect match between each value and its ideal index if the array were sorted.",
+    "Use the XOR operation to cancel out pairs of identical values from the range and the array.",
+    "XORing all indices with all elements leaves only the missing number, since every present value cancels itself."
   ],
   "languages": [
     "python"

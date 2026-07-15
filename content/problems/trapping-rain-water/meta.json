@@ -9,9 +9,9 @@
     "stack"
   ],
   "hints": [
-    "Water at each index depends on the highest bar to its left and right.",
-    "The water level at any index is determined by the minimum of the maximum heights on both sides.",
-    "Calculate prefix maximums from the left and suffix maximums from the right, then sum the trapped water at each index."
+    "Notice that water above any bar is limited by the tallest bars to its left and right.",
+    "Precompute the maximum height seen so far from both ends of the array.",
+    "The water level at an index is determined by the smaller of the two boundary maxima."
   ],
   "languages": [
     "python"

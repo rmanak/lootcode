@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Track the lowest price seen so far as you iterate through the array.",
-    "Calculate the potential profit at each day by subtracting the minimum price from the current price.",
-    "Update the maximum profit found so far if the current potential profit is higher."
+    "Focus on the relationship between any sell day and the cheapest buy day available before it.",
+    "Track the lowest price seen so far as you iterate through the list.",
+    "The best profit for a day is its price minus the minimum price encountered up to that point."
   ],
   "languages": [
     "python"

@@ -8,9 +8,9 @@
     "divide-and-conquer"
   ],
   "hints": [
-    "Can you determine the maximum sum ending at each specific index using only information from the previous index?",
-    "Track a running sum that resets to zero whenever it becomes negative, keeping the global maximum found so far.",
-    "For each element, choose between extending the previous subarray or starting fresh, then update the overall maximum."
+    "Consider the maximum sum ending at each position. How does it relate to the previous position's result?",
+    "This is a dynamic programming problem where the state tracks the best sum ending at the current index.",
+    "If the previous sum is negative, it hurts the current total. Should you extend the previous subarray or start fresh?"
   ],
   "languages": [
     "python"

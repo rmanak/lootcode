@@ -7,9 +7,9 @@
     "sorting"
   ],
   "hints": [
-    "Sorting the array simplifies determining which elements act as maximums and minimums in subsequences.",
-    "Consider how many times each sorted element contributes as a maximum versus a minimum across all subsequences.",
-    "Each element at index i is a max in 2^i subsequences and a min in 2^(n-1-i) subsequences; sum these contributions."
+    "Sorting the array does not change the set of values in any subsequence, so the width calculation remains valid. How does sorting help organize which elements act as minimums or maximums?",
+    "Consider the contribution of each element to the final sum. For a sorted array, determine how many subsequences have a specific element as the maximum and how many have it as the minimum.",
+    "The number of subsets where a sorted element is the maximum depends on the elements before it. Similarly for the minimum. Combine these counts to find each element's net contribution."
   ],
   "languages": [
     "python"

@@ -9,9 +9,9 @@
     "sorting"
   ],
   "hints": [
-    "Sort the people by weight to easily pair the heaviest with the lightest candidates.",
-    "Use a two-pointer approach: one at the start and one at the end of the sorted array.",
-    "If the heaviest and lightest fit together, pair them; otherwise, the heaviest goes alone."
+    "Consider pairing the heaviest person with someone else. Who is the best candidate to pair with them to minimize wasted capacity?",
+    "Sort the weights first. Then use two pointers, one at the start and one at the end, to decide pairings.",
+    "If the heaviest and lightest can share a boat, they should. Otherwise, the heaviest must go alone. Track how many boats are used."
   ],
   "languages": [
     "python"

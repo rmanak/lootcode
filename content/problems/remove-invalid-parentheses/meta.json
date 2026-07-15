@@ -8,9 +8,9 @@
     "breadth-first-search"
   ],
   "hints": [
-    "Start by determining the minimum number of left and right parentheses that must be removed to balance the string.",
-    "Use Breadth-First Search starting from the original string, generating neighbors by removing one parenthesis at each step.",
-    "Stop searching as soon as you find any valid string, ensuring all results at that depth are collected and duplicates are filtered."
+    "First, determine the minimum number of left and right parentheses that must be removed to balance the string.",
+    "Use Breadth-First Search on the string, treating each removal as a step, to find the shortest path to a valid state.",
+    "Stop exploring deeper once you find any valid string at the current removal depth, ensuring minimality."
   ],
   "languages": [
     "python"

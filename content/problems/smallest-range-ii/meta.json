@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Sort A first. The relative order of elements helps determine which get +K or -K to minimize the range.",
-    "Consider splitting the sorted array into two parts. Add K to the smaller half and subtract K from the larger half.",
-    "The new min is likely min(A[0]+K, A[n-1]-K) and new max is max(A[i]+K, A[i+1]-K). Minimize this difference over all split points i."
+    "Start by sorting A. This helps you see which elements are likely to become the new maximum or minimum after adjustments.",
+    "Consider splitting the sorted array into two parts: a lower part where you add K, and an upper part where you subtract K.",
+    "The optimal split point minimizes the difference between the largest adjusted value in the lower part and the smallest adjusted value in the upper part."
   ],
   "languages": [
     "python"

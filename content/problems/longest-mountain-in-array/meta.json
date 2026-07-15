@@ -8,9 +8,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "A mountain requires a peak where neighbors are strictly smaller. Scan for such peaks first.",
-    "For each peak, expand left and right as long as values strictly decrease from the peak.",
-    "Track the maximum width of valid expansions. Ignore peaks at array edges or with flat neighbors."
+    "Identify each peak where neighbors are strictly smaller, then measure its left and right slopes.",
+    "Expand outward from every valid peak to count the length of the strictly increasing and decreasing sides.",
+    "A valid mountain requires both sides to have length at least one; skip peaks with flat or missing slopes."
   ],
   "languages": [
     "python"

@@ -6,9 +6,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "This problem involves selecting a subset of items with constraints on weight and value, suggesting a dynamic programming approach similar to the knapsack problem.",
-    "Track the maximum profit achievable for each possible number of members used, capping profit at minProfit since any excess is treated the same.",
-    "Use a 2D DP array where dp[i][j] represents the number of ways to achieve exactly j profit using a subset of the first i crimes."
+    "Notice that the order of crimes does not matter, only which subset is chosen. This suggests building the solution by considering crimes one by one.",
+    "This is a variation of the 0/1 Knapsack problem. You need a dynamic programming state that tracks both the total members used and the profit accumulated so far.",
+    "To handle the 'at least minProfit' condition efficiently, cap the profit dimension at minProfit. Any profit exceeding this threshold can be treated as exactly minProfit in your state."
   ],
   "languages": [
     "python"

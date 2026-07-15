@@ -8,9 +8,9 @@
     "greedy"
   ],
   "hints": [
-    "Consider comparing characters from the end of both strings to handle the greedy nature of '*' more easily.",
-    "Use dynamic programming where dp[i][j] indicates if s[i:] matches p[j:], tracking the last '*' position.",
-    "Track the last '*' index in p and the corresponding s index to allow backtracking when a match fails."
+    "Consider how matching fails early: if characters differ and the pattern has no wildcard, the match is impossible immediately.",
+    "Use dynamic programming where the state tracks whether a prefix of the string matches a prefix of the pattern.",
+    "When a star appears, it can match an empty sequence or extend a previous match; think about how this choice propagates forward."
   ],
   "languages": [
     "python"

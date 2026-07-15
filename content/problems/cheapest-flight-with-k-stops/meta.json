@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider how the minimum cost to reach a city changes as you allow more flights.",
-    "Use dynamic programming where the state tracks the current city and the number of stops used so far.",
-    "Initialize costs to infinity except for the source, then iterate up to k+1 times relaxing edges based on previous iteration costs."
+    "Consider how the cost to reach a city changes as you allow more stops.",
+    "Use Bellman-Ford relaxation limited to k+1 iterations to find shortest paths.",
+    "Track minimum cost per city; only relax edges if current path is cheaper and within stop limit."
   ],
   "languages": [
     "python"

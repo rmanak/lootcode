@@ -7,9 +7,9 @@
     "sorting"
   ],
   "hints": [
-    "Split the sentence into a list of words to handle them individually.",
-    "Sort the list of words by their length, ensuring the sort is stable to preserve original order for ties.",
-    "Join the sorted words back into a string and capitalize only the first letter while lowercasing the rest."
+    "Focus on the words as independent units rather than the sentence as a single string.",
+    "Use a stable sorting method to order the words by their character count.",
+    "After sorting, reconstruct the sentence by joining words with spaces and fixing capitalization."
   ],
   "languages": [
     "python"

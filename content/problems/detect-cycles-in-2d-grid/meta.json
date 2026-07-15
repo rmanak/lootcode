@@ -10,9 +10,9 @@
     "matrix"
   ],
   "hints": [
-    "Consider traversing the grid using DFS. How can you track visited cells to distinguish a new path from the one you just came from?",
-    "For each cell, start a DFS only if it is unvisited. During traversal, if you encounter a visited cell that is not your immediate parent, you found a cycle.",
-    "Keep a separate visited set for each DFS run. If a DFS starts from a cell already in the global visited set, skip it to avoid redundant work."
+    "Think of this as finding a cycle in an undirected graph where nodes are cells with the same character.",
+    "Use a graph traversal algorithm like DFS or Union-Find to detect cycles within each connected component of identical values.",
+    "A cycle exists if you encounter a visited neighbor that is not the cell you just came from; ensure the component has enough cells to form a loop."
   ],
   "languages": [
     "python"

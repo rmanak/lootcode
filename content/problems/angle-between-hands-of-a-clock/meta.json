@@ -6,9 +6,9 @@
     "math"
   ],
   "hints": [
-    "Calculate the absolute position of each hand in degrees from the 12 o'clock mark.",
-    "The minute hand moves 6 degrees per minute; the hour hand moves 0.5 degrees per minute plus 30 degrees per hour.",
-    "Subtract the two angles, take the absolute difference, and use the smaller value between that difference and 360 minus the difference."
+    "Consider the positions of both hands relative to the 12 o'clock position as angles.",
+    "The hour hand moves continuously, shifting slightly for every minute that passes.",
+    "Calculate the absolute difference between the two angles, then take the smaller of that difference and its supplement."
   ],
   "languages": [
     "python"

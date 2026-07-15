@@ -8,9 +8,9 @@
     "divide-and-conquer"
   ],
   "hints": [
-    "Recursively pick the middle element of the current range as the root to balance the tree height.",
-    "For even-length ranges, choose the left middle index, specifically left + (right - left) / 2.",
-    "After building the tree, use a queue-based level-order traversal to convert nodes into the required array format."
+    "Focus on the relationship between the sorted array indices and the tree structure. How does choosing a root split the problem?",
+    "Use a recursive approach that converts a subarray range into a subtree. The root is always the middle element of the current range.",
+    "Define a helper function taking start and end indices. The base case is when start exceeds end, returning null for empty subtrees."
   ],
   "languages": [
     "python"

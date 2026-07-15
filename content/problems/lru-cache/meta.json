@@ -7,9 +7,9 @@
     "linked-list"
   ],
   "hints": [
-    "Track access order explicitly so you can instantly identify the least recently used item for eviction.",
-    "Combine a hash map for O(1) lookups with a doubly linked list to maintain usage order efficiently.",
-    "Move nodes to the front on every access; evict the tail node when the cache exceeds capacity during a new insertion."
+    "You need O(1) lookups and fast reordering of items based on access time.",
+    "Combine a hash map for direct access with a doubly linked list to track usage order.",
+    "The linked list's ends represent the most and least recently used items; moving an item to the front updates its status."
   ],
   "languages": [
     "python"

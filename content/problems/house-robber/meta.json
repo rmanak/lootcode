@@ -7,9 +7,9 @@
     "array"
   ],
   "hints": [
-    "Consider the decision at each house: do you include it or skip it?",
-    "This problem has overlapping subproblems, so dynamic programming is a natural fit.",
-    "Define dp[i] as the max loot up to house i using only previous dp values."
+    "Consider the decision at each house: do you include it in your total or skip it?",
+    "This problem has optimal substructure, so dynamic programming is a natural fit.",
+    "Define a state for the max money up to index i, remembering that i and i-1 cannot both be chosen."
   ],
   "languages": [
     "python"

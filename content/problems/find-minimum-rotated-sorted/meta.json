@@ -7,9 +7,9 @@
     "binary-search"
   ],
   "hints": [
-    "Consider how a standard binary search works and how rotation affects the sorted property.",
-    "Compare the middle element with the rightmost element to decide which half is sorted.",
-    "If the right half is sorted, the minimum is in the left half; otherwise, it is in the right half."
+    "The array is nearly sorted; look for the single spot where the order breaks.",
+    "Use binary search to decide which half contains the rotation point.",
+    "Compare the middle value with the right end to determine which side is sorted and where the minimum must lie."
   ],
   "languages": [
     "python"

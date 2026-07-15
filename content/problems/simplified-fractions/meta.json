@@ -6,9 +6,9 @@
     "string"
   ],
   "hints": [
-    "Consider all possible denominators from 2 to n, and for each, all valid numerators less than the denominator.",
-    "A fraction is simplified if the numerator and denominator share no common factors other than 1. How can you check this?",
-    "Use the greatest common divisor function to verify if gcd(numerator, denominator) equals 1 before adding the fraction to your result."
+    "Focus on the condition that makes a fraction simplified: the numerator and denominator must share no common factors other than one.",
+    "Consider iterating through all possible denominators and numerators, then filtering pairs based on their greatest common divisor.",
+    "A fraction a/b is simplified if and only if gcd(a, b) equals 1. You only need to check this property for each candidate pair within the bounds."
   ],
   "languages": [
     "python"

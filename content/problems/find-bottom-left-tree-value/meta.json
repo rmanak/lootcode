@@ -8,9 +8,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Consider traversing the tree level by level to easily identify the deepest row.",
-    "Use a breadth-first search, processing nodes from left to right at each depth.",
-    "The last node visited in your level-order traversal is the answer."
+    "Consider how you would visit the tree level by level. How can you track which level is the deepest as you go?",
+    "Use Breadth-First Search (BFS) with a queue to process nodes layer by layer.",
+    "The answer is the first node processed in the final layer. Update your result at the start of each new level."
   ],
   "languages": [
     "python"

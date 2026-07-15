@@ -7,9 +7,9 @@
     "two-pointers"
   ],
   "hints": [
-    "Compare suffixes starting at different indices to find the lexicographically largest one.",
-    "Use two pointers to compare suffixes, advancing the pointer with the smaller character.",
-    "If characters match, skip ahead by the mismatch distance to avoid redundant comparisons."
+    "Compare suffixes starting at different indices; if one is lexicographically larger, the other cannot be the answer.",
+    "Use two pointers to compare suffixes; skip ahead when a mismatch reveals one suffix is strictly smaller.",
+    "The key insight is that if s[i+k] > s[j+k], all suffixes starting between i and j+k are dominated by the suffix starting at j+k."
   ],
   "languages": [
     "python"

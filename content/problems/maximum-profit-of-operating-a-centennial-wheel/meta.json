@@ -8,9 +8,9 @@
     "greedy"
   ],
   "hints": [
-    "Simulate the process step-by-step, tracking waiting customers and profit after each rotation.",
-    "Profit changes by boardingCost times boarded minus runningCost; track the rotation with the highest profit.",
-    "If profit never exceeds zero, return -1; otherwise, return the first rotation that achieves the maximum profit."
+    "Notice that profit changes linearly with each rotation once all customers have arrived; consider what happens to the waiting queue after the input list ends.",
+    "Simulate the process rotation by rotation, tracking the cumulative waiting customers and the current total profit at each step.",
+    "If the net gain per rotation is non-positive after all arrivals, profit can never increase further; otherwise, find the earliest rotation with the highest profit seen so far."
   ],
   "languages": [
     "python"

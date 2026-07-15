@@ -7,9 +7,9 @@
     "simulation"
   ],
   "hints": [
-    "Observe that multiplication and division bind tighter than addition and subtraction, grouping terms into blocks separated by + or -.",
-    "Evaluate each block of * and / independently, then sum or subtract these block results in order from left to right.",
-    "Notice a repeating pattern in the final results for N >= 4 that depends only on N modulo 4, allowing an O(1) solution."
+    "Notice that multiplication and division bind tighter than addition and subtraction, so the expression naturally breaks into small chunks separated by + or -.",
+    "Group terms by the operators: you can compute the first chunk (N * (N-1) / (N-2)) directly, then handle subsequent + and - operations with similar 3-number chunks.",
+    "The result is essentially the first chunk plus a sum of small adjustments. For N >= 5, the answer follows a simple pattern relative to N, so check small values to find it."
   ],
   "languages": [
     "python"

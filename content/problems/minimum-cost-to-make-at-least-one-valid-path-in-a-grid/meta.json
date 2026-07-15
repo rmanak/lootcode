@@ -9,9 +9,9 @@
     "matrix"
   ],
   "hints": [
-    "Think of the grid as a graph where each cell connects to its neighbors. Existing arrows are free edges; changing arrows creates edges with cost 1.",
-    "This is a shortest path problem on a graph with edge weights 0 and 1. Use 0-1 BFS or Dijkstra's algorithm to find the minimum cost.",
-    "Initialize distances to infinity and start at (0,0) with cost 0. Process neighbors: free moves push to front, paid moves push to back of the deque."
+    "Treat the grid as a graph where each cell is a node and arrows are edges. Changing an arrow creates a new edge with weight 1.",
+    "This is a shortest path problem on a graph with edge weights 0 and 1, which suggests using 0-1 BFS with a deque.",
+    "The deque maintains nodes sorted by current minimum cost; process 0-cost moves first to ensure optimal discovery without full Dijkstra overhead."
   ],
   "languages": [
     "python"

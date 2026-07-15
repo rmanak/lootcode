@@ -8,9 +8,9 @@
     "greedy"
   ],
   "hints": [
-    "Track how many times each character remains to appear in the unprocessed suffix of the string.",
-    "Use a stack to build the result, removing characters from the top if they create a lexicographically larger sequence and still appear later.",
-    "Only pop from the stack if the current character is smaller than the top and the top character appears again later in the string."
+    "Consider processing the string left-to-right, deciding for each character whether to keep it or discard it based on future occurrences.",
+    "Use a stack to build the result. If the current character is smaller than the top of the stack, you might pop the top if it appears later in the string.",
+    "Only pop from the stack if the top character appears again later. This ensures you can still form a valid result while achieving lexicographical order."
   ],
   "languages": [
     "python"

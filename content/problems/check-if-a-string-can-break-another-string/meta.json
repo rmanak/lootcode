@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Sort both strings to align their characters in non-decreasing order.",
-    "Check if sorted s1 dominates sorted s2, or if sorted s2 dominates sorted s1.",
-    "Compare characters at each index; if one string is always greater or equal, return true."
+    "Since permutations are allowed, the original order of characters is irrelevant; only the multiset of characters matters.",
+    "Sorting both strings aligns characters by magnitude, which is the optimal way to check the breaking condition.",
+    "After sorting, simply verify if s1[i] >= s2[i] for all i, or if s2[i] >= s1[i] for all i."
   ],
   "languages": [
     "python"

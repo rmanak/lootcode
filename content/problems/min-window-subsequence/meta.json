@@ -8,9 +8,9 @@
     "two-pointers"
   ],
   "hints": [
-    "Focus on the last character of t. Once you find it in s, how can you efficiently trace back to find the earliest start of the window?",
-    "Use dynamic programming where dp[i][j] stores the starting index of the shortest window in s ending at i that contains t[0..j] as a subsequence.",
-    "To compute dp[i][j], look for the previous occurrence of t[j] in s before index i, then extend the solution for t[0..j-1] ending at that position."
+    "Start by finding the first valid window ending at each position in s. How can you efficiently track where the last character of t was matched?",
+    "Use two pointers or a sliding window approach. Once you find a valid window, try shrinking it from the left to see if it remains valid.",
+    "A window is valid if it contains t as a subsequence. When shrinking from the left, you only need to check if the removed character was essential for the current subsequence match."
   ],
   "languages": [
     "python"

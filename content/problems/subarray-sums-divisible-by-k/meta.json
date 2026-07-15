@@ -8,9 +8,9 @@
     "prefix-sum"
   ],
   "hints": [
-    "Consider prefix sums: the sum of a subarray A[i..j] is prefix[j+1] - prefix[i].",
-    "Two subarrays have the same remainder modulo K if and only if their difference is divisible by K.",
-    "Count how many prefix sums share each remainder modulo K, then sum n*(n-1)/2 for each group."
+    "Consider the prefix sums of the array. How does the remainder of a subarray sum relate to the remainders of its prefix sums?",
+    "Use a frequency map to count how many times each prefix sum remainder modulo K has occurred.",
+    "Subarrays with sums divisible by K correspond to pairs of prefix sums sharing the same remainder; count these pairs using the stored frequencies."
   ],
   "languages": [
     "python"

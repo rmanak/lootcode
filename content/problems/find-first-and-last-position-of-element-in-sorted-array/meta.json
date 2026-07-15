@@ -7,9 +7,9 @@
     "binary-search"
   ],
   "hints": [
-    "Since the array is sorted and you need logarithmic time, binary search is the required technique.",
-    "Standard binary search finds any index of the target. How can you modify it to find the leftmost occurrence?",
-    "Write a helper function that searches for the first index where the value is greater than or equal to the target."
+    "Since the array is sorted, you can eliminate half the search space at each step to meet the logarithmic time requirement.",
+    "Use binary search twice: once to find the first occurrence of the target, and again to find the last occurrence.",
+    "When searching for the boundary, if the middle element matches the target, continue searching in the half that contains the other boundary."
   ],
   "languages": [
     "python"

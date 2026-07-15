@@ -8,9 +8,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Assign each node an index based on its position in a complete binary tree, where the root is 0.",
-    "For any node with index i, its left child is 2i and right child is 2i+1.",
-    "The width of a level is the difference between the maximum and minimum indices in that level plus one."
+    "Think about how you would number positions in a perfect binary tree to track horizontal distance.",
+    "Assign each node an index like an array: root is 1, left child is 2*i, right is 2*i+1.",
+    "The width of a level is the difference between the rightmost and leftmost indices present plus one."
   ],
   "languages": [
     "python"

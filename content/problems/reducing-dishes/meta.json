@@ -9,9 +9,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Sort the array in descending order to prioritize dishes with higher satisfaction values for later, larger time slots.",
-    "Consider adding dishes from the end of the sorted list. If the current total sum of chosen dishes plus the new dish is positive, it improves the result.",
-    "Iterate through the sorted dishes, accumulating a running sum. Stop when adding the next dish would decrease the total weighted sum."
+    "Does the order in which you cook the selected dishes matter for the total score? Try sorting the satisfaction array to simplify the decision of which dishes to keep.",
+    "Consider processing the sorted dishes from highest satisfaction to lowest. How does adding a new dish at the beginning of the cooking sequence affect the total score?",
+    "If you have a current sum of coefficients for a subset of dishes, adding a new dish at time 1 increases the total by the new dish's value plus the sum of all currently selected dishes."
   ],
   "languages": [
     "python"

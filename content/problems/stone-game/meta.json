@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Notice that the total number of piles is always even. How does this parity affect the available choices for the first player?",
-    "Consider splitting the piles into two sets based on their original indices: all piles at even positions and all piles at odd positions.",
-    "The first player can force the game so that they collect either all even-indexed piles or all odd-indexed piles. Compare the sums of these two sets."
+    "Consider the total number of stones. If the first player can always secure at least half, do they strictly win?",
+    "Model the game using dynamic programming on subarrays, tracking the maximum score difference a current player can achieve.",
+    "Define the state for a range as the best net gain (my stones minus opponent's) achievable. The base case is a single pile, which is simply its value."
   ],
   "languages": [
     "python"

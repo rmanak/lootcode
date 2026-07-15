@@ -7,9 +7,9 @@
     "prefix-sum"
   ],
   "hints": [
-    "Consider how each output element is formed by multiplying values to its left and values to its right.",
-    "Compute prefix products and suffix products separately to avoid recalculating values for each index.",
-    "Use two passes: one to store left products in the result array, another to multiply by right products on the fly."
+    "Notice that the product for index i consists of everything to its left multiplied by everything to its right.",
+    "Compute prefix products from the start and suffix products from the end, then combine them for each position.",
+    "The output at index i is simply the product of all preceding elements times the product of all succeeding elements."
   ],
   "languages": [
     "python"

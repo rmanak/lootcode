@@ -8,9 +8,9 @@
     "sliding-window"
   ],
   "hints": [
-    "Calculate the total length of the concatenated string. This defines the fixed window size you need to slide across s.",
-    "Instead of checking every character, only check starting indices that align with the word length. This reduces the search space significantly.",
-    "Use a hash map to count required words. For each valid window, extract substrings of word length and compare their counts against the required map."
+    "Since all words share the same length, valid substrings must start at indices that align with this word length modulo the step size.",
+    "Consider sliding a window of fixed total length across the string, but shift the starting offset to cover all possible alignments.",
+    "Maintain a frequency map of the words in the current window; update it incrementally as the window slides by one word position."
   ],
   "languages": [
     "python"

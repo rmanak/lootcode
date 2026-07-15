@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider how the choice for the current house restricts the valid choices for the next one.",
-    "Use dynamic programming to store the minimum cost to paint each house with a specific color.",
-    "Calculate the minimum cost for each color at index i by adding its cost to the minimum of the other two colors at index i-1."
+    "Consider solving the problem house by house, keeping track of the minimum cost to paint up to the current house for each possible color.",
+    "This is a dynamic programming problem where the state depends on the previous house's color choice to satisfy the adjacency constraint.",
+    "Maintain an array where each entry stores the minimum cumulative cost ending in that specific color; the base case is the first row of costs."
   ],
   "languages": [
     "python"

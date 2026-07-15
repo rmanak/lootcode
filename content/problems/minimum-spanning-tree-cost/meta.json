@@ -8,9 +8,9 @@
     "greedy"
   ],
   "hints": [
-    "Sort all edges by weight in ascending order.",
-    "Use a Union-Find data structure to manage disjoint sets of connected vertices.",
-    "Iterate through sorted edges, adding an edge if its endpoints are in different sets, and summing its weight."
+    "Focus on selecting edges that connect components without forming cycles, always choosing the cheapest available option first.",
+    "Sort all edges by weight and use a Disjoint Set Union structure to efficiently track connected components.",
+    "Sum weights of edges that merge two previously disconnected components; the process stops when all nodes are in one set."
   ],
   "languages": [
     "python"

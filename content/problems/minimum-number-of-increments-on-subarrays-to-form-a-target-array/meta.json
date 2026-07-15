@@ -8,9 +8,9 @@
     "stack"
   ],
   "hints": [
-    "Consider how the required number of operations changes as you move from one element to the next in the target array.",
-    "Focus on the difference between adjacent elements. When does target[i] require new operations compared to target[i-1]?",
-    "The answer is the first element plus the sum of all positive differences between adjacent elements target[i] - target[i-1]."
+    "Consider how the number of operations changes as you scan the array from left to right.",
+    "Think about the difference between adjacent elements in the target array.",
+    "Each time an element is greater than its left neighbor, you must start new operations."
   ],
   "languages": [
     "python"

@@ -8,9 +8,9 @@
     "stack"
   ],
   "hints": [
-    "Think backwards: if a window matches the stamp, it might have been the last stamp applied.",
-    "Scan for windows matching the stamp, replacing matched chars with wildcards to allow overlaps.",
-    "Repeat until no changes occur; if the result is all wildcards, return true."
+    "Think backwards: instead of building the target, try erasing it to all question marks using the stamp's reverse operation.",
+    "Use a greedy approach: repeatedly find a window matching the stamp (allowing already-erased positions) and mark it as erased.",
+    "A window is valid if it matches the stamp at non-erased positions. Keep erasing until no progress is made or the whole target is cleared."
   ],
   "languages": [
     "python"

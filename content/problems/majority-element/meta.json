@@ -10,9 +10,9 @@
     "counting"
   ],
   "hints": [
-    "Since the answer appears more than half the time, sorting the array places it at the exact middle index.",
-    "Consider pairing every distinct element with a counter. Increment if the current element matches, decrement otherwise.",
-    "If the counter drops to zero, switch the candidate to the current element. The final candidate is the majority."
+    "Since the answer appears more than half the time, it survives any cancellation process where distinct elements eliminate each other.",
+    "Use the Boyer-Moore Voting algorithm to track a candidate and a counter in a single pass.",
+    "Increment the counter when the current element matches the candidate; decrement otherwise. If the counter drops to zero, pick a new candidate."
   ],
   "languages": [
     "python"

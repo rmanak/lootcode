@@ -8,9 +8,9 @@
     "simulation"
   ],
   "hints": [
-    "Work directly on the string to avoid large number overflow issues.",
-    "Process the string from the least significant bit (end) toward the start.",
-    "If the current bit is 0, shift right; if 1, add 1 and carry over to the next bit."
+    "Notice how dividing an even binary number by 2 relates to its string representation.",
+    "Simulate the operations directly on the binary string from right to left.",
+    "Track carries propagating leftward; stopping occurs only when all bits and the carry become zero."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Negative numbers can flip a small product into a large one. Track both the maximum and minimum products ending at each position.",
-    "Use two variables to store the running max and min products. When you see a negative number, swap them before updating.",
-    "Initialize your trackers with the first element. For each subsequent number, update max and min by considering the current number, max*current, and min*current."
+    "Consider how negative numbers affect the product of a subarray. A small product can become large when multiplied by a negative.",
+    "Track both the maximum and minimum product ending at the current position, since a minimum can flip to a maximum.",
+    "The minimum product ending here is crucial because multiplying it by a negative number might yield the new maximum product."
   ],
   "languages": [
     "python"

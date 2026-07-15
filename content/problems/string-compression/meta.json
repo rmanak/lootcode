@@ -7,9 +7,9 @@
     "two-pointers"
   ],
   "hints": [
-    "Scan the string from left to right, identifying contiguous blocks of identical characters.",
-    "Maintain a count for the current character block, resetting it whenever the character changes.",
-    "Append the character and its count (if greater than 1) to your result when a block ends."
+    "Consider iterating through the string once. What changes when the current character differs from the previous one?",
+    "Use a counter to track the length of the current run of identical characters. Reset it when the character changes.",
+    "The final character group is special because the loop ends before a different character triggers the reset. How do you handle this last group?"
   ],
   "languages": [
     "python"

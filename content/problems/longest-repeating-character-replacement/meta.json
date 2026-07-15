@@ -7,9 +7,9 @@
     "sliding-window"
   ],
   "hints": [
-    "Consider using a sliding window approach where you expand the right boundary and shrink the left when necessary.",
-    "Track the frequency of characters within the current window to identify the most common letter.",
-    "The window is valid if its length minus the count of the most frequent character is at most k."
+    "Focus on substrings where you change all non-dominant characters to match the most frequent one in that range.",
+    "Use a sliding window approach that expands the right boundary and shrinks the left only when necessary.",
+    "The window is valid as long as its length minus the count of the most frequent character inside it is at most k."
   ],
   "languages": [
     "python"

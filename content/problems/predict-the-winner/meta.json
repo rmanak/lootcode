@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider how the game state changes after each move. What information defines the current situation?",
-    "Since both players play optimally, this suggests using recursion with memoization or dynamic programming on the remaining subarray.",
-    "Define a function that returns the maximum score difference (current player score minus opponent score) for a given subarray range."
+    "Consider the game as a series of decisions on a shrinking subarray. What determines the outcome of the current move?",
+    "Use dynamic programming or recursion with memoization. The state should represent the maximum score difference a player can achieve from a given subarray.",
+    "The base case is when the subarray has one element. For larger subarrays, the current player chooses the end that maximizes their advantage over the opponent's best response."
   ],
   "languages": [
     "python"

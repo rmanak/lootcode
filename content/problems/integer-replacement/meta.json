@@ -7,9 +7,9 @@
     "greedy"
   ],
   "hints": [
-    "Notice that even numbers have only one choice, but odd numbers offer two paths to explore.",
-    "Compare the outcomes of n+1 and n-1 for odd n, focusing on which path reduces the number of steps faster.",
-    "For odd n, prefer n+1 when the next two bits are 11, and n-1 otherwise, except for n=3."
+    "Consider the problem as finding the shortest path in a graph where nodes are integers and edges represent allowed operations.",
+    "Use Breadth-First Search (BFS) starting from n to find the minimum steps to reach 1, treating each operation as a move to a neighbor.",
+    "Optimize by noting that for odd numbers, choosing n+1 or n-1 depends on which leads to a number divisible by 4, reducing the search space significantly."
   ],
   "languages": [
     "python"

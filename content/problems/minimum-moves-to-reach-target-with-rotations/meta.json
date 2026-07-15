@@ -8,9 +8,9 @@
     "matrix"
   ],
   "hints": [
-    "Model each state by the snake's head position and its orientation to track visited configurations.",
-    "Perform a breadth-first search from the initial state, exploring all valid moves and rotations.",
-    "Check bounds and empty cells for each new state before adding it to the queue to ensure validity."
+    "Model the snake's state by the coordinates of its head and its orientation to track visited positions.",
+    "Use Breadth-First Search to find the shortest path, treating each valid move as an edge in an unweighted graph.",
+    "A state is defined by (head_row, head_col, orientation); ensure moves respect grid bounds and blocked cells."
   ],
   "languages": [
     "python"

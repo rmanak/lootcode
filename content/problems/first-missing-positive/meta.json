@@ -7,9 +7,9 @@
     "hash-table"
   ],
   "hints": [
-    "The answer must be between 1 and n+1, where n is the array length. Ignore values outside this range.",
-    "Use the array itself as a hash map by placing each valid number at its corresponding index, such as value 1 at index 0.",
-    "Swap elements to their correct positions until sorted, then scan for the first index where the value does not match the expected positive integer."
+    "Focus only on numbers between 1 and n, where n is the array length. Any other value is irrelevant to the answer.",
+    "Use the array itself as a hash map by placing value v at index v-1 through in-place swaps.",
+    "The answer is the first index i where nums[i] != i+1. If all positions are correct, the answer is n+1."
   ],
   "languages": [
     "python"

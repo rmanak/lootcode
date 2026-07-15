@@ -6,9 +6,9 @@
     "string"
   ],
   "hints": [
-    "Focus on processing the string character by character from left to right, tracking your current state.",
-    "Identify distinct phases: skipping spaces, determining the sign, and accumulating digits.",
-    "Check for integer overflow during digit accumulation by comparing against limits before multiplying."
+    "Start by skipping leading spaces, then check for an optional sign character before processing digits.",
+    "Process the string character by character, building the numeric result only while digits are encountered.",
+    "Check for overflow before multiplying or adding; clamp to 32-bit bounds if the value exceeds the range."
   ],
   "languages": [
     "python"

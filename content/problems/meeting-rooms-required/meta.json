@@ -7,9 +7,9 @@
     "heap"
   ],
   "hints": [
-    "Sort the start and end times separately to track when rooms become free.",
-    "Use a min-heap to store end times and efficiently remove finished meetings.",
-    "Push start times to the heap; if the earliest end time is less than the current start, pop it before pushing."
+    "Consider the timeline as a sequence of events. What happens to the number of occupied rooms when a meeting starts versus when one ends?",
+    "Sort all start and end times together. Process these sorted events in order to track how many meetings are happening simultaneously.",
+    "The answer is the maximum number of active meetings at any point. Remember that an end event at time T frees a room before a start event at time T uses it."
   ],
   "languages": [
     "python"

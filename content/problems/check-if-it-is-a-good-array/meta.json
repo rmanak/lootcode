@@ -6,9 +6,9 @@
     "array"
   ],
   "hints": [
-    "The problem reduces to checking if the greatest common divisor of all numbers is 1.",
-    "Compute the GCD of the array elements iteratively, updating the result with each new number.",
-    "Use the Euclidean algorithm to find the GCD of two numbers efficiently during the iteration."
+    "Consider the mathematical property that allows a linear combination of integers to equal 1.",
+    "This relates to the greatest common divisor of the entire set.",
+    "The array is good if and only if the GCD of all elements is exactly 1."
   ],
   "languages": [
     "python"

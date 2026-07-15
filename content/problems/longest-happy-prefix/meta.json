@@ -6,9 +6,9 @@
     "string"
   ],
   "hints": [
-    "Notice that the longest happy prefix is also the longest suffix that matches a prefix.",
-    "Compute the Knuth-Morris-Pratt failure function array for the string to track border lengths.",
-    "The last value in the KMP failure array gives the length of the longest proper prefix that is also a suffix."
+    "Consider how string matching algorithms handle overlapping patterns to find repeated structures efficiently.",
+    "Use the KMP algorithm's failure function, which tracks the longest proper prefix that is also a suffix for each prefix.",
+    "The final value of the failure function array corresponds exactly to the length of the longest happy prefix for the whole string."
   ],
   "languages": [
     "python"

@@ -6,9 +6,9 @@
     "hash-table"
   ],
   "hints": [
-    "Notice that `getAt` requires retrieving values from past states, so you need to preserve history rather than overwriting keys.",
-    "Consider storing a list of (version_id, value) pairs for each key to track changes over time.",
-    "For `getAt`, use binary search on the version list to find the latest entry with an ID less than or equal to the target."
+    "Track changes per key separately rather than storing full copies of the entire store for each snapshot.",
+    "For each key, maintain a list of (snapshot_id, value) pairs to record when it changed.",
+    "To answer getAt, find the latest change for that key with a snapshot id less than or equal to the target id."
   ],
   "languages": [
     "python"

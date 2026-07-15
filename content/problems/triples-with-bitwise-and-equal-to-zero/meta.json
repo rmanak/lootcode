@@ -8,9 +8,9 @@
     "hash-table"
   ],
   "hints": [
-    "Notice that A[i] & A[j] & A[k] == 0 is equivalent to (A[i] & A[j]) & A[k] == 0. This suggests grouping pairs first.",
-    "Compute all possible pairwise bitwise ANDs of elements in A. Store their frequencies in a hash map or array.",
-    "For each unique pairwise AND value P, count how many elements in A satisfy P & A[k] == 0. Multiply the count of P by this number and sum up."
+    "Brute force is too slow. Can you reduce the number of operations by precomputing something for pairs of indices?",
+    "Compute the bitwise AND for every pair (i, j) and count how many times each result occurs.",
+    "Use an array to store pair-AND frequencies. Then, for each k, sum the counts of values v where v & A[k] is zero."
   ],
   "languages": [
     "python"

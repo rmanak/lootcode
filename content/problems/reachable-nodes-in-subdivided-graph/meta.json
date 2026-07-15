@@ -7,9 +7,9 @@
     "heap"
   ],
   "hints": [
-    "Compute the shortest path distance from node 0 to all original nodes using Dijkstra's algorithm.",
-    "For each edge, determine how many intermediate nodes can be reached from its endpoints within the remaining moves.",
-    "Sum the reachable original nodes and intermediate nodes, carefully subtracting overlaps where both endpoints reach into the same edge."
+    "The number of reachable nodes depends on the shortest distance from node 0 to every original node. Which standard algorithm finds these distances?",
+    "Use Dijkstra's algorithm to compute the minimum moves required to reach each original node from the start.",
+    "For each edge, calculate how many inserted nodes are reachable from both ends without double-counting the overlap in the middle."
   ],
   "languages": [
     "python"

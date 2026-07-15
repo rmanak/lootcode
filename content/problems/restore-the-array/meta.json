@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider building the answer from left to right, deciding where each number ends.",
-    "Use dynamic programming where dp[i] counts valid splits for the prefix s[0...i-1].",
-    "To find valid previous positions, check substrings ending at i that fit in [1, k] and lack leading zeros."
+    "Consider how you can split the string into valid integers from left to right.",
+    "Use dynamic programming where the state tracks the number of ways to parse the prefix.",
+    "The state at index i sums ways from previous valid splits; check substring values against k and leading zeros."
   ],
   "languages": [
     "python"

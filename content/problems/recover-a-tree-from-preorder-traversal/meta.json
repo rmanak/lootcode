@@ -8,9 +8,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Parse the string into a list of (depth, value) pairs to simplify processing.",
-    "Use a stack to track ancestors; pop nodes deeper than the current depth to find the parent.",
-    "Attach the current node as a child of the stack's top, preferring the left slot if empty."
+    "Parse the string into pairs of (depth, value) to simplify processing the structure.",
+    "Use a stack to track the path from the root to the current node during traversal.",
+    "Each new node attaches to the deepest ancestor in the stack whose depth is exactly one less than the current node's depth."
   ],
   "languages": [
     "python"

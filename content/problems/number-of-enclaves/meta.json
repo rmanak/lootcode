@@ -8,9 +8,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Start from the border cells that are land and mark all reachable land cells as visited or sea.",
-    "Use BFS or DFS starting from every land cell on the grid's perimeter to flood-fill connected components.",
-    "After marking all reachable land, count the remaining unmarked land cells in the interior of the grid."
+    "Instead of searching for trapped cells, identify which land cells can reach the grid boundary.",
+    "Start a traversal (BFS or DFS) from every land cell located on the grid's edges.",
+    "Count the remaining land cells that were never visited during the boundary traversal."
   ],
   "languages": [
     "python"

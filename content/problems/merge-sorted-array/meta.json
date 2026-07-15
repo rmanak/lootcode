@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Since both input arrays are already sorted, you can merge them efficiently by comparing elements from the end rather than the beginning.",
-    "Use three pointers: one for the last valid element of nums1, one for the last element of nums2, and one for the end of the merged array in nums1.",
-    "Compare the elements pointed to by the two source pointers and place the larger one at the current end position of nums1, then move the corresponding pointers backward."
+    "Since both input arrays are already sorted, you can determine the order of elements by comparing their current heads without re-sorting everything.",
+    "Use two pointers to track the current element in each array and pick the smaller one to place next in the merged result.",
+    "If you merge into a new array, start filling from the beginning; if modifying in-place, consider filling from the end to avoid overwriting unmerged data."
   ],
   "languages": [
     "python"

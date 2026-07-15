@@ -8,9 +8,9 @@
     "two-pointers"
   ],
   "hints": [
-    "Since rows and columns are sorted, negatives cluster in the bottom-right corner. Can you locate the boundary between non-negative and negative numbers efficiently?",
-    "Start at the top-right corner. If the current value is negative, all values below it in that column are also negative. If positive, move left.",
-    "Traverse from top-right to bottom-left. Move down when you find a negative (counting the rest of the column) or left when you find a non-negative."
+    "Start at a corner where you can see both dimensions. Which corner lets you decide whether to move toward more negatives or fewer?",
+    "Use two pointers starting from the top-right corner to exploit the row and column sorting properties.",
+    "Move down when the current value is negative to find the boundary; move left when it is non-negative to stay above the threshold."
   ],
   "languages": [
     "python"

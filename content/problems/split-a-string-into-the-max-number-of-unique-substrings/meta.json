@@ -8,9 +8,9 @@
     "hash-table"
   ],
   "hints": [
-    "Since the string length is very small, consider using recursion or backtracking to explore all possible split points.",
-    "Keep a set of used substrings to ensure distinctness. Pass this set through your recursive calls to track validity.",
-    "At each index, try every possible next substring length. If the substring is new, recurse and track the maximum count found."
+    "The length limit suggests an exponential-time search; try building the split piece by piece from left to right.",
+    "Use recursion to pick the next substring's end index, tracking used substrings in a set to enforce distinctness.",
+    "Backtrack if a substring is already used; maximize the count by exploring all valid split points at each step."
   ],
   "languages": [
     "python"

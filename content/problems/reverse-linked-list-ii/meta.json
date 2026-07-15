@@ -6,9 +6,9 @@
     "linked-list"
   ],
   "hints": [
-    "Identify the node immediately before position m to anchor the reversed segment.",
-    "Iterate from m to n, moving each subsequent node to the front of the segment.",
-    "Maintain pointers to the start of the segment and the current node being moved."
+    "Identify the node immediately preceding the m-th position to anchor the reversed segment.",
+    "Use a head-insertion technique to reverse the sublist in place while scanning.",
+    "Track the tail of the reversed segment so it can reconnect to the remaining list."
   ],
   "languages": [
     "python"

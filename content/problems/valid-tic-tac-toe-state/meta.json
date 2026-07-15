@@ -7,9 +7,9 @@
     "string"
   ],
   "hints": [
-    "Count the total number of X's and O's on the board. What relationship must always hold between these two counts in a valid game?",
-    "Check if either player has formed a winning line. If both have winning lines, the state is invalid. If only one has, does the turn count match the winner?",
-    "If X wins, X must have just moved, so count(X) equals count(O)+1. If O wins, count(X) must equal count(O). Use these rules to validate the state."
+    "Count the total X's and O's on the board. Since X moves first, how must these counts relate for the position to be valid?",
+    "Identify which player has achieved a winning line. If both have winning lines, is the position valid?",
+    "If a player has won, check if the move counts reflect that the game ended immediately after that winning move."
   ],
   "languages": [
     "python"

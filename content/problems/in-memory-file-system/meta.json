@@ -7,9 +7,9 @@
     "string"
   ],
   "hints": [
-    "Consider using a hash map to store the file system, where keys are paths and values are either directory contents or file data.",
-    "For directories, store a set or map of child names to handle sorting in ls operations efficiently.",
-    "When processing mkdir, split the path and ensure each parent directory exists in your map before creating the target."
+    "Think of the file system as a tree where each node is either a directory or a file. How do you efficiently navigate from the root to any path?",
+    "Use a hash map or nested dictionaries to represent the directory structure, where keys are entry names and values are child nodes or file contents.",
+    "Each directory node needs to track its children; files store content. Handle root as a special empty node, and ensure ls results are sorted alphabetically."
   ],
   "languages": [
     "python"

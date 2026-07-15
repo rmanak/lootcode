@@ -7,9 +7,9 @@
     "divide-and-conquer"
   ],
   "hints": [
-    "Consider how to inspect each bit of the integer individually using bitwise operations.",
-    "Use a mask or shifting to check the least significant bit, then move to the next bit.",
-    "Alternatively, use the operation n & (n - 1) to remove the lowest set bit and count iterations."
+    "Consider how you can process the number bit by bit or remove bits one by one until nothing remains.",
+    "Bitwise operations are the key tool here; think about how to isolate or eliminate the least significant set bit.",
+    "There is a specific identity involving a number and its two's complement that clears the lowest set bit; use it to count."
   ],
   "languages": [
     "python"

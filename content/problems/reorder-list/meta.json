@@ -7,9 +7,9 @@
     "two-pointers"
   ],
   "hints": [
-    "Identify the middle of the list to split it into two halves.",
-    "Reverse the second half of the list so its elements are in descending order.",
-    "Merge the two halves by alternately picking nodes from the start of each half."
+    "Notice the pattern: the first half of the list stays in order, while the second half is reversed and interleaved.",
+    "Split the list into two halves using fast/slow pointers, then reverse the second half in place.",
+    "Merge the two halves by alternately picking nodes from the start of the first half and the start of the reversed second half."
   ],
   "languages": [
     "python"

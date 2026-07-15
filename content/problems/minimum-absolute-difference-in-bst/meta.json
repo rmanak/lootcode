@@ -10,9 +10,9 @@
     "binary-tree"
   ],
   "hints": [
-    "In a BST, an in-order traversal visits nodes in strictly increasing order. The minimum difference must occur between two adjacent values in this sorted sequence.",
-    "Perform an in-order traversal while keeping track of the previous node's value. Update the global minimum difference using the current and previous values.",
-    "Initialize a variable for the previous value to negative infinity and the minimum difference to infinity. During traversal, compute the absolute difference between the current and previous values, then update the minimum."
+    "In a BST, the minimum difference between any two nodes must occur between adjacent values in the sorted order of all node values.",
+    "Perform an in-order traversal to visit nodes in ascending order, allowing you to compare each node only with its immediate predecessor.",
+    "The minimum difference is simply the smallest gap between consecutive values encountered during the traversal; initialize the minimum with a large value and update it as you go."
   ],
   "languages": [
     "python"

@@ -9,9 +9,9 @@
     "two-pointers"
   ],
   "hints": [
-    "Sort the tokens first. Consider playing the cheapest token face-up to gain points, and the most expensive face-down to gain power.",
-    "Use a two-pointer approach on the sorted array. Pointers start at the minimum and maximum values, moving inward as tokens are used.",
-    "Always play the smallest available token face-up if you can. If not, play the largest token face-down to boost power, unless you have no points."
+    "Sort the tokens to easily access the cheapest face-up plays and most valuable face-down plays.",
+    "Use a two-pointer approach on the sorted array, deciding between playing the smallest token face up or the largest face down.",
+    "Prioritize gaining score when possible to unlock high-power tokens; only spend score to gain power if it enables further score gains."
   ],
   "languages": [
     "python"

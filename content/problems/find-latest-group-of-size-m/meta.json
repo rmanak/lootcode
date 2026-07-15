@@ -8,9 +8,9 @@
     "simulation"
   ],
   "hints": [
-    "Track contiguous segments of 1s using their boundaries. When a bit flips, merge adjacent segments if they exist.",
-    "Maintain a count of how many segments have length exactly m. Update this count whenever segments merge or split.",
-    "Use a map or array to store segment lengths by their start index. Check if the count of length-m segments is positive after each step."
+    "Instead of scanning for groups after each step, track group lengths as bits are set. What happens when you flip a bit adjacent to existing groups?",
+    "Use an array to store the length of the group at each index. When setting a bit, check its neighbors to merge groups and update their boundary lengths.",
+    "The group length is stored only at its endpoints. When merging, update the new endpoints' values to the combined length and check if it equals m."
   ],
   "languages": [
     "python"

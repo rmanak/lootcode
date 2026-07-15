@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider how the problem breaks down into smaller subproblems involving prefixes of both strings.",
-    "Use dynamic programming with a 2D table where each cell stores the distance for specific prefix lengths.",
-    "Define the recurrence relation by comparing current characters and choosing the minimum cost among deletion, insertion, or substitution."
+    "Consider how the optimal cost for prefixes relates to the cost of transforming shorter prefixes. What happens if the current characters match versus when they differ?",
+    "This problem exhibits optimal substructure and overlapping subproblems, suggesting dynamic programming. Build a table where each cell represents the edit distance for specific prefix lengths.",
+    "For each pair of prefixes, the minimum operations depend on three possibilities: matching characters (no cost), inserting, deleting, or substituting. The answer lies in the bottom-right cell."
   ],
   "languages": [
     "python"

@@ -9,9 +9,9 @@
     "hash-table"
   ],
   "hints": [
-    "Check each word in the sentence against the dictionary to find any root that is a prefix.",
-    "Sort the dictionary by length or use a Trie to efficiently find the shortest matching root.",
-    "Replace the word with the first root found that matches its prefix, otherwise keep the original word."
+    "Focus on each word in the sentence individually rather than the whole string at once.",
+    "Use a Trie to store the dictionary roots for efficient prefix checking.",
+    "For each word, find the shortest prefix that exists in the Trie; if none exists, keep the original word."
   ],
   "languages": [
     "python"

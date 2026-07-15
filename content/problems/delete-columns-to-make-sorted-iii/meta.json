@@ -8,9 +8,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Notice that deleting a column affects all rows simultaneously. A column can be kept only if it maintains order for every row.",
-    "For each column, check if characters are non-decreasing across all rows. If any row violates this, the column must be deleted.",
-    "Count how many columns fail the non-decreasing check across all rows. This count is your answer."
+    "Identify which columns are already sorted vertically across all rows. Deleting a column affects every string equally, so focus on column validity first.",
+    "Think of this as finding the longest subsequence of column indices where each chosen column is valid and maintains non-decreasing order for every row relative to the previous chosen column.",
+    "Use dynamic programming where the state tracks the longest valid chain of columns ending at a specific index, ensuring row-wise non-decreasing order between adjacent kept columns."
   ],
   "languages": [
     "python"

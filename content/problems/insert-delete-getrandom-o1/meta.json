@@ -7,9 +7,9 @@
     "hash-table"
   ],
   "hints": [
-    "To achieve O(1) average time for all operations, you need a data structure that supports fast random access and a hash map for O(1) lookups.",
-    "Use a dynamic array (like a list or vector) to store values for O(1) random access and a hash map to store each value's index in the array.",
-    "When removing a value, swap it with the last element in the array, update the hash map for the swapped element, then remove the last element to maintain O(1) complexity."
+    "To achieve O(1) removal, you need direct access to an element's position, not just its existence.",
+    "Combine a hash map for value-to-index lookup with a dynamic array for storing the elements.",
+    "The array must remain contiguous for O(1) random access; consider how to fill the gap left by a removal without shifting."
   ],
   "languages": [
     "python"

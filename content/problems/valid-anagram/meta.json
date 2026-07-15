@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Compare the sorted versions of both strings to see if they match.",
-    "Count the frequency of each character in both strings and check equality.",
-    "Use a hash map or array to track character counts for efficient comparison."
+    "What property of the strings remains unchanged regardless of character order?",
+    "Count the frequency of each character in both strings.",
+    "If the frequency maps are identical, the strings are anagrams; otherwise, they are not."
   ],
   "languages": [
     "python"

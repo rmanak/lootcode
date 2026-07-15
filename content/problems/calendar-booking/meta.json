@@ -7,9 +7,9 @@
     "binary-search"
   ],
   "hints": [
-    "A new booking overlaps if any existing interval starts before it ends and ends after it starts. Check this condition against all kept bookings.",
-    "Since bookings are processed sequentially and valid ones are kept, maintain a list of accepted intervals to query against.",
-    "For each operation, iterate through the stored valid intervals. If any overlap, return false; otherwise, add the new interval to the list and return true."
+    "Notice that a new booking is valid only if it avoids all previously accepted intervals. What property must hold between the new range and every kept range?",
+    "Consider maintaining the accepted intervals in sorted order by start time. How does sorting help you quickly check for overlaps with a new candidate?",
+    "A new interval overlaps an existing one if their ranges intersect. With sorted intervals, you only need to check neighbors around where the new start would fit."
   ],
   "languages": [
     "python"

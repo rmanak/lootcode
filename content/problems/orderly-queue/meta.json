@@ -7,9 +7,9 @@
     "sorting"
   ],
   "hints": [
-    "Consider how the allowed moves affect the relative order of characters in the string.",
-    "If k is greater than 1, you can effectively swap any two adjacent characters.",
-    "When k is 1, the string can only be rotated; find the rotation that is lexicographically smallest."
+    "Consider the effect of k=1 separately from k>1, as the reachable states differ significantly.",
+    "For k=1, the string can only be cyclically rotated; for k>1, you can swap any adjacent characters.",
+    "When k>1, adjacent swaps allow you to rearrange the characters into any order you desire."
   ],
   "languages": [
     "python"

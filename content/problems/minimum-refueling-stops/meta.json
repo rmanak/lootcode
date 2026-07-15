@@ -8,9 +8,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Track your current fuel as you drive. When you run out before reaching the next station or target, you must have refueled earlier.",
-    "Use a max-heap to store fuel from all stations you have passed but not yet used.",
-    "Whenever current fuel is insufficient, pop the largest fuel value from the heap to refuel and count a stop."
+    "Focus on the moment you run out of fuel before reaching the next station or target. What decision must you make then?",
+    "Consider keeping track of all stations you have already passed but not used. Which one should you pick to maximize your range?",
+    "Always choose the station with the most fuel among those you have passed. This greedy choice minimizes total stops needed."
   ],
   "languages": [
     "python"

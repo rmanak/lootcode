@@ -8,9 +8,9 @@
     "hash-table"
   ],
   "hints": [
-    "Check if the second stone is at position 1, otherwise the frog cannot make the mandatory first jump.",
-    "Use dynamic programming where the state tracks the current stone index and the previous jump size.",
-    "For each reachable state, try jumping k-1, k, or k+1 steps forward and check if a stone exists at that position."
+    "Notice that the jump size is determined by the previous jump, not just the current position. What two values define a unique state at each stone?",
+    "Use dynamic programming where the state tracks the jump length used to arrive at a specific stone index. A set of valid jump lengths per stone works well.",
+    "For each stone, store the set of jump sizes that can land exactly on it. Start with jump 1 at the second stone, and propagate valid jumps forward."
   ],
   "languages": [
     "python"

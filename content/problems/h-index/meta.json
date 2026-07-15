@@ -8,9 +8,9 @@
     "counting"
   ],
   "hints": [
-    "Sort the citations array in descending order to easily count papers meeting a threshold.",
-    "Iterate through the sorted array; the h-index is the largest index i (1-based) where citations[i-1] >= i.",
-    "If citations[i-1] < i at any point, stop; the answer is the previous valid index."
+    "Notice the definition depends only on counts, not specific paper IDs. How does sorting citations help you count papers with at least k citations efficiently?",
+    "Consider using a frequency array (bucket sort) since citation values are bounded. Count how many papers have each citation count, then accumulate from highest to lowest.",
+    "The h-index is the largest h where the accumulated count of papers with >= h citations is at least h. Check these counts in descending order of h."
   ],
   "languages": [
     "python"

@@ -6,9 +6,9 @@
     "matrix"
   ],
   "hints": [
-    "Focus on any single element and compare it to the element directly below and to its right.",
-    "A matrix is Toeplitz if and only if every element equals the one diagonally adjacent to it in the top-left direction.",
-    "Iterate through rows and columns starting from index 1, checking if matrix[i][j] equals matrix[i-1][j-1]."
+    "Notice that every element must match the value of its top-left neighbor if one exists.",
+    "Compare each cell with the cell directly above and to the left of it.",
+    "Any mismatch between a cell and its top-left neighbor means the matrix is not Toeplitz."
   ],
   "languages": [
     "python"

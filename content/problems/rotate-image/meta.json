@@ -7,9 +7,9 @@
     "matrix"
   ],
   "hints": [
-    "Notice how rows transform into columns when rotated clockwise.",
-    "Try transposing the matrix first, then reverse each row.",
-    "Transposing swaps matrix[i][j] with matrix[j][i]; reversing rows completes the rotation."
+    "Visualize the rotation as a series of concentric square layers. Can you rotate the outermost layer first, then move inward?",
+    "Think about moving elements in groups of four. How do the coordinates of a corner element relate to the other three corners in its cycle?",
+    "Identify the mapping between a cell's original position and its new position. You can swap elements in these four-element cycles without extra storage."
   ],
   "languages": [
     "python"

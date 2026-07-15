@@ -7,9 +7,9 @@
     "greedy"
   ],
   "hints": [
-    "Start scanning from the right to find the first index where A[i] is greater than A[i+1].",
-    "To minimize the decrease, swap A[i] with the largest value to its right that is still smaller than A[i].",
-    "If multiple values equal that maximum exist, pick the rightmost one to keep the suffix lexicographically largest."
+    "Scan from right to left to find the first position where the next element is smaller.",
+    "Use a suffix maximum structure to quickly find the largest value to the right that is smaller than the current element.",
+    "Swap the current element with the rightmost occurrence of that smaller maximum value to ensure the result is lexicographically largest."
   ],
   "languages": [
     "python"

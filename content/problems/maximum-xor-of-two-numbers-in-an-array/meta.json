@@ -8,9 +8,9 @@
     "hash-table"
   ],
   "hints": [
-    "Focus on building the answer bit by bit, starting from the most significant bit.",
-    "Use a trie to store the binary representation of numbers for efficient prefix matching.",
-    "For each number, traverse the trie trying to take the opposite bit at each level to maximize the result."
+    "Consider the bits from most significant to least significant. Can you determine if the maximum possible XOR has a 1 at the current bit position?",
+    "Use a set of prefixes. For each bit position, check if any two prefixes in the set differ at that bit when combined with the current target prefix.",
+    "If you have a set of prefixes and a target value, you can find if there exists a prefix in the set such that prefix XOR target equals the desired value."
   ],
   "languages": [
     "python"

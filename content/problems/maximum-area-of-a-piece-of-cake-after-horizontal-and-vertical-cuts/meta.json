@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "The largest piece is determined by the maximum gap between consecutive horizontal cuts and the maximum gap between consecutive vertical cuts.",
-    "Include the borders (0 and h, 0 and w) in your lists of cuts, then sort them to find the largest difference between adjacent values.",
-    "Compute the max horizontal gap and max vertical gap separately, multiply them, and apply the modulo operation to the final result."
+    "Notice that horizontal and vertical cuts affect dimensions independently. The largest piece is determined by the largest gap in each direction.",
+    "Focus on finding the maximum distance between adjacent cuts in one dimension. Include the cake borders (0 and max dimension) as implicit cut positions.",
+    "The answer is the product of the maximum horizontal gap and the maximum vertical gap. Compute these gaps separately before multiplying and applying modulo."
   ],
   "languages": [
     "python"

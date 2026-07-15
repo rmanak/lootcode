@@ -8,9 +8,9 @@
     "simulation"
   ],
   "hints": [
-    "Simulate the process step by step, using an actual stack to mimic the operations as they happen.",
-    "Iterate through the pushed array, adding each element to the stack. After each push, check if the stack top matches the current expected value in popped.",
-    "If the stack top matches the current popped value, pop it and move to the next element in popped. Return true if the stack is empty at the end."
+    "Consider the order of operations: a value can only be popped if it is currently at the top of the stack.",
+    "Simulate the process using an actual stack: push elements from `pushed` until the top matches the current expected value in `popped`.",
+    "If the stack top matches the current `popped` value, pop it and move to the next expected value; repeat until all values are processed."
   ],
   "languages": [
     "python"

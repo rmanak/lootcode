@@ -8,9 +8,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Try iterating through t while keeping track of your current position in s.",
-    "Use two pointers: one for s and one for t, advancing the s pointer only on a match.",
-    "If you reach the end of s, return true; if you exhaust t first, return false."
+    "Focus on matching characters of s in order as you scan through t.",
+    "Use two pointers: one for each string, advancing only when characters match.",
+    "If you reach the end of s, you found the subsequence; if you exhaust t first, you did not."
   ],
   "languages": [
     "python"

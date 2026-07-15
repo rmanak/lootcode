@@ -7,9 +7,9 @@
     "stack"
   ],
   "hints": [
-    "Consider how the span for today relates to previous days with lower or equal prices.",
-    "Use a monotonic stack to keep track of indices where prices are strictly decreasing.",
-    "Pop elements from the stack that are smaller than or equal to the current price to find the span."
+    "Notice that the span ends when you encounter a price strictly greater than the current day's price.",
+    "Use a monotonic stack to keep track of indices with decreasing prices, allowing you to skip irrelevant days.",
+    "The span for the current day is the distance to the nearest previous day with a higher price; handle the case where no such day exists."
   ],
   "languages": [
     "python"

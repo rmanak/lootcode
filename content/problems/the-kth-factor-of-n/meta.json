@@ -6,9 +6,9 @@
     "math"
   ],
   "hints": [
-    "List all divisors of n from 1 to n in order and pick the k-th one.",
-    "Use a loop to collect factors into a list, then check if the list length is at least k.",
-    "If k exceeds the number of factors found, return -1; otherwise return the element at index k-1."
+    "Consider iterating through potential divisors in increasing order to naturally encounter factors in the required ascending sequence.",
+    "Maintain a running count of how many factors you have found so far to track your progress toward the k-th one.",
+    "Return the current divisor immediately when your count matches k, or return -1 if you exhaust all candidates without reaching k."
   ],
   "languages": [
     "python"

@@ -8,9 +8,9 @@
     "hash-table"
   ],
   "hints": [
-    "Sort the array first. This ensures that when considering a number, all potential factors smaller than it have already been processed.",
-    "Use dynamic programming where dp[x] counts trees with root x. For each x, iterate through smaller y in the array to check if y divides x.",
-    "If y divides x and x/y is also in the array, add dp[y] * dp[x/y] to dp[x]. Sum all dp values for the final answer."
+    "Sort the array first. This ensures that when you consider a value as a root, its potential children (factors) have already been processed.",
+    "Use dynamic programming where each entry stores the number of valid trees rooted at that value. A single node is always one valid tree.",
+    "For each value, find pairs of factors already in the array. The number of trees for this value is the sum of products of their tree counts."
   ],
   "languages": [
     "python"

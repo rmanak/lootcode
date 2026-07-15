@@ -7,9 +7,9 @@
     "stack"
   ],
   "hints": [
-    "Instead of searching forward for each day, look backward from the end of the array.",
-    "Maintain a stack of indices for days whose warmer future hasn't been found yet.",
-    "When a current temperature is higher than the stack top's, pop it and calculate the difference in indices."
+    "Focus on finding the next greater element for each day rather than checking all future days.",
+    "Use a monotonic stack to keep track of indices with temperatures waiting for a warmer day.",
+    "The stack stores indices in decreasing temperature order; when a higher temperature arrives, it resolves the wait for those below it."
   ],
   "languages": [
     "python"

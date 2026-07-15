@@ -8,9 +8,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Break the problem into three independent requirements: length, character types, and repeated characters. Calculate the minimum changes needed for each.",
-    "Focus on runs of identical characters first. Each run of length k requires floor(k/3) replacements to break all triples.",
-    "Handle length constraints last. If too short, insertions can fix missing types and break runs simultaneously. If too long, deletions can reduce run costs."
+    "Consider the three requirements independently: length, character types, and repeated sequences. How do operations serve multiple goals?",
+    "Use replacement to fix repeats and missing types simultaneously. Use insertion or deletion to fix length constraints.",
+    "Prioritize deleting from runs of length divisible by 3, then remainder 1, to minimize total changes needed for repeats."
   ],
   "languages": [
     "python"

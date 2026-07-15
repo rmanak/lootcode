@@ -8,9 +8,9 @@
     "greedy"
   ],
   "hints": [
-    "Notice that a number is divisible by 3 if and only if the sum of its digits is divisible by 3.",
-    "Sort the digits in descending order to maximize value, then remove the smallest digits needed to fix the remainder modulo 3.",
-    "If the sum mod 3 is 1, remove one digit with remainder 1, or two digits with remainder 2. Handle remainder 2 similarly."
+    "Recall that a number is divisible by 3 if the sum of its digits is divisible by 3. Focus on the sum.",
+    "Sort the digits in descending order to maximize the value. Then check if the total sum is divisible by 3.",
+    "If the sum has a remainder of 1 or 2 when divided by 3, remove the smallest number of digits with the same remainder to fix it."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider digit-by-digit construction, tracking whether the current prefix is already strictly inside the bounds or still tight against s1 or s2.",
-    "Use the KMP failure function for evil to track how much of it matches the current suffix, preventing the forbidden substring from forming.",
-    "Combine these states in a DP: dp[i][tight_low][tight_high][kmp_state], iterating through each position and valid characters."
+    "Count all strings of length n without the forbidden substring, then subtract those strictly below s1 and those strictly above s2.",
+    "Use digit DP with an automaton for the forbidden pattern to track matches while respecting the lexicographical bounds.",
+    "Track whether you are still tight to the lower or upper bound, and your current position in the forbidden pattern's prefix function."
   ],
   "languages": [
     "python"

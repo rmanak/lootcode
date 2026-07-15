@@ -9,9 +9,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Since you cannot revisit cells, think of this as finding the longest path in a grid graph.",
-    "Try depth-first search starting from every non-zero cell to explore all possible paths.",
-    "Use a visited set to track current path cells, backtracking after each recursive call."
+    "Since you cannot revisit cells, the path forms a simple chain. Try exploring every possible starting cell and finding the longest valid path from there.",
+    "Use Depth First Search to explore paths from each starting cell, backtracking to unmark visited cells after returning.",
+    "Track the maximum sum encountered during any DFS traversal, resetting the visited state for each new starting position."
   ],
   "languages": [
     "python"

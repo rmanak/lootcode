@@ -8,9 +8,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Observe how parent-child value relations mimic binary indexing. Can you map a value to a unique path from the root?",
-    "Convert each query value to its binary path. Then traverse the tree shape using these bits to check existence.",
-    "Start at root for each query. Use the value's binary representation (ignoring MSB) to navigate left/right, stopping if a node is missing."
+    "Notice the values follow a strict arithmetic pattern based on position, not arbitrary data. The tree shape alone determines every node's value. Can you map a value back to its unique location in the tree?",
+    "Use binary representation. The path from root to any node is encoded in the bits of its value, excluding the leading one. This maps values directly to tree positions.",
+    "A value exists if and only if the path defined by its bits stays within the bounds of the given tree shape. Check if each step toward the leaf has a corresponding node in the input structure."
   ],
   "languages": [
     "python"

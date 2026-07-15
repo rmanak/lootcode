@@ -6,9 +6,9 @@
     "math"
   ],
   "hints": [
-    "Sequential digits are rare and limited to sequences like 12, 123, 1234, etc. How many such valid integers exist in total?",
-    "Instead of checking every number, generate all possible sequential-digit numbers by varying their length and starting digit.",
-    "Generate numbers starting with 1 through 9, extending them digit by digit. Collect those within the range, then sort the results."
+    "Notice that sequential digits are just substrings of the string 123456789. How many such substrings exist?",
+    "Generate all valid sequential numbers by sliding a window of varying lengths over the string 123456789.",
+    "Since the source string is strictly increasing, any substring extracted from it will naturally be sorted. Just filter those within the given range."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "binary-search"
   ],
   "hints": [
-    "Identify which half of the array is strictly sorted by comparing boundary elements.",
-    "Use binary search to decide whether the target lies in the sorted half.",
-    "If the target is in the sorted half, search there; otherwise, recurse on the other half."
+    "Notice that at least one half of the array is always sorted.",
+    "Use binary search by checking which half is sorted.",
+    "If the target lies within the sorted half, search there; otherwise, search the other half."
   ],
   "languages": [
     "python"

@@ -8,9 +8,9 @@
     "graph"
   ],
   "hints": [
-    "The requirement for exactly one simple path between any two points describes a tree structure. You need the minimum spanning tree.",
-    "Since every point connects to every other, this is a complete graph. Use Prim's or Kruskal's algorithm to find the MST.",
-    "With up to 1000 points, compute distances on demand during Prim's algorithm to avoid building the full adjacency matrix."
+    "The goal is to connect all points with the minimum total edge weight without forming cycles, which defines a Minimum Spanning Tree.",
+    "You can use Prim's algorithm or Kruskal's algorithm to find the Minimum Spanning Tree of the complete graph formed by the points.",
+    "Since the graph is complete, explicitly storing all edges is inefficient. Instead, maintain the minimum distance from the current tree to each unvisited point and greedily add the closest one."
   ],
   "languages": [
     "python"

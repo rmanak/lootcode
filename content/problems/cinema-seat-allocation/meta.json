@@ -9,9 +9,9 @@
     "bit-manipulation"
   ],
   "hints": [
-    "Most rows are empty. Calculate how many families fit in a completely empty row, then subtract losses caused by reserved seats.",
-    "Only rows with reservations matter. Use a hash map to group reserved seats by row, ignoring rows with no conflicts.",
-    "For each affected row, check the three valid windows. Count up to two families per row based on which windows remain free."
+    "Most rows are empty, so they all contribute the same maximum. Focus only on the rows that have reserved seats.",
+    "For each affected row, determine how many families fit by checking the three possible 4-seat blocks against the reserved columns.",
+    "A block is valid if none of its four seats are reserved. Check which of the three blocks remain valid for each occupied row."
   ],
   "languages": [
     "python"

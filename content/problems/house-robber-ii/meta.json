@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "The circular constraint makes the first and last houses adjacent, so you can never rob both. Consider breaking the circle into two linear cases.",
-    "Split the problem into two subproblems: one excluding the last house, and another excluding the first house. Solve each as a standard linear house robber problem.",
-    "For each linear subproblem, use dynamic programming where the state at index i depends on the maximum value from i-1 and i-2. Return the maximum of the two results."
+    "The circular adjacency means the first and last houses conflict, unlike a linear row. How can you break this cycle to use standard logic?",
+    "Solve two separate linear versions of the problem: one excluding the first house, and one excluding the last. The answer is the maximum of these two results.",
+    "For each linear version, use dynamic programming where the state at index i represents the max money robbing up to i. The final answer is the max of the two linear DP results."
   ],
   "languages": [
     "python"

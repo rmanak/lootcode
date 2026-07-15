@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Sort the intervals by their end times to prioritize keeping intervals that finish earliest.",
-    "Iterate through the sorted list and keep track of the end time of the last kept interval.",
-    "If the current interval starts before the last end time, it overlaps; increment the removal count and skip it."
+    "Instead of choosing which to remove, think about choosing the maximum number of intervals to keep that do not overlap.",
+    "Sorting the intervals by their end times is a key step that enables a greedy selection strategy.",
+    "Always pick the interval that finishes earliest among those compatible with the last chosen one to leave room for more."
   ],
   "languages": [
     "python"

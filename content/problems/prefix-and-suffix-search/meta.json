@@ -7,9 +7,9 @@
     "trie"
   ],
   "hints": [
-    "Consider storing words in a way that allows efficient retrieval by both prefix and suffix.",
-    "Use a nested hash map or trie where keys are prefixes and values map suffixes to the maximum index.",
-    "For each word, insert it into the structure under its prefix, mapping its suffix to its index, updating if the new index is larger."
+    "Check if the problem allows preprocessing words once to speed up repeated queries, or if you must search from scratch each time.",
+    "Store words in two separate lookup structures: one indexed by prefix and another by suffix, mapping each to a list of candidate weights.",
+    "For each query, intersect the candidate lists from both structures to find the common word with the maximum weight."
   ],
   "languages": [
     "python"

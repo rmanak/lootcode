@@ -6,9 +6,9 @@
     "divide-and-conquer"
   ],
   "hints": [
-    "Notice that $a^{bc} = (a^b)^c$. Can you split the exponent into smaller parts?",
-    "Use the property $a^{10x + y} = (a^{10})^x \\cdot a^y$. Process the digit array from left to right.",
-    "Maintain a running result. For each digit, raise the current result to the 10th power, then multiply by $a$ raised to the current digit, applying mod 1337 at each step."
+    "Break down the exponent using the decimal structure: the number represented by digits [d1, d2] equals 10*d1 + d2.",
+    "Use the property that x^(10*y + z) equals (x^y)^10 * x^z to process digits left-to-right.",
+    "You need two helper operations: raising a base to the 10th power, and raising a base to a single-digit power, both modulo 1337."
   ],
   "languages": [
     "python"

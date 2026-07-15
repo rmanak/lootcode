@@ -7,9 +7,9 @@
     "binary-search"
   ],
   "hints": [
-    "Notice that each index changes independently. Can you track the history of values for each index separately?",
-    "For each index, store a list of (snap_id, value) pairs. When setting, append the current snap id and value.",
-    "To get a value at a snap_id, search the history for that index. Use binary search to find the latest entry with an id less than or equal to the target."
+    "Notice that each index changes independently. You can treat the history of each index as a separate problem.",
+    "Store the history of each index as a list of (snap_id, value) pairs. This allows efficient lookups by snapshot.",
+    "When querying a past snapshot, find the latest entry with a snap_id less than or equal to the target. Binary search helps."
   ],
   "languages": [
     "python"

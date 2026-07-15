@@ -7,9 +7,9 @@
     "breadth-first-search"
   ],
   "hints": [
-    "Since the car moves faster in one direction than the other, consider how the problem changes if you only look at positive targets. Does the answer for -target differ from +target?",
-    "Think about the positions reachable after exactly n 'A' moves. These are sums of powers of 2. If you overshoot the target, you must use 'R' to reverse direction. What is the cost of reversing?",
-    "Use dynamic programming where dp[t] is the min steps to reach target t. To reach t, find the smallest n such that 2^n - 1 >= t. You either hit t exactly, or you overshoot and reverse, solving a smaller subproblem."
+    "Symmetry allows solving for positive targets only by taking the absolute value.",
+    "Use dynamic programming where the state tracks the current position and the power of two governing speed.",
+    "The optimal path to a target often involves overshooting it, reversing, and then correcting the remaining distance with a shorter sequence."
   ],
   "languages": [
     "python"

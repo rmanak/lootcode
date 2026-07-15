@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider dynamic programming where the state tracks the current length, last face, and its consecutive count.",
-    "Define dp[i][j][k] as sequences of length i ending with face j repeated k times consecutively.",
-    "Transition by adding a new face: if it differs from j, reset count to 1; if same, increment k only if within rollMax."
+    "Think about building the sequence one roll at a time. What information from the previous rolls determines whether the next roll is valid?",
+    "Use dynamic programming where the state tracks the current length, the last value rolled, and how many times it has appeared consecutively so far.",
+    "The answer is the sum of all valid states at length n. A state is invalid if the consecutive count exceeds the limit for that face. Start with length 0 having count 0 for any face."
   ],
   "languages": [
     "python"

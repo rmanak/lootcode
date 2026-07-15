@@ -8,9 +8,9 @@
     "greedy"
   ],
   "hints": [
-    "Split the array at zeros to handle independent segments where the product cannot be zero.",
-    "For each segment, track the count of negative numbers and the indices of the first and last negative number.",
-    "If the negative count is even, the whole segment works; if odd, exclude either the prefix before the first negative or the suffix after the last negative."
+    "Zeros split the array into independent segments; solve the problem for each segment separately and take the maximum result.",
+    "For a segment without zeros, the product sign depends only on the count of negative numbers. If the count is even, the whole segment is valid.",
+    "If the count of negatives is odd, you must exclude a prefix or suffix ending at a negative number to make the remaining count even. Which exclusion yields the longer subarray?"
   ],
   "languages": [
     "python"

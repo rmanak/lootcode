@@ -9,9 +9,9 @@
     "counting"
   ],
   "hints": [
-    "Calculate the sum for every subtree using a post-order traversal to process children before parents.",
-    "Use a hash map to count the frequency of each subtree sum as you compute them.",
-    "Find the maximum frequency in your map and return all sums that match it."
+    "Each node's subtree sum depends only on its value and the sums of its children. How can you compute these bottom-up?",
+    "Use a post-order traversal to calculate subtree sums recursively while maintaining a frequency map of all encountered sums.",
+    "The answer consists of all sums sharing the maximum frequency in your map. Return those keys after the traversal completes."
   ],
   "languages": [
     "python"

@@ -6,9 +6,9 @@
     "math"
   ],
   "hints": [
-    "Consider the six pairwise distances between the four points. What specific values must these distances take for a valid square?",
-    "A square has four equal sides and two equal diagonals. The diagonal length squared is exactly twice the side length squared.",
-    "Compute all six squared distances, sort them, and check that the first four are equal and positive, and the last two are equal and double the first four."
+    "Consider the distances between all pairs of points. A square has a very specific set of six distances.",
+    "Calculate the squared Euclidean distances for all six pairs of points to avoid floating point issues.",
+    "A valid square will have exactly two distinct squared distance values: four equal shorter ones (sides) and two equal longer ones (diagonals)."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "bit-manipulation"
   ],
   "hints": [
-    "Consider how numbers are represented in binary. Can you count the occurrences of each bit position across all numbers?",
-    "Since most numbers appear three times, the count of set bits at any position will be a multiple of three, except for the bits of the unique number.",
-    "Use two integer variables to track bits that have appeared once and twice. Update them for each number using bitwise logic to filter out bits seen three times."
+    "Consider the problem bit by bit. How many times does each bit position appear across all numbers?",
+    "Use bitwise operations to count set bits at each position. If a count is not divisible by three, that bit belongs to the unique number.",
+    "The unique number is formed by bits whose total count across the array is not a multiple of three. Reconstruct the number from these bits."
   ],
   "languages": [
     "python"

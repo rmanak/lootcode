@@ -7,9 +7,9 @@
     "heap"
   ],
   "hints": [
-    "Consider tracking the maximum element alongside each value pushed onto the stack.",
-    "Use an auxiliary stack that stores the current maximum at each level of the main stack.",
-    "When pushing x, store max(x, current_max) on the auxiliary stack; pop both stacks together."
+    "Consider how to maintain the maximum efficiently alongside the standard stack operations.",
+    "Use a secondary stack or structure that tracks the current maximum value at each level of the primary stack.",
+    "The secondary structure should store the running maximum up to that point, so the top always reflects the global maximum of all elements below it."
   ],
   "languages": [
     "python"

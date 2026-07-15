@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider the longest subsequence of s that is already a palindrome. How does its length relate to the insertions needed?",
-    "Calculate the Longest Palindromic Subsequence (LPS) length. The answer is the total length minus the LPS length.",
-    "Find the LPS using dynamic programming. Compare s with its reverse to compute the Longest Common Subsequence."
+    "Consider the relationship between the string and its reverse. How does making them match relate to insertions?",
+    "This problem reduces to finding the Longest Common Subsequence between the string and its reverse.",
+    "The minimum insertions equal the total length minus the length of that common subsequence, as those characters already form a palindrome core."
   ],
   "languages": [
     "python"

@@ -8,9 +8,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Consider traversing the graph using DFS or BFS to explore connected components.",
-    "During traversal, if you encounter a visited neighbor that is not your parent, a cycle exists.",
-    "Alternatively, use Union-Find: if two nodes in an edge already share the same root, a cycle is present."
+    "Consider traversing the graph. What happens if you encounter a vertex you have already visited during the current traversal path?",
+    "Use Depth First Search to explore connected components. Track which vertices are currently on the recursion stack to detect back-edges.",
+    "A back-edge to an ancestor in the DFS tree indicates a cycle. Ensure you distinguish between visited nodes in the current path and those fully explored in previous branches."
   ],
   "languages": [
     "python"

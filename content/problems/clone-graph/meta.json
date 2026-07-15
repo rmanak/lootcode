@@ -9,9 +9,9 @@
     "graph"
   ],
   "hints": [
-    "How do you avoid infinite loops when traversing a connected graph with cycles?",
-    "Use a hash map to store references to already created clone nodes, keyed by their original values.",
-    "When visiting a node, create its clone if missing, then recursively or iteratively link its neighbors' clones."
+    "How do you avoid infinite loops when traversing a graph with cycles while building the copy?",
+    "Use a hash map to store references to already-created clone nodes, keyed by their original values.",
+    "Create the clone node before visiting its neighbors so you can link it to other clones that may already exist in the map."
   ],
   "languages": [
     "python"

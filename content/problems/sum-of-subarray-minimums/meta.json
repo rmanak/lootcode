@@ -8,9 +8,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Instead of iterating subarrays, count how many subarrays have each A[i] as the minimum.",
-    "Find the nearest smaller element to the left and right for each index i.",
-    "The count for A[i] is (i - left_bound) * (right_bound - i). Sum these products times A[i]."
+    "Instead of iterating all subarrays, calculate how much each element contributes to the total sum.",
+    "Use a monotonic stack to find the range where each element is the minimum.",
+    "For each element, find the nearest smaller neighbors to determine its contribution range; handle equal values consistently to avoid double counting."
   ],
   "languages": [
     "python"

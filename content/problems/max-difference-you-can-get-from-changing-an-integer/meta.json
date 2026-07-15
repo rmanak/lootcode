@@ -6,9 +6,9 @@
     "greedy"
   ],
   "hints": [
-    "To maximize a - b, independently maximize a and minimize b. Consider greedy digit replacements for each.",
-    "For a, replace the first non-9 digit with 9. For b, replace the first digit with 1, or the first non-0, non-1 digit with 0.",
-    "Handle b carefully: if the first digit is 1, find the first digit > 1 to replace with 0. Otherwise, replace the first digit with 1."
+    "To maximize the difference, you must independently maximize the first number and minimize the second number.",
+    "To maximize, replace the first non-nine digit with nine. To minimize, find the first digit that can safely become zero or one.",
+    "Be careful with leading zeros when minimizing: if the first digit is not one, replace it with one; otherwise, replace the first non-zero, non-one digit with zero."
   ],
   "languages": [
     "python"

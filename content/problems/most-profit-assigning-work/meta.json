@@ -9,9 +9,9 @@
     "sorting"
   ],
   "hints": [
-    "Sort the jobs by difficulty to easily find which ones a worker can perform.",
-    "Preprocess jobs so that for any difficulty threshold, you know the maximum profit available among all feasible jobs.",
-    "Sort the workers. For each worker, find the best profit using binary search or a two-pointer approach on the sorted jobs."
+    "Consider processing workers from lowest to highest ability to leverage previous results.",
+    "Sort jobs by difficulty and maintain the maximum profit achievable up to each difficulty level.",
+    "For each worker, the best they can do is the highest profit among all jobs they can handle."
   ],
   "languages": [
     "python"

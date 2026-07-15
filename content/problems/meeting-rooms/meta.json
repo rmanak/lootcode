@@ -7,9 +7,9 @@
     "sorting"
   ],
   "hints": [
-    "Consider what happens if you process the meetings in chronological order of their start times.",
-    "Sort the intervals by their start time. Then, iterate through the sorted list and compare each meeting's start time with the previous meeting's end time.",
-    "If the current meeting's start time is less than the previous meeting's end time, they overlap. If this condition is never met for any pair, return True."
+    "What happens if you arrange the meetings in chronological order by their start times?",
+    "Sorting the intervals by start time allows you to check each meeting against only one specific predecessor.",
+    "After sorting, a conflict exists if the current meeting starts before the immediately preceding meeting ends."
   ],
   "languages": [
     "python"

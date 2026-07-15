@@ -43,6 +43,7 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `scripts/oracle.py` | Single-problem hardening on the same `app/testgen` engine, agent-facing: `cover` (coverage-first selection — the backbone, no adversary needed), `fuzz --solution X --shrink` (a concrete failing solution IS in hand → keep every in-domain input it fails on, shrunk to minimal reproducers; **add-only**), `suite` (does a wrong solution slip the stored suite?), `analyze` (per-input oracle table). Canonical is the only oracle; every input gated through the validator; all via `run_submission`. |
 | `scripts/check_constraint_validators.py` · `generate_constraint_validators.py` | Audit / (LLM-)generate the per-problem input validators (`<root>/<slug>/input_validator/input_validator.py`): every stored test input must satisfy its problem's `validate_input()`. The checker audits **both** content roots (default + extended). Run it when adding test cases. See `docs/input-validators.md`. |
 | `scripts/recheck_solutions.py` | Re-grade users' accepted solutions against the *current* tests, via `run_submission`. `users` lists every user + stats (submissions / solved / attempted); `check <user>` takes each solved problem's latest passing submission and re-runs it, flagging **regressions** (accepted before, fail now — the point of strengthening). Grades against the DB by default, or `--from-content` for the freshest on-disk tests (no re-seed). `-v` per-failing-test detail, `-j` parallelism. |
+| `scripts/improve_hints.py` | Hint **quality gate**: a generate→judge→regenerate loop that fixes hints which give away the solution (or are too vague). `audit` grades every problem's hints against its canonical solution (local Qwen judge) → `.hints/audit.json`; `fix --from-report` regenerates only the flagged ones (`--dry-run` default, `--apply` writes, strictly-better-only) and writes a durable old→new report (`.hints/fix-dry.json`); `apply-report` writes the exact reviewed hints from that report verbatim (no regeneration — `fix --apply` re-rolls at temperature>0); `calibrate` checks the judge against `app/llm/hint_exemplars.json`. `scripts/hint_audit_report.py` / `hint_compare_report.py` render the audit and old→new reports into self-contained browsable HTML. Engine in `app/llm/hint_generator.py`. See `docs/hint-generation.md`. (`scripts/generate_hints.py` is the older one-shot, ungated seeder.) |
 | `tests/` | pytest (incl. adversarial executor tests). |
 | `docs/` · `specs/` · `.claude/` | Docs, content spec, Claude Code config. |
 
@@ -127,4 +128,10 @@ works for a fresh checkout.
   (when to add one, SVG how-to, and the `content/problems/<slug>/assets/` +
   `/problems/{slug}/assets/{filename}` serving API). Bulk text imports go through
   the `/bulk-import` skill, which also fixes plain-text formatting damage.
+- **Hints:** up to 3 progressive hints per problem, and the last tier must **hint at
+  the insight, not transcribe the solution** (no recurrence/formula/step-list). The
+  quality gate is a generate→judge→regenerate loop that grades hints against the
+  canonical solution — use `scripts/improve_hints.py audit`/`fix` (or the
+  `generate_hints_verified` engine), not the older ungated `generate_hints.py`. Tier
+  rules in `specs/problem-schema.md`; pipeline in `docs/hint-generation.md`.
 - Keep this file and `docs/` in sync with reality as the app grows.

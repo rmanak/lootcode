@@ -7,9 +7,9 @@
     "hash-set"
   ],
   "hints": [
-    "Use a hash set for O(1) lookups to avoid sorting.",
-    "Only start counting a sequence if the current number has no predecessor in the set.",
-    "Expand the sequence forward as long as the next consecutive integer exists in the set."
+    "Sorting helps find runs but is too slow. What data structure lets you check for the existence of a number in constant time?",
+    "Use a hash set to store all numbers. This allows O(1) lookups to see if neighbors exist.",
+    "Only start counting a sequence from a number if its predecessor is missing. This ensures each sequence is counted exactly once."
   ],
   "languages": [
     "python"

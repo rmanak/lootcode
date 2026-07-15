@@ -9,9 +9,9 @@
     "greedy"
   ],
   "hints": [
-    "Track the possible range of open parentheses counts as you scan the string.",
-    "Maintain a minimum and maximum balance; increment both for '(', decrement for ')', and expand the range for '*'.",
-    "If the maximum balance drops below zero, return false; ensure the minimum balance never goes below zero and ends at zero."
+    "Track the possible range of open parentheses counts as you scan the string from left to right.",
+    "Maintain a minimum and maximum possible balance; the minimum cannot drop below zero.",
+    "The string is valid if the maximum balance never drops below zero and the minimum balance ends at zero."
   ],
   "languages": [
     "python"

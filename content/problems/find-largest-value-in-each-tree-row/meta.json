@@ -8,9 +8,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Process the tree level by level, keeping track of which row you are currently visiting.",
-    "Use a breadth-first search with a queue to visit nodes row by row.",
-    "For each level, iterate through all nodes currently in the queue, tracking the maximum value before adding their children."
+    "Think about how you would visit the tree one level at a time, rather than node by node.",
+    "Use a breadth-first search approach, processing all nodes currently in the queue before moving to the next level.",
+    "Track the maximum value encountered among all nodes at the current depth before advancing to the next depth."
   ],
   "languages": [
     "python"

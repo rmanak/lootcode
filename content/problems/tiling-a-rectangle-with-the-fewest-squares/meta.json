@@ -7,9 +7,9 @@
     "backtracking"
   ],
   "hints": [
-    "Try a recursive approach that cuts off the largest possible square from one corner at each step.",
-    "Greedy cutting often fails; you may need to try cutting smaller squares to find a better global minimum.",
-    "Use memoization to store results for sub-rectangles, and consider placing squares in multiple positions within the remaining area."
+    "Try to cover the rectangle by placing squares greedily or in different orders, backtracking if you get stuck.",
+    "Use backtracking with a height array representing the current filled level of each column.",
+    "The state is the array of column heights; the goal is to reach all heights equal to n with minimum squares placed."
   ],
   "languages": [
     "python"

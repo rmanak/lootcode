@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Consider prefix sums to transform subarray sums into differences between two prefix sums.",
-    "Use a merge sort based approach to count valid pairs while merging sorted halves.",
-    "During the merge step, use two pointers to efficiently count valid prefix sum differences for each element in the left half."
+    "Convert subarray sums into prefix sum differences to reframe the condition on two prefix sums.",
+    "Use a divide-and-conquer approach similar to merge sort to count valid pairs across the midpoint.",
+    "In the merge step, use two pointers to efficiently count how many left prefix sums satisfy the range against each right prefix sum."
   ],
   "languages": [
     "python"

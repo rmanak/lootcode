@@ -7,9 +7,9 @@
     "binary-search"
   ],
   "hints": [
-    "Split the count into two parts: numbers with fewer digits than n, and numbers with the same number of digits as n.",
-    "For the first part, use the length of digits to calculate powers. For the second, process n digit by digit from left to right.",
-    "When matching digits of n, add counts for smaller valid digits, then decide whether to continue or stop based on the current digit's presence in digits."
+    "Separate the count of valid numbers with fewer digits than n from those with the same number of digits.",
+    "Use digit dynamic programming to count valid numbers with the same length as n while respecting the upper bound.",
+    "Track whether the current prefix already matches n exactly to decide if the next digit must stay within the allowed set."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "stack"
   ],
   "hints": [
-    "Start by ensuring the snippet begins with an opening tag and ends with a matching closing tag. Use a stack to track nested tags.",
-    "When encountering '<', check if it starts a valid tag or CDATA. Valid tags must have uppercase names; CDATA ignores content until ']]>'.",
-    "Push opening tags onto the stack. Pop when a closing tag matches the top. If the stack is not empty at the end or mismatches occur, it is invalid."
+    "Scan the string linearly to identify tags and CDATA sections, ensuring every opening tag has a matching closing tag.",
+    "Use a stack to track open tags, verifying that closing tags match the most recent open tag and that tag names are valid uppercase letters.",
+    "Handle CDATA by skipping content until ']]>', and ensure only one root tag remains on the stack at the end with no stray characters."
   ],
   "languages": [
     "python"

@@ -8,9 +8,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Try starting a search from every cell that matches the first letter of the word.",
-    "Use depth-first search to explore adjacent cells, keeping track of visited positions to avoid reuse.",
-    "Backtrack by marking a cell as visited before recursing and unmarking it after exploring all neighbors."
+    "Start by trying to match the first character of the word at every cell in the board.",
+    "Use depth-first search to explore neighbors, marking visited cells to prevent reuse.",
+    "The search succeeds if you match the full word length; it fails if you hit a dead end."
   ],
   "languages": [
     "python"

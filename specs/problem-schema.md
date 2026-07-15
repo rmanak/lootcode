@@ -110,6 +110,24 @@ problem page as collapsible "Hint 1 … Hint N" panels **below the Topics sectio
 each **collapsed by default** (a solver opts in by expanding one). Order them
 **most general first, most revealing last** so a stuck solver can peek at just one.
 
+**Each tier has a different job**, and the last tier must stop short of the answer:
+
+- **Hint 1** — a light conceptual nudge: reframe the problem or point out what to
+  notice. Names no technique; gives almost nothing away.
+- **Hint 2** — names the key technique / data structure / subproblem ("a stack",
+  "two pointers", "a DP over prefixes"). Naming the technique here is correct.
+- **Hint 3** — the crucial **insight**, not the mechanics: what the DP state means,
+  why the technique works, the key observation, the base/edge case to watch. It may
+  be genuinely helpful but must **not** state the recurrence/transition, a formula,
+  code/pseudocode, literal index expressions (`dp[i][j] = …`), or a step-by-step
+  recipe. Reveal the idea; leave the derivation and the code to the solver.
+
+The single most common quality failure is a hint 3 that transcribes the solution
+(e.g. "for each amount, take the min previous result plus one" *is* the recurrence).
+Hints are generated and quality-gated by the pipeline in `docs/hint-generation.md`;
+run `python scripts/improve_hints.py audit` to check a problem's hints, or `fix` to
+regenerate weak ones.
+
 - Shape: a JSON array of plain-text strings, e.g.
   `"hints": ["Think about a hash map.", "What is the complement of each value?"]`.
 - **Optional and back-compatible:** omit the key (or use `[]`) for no hints — the

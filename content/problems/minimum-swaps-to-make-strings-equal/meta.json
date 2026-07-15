@@ -7,9 +7,9 @@
     "greedy"
   ],
   "hints": [
-    "First, check if a solution is possible by counting total 'x's across both strings.",
-    "Focus only on indices where s1 and s2 differ. Group these mismatches into pairs like xx and xy.",
-    "Resolve xx mismatches using one swap each. For remaining xy mismatches, pair them up to resolve with two swaps."
+    "Focus on positions where s1 and s2 differ; matching positions require no swaps. Count how many differ with 'x' in s1 versus 'y' in s1.",
+    "The total number of mismatched positions must be even for a solution to exist. Group mismatches into pairs to minimize swaps.",
+    "Swapping two 'x-y' mismatches fixes both in one move. Swapping an 'x-y' with a 'y-x' fixes both in two moves. Prioritize the cheaper option."
   ],
   "languages": [
     "python"

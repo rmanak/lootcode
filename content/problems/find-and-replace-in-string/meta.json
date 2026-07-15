@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Which operations actually succeed? Check each operation against the original string before modifying anything.",
-    "Sort the successful operations by their starting index to handle them in order from left to right.",
-    "Build the result by appending unmatched original segments and the new target strings sequentially."
+    "Sort operations by their start index to process them in the order they appear in the string.",
+    "Process operations from right to left so that inserting replacements does not shift the indices of pending operations.",
+    "For each operation, verify the source substring matches at the given index in the original string before performing the replacement."
   ],
   "languages": [
     "python"

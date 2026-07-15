@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Consider how sorting the piles helps you control which values Alice, you, and Bob receive.",
-    "Think about pairing the largest available pile with the second largest to maximize your share.",
-    "Sort the array in ascending order, then sum every second element starting from index n."
+    "Since you always get the second largest in a triplet, consider which piles you can force into that position to maximize your sum.",
+    "Sort the piles in ascending order to easily identify the largest available values for each round.",
+    "You will always lose the smallest n piles to Bob. Focus on how to pair the remaining 2n piles to maximize your second-largest picks."
   ],
   "languages": [
     "python"

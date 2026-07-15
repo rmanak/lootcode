@@ -8,9 +8,9 @@
     "graph"
   ],
   "hints": [
-    "This problem models dependencies as a directed graph. You need to find a valid topological sort of the courses.",
-    "Use Kahn's algorithm with a min-heap to always pick the available course with the smallest label, ensuring lexicographical order.",
-    "If the resulting order contains fewer courses than numCourses, a cycle exists; return an empty array."
+    "Model the courses and prerequisites as a directed graph where an edge from b to a means b must precede a.",
+    "Use topological sorting via Kahn's algorithm, but replace the standard queue with a min-heap to always pick the smallest available course.",
+    "Detect cycles by checking if the final ordering contains all courses; if any remain with unmet prerequisites, return an empty array."
   ],
   "languages": [
     "python"

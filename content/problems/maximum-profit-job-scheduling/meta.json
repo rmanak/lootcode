@@ -8,9 +8,9 @@
     "sorting"
   ],
   "hints": [
-    "Sort jobs by end time to process them in chronological order of completion.",
-    "Use dynamic programming where dp[i] is the max profit considering the first i sorted jobs.",
-    "For each job, choose the max of skipping it or taking it plus the best profit from the last non-overlapping job, found via binary search."
+    "Sort the jobs by their end times to process them in chronological order of completion.",
+    "Use dynamic programming where the state represents the maximum profit achievable using a subset of the first i jobs.",
+    "For each job, decide whether to include it: if included, add its profit to the max profit from jobs ending no later than its start time."
   ],
   "languages": [
     "python"

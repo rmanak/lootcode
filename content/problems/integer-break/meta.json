@@ -6,9 +6,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider small values of n to spot a pattern in the optimal factors.",
-    "Think about which integers maximize the product when summing to a fixed total.",
-    "Prioritize using 3s in your sum, handling remainders of 1 or 2 carefully."
+    "Notice that splitting a number into many 2s and 3s usually yields a larger product than using larger integers or 1s.",
+    "Consider dynamic programming where you build the maximum product for each integer up to n by trying all possible first splits.",
+    "For any integer i, the best product is either keeping it whole or splitting it into j and i-j, taking the max of j times the best product of i-j."
   ],
   "languages": [
     "python"

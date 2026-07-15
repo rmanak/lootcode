@@ -9,9 +9,9 @@
     "heap"
   ],
   "hints": [
-    "Think greedily: drive as far as possible, only stopping when you cannot reach the next station or target.",
-    "When forced to stop, which previously passed station should you refuel at to maximize your current range?",
-    "Use a max-heap to store fuel from all passed stations; pop the largest fuel amount whenever you run out of gas."
+    "Think greedily: you only stop when you physically cannot reach the next station or the target.",
+    "Use a max-heap to store fuel from all stations you have already passed but not yet used.",
+    "Whenever you run out of fuel before reaching the next milestone, refuel from the largest available tank you passed."
   ],
   "languages": [
     "python"

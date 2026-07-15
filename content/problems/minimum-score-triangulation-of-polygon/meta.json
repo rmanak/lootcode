@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider the first triangle formed involving vertex 0. It splits the polygon into two smaller sub-polygons.",
-    "This structure suggests dynamic programming. Define dp[i][j] as the minimum score for the polygon from vertex i to j.",
-    "For each possible third vertex k between i and j, the cost is values[i]*values[j]*values[k] plus the optimal scores of the sub-polygons."
+    "Focus on the structure of the triangulation. How does adding a new vertex to a smaller polygon affect the triangles formed?",
+    "This problem exhibits optimal substructure. Consider dynamic programming where the state is defined by a range of vertices.",
+    "For a range of vertices, pick a pivot vertex to form a triangle with the range's endpoints. This splits the problem into two independent sub-ranges."
   ],
   "languages": [
     "python"

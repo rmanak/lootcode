@@ -8,9 +8,9 @@
     "greedy"
   ],
   "hints": [
-    "Convert each tap into a closed interval [start, end] covering its watering range.",
-    "Sort these intervals by start position, then greedily pick the one extending furthest right.",
-    "Track the current covered end and jump to the best next interval to minimize count."
+    "Convert each tap into the interval it covers. The problem becomes selecting the fewest intervals to fully cover the range [0, n].",
+    "Sort the intervals by their start points. This allows you to greedily pick the interval that extends the coverage furthest to the right.",
+    "Maintain the furthest point reachable so far. At each step, choose the valid interval that maximizes this reach. If you cannot extend beyond the current end, it is impossible."
   ],
   "languages": [
     "python"

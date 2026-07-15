@@ -8,9 +8,9 @@
     "tree"
   ],
   "hints": [
-    "Start with a standard level-order traversal using a queue to process nodes level by level.",
-    "Track the current level index to decide whether to reverse the list of values before adding it to the result.",
-    "Alternate the direction by checking if the level index is even or odd, reversing the current level's values for odd indices."
+    "Focus on processing the tree level by level. Notice that the order of nodes flips direction at each depth.",
+    "Use a breadth-first search to collect nodes at each level before moving to the next.",
+    "The direction alternates per level. Consider whether reversing the collected list for that level is sufficient."
   ],
   "languages": [
     "python"

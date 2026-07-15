@@ -7,9 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider the split point where all characters to the left are '0' and all to the right are '1'.",
-    "Track the number of '1's seen so far and the number of '0's remaining to decide the cost at each split.",
-    "The answer is the minimum over all split points of (flips to make left all '0's) + (flips to make right all '1's)."
+    "Consider the final monotone string as having a split point where 0s end and 1s begin. Where could this boundary be?",
+    "Use dynamic programming to track the minimum flips needed to maintain a valid prefix ending in 0 or ending in 1.",
+    "The state represents the cost to make the prefix valid, with the last character flipped to 0 or 1. Base case is the first character."
   ],
   "languages": [
     "python"

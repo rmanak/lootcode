@@ -6,9 +6,9 @@
     "array"
   ],
   "hints": [
-    "Precompute the length of the consecutive run ending at each index to simplify range checks.",
-    "Use a prefix maximum array to quickly find the longest run entirely contained within a query range.",
-    "Handle the edge case where a run starts before l by checking the run length at index l separately."
+    "Consider how the longest run in a range relates to the runs already present in the original array.",
+    "Precompute the length of the constant run ending at each index to quickly access run boundaries.",
+    "A query answer is the maximum of the clipped run lengths for all runs that overlap the range [l, r]."
   ],
   "languages": [
     "python"

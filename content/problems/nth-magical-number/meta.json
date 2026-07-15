@@ -6,9 +6,9 @@
     "binary-search"
   ],
   "hints": [
-    "The count of magical numbers up to X is monotonic, suggesting binary search on the answer.",
-    "To count magical numbers up to X, use inclusion-exclusion with floor division and the least common multiple of a and b.",
-    "Binary search for the smallest X where the inclusion-exclusion count equals n, applying modular arithmetic only at the final step."
+    "Consider how many magical numbers exist up to a certain value X. Can you express this count using a, b, and X?",
+    "Use binary search on the answer X. For a given X, the count of multiples of a or b is needed to check if it is at least n.",
+    "The count of multiples of a or b up to X follows the inclusion-exclusion principle, requiring the least common multiple of a and b."
   ],
   "languages": [
     "python"

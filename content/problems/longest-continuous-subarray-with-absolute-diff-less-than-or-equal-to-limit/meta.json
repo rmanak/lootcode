@@ -9,9 +9,9 @@
     "binary-search-tree"
   ],
   "hints": [
-    "Consider a sliding window approach where you expand the right boundary and shrink the left when the condition is violated.",
-    "To efficiently check the condition, you need to track the maximum and minimum values within the current window.",
-    "Use two monotonic deques to maintain the max and min of the current window in amortized constant time per step."
+    "Consider expanding a window from left to right. What property must hold for every element inside the window to satisfy the condition?",
+    "Use a sliding window approach. You need a data structure that efficiently tracks the minimum and maximum values in the current window.",
+    "The window is valid if the difference between its current maximum and minimum does not exceed the limit. Shrink the window from the left when this difference becomes too large."
   ],
   "languages": [
     "python"

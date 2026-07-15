@@ -7,9 +7,9 @@
     "string"
   ],
   "hints": [
-    "Split s into words. If the count of words differs from pattern length, return false immediately.",
-    "Use two maps: one from pattern char to word, and another from word to pattern char to enforce bijection.",
-    "Iterate through pattern and words simultaneously. For each pair, check both maps for consistency or update them if new."
+    "What if the lengths of the pattern and the split words differ? That is an immediate failure.",
+    "Use two maps: one from characters to words, and another from words to characters.",
+    "The bijection fails if a character maps to a different word than before, or if a word is already mapped to a different character."
   ],
   "languages": [
     "python"

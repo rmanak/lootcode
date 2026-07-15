@@ -8,9 +8,9 @@
     "bit-manipulation"
   ],
   "hints": [
-    "Try placing numbers one by one into positions 1 to N, checking divisibility rules at each step.",
-    "Use backtracking with a bitmask to efficiently track which numbers from 1 to N have already been used.",
-    "At each recursive step, iterate through available numbers and recurse only if the divisibility condition with the current position holds."
+    "Focus on filling positions one by one. At each step, check if the chosen number satisfies the divisibility rule for that specific position.",
+    "Use backtracking with a bitmask to track which numbers from 1 to N have already been used in the current permutation.",
+    "Since N is small (up to 15), the bitmask allows you to efficiently explore all valid assignments without recomputing for identical sets of used numbers."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "simulation"
   ],
   "hints": [
-    "Simulate each water unit individually since V is small. For each drop, find where it settles based on the current water levels.",
-    "To decide the drop's path, scan left from K for the first local minimum, then scan right if left fails.",
-    "A position is a valid resting spot if its level is strictly lower than its immediate neighbors and the path to it is non-increasing."
+    "Simulate each unit of water individually since V is small, applying the movement rules sequentially to the current state.",
+    "For each unit, search left from K for the first local minimum where water can settle, checking if a lower level exists further left.",
+    "If no left position is lower, search right for the first local minimum; if neither side offers a lower level, the water stays at K."
   ],
   "languages": [
     "python"

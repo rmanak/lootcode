@@ -8,9 +8,9 @@
     "prefix-sum"
   ],
   "hints": [
-    "First, determine if merging is possible by checking how many piles reduce after each move.",
-    "Use interval dynamic programming to find the minimum cost to merge subarrays into fewer piles.",
-    "Track both the cost and the remaining pile count in your DP state to handle partial merges."
+    "Check if merging is possible by verifying if N-1 is divisible by K-1. If not, return -1 immediately.",
+    "This is a range dynamic programming problem. Define a state for the minimum cost to merge a subarray into a specific number of piles.",
+    "The merge cost for a range is added only when it collapses from K piles to 1. Use prefix sums to quickly calculate the total stones in any range."
   ],
   "languages": [
     "python"

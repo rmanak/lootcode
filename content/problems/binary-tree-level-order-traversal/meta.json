@@ -7,9 +7,9 @@
     "breadth-first-search"
   ],
   "hints": [
-    "Consider processing nodes level by level rather than depth-first. How can you track which nodes belong to the current level?",
-    "Use a queue to store nodes. Process all nodes currently in the queue before adding their children to the next iteration.",
-    "In each loop iteration, record the current queue size. Iterate exactly that many times to collect the current level's values and enqueue children."
+    "Consider how you would visit the tree layer by layer, ensuring you process all nodes at the current depth before moving to the next.",
+    "Use a queue to manage nodes, adding children of the current node so they are processed in subsequent iterations.",
+    "Track the number of nodes at the current level to determine when to finalize that level's list and move to the next, handling the empty tree as a base case."
   ],
   "languages": [
     "python"

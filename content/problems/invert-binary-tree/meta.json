@@ -8,9 +8,9 @@
     "breadth-first-search"
   ],
   "hints": [
-    "Consider the base case: what should you return if the current node is None?",
-    "At each node, swap its left and right children before processing them further.",
-    "Use recursion to invert the subtrees rooted at the swapped children, then return the current node."
+    "Consider how you would traverse the tree to visit every node. What happens when you reach a leaf or an empty subtree?",
+    "Use recursion to process each node. Think about how to handle the left and right children of the current node.",
+    "At each node, the left and right subtrees must be swapped. What is the base case where no further action is needed?"
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "memoization"
   ],
   "hints": [
-    "Notice that for large n, the probability approaches 1.0 very quickly. Check when this threshold occurs.",
-    "For small n, use dynamic programming. Define dp[i][j] as the probability given i and j ml remain.",
-    "Scale the problem down by dividing all amounts by 25 to reduce state space size significantly."
+    "Notice that n is up to 10^9, so simulation or direct DP is impossible. Look for a pattern in small n values.",
+    "Use dynamic programming with memoization on the remaining amounts of A and B, scaling n down by 25 to reduce state space.",
+    "For large n, the probability converges to 1 very quickly. Find the threshold n where the answer is indistinguishable from 1.0."
   ],
   "languages": [
     "python"

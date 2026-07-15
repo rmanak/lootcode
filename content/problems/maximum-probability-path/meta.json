@@ -6,9 +6,9 @@
     "graph"
   ],
   "hints": [
-    "This is a shortest-path variant where you maximize a product instead of minimizing a sum. How can you adapt Dijkstra's algorithm?",
-    "Use a max-heap to always expand the path with the highest probability found so far. Track the best probability for each node.",
-    "Initialize start probability to 1.0. When relaxing an edge, multiply the current node's probability by the edge weight."
+    "Notice that maximizing the product of probabilities is similar to finding a shortest path, but the 'cost' accumulates multiplicatively rather than additively.",
+    "This problem can be solved using a variation of Dijkstra's algorithm, where you always expand the path with the highest current probability.",
+    "Maintain an array storing the best probability found so far to reach each node from the start, initializing the start node to 1.0 and all others to 0.0."
   ],
   "languages": [
     "python"

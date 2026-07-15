@@ -8,9 +8,9 @@
     "graph"
   ],
   "hints": [
-    "Track two things for each box: whether you physically have it and whether you have its key.",
-    "Use a queue to process boxes as soon as you have both the box and its key.",
-    "When you open a box, add its candies, then check if newly found keys or boxes allow opening others."
+    "Start by identifying which boxes you can actually open right now using your initial inventory.",
+    "Use a search strategy like BFS or DFS to propagate access from opened boxes to their contained contents.",
+    "Track two separate states for each box: whether you have acquired it and whether you possess its key."
   ],
   "languages": [
     "python"

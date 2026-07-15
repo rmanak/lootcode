@@ -8,9 +8,9 @@
     "greedy"
   ],
   "hints": [
-    "Consider only consecutive days where the price increases. What happens if you sum up all these daily gains?",
-    "Think about the difference between buying low and selling high versus capturing every small uptick. Does adding positive differences change the total?",
-    "Iterate through the array and add the difference to your profit if the next day's price is higher than the current day's price."
+    "Consider the total profit as the sum of gains from individual days rather than long holding periods.",
+    "This problem can be solved greedily by capturing every profitable price increase between consecutive days.",
+    "If the price tomorrow is higher than today, add the difference to your total profit; otherwise, ignore the drop."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "binary-search"
   ],
   "hints": [
-    "Consider how the number of papers with at least h citations relates to the array index.",
-    "Since the array is sorted, use binary search to find the largest valid h efficiently.",
-    "Check if citations[mid] >= n - mid; if true, try larger h in the right half, else search left."
+    "The sorted order allows skipping large portions of the array. What property of the h-index relates the number of papers to their citation counts?",
+    "Use binary search to find the largest h. The key is comparing citations[i] with the number of papers from index i to the end.",
+    "At index i, the count of papers with at least citations[i] citations is n - i. Find the largest i where citations[i] >= n - i."
   ],
   "languages": [
     "python"

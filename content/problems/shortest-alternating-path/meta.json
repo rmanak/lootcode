@@ -7,9 +7,9 @@
     "breadth-first-search"
   ],
   "hints": [
-    "Treat the color of the last edge used as part of the state. This turns the problem into a standard shortest path search on a modified graph.",
-    "Use BFS starting from node 0. Track visited states as (node, last_color) to avoid cycles and ensure shortest paths.",
-    "Initialize distances for (0, RED) and (0, BLUE) to 0. When traversing, only follow edges with a color different from the current state's color."
+    "Consider the state as (node, last_edge_color) since the allowed next move depends on the previous edge's color.",
+    "Use Breadth-First Search (BFS) starting from node 0 with both possible initial colors to find shortest paths.",
+    "Track visited states as (node, color) to avoid cycles; initialize distances for both starting colors at node 0 to 0."
   ],
   "languages": [
     "python"

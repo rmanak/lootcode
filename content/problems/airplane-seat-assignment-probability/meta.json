@@ -6,9 +6,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Consider the state when a displaced passenger chooses a seat. What happens if they pick seat 1 versus seat n?",
-    "The process effectively ends when someone picks seat 1 or seat n. All other choices just delay the decision.",
-    "Seats 1 and n are symmetric targets for the random choice. The probability is 0.5 for n > 1."
+    "Notice that the outcome depends only on whether the first passenger picks their own seat, the last passenger's seat, or someone else's.",
+    "Consider what happens if the first passenger picks a seat belonging to a middle passenger; does this restart the same problem with fewer seats?",
+    "For any n greater than 1, the probability remains constant because the last seat and the first seat are symmetrically equivalent in the random choices."
   ],
   "languages": [
     "python"

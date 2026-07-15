@@ -8,9 +8,9 @@
     "breadth-first-search"
   ],
   "hints": [
-    "Assign each node a unique index as if it were in a complete binary tree, starting with root at index 0.",
-    "For any node with index i, its left child is 2*i and right child is 2*i + 1. Use BFS to track indices per level.",
-    "At each level, calculate width as the difference between the maximum and minimum indices plus one, then take the global maximum."
+    "Assign each node an index as if the tree were a perfect binary tree. The root is 0, and a node at index i has children at 2i+1 and 2i+2.",
+    "Perform a level-order traversal (BFS) while keeping track of each node's index. For each level, calculate the width using the indices of the first and last nodes.",
+    "To prevent integer overflow with deep trees, normalize the indices at each level by subtracting the index of the leftmost node from all nodes in that level before processing children."
   ],
   "languages": [
     "python"

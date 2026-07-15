@@ -6,9 +6,9 @@
     "bit-manipulation"
   ],
   "hints": [
-    "Consider how the least significant bits change as you increment numbers. Do they stabilize or keep flipping?",
-    "Focus on the common prefix of the binary representations of left and right. Bits that differ will eventually become zero.",
-    "Right-shift both numbers until they are equal to find the common prefix, then left-shift back to restore the position."
+    "Consider how the bitwise AND behaves when the range includes numbers with differing bits. What happens to a bit position if any number in the range has a 0 there?",
+    "Focus on the most significant bits. Which bits remain unchanged across the entire range from left to right?",
+    "The result is the common prefix of the binary representations of left and right. All bits to the right of this prefix become 0."
   ],
   "languages": [
     "python"

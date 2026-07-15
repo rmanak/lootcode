@@ -8,9 +8,9 @@
     "depth-first-search"
   ],
   "hints": [
-    "Consider traversing every node in root to find potential matches with subRoot's root value.",
-    "For each matching node, implement a helper function to check if two trees are structurally identical.",
-    "Recursively compare values and structures of both trees; return false immediately if any mismatch occurs."
+    "Check if the entire subRoot tree matches the root tree starting at any node within root.",
+    "Combine a traversal of root with an identity check function to compare trees.",
+    "Identity requires matching values and identical left and right structures; handle nulls carefully."
   ],
   "languages": [
     "python"

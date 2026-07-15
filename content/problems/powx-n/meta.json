@@ -6,9 +6,9 @@
     "recursion"
   ],
   "hints": [
-    "Handle negative exponents by using the reciprocal of the base and a positive exponent.",
-    "Use exponentiation by squaring to reduce the number of multiplications needed.",
-    "Recursively or iteratively square the base and halve the exponent, handling odd exponents separately."
+    "Consider how the problem changes if the exponent is even versus odd. Can you reduce the size of the problem at each step?",
+    "Use the divide-and-conquer technique known as exponentiation by squaring to solve this in logarithmic time.",
+    "Handle negative exponents by inverting the base. Be careful with the most negative 32-bit integer, as its absolute value may overflow a standard integer type."
   ],
   "languages": [
     "python"

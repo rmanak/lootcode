@@ -8,9 +8,9 @@
     "divide-and-conquer"
   ],
   "hints": [
-    "Focus on counting pairs with a specific value condition rather than just inversions. The index constraint i < j is standard for merge sort.",
-    "Use Merge Sort. During the merge step, count pairs where the left element is more than double the right element before merging.",
-    "For each element in the left subarray, find how many elements in the right subarray satisfy the condition using a pointer or binary search."
+    "Notice that the condition involves values, not just positions. How can you count pairs where a larger value precedes a smaller one efficiently?",
+    "This is a variation of counting inversions. Consider using a divide-and-conquer approach similar to Merge Sort.",
+    "During the merge step, for each element in the left half, count how many elements in the right half satisfy the condition before merging them."
   ],
   "languages": [
     "python"

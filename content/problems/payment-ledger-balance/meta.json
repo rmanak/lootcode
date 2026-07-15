@@ -7,9 +7,9 @@
     "simulation"
   ],
   "hints": [
-    "Consider how each transaction affects the balance of both the sender and the receiver.",
-    "Use a hash map to store the running total for each account, initializing missing accounts to zero.",
-    "Subtract the amount from the sender's balance and add it to the receiver's balance for each transaction."
+    "Focus on how each transaction affects the individual accounts rather than tracking the flow between them.",
+    "Use a hash map to store the running net balance for each account identifier.",
+    "Initialize balances to zero and update them as you encounter each transaction, ensuring all involved accounts are present in the map."
   ],
   "languages": [
     "python"

@@ -7,9 +7,9 @@
     "bit-manipulation"
   ],
   "hints": [
-    "Consider how many valid binary strings of length k exist without consecutive 1s. This relates to Fibonacci numbers.",
-    "Decompose the problem by processing bits of n from most significant to least significant, counting valid numbers smaller than the prefix.",
-    "When a '11' pattern appears in n, stop counting. Otherwise, add Fibonacci counts for remaining positions based on current bit value."
+    "Consider the pattern of valid binary strings of length k; how does this relate to Fibonacci numbers?",
+    "Use digit DP by scanning bits from most significant to least, tracking whether the current prefix matches n's prefix.",
+    "The state tracks if you are tight to n's limit and if the previous bit was 1; count valid paths without consecutive 1s."
   ],
   "languages": [
     "python"
