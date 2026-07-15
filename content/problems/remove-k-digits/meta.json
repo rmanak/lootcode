@@ -5,6 +5,7 @@
   "tags": [
     "string",
     "stack",
+    "monotonic-stack",
     "greedy"
   ],
   "hints": [

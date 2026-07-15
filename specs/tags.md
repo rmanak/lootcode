@@ -10,12 +10,12 @@ browse/filter facets stay meaningful and near-synonyms don't multiply.
   every write (manual admin, AI generator, bulk-import generators), so aliases
   are corrected, dropped tags removed, and no problem is ever left tagless.
 
-## Canonical tags (37)
+## Canonical tags (38)
 
 | Group | Tags |
 |---|---|
 | Core data shapes | `array`, `string`, `matrix`, `linked-list`, `tree`, `binary-tree`, `graph` |
-| Structures | `stack`, `queue`, `heap`, `hash-table`, `hash-set`, `hash-function`, `binary-search-tree`, `trie`, `union-find`, `binary-indexed-tree`, `suffix-array` |
+| Structures | `stack`, `monotonic-stack`, `queue`, `heap`, `hash-table`, `hash-set`, `hash-function`, `binary-search-tree`, `trie`, `union-find`, `binary-indexed-tree`, `suffix-array` |
 | Techniques | `two-pointers`, `sliding-window`, `prefix-sum`, `binary-search`, `sorting`, `greedy`, `backtracking`, `recursion`, `divide-and-conquer`, `dynamic-programming`, `memoization`, `depth-first-search`, `breadth-first-search`, `bit-manipulation`, `bitmask` |
 | Counting / numeric | `combinatorics`, `counting`, `simulation`, `math` |
 
@@ -32,7 +32,7 @@ category. Full map in `app/tags.py:TAG_ALIASES`:
 - `bfs` → `breadth-first-search`; `dfs`, `flood-fill` → `depth-first-search`
 - `hashing` → `hash-table`
 - `bucket-sort`, `merge-sort`, `intervals`, `sweep-line` → `sorting`
-- `monotonic-stack` → `stack`; `monotonic-queue` → `queue`
+- `monotonic-queue` → `queue`
 - `ordered-set` → `binary-search-tree`; `segment-tree` → `binary-indexed-tree`
 - `interval-dp`, `game-theory` → `dynamic-programming`
 - `string-matching`, `rolling-hash` → `string`

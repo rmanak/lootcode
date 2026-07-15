@@ -8195,7 +8195,7 @@ Explanation: Only the two diagonal `1x1` squares are all ones.
             ({"matrix": [[0, 1, 1, 1], [1, 1, 1, 1], [0, 1, 1, 1]]}, 15)])
 
 add("maximal-rectangle", "Maximal Rectangle of Ones", "hard",
-    ["matrix", "stack", "dynamic-programming"], "maximalRectangle",
+    ["matrix", "stack", "monotonic-stack", "dynamic-programming"], "maximalRectangle",
     [("matrix", "int[][]")], "int",
     """
 Given a binary `matrix`, return the **area of the largest rectangle** whose cells
@@ -9522,7 +9522,7 @@ def _b_jobsched(start, end, profit):
 
 
 add("car-fleet", "Car Fleet Count", "medium",
-    ["array", "stack", "sorting"], "carFleet",
+    ["array", "stack", "monotonic-stack", "sorting"], "carFleet",
     [("target", "int"), ("position", "int[]"), ("speed", "int[]")], "int",
     """
 Cars drive toward `target` on a one-lane road; car `i` starts at `position[i]` with
@@ -9617,7 +9617,7 @@ Explanation: Equal opposite asteroids annihilate.
             ({"asteroids": [10, 2, -5]}, [10])])
 
 add("remove-k-digits", "Remove K Digits", "medium",
-    ["string", "stack", "greedy"], "removeKdigits",
+    ["string", "stack", "monotonic-stack", "greedy"], "removeKdigits",
     [("num", "string"), ("k", "int")], "string",
     """
 Given a non-negative integer as the string `num`, remove exactly `k` digits so the
@@ -11235,7 +11235,7 @@ Explanation: Paint the single house its cheapest color.
             ({"costs": [[7, 6, 2]]}, 2)])
 
 add("min-cost-tree-leaf-values", "Minimum Cost Tree From Leaf Values", "medium",
-    ["array", "dynamic-programming", "stack", "interval-dp"], "mctFromLeafValues",
+    ["array", "dynamic-programming", "stack", "monotonic-stack", "interval-dp"], "mctFromLeafValues",
     [("arr", "int[]")], "int",
     """
 Build a binary tree whose leaves are the values of `arr` **in order** (left to

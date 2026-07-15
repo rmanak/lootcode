@@ -5,6 +5,7 @@
   "tags": [
     "matrix",
     "stack",
+    "monotonic-stack",
     "dynamic-programming"
   ],
   "hints": [

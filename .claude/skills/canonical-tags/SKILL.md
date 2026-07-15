@@ -5,7 +5,7 @@ description: Assign problem `tags` from lootcode's fixed canonical vocabulary. U
 
 Tag every problem from the **canonical vocabulary** below — nothing else. This
 keeps the browse/filter facets meaningful and stops near-synonyms
-(`bfs`/`breadth-first-search`, `monotonic-stack`/`stack`, `math`/`number-theory`)
+(`bfs`/`breadth-first-search`, `monotonic-queue`/`queue`, `math`/`number-theory`)
 from multiplying.
 
 The authoritative machine-readable source is **`app/tags.py`**
@@ -14,13 +14,13 @@ taxonomy + rationale is **`specs/tags.md`**. This skill is the authoring
 workflow. If those files and this list ever disagree, `app/tags.py` wins — refresh
 this skill from it.
 
-## Canonical tags (37)
+## Canonical tags (38)
 
 Pick **1–4** that best describe the *technique/structure*, not incidental detail.
 
 - **Core data shapes:** `array` · `string` · `matrix` · `linked-list` · `tree` ·
   `binary-tree` · `graph`
-- **Structures:** `stack` · `queue` · `heap` · `hash-table` · `hash-set` ·
+- **Structures:** `stack` · `monotonic-stack` · `queue` · `heap` · `hash-table` · `hash-set` ·
   `hash-function` · `binary-search-tree` · `trie` · `union-find` ·
   `binary-indexed-tree` · `suffix-array`
 - **Techniques:** `two-pointers` · `sliding-window` · `prefix-sum` ·
@@ -44,7 +44,6 @@ Common aliases (full map in `app/tags.py:TAG_ALIASES`):
 | `dfs`, `flood-fill` | `depth-first-search` |
 | `hashing` | `hash-table` |
 | `bucket-sort`, `merge-sort`, `intervals`, `sweep-line` | `sorting` |
-| `monotonic-stack` | `stack` |
 | `monotonic-queue` | `queue` |
 | `ordered-set` | `binary-search-tree` |
 | `segment-tree` | `binary-indexed-tree` |

@@ -4,7 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "stack"
+    "stack",
+    "monotonic-stack"
   ],
   "hints": [
     "Focus on finding the next greater element for each day rather than checking all future days.",

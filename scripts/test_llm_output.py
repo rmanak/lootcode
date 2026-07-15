@@ -101,7 +101,7 @@ COMPARE_MODES = ("exact", "unordered", "set_of_lists")
 # Allowed difficulty levels (specs/problem-schema.md / meta.json).
 DIFFICULTIES = ("easy", "medium", "hard")
 
-# The 37 canonical tags. Source of truth is app/tags.py::CANONICAL_TAGS; this is a
+# The 38 canonical tags. Source of truth is app/tags.py::CANONICAL_TAGS; this is a
 # copy so the validator stays standalone (no dependency on the `app` package).
 # Non-canonical tags are only WARNED about, because app.tags.normalize_tags folds
 # aliases and passes unknown tags through on write -- they are not fatal.
@@ -111,7 +111,8 @@ CANONICAL_TAGS = frozenset({
     "breadth-first-search", "combinatorics", "counting", "depth-first-search",
     "divide-and-conquer", "dynamic-programming", "graph", "greedy",
     "hash-function", "hash-set", "hash-table", "heap", "linked-list", "math",
-    "matrix", "memoization", "prefix-sum", "queue", "recursion", "simulation",
+    "matrix", "memoization", "monotonic-stack", "prefix-sum", "queue",
+    "recursion", "simulation",
     "sliding-window", "sorting", "stack", "string", "suffix-array", "tree",
     "trie", "two-pointers", "union-find",
 })

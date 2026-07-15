@@ -6,7 +6,8 @@
     "array",
     "two-pointers",
     "dynamic-programming",
-    "stack"
+    "stack",
+    "monotonic-stack"
   ],
   "hints": [
     "Notice that water above any bar is limited by the tallest bars to its left and right.",

@@ -6,7 +6,8 @@
     "array",
     "hash-table",
     "prefix-sum",
-    "stack"
+    "stack",
+    "monotonic-stack"
   ],
   "hints": [
     "Map each hour to +1 if tiring, -1 otherwise. The problem becomes finding the longest subarray with a positive sum.",

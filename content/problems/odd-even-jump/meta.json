@@ -6,6 +6,7 @@
     "array",
     "dynamic-programming",
     "stack",
+    "monotonic-stack",
     "sorting"
   ],
   "hints": [

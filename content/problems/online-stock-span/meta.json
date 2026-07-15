@@ -4,7 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "stack"
+    "stack",
+    "monotonic-stack"
   ],
   "hints": [
     "Notice that the span ends when you encounter a price strictly greater than the current day's price.",

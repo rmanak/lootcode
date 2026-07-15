@@ -4,6 +4,7 @@
   "difficulty": "medium",
   "tags": [
     "stack",
+    "monotonic-stack",
     "tree",
     "binary-search-tree",
     "binary-tree"

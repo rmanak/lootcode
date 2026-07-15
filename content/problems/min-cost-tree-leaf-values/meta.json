@@ -5,7 +5,8 @@
   "tags": [
     "array",
     "dynamic-programming",
-    "stack"
+    "stack",
+    "monotonic-stack"
   ],
   "hints": [
     "Consider the final merge step. What two contiguous groups of leaves are combined last, and how does that split define the problem?",

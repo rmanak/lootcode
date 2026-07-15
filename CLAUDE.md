@@ -99,7 +99,7 @@ works for a fresh checkout.
   specs, as does the `problem-author` subagent. The guidelines file is the single
   source of truth — its marked block is injected into the in-app AI generator's
   system prompt, so a rule added there applies to manual and AI authoring alike.
-- **Tags:** use the canonical vocabulary only (37 tags). `app/tags.py` is the
+- **Tags:** use the canonical vocabulary only (38 tags). `app/tags.py` is the
   source of truth (`normalize_tags` runs on every content write); `specs/tags.md`
   is the prose taxonomy; the `canonical-tags` skill is the authoring workflow. If
   a problem fits no canonical tag, discuss adding one — don't invent it inline.

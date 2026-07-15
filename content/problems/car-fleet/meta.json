@@ -5,6 +5,7 @@
   "tags": [
     "array",
     "stack",
+    "monotonic-stack",
     "sorting"
   ],
   "hints": [

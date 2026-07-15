@@ -4,7 +4,8 @@
   "difficulty": "hard",
   "tags": [
     "array",
-    "stack"
+    "stack",
+    "monotonic-stack"
   ],
   "hints": [
     "Consider each bar as the shortest bar in a potential rectangle. How far left and right can it extend?",

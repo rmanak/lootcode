@@ -5,7 +5,8 @@
   "tags": [
     "array",
     "linked-list",
-    "stack"
+    "stack",
+    "monotonic-stack"
   ],
   "hints": [
     "Look at the output for each node: it is the first larger value to its right. This resembles finding the 'next greater element' in an array, but the input is a linked list.",

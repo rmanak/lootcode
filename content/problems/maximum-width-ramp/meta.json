@@ -4,7 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "stack"
+    "stack",
+    "monotonic-stack"
   ],
   "hints": [
     "Consider the right endpoint j. Which left endpoints i are candidates for maximizing width?",

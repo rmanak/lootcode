@@ -14,7 +14,7 @@ A lightweight, self-hostable LeetCode-style platform. Python 3 · FastAPI · SQL
 
 ## Features
 
-- **Browse & filter** ~741 problems by difficulty, topic (37-tag taxonomy), title search, and **curated collections** (system-defined study lists like *Blind 73* and *Top Interview 150*).
+- **Browse & filter** ~741 problems by difficulty, topic (38-tag taxonomy), title search, and **curated collections** (system-defined study lists like *Blind 73* and *Top Interview 150*).
 - **Solve in-browser** in a CodeMirror Python editor with per-problem starter code and optional **progressive hints** (up to 3, collapsed by default).
 - **Real data-structure types** — tree and linked-list problems hand your solver actual objects, not arrays: `TreeNode`, singly-linked `ListNode`, and doubly-linked `Node` are built at the sandbox boundary and injected for you (LeetCode conventions), so you write pointer code instead of re-parsing arrays.
 - **Run & score** against all tests (visible examples + hidden), weighted per test, with per-visible-test feedback. Multiple answer-ordering judges (`exact` / `unordered` / `set_of_lists`). Hidden cases can be machine-strengthened to catch buggy solutions.

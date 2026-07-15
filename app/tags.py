@@ -2,7 +2,7 @@
 
 Every problem in the bank is tagged from a fixed, curated vocabulary so that
 filtering stays meaningful and duplicates/near-synonyms don't proliferate
-(`bfs` vs `breadth-first-search`, `monotonic-stack` vs `stack`, ...).
+(`bfs` vs `breadth-first-search`, `monotonic-queue` vs `queue`, ...).
 
 Three pieces:
   * ``CANONICAL_TAGS`` — the allowed vocabulary. Nothing else should be stored.
@@ -23,7 +23,7 @@ from __future__ import annotations
 # The umbrella catch-all (kept only when nothing more specific applies).
 MATH = "math"
 
-# Allowed vocabulary (37 tags). Keep alphabetised.
+# Allowed vocabulary (38 tags). Keep alphabetised.
 CANONICAL_TAGS: frozenset[str] = frozenset({
     "array",
     "backtracking",
@@ -49,6 +49,7 @@ CANONICAL_TAGS: frozenset[str] = frozenset({
     "math",
     "matrix",
     "memoization",
+    "monotonic-stack",
     "prefix-sum",
     "queue",
     "recursion",
@@ -75,7 +76,6 @@ TAG_ALIASES: dict[str, str] = {
     "merge-sort": "sorting",
     "intervals": "sorting",
     "sweep-line": "sorting",
-    "monotonic-stack": "stack",
     "monotonic-queue": "queue",
     "ordered-set": "binary-search-tree",
     "segment-tree": "binary-indexed-tree",
