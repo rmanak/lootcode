@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import json
 import re
+from collections.abc import Callable
 from dataclasses import dataclass
 
 from ..config import BASE_DIR, settings
@@ -34,8 +35,13 @@ _GUIDELINES_RE = re.compile(
     r"<!--\s*AI-GUIDELINES:START\s*-->(.*?)<!--\s*AI-GUIDELINES:END\s*-->", re.DOTALL
 )
 
-# Structured-output schema. Test input/expected are JSON-encoded *strings* so the
-# schema stays strict-validation friendly while still carrying arbitrary values.
+# Structured-output schema. `input`/`expected` are carried as *native* JSON values,
+# not JSON-encoded strings: with constrained decoding (llama.cpp builds a GBNF grammar
+# from this schema, so the emitted tokens are guaranteed schema-valid) the model
+# physically cannot produce an invalid inner value — e.g. it can no longer abbreviate a
+# large input with a Python expression like `"ab" * 1000`, which is what used to slip
+# through a plain string field and then blow up at json.loads() time. `input` is the
+# argument object {param_name: value}; `expected` (empty schema) is any JSON value.
 PROBLEM_SCHEMA = {
     "type": "object",
     "additionalProperties": False,
@@ -64,12 +70,14 @@ PROBLEM_SCHEMA = {
                 "type": "object", "additionalProperties": False,
                 "properties": {
                     "name": {"type": "string"},
-                    "input_json": {"type": "string"},
-                    "expected_json": {"type": "string"},
+                    # Native JSON, grammar-enforced (see schema note above): `input` is
+                    # the argument object; `expected` (empty schema) is any JSON value.
+                    "input": {"type": "object"},
+                    "expected": {},
                     "weight": {"type": "integer"},
                     "hidden": {"type": "boolean"},
                 },
-                "required": ["name", "input_json", "expected_json", "weight", "hidden"],
+                "required": ["name", "input", "expected", "weight", "hidden"],
             },
         },
     },
@@ -108,10 +116,20 @@ Rules:
 - `starter_code` is a stub of that function with a docstring/comment, no solution.
 - `canonical_solution` is a COMPLETE, CORRECT Python solution that defines the same
   top-level function and passes every test.
-- Each test's `input_json` is a JSON object mapping each parameter name to its value;
-  `expected_json` is the JSON-encoded expected return value. Both must be valid JSON.
+- Each test's `input` is a JSON object mapping each parameter name to its value (native
+  JSON, NOT a string). `expected` is the return value ITSELF, exactly as the function
+  returns it — do NOT wrap it in an object or add a key like "result". If the function
+  returns the integer 5, `expected` is `5` (never `{"result": 5}`); if it returns a list,
+  `expected` is that list. Write every value out in full — no expressions of any kind
+  (no arithmetic, no string/list repetition like `"ab" * 1000` or `[0] * 100`, no
+  concatenation, no variables).
+  Example test object for a function summing two ints (add(a, b) -> int):
+  {"name": "basic", "input": {"a": 2, "b": 3}, "expected": 5, "weight": 1, "hidden": false}
 - Provide 6-10 tests total: a few visible (hidden=false, used as examples) and several
-  hidden (hidden=true), including edge cases and at least one larger input.
+  hidden (hidden=true), including edge cases and at least one larger input. Write the
+  larger input out as a literal of a size you can spell in full (up to a few hundred
+  elements/characters is plenty).
+- `weight` is a small positive integer (use 1 unless a test deserves more).
 - `statement_md` is Markdown: a clear statement, **Constraints**, and 2-3 examples.
 - `compare` is how the judge matches the returned value: `exact` (order matters),
   `unordered` (the returned list is a multiset; top-level order ignored), or
@@ -293,15 +311,42 @@ def _complete_json(user: str) -> dict:
     return _llm_json(_system_prompt(), user, PROBLEM_SCHEMA, max_tokens=16000)
 
 
+def _test_io(t: dict) -> tuple:
+    """(input, expected) for one test, native-JSON first.
+
+    Constrained decoding gives us native `input`/`expected` values already. We still
+    accept the legacy JSON-string form (`input_json`/`expected_json`) as a fallback so an
+    unconstrained or degraded backend — a bare `json_object` response, a plain Claude
+    prompt — keeps working; those strings are re-parsed (and may raise, which the caller
+    treats as a malformed test to skip).
+    """
+    inp = t["input"] if "input" in t else json.loads(t["input_json"])
+    exp = t["expected"] if "expected" in t else json.loads(t["expected_json"])
+    return inp, exp
+
+
 def _to_internal(raw: dict) -> dict:
-    tests = [{
-        "name": t["name"],
-        "input": json.loads(t["input_json"]),
-        "expected": json.loads(t["expected_json"]),
-        "weight": int(t.get("weight", 1)),
-        "hidden": bool(t.get("hidden", False)),
-    } for t in raw["tests"]]
+    # With constrained decoding `input`/`expected` are already valid native JSON. The
+    # skip-on-error path only fires for an unconstrained/degraded backend that hand-rolled
+    # a malformed JSON string; skip just that test rather than aborting the whole run.
+    tests, dropped = [], []
+    for t in raw["tests"]:
+        try:
+            inp, exp = _test_io(t)
+        except (json.JSONDecodeError, KeyError, TypeError):
+            dropped.append(t.get("name", "?"))
+            continue
+        tests.append({
+            "name": t["name"], "input": inp, "expected": exp,
+            "weight": max(1, min(int(t.get("weight", 1) or 1), 1000)),
+            "hidden": bool(t.get("hidden", False)),
+        })
+    if not tests:
+        raise ValueError(
+            f"model produced {len(raw['tests'])} test(s) but none had usable "
+            "input/expected values. Try generating again.")
     return {
+        "_dropped_tests": dropped,
         "slug": raw["slug"], "title": raw["title"],
         "difficulty": raw.get("difficulty", "easy"), "topics": raw.get("topics", []),
         "statement_md": raw["statement_md"], "function_name": raw["function_name"],
@@ -326,34 +371,102 @@ def _validate(data: dict):
     return run_submission(data.get("canonical_solution") or "", prob, tcs)
 
 
-def generate_problem(brief: str, difficulty: str | None = None) -> dict:
-    """Generate one verified problem dict (ready for store.upsert_problem)."""
+def _sync_expected_to_canonical(data: dict) -> dict:
+    """Overwrite each test's `expected` with what the canonical solution actually returns.
+
+    The canonical is this project's sole oracle (see docs/test-strengthening.md). A weaker
+    model reliably mis-formats or mis-computes `expected` — even under constrained decoding
+    it wraps a scalar as ``{"result": 5}`` because the field is an untyped ("any") slot —
+    so rather than trust it, we run the canonical over the model's (grammar-valid) `input`s
+    and adopt its output as ground truth. This collapses the whole class of wrong/ill-typed
+    expected values into "correct by construction". Tests where the canonical raises or
+    times out are left untouched — the canonical is genuinely broken on that input, so the
+    caller retries or drops them. Returns ``{"failing": [...names], "agree": n, "ran": m}``
+    where agree/ran is how often the model's own `expected` already matched the canonical
+    (a soft trust signal for the canonical when they agree).
+    """
+    graded = _validate(data)
+    failing, agree, ran = [], 0, 0
+    for test, res in zip(data["tests"], graded.results):
+        if res.status in ("passed", "wrong"):
+            ran += 1
+            if res.status == "passed":  # model's expected already matched the oracle
+                agree += 1
+            test["expected"] = res.returned
+        else:  # error | timeout: the canonical itself fails on this input
+            failing.append(res.name)
+    return {"failing": failing, "agree": agree, "ran": ran}
+
+
+Progress = Callable[[str], None] | None
+
+
+def _emit(on_progress: Progress, message: str) -> None:
+    """Report a coarse progress step (for the streaming admin UI); no-op if unset."""
+    if on_progress:
+        on_progress(message)
+
+
+def generate_problem(brief: str, difficulty: str | None = None,
+                     on_progress: Progress = None) -> dict:
+    """Generate one verified problem dict (ready for store.upsert_problem).
+
+    ``on_progress(message)`` — if given — is called at each coarse stage so a caller
+    (the admin streaming endpoint) can show live progress during the slow model calls.
+    """
     user = (f"Create ONE Python coding problem.\nIdea / topic: {brief}\n"
             f"Difficulty: {difficulty or 'you choose'}\n"
             "Make the slug short, kebab-case, and descriptive.")
-    raw = _complete_json(user)
-    data = _to_internal(raw)
-    if difficulty:
-        data["difficulty"] = difficulty
-
-    graded = _validate(data)
-    if not graded.solved:  # one corrective retry
-        retry = user + (f"\n\nA previous attempt's reference solution failed "
-                        f"{graded.total_count - graded.passed_count} of "
-                        f"{graded.total_count} tests. Make sure canonical_solution "
-                        "passes ALL tests and every expected_json is correct.")
-        data = _to_internal(_complete_json(retry))
+    def build(prompt: str) -> dict:
+        d = _to_internal(_complete_json(prompt))
         if difficulty:
-            data["difficulty"] = difficulty
-        graded = _validate(data)
+            d["difficulty"] = difficulty
+        return d
 
+    # Ground-truth the expected values against the canonical (the oracle). The only thing
+    # left to fix afterwards is a canonical that errors/times out on some input.
+    _emit(on_progress, "Drafting the problem with the model…")
+    data = build(user)
+    _emit(on_progress, f"Verifying the reference solution against {len(data['tests'])} tests…")
+    sync = _sync_expected_to_canonical(data)
+    if sync["failing"]:  # one corrective retry, targeted at the actual failure
+        _emit(on_progress,
+              f"Reference solution failed on {len(sync['failing'])} input(s); regenerating…")
+        retry = user + (
+            f"\n\nA previous canonical_solution raised an error or timed out on "
+            f"{len(sync['failing'])} of {len(data['tests'])} test input(s). Return a "
+            "canonical_solution that runs correctly — no exceptions, within the time "
+            "limit — on every input.")
+        data = build(retry)
+        _emit(on_progress, f"Re-verifying against {len(data['tests'])} tests…")
+        sync = _sync_expected_to_canonical(data)
+
+    # Drop any inputs the canonical still can't run, so the stored suite is self-consistent.
+    if sync["failing"]:
+        drop = set(sync["failing"])
+        data["_dropped_tests"] = data.get("_dropped_tests", []) + [
+            t["name"] for t in data["tests"] if t["name"] in drop]
+        data["tests"] = [t for t in data["tests"] if t["name"] not in drop]
+    if not data["tests"]:
+        raise ValueError("canonical_solution failed on every test input; try again.")
+
+    _emit(on_progress, "Finalizing…")
+    graded = _validate(data)  # confirm the synced, on-disk suite is coherent
     data["_validation"] = {"solved": graded.solved, "passed": graded.passed_count,
-                           "total": graded.total_count}
+                           "total": graded.total_count,
+                           "dropped": data.get("_dropped_tests", []),
+                           "oracle_agreement": [sync["agree"], sync["ran"]]}
     return data
 
 
-def generate_from_text(text: str, count: int = 3) -> list[dict]:
-    """Derive up to `count` problems from a blob of text (e.g. a list of ideas)."""
+def generate_from_text(text: str, count: int = 3, on_progress: Progress = None,
+                       on_problem: Callable[[dict], None] | None = None) -> list[dict]:
+    """Derive up to `count` problems from a blob of text (e.g. a list of ideas).
+
+    ``on_progress(message)`` reports coarse stages; ``on_problem(data)`` — if given — is
+    called with each verified problem as soon as it is ready, so a streaming caller can
+    save + surface results incrementally rather than only at the end.
+    """
     count = max(1, min(int(count or 1), 5))
     brief_prompt = (
         f"From the material below, propose {count} distinct coding problems (you may "
@@ -361,15 +474,21 @@ def generate_from_text(text: str, count: int = 3) -> list[dict]:
         '{"problems":[{"title":...,"brief":...,"difficulty":"easy|medium|hard"}]}.\n\n'
         f"MATERIAL:\n{text[:8000]}"
     )
+    _emit(on_progress, f"Planning up to {count} problems…")
     planned = _llm_json(
         "You plan coding-practice problem sets. Output only the requested JSON.",
         brief_prompt, PLAN_SCHEMA, max_tokens=4000)
-    briefs = planned.get("problems", [])[:count]
+    briefs = [b for b in planned.get("problems", [])[:count]
+              if (b.get("brief") or b.get("title"))]
 
     out = []
-    for b in briefs:
+    for i, b in enumerate(briefs, 1):
         idea = b.get("brief") or b.get("title") or ""
-        if not idea:
-            continue
-        out.append(generate_problem(idea, b.get("difficulty")))
+        title = b.get("title") or idea[:48]
+        _emit(on_progress, f"Problem {i}/{len(briefs)}: {title}")
+        step = (lambda m, i=i, n=len(briefs): _emit(on_progress, f"[{i}/{n}] {m}"))
+        data = generate_problem(idea, b.get("difficulty"), on_progress=step)
+        out.append(data)
+        if on_problem:
+            on_problem(data)
     return out

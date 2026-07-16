@@ -11,6 +11,8 @@
 
 <p class="muted gen-backend">Using the <strong>{{ backend }}</strong>.</p>
 
+{# Server-rendered error/results below are the no-JS fallback; with JS the form
+   streams into #gen-live-error / #gen-live-results instead (see generate.js). #}
 {% if error %}<div class="run-error">{{ error }}</div>{% endif %}
 {% if results %}
 <div class="gen-results">
@@ -26,6 +28,10 @@
           <span class="warn-tag">⚠ reference solution failed
             ({{ r.validation.passed }}/{{ r.validation.total }}) — review it</span>
         {% endif %}
+        {% if r.validation.dropped %}
+          <span class="warn-tag">dropped {{ r.validation.dropped|length }} malformed
+            test(s): {{ r.validation.dropped|join(", ") }}</span>
+        {% endif %}
       {% endif %}
     </li>
     {% endfor %}
@@ -33,7 +39,13 @@
 </div>
 {% endif %}
 
-<form class="bigform" method="post" action="/admin/generate">
+<div class="run-error" id="gen-live-error" hidden></div>
+<div class="gen-results" id="gen-live-results" hidden>
+  <h2 id="gen-live-heading"></h2>
+  <ul id="gen-live-list"></ul>
+</div>
+
+<form class="bigform" id="gen-form" method="post" action="/admin/generate">
   <h2>From an idea</h2>
   <label>Problem idea / topic
     <input name="brief" placeholder="dynamic programming on a 1D array, like climbing stairs">
@@ -52,9 +64,19 @@
       placeholder="Paste several problem ideas or a topic outline; the model will create similar problems."></textarea></label>
   <label>How many to generate (max 5)<input name="count" type="number" value="3" min="1" max="5"></label>
 
-  <button type="submit">Generate &amp; verify</button>
+  <div class="gen-actions">
+    <button type="submit" id="gen-submit">Generate &amp; verify</button>
+    <div class="ai-help-progress" id="gen-progress" hidden>
+      <div class="ai-help-bar"><span id="gen-bar-fill"></span></div>
+      <span class="ai-help-status" id="gen-status"></span>
+    </div>
+  </div>
   <p class="muted">Each generated problem is run against its own tests before saving.
      This calls the {{ backend }} and may take a minute (longer on a local endpoint).</p>
 </form>
 {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static('generate.js') }}"></script>
 {% endblock %}

@@ -675,6 +675,10 @@ td.fail { color: var(--fail); font-weight: 600; }
 .warn-tag { color: var(--accent); font-size: 12px; }
 .gen-results { background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 16px 20px; margin-bottom: 18px; }
+/* Generate button + streaming progress bar sit on one row. */
+.gen-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
+.gen-actions .ai-help-progress { margin-top: 0; }
+.gen-actions button.is-busy { cursor: progress; }
 
 /* Admin edit page */
 .ok-banner { background: #e7f4ec; color: var(--pass); padding: 12px 14px;

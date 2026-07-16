@@ -110,9 +110,18 @@ not as a default the save path applies on its own.
   probe found a live endpoint (`settings.llm_help_available`).
 
 Both request the same `PROBLEM_SCHEMA` (with a structured-output fallback chain on
-the openai path) and run through the same sandbox verify + one corrective retry, so
-generated problems are interchangeable regardless of backend. The admin button is
-enabled when **either** backend is available (`settings.generation_enabled`).
+the openai path) and run through the same sandbox verify, so generated problems are
+interchangeable regardless of backend. The admin button is enabled when **either**
+backend is available (`settings.generation_enabled`).
+
+**Constrained decoding.** `PROBLEM_SCHEMA` carries each test's `input`/`expected` as
+*native* JSON values, not JSON-encoded strings. On the openai path this is sent as an
+OpenAI-style `response_format: json_schema`, which llama.cpp turns into a GBNF grammar,
+so the emitted tokens are guaranteed schema-valid — the model physically cannot abbreviate
+a large input with a Python expression like `"ab" * 1000` (a stringified field used to let
+that slip through and then blow up at `json.loads` time). `input` is a typed object; the
+untyped `expected` slot is where a weaker model still mis-formats (e.g. wrapping a scalar as
+`{"result": 5}`), which the verify step corrects — see below.
 
 `LLM_GEN_BACKEND` overrides the choice: `auto` (default — Claude if keyed, else the
 endpoint), or force `anthropic` / `openai` (e.g. to author on the local endpoint
@@ -132,7 +141,16 @@ Two independent checks, both required:
    a substitute for it. It requires *executing untrusted code*, which only happens
    inside the sandbox (`docs/code-execution.md`): `app.llm.generator` does it
    inline via `run_submission`, and `python scripts/seed.py` re-verifies every
-   problem on disk. For **loose generator output not yet imported** — a folder of
+   problem on disk. The from-scratch path (`generate_problem`) goes one step further:
+   it treats the **canonical as the oracle** (per `docs/test-strengthening.md`) and
+   *ground-truths* every test's `expected` to what the canonical actually returns
+   (`_sync_expected_to_canonical`), rather than trusting the model's `expected`. That
+   collapses the dominant failure modes — a mis-computed or mis-formatted `expected`
+   (e.g. `{"result": 5}` for a scalar return) — into "correct by construction". Only a
+   canonical that *raises or times out* on an input still fails; one corrective retry
+   targets exactly that, and any input the canonical still can't run is dropped so the
+   stored suite stays self-consistent. `_validation` records `oracle_agreement` — how
+   many of the model's own `expected` values matched the canonical before the rewrite. For **loose generator output not yet imported** — a folder of
    per-problem `.json` files in this core-contract shape (e.g. `test_output/`) —
    `python scripts/verify_json.py <folder>` runs both checks in batch (valid JSON
    + required fields, then `run_submission` per file) and reports each file's

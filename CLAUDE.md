@@ -50,9 +50,13 @@ optional) · **Anthropic Claude API** for optional problem generation.
 ## Common commands
 
 ```bash
-python3 -m venv .venv && . .venv/bin/activate
-pip install -r requirements.txt           # runtime deps
-pip install -r requirements-dev.txt       # + pytest/httpx for tests
+# Local dev env is a self-contained conda env at ./.venv (its own python
+# binary + stdlib, independent of anaconda base). Recreate it with:
+#   conda create -y -p ./.venv python=3.12
+# Activate with `conda activate ./.venv` (conda envs have no bin/activate);
+# or just call ./.venv/bin/python directly — which is what the scripts do.
+.venv/bin/python -m pip install -r requirements.txt      # runtime deps
+.venv/bin/python -m pip install -r requirements-dev.txt  # + pytest/httpx for tests
 python scripts/seed.py                     # seed DB from content/ and verify
 python scripts/audit.py                    # check statement/test/judge consistency
 python scripts/build_bank.py               # (re)generate the bundled problem bank

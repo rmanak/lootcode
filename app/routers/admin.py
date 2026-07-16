@@ -7,18 +7,20 @@ from __future__ import annotations
 
 import json
 import math
+import queue
+import threading
 from types import SimpleNamespace
 from urllib.parse import urlencode
 
 from fastapi import APIRouter, Depends, Form, HTTPException, Request
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, StreamingResponse
 from pydantic import BaseModel
 from sqlalchemy import or_, select
 from sqlalchemy.orm import Session
 
 from .. import content, store
 from ..config import settings
-from ..db import get_db
+from ..db import SessionLocal, get_db
 from ..executor import run_submission
 from ..models import Problem
 from ..templating import templates
@@ -316,3 +318,69 @@ def generate_submit(
         "disabled": False, "results": results, "error": error,
         "backend": _BACKEND_LABELS.get(_active_backend(), ""),
     })
+
+
+@router.post("/generate/stream")
+def generate_stream(
+    brief: str = Form(""), difficulty: str = Form(""),
+    bulk_text: str = Form(""), count: int = Form(3),
+):
+    """Server-Sent Events variant of ``POST /generate``.
+
+    Generation on a local endpoint takes the better part of a minute, so instead of a
+    blank blocking POST we run it in a worker thread and stream coarse progress plus each
+    saved problem to the browser (``{"type": "status"|"result"|"done"|"error", ...}``).
+    The plain form POST above stays as the no-JS fallback. Mirrors the streaming shape of
+    the "Get More Help with AI" endpoint (see app/routers/submissions.py).
+    """
+    if not settings.generation_enabled:
+        raise HTTPException(status_code=400, detail="AI generation is not configured.")
+    brief, difficulty, bulk_text = brief.strip(), difficulty.strip(), bulk_text.strip()
+
+    events: queue.Queue = queue.Queue()
+
+    def worker():
+        # Runs after the request scope, so it owns its own DB session (like ai_help).
+        from ..llm import generator
+
+        db = SessionLocal()
+        try:
+            def on_progress(msg: str):
+                events.put({"type": "status", "message": msg})
+
+            def save_and_emit(data: dict):
+                prob = _save(db, data)
+                events.put({"type": "result", "slug": prob.slug, "title": prob.title,
+                            "validation": data.get("_validation", {})})
+
+            if bulk_text:
+                generator.generate_from_text(bulk_text, count, on_progress=on_progress,
+                                             on_problem=save_and_emit)
+            elif brief:
+                data = generator.generate_problem(brief, difficulty or None,
+                                                  on_progress=on_progress)
+                save_and_emit(data)
+            else:
+                events.put({"type": "error",
+                            "message": "Enter a problem idea or paste source material."})
+                return
+            events.put({"type": "done"})
+        except Exception as exc:  # noqa: BLE001 - surface any generation/parse error
+            events.put({"type": "error", "message": f"Generation failed: {exc}"})
+        finally:
+            db.close()
+            events.put(None)  # sentinel: end of stream
+
+    threading.Thread(target=worker, daemon=True).start()
+
+    def event_stream():
+        while True:
+            item = events.get()
+            if item is None:
+                break
+            yield f"data: {json.dumps(item)}\n\n"
+
+    return StreamingResponse(
+        event_stream(), media_type="text/event-stream",
+        # Defeat proxy/browser buffering so frames arrive as they're produced.
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
