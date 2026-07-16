@@ -27,7 +27,8 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `app/main.py` | FastAPI app: startup/seed, cookie identity middleware, routers. |
 | `app/routers/` | `pages.py` (HTML), `submissions.py` (run API), `admin.py`. |
 | `app/executor/` | Sandboxed code execution. `harness.py` runs INSIDE the sandbox. |
-| `app/llm/` | Claude-API problem generation (`generator.py`). |
+| `app/llm/` | Claude-API problem generation (`generator.py`); `draft_store.py` holds AI-generated problems awaiting owner review (generation never auto-saves). |
+| `app/problem_validation.py` | Pre-save gate shared by the manual **and** AI admin create flows: slug format+collision, structure (reuses `scripts/test_llm_output.py`, static/no-exec), canonical-tags-only, statement↔compare consistency, and the canonical passing all tests in the sandbox; plus `find_similar_problems` (duplicate nudge). Nothing is written until it passes. |
 | `app/models.py` · `db.py` · `store.py` | ORM models, engine, DB operations. |
 | `app/content.py` | Load/write problems to `content/problems/`. |
 | `app/testgen/` | Test-strengthening engine. Machine-generates hidden cases to catch buggy *user* solutions by **coverage**, not by beating an invented wrong solution: `features.py` (structural input tokens) + `coverage.py` (canonical execution tokens) are the backbone; `mutate.py`/`candidates.py` kills are add-only universes; `select.py` set-covers the union; `shrink.py` minimizes; `generators.py`/`constraints.py` build the input pool. See `docs/test-strengthening.md`. |
@@ -131,6 +132,11 @@ works for a fresh checkout.
   `ANTHROPIC_API_KEY` is set (preferred), otherwise the same OpenAI-compatible
   `LLM_HELP_URL` endpoint the AI-help button uses (`generator.active_backend()`);
   the button is enabled when either is available (`settings.generation_enabled`).
+  **Generation never saves directly:** each problem is verified, then opens a
+  **review page** (the New-problem form, prefilled) with a slug-collision guard and
+  similar-problem suggestions; the owner confirms and Creates it through the one
+  validated save path (`POST /admin/new` → `app/problem_validation.py`), the same
+  gate the manual form and edit form use. See `docs/problem-generation.md`.
 - **Figures:** when a problem needs a diagram, follow `docs/problem-images.md`
   (when to add one, SVG how-to, and the `content/problems/<slug>/assets/` +
   `/problems/{slug}/assets/{filename}` serving API). Bulk text imports go through

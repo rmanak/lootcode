@@ -1,7 +1,11 @@
-// Admin "Generate & verify": stream generation progress instead of a blank ~minute
-// blocking POST. Progressive enhancement — if this script doesn't run, the form still
-// posts normally to /admin/generate and the server renders the results. Mirrors the
-// SSE shape of the "Get More Help with AI" endpoint.
+// Admin "Generate & review": stream generation progress, then navigate to the review
+// page(s). Progressive enhancement — if this script doesn't run, the form posts normally
+// to /admin/generate and the server issues the same redirect. Mirrors the SSE shape of
+// the "Get More Help with AI" endpoint.
+//
+// Generation no longer saves anything: on the `done` event the server hands back a
+// `redirect` URL (the single draft's review page, or the batch review queue) and we send
+// the browser there to confirm + Create each problem.
 (function () {
   const form = document.getElementById("gen-form");
   if (!form || !window.fetch) return;
@@ -11,11 +15,8 @@
   const bar = document.getElementById("gen-bar-fill");
   const statusEl = document.getElementById("gen-status");
   const liveError = document.getElementById("gen-live-error");
-  const results = document.getElementById("gen-live-results");
-  const heading = document.getElementById("gen-live-heading");
-  const list = document.getElementById("gen-live-list");
 
-  let busy = false, timer = null, t0 = 0, pct = 0, latest = "", count = 0;
+  let busy = false, timer = null, t0 = 0, pct = 0, latest = "";
 
   const setBar = (p) => { pct = p; bar.style.width = p + "%"; };
   function tick() {
@@ -25,41 +26,9 @@
     statusEl.textContent = `${latest || "Working…"} (${secs}s)`;
   }
 
-  function addTag(li, cls, text) {
-    const s = document.createElement("span");
-    s.className = cls;
-    s.textContent = text;
-    li.append(" ", s);
-  }
-
-  function addResult(evt) {
-    const li = document.createElement("li");
-    const a = document.createElement("a");
-    a.href = "/problems/" + encodeURIComponent(evt.slug);
-    a.textContent = evt.title || evt.slug;
-    li.appendChild(a);
-    const v = evt.validation || {};
-    if (v.solved) {
-      addTag(li, "ok-tag", `verified ✓ (${v.passed}/${v.total})`);
-    } else if (v.total !== undefined) {
-      addTag(li, "warn-tag", `⚠ reference solution failed (${v.passed}/${v.total}) — review it`);
-    }
-    if (v.dropped && v.dropped.length) {
-      addTag(li, "warn-tag", `dropped ${v.dropped.length} malformed test(s): ${v.dropped.join(", ")}`);
-    }
-    list.appendChild(li);
-    count += 1;
-    heading.textContent = `Created ${count} problem(s)`;
-    results.hidden = false;
-  }
-
   async function run() {
-    // Reset UI for a fresh run.
     liveError.hidden = true;
     liveError.textContent = "";
-    results.hidden = true;
-    list.textContent = "";
-    count = 0;
     busy = true;
     submit.disabled = true;
     submit.classList.add("is-busy");
@@ -68,7 +37,7 @@
     t0 = Date.now();
     setBar(6);
 
-    let errored = false;
+    let errored = false, redirect = null;
     try {
       const resp = await fetch("/admin/generate/stream", {
         method: "POST", body: new FormData(form),
@@ -97,8 +66,8 @@
           try { evt = JSON.parse(line.slice(5).trim()); } catch (_) { continue; }
           if (evt.type === "status") {
             latest = evt.message || latest;
-          } else if (evt.type === "result") {
-            addResult(evt);
+          } else if (evt.type === "done") {
+            redirect = evt.redirect || null;
           } else if (evt.type === "error") {
             errored = true;
             liveError.textContent = evt.message || "Generation failed.";
@@ -113,16 +82,17 @@
     } finally {
       if (timer) { clearInterval(timer); timer = null; }
       setBar(100);
+      if (redirect && !errored) {
+        statusEl.textContent = "Done ✓ — opening review…";
+        // Keep the button disabled; we're leaving the page.
+        window.location.assign(redirect);
+        return;
+      }
       busy = false;
       submit.disabled = false;
       submit.classList.remove("is-busy");
-      if (errored && count === 0) {
-        progress.hidden = true;
-        statusEl.textContent = "";
-      } else {
-        statusEl.textContent = count ? `Done ✓ — ${count} saved` : "Done ✓";
-        setTimeout(() => { progress.hidden = true; }, 1800);
-      }
+      progress.hidden = true;
+      statusEl.textContent = "";
     }
   }
 

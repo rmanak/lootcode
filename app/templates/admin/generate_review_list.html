@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Review generated problems · {{ app_name }}{% endblock %}
+{% block content %}
+<p class="crumb"><a href="/admin">← Admin</a> &nbsp;·&nbsp; <a href="/admin/generate">Generate</a></p>
+<h1>Review generated problems</h1>
+
+{% if drafts %}
+<p class="muted">{{ drafts|length }} draft(s) pending. Nothing is saved yet — open each
+  one, review the prefilled fields, and Create it. Drafts are held in memory and clear on
+  restart.</p>
+
+<div class="gen-results">
+  <ul>
+    {% for d in drafts %}
+    <li>
+      <a href="/admin/generate/review/{{ d.id }}"><strong>{{ d.title }}</strong></a>
+      <code>{{ d.slug }}</code>
+      <span class="muted">· {{ d.difficulty }} · {{ d.n_tests }} test(s)</span>
+      {% if d.verified %}
+        <span class="ok-tag">reference verified ✓ ({{ d.passed }}/{{ d.total }})</span>
+      {% elif d.total is not none %}
+        <span class="warn-tag">⚠ reference failed ({{ d.passed }}/{{ d.total }})</span>
+      {% endif %}
+      {% if d.collision %}
+        <span class="warn-tag">slug already exists — will need renaming</span>
+      {% endif %}
+      &nbsp;<a href="/admin/generate/review/{{ d.id }}">review &amp; create →</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% else %}
+<p class="muted">No drafts pending review. <a href="/admin/generate">Generate some problems</a>.</p>
+{% endif %}
+{% endblock %}

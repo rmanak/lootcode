@@ -57,38 +57,43 @@ add header fields per mode, rather than three unrelated contracts.
   (DB **and** `content/problems/`). What happens on a hit is a deliberate policy
   decision — see below — **not** something any code path may resolve silently.
 
-### ⚠️ Slug collisions need an explicit policy (PARKED — do not resolve implicitly)
+### ⚠️ Slug collisions need an explicit policy (IMPLEMENTED for Mode C)
 
 A slug collision is not just a naming clash: it is the cheapest, most concrete
 signal that the incoming problem may be a **genuine duplicate** of one already in
 the bank. So a collision must be **surfaced and handled by an explicit, chosen
-policy** — never by an implicit default. In particular, the two tempting silent
-behaviors are both wrong:
+policy** — never by an implicit default. The two tempting silent behaviors are
+both wrong:
 
-- **Silent overwrite** — replace the existing problem. This is what
-  `store.upsert_problem` does *today* (it keys on `slug`), and it can destroy a
-  real, different problem that merely shares a name. ✗
-- **Silent auto-suffix** — append `-2`, `-3`, … to make the slug unique and save
-  anyway. This *masks* a potential duplicate by quietly admitting it under a new
-  name. ✗
+- **Silent overwrite** — replace the existing problem. `store.upsert_problem`
+  keys on `slug`, so *left unguarded* it destroys a real, different problem that
+  merely shares a name. This is exactly what admin generation used to do. ✗
+- **Silent auto-suffix** — append `-2`, `-3`, … and save anyway. This *masks* a
+  potential duplicate by quietly admitting it under a new name. ✗
 
-Either may turn out to be the right call in context — but only as a **deliberate,
-visible decision** (ideally with the collision reported back to the caller/admin),
-not as a default the save path applies on its own.
+**How it's handled now (the admin flow):** the collision check runs
+**before** any save, in `app/problem_validation.py`:
 
-> **Status: parked.** No `slugify()` / collision-policy helper exists yet, and
-> the current `upsert_problem` overwrite-on-slug behavior is a placeholder, not
-> the intended contract. When Modes A/B are wired up, the collision check must run
-> **before** the save and route to an explicit policy. A slug hit is the exact /
-> trivial end of the duplicate-detection spectrum, so design it together with —
-> or as the first cheap check of — `docs/duplicate-detection-plan.md` (which also
-> names `upsert_problem` as the choke point), rather than as an isolated rule.
+- On the **review page** (`GET /admin/generate/review/{draft_id}`) a collision is
+  reported to the admin, and the slug field is pre-filled with the *suggested* free
+  slug (`suggest_slug`, the `-2`/`-3` form) — offered as a visible default to edit,
+  never applied silently.
+- On **save** (`POST /admin/new`, shared by the manual form) `validate_problem`
+  **hard-rejects** a slug that already exists in the DB or on disk. There is no code
+  path that overwrites an existing problem — the author must pick a free slug or edit
+  the existing problem directly. The same gate also surfaces a **similar-problems**
+  list (`find_similar_problems`) so a near-duplicate under a *different* slug still
+  gets eyeballed.
+
+> A slug hit is the exact / trivial end of the duplicate-detection spectrum; the
+> fuzzier near-duplicate detector remains future work (`docs/duplicate-detection-plan.md`),
+> and `find_similar_problems` is a cheap token/tag-overlap stand-in until it lands.
 
 ## Where each mode lives
 
 | Mode | Status | Code / artifact |
 |------|--------|-----------------|
-| **C** (from scratch) | **implemented** — admin *"Auto-generate with AI"* | `app/llm/generator.py` (`generate_problem`, `generate_from_text`); route `POST /admin/generate`. Its `PROBLEM_SCHEMA` is the **full** entity (core + `title` + `slug` + `statement_md`), and it verifies the result in the sandbox before returning. |
+| **C** (from scratch) | **implemented** — admin *"Auto-generate with AI"* | `app/llm/generator.py` (`generate_problem`, `generate_from_text`); route `POST /admin/generate[/stream]`. Its `PROBLEM_SCHEMA` is the **full** entity (core + `title` + `slug` + `statement_md`), verified in the sandbox before returning. Generation **never saves**: each problem becomes a *draft* (`app/llm/draft_store.py`) and opens the **review page** (the New-problem form, prefilled — collision guard + similar-problems + full re-validation) where the admin confirms and Creates it through the one validated save path (`POST /admin/new`). |
 | **A** (fill-in, full statement) | **artifact ready, not yet wired** | `prompt.txt` (templated on `{problem_description_value}`) + `test_llm_output.py` (validates the **core**; it intentionally *rejects* `title`/`slug`/`statement_md` via `extra="forbid"`, so a model that ignores the contract and re-emits the statement is caught). |
 | **B** (fill-in, description only) | **not built** | Reuses Mode A's prompt with `title` added back to the output contract, and slug derived from the generated title. |
 

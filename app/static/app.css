@@ -680,6 +680,20 @@ td.fail { color: var(--fail); font-weight: 600; }
 .gen-actions .ai-help-progress { margin-top: 0; }
 .gen-actions button.is-busy { cursor: progress; }
 
+/* Validation errors/warnings + AI review context (admin new/edit/review) */
+.run-error ul, .val-warnings ul { margin: 6px 0 0; padding-left: 20px; }
+.run-error li, .val-warnings li { margin: 3px 0; }
+.val-warnings { background: #fff8e6; color: #7a5a00; border: 1px solid #f0d68a;
+  padding: 12px 14px; border-radius: 8px; margin-top: 14px; }
+.ai-banner { background: #eef4ff; border: 1px solid #c9d9f5; color: var(--ink);
+  padding: 12px 16px; border-radius: 8px; margin-bottom: 14px; }
+.ai-banner p { margin: 6px 0; }
+.similar-box { background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 16px; margin: 14px 0; }
+.similar-box summary { cursor: pointer; font-weight: 600; }
+.similar-box ul { margin: 10px 0 4px; padding-left: 20px; }
+.similar-box li { margin: 4px 0; }
+
 /* Admin edit page */
 .ok-banner { background: #e7f4ec; color: var(--pass); padding: 12px 14px;
   border-radius: 8px; margin-bottom: 14px; }

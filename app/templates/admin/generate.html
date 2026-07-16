@@ -11,39 +11,15 @@
 
 <p class="muted gen-backend">Using the <strong>{{ backend }}</strong>.</p>
 
-{# Server-rendered error/results below are the no-JS fallback; with JS the form
-   streams into #gen-live-error / #gen-live-results instead (see generate.js). #}
+<p class="muted">Generation doesn't save anything. Each problem is verified, then opens
+  in a <strong>review page</strong> (the New-problem form, prefilled) where you confirm,
+  edit, and Create it — with a duplicate check and a slug-collision guard.</p>
+
+{# Server-rendered error is the no-JS fallback; with JS the form streams into
+   #gen-live-error and then redirects to the review page (see generate.js). #}
 {% if error %}<div class="run-error">{{ error }}</div>{% endif %}
-{% if results %}
-<div class="gen-results">
-  <h2>Created {{ results|length }} problem(s)</h2>
-  <ul>
-    {% for r in results %}
-    <li>
-      <a href="/problems/{{ r.slug }}">{{ r.title }}</a>
-      {% if r.validation %}
-        {% if r.validation.solved %}
-          <span class="ok-tag">verified ✓ ({{ r.validation.passed }}/{{ r.validation.total }})</span>
-        {% else %}
-          <span class="warn-tag">⚠ reference solution failed
-            ({{ r.validation.passed }}/{{ r.validation.total }}) — review it</span>
-        {% endif %}
-        {% if r.validation.dropped %}
-          <span class="warn-tag">dropped {{ r.validation.dropped|length }} malformed
-            test(s): {{ r.validation.dropped|join(", ") }}</span>
-        {% endif %}
-      {% endif %}
-    </li>
-    {% endfor %}
-  </ul>
-</div>
-{% endif %}
 
 <div class="run-error" id="gen-live-error" hidden></div>
-<div class="gen-results" id="gen-live-results" hidden>
-  <h2 id="gen-live-heading"></h2>
-  <ul id="gen-live-list"></ul>
-</div>
 
 <form class="bigform" id="gen-form" method="post" action="/admin/generate">
   <h2>From an idea</h2>
@@ -65,14 +41,15 @@
   <label>How many to generate (max 5)<input name="count" type="number" value="3" min="1" max="5"></label>
 
   <div class="gen-actions">
-    <button type="submit" id="gen-submit">Generate &amp; verify</button>
+    <button type="submit" id="gen-submit">Generate &amp; review</button>
     <div class="ai-help-progress" id="gen-progress" hidden>
       <div class="ai-help-bar"><span id="gen-bar-fill"></span></div>
       <span class="ai-help-status" id="gen-status"></span>
     </div>
   </div>
-  <p class="muted">Each generated problem is run against its own tests before saving.
-     This calls the {{ backend }} and may take a minute (longer on a local endpoint).</p>
+  <p class="muted">Each problem is verified against its own tests, then opens in a review
+     page — you save it from there. This calls the {{ backend }} and may take a minute
+     (longer on a local endpoint).</p>
 </form>
 {% endif %}
 {% endblock %}

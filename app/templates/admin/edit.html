@@ -5,7 +5,18 @@
 <h1>Edit problem <code>{{ f.slug }}</code></h1>
 
 {% if saved %}<div class="ok-banner">Saved ✓ — the database and <code>content/{{ f.slug }}/</code> are updated.</div>{% endif %}
-{% if error %}<div class="run-error">{{ error }}</div>{% endif %}
+{% if errors %}
+<div class="run-error">
+  <strong>Fix these before the problem can be saved:</strong>
+  <ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul>
+</div>
+{% endif %}
+{% if warnings %}
+<div class="val-warnings">
+  <strong>Warnings</strong> (these won't block saving):
+  <ul>{% for w in warnings %}<li>{{ w }}</li>{% endfor %}</ul>
+</div>
+{% endif %}
 
 <form class="bigform" id="edit-form" method="post"
       action="/admin/problems/{{ f.slug }}/edit" data-slug="{{ f.slug }}">
