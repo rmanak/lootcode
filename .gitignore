@@ -70,3 +70,5 @@ testgen_cache/
 # collection references to them) with no error. See docs/extended-problems.md.
 /content/problems-extended/
 /content/collections/top-google.json
+/staging
+staging/
