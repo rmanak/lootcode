@@ -14,7 +14,7 @@ taxonomy + rationale is **`specs/tags.md`**. This skill is the authoring
 workflow. If those files and this list ever disagree, `app/tags.py` wins — refresh
 this skill from it.
 
-## Canonical tags (38)
+## Canonical tags (39)
 
 Pick **1–4** that best describe the *technique/structure*, not incidental detail.
 
@@ -22,7 +22,7 @@ Pick **1–4** that best describe the *technique/structure*, not incidental deta
   `binary-tree` · `graph`
 - **Structures:** `stack` · `monotonic-stack` · `queue` · `heap` · `hash-table` · `hash-set` ·
   `hash-function` · `binary-search-tree` · `trie` · `union-find` ·
-  `binary-indexed-tree` · `suffix-array`
+  `binary-indexed-tree` · `suffix-array` · `design`
 - **Techniques:** `two-pointers` · `sliding-window` · `prefix-sum` ·
   `binary-search` · `sorting` · `greedy` · `backtracking` · `recursion` ·
   `divide-and-conquer` · `dynamic-programming` · `memoization` ·
@@ -33,6 +33,10 @@ Pick **1–4** that best describe the *technique/structure*, not incidental deta
 applies (pure number-theory / geometry / probability / arithmetic-formula
 problems). If a problem already has a specific tag, do **not** also add `math`;
 `normalize_tags` strips the redundant umbrella anyway.
+
+`design` is for **implement-a-data-structure** problems driven by an operations
+sequence (input like `["LRUCache", "put", "get", ...]` + per-op args). Use it
+for the "build/design a structure" pattern, not one-shot computational problems.
 
 ## Don't use these — they map to a canonical tag
 
@@ -52,7 +56,7 @@ Common aliases (full map in `app/tags.py:TAG_ALIASES`):
 | `dijkstra`, `bridges`, `eulerian-path`, `shortest-path`, `topological-sort`, `minimum-spanning-tree` | `graph` |
 | `number-theory`, `geometry`, `probability`, `probability-and-statistics` | `math` |
 
-**Dropped entirely** (never use): `design`, `enumeration`, `queries`.
+**Dropped entirely** (never use): `enumeration`, `queries`.
 
 ## Workflow
 

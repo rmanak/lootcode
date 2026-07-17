@@ -51,6 +51,18 @@ def _migrate() -> None:
             # next seed upserts them (the template treats NULL/empty as "no hints").
             conn.exec_driver_sql("ALTER TABLE problems ADD COLUMN hints JSON")
 
+        # Class-based "design" problems (see specs/problem-schema.md). Existing
+        # rows default to the single-function contract; the next content re-seed
+        # fills class_name/class_methods for any kind="class" problem.
+        if "kind" not in cols:
+            conn.exec_driver_sql(
+                "ALTER TABLE problems ADD COLUMN kind VARCHAR "
+                "NOT NULL DEFAULT 'function'")
+        if "class_name" not in cols:
+            conn.exec_driver_sql("ALTER TABLE problems ADD COLUMN class_name VARCHAR")
+        if "class_methods" not in cols:
+            conn.exec_driver_sql("ALTER TABLE problems ADD COLUMN class_methods JSON")
+
         # V2 optional accounts: add nullable auth columns to an existing users
         # table. SQLite forbids adding a UNIQUE column via ALTER, so the columns
         # go in plain and uniqueness is enforced by separate indexes below.

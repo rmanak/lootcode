@@ -57,7 +57,8 @@ from .tags import (
 
 # Reuse the project's standalone structural validator (pydantic + static AST). It
 # NEVER executes code, imports nothing from ``app``, and is the exact gate
-# scripts/import_collection.py uses — so structural rules stay defined in one place.
+# scripts/import_generated_problems.py uses — so structural rules stay defined in
+# one place.
 _SCRIPTS = Path(__file__).resolve().parent.parent / "scripts"
 if str(_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS))
@@ -78,6 +79,12 @@ _AMBIGUITY = ("any order", "in any order", "any valid", "you may return",
 # label that is neither a known scalar/array nor a rich type (a likely typo, e.g.
 # "TreeNod", which would silently be treated as a plain value and break decoding).
 _RICH_TYPES = frozenset({"TreeNode", "ListNode", "DoublyLinkedList"})
+# Helper types the harness injects for class-based ("design") problems — a class
+# constructor/method may take an Iterator or a nested-list of NestedInteger.
+_HELPER_TYPES = frozenset({
+    "Iterator", "Iterator<int>", "NestedInteger", "NestedInteger[]",
+    "List<NestedInteger>",
+})
 _BASE_TYPES = frozenset({
     "int", "float", "bool", "string", "char", "any", "void", "none", "object",
 })
@@ -299,17 +306,24 @@ def _core_contract(data: dict) -> dict:
             t.setdefault("weight", 1)
             t.setdefault("hidden", False)
         tests.append(t)
-    return {
+    kind = data.get("kind", "function") or "function"
+    core = {
+        "kind": kind,
         "difficulty": data.get("difficulty", "easy"),
         "tags": data.get("topics", []) or [],
-        "function_name": data.get("function_name", "") or "",
         "params": data.get("params", []) or [],
-        "return_type": data.get("return_type", "") or "",
         "compare": data.get("compare", "exact") or "exact",
         "starter_code": data.get("starter_code", "") or "",
         "canonical_solution": data.get("canonical_solution", "") or "",
         "tests": tests,
     }
+    if kind == "class":
+        core["class_name"] = data.get("class_name", "") or ""
+        core["class_methods"] = data.get("class_methods", []) or []
+    else:
+        core["function_name"] = data.get("function_name", "") or ""
+        core["return_type"] = data.get("return_type", "") or ""
+    return core
 
 
 def _friendlier(err: str) -> str:
@@ -324,8 +338,23 @@ def _friendlier(err: str) -> str:
 
 
 def _iter_types(data: dict):
-    """Yield ('return type', <type>) and ('parameter <name>', <type>) for each type
-    label declared in the problem, for the house-style nudge."""
+    """Yield ('<label>', <type>) for each type label declared in the problem, for
+    the house-style nudge — the function's params/return, or (for a class problem)
+    the constructor params and every method's params and return."""
+    if (data.get("kind") or "function") == "class":
+        for p in data.get("params") or []:
+            if isinstance(p, dict):
+                yield f"constructor parameter '{p.get('name', '?')}'", p.get("type", "")
+        for m in data.get("class_methods") or []:
+            if not isinstance(m, dict):
+                continue
+            mname = m.get("name", "?")
+            yield f"method '{mname}' return", (m.get("returns") or {}).get("type", "")
+            for p in m.get("params") or []:
+                if isinstance(p, dict):
+                    yield (f"method '{mname}' parameter '{p.get('name', '?')}'",
+                           p.get("type", ""))
+        return
     yield "return type", data.get("return_type", "")
     for p in data.get("params") or []:
         if isinstance(p, dict):
@@ -336,8 +365,10 @@ def _type_note(label: str, typ: str) -> str | None:
     t = (typ or "").strip()
     if not t:
         return None
+    if t in _HELPER_TYPES:
+        return None
     base = t.rstrip("[]") or t  # strip array suffixes: "int[]" -> "int"
-    if base in _RICH_TYPES:
+    if base in _RICH_TYPES or base in _HELPER_TYPES:
         return None
     low = base.lower()
     if low in _HOUSE_STYLE:
@@ -354,9 +385,12 @@ def _run_canonical(data: dict):
     """Run the canonical solution against the problem's tests in the real sandbox."""
     compare = data.get("compare", "exact")
     prob = SimpleNamespace(
+        kind=data.get("kind", "function") or "function",
         function_name=(data.get("function_name") or "").strip(),
         params=data.get("params", []) or [],
         return_type=(data.get("return_type") or "").strip(),
+        class_name=data.get("class_name"),
+        class_methods=data.get("class_methods"),
         compare=compare if compare in COMPARE_MODES else "exact",
         time_limit_ms=data.get("time_limit_ms", settings.EXEC_TIME_LIMIT_MS),
         memory_limit_mb=data.get("memory_limit_mb", settings.EXEC_MEMORY_LIMIT_MB),

@@ -85,7 +85,7 @@ that a deliberately re-ordered valid answer is still accepted.
 ## Difficulty & tags
 
 - Keep `difficulty` honest relative to the existing problems in `content/problems/`.
-- Tags MUST come from the **canonical vocabulary** (38 tags) — see
+- Tags MUST come from the **canonical vocabulary** (39 tags) — see
   `specs/tags.md` / `app/tags.py`. Pick 1–4 that describe the core
   technique/structure. Don't coin new tags or use near-synonyms (use
   `breadth-first-search` not `bfs`, `queue` not `monotonic-queue`); `math` is a
@@ -106,6 +106,30 @@ that a deliberately re-ordered valid answer is still accepted.
 - **TODO(owner):** add your requirements here.
 
 <!-- AI-GUIDELINES:END -->
+
+## Design (class) problems (authoring-time only)
+
+Some problems ask the solver to implement a **stateful class** instead of a
+function (`kind: "class"` — LRU Cache, Min Stack, Browser History…). This sits
+outside the AI-GUIDELINES block because the in-app generator authors function
+problems only; class problems are authored by Claude Code / the `problem-author`
+subagent (and bulk imports of a fully-generated staging folder). The quality bar is the
+same — honest difficulty/tags, ≤3 progressive hints whose last tier reveals the
+insight not the code, visible + hidden tests covering edges — with these class
+specifics:
+
+- The canonical/starter define `class <name>:` with `__init__` + one method per
+  declared method (the starter's methods are stubs).
+- Tests are operation sequences: `input = {"operations": [...], "args": [[...], ...]}`,
+  `expected` a same-length outputs list (`null` for the constructor and `void`
+  methods). Compute every `expected` by running the canonical — it is the oracle.
+- Cover edges: empty/one-element state, eviction/overflow boundaries, "operation
+  that clears state", and calls that clamp (e.g. back/forward past the ends).
+- **Avoid (deferred):** non-deterministic methods (`getRandom`, `shuffle`) and
+  compositional codecs (`serialize`↔`deserialize`) — they need a custom judge.
+
+Format details and the scaffolding tool are in `specs/problem-schema.md` and
+`docs/design-problems.md`.
 
 ## Figures (authoring-time only)
 

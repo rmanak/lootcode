@@ -48,15 +48,45 @@ PROVIDED_TYPE_DEFS = {
         "        self.prev = prev\n"
         "        self.next = next"
     ),
+    # Helper types the harness injects for class-based ("design") problems whose
+    # constructor/method takes one (see app/executor/harness.py).
+    "Iterator": (
+        "class Iterator:  # provided, do not redefine\n"
+        "    def hasNext(self) -> bool: ...  # another element remains?\n"
+        "    def next(self) -> int: ...      # return the next element, advance"
+    ),
+    "NestedInteger": (
+        "class NestedInteger:  # provided, do not redefine\n"
+        "    def isInteger(self) -> bool: ...  # holds a single integer?\n"
+        "    def getInteger(self) -> int: ...  # the integer (else None)\n"
+        "    def getList(self) -> list: ...     # the nested list (else None)"
+    ),
 }
+# Type-label aliases that map onto the same provided-type definition.
+PROVIDED_TYPE_DEFS["Iterator<int>"] = PROVIDED_TYPE_DEFS["Iterator"]
+for _alias in ("List<NestedInteger>", "NestedInteger[]"):
+    PROVIDED_TYPE_DEFS[_alias] = PROVIDED_TYPE_DEFS["NestedInteger"]
 
 
 def _provided_types(prob) -> dict:
-    """Map of declared custom type -> its definition snippet, for types this
-    problem actually uses as a param or return."""
-    used = {(p.get("type") or "") for p in (prob.params or [])}
-    used.add(prob.return_type or "")
-    return {t: PROVIDED_TYPE_DEFS[t] for t in used if t in PROVIDED_TYPE_DEFS}
+    """Ordered map of declared custom type -> its definition snippet, for the
+    rich/helper types this problem actually uses. Covers a function's params and
+    return, and (for a class problem) the constructor params plus every method's
+    params and return."""
+    used: list[str] = [(p.get("type") or "") for p in (prob.params or [])]
+    used.append(getattr(prob, "return_type", "") or "")
+    for m in (getattr(prob, "class_methods", None) or []):
+        used.extend((p.get("type") or "") for p in (m.get("params") or []))
+        used.append((m.get("returns") or {}).get("type") or "")
+    # De-dup by definition (aliases share one), preserving first-seen order.
+    out: dict = {}
+    seen: set = set()
+    for t in used:
+        defn = PROVIDED_TYPE_DEFS.get(t)
+        if defn and defn not in seen:
+            out[t] = defn
+            seen.add(defn)
+    return out
 
 
 @router.get("/favicon.ico", include_in_schema=False)

@@ -70,9 +70,13 @@ def audit_problem(p: Problem) -> list[str]:
     if amb and mode == "exact":
         issues.append("statement allows 'any order' but compare=exact (judge is strict)")
 
-    # 3) fairness: re-ordered valid answers must still pass for relaxed modes
+    # 3) fairness: re-ordered valid answers must still pass for relaxed modes.
+    # Skipped for class-based ("design") problems: the in-process check calls a
+    # single top-level function, which a class problem doesn't have — the sandbox
+    # behavioral check in step 1 already confirms canonical<->tests agreement.
     fair = "n/a"
-    if mode in ("unordered", "set_of_lists") and p.canonical_solution and canon_ok:
+    if (mode in ("unordered", "set_of_lists") and p.canonical_solution and canon_ok
+            and getattr(p, "kind", "function") != "class"):
         ns: dict = {codec[0].__name__: codec[0] for codec in _CODECS.values()}
         try:
             exec(p.canonical_solution, ns)

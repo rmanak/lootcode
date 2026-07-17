@@ -36,9 +36,17 @@
   <label>Hints (one per line, max 3)<textarea name="hints" rows="3">{{ f.hints }}</textarea></label>
   <label>Statement (Markdown)<textarea name="statement_md" rows="8">{{ f.statement_md }}</textarea></label>
 
+  <label>Problem kind
+    <select name="kind" id="kind-select">
+      <option value="function" {{ 'selected' if (f.kind or 'function') != 'class' }}>function — one top-level function</option>
+      <option value="class" {{ 'selected' if f.kind == 'class' }}>class — stateful “design” problem (write a class)</option>
+    </select>
+  </label>
+
   <div class="row">
-    <label>Function name<input name="function_name" value="{{ f.function_name }}" required></label>
-    <label>Return type<input name="return_type" value="{{ f.return_type }}"></label>
+    <label class="kind-function">Function name<input name="function_name" value="{{ f.function_name }}"></label>
+    <label class="kind-function">Return type<input name="return_type" value="{{ f.return_type }}"></label>
+    <label class="kind-class">Class name<input name="class_name" value="{{ f.class_name }}" placeholder="LRUCache"></label>
     <label>Compare mode
       <select name="compare">
         {% for m in compare_modes %}
@@ -47,14 +55,16 @@
       </select>
     </label>
   </div>
-  <label>Parameters (one per line as <code>name: type</code>)
+  <label>Parameters (one per line as <code>name: type</code>) <span class="muted kind-class">— the class constructor’s parameters</span>
     <textarea name="params" rows="3">{{ f.params }}</textarea></label>
+  <label class="kind-class">Class methods (JSON array of <code>{"name", "params":[{"name","type"}], "returns":{"type"}}</code>)
+    <textarea name="class_methods_json" class="mono" rows="6">{{ f.class_methods_json }}</textarea></label>
 
   <label>Starter code (Python)
     <textarea name="starter_code" class="mono" rows="6">{{ f.starter_code }}</textarea></label>
   <label>Canonical solution (Python — must pass all tests)
     <textarea name="canonical_solution" class="mono" rows="12">{{ f.canonical_solution }}</textarea></label>
-  <label>Tests (JSON array)
+  <label>Tests (JSON array) <span class="muted kind-class">— each input is <code>{"operations": [...], "args": [[...], ...]}</code>; expected is the per-operation outputs list</span>
     <textarea name="tests_json" class="mono" rows="16">{{ f.tests_json }}</textarea></label>
 
   <div class="actions">
@@ -65,4 +75,22 @@
   <div id="verify-results"></div>
 </form>
 {% endblock %}
-{% block scripts %}<script src="{{ static('admin.js') }}"></script>{% endblock %}
+{% block scripts %}<script src="{{ static('admin.js') }}"></script>
+<script>
+// Show only the fields relevant to the selected problem kind (function vs class).
+(function () {
+  var sel = document.getElementById("kind-select");
+  if (!sel) return;
+  function sync() {
+    var isClass = sel.value === "class";
+    document.querySelectorAll(".kind-function").forEach(function (e) {
+      e.style.display = isClass ? "none" : "";
+    });
+    document.querySelectorAll(".kind-class").forEach(function (e) {
+      e.style.display = isClass ? "" : "none";
+    });
+  }
+  sel.addEventListener("change", sync);
+  sync();
+})();
+</script>{% endblock %}

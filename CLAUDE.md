@@ -27,7 +27,7 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `app/main.py` | FastAPI app: startup/seed, cookie identity middleware, routers. |
 | `app/routers/` | `pages.py` (HTML), `submissions.py` (run API), `admin.py`. |
 | `app/executor/` | Sandboxed code execution. `harness.py` runs INSIDE the sandbox. |
-| `app/llm/` | Claude-API problem generation (`generator.py`); `draft_store.py` holds AI-generated problems awaiting owner review (generation never auto-saves). |
+| `app/llm/` | Claude-API problem generation (`generator.py`); `draft_store.py` holds AI-generated problems awaiting owner review (generation never auto-saves). Prompt templates live here as `*.txt` (`hint_prompt.txt`, `help_prompt.txt`, and `problem_prompt.txt` — the self-contained "Mode A" fill-in prompt: given a statement, emit the runnable core, contract + solution + tests + hints, for both function and class/design problems). **`problem_prompt.txt` embeds the canonical tag list verbatim — keep it in sync with `app/tags.py` when the vocabulary changes.** |
 | `app/problem_validation.py` | Pre-save gate shared by the manual **and** AI admin create flows: slug format+collision, structure (reuses `scripts/test_llm_output.py`, static/no-exec), canonical-tags-only, statement↔compare consistency, and the canonical passing all tests in the sandbox; plus `find_similar_problems` (duplicate nudge). Nothing is written until it passes. |
 | `app/models.py` · `db.py` · `store.py` | ORM models, engine, DB operations. |
 | `app/content.py` | Load/write problems to `content/problems/`. |
@@ -37,9 +37,11 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `content/problems-extended/` | Optional **extended** problem set — extra problems kept local (**gitignored**), seeded alongside the default set when present. A fresh clone drops these (and any collection references to them) cleanly; skipped references are reported by `seed.py` but non-fatal. See `docs/extended-problems.md`. |
 | `content/collections/` | Curated, system-defined problem lists (e.g. `blind-73.json`) used as a list filter (see `docs/collections.md`). |
 | `scripts/seed.py` | Load content into the DB + verify canonical solutions. |
+| `scripts/generate_problem_from_statement.py` | **Mode A (fill-in) CLI:** take a problem-statement file, inject it into `app/llm/problem_prompt.txt`, and call an OpenAI-compatible endpoint (defaults to the app's `LLM_HELP_*` env) asking for **schema-constrained JSON** (`PROBLEM_SCHEMA`, consistent with the data model / `test_llm_output.py`). Emits the problem object and (unless `--no-validate`) runs it through `scripts/test_llm_output.py`. Warns if the prompt's hard-coded tag list has drifted from `app/tags.py`. See `docs/problem-generation.md`. |
+| `scripts/test_llm_output.py` | Statically validate one LLM-produced problem object (from `app/llm/problem_prompt.txt`) against the core contract: pydantic schema + semantic checks (identifiers, signatures, per-test input keys / operation sequences, compare-mode shape, hints). Never executes the code. Also reused by `app/problem_validation.py`. |
 | `scripts/verify_json.py` | Batch-verify a folder of loose problem `.json` files (e.g. AI-generator output) before importing: valid JSON + required fields + canonical passes its tests, via `run_submission`. |
 | `scripts/verify_bank.py` | Run every problem's canonical solution against its own tests (the whole on-disk bank — **both** content roots, default + extended), via the same `run_submission` path; prints per-problem pass/fail + statistics. `--content-dir <dir>` scopes to one root; args for slug/substring filtering, `-v`/`-q` verbosity, `-j` parallelism, `--failfast`, `--strict`. |
-| `scripts/import_collection.py` | Validate + bulk-import a staged `statements/`+`rest/` collection dir (e.g. `user_collection/`) into `content/` and the DB. Runs every existing gate (structural, sandbox behavioral, statement↔judge, slug-collision), imports only what passes, copies figures, carries hints. See `docs/importing-collections.md`. |
+| `scripts/import_generated_problems.py` | The bulk-import **gate** for a staging folder of **fully-generated** problems (function **or** class/design) — `<src>/<slug>/{meta.json (title+body), generated_full_problem.json (kind, contract, canonical, tests, hints, tags), assets/}`. Runs every existing gate cheapest→dearest, short-circuiting: presence/slug, **structural** (`scripts/test_llm_output.py`, strict pydantic+AST; `--strict` promotes warnings), **slug-collision** (cross-root/DB = hard skip; target-root needs `--overwrite`), **behavioral + statement↔judge consistency** (`scripts/audit.py`). Only slugs passing **all** qualify; prints a report, confirms (`--yes`), then writes each to a content root (default `content/problems-extended/`, `--out` to choose; title/body from meta.json, rest from the core via `app.content.write_problem_files`; rewrites `](assets/x)` paths, copies figures), reloads from disk, **upserts into the DB, and re-verifies from the DB**. `--dry-run`/`--slug`/`-v`. Driven by the `generated-problem-import` agent. See `docs/importing-problems.md`. |
 | `scripts/strengthen_tests.py` | Batch sweep: generate hidden cases that widen behavioral **coverage** of the canonical (structural + execution tokens; mutant/population kills add-only) over `app/testgen/`. `--dry-run` by default, `--apply` writes cases back. See `docs/test-strengthening.md`. |
 | `scripts/oracle.py` | Single-problem hardening on the same `app/testgen` engine, agent-facing: `cover` (coverage-first selection — the backbone, no adversary needed), `fuzz --solution X --shrink` (a concrete failing solution IS in hand → keep every in-domain input it fails on, shrunk to minimal reproducers; **add-only**), `suite` (does a wrong solution slip the stored suite?), `analyze` (per-input oracle table). Canonical is the only oracle; every input gated through the validator; all via `run_submission`. |
 | `scripts/check_constraint_validators.py` · `generate_constraint_validators.py` | Audit / (LLM-)generate the per-problem input validators (`<root>/<slug>/input_validator/input_validator.py`): every stored test input must satisfy its problem's `validate_input()`. The checker audits **both** content roots (default + extended). Run it when adding test cases. See `docs/input-validators.md`. |
@@ -61,10 +63,13 @@ optional) · **Anthropic Claude API** for optional problem generation.
 python scripts/seed.py                     # seed DB from content/ and verify
 python scripts/audit.py                    # check statement/test/judge consistency
 python scripts/build_bank.py               # (re)generate the bundled problem bank
+python scripts/generate_problem_from_statement.py statement.txt -o problem.json  # Mode A: LLM fill-in from a statement
 python scripts/verify_json.py test_output  # batch-verify loose problem JSON before importing
 python scripts/verify_bank.py -j 8          # run every canonical solution against its tests
-python scripts/import_collection.py user_collection --dry-run  # validate a staged collection (statements/+rest/)
-python scripts/import_collection.py user_collection            # ...then import the ones that pass every gate
+# Bulk-import a staging folder of fully-generated problems (function or class),
+# one colocated <slug>/{meta.json, generated_full_problem.json, assets/} per problem:
+python scripts/import_generated_problems.py <staging-dir> --dry-run  # validate + report every gate, write nothing
+python scripts/import_generated_problems.py <staging-dir>            # ...then confirm to write + upsert the ones that qualify
 python scripts/strengthen_tests.py --filter tree -j 8          # dry-run: coverage-widening hidden cases (batch)
 python scripts/oracle.py cover <slug>                          # coverage-first hardening for one problem
 python scripts/oracle.py fuzz <slug> --solution bad.py --shrink  # add minimal cases a known-bad solution fails
@@ -83,7 +88,20 @@ works for a fresh checkout.
 - The DB is the runtime source of truth; `content/problems/` is the durable,
   human-editable mirror (manual/AI problems are written back to it).
 - Solver code defines a **top-level function** named by the problem's
-  `function_name` (no class wrapper).
+  `function_name` (no class wrapper) — **unless** the problem is `kind: "class"`.
+- **Design problems (`kind: "class"`):** stateful "design" problems (LRU Cache,
+  Min Stack, Browser History…) where the solver implements a **class**, graded by
+  replaying a method-call sequence against one instance. `meta.json` carries a
+  `class` block; on the model, `params` holds the constructor params and
+  `class_methods` the method signatures; tests are `input={operations, args}` →
+  `expected` outputs list. The harness (`app/executor/harness.py::_run_class`)
+  instantiates and dispatches. Non-deterministic (`getRandom`) and compositional
+  (`serialize`↔`deserialize`) design problems are **deferred** (need a custom
+  judge). A staging folder of fully-generated design problems
+  (`<src>/<slug>/{meta.json, generated_full_problem.json, assets/}`) imports in
+  bulk via `scripts/import_generated_problems.py` (default target
+  `content/problems-extended/`), driven by the `generated-problem-import` agent.
+  See `docs/design-problems.md` and `specs/problem-schema.md`.
 - **Rich types:** a param/return `type` may be `TreeNode`, `ListNode` (singly-linked,
   `val`/`next`) or `DoublyLinkedList` (class `Node`, `val`/`prev`/`next`). Stored on
   disk as a plain JSON value (tree = level-order array; list = flat value array); a
@@ -104,7 +122,7 @@ works for a fresh checkout.
   specs, as does the `problem-author` subagent. The guidelines file is the single
   source of truth — its marked block is injected into the in-app AI generator's
   system prompt, so a rule added there applies to manual and AI authoring alike.
-- **Tags:** use the canonical vocabulary only (38 tags). `app/tags.py` is the
+- **Tags:** use the canonical vocabulary only (39 tags). `app/tags.py` is the
   source of truth (`normalize_tags` runs on every content write); `specs/tags.md`
   is the prose taxonomy; the `canonical-tags` skill is the authoring workflow. If
   a problem fits no canonical tag, discuss adding one — don't invent it inline.
@@ -126,7 +144,10 @@ works for a fresh checkout.
   keep the canonical as the only oracle and gate every input through the validator.
 - **LLM generation** comes in three modes depending on what's already given —
   fill-in (full statement / description-only) vs. from-scratch — sharing one
-  "core" output contract. See `docs/problem-generation.md`. The in-app
+  "core" output contract. See `docs/problem-generation.md`. The **fill-in** mode
+  (given a statement, emit the core) is a CLI:
+  `scripts/generate_problem_from_statement.py <statement-file>`, prompt in
+  `app/llm/problem_prompt.txt`, validated by `scripts/test_llm_output.py`. The in-app
   "Auto-generate with AI" admin feature is the from-scratch mode
   (`app/llm/generator.py`). It runs on either backend — the Claude API when
   `ANTHROPIC_API_KEY` is set (preferred), otherwise the same OpenAI-compatible

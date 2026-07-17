@@ -44,6 +44,25 @@ def load_problem_dir(dir_path: Path) -> dict:
     limits = meta.get("limits", {})
     scoring = meta.get("scoring", {})
 
+    # Class-based "design" problems (kind="class") carry a `class` block instead
+    # of a `function` block. We reuse `params` for the constructor params and
+    # store the method list in `class_methods`; `function_name`/`return_type`
+    # stay empty. See specs/problem-schema.md.
+    kind = meta.get("kind", "function")
+    if kind == "class":
+        cls = meta.get("class", {})
+        function_name = ""
+        params = (cls.get("constructor") or {}).get("params", [])
+        return_type = ""
+        class_name = cls.get("name", "")
+        class_methods = cls.get("methods", [])
+    else:
+        function_name = fn.get("name", "")
+        params = fn.get("params", [])
+        return_type = (fn.get("returns") or {}).get("type", "")
+        class_name = None
+        class_methods = None
+
     return {
         "slug": meta["slug"],
         "title": meta["title"],
@@ -51,9 +70,12 @@ def load_problem_dir(dir_path: Path) -> dict:
         "topics": meta.get("tags", meta.get("topics", [])),
         "hints": normalize_hints(meta.get("hints")),
         "statement_md": statement,
-        "function_name": fn.get("name", ""),
-        "params": fn.get("params", []),
-        "return_type": (fn.get("returns") or {}).get("type", ""),
+        "kind": kind,
+        "function_name": function_name,
+        "params": params,
+        "return_type": return_type,
+        "class_name": class_name,
+        "class_methods": class_methods,
         "time_limit_ms": limits.get("timeLimitMs", settings.EXEC_TIME_LIMIT_MS),
         "memory_limit_mb": limits.get("memoryLimitMb", settings.EXEC_MEMORY_LIMIT_MB),
         "scoring_type": scoring.get("type", "weighted"),
@@ -132,6 +154,26 @@ def write_problem_files(data: dict, content_dir: Path | None = None) -> Path:
 
     (base / "problem.md").write_text(data.get("statement_md", ""), encoding="utf-8")
     hints = normalize_hints(data.get("hints"))
+    kind = data.get("kind", "function")
+    # A class problem writes a `class` block (name + constructor + methods); a
+    # function problem writes the `function` block. Exactly one is present.
+    if kind == "class":
+        contract = {
+            "kind": "class",
+            "class": {
+                "name": data.get("class_name", ""),
+                "constructor": {"params": data.get("params", [])},
+                "methods": data.get("class_methods") or [],
+            },
+        }
+    else:
+        contract = {
+            "function": {
+                "name": data["function_name"],
+                "params": data.get("params", []),
+                "returns": {"type": data.get("return_type", "")},
+            },
+        }
     meta = {
         "slug": data["slug"],
         "title": data["title"],
@@ -144,11 +186,7 @@ def write_problem_files(data: dict, content_dir: Path | None = None) -> Path:
             "timeLimitMs": data.get("time_limit_ms", settings.EXEC_TIME_LIMIT_MS),
             "memoryLimitMb": data.get("memory_limit_mb", settings.EXEC_MEMORY_LIMIT_MB),
         },
-        "function": {
-            "name": data["function_name"],
-            "params": data.get("params", []),
-            "returns": {"type": data.get("return_type", "")},
-        },
+        **contract,
         "scoring": {
             "type": data.get("scoring_type", "weighted"),
             "points": data.get("points", 100),

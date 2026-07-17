@@ -19,9 +19,12 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           code: val("canonical_solution"),
+          kind: val("kind"),
           function_name: val("function_name"),
           params: val("params"),
           return_type: val("return_type"),
+          class_name: val("class_name"),
+          class_methods_json: val("class_methods_json"),
           tests_json: val("tests_json"),
           compare: val("compare"),
         }),

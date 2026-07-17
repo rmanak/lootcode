@@ -1,0 +1,78 @@
+{
+  "slug": "design-browser-history",
+  "title": "Design Browser History",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "linked-list",
+    "stack",
+    "design"
+  ],
+  "hints": [
+    "You only ever need the pages before and after where you currently are — what single structure holds both an ordered list and a 'you are here' marker?",
+    "Keep the visited pages in a list plus an index of the current page. Visiting truncates everything after the current index before appending.",
+    "back and forward just clamp the current index into the valid range, so the at-most-x-steps rule falls out of a min/max on that index."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "kind": "class",
+  "class": {
+    "name": "BrowserHistory",
+    "constructor": {
+      "params": [
+        {
+          "name": "homepage",
+          "type": "string"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "visit",
+        "params": [
+          {
+            "name": "url",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "back",
+        "params": [
+          {
+            "name": "steps",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "forward",
+        "params": [
+          {
+            "name": "steps",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

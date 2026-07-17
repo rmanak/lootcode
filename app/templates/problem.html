@@ -49,11 +49,27 @@
       </div>
     </div>
     <div class="md">{{ prob.statement_md | markdown | safe }}</div>
+    {% if prob.kind == 'class' %}
+    <p class="limits">
+      Class <code>{{ prob.class_name }}</code> — implement the methods below
+      · time limit {{ prob.time_limit_ms }} ms
+      · {{ visible_count }} visible / {{ hidden_count }} hidden tests · Python 3
+    </p>
+    <div class="class-signature">
+      <p class="provided-types-label">Your solution must define this class (a sequence of calls is replayed against one instance):</p>
+      <pre class="provided-type"><code>class {{ prob.class_name }}:
+    def __init__(self{% for p in prob.params %}, {{ p.name }}{% endfor %}): ...
+{%- for m in (prob.class_methods or []) %}
+    def {{ m.name }}(self{% for p in m.params %}, {{ p.name }}{% endfor %}): ...  # -> {{ (m.returns.type if m.returns else '') or 'void' }}
+{%- endfor %}</code></pre>
+    </div>
+    {% else %}
     <p class="limits">
       Function <code>{{ prob.function_name }}({{ prob.params | map(attribute='name') | join(', ') }})</code>
       · time limit {{ prob.time_limit_ms }} ms
       · {{ visible_count }} visible / {{ hidden_count }} hidden tests · Python 3
     </p>
+    {% endif %}
     {% if provided_types %}
     <div class="provided-types">
       <p class="provided-types-label">Provided to your solution (already in scope — don't redefine):</p>

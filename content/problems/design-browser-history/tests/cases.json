@@ -1,0 +1,398 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "operations": [
+          "BrowserHistory",
+          "visit",
+          "visit",
+          "visit",
+          "back",
+          "back",
+          "forward",
+          "visit",
+          "forward",
+          "back",
+          "back"
+        ],
+        "args": [
+          [
+            "leetcode.com"
+          ],
+          [
+            "google.com"
+          ],
+          [
+            "facebook.com"
+          ],
+          [
+            "youtube.com"
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            "linkedin.com"
+          ],
+          [
+            2
+          ],
+          [
+            2
+          ],
+          [
+            7
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        "facebook.com",
+        "google.com",
+        "facebook.com",
+        null,
+        "linkedin.com",
+        "google.com",
+        "leetcode.com"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "operations": [
+          "BrowserHistory",
+          "visit",
+          "back",
+          "forward",
+          "forward"
+        ],
+        "args": [
+          [
+            "a.com"
+          ],
+          [
+            "b.com"
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            5
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        "a.com",
+        "b.com",
+        "b.com"
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "single-page-bounds",
+      "input": {
+        "operations": [
+          "BrowserHistory",
+          "back",
+          "forward",
+          "back",
+          "forward"
+        ],
+        "args": [
+          [
+            "home.com"
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            100
+          ],
+          [
+            100
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        "home.com",
+        "home.com",
+        "home.com",
+        "home.com"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "visit-then-back",
+      "input": {
+        "operations": [
+          "BrowserHistory",
+          "visit",
+          "visit",
+          "back",
+          "back",
+          "back"
+        ],
+        "args": [
+          [
+            "a.com"
+          ],
+          [
+            "b.com"
+          ],
+          [
+            "c.com"
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        "b.com",
+        "a.com",
+        "a.com"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "branch-overwrite",
+      "input": {
+        "operations": [
+          "BrowserHistory",
+          "visit",
+          "visit",
+          "back",
+          "visit",
+          "forward",
+          "back"
+        ],
+        "args": [
+          [
+            "a.com"
+          ],
+          [
+            "b.com"
+          ],
+          [
+            "c.com"
+          ],
+          [
+            1
+          ],
+          [
+            "d.com"
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        "b.com",
+        null,
+        "d.com",
+        "b.com"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "forward-clamp",
+      "input": {
+        "operations": [
+          "BrowserHistory",
+          "visit",
+          "visit",
+          "visit",
+          "back",
+          "forward",
+          "forward",
+          "forward"
+        ],
+        "args": [
+          [
+            "a.com"
+          ],
+          [
+            "b.com"
+          ],
+          [
+            "c.com"
+          ],
+          [
+            "d.com"
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            9
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        "b.com",
+        "c.com",
+        "d.com",
+        "d.com"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "back-to-home",
+      "input": {
+        "operations": [
+          "BrowserHistory",
+          "visit",
+          "visit",
+          "visit",
+          "visit",
+          "back",
+          "back"
+        ],
+        "args": [
+          [
+            "one.com"
+          ],
+          [
+            "two.com"
+          ],
+          [
+            "three.com"
+          ],
+          [
+            "four.com"
+          ],
+          [
+            "five.com"
+          ],
+          [
+            3
+          ],
+          [
+            100
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        "two.com",
+        "one.com"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "interleaved",
+      "input": {
+        "operations": [
+          "BrowserHistory",
+          "visit",
+          "back",
+          "visit",
+          "back",
+          "forward",
+          "visit",
+          "back",
+          "forward"
+        ],
+        "args": [
+          [
+            "p.com"
+          ],
+          [
+            "q.com"
+          ],
+          [
+            1
+          ],
+          [
+            "r.com"
+          ],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [
+            "s.com"
+          ],
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        "p.com",
+        null,
+        "p.com",
+        "r.com",
+        null,
+        "p.com",
+        "r.com"
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

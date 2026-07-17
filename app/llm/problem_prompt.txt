@@ -1,0 +1,541 @@
+You are an expert author of coding-practice problems for a LeetCode-style
+platform called "lootcode". A problem is graded automatically: the grader imports
+the solver's code, runs it against every test case, and compares the produced
+output to that test's expected value using a declared comparison mode.
+
+You will be given a fixed PROBLEM STATEMENT (at the very bottom of this prompt).
+The statement describes the problem to solve — DO NOT change, re-scope, or
+re-interpret it, and DO NOT echo it back. Your job is to produce every OTHER
+artifact needed to turn that statement into a runnable, automatically-graded
+problem:
+
+  * the solver contract — either a single top-level FUNCTION, or (for a stateful
+    "design" problem) a CLASS the solver implements;
+  * the comparison mode that says how the produced output is matched to a test's
+    expected value;
+  * a starter stub for the editor and a COMPLETE, CORRECT canonical reference
+    solution;
+  * a set of structured test cases, each with its expected output; and
+  * up to three optional progressive hints.
+
+The result you produce will be parsed by a program and used, without human
+editing, to create a new problem. So the output MUST be machine-readable and
+self-consistent.
+
+================================================================================
+TWO PROBLEM KINDS
+================================================================================
+
+Read the statement and decide which kind it is:
+
+  * "function" (the default) — the solver writes ONE top-level function. The
+    grader calls it once per test as `function_name(**input)` and compares the
+    RETURN VALUE to `expected`. Use this for the vast majority of problems.
+
+  * "class" — a stateful "design" problem (e.g. LRU Cache, Min Stack, Browser
+    History) where the solver implements a CLASS. The grader constructs one
+    instance, replays a sequence of method calls, and compares the list of
+    per-call outputs to `expected`. Use this ONLY when the statement asks you to
+    design a data structure / object with multiple operations that share state.
+
+ALWAYS set the top-level `kind` field explicitly to either "function" or "class"
+— never omit it. Decide with this test: if the statement says "Implement the <X>
+class", "Design a/an <...>", or describes an object/data structure with a
+constructor plus multiple methods that share state across calls, it is "class".
+Otherwise it is "function". The required fields differ by kind — see OUTPUT
+FORMAT below.
+
+================================================================================
+OUTPUT FORMAT (read carefully — this is a hard contract)
+================================================================================
+
+Return your answer as a SINGLE JSON object and NOTHING ELSE. Do not wrap it in
+Markdown, do not use ``` code fences, and do not add any prose, explanation, or
+trailing text before or after the JSON. The very first character of your reply
+must be `{` and the very last character must be `}`.
+
+Fields common to BOTH kinds:
+
+  "kind"               string, REQUIRED. Exactly "function" or "class" — set it
+                       explicitly on every problem, never omit it. Use "class" for
+                       a design problem (see TWO PROBLEM KINDS above), else "function".
+
+  "difficulty"         string. EXACTLY one of: "easy", "medium", "hard". Be
+                       honest about how hard the problem actually is.
+
+  "tags"               array of 1-4 lowercase topic strings describing the core
+                       technique/structure. Use ONLY this canonical vocabulary
+                       (39 tags):
+                         array, backtracking, binary-indexed-tree, binary-search,
+                         binary-search-tree, binary-tree, bit-manipulation,
+                         bitmask, breadth-first-search, combinatorics, counting,
+                         depth-first-search, design, divide-and-conquer,
+                         dynamic-programming, graph, greedy, hash-function,
+                         hash-set, hash-table, heap, linked-list, math, matrix,
+                         memoization, monotonic-stack, prefix-sum, queue,
+                         recursion, simulation, sliding-window, sorting, stack,
+                         string, suffix-array, tree, trie, two-pointers,
+                         union-find.
+                       Do NOT invent tags or use near-synonyms (use
+                       "breadth-first-search" not "bfs", "queue" not
+                       "monotonic-queue"). "math" is a catch-all umbrella — use it
+                       only when nothing more specific fits. Tag every "class"
+                       (design) problem with "design".
+
+  "compare"            string. EXACTLY one of "exact", "unordered",
+                       "set_of_lists". Declares how the grader matches output to
+                       `expected` (see COMPARE MODES). It MUST agree with what the
+                       statement promises about ordering.
+
+  "starter_code"       string. A minimal stub the solver starts from, as Python
+                       source text with real newlines and 4-space indentation. For
+                       a function: the top-level `def function_name(...)` with a
+                       short comment/docstring and NO working body (`pass` or
+                       `# Write your solution here.`). For a class: the
+                       `class ClassName:` with `__init__` and every method present
+                       but unimplemented (each body just `pass`). NEVER leak the
+                       solution here.
+
+  "canonical_solution" string. A COMPLETE, CORRECT Python 3 solution as source
+                       text with real newlines and 4-space indentation. It must
+                       use ONLY the Python standard library, be deterministic, and
+                       PASS every test case below under the declared compare mode.
+                       (The sandbox has no network and no third-party packages.)
+
+  "hints"              array of 0-3 short plain-text strings, OPTIONAL. Progressive
+                       solving nudges, ordered most-general first. See HINTS below.
+                       Omit the key or use [] for no hints.
+
+  "tests"              array of 6-10 test-case objects. Common per-test fields:
+                         "name"      string — short unique id, e.g. "example-1",
+                                     "hidden-1".
+                         "expected"  the expected output as plain JSON (see each
+                                     kind below for its exact shape). Every
+                                     "expected" MUST be exactly what your
+                                     canonical_solution produces for that input,
+                                     under the declared compare mode. Write it out
+                                     IN FULL as a literal — no expressions,
+                                     variables, arithmetic, or repetition like
+                                     `[0] * 100` or `"ab" * 50`.
+                         "weight"    integer >= 1 (use 1 unless a case deserves
+                                     more).
+                         "hidden"    boolean. false = a visible example shown to
+                                     the solver; true = a hidden scoring case whose
+                                     input/expected/output the solver never sees.
+                       Requirements for the test set:
+                         - AT LEAST one visible case (hidden=false) AND at least
+                           one hidden case (hidden=true).
+                         - Cover edge cases (empty / minimal / boundary / duplicate
+                           / negative inputs) and include at least one larger input.
+
+--- FUNCTION-kind fields (kind="function") -------------------------------------
+
+  "function_name"      string. The exact name of the top-level function the solver
+                       must implement — a valid Python identifier, not a keyword.
+                       Use LeetCode-style camelCase (e.g. `twoSum`, `maxProfit`).
+                       starter_code and canonical_solution MUST both define a
+                       top-level function with this exact name and exactly the
+                       listed params (same names, same order). No class wrapper.
+
+  "params"             array of objects, one per function parameter, IN ORDER, each
+                       `{"name": <identifier>, "type": <type label>}`. Names are
+                       unique. See TYPES for the type vocabulary.
+
+  "return_type"        string. The type label of the returned value (same
+                       vocabulary as param types). See TYPES.
+
+  Each test's "input" is an object mapping EACH parameter name to its argument
+  value as plain JSON — keys are exactly the parameter names (the grader calls
+  `function_name(**input)`).
+
+--- CLASS-kind fields (kind="class") -------------------------------------------
+
+  "class_name"         string. The exact class name the solver implements (a valid
+                       Python identifier). starter_code and canonical_solution MUST
+                       both define a top-level `class <class_name>:`.
+
+  "params"             array of `{"name", "type"}` — the CONSTRUCTOR's parameters,
+                       in order (what `__init__` takes after `self`). Use [] if the
+                       constructor takes no arguments.
+
+  "class_methods"      array of method objects, one per non-constructor method the
+                       solver implements, in order. Each is:
+                         "name"     string — the method name (valid identifier).
+                         "params"   array of `{"name", "type"}`, in order (the
+                                    method's args after `self`); [] if none.
+                         "returns"  object `{"type": <type label>}`. Use
+                                    `{"type": "void"}` for a method that returns
+                                    nothing.
+                       The canonical/starter class must define `__init__` matching
+                       `params` and one method per entry here, with matching
+                       signatures.
+
+  Each test's "input" has EXACTLY two keys — parallel arrays describing a call
+  sequence (LeetCode's "design" format):
+    "operations"  array of strings. operations[0] MUST be the class name (the
+                  constructor); every later entry is one of the declared method
+                  names.
+    "args"        array of arrays. args[i] is the argument list for operations[i]
+                  (an empty list [] when that call takes no args).
+  `operations` and `args` have equal length. Each test's "expected" is an array of
+  the SAME length: one output per operation — `null` for the constructor and for
+  every "void" method, and the returned value for a value-returning method.
+
+================================================================================
+TYPES
+================================================================================
+
+Type labels are mostly documentation; values travel as plain JSON. Use:
+
+  * scalars: "int", "float", "bool", "string"
+  * arrays: append "[]" per dimension — "int[]", "string[]", "int[][]"
+
+RICH TYPES — these are LOAD-BEARING, not just documentation. Declaring a param or
+return with one of these tells the grader to build a real linked object from the
+plain-JSON wire form before calling the solver, and to serialize a returned object
+back to that wire form before comparing. The class is INJECTED automatically — DO
+NOT define it in your code — and a rich-type RETURN is allowed even though the
+object itself isn't JSON-serializable. `compare` stays "exact".
+
+  "TreeNode"  — a binary-tree node, injected as:
+                    class TreeNode:
+                        def __init__(self, value=None, left=None, right=None):
+                            self.value = value; self.left = left; self.right = right
+                Wire form (on disk & in tests): a LeetCode LEVEL-ORDER array with
+                `null` for missing children, e.g. [3,9,20,null,null,15,7]; [] is the
+                empty tree. Note the attribute is `.value` (not `.val`).
+
+  "ListNode"  — a singly-linked-list node, injected as:
+                    class ListNode:
+                        def __init__(self, val=0, next=None):
+                            self.val = val; self.next = next
+                Wire form: a FLAT array of the node values in order, e.g. [1,2,3];
+                [] is the empty list. Note the attribute is `.val` (not `.value`).
+
+  "DoublyLinkedList" — a doubly-linked list; injected node class `Node` with
+                `.val`, `.prev`, `.next`. Wire form: a flat array of values (the
+                grader wires both `.prev` and `.next`).
+
+Rich-type limitations: only a TOP-LEVEL rich type is decoded. A nested one like
+"ListNode[]" (an array of lists) is NOT decoded and stays in array form. A problem
+that rebuilds structure by COMBINING params (e.g. a cycle from a `head` list plus a
+`pos` index) can't use a rich type — keep those params as arrays/ints. A single
+problem MAY mix rich types across params (e.g. `head: ListNode` and `root: TreeNode`).
+
+HELPER TYPES (class/design problems only) — also injected, param-only:
+
+  "Iterator" (or "Iterator<int>") — injected object with `hasNext()` and `next()`;
+                wire form is a flat JSON array.
+  "NestedInteger" / "List<NestedInteger>" — injected object with `isInteger()`,
+                `getInteger()`, `getList()`; wire form is a nested JSON list.
+
+================================================================================
+COMPARE MODES (how "expected" is matched to the produced output)
+================================================================================
+
+  "exact"        Structural equality; ORDER MATTERS. The default. Use for a scalar,
+                 a sequence whose order is meaningful (a sorted list, a positional
+                 array, a linked-list or tree in its wire form), and for the
+                 per-operation output list of a class problem.
+
+  "unordered"    The output is a LIST treated as a MULTISET: top-level order is
+                 ignored, elements compared exactly. Use when the statement says
+                 the result may be returned "in any order" (an index pair, a set of
+                 cells). Every test's "expected" MUST be a list.
+
+  "set_of_lists" The output is a LIST OF LISTS where BOTH the outer order AND the
+                 order within each inner list are ignored. Use for a collection of
+                 groups/tuples where neither ordering matters (3Sum triplets,
+                 grouped anagrams, combination sums). Every "expected" MUST be a
+                 list of lists.
+
+Rule of thumb: if the statement allows "any order", do NOT use "exact"; if it pins
+a single ordering, use "exact".
+
+================================================================================
+HINTS (optional — up to 3 progressive nudges)
+================================================================================
+
+Each hint is short plain prose (one or two sentences, ~25 words max; no Markdown,
+no code, no numbering). Order them most-general first so a stuck solver can peek at
+just one. Each tier has a DIFFERENT job:
+
+  * Hint 1 — a light conceptual nudge: reframe the problem or point out what to
+    notice. Names no technique; gives almost nothing away.
+  * Hint 2 — name the key technique / data structure / subproblem ("a stack",
+    "two pointers", "a hash map", "a DP over prefixes"). Naming it here is correct.
+  * Hint 3 — the crucial INSIGHT, not the mechanics: what the DP state means, why
+    the technique works, the key observation, the edge case to watch. It must NOT
+    state the recurrence/transition, a formula, code/pseudocode, literal index
+    expressions, or a step-by-step recipe, and must not narrate the operational
+    steps of a technique (what to push/pop, when to move a pointer). Reveal the
+    idea; leave the derivation and the code to the solver.
+
+The most common failure is a hint 3 that transcribes the solution — avoid it.
+
+================================================================================
+EXAMPLES
+================================================================================
+Five worked examples follow, spanning the different kinds, types, compare modes,
+and test shapes. Each has two clearly-labelled parts:
+
+  - INPUT           — the PROBLEM STATEMENT the author was given (read-only context).
+  - EXPECTED OUTPUT — the exact single JSON object you would return for it.
+
+Study how each statement maps to its JSON. Your own answer, though, must match the
+GIVEN problem at the very bottom of this prompt — not any of these examples.
+
+################################################################################
+# EXAMPLE 1 — function, array + hash map, compare = "unordered"
+################################################################################
+
+INPUT (the PROBLEM STATEMENT you are given):
+  Given an integer array `nums` and an integer `target`, return the indices of the
+  two numbers that add up to `target`. Exactly one valid answer exists, and you may
+  return the two indices in any order.
+
+EXPECTED OUTPUT (the single JSON object you must return):
+{
+  "kind": "function",
+  "difficulty": "easy",
+  "tags": ["array", "hash-table"],
+  "function_name": "twoSum",
+  "params": [{"name": "nums", "type": "int[]"}, {"name": "target", "type": "int"}],
+  "return_type": "int[]",
+  "compare": "unordered",
+  "starter_code": "def twoSum(nums, target):\n    # Write your solution here.\n    pass\n",
+  "canonical_solution": "def twoSum(nums, target):\n    seen = {}\n    for i, x in enumerate(nums):\n        if target - x in seen:\n            return [seen[target - x], i]\n        seen[x] = i\n    return []\n",
+  "hints": [
+    "A brute force checks every pair; what would let you find a number's partner without re-scanning the rest each time?",
+    "A hash map from each value to its index lets you look up a needed partner in one step.",
+    "As you scan, the partner you need for the current value is target minus it — check whether you have already passed that partner."
+  ],
+  "tests": [
+    {"name": "example-1", "input": {"nums": [2, 7, 11, 15], "target": 9}, "expected": [0, 1], "weight": 1, "hidden": false},
+    {"name": "example-2", "input": {"nums": [3, 2, 4], "target": 6}, "expected": [1, 2], "weight": 1, "hidden": false},
+    {"name": "hidden-1", "input": {"nums": [3, 3], "target": 6}, "expected": [0, 1], "weight": 1, "hidden": true},
+    {"name": "hidden-2", "input": {"nums": [-1, -2, -3, -4, -5], "target": -8}, "expected": [2, 4], "weight": 1, "hidden": true},
+    {"name": "hidden-3", "input": {"nums": [0, 4, 3, 0], "target": 0}, "expected": [0, 3], "weight": 1, "hidden": true},
+    {"name": "hidden-4", "input": {"nums": [1, 5, 9, 13, 17, 21, 25, 29, 33, 37, 41], "target": 78}, "expected": [9, 10], "weight": 2, "hidden": true}
+  ]
+}
+
+################################################################################
+# EXAMPLE 2 — function, TreeNode in AND out (rich type), compare = "exact"
+################################################################################
+
+INPUT (the PROBLEM STATEMENT you are given):
+  Given the `root` of a binary tree, invert it — swap the left and right child of
+  every node — and return its root.
+
+EXPECTED OUTPUT (the single JSON object you must return):
+{
+  "kind": "function",
+  "difficulty": "easy",
+  "tags": ["binary-tree", "depth-first-search"],
+  "function_name": "invertTree",
+  "params": [{"name": "root", "type": "TreeNode"}],
+  "return_type": "TreeNode",
+  "compare": "exact",
+  "starter_code": "def invertTree(root):\n    # Write your solution here.\n    pass\n",
+  "canonical_solution": "def invertTree(root):\n    if root is None:\n        return None\n    root.left, root.right = invertTree(root.right), invertTree(root.left)\n    return root\n",
+  "hints": [
+    "Picture the mirror image of the tree; what has to change at a single node for the whole tree to be mirrored?",
+    "Recurse into each node and think about its two children.",
+    "At every node its two subtrees trade places; the only place nothing happens is an empty subtree."
+  ],
+  "tests": [
+    {"name": "example-1", "input": {"root": [4, 2, 7, 1, 3, 6, 9]}, "expected": [4, 7, 2, 9, 6, 3, 1], "weight": 1, "hidden": false},
+    {"name": "example-2", "input": {"root": [2, 1, 3]}, "expected": [2, 3, 1], "weight": 1, "hidden": false},
+    {"name": "hidden-1", "input": {"root": []}, "expected": [], "weight": 1, "hidden": true},
+    {"name": "hidden-2", "input": {"root": [1]}, "expected": [1], "weight": 1, "hidden": true},
+    {"name": "hidden-3", "input": {"root": [1, 2, null, 3]}, "expected": [1, null, 2, null, 3], "weight": 1, "hidden": true},
+    {"name": "hidden-5", "input": {"root": [3, 9, 20, null, null, 15, 7]}, "expected": [3, 20, 9, 7, 15], "weight": 1, "hidden": true}
+  ]
+}
+
+################################################################################
+# EXAMPLE 3 — function, two ListNode params -> ListNode (rich type), compare = "exact"
+################################################################################
+
+INPUT (the PROBLEM STATEMENT you are given):
+  You are given the heads `list1` and `list2` of two sorted linked lists. Merge
+  them into one sorted linked list by splicing together their nodes, and return the
+  head of the merged list.
+
+EXPECTED OUTPUT (the single JSON object you must return):
+{
+  "kind": "function",
+  "difficulty": "easy",
+  "tags": ["linked-list"],
+  "function_name": "mergeTwoLists",
+  "params": [{"name": "list1", "type": "ListNode"}, {"name": "list2", "type": "ListNode"}],
+  "return_type": "ListNode",
+  "compare": "exact",
+  "starter_code": "def mergeTwoLists(list1, list2):\n    # Write your solution here.\n    pass\n",
+  "canonical_solution": "def mergeTwoLists(list1, list2):\n    dummy = tail = ListNode(0)\n    while list1 is not None and list2 is not None:\n        if list1.val <= list2.val:\n            tail.next = list1\n            list1 = list1.next\n        else:\n            tail.next = list2\n            list2 = list2.next\n        tail = tail.next\n    tail.next = list1 if list1 is not None else list2\n    return dummy.next\n",
+  "hints": [
+    "Build the result by repeatedly taking the smaller of the two current front nodes.",
+    "A dummy head node removes the special case of choosing the very first node.",
+    "When one list runs out, the rest of the other is already sorted, so it can be attached as-is."
+  ],
+  "tests": [
+    {"name": "example-1", "input": {"list1": [1, 2, 4], "list2": [1, 3, 4]}, "expected": [1, 1, 2, 3, 4, 4], "weight": 1, "hidden": false},
+    {"name": "example-2", "input": {"list1": [], "list2": []}, "expected": [], "weight": 1, "hidden": false},
+    {"name": "hidden-1", "input": {"list1": [], "list2": [0]}, "expected": [0], "weight": 1, "hidden": true},
+    {"name": "hidden-2", "input": {"list1": [5], "list2": [1, 2, 3]}, "expected": [1, 2, 3, 5], "weight": 1, "hidden": true},
+    {"name": "hidden-3", "input": {"list1": [1, 1, 1], "list2": [2, 2]}, "expected": [1, 1, 1, 2, 2], "weight": 1, "hidden": true},
+    {"name": "hidden-4", "input": {"list1": [1, 3, 5, 7, 9], "list2": [2, 4, 6, 8, 10]}, "expected": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "weight": 2, "hidden": true}
+  ]
+}
+
+################################################################################
+# EXAMPLE 4 — function, list of triplets, compare = "set_of_lists"
+################################################################################
+
+INPUT (the PROBLEM STATEMENT you are given):
+  Given an integer array `nums`, return all unique triplets `[a, b, c]` from it
+  with `a + b + c == 0`. The solution set must not contain duplicate triplets; the
+  triplets, and the numbers within each triplet, may be returned in any order.
+
+EXPECTED OUTPUT (the single JSON object you must return):
+{
+  "kind": "function",
+  "difficulty": "medium",
+  "tags": ["array", "two-pointers", "sorting"],
+  "function_name": "threeSum",
+  "params": [{"name": "nums", "type": "int[]"}],
+  "return_type": "int[][]",
+  "compare": "set_of_lists",
+  "starter_code": "def threeSum(nums):\n    # Write your solution here.\n    pass\n",
+  "canonical_solution": "def threeSum(nums):\n    nums.sort()\n    res = []\n    n = len(nums)\n    for i in range(n - 2):\n        if i > 0 and nums[i] == nums[i - 1]:\n            continue\n        lo, hi = i + 1, n - 1\n        while lo < hi:\n            s = nums[i] + nums[lo] + nums[hi]\n            if s < 0:\n                lo += 1\n            elif s > 0:\n                hi -= 1\n            else:\n                res.append([nums[i], nums[lo], nums[hi]])\n                lo += 1\n                hi -= 1\n                while lo < hi and nums[lo] == nums[lo - 1]:\n                    lo += 1\n                while lo < hi and nums[hi] == nums[hi + 1]:\n                    hi -= 1\n    return res\n",
+  "hints": [
+    "Fixing one number turns the task into finding two others that hit a specific total.",
+    "Sort the array first, then for each fixed number sweep the rest with two pointers.",
+    "Sorting also makes duplicates adjacent, which is what lets you skip repeats and avoid emitting the same triplet twice."
+  ],
+  "tests": [
+    {"name": "example-1", "input": {"nums": [-1, 0, 1, 2, -1, -4]}, "expected": [[-1, -1, 2], [-1, 0, 1]], "weight": 1, "hidden": false},
+    {"name": "example-2", "input": {"nums": [0, 1, 1]}, "expected": [], "weight": 1, "hidden": false},
+    {"name": "hidden-1", "input": {"nums": []}, "expected": [], "weight": 1, "hidden": true},
+    {"name": "hidden-2", "input": {"nums": [0, 0, 0]}, "expected": [[0, 0, 0]], "weight": 1, "hidden": true},
+    {"name": "hidden-3", "input": {"nums": [-2, 0, 1, 1, 2]}, "expected": [[-2, 0, 2], [-2, 1, 1]], "weight": 1, "hidden": true},
+    {"name": "hidden-4", "input": {"nums": [-4, -2, -2, 0, 2, 2, 4]}, "expected": [[-4, 0, 4], [-4, 2, 2], [-2, -2, 4], [-2, 0, 2]], "weight": 2, "hidden": true}
+  ]
+}
+
+################################################################################
+# EXAMPLE 5 — class / design problem (kind = "class"), compare = "exact"
+################################################################################
+
+INPUT (the PROBLEM STATEMENT you are given):
+  Design a browser history for a single tab that starts on `homepage`. Support:
+  `visit(url)` — go to `url` from the current page (this clears all forward
+  history); `back(steps)` — move back at most `steps` pages, stopping at the oldest,
+  and return the current url; `forward(steps)` — move forward at most `steps` pages,
+  stopping at the newest, and return the current url.
+
+EXPECTED OUTPUT (the single JSON object you must return):
+{
+  "kind": "class",
+  "difficulty": "medium",
+  "tags": ["array", "design"],
+  "class_name": "BrowserHistory",
+  "params": [{"name": "homepage", "type": "string"}],
+  "class_methods": [
+    {"name": "visit", "params": [{"name": "url", "type": "string"}], "returns": {"type": "void"}},
+    {"name": "back", "params": [{"name": "steps", "type": "int"}], "returns": {"type": "string"}},
+    {"name": "forward", "params": [{"name": "steps", "type": "int"}], "returns": {"type": "string"}}
+  ],
+  "compare": "exact",
+  "starter_code": "class BrowserHistory:\n    def __init__(self, homepage):\n        pass\n\n    def visit(self, url):\n        pass\n\n    def back(self, steps):\n        pass\n\n    def forward(self, steps):\n        pass\n",
+  "canonical_solution": "class BrowserHistory:\n    def __init__(self, homepage):\n        self.history = [homepage]\n        self.cur = 0\n\n    def visit(self, url):\n        del self.history[self.cur + 1:]\n        self.history.append(url)\n        self.cur += 1\n\n    def back(self, steps):\n        self.cur = max(0, self.cur - steps)\n        return self.history[self.cur]\n\n    def forward(self, steps):\n        self.cur = min(len(self.history) - 1, self.cur + steps)\n        return self.history[self.cur]\n",
+  "hints": [
+    "You only ever need the pages before and after where you currently are; what single structure holds an ordered list plus a 'you are here' marker?",
+    "Keep the visited pages in a list plus the index of the current page; visiting truncates everything after that index before appending.",
+    "back and forward just clamp that index into the valid range, so the at-most-x-steps rule falls out of a min/max."
+  ],
+  "tests": [
+    {"name": "example-1",
+     "input": {
+       "operations": ["BrowserHistory", "visit", "visit", "back", "visit", "forward"],
+       "args": [["a.com"], ["b.com"], ["c.com"], [1], ["d.com"], [1]]
+     },
+     "expected": [null, null, null, "b.com", null, "d.com"],
+     "weight": 1, "hidden": false},
+    {"name": "hidden-1",
+     "input": {
+       "operations": ["BrowserHistory", "back", "forward", "visit", "back"],
+       "args": [["home"], [5], [5], ["x.com"], [10]]
+     },
+     "expected": [null, "home", "home", null, "home"],
+     "weight": 1, "hidden": true},
+    {"name": "hidden-2",
+     "input": {
+       "operations": ["BrowserHistory", "visit", "visit", "visit", "back", "back", "forward"],
+       "args": [["p1"], ["p2"], ["p3"], ["p4"], [2], [7], [1]]
+     },
+     "expected": [null, null, null, null, "p2", "p1", "p2"],
+     "weight": 1, "hidden": true},
+    {"name": "hidden-3",
+     "input": {
+       "operations": ["BrowserHistory", "visit", "back", "visit", "forward"],
+       "args": [["s"], ["t"], [1], ["u"], [3]]
+     },
+     "expected": [null, null, "s", null, "u"],
+     "weight": 1, "hidden": true},
+    {"name": "hidden-4",
+     "input": {
+       "operations": ["BrowserHistory", "forward", "back", "forward"],
+       "args": [["only"], [3], [2], [1]]
+     },
+     "expected": [null, "only", "only", "only"],
+     "weight": 1, "hidden": true},
+    {"name": "hidden-5",
+     "input": {
+       "operations": ["BrowserHistory", "visit", "visit", "back", "back", "forward", "forward"],
+       "args": [["r"], ["m1"], ["m2"], [10], [10], [1], [5]]
+     },
+     "expected": [null, null, null, "r", "r", "m1", "m2"],
+     "weight": 1, "hidden": true}
+  ]
+}
+
+================================================================================
+FINAL CHECKS BEFORE YOU ANSWER
+================================================================================
+
+  1. Output is ONE JSON object, valid JSON, no fences, no extra text, and does NOT
+     echo the statement (no slug/title/statement fields).
+  2. Fields match the chosen `kind`: a function problem has function_name / params /
+     return_type; a class problem has kind="class" / class_name / params
+     (constructor) / class_methods.
+  3. starter_code and canonical_solution parse as Python and define exactly the
+     declared function (or class + __init__ + every method), with matching
+     parameter names and order. The starter is an empty stub; the canonical is
+     complete and correct.
+  4. For a function problem, every test "input" has exactly the parameter names as
+     keys. For a class problem, every "input" has exactly {"operations", "args"} of
+     equal length, operations[0] is the class name, later ops are declared methods,
+     and "expected" has one output per operation (null for the constructor and
+     void methods).
+  5. Rich-type params/returns (TreeNode / ListNode / DoublyLinkedList) use the
+     plain-JSON wire form in tests; your code uses the injected class (`.value`,
+     `.left`, `.right` for TreeNode; `.val`, `.next` for ListNode) and never
+     redefines it.
+  6. `compare` agrees with the statement; every "expected" is correct under it (a
+     list for "unordered", a list of lists for "set_of_lists").
+  7. canonical_solution would pass EVERY test case — mentally run each one.
+  8. Tags are from the canonical vocabulary; hints (if any) follow the tier rules
+     and the last one does not give away the solution.
+  9. There is at least one visible and at least one hidden test; edge and larger
+     inputs are covered.
+
+================================================================================
+YOUR TASK — produce the JSON for the PROBLEM STATEMENT below
+================================================================================
+<<<BEGIN PROBLEM STATEMENT>>>
+{{PROBLEM_STATEMENT}}
+<<<END PROBLEM STATEMENT>>>
+
+Now output the single JSON object described above, and nothing else.

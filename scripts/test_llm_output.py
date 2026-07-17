@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Validate the structured problem JSON that an LLM produces from ``prompt.txt``.
+"""Validate the structured problem JSON that an LLM produces from ``app/llm/problem_prompt.txt``.
 
 Usage
 -----
     python test_llm_output.py generated_llm_output.json
 
-The companion ``prompt.txt`` asks a (generic, unspecified) LLM to turn a fixed
+The companion ``app/llm/problem_prompt.txt`` asks a (generic, unspecified) LLM to turn a fixed
 problem statement into a single JSON object containing everything needed to
 create a new lootcode problem programmatically: the function contract, the
 comparison mode, a starter stub, a canonical reference solution, and a set of
@@ -81,6 +81,7 @@ try:
         Field,
         ValidationError,
         field_validator,
+        model_validator,
     )
 except ImportError:  # pragma: no cover - environment problem, not LLM problem
     sys.stderr.write(
@@ -101,7 +102,7 @@ COMPARE_MODES = ("exact", "unordered", "set_of_lists")
 # Allowed difficulty levels (specs/problem-schema.md / meta.json).
 DIFFICULTIES = ("easy", "medium", "hard")
 
-# The 38 canonical tags. Source of truth is app/tags.py::CANONICAL_TAGS; this is a
+# The 39 canonical tags. Source of truth is app/tags.py::CANONICAL_TAGS; this is a
 # copy so the validator stays standalone (no dependency on the `app` package).
 # Non-canonical tags are only WARNED about, because app.tags.normalize_tags folds
 # aliases and passes unknown tags through on write -- they are not fatal.
@@ -109,7 +110,7 @@ CANONICAL_TAGS = frozenset({
     "array", "backtracking", "binary-indexed-tree", "binary-search",
     "binary-search-tree", "binary-tree", "bit-manipulation", "bitmask",
     "breadth-first-search", "combinatorics", "counting", "depth-first-search",
-    "divide-and-conquer", "dynamic-programming", "graph", "greedy",
+    "design", "divide-and-conquer", "dynamic-programming", "graph", "greedy",
     "hash-function", "hash-set", "hash-table", "heap", "linked-list", "math",
     "matrix", "memoization", "monotonic-stack", "prefix-sum", "queue",
     "recursion", "simulation",
@@ -121,6 +122,10 @@ CANONICAL_TAGS = frozenset({
 # fewer than RECOMMENDED is a warning.
 MIN_TESTS = 4
 RECOMMENDED_TESTS = 6
+
+# At most this many progressive hints are kept per problem (app/content.py::MAX_HINTS).
+# Extras are dropped on write, so >MAX_HINTS is a warning, not an error.
+MAX_HINTS = 3
 
 
 # ---------------------------------------------------------------------------
@@ -161,8 +166,32 @@ class Test(BaseModel):
         return v
 
 
+class ReturnSpec(BaseModel):
+    """A method's declared return: ``{"type": "int"}`` (``"void"`` for no value)."""
+    model_config = ConfigDict(extra="forbid")
+
+    type: str = ""
+
+
+class Method(BaseModel):
+    """One method of a class-based ("design") problem: a name, positional params,
+    and a declared return. The constructor is described separately (by the class's
+    ``params``); this covers every non-constructor method the solver implements."""
+    model_config = ConfigDict(extra="forbid")
+
+    name: str = Field(min_length=1)
+    params: list[Param] = Field(default_factory=list)
+    returns: ReturnSpec = Field(default_factory=ReturnSpec)
+
+
 class ProblemOutput(BaseModel):
-    """The full structured object the LLM must return (see prompt.txt)."""
+    """The full structured object the LLM must return (see app/llm/problem_prompt.txt).
+
+    Supports two problem kinds. ``kind="function"`` (default, back-compatible) is
+    one top-level function graded per test. ``kind="class"`` is a stateful "design"
+    problem: the solver implements ``class_name`` with the listed ``class_methods``,
+    ``params`` are the constructor params, and each test replays an operation
+    sequence (see semantic_checks / specs/problem-schema.md)."""
     # Forbid extra top-level keys: if the model adds a stray field, that's a sign
     # the contract drifted, so we surface it rather than silently ignoring it.
     model_config = ConfigDict(extra="forbid")
@@ -171,15 +200,32 @@ class ProblemOutput(BaseModel):
     # at prompt time and supplied separately, not produced by the LLM (see the
     # module docstring). The on-disk problem dir still needs them, but they come
     # from the caller, not from this output.
+    kind: str = "function"
     difficulty: str
     tags: list[str] = Field(min_length=1)
-    function_name: str = Field(min_length=1)
-    params: list[Param]
-    return_type: str = Field(min_length=1)
+    # Up to MAX_HINTS optional progressive hints (see specs/problem-schema.md).
+    # Back-compatible: absent / [] means "no hints". Extras are capped on write, so
+    # the count/blank-entry checks in the semantic layer only warn, never reject.
+    hints: list[str] = Field(default_factory=list)
+    # Function contract (kind="function"). Optional at the schema level; the
+    # kind-aware model_validator below enforces what each kind actually needs.
+    function_name: str = ""
+    params: list[Param] = Field(default_factory=list)
+    return_type: str = ""
+    # Class contract (kind="class").
+    class_name: str = ""
+    class_methods: list[Method] = Field(default_factory=list)
     compare: str
     starter_code: str = Field(min_length=1)
     canonical_solution: str = Field(min_length=1)
     tests: list[Test] = Field(min_length=1)
+
+    @field_validator("kind")
+    @classmethod
+    def _kind_in_set(cls, v: str) -> str:
+        if v not in ("function", "class"):
+            raise ValueError(f"must be 'function' or 'class', got {v!r}")
+        return v
 
     @field_validator("difficulty")
     @classmethod
@@ -194,6 +240,21 @@ class ProblemOutput(BaseModel):
         if v not in COMPARE_MODES:
             raise ValueError(f"must be one of {COMPARE_MODES}, got {v!r}")
         return v
+
+    @model_validator(mode="after")
+    def _require_kind_fields(self) -> "ProblemOutput":
+        if self.kind == "function":
+            if not self.function_name:
+                raise ValueError("function_name is required for kind='function'")
+            if not self.return_type:
+                raise ValueError("return_type is required for kind='function'")
+        else:  # class
+            if not self.class_name:
+                raise ValueError("class_name is required for kind='class'")
+            if not self.class_methods:
+                raise ValueError(
+                    "class_methods must list at least one method for kind='class'")
+        return self
 
 
 # ---------------------------------------------------------------------------
@@ -307,6 +368,101 @@ def _looks_like_stub(source: str, fn_name: str) -> bool:
 
 
 # ---------------------------------------------------------------------------
+# AST helpers for class-based ("design") problems.
+# ---------------------------------------------------------------------------
+
+def _top_level_class(source: str, name: str) -> ast.ClassDef | None:
+    """Return the top-level ``class <name>`` node in ``source``, or None.
+
+    Parses with ``ast`` (no execution). Only module-level classes count."""
+    tree = ast.parse(source)  # may raise SyntaxError; caller handles it
+    for node in tree.body:
+        if isinstance(node, ast.ClassDef) and node.name == name:
+            return node
+    return None
+
+
+def _class_methods(cls: ast.ClassDef) -> dict[str, ast.FunctionDef]:
+    """Map method name -> def node for the class's directly-defined methods."""
+    out: dict[str, ast.FunctionDef] = {}
+    for node in cls.body:
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            out[node.name] = node  # type: ignore[assignment]
+    return out
+
+
+def _method_positional_params(fn: ast.FunctionDef) -> list[str]:
+    """Positional parameter names of a method, with a leading ``self`` dropped."""
+    a = fn.args
+    names = [p.arg for p in (a.posonlyargs + a.args)]
+    if names and names[0] == "self":
+        names = names[1:]
+    return names
+
+
+def _check_python_class(
+    label: str, source: str, class_name: str, ctor_params: list[str],
+    methods: list["Method"], rep: Report,
+) -> None:
+    """Validate that ``source`` parses and defines ``class_name`` with an
+    ``__init__`` matching the declared constructor params and every declared
+    method matching its declared params. ``label`` is "canonical_solution" or
+    "starter_code" for messages."""
+    try:
+        cls = _top_level_class(source, class_name)
+    except SyntaxError as exc:
+        rep.error(f"{label}: is not valid Python (SyntaxError: {exc.msg} "
+                  f"at line {exc.lineno}).")
+        return
+    if cls is None:
+        rep.error(f"{label}: does not define a top-level class named "
+                  f"{class_name!r}.")
+        return
+
+    defined = _class_methods(cls)
+    if "__init__" not in defined:
+        rep.error(f"{label}: class {class_name!r} defines no __init__ constructor "
+                  f"(it must accept the constructor params {ctor_params}).")
+    else:
+        got = _method_positional_params(defined["__init__"])
+        if got != ctor_params:
+            rep.error(f"{label}: __init__ has params {got}, but meta declares "
+                      f"constructor params {ctor_params} (names and order must match).")
+
+    for m in methods:
+        want = [p.name for p in m.params]
+        if m.name not in defined:
+            rep.error(f"{label}: class {class_name!r} does not define method "
+                      f"{m.name!r}.")
+            continue
+        got = _method_positional_params(defined[m.name])
+        if got != want:
+            rep.error(f"{label}: method {m.name!r} has params {got}, but meta "
+                      f"declares {want} (names and order must match).")
+
+
+def _class_looks_like_stub(source: str, class_name: str) -> bool:
+    """Heuristic: does every method body look unimplemented (just pass/.../docstring)?
+    Used to confirm the starter is a stub and warn if the canonical looks empty."""
+    try:
+        cls = _top_level_class(source, class_name)
+    except SyntaxError:
+        return False
+    if cls is None:
+        return False
+    for node in cls.body:
+        if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            continue
+        for stmt in node.body:
+            if isinstance(stmt, ast.Pass):
+                continue
+            if isinstance(stmt, ast.Expr) and isinstance(stmt.value, ast.Constant):
+                continue
+            return False  # a meaningful statement -> not a stub
+    return True
+
+
+# ---------------------------------------------------------------------------
 # Semantic layer: cross-field invariants the schema can't express.
 # ---------------------------------------------------------------------------
 
@@ -330,9 +486,56 @@ def _check_json_serializable(label: str, value: Any, rep: Report) -> None:
         rep.error(f"{label}: value is not JSON-serializable ({exc}).")
 
 
+def _check_tags(tags: list[str], rep: Report) -> None:
+    noncanon = sorted({t for t in tags if t not in CANONICAL_TAGS})
+    if noncanon:
+        rep.warn(f"tags: not in the canonical vocabulary: {noncanon} "
+                 "(allowed but will be normalized/folded on write).")
+
+
+def _check_hints(hints: list[str], rep: Report) -> None:
+    """Hints are optional; at most MAX_HINTS are kept and blanks are dropped on
+    write, so anything unusual here is a warning rather than a hard error."""
+    if len(hints) > MAX_HINTS:
+        rep.warn(f"hints: {len(hints)} provided; only the first {MAX_HINTS} are kept "
+                 "(extras are dropped on write).")
+    if any(not (h or "").strip() for h in hints):
+        rep.warn("hints: contains a blank entry (blank hints are dropped on write).")
+
+
+def _check_test_meta(tests: list[Test], rep: Report) -> None:
+    """Count, name-uniqueness, and visibility checks shared by both kinds."""
+    n = len(tests)
+    if n < MIN_TESTS:
+        rep.error(f"tests: only {n} provided; need at least {MIN_TESTS}.")
+    elif n < RECOMMENDED_TESTS:
+        rep.warn(f"tests: only {n} provided; {RECOMMENDED_TESTS}-10 recommended "
+                 "(cover edge and larger inputs).")
+
+    names = [t.name for t in tests]
+    dupes = sorted({x for x in names if names.count(x) > 1})
+    if dupes:
+        rep.error(f"tests: duplicate test names: {dupes} (names must be unique).")
+
+    if not any(not t.hidden for t in tests):
+        rep.error("tests: at least one visible case (hidden=false) is required.")
+    if not any(t.hidden for t in tests):
+        rep.warn("tests: no hidden cases (hidden=true) -- hidden cases are "
+                 "expected for fair scoring.")
+
+
 def semantic_checks(model: ProblemOutput, rep: Report) -> None:
     """All the validation that needs more than one field at a time."""
+    _check_tags(model.tags, rep)
+    _check_hints(model.hints, rep)
+    _check_test_meta(model.tests, rep)
+    if model.kind == "class":
+        _semantic_checks_class(model, rep)
+    else:
+        _semantic_checks_function(model, rep)
 
+
+def _semantic_checks_function(model: ProblemOutput, rep: Report) -> None:
     # --- function name + parameter names are valid, unique identifiers --------
     fn_ok = _check_identifier("function_name", model.function_name, rep)
 
@@ -368,31 +571,6 @@ def semantic_checks(model: ProblemOutput, rep: Report) -> None:
             rep.warn("starter_code: does not look like an empty stub -- make "
                      "sure it does not leak the solution.")
 
-    # --- tags -----------------------------------------------------------------
-    noncanon = sorted({t for t in model.tags if t not in CANONICAL_TAGS})
-    if noncanon:
-        rep.warn(f"tags: not in the canonical vocabulary: {noncanon} "
-                 "(allowed but will be normalized/folded on write).")
-
-    # --- tests: count, uniqueness, visibility ---------------------------------
-    n = len(model.tests)
-    if n < MIN_TESTS:
-        rep.error(f"tests: only {n} provided; need at least {MIN_TESTS}.")
-    elif n < RECOMMENDED_TESTS:
-        rep.warn(f"tests: only {n} provided; {RECOMMENDED_TESTS}-10 recommended "
-                 "(cover edge and larger inputs).")
-
-    names = [t.name for t in model.tests]
-    dupes = sorted({x for x in names if names.count(x) > 1})
-    if dupes:
-        rep.error(f"tests: duplicate test names: {dupes} (names must be unique).")
-
-    if not any(not t.hidden for t in model.tests):
-        rep.error("tests: at least one visible case (hidden=false) is required.")
-    if not any(t.hidden for t in model.tests):
-        rep.warn("tests: no hidden cases (hidden=true) -- hidden cases are "
-                 "expected for fair scoring.")
-
     # --- per-test checks: input keys, JSON-serializability, expected shape -----
     param_set = set(param_names)
     for t in model.tests:
@@ -423,6 +601,87 @@ def semantic_checks(model: ProblemOutput, rep: Report) -> None:
             elif not all(isinstance(e, list) for e in t.expected):
                 rep.warn(f"tests[{t.name!r}].expected: compare='set_of_lists' "
                          "usually expects every element to itself be a list.")
+
+
+def _semantic_checks_class(model: ProblemOutput, rep: Report) -> None:
+    """Semantic checks for a class-based ("design") problem: the canonical/starter
+    must define the class with a matching constructor + methods, and each test
+    replays an operation sequence (``operations``/``args``) whose length matches
+    its ``expected`` outputs list."""
+    # --- class name + constructor/method param names are valid identifiers ----
+    cls_ok = _check_identifier("class_name", model.class_name, rep)
+
+    ctor_params: list[str] = []
+    for p in model.params:
+        if _check_identifier("constructor parameter name", p.name, rep):
+            ctor_params.append(p.name)
+    if len(ctor_params) != len(set(ctor_params)):
+        rep.error("params: constructor parameter names must be unique.")
+
+    method_names: list[str] = []
+    for m in model.class_methods:
+        if _check_identifier("method name", m.name, rep):
+            method_names.append(m.name)
+        mparams = [p.name for p in m.params]
+        if len(mparams) != len(set(mparams)):
+            rep.error(f"method {m.name!r}: parameter names must be unique.")
+    if len(method_names) != len(set(method_names)):
+        rep.error("class_methods: method names must be unique.")
+
+    # --- canonical + starter define the class with the right shape ------------
+    if cls_ok:
+        _check_python_class(
+            "canonical_solution", model.canonical_solution,
+            model.class_name, ctor_params, model.class_methods, rep)
+        _check_python_class(
+            "starter_code", model.starter_code,
+            model.class_name, ctor_params, model.class_methods, rep)
+
+        if _class_looks_like_stub(model.canonical_solution, model.class_name):
+            rep.error("canonical_solution: every method looks like an empty stub "
+                      "(only pass/.../docstring) -- it must be a complete solution.")
+        if not _class_looks_like_stub(model.starter_code, model.class_name):
+            rep.warn("starter_code: does not look like an empty class stub -- make "
+                     "sure it does not leak the solution.")
+
+    # --- per-test checks: operation-sequence shape ----------------------------
+    method_set = set(method_names)
+    for t in model.tests:
+        keys = set(t.input.keys())
+        if keys != {"operations", "args"}:
+            rep.error(f"tests[{t.name!r}].input keys must be exactly "
+                      "{{'operations', 'args'}} for a class problem, got "
+                      f"{sorted(keys)}.")
+            continue
+        ops = t.input.get("operations")
+        args = t.input.get("args")
+        if not isinstance(ops, list) or not isinstance(args, list):
+            rep.error(f"tests[{t.name!r}].input: 'operations' and 'args' must "
+                      "both be arrays.")
+            continue
+        if len(ops) != len(args):
+            rep.error(f"tests[{t.name!r}]: 'operations' ({len(ops)}) and 'args' "
+                      f"({len(args)}) must have equal length.")
+        if not isinstance(t.expected, list):
+            rep.error(f"tests[{t.name!r}].expected must be a list of per-operation "
+                      "outputs (null for the constructor and void methods).")
+        elif len(t.expected) != len(ops):
+            rep.error(f"tests[{t.name!r}]: expected has {len(t.expected)} outputs "
+                      f"but there are {len(ops)} operations.")
+        if ops:
+            if ops[0] != model.class_name:
+                rep.error(f"tests[{t.name!r}]: the first operation must be the "
+                          f"constructor {model.class_name!r}, got {ops[0]!r}.")
+            unknown = sorted({op for op in ops[1:] if op not in method_set})
+            if unknown:
+                rep.error(f"tests[{t.name!r}]: operations reference unknown "
+                          f"method(s) {unknown} (declared: {sorted(method_set)}).")
+        if not all(isinstance(a, list) for a in args):
+            rep.error(f"tests[{t.name!r}].args: every element must be a list of "
+                      "arguments for the corresponding operation.")
+
+        _check_json_serializable(f"tests[{t.name!r}].input", t.input, rep)
+        _check_json_serializable(f"tests[{t.name!r}].expected", t.expected, rep)
 
 
 # ---------------------------------------------------------------------------
@@ -495,7 +754,7 @@ def validate(data: dict, strict: bool) -> Report:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Validate LLM-generated problem JSON for lootcode "
-                    "(see prompt.txt).",
+                    "(see app/llm/problem_prompt.txt).",
     )
     parser.add_argument(
         "json_file",

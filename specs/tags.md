@@ -10,14 +10,20 @@ browse/filter facets stay meaningful and near-synonyms don't multiply.
   every write (manual admin, AI generator, bulk-import generators), so aliases
   are corrected, dropped tags removed, and no problem is ever left tagless.
 
-## Canonical tags (38)
+## Canonical tags (39)
 
 | Group | Tags |
 |---|---|
 | Core data shapes | `array`, `string`, `matrix`, `linked-list`, `tree`, `binary-tree`, `graph` |
-| Structures | `stack`, `monotonic-stack`, `queue`, `heap`, `hash-table`, `hash-set`, `hash-function`, `binary-search-tree`, `trie`, `union-find`, `binary-indexed-tree`, `suffix-array` |
+| Structures | `stack`, `monotonic-stack`, `queue`, `heap`, `hash-table`, `hash-set`, `hash-function`, `binary-search-tree`, `trie`, `union-find`, `binary-indexed-tree`, `suffix-array`, `design` |
 | Techniques | `two-pointers`, `sliding-window`, `prefix-sum`, `binary-search`, `sorting`, `greedy`, `backtracking`, `recursion`, `divide-and-conquer`, `dynamic-programming`, `memoization`, `depth-first-search`, `breadth-first-search`, `bit-manipulation`, `bitmask` |
 | Counting / numeric | `combinatorics`, `counting`, `simulation`, `math` |
+
+`design` tags problems that ask you to **implement a data structure** driven by a
+sequence of operations (the input is an operations list, e.g.
+`["LRUCache", "put", "get", ...]` with per-op arguments; the harness/testgen
+support this shape). Use it for the "build/design a structure" pattern, not for
+one-shot computational problems.
 
 `math` is a **catch-all umbrella**: kept only when no more specific canonical tag
 applies (pure number-theory / geometry / probability / arithmetic-formula
@@ -42,8 +48,8 @@ category. Full map in `app/tags.py:TAG_ALIASES`:
 
 ## Dropped (removed entirely)
 
-Too vague or a problem-type meta-tag with no good home: `design`,
-`enumeration`, `queries`. Never use these.
+Too vague or a problem-type meta-tag with no good home: `enumeration`,
+`queries`. Never use these.
 
 ## Extending the vocabulary
 

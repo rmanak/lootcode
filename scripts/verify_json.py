@@ -4,16 +4,20 @@
 For every ``*.json`` file in the given folder this script:
 
   1. checks the file is **valid JSON**,
-  2. checks it carries the required **ingredients** (the fields the judge needs
-     to run — function name, params, canonical solution, tests, ...),
+  2. checks it carries the required **ingredients** the judge needs to run —
+     kind-aware: a ``kind="function"`` file needs function_name/params/…; a
+     ``kind="class"`` (design) file needs class_name/class_methods/params and
+     ``{operations, args}`` test inputs instead,
   3. runs the file's ``canonical_solution`` against its ``tests`` using the
      *exact* execution + grading path the Admin "Verify" button uses
-     (:func:`app.executor.run_submission`), and
+     (:func:`app.executor.run_submission`) — for a class problem the harness
+     instantiates the class and replays each test's operation sequence, and
   4. reports whether **all tests passed**, or the **pass ratio**.
 
 Nothing about the sandbox/executor/judge is re-implemented here — it only wires
 already-implemented app functionality to a batch of loose JSON files (the same
-shape the AI generator emits, e.g. ``test_output/4sum.json``).
+shape the AI generator emits, e.g. ``test_output/4sum.json`` or a design
+problem's ``generated_full_problem.json``).
 
 Usage:
     python scripts/verify_json.py test_output
@@ -42,18 +46,26 @@ COMPARE_MODES = ("exact", "unordered", "set_of_lists")
 def validate(data: object) -> list[str]:
     """Return a list of human-readable reasons the payload can't be judged.
 
-    An empty list means the file has every ingredient
-    :func:`run_submission` needs. This checks *structure*, not correctness.
+    An empty list means the file has every ingredient :func:`run_submission`
+    needs. This checks *structure*, not correctness — the behavioral run in
+    :func:`grade` is what confirms the ``expected`` values are actually right.
+
+    Kind-aware: ``kind="function"`` (the default) needs a top-level
+    ``function_name``; ``kind="class"`` (a design problem) needs ``class_name`` +
+    a non-empty ``class_methods`` and per-test ``{operations, args}`` inputs, and
+    must NOT be rejected for lacking ``function_name``.
     """
     if not isinstance(data, dict):
         return ["top-level JSON is not an object"]
 
     errors: list[str] = []
 
-    fn = data.get("function_name")
-    if not isinstance(fn, str) or not fn.strip():
-        errors.append("missing/empty 'function_name'")
+    kind = data.get("kind", "function") or "function"
+    if kind not in ("function", "class"):
+        errors.append(f"'kind' must be 'function' or 'class' (got {kind!r})")
+        kind = "function"  # continue with the common + function checks
 
+    # --- fields common to both kinds -----------------------------------------
     params = data.get("params")
     if not isinstance(params, list):
         errors.append("'params' must be a list of {name, type} objects")
@@ -61,10 +73,6 @@ def validate(data: object) -> list[str]:
         for i, p in enumerate(params):
             if not isinstance(p, dict) or not str(p.get("name", "")).strip():
                 errors.append(f"params[{i}] missing 'name'")
-
-    rt = data.get("return_type")
-    if rt is not None and not isinstance(rt, str):
-        errors.append("'return_type' must be a string")
 
     compare = data.get("compare", "exact")
     if compare not in COMPARE_MODES:
@@ -74,6 +82,27 @@ def validate(data: object) -> list[str]:
     if not isinstance(sol, str) or not sol.strip():
         errors.append("missing/empty 'canonical_solution'")
 
+    # --- kind-specific contract ----------------------------------------------
+    if kind == "class":
+        cn = data.get("class_name")
+        if not isinstance(cn, str) or not cn.strip():
+            errors.append("missing/empty 'class_name' (kind='class')")
+        methods = data.get("class_methods")
+        if not isinstance(methods, list) or not methods:
+            errors.append("'class_methods' must be a non-empty list (kind='class')")
+        else:
+            for i, m in enumerate(methods):
+                if not isinstance(m, dict) or not str(m.get("name", "")).strip():
+                    errors.append(f"class_methods[{i}] missing 'name'")
+    else:
+        fn = data.get("function_name")
+        if not isinstance(fn, str) or not fn.strip():
+            errors.append("missing/empty 'function_name'")
+        rt = data.get("return_type")
+        if rt is not None and not isinstance(rt, str):
+            errors.append("'return_type' must be a string")
+
+    # --- tests (input shape depends on kind) ---------------------------------
     tests = data.get("tests")
     if not isinstance(tests, list) or not tests:
         errors.append("'tests' must be a non-empty list")
@@ -82,8 +111,18 @@ def validate(data: object) -> list[str]:
             if not isinstance(t, dict):
                 errors.append(f"tests[{i}] is not an object")
                 continue
-            if not isinstance(t.get("input"), dict):
+            inp = t.get("input")
+            if not isinstance(inp, dict):
                 errors.append(f"tests[{i}] missing object 'input'")
+            elif kind == "class":
+                # A class test replays a call sequence: input is {operations, args}.
+                if set(inp) != {"operations", "args"}:
+                    errors.append(
+                        f"tests[{i}].input must have exactly keys "
+                        "{operations, args} (kind='class')")
+                elif not (isinstance(inp["operations"], list)
+                          and isinstance(inp["args"], list)):
+                    errors.append(f"tests[{i}].input operations/args must be arrays")
             if "expected" not in t:
                 errors.append(f"tests[{i}] missing 'expected'")
 
@@ -96,11 +135,21 @@ def grade(data: dict):
     Builds the same lightweight ``problem``/``tests`` stand-ins the Admin
     verify endpoint builds (app/routers/admin.py) and hands them to
     :func:`app.executor.run_submission`.
+
+    Kind-aware: for a class problem it forwards ``kind``/``class_name``/
+    ``class_methods`` so the harness instantiates the class and replays each
+    test's operation sequence. ``function_name`` is still supplied (the executor
+    reads it unconditionally) — for a class it is ignored by the harness, so we
+    fall back to the class name to keep it a valid identifier.
     """
+    kind = data.get("kind", "function") or "function"
     prob = SimpleNamespace(
-        function_name=data["function_name"].strip(),
+        kind=kind,
+        function_name=(data.get("function_name") or data.get("class_name") or "").strip(),
         params=data.get("params", []),
         return_type=(data.get("return_type") or "").strip(),
+        class_name=((data.get("class_name") or "").strip() or None),
+        class_methods=(data.get("class_methods") or None),
         time_limit_ms=settings.EXEC_TIME_LIMIT_MS,
         memory_limit_mb=settings.EXEC_MEMORY_LIMIT_MB,
         points=100,
@@ -125,7 +174,13 @@ def main(argv: list[str] | None = None) -> int:
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     ap.add_argument("folder", type=pathlib.Path,
-                    help="folder containing problem .json files (e.g. test_output)")
+                    help="folder of problem .json files (e.g. test_output), OR a "
+                         "batch dir whose <slug>/generated_full_problem.json files "
+                         "are verified (e.g. output_part_aa_dir)")
+    ap.add_argument("--glob", metavar="PATTERN", default=None,
+                    help="explicit glob for the files to verify, relative to FOLDER "
+                         "(e.g. '*/generated_full_problem.json'). Overrides the "
+                         "auto-detection below.")
     ap.add_argument("-v", "--verbose", action="store_true",
                     help="for failing files, list each failing test (status/expected/actual)")
     args = ap.parse_args(argv)
@@ -134,26 +189,43 @@ def main(argv: list[str] | None = None) -> int:
         print(f"error: {args.folder} is not a directory", file=sys.stderr)
         return 2
 
-    files = sorted(args.folder.glob("*.json"))
+    # Discovery: an explicit --glob wins; otherwise verify the direct *.json
+    # children (the classic layout), and if there are none, fall back to the
+    # batch layout <folder>/<slug>/generated_full_problem.json that the Mode-A
+    # generator writes. Skipping direct-child *.json for the batch case avoids
+    # picking up each slug dir's stray source meta.json.
+    if args.glob:
+        files = sorted(args.folder.glob(args.glob))
+    else:
+        files = sorted(args.folder.glob("*.json"))
+        if not files:
+            files = sorted(args.folder.glob("*/generated_full_problem.json"))
     if not files:
-        print(f"No .json files found in {args.folder}")
+        print(f"No problem .json files found in {args.folder}")
         return 0
 
     n_pass = n_fail = n_invalid = 0
     for path in files:
+        # Label by path relative to FOLDER so batch files (all named
+        # generated_full_problem.json) are distinguishable by their slug dir.
+        try:
+            label = str(path.relative_to(args.folder))
+        except ValueError:
+            label = path.name
+
         # 1) valid JSON?
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
         except (ValueError, OSError) as exc:
             n_invalid += 1
-            print(f"[INVALID] {path.name}: not valid JSON — {exc}")
+            print(f"[INVALID] {label}: not valid JSON — {exc}")
             continue
 
         # 2) all the right ingredients?
         errors = validate(data)
         if errors:
             n_invalid += 1
-            print(f"[INVALID] {path.name}: " + "; ".join(errors))
+            print(f"[INVALID] {label}: " + "; ".join(errors))
             continue
 
         # 3) run canonical solution against tests (same path as the Admin UI).
@@ -161,17 +233,17 @@ def main(argv: list[str] | None = None) -> int:
             g = grade(data)
         except Exception as exc:  # noqa: BLE001 - report any judge/runtime failure per-file
             n_invalid += 1
-            print(f"[ERROR]   {path.name}: could not run — {exc}")
+            print(f"[ERROR]   {label}: could not run — {exc}")
             continue
 
         ratio = f"{g.passed_count}/{g.total_count}"
         pct = round(100 * g.passed_count / g.total_count) if g.total_count else 0
         if g.solved:
             n_pass += 1
-            print(f"[PASS]    {path.name}: all tests passed ({ratio})")
+            print(f"[PASS]    {label}: all tests passed ({ratio})")
         else:
             n_fail += 1
-            print(f"[FAIL]    {path.name}: {ratio} passed ({pct}%)")
+            print(f"[FAIL]    {label}: {ratio} passed ({pct}%)")
             if args.verbose:
                 # g.results is in the same order as data["tests"], so the i-th
                 # result's expected value is data["tests"][i]["expected"].

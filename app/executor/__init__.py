@@ -73,10 +73,15 @@ def _equal(a: object, b: object, mode: str) -> bool:
 
 def run_submission(code: str, problem, tests) -> GradedRun:
     """`problem` needs .function_name/.params/.time_limit_ms/.memory_limit_mb/.points;
-    `tests` is an iterable of objects with .name/.input/.expected/.weight/.hidden."""
+    `tests` is an iterable of objects with .name/.input/.expected/.weight/.hidden.
+
+    For a class-based "design" problem (`problem.kind == "class"`), `.params` holds
+    the constructor params and `.class_name`/`.class_methods` describe the class the
+    harness instantiates and drives through each test's operation sequence."""
     tests = list(tests)
     # Forward the full param specs ({name, type}) and the return type so the
     # harness can build/serialize custom types (e.g. TreeNode) at the boundary.
+    kind = getattr(problem, "kind", "function") or "function"
     params = problem.params
     return_type = getattr(problem, "return_type", "") or ""
     limits = Limits(
@@ -86,7 +91,10 @@ def run_submission(code: str, problem, tests) -> GradedRun:
     )
     specs = [TestSpec(name=t.name, input=t.input) for t in tests]
     outcomes: dict[str, Outcome] = _backend()(
-        code, problem.function_name, params, return_type, specs, limits
+        code, problem.function_name, params, return_type, specs, limits,
+        kind=kind,
+        class_name=getattr(problem, "class_name", None),
+        class_methods=getattr(problem, "class_methods", None),
     )
     compare = getattr(problem, "compare", "exact") or "exact"
 

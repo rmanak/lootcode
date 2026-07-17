@@ -45,6 +45,10 @@ Return values must be JSON-serializable — **except** for parameters/returns
 declared as a rich type (see "Rich types" below), where the harness converts
 between the JSON wire form and a real object for you.
 
+> The no-class-wrapper rule applies to ordinary (`kind: "function"`) problems.
+> **Stateful "design" problems** (`kind: "class"`) instead ask the solver to
+> implement a class; see "Class-based (design) problems" below.
+
 ## `meta.json`
 
 ```jsonc
@@ -198,6 +202,74 @@ python scripts/check_constraint_validators.py --slug <slug>   # every stored inp
 
 Full reference — the contract, rich-type (`TreeNode`) handling, and how to
 generate/regenerate a validator — is in `docs/input-validators.md`.
+
+## Class-based ("design") problems (`kind: "class"`)
+
+Some problems ask the solver to implement a **stateful class** (LeetCode "design":
+LRU Cache, Min Stack, Browser History, …) rather than one function. Set
+`meta.json`'s top-level `"kind": "class"` and replace the `function` block with a
+`class` block. Everything else (difficulty, tags, hints, limits, scoring, compare)
+is unchanged. Omit `kind` (or set `"function"`) for ordinary function problems.
+
+```jsonc
+{
+  "kind": "class",
+  "class": {
+    "name": "BrowserHistory",
+    "constructor": { "params": [ { "name": "homepage", "type": "string" } ] },
+    "methods": [
+      { "name": "visit",   "params": [ { "name": "url",   "type": "string" } ], "returns": { "type": "void" } },
+      { "name": "back",    "params": [ { "name": "steps", "type": "int" } ],    "returns": { "type": "string" } },
+      { "name": "forward", "params": [ { "name": "steps", "type": "int" } ],    "returns": { "type": "string" } }
+    ]
+  },
+  "compare": "exact"
+}
+```
+
+**Solver contract.** The solver defines a top-level `class <class.name>:` with an
+`__init__` taking exactly the constructor params and one method per entry in
+`methods` (params in order; `self` is implicit). No free function.
+
+**Test format.** Each `tests/cases.json` case replays a call sequence, using
+LeetCode's parallel arrays. `input` has exactly two keys:
+
+```jsonc
+{ "name": "example-1",
+  "input": {
+    "operations": ["BrowserHistory", "visit", "back", "forward"],
+    "args":       [["a.com"],        ["b.com"], [1],    [1]]
+  },
+  "expected": [null, null, "a.com", "b.com"],   // one output per operation
+  "weight": 1, "hidden": false }
+```
+
+Rules the validator enforces: `operations[0]` is the class name (the constructor);
+every later operation is a declared method; `operations`, `args`, and `expected`
+all have equal length; each `args[i]` is the argument list for that call. The
+constructor and every `void` method produce `null` in `expected`; a
+value-returning method produces its return value. Grading is the normal
+element-wise comparison of the outputs list under `compare` (`exact` in almost
+every case — the outputs list order is meaningful).
+
+**Rich & helper types.** A constructor or method param/return may use a rich type
+(`TreeNode`, `ListNode`) exactly as a function problem would — the harness decodes
+the JSON wire form to a real object at the boundary. Two extra **helper types**
+are injected for design problems (param-only):
+
+| Type label | Injected class | Wire form | Example |
+|------------|----------------|-----------|---------|
+| `Iterator` (or `Iterator<int>`) | `Iterator` with `next()`/`hasNext()` | a flat JSON array | `peeking-iterator` |
+| `List<NestedInteger>` (or `NestedInteger[]`) | list of `NestedInteger` (`isInteger()`/`getInteger()`/`getList()`) | a nested JSON list | `flatten-nested-list-iterator` |
+
+Codecs and helper classes live in `app/executor/harness.py` (`_CODECS`); their
+displayed definitions live in `app/routers/pages.py` (`PROVIDED_TYPE_DEFS`).
+
+**Not yet supported** (grade by exact outputs only, so avoid or defer these):
+problems whose answer is non-deterministic (`getRandom`, `shuffle`) or graded by
+composition (`serialize`↔`deserialize`, `encode`↔`decode`). These need a custom
+judge (a future `compare: "custom"` + per-problem checker). See
+`docs/design-problems.md`.
 
 ## The canonical solution
 

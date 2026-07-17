@@ -98,6 +98,18 @@ class Problem(Base):
     params: Mapped[list] = mapped_column(JSON, default=list)  # [{name,type}]
     return_type: Mapped[str] = mapped_column(String, default="")
 
+    # Class-based "design" problems (kind="class"): the solver implements a
+    # stateful class instead of one top-level function, graded by replaying a
+    # sequence of method calls against an outputs array. For kind="class" the
+    # `params` column above holds the *constructor* params, `class_name` is the
+    # class to implement, and `class_methods` lists each method's signature
+    # (`[{name, params:[{name,type}], returns:{type}}]`). `function_name` /
+    # `return_type` are unused. kind="function" (default) keeps today's behavior.
+    # See specs/problem-schema.md and docs/design-problems.md.
+    kind: Mapped[str] = mapped_column(String, default="function")  # function|class
+    class_name: Mapped[str | None] = mapped_column(String, nullable=True)
+    class_methods: Mapped[list | None] = mapped_column(JSON, nullable=True)
+
     time_limit_ms: Mapped[int] = mapped_column(Integer, default=10_000)
     memory_limit_mb: Mapped[int] = mapped_column(Integer, default=512)
     scoring_type: Mapped[str] = mapped_column(String, default="weighted")

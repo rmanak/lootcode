@@ -85,9 +85,12 @@ def _as_prob(p: dict) -> SimpleNamespace:
     """Build the lightweight problem stand-in run_submission expects (mirrors
     scripts/verify_json.py and the Admin verify endpoint)."""
     return SimpleNamespace(
+        kind=p.get("kind", "function") or "function",
         function_name=(p.get("function_name") or "").strip(),
         params=p.get("params", []),
         return_type=(p.get("return_type") or "").strip(),
+        class_name=p.get("class_name"),
+        class_methods=p.get("class_methods"),
         time_limit_ms=p["time_limit_ms"],
         memory_limit_mb=p["memory_limit_mb"],
         points=p.get("points", 100),

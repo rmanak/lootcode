@@ -79,23 +79,37 @@ def _parse_params(text: str) -> list[dict]:
 
 def _form_to_data(*, slug, title, difficulty, topics, hints, statement_md,
                   function_name, params, return_type, compare, starter_code,
-                  canonical_solution, tests_json, source) -> dict:
+                  canonical_solution, tests_json, source,
+                  kind="function", class_name="", class_methods_json="[]") -> dict:
     tests = json.loads(tests_json)
     if not isinstance(tests, list) or not tests:
         raise ValueError("Tests must be a non-empty JSON array.")
-    return {
+    kind = kind if kind in ("function", "class") else "function"
+    data = {
         "slug": slug.strip(), "title": title.strip(), "difficulty": difficulty,
         "topics": [t.strip() for t in topics.split(",") if t.strip()],
         # One hint per line; normalize_hints trims blanks and caps at MAX_HINTS.
         "hints": content.normalize_hints(hints.splitlines()),
-        "statement_md": statement_md, "function_name": function_name.strip(),
-        "params": _parse_params(params), "return_type": return_type.strip(),
+        "statement_md": statement_md,
+        # For a class problem the params textarea holds the *constructor* params.
+        "params": _parse_params(params),
         "compare": compare if compare in COMPARE_MODES else "exact",
         "starter_code": starter_code, "canonical_solution": canonical_solution or None,
-        "scoring_type": "weighted", "points": 100, "source": source,
+        "scoring_type": "weighted", "points": 100, "source": source, "kind": kind,
         "time_limit_ms": settings.EXEC_TIME_LIMIT_MS,
         "memory_limit_mb": settings.EXEC_MEMORY_LIMIT_MB, "tests": tests,
     }
+    if kind == "class":
+        methods = json.loads(class_methods_json or "[]")
+        if not isinstance(methods, list):
+            raise ValueError("Class methods must be a JSON array of method objects.")
+        data.update(function_name="", return_type="",
+                    class_name=class_name.strip(), class_methods=methods)
+    else:
+        data.update(function_name=function_name.strip(),
+                    return_type=return_type.strip(),
+                    class_name=None, class_methods=None)
+    return data
 
 
 def _form_view(prob: Problem) -> dict:
@@ -105,9 +119,13 @@ def _form_view(prob: Problem) -> dict:
         "topics": ", ".join(prob.topics or []),
         "hints": "\n".join(prob.hints or []),
         "statement_md": prob.statement_md or "",
+        "kind": getattr(prob, "kind", "function") or "function",
         "function_name": prob.function_name,
         "params": "\n".join(f"{p['name']}: {p.get('type', 'any')}" for p in prob.params),
         "return_type": prob.return_type or "", "compare": prob.compare or "exact",
+        "class_name": getattr(prob, "class_name", "") or "",
+        "class_methods_json": json.dumps(
+            getattr(prob, "class_methods", None) or [], indent=2),
         "starter_code": prob.starter_code or "",
         "canonical_solution": prob.canonical_solution or "",
         "tests_json": json.dumps(
@@ -127,7 +145,9 @@ _EXAMPLE_TESTS_JSON = """[
 def _blank_form() -> dict:
     """Empty field values for a fresh New-problem form."""
     return {"slug": "", "title": "", "difficulty": "easy", "topics": "", "hints": "",
-            "statement_md": "", "function_name": "", "params": "", "return_type": "",
+            "statement_md": "", "kind": "function",
+            "function_name": "", "params": "", "return_type": "",
+            "class_name": "", "class_methods_json": "[]",
             "compare": "exact", "starter_code": "", "canonical_solution": "",
             "tests_json": _EXAMPLE_TESTS_JSON}
 
@@ -143,9 +163,12 @@ def _data_to_form(data: dict) -> dict:
         "topics": ", ".join(data.get("topics") or []),
         "hints": "\n".join(data.get("hints") or []),
         "statement_md": data.get("statement_md", "") or "",
+        "kind": data.get("kind", "function") or "function",
         "function_name": data.get("function_name", "") or "",
         "params": "\n".join(f"{p['name']}: {p.get('type', 'any')}" for p in params),
         "return_type": data.get("return_type", "") or "",
+        "class_name": data.get("class_name", "") or "",
+        "class_methods_json": json.dumps(data.get("class_methods") or [], indent=2),
         "compare": data.get("compare", "exact") or "exact",
         "starter_code": data.get("starter_code", "") or "",
         "canonical_solution": data.get("canonical_solution", "") or "",
@@ -233,8 +256,10 @@ def edit_submit(
     slug: str, request: Request, db: Session = Depends(get_db),
     title: str = Form(""), difficulty: str = Form("easy"), topics: str = Form(""),
     hints: str = Form(""),
-    statement_md: str = Form(""), function_name: str = Form(""), params: str = Form(""),
-    return_type: str = Form(""), compare: str = Form("exact"),
+    statement_md: str = Form(""), kind: str = Form("function"),
+    function_name: str = Form(""), params: str = Form(""),
+    return_type: str = Form(""), class_name: str = Form(""),
+    class_methods_json: str = Form("[]"), compare: str = Form("exact"),
     starter_code: str = Form(""), canonical_solution: str = Form(""),
     tests_json: str = Form("[]"),
 ):
@@ -245,9 +270,10 @@ def edit_submit(
     # The slug is the identity and isn't editable here, so the values the author
     # typed live in these locals; echo them straight back on any failure.
     typed = {"slug": slug, "title": title, "difficulty": difficulty, "topics": topics,
-             "hints": hints, "statement_md": statement_md,
+             "hints": hints, "statement_md": statement_md, "kind": kind,
              "function_name": function_name, "params": params,
-             "return_type": return_type, "compare": compare,
+             "return_type": return_type, "class_name": class_name,
+             "class_methods_json": class_methods_json, "compare": compare,
              "starter_code": starter_code, "canonical_solution": canonical_solution,
              "tests_json": tests_json}
 
@@ -261,8 +287,10 @@ def edit_submit(
     try:
         data = _form_to_data(
             slug=slug, title=title, difficulty=difficulty, topics=topics, hints=hints,
-            statement_md=statement_md, function_name=function_name, params=params,
-            return_type=return_type, compare=compare, starter_code=starter_code,
+            statement_md=statement_md, kind=kind, function_name=function_name,
+            params=params, return_type=return_type, class_name=class_name,
+            class_methods_json=class_methods_json, compare=compare,
+            starter_code=starter_code,
             canonical_solution=canonical_solution, tests_json=tests_json,
             source=prob.source,  # preserve original source
         )
@@ -286,9 +314,12 @@ def edit_submit(
 # --- run a solution against the current (unsaved) tests --------------------
 class VerifyBody(BaseModel):
     code: str
-    function_name: str
+    kind: str = "function"
+    function_name: str = ""
     params: str = ""
     return_type: str = ""
+    class_name: str = ""
+    class_methods_json: str = "[]"
     tests_json: str = "[]"
     compare: str = "exact"
 
@@ -304,9 +335,21 @@ def verify(slug: str, body: VerifyBody):
     except (ValueError, json.JSONDecodeError) as exc:
         raise HTTPException(status_code=400, detail=f"Invalid tests JSON: {exc}")
 
+    kind = body.kind if body.kind in ("function", "class") else "function"
+    class_methods = None
+    if kind == "class":
+        try:
+            class_methods = json.loads(body.class_methods_json or "[]")
+            if not isinstance(class_methods, list):
+                raise ValueError("Class methods must be a JSON array.")
+        except (ValueError, json.JSONDecodeError) as exc:
+            raise HTTPException(status_code=400, detail=f"Invalid class methods JSON: {exc}")
+
     prob = SimpleNamespace(
+        kind=kind,
         function_name=body.function_name.strip(), params=_parse_params(body.params),
         return_type=body.return_type.strip(),
+        class_name=body.class_name.strip() or None, class_methods=class_methods,
         time_limit_ms=settings.EXEC_TIME_LIMIT_MS,
         memory_limit_mb=settings.EXEC_MEMORY_LIMIT_MB, points=100,
         compare=body.compare if body.compare in COMPARE_MODES else "exact",
@@ -341,7 +384,9 @@ def new_submit(
     request: Request, db: Session = Depends(get_db),
     slug: str = Form(""), title: str = Form(""), difficulty: str = Form("easy"),
     topics: str = Form(""), hints: str = Form(""), statement_md: str = Form(""),
+    kind: str = Form("function"),
     function_name: str = Form(""), params: str = Form(""), return_type: str = Form(""),
+    class_name: str = Form(""), class_methods_json: str = Form("[]"),
     compare: str = Form("exact"), starter_code: str = Form(""),
     canonical_solution: str = Form(""), tests_json: str = Form("[]"),
     source: str = Form("manual"), draft_id: str = Form(""),
@@ -359,8 +404,10 @@ def new_submit(
     is_ai = source == "ai"
     raw = _raw_form(
         slug=slug, title=title, difficulty=difficulty, topics=topics, hints=hints,
-        statement_md=statement_md, function_name=function_name, params=params,
-        return_type=return_type, compare=compare, starter_code=starter_code,
+        statement_md=statement_md, kind=kind, function_name=function_name,
+        params=params, return_type=return_type, class_name=class_name,
+        class_methods_json=class_methods_json, compare=compare,
+        starter_code=starter_code,
         canonical_solution=canonical_solution, tests_json=tests_json)
 
     def _reject(errors, warnings=None):
@@ -387,8 +434,10 @@ def new_submit(
     try:
         data = _form_to_data(
             slug=slug, title=title, difficulty=difficulty, topics=topics, hints=hints,
-            statement_md=statement_md, function_name=function_name, params=params,
-            return_type=return_type, compare=compare, starter_code=starter_code,
+            statement_md=statement_md, kind=kind, function_name=function_name,
+            params=params, return_type=return_type, class_name=class_name,
+            class_methods_json=class_methods_json, compare=compare,
+            starter_code=starter_code,
             canonical_solution=canonical_solution, tests_json=tests_json, source=source)
     except (ValueError, KeyError, json.JSONDecodeError) as exc:
         return _reject([f"Tests must be a valid JSON array of test objects: {exc}"])

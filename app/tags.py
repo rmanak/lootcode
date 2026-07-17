@@ -23,7 +23,7 @@ from __future__ import annotations
 # The umbrella catch-all (kept only when nothing more specific applies).
 MATH = "math"
 
-# Allowed vocabulary (38 tags). Keep alphabetised.
+# Allowed vocabulary (39 tags). Keep alphabetised.
 CANONICAL_TAGS: frozenset[str] = frozenset({
     "array",
     "backtracking",
@@ -37,6 +37,7 @@ CANONICAL_TAGS: frozenset[str] = frozenset({
     "combinatorics",
     "counting",
     "depth-first-search",
+    "design",
     "divide-and-conquer",
     "dynamic-programming",
     "graph",
@@ -98,7 +99,6 @@ TAG_ALIASES: dict[str, str] = {
 
 # Tags removed entirely: too vague / a problem-type meta-tag, with no good home.
 DROPPED_TAGS: frozenset[str] = frozenset({
-    "design",
     "enumeration",
     "queries",
 })

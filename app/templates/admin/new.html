@@ -86,17 +86,27 @@
   <label>Statement (Markdown)<textarea name="statement_md" rows="6"
     placeholder="Describe the problem, constraints, and examples.">{{ f.statement_md }}</textarea></label>
 
+  <label>Problem kind
+    <select name="kind" id="kind-select">
+      <option value="function" {{ 'selected' if (f.kind or 'function') != 'class' }}>function — one top-level function</option>
+      <option value="class" {{ 'selected' if f.kind == 'class' }}>class — stateful “design” problem (write a class)</option>
+    </select>
+  </label>
+
   <div class="row">
-    <label>Function name<input name="function_name" required placeholder="reverseString" value="{{ f.function_name }}"></label>
-    <label>Return type<input name="return_type" placeholder="string" value="{{ f.return_type }}"></label>
+    <label class="kind-function">Function name<input name="function_name" placeholder="reverseString" value="{{ f.function_name }}"></label>
+    <label class="kind-function">Return type<input name="return_type" placeholder="string" value="{{ f.return_type }}"></label>
+    <label class="kind-class">Class name<input name="class_name" placeholder="LRUCache" value="{{ f.class_name }}"></label>
     <label>Compare mode
       <select name="compare">
         {% for m in compare_modes %}<option {{ 'selected' if f.compare == m }}>{{ m }}</option>{% endfor %}
       </select>
     </label>
   </div>
-  <label>Parameters (one per line as <code>name: type</code>)
+  <label>Parameters (one per line as <code>name: type</code>) <span class="muted kind-class">— the class constructor’s parameters</span>
     <textarea name="params" rows="3" placeholder="s: string">{{ f.params }}</textarea></label>
+  <label class="kind-class">Class methods (JSON array of <code>{"name", "params":[{"name","type"}], "returns":{"type"}}</code>)
+    <textarea name="class_methods_json" class="mono" rows="6" placeholder='[{"name": "get", "params": [{"name": "key", "type": "int"}], "returns": {"type": "int"}}]'>{{ f.class_methods_json }}</textarea></label>
 
   <label>Starter code (Python)<textarea name="starter_code" class="mono" rows="5"
     placeholder="def reverseString(s):&#10;    # your code here&#10;    pass">{{ f.starter_code }}</textarea></label>
@@ -104,9 +114,28 @@
     <textarea name="canonical_solution" class="mono" rows="8"
     placeholder="def reverseString(s):&#10;    return s[::-1]">{{ f.canonical_solution }}</textarea></label>
 
-  <label>Tests (JSON array)
+  <label>Tests (JSON array) <span class="muted kind-class">— each input is <code>{"operations": [...], "args": [[...], ...]}</code>; expected is the per-operation outputs list (<code>null</code> for the constructor and void methods)</span>
     <textarea name="tests_json" class="mono" rows="10">{{ f.tests_json }}</textarea></label>
 
   <button type="submit">{% if ai %}Create problem{% else %}Save problem{% endif %}</button>
 </form>
+
+<script>
+// Show only the fields relevant to the selected problem kind (function vs class).
+(function () {
+  var sel = document.getElementById("kind-select");
+  if (!sel) return;
+  function sync() {
+    var isClass = sel.value === "class";
+    document.querySelectorAll(".kind-function").forEach(function (e) {
+      e.style.display = isClass ? "none" : "";
+    });
+    document.querySelectorAll(".kind-class").forEach(function (e) {
+      e.style.display = isClass ? "" : "none";
+    });
+  }
+  sel.addEventListener("change", sync);
+  sync();
+})();
+</script>
 {% endblock %}

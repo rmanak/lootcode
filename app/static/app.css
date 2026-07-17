@@ -295,8 +295,13 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 .later-flag { font-size: 13px; vertical-align: 1px; }
 
 /* Solve layout — two columns with a draggable gutter between them.
-   --split is the left column width; defaults to 1fr so each side starts at half. */
-.solve { display: grid; grid-template-columns: var(--split, 1fr) 10px 1fr;
+   --split is the left column width; defaults to 1fr so each side starts at half.
+   minmax(0, …) is essential: a bare 1fr is minmax(auto, 1fr), whose auto minimum
+   lets wide content (long lines in a code block) push the track past its 50%
+   share. Clamping the minimum to 0 keeps the default split even and makes the
+   overflowing child scroll inside its own column instead. */
+.solve { display: grid;
+  grid-template-columns: minmax(0, var(--split, 1fr)) 10px minmax(0, 1fr);
   gap: 0 12px; align-items: start; }
 .col-gutter { align-self: stretch; min-height: 120px; cursor: col-resize;
   position: relative; touch-action: none; }
@@ -328,8 +333,8 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 .subs-panel-title { margin: 2px 0 12px; font-size: 16px; }
 .subs-empty { padding: 6px 0; }
 .statement .md { font-size: 14.5px; }
-.statement .md pre { background: #0f1720; color: #e6edf3; padding: 12px 14px;
-  border-radius: 8px; overflow: auto; }
+.statement .md pre { background: #f3f4f6; color: #111827; padding: 12px 14px;
+  border: 1px solid var(--border); border-radius: 8px; overflow: auto; }
 .statement .md code { background: var(--bg); padding: 1px 5px; border-radius: 5px; }
 .statement .md pre code { background: none; padding: 0; }
 .statement .md img { display: block; max-width: 100%; height: auto; margin: 14px 0;
@@ -338,8 +343,9 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
   padding-top: 10px; margin-top: 14px; }
 .provided-types { margin: 10px 0 4px; }
 .provided-types-label { font-size: 12.5px; color: var(--muted); margin: 0 0 6px; }
-.provided-type { background: #0f1720; color: #e6edf3; padding: 10px 12px;
-  border-radius: 8px; overflow: auto; margin: 0 0 8px; font-size: 12.5px; }
+.provided-type { background: #f3f4f6; color: #111827; padding: 10px 12px;
+  border: 1px solid var(--border); border-radius: 8px; overflow: auto;
+  margin: 0 0 8px; font-size: 12.5px; }
 .provided-type code { background: none; padding: 0; }
 /* Collapsible disclosure sections under the statement (Topics + Hints share
    one system). Each is a native <details>: collapsed by default, chevron on the
