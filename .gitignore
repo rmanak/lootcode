@@ -70,5 +70,8 @@ testgen_cache/
 # collection references to them) with no error. See docs/extended-problems.md.
 /content/problems-extended/
 /content/collections/top-google.json
+/content/collections/top-google-500.json
 /staging
 staging/
+/scratchpad
+scratchpad/

@@ -19,9 +19,21 @@ already-implemented app functionality to a batch of loose JSON files (the same
 shape the AI generator emits, e.g. ``test_output/4sum.json`` or a design
 problem's ``generated_full_problem.json``).
 
+The PATH argument may be, in order of specificity:
+
+  * a single problem **.json file** — verify exactly that file
+    (``python scripts/verify_json.py staging/two-sum/generated_full_problem.json``);
+  * a single **slug directory** that contains a ``generated_full_problem.json`` —
+    verify just that one file, ignoring any sibling ``meta.json``
+    (``python scripts/verify_json.py staging/two-sum``); or
+  * a **folder** of problems — either loose ``*.json`` files (the classic
+    ``test_output`` layout) or a batch of ``<slug>/generated_full_problem.json``.
+
 Usage:
     python scripts/verify_json.py test_output
     python scripts/verify_json.py path/to/folder --verbose
+    python scripts/verify_json.py staging/two-sum                 # one slug dir
+    python scripts/verify_json.py staging/two-sum/generated_full_problem.json  # one file
 
 Exit status is 0 only when every file is valid *and* its canonical solution
 passes all of its tests (handy for CI / pre-import gating).
@@ -173,49 +185,69 @@ def main(argv: list[str] | None = None) -> int:
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    ap.add_argument("folder", type=pathlib.Path,
-                    help="folder of problem .json files (e.g. test_output), OR a "
-                         "batch dir whose <slug>/generated_full_problem.json files "
-                         "are verified (e.g. output_part_aa_dir)")
+    ap.add_argument("path", type=pathlib.Path,
+                    help="a single problem .json FILE, a single <slug>/ dir "
+                         "containing generated_full_problem.json, or a FOLDER of "
+                         "problems (loose *.json, or a batch of "
+                         "<slug>/generated_full_problem.json).")
     ap.add_argument("--glob", metavar="PATTERN", default=None,
-                    help="explicit glob for the files to verify, relative to FOLDER "
-                         "(e.g. '*/generated_full_problem.json'). Overrides the "
-                         "auto-detection below.")
+                    help="explicit glob for the files to verify, relative to a "
+                         "folder PATH (e.g. '*/generated_full_problem.json'). "
+                         "Overrides the auto-detection below; ignored when PATH is "
+                         "a single file.")
     ap.add_argument("-v", "--verbose", action="store_true",
                     help="for failing files, list each failing test (status/expected/actual)")
     args = ap.parse_args(argv)
 
-    if not args.folder.is_dir():
-        print(f"error: {args.folder} is not a directory", file=sys.stderr)
+    path = args.path
+    if not path.exists():
+        print(f"error: {path} does not exist", file=sys.stderr)
         return 2
 
-    # Discovery: an explicit --glob wins; otherwise verify the direct *.json
-    # children (the classic layout), and if there are none, fall back to the
-    # batch layout <folder>/<slug>/generated_full_problem.json that the Mode-A
-    # generator writes. Skipping direct-child *.json for the batch case avoids
-    # picking up each slug dir's stray source meta.json.
-    if args.glob:
-        files = sorted(args.folder.glob(args.glob))
+    # Discovery + a `base` dir that labels are made relative to.
+    #   * a single .json FILE                       -> verify just it;
+    #   * a single <slug>/ dir with a
+    #     generated_full_problem.json (and no --glob) -> verify just that one file,
+    #     ignoring the sibling meta.json;
+    #   * a FOLDER                                  -> an explicit --glob wins,
+    #     else the direct *.json children (classic layout), else a fallback to the
+    #     batch layout <folder>/<slug>/generated_full_problem.json the Mode-A
+    #     generator writes (skipping direct-child *.json here avoids each slug
+    #     dir's stray source meta.json).
+    single_slug_file = path / "generated_full_problem.json"
+    if path.is_file():
+        files = [path]
+        base = path.parent
+    elif path.is_dir() and not args.glob and single_slug_file.is_file():
+        files = [single_slug_file]
+        base = path.parent  # label as "<slug>/generated_full_problem.json"
+    elif path.is_dir():
+        base = path
+        if args.glob:
+            files = sorted(path.glob(args.glob))
+        else:
+            files = sorted(path.glob("*.json"))
+            if not files:
+                files = sorted(path.glob("*/generated_full_problem.json"))
     else:
-        files = sorted(args.folder.glob("*.json"))
-        if not files:
-            files = sorted(args.folder.glob("*/generated_full_problem.json"))
+        print(f"error: {path} is not a file or directory", file=sys.stderr)
+        return 2
     if not files:
-        print(f"No problem .json files found in {args.folder}")
+        print(f"No problem .json files found in {path}")
         return 0
 
     n_pass = n_fail = n_invalid = 0
-    for path in files:
-        # Label by path relative to FOLDER so batch files (all named
+    for fpath in files:
+        # Label by path relative to `base` so batch files (all named
         # generated_full_problem.json) are distinguishable by their slug dir.
         try:
-            label = str(path.relative_to(args.folder))
+            label = str(fpath.relative_to(base))
         except ValueError:
-            label = path.name
+            label = fpath.name
 
         # 1) valid JSON?
         try:
-            data = json.loads(path.read_text(encoding="utf-8"))
+            data = json.loads(fpath.read_text(encoding="utf-8"))
         except (ValueError, OSError) as exc:
             n_invalid += 1
             print(f"[INVALID] {label}: not valid JSON — {exc}")
