@@ -67,6 +67,50 @@ validator** (`content/problems/<slug>/input_validator/input_validator.py`; see
 out-of-domain input the fuzzer/shrinker can drift into) is itself a bug to fix — as
 `basic-calculator`'s charset-only validator was, replaced with a grammar check.
 
+## Class/design problems (`kind: "class"`)
+
+Design problems (LRU Cache, Min Stack, a `CBTInserter`, …) are graded by replaying
+a **method-call sequence** against one instance (see `docs/design-problems.md`).
+Their test input is not a bag of typed params but
+`{"operations": ["<ClassName>", "<method>", …], "args": [[…], …]}`, and the whole
+engine is class-aware:
+
+- **Input generation** (`generate_class_candidates` in `app/testgen/generators.py`)
+  synthesizes *valid* operation sequences from the class's own **method signatures**
+  (`class_methods`) plus a value pool learned from the example inputs — edge
+  sequences (construct-only, single-call-of-each, mutating burst, duplicate-key-heavy)
+  ∪ small fuzz ∪ one modest stress run. Inputs are in-domain by construction (legal
+  op names, correct arity/types), so a random JSON mutation can't corrupt a method
+  name.
+- **Coverage** is the same backbone, sourced differently: structural
+  **operation-sequence features** (`_ops_seq_feats` in `features.py` — length band,
+  per-method call-count band, distinct methods, first/last method, first-arg
+  repetition) plus a coarse **output signature** of the canonical's replayed outputs
+  list (length + per-return value-class). The line/joint-value execution tracer is
+  *not* used for class problems.
+- **Grading is sandbox-only.** The in-process fast path compiles a top-level
+  function; a class dispatches methods, so class problems grade through the real
+  judge (`run_submission`, which honors `kind`/`class_name`/`class_methods` and the
+  `_run_class` harness). Because `run_submission` batches a whole input list into one
+  subprocess, coverage selection stays fast (~0.1 s/problem). **Single-edit mutants
+  are disabled by default for class** — grading tens of mutants one sandbox call each
+  is prohibitive and mutants are only ever add-only; the candidate **population** (a
+  handful of author/agent-written wrong solutions) stays on, being small enough to
+  sandbox-grade and the from-scratch-bug signal that matters for design problems.
+- **Fairness gate.** Class problems get a **deterministic** `validate_input(operations,
+  args)` — no LLM — emitted straight from the class block by
+  `scripts/generate_class_validators.py` (structure + type: aligned lists,
+  constructor exactly once at the front, every later op a declared method, each arg
+  list matching its op's arity and per-arg type). All 88 class problems verify their
+  own stored inputs; `scripts/check_constraint_validators.py` audits them like any
+  other. `scripts/strengthen_tests.py` and `scripts/oracle.py` (both roots) drive
+  class problems exactly like function ones — `cover` / `fuzz` / `--apply` all work.
+
+> **Not yet:** the LLM candidate *population* (`scripts/collect_candidates.py`, which
+> prompts the local Qwen server) has no class support and needs a GPU; a
+> **subagent that authors the wrong-solution population** for class problems (the
+> no-GPU replacement) is the planned next step.
+
 > History: an earlier mutation/population-only sweep applied 274 hidden cases across
 > 219 problems (2026-07-05) after closing an out-of-domain-input fairness leak with
 > the validator gate (**27 → 0** of the owner's correct solutions wrongly flagged).

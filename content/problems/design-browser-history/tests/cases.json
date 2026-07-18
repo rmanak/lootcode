@@ -393,6 +393,95 @@
       ],
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "gen-1",
+      "input": {
+        "operations": [
+          "BrowserHistory"
+        ],
+        "args": [
+          [
+            "c"
+          ]
+        ]
+      },
+      "expected": [
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "operations": [
+          "BrowserHistory",
+          "forward"
+        ],
+        "args": [
+          [
+            "b"
+          ],
+          [
+            2
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        "b"
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-3",
+      "input": {
+        "operations": [
+          "BrowserHistory",
+          "forward",
+          "forward",
+          "forward",
+          "forward",
+          "visit",
+          "visit"
+        ],
+        "args": [
+          [
+            "leetcode.com"
+          ],
+          [
+            4
+          ],
+          [
+            1
+          ],
+          [
+            3
+          ],
+          [
+            5
+          ],
+          [
+            "c"
+          ],
+          [
+            "r.com"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        "leetcode.com",
+        "leetcode.com",
+        "leetcode.com",
+        "leetcode.com",
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
     }
   ]
 }

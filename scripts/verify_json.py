@@ -49,7 +49,7 @@ from types import SimpleNamespace
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from app.config import settings  # noqa: E402
-from app.executor import run_submission  # noqa: E402
+from app.executor import run_submission, problem_view  # noqa: E402
 
 # Mirrors app/routers/admin.py so we accept exactly what the Admin UI accepts.
 COMPARE_MODES = ("exact", "unordered", "set_of_lists")
@@ -154,19 +154,16 @@ def grade(data: dict):
     reads it unconditionally) — for a class it is ignored by the harness, so we
     fall back to the class name to keep it a valid identifier.
     """
-    kind = data.get("kind", "function") or "function"
-    prob = SimpleNamespace(
-        kind=kind,
-        function_name=(data.get("function_name") or data.get("class_name") or "").strip(),
-        params=data.get("params", []),
-        return_type=(data.get("return_type") or "").strip(),
-        class_name=((data.get("class_name") or "").strip() or None),
-        class_methods=(data.get("class_methods") or None),
-        time_limit_ms=settings.EXEC_TIME_LIMIT_MS,
-        memory_limit_mb=settings.EXEC_MEMORY_LIMIT_MB,
-        points=100,
-        compare=data.get("compare", "exact"),
-    )
+    # Normalize the loose JSON, then hand it to the shared executor contract
+    # (problem_view) rather than re-listing its fields: a function_name that falls
+    # back to the class name (kept a valid identifier), fixed limits since a loose
+    # file has none, and everything else straight from the data.
+    prob = problem_view({
+        **data,
+        "function_name": (data.get("function_name") or data.get("class_name") or "").strip(),
+        "time_limit_ms": settings.EXEC_TIME_LIMIT_MS,
+        "memory_limit_mb": settings.EXEC_MEMORY_LIMIT_MB,
+    })
     tests = [
         SimpleNamespace(
             name=t.get("name", f"test-{i + 1}"),

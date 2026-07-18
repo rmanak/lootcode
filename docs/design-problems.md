@@ -119,4 +119,24 @@ of scope today:
   per-problem driver.
 
 Also deferred: extending the in-app AI generator (`app/llm/generator.py`) to author
-class problems, and per-problem input validators for class inputs.
+class problems.
+
+## Hardening a design problem's tests
+
+Class problems are first-class in the test-strengthening engine. Per-problem input
+validators for class inputs are generated **deterministically** from the class block
+(no LLM) by `scripts/generate_class_validators.py` — a `validate_input(operations,
+args)` that checks the sequence is well-formed (aligned lists, constructor once at
+the front, declared methods, per-arg arity/type). To widen a suite:
+
+```bash
+python scripts/generate_class_validators.py --slug <slug>    # fairness gate (once)
+python scripts/oracle.py cover <slug>                        # coverage-widening cases
+python scripts/oracle.py cover <slug> --no-stress --apply    # ...write them
+python scripts/oracle.py fuzz <slug> --solution bad.py       # add cases a known-bad class fails
+```
+
+`scripts/strengthen_tests.py <slug> [-j N]` is the batch form. Grading is
+sandbox-only and coverage-driven (operation-sequence features + output signature);
+mutants are off by default for class. See `docs/test-strengthening.md`, "Class/design
+problems".

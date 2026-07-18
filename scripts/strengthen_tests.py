@@ -45,7 +45,7 @@ sys.path.insert(0, str(_SCRIPTS_DIR))  # so the sibling generator imports
 
 from app import content  # noqa: E402
 from app.config import settings  # noqa: E402
-from app.executor import run_submission, _equal  # noqa: E402
+from app.executor import run_submission, _equal, problem_view  # noqa: E402
 # Reuse the harness's own rich-type codecs (the exact same array<->object mapping
 # the real judge uses) so TreeNode/ListNode problems can grade on the fast
 # in-process path instead of the ~100× slower sandbox path. Side-effect-free.
@@ -55,6 +55,7 @@ from app.executor.harness import (  # noqa: E402
 from app.testgen import (  # noqa: E402
     GenConfig,
     generate_candidates,
+    generate_class_candidates,
     make_mutants,
     parse_constraints,
 )
@@ -170,16 +171,10 @@ def _load_candidate_codes(slug: str, canonical: str) -> list[tuple[str, str]]:
     return out
 
 
-def _prob(p: dict) -> SimpleNamespace:
-    return SimpleNamespace(
-        function_name=(p.get("function_name") or "").strip(),
-        params=p.get("params", []),
-        return_type=(p.get("return_type") or "").strip(),
-        time_limit_ms=p["time_limit_ms"],
-        memory_limit_mb=p["memory_limit_mb"],
-        points=p.get("points", 100),
-        compare=p.get("compare", "exact"),
-    )
+def _prob(p: dict):
+    """The problem's grading view — the shared executor contract (function and
+    class/design kinds), so this never drifts from what run_submission reads."""
+    return problem_view(p)
 
 
 def _tests(inputs: list[dict], expected: list | None = None,
@@ -434,6 +429,46 @@ def _inproc_expected(func, inputs: list[dict], timeout_s: float = 0.5,
     return out
 
 
+def _uses_randomness(code: str) -> bool:
+    """True if the canonical draws on unseeded randomness.
+
+    Such a canonical *may* have non-reproducible outputs (MajorityChecker's sampled
+    answer) or perfectly stable ones (a skip list's search result). We can't tell
+    statically, so callers use this only to trigger a per-case reproducibility check
+    (double-run agreement), never a wholesale skip. Seeded randomness
+    (``random.seed(...)`` / ``random.Random(<literal>)``) is deterministic.
+    """
+    if not re.search(r"\b(?:random|secrets)\b|\bshuffle\b", code):
+        return False
+    if re.search(r"\.seed\s*\(|Random\s*\(\s*\d", code):
+        return False
+    return True
+
+
+def _output_signature(out_list) -> set:
+    """Coarse solution-independent tokens describing a class problem's outputs list.
+
+    The canonical's replay of a method sequence yields a list of per-call returns
+    (``null`` for void). We bucket its length and which value-classes appear so
+    selection can prefer sequences whose outputs exercise new regimes (a query that
+    first returns empty vs. non-empty, a negative result, a bool flip, …)."""
+    toks: set = set()
+    if not isinstance(out_list, list):
+        return toks
+    n = len(out_list)
+    toks.add(f"out:len:{'0' if n == 0 else '1' if n == 1 else 'few' if n <= 10 else 'many'}")
+    for v in out_list:
+        if v is None:
+            toks.add("out:has-null")
+        elif isinstance(v, bool):
+            toks.add(f"out:bool:{int(v)}")
+        elif isinstance(v, int):
+            toks.add("out:neg" if v < 0 else "out:zero" if v == 0 else "out:pos")
+        elif isinstance(v, (list, str)):
+            toks.add("out:empty-container" if len(v) == 0 else "out:nonempty-container")
+    return toks
+
+
 @dataclass
 class Report:
     slug: str
@@ -466,8 +501,20 @@ def strengthen(p: dict, cfg: GenConfig, cap: int, mut_cap: int,
     if not canonical:
         rep.status = "skip"
         return rep
+    # A canonical that draws on randomness (MajorityChecker samples random indices,
+    # a skip list flips coins) may or may not have *reproducible outputs*: skiplist's
+    # search result is stable regardless of internal levels, but MajorityChecker's
+    # sampled answer is not. We can't tell statically, so we don't skip — instead we
+    # verify reproducibility per kept case below (double-run agreement) and drop only
+    # the cases whose expected doesn't reproduce. Safe: an unstable case would
+    # otherwise wrongly fail a correct solution (docs/design-problems.md).
+    nondeterministic = _uses_randomness(canonical)
     prob = _prob(p)
-    if not prob.params:
+    is_class = (prob.kind == "class")
+    # A function problem with no params has nothing to generate; a class/design
+    # problem may legitimately have a no-arg constructor (MinStack, …) — its inputs
+    # are method-call sequences, not constructor params, so it is NOT skipped.
+    if not prob.params and not is_class:
         rep.status = "skip"
         rep.error = "no params"
         return rep
@@ -478,10 +525,20 @@ def strengthen(p: dict, cfg: GenConfig, cap: int, mut_cap: int,
         expr_hint = expression_params(prob.params, seeds)
         validator = _load_input_validator(slug, prob.params) if use_validator else None
         rep.validator = validator is not None
-        cands = generate_candidates(prob.params, seeds, bounds, cfg, validator=validator)
+        if is_class:
+            cands = generate_class_candidates(
+                prob.class_name, prob.params, prob.class_methods or [],
+                seeds, bounds, cfg, validator=validator)
+        else:
+            cands = generate_candidates(prob.params, seeds, bounds, cfg,
+                                        validator=validator)
         rep.n_candidates = len(cands)
         compare = prob.compare
-        fast = _fast_available(prob)
+        # Class problems dispatch through the class harness, which the in-process
+        # fast path (compile canonical -> call function_name) cannot do; they grade
+        # through the real sandbox only. This also routes coverage to features-only
+        # (no line/value tracer) — augmented with output-signature tokens below.
+        fast = _fast_available(prob) and not is_class
         decoders, encoder = _rich_codec(prob)
         inject = {cls.__name__: cls for cls, _dec, _enc in _CODECS.values()}
 
@@ -550,11 +607,28 @@ def strengthen(p: dict, cfg: GenConfig, cap: int, mut_cap: int,
 
         cov = _cov_tokens(vinputs)   # aligned to `valid`
 
+        # For class/design problems the in-process value tracer is unavailable, so
+        # the canonical's *output list* is our value-regime signal. Fold a coarse
+        # signature of each expected outputs list into that input's coverage: its
+        # length band, and — per output position class — whether any call returned
+        # null / a bool / a negative / a container. Two sequences whose replays
+        # produce structurally different output profiles then cover different tokens.
+        if is_class:
+            for i, out_list in enumerate(vexpected):
+                cov[i] |= _output_signature(out_list)
+
         # Discriminator populations (OPTIONAL, add-only): single-edit mutants of the
         # canonical (local-bug proxy) + cached LLM candidate solutions (from-scratch-
         # bug proxy). Each discriminator an input 'kills' adds one ('kill', idx) token
         # to that input — one extra coverage universe. Selection works fine with none.
-        mutants = make_mutants(canonical, cap=mut_cap, seed=cfg.seed) if use_mutants else []
+        # Class/design problems grade only through the sandbox (~100× slower than the
+        # in-process path), so grading tens of mutants against every input is
+        # prohibitive. Coverage (features + output signature) is the backbone here;
+        # mutants are add-only and disabled for class by default. The candidate
+        # population (a handful of author/agent-written wrong solutions) stays on —
+        # it's small enough to sandbox-grade and is the from-scratch-bug signal.
+        use_mutants_eff = use_mutants and not is_class
+        mutants = make_mutants(canonical, cap=mut_cap, seed=cfg.seed) if use_mutants_eff else []
         pop = ([Mutant(desc=f"pop:{label}", code=code)
                 for label, code in _load_candidate_codes(slug, canonical)]
                if use_population else [])
@@ -655,11 +729,31 @@ def strengthen(p: dict, cfg: GenConfig, cap: int, mut_cap: int,
         #      harness result file and errors the *whole* batch — _grade's chunking
         #      + per-input re-grade isolates that case so the real picks survive.
         if picks:
-            rs = _grade(canonical, prob, [pk["input"] for pk in picks])
+            pick_inputs = [pk["input"] for pk in picks]
+            rs = _grade(canonical, prob, pick_inputs)
+            # Reproducibility gate for randomized canonicals: re-run the canonical a
+            # second (and third) time and keep only cases whose output is stable
+            # across runs. Drops MajorityChecker's ambiguous sampled answers while
+            # keeping every case of a skip list (whose outputs never vary). A stable
+            # case is genuinely fair; an unstable one would wrongly fail a correct
+            # solution, so it must never be baked.
+            stable = [True] * len(picks)
+            if nondeterministic:
+                rs2 = _grade(canonical, prob, pick_inputs)
+                rs3 = _grade(canonical, prob, pick_inputs)
+                for i, (a, b, c) in enumerate(zip(rs, rs2, rs3)):
+                    if any(x is None or x.status not in ("passed", "wrong")
+                           for x in (a, b, c)):
+                        stable[i] = False
+                    elif not (_equal(a.returned, b.returned, compare)
+                              and _equal(a.returned, c.returned, compare)):
+                        stable[i] = False
             existing_names = {t["name"] for t in p.get("tests", [])}
             n = 1
-            for pk, r in zip(picks, rs):
+            for idx, (pk, r) in enumerate(zip(picks, rs)):
                 if r is None or r.status not in ("passed", "wrong"):
+                    continue
+                if not stable[idx]:
                     continue
                 if len(json.dumps(r.returned, default=str)) > MAX_EXPECTED_BYTES:
                     continue
@@ -767,7 +861,10 @@ def main() -> int:
     if not args.mutants and not args.population:
         ap.error("nothing to select against: pass at least one of --mutants/--population")
 
-    all_probs = content.load_all()
+    # Load BOTH content roots (default + extended), like verify_bank.py and
+    # oracle.py — the extended root holds the bulk of the class/design problems and
+    # apply_cases()/the validator gate already resolve a slug's root either way.
+    all_probs = content.load_all_roots()
     by_slug = {p["slug"]: p for p in all_probs}
     if args.slugs:
         probs = [by_slug[s] for s in args.slugs if s in by_slug]

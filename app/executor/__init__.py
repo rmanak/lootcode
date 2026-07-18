@@ -71,32 +71,76 @@ def _equal(a: object, b: object, mode: str) -> bool:
         return a == b
 
 
-def run_submission(code: str, problem, tests) -> GradedRun:
-    """`problem` needs .function_name/.params/.time_limit_ms/.memory_limit_mb/.points;
-    `tests` is an iterable of objects with .name/.input/.expected/.weight/.hidden.
+@dataclass(frozen=True)
+class ProblemView:
+    """The exact set of problem attributes the grader reads — the single, shared
+    contract between the server and every offline script.
 
-    For a class-based "design" problem (`problem.kind == "class"`), `.params` holds
-    the constructor params and `.class_name`/`.class_methods` describe the class the
+    ``run_submission`` normalizes whatever it is handed through :func:`problem_view`,
+    so callers may pass an ORM ``Problem`` row, a ``content.load_problem_dir`` dict,
+    or any object exposing these fields — and never a hand-picked subset. When a new
+    field is added to the grading contract, it is added HERE (next to the executor
+    that reads it) and every caller stays in sync automatically. Frozen so a snapshot
+    is safe to hand to worker threads after its DB session has closed."""
+    function_name: str
+    params: list
+    return_type: str
+    time_limit_ms: int | None
+    memory_limit_mb: int | None
+    points: int
+    compare: str
+    kind: str
+    class_name: str | None
+    class_methods: list | None
+
+
+def problem_view(src) -> ProblemView:
+    """Build a :class:`ProblemView` from an ORM ``Problem``, a content dict, an
+    existing view, or any object with the grading fields."""
+    if isinstance(src, ProblemView):
+        return src
+    get = src.get if isinstance(src, dict) else (lambda k, d=None: getattr(src, k, d))
+    return ProblemView(
+        function_name=(get("function_name") or "").strip(),
+        params=get("params") or [],
+        return_type=(get("return_type") or ""),
+        time_limit_ms=get("time_limit_ms"),
+        memory_limit_mb=get("memory_limit_mb"),
+        points=get("points", 100) or 100,
+        compare=get("compare", "exact") or "exact",
+        kind=get("kind", "function") or "function",
+        class_name=get("class_name"),
+        class_methods=get("class_methods"),
+    )
+
+
+def run_submission(code: str, problem, tests) -> GradedRun:
+    """Grade ``code`` for ``problem`` against ``tests``.
+
+    ``problem`` is any *problem-like* source — an ORM ``Problem`` row (what the
+    server passes), a ``content.load_problem_dir`` dict, or a :class:`ProblemView`;
+    it is normalized via :func:`problem_view` so no caller maintains its own field
+    list. ``tests`` is an iterable of objects with .name/.input/.expected/.weight/
+    .hidden.
+
+    For a class-based "design" problem (``kind == "class"``), ``params`` holds the
+    constructor params and ``class_name``/``class_methods`` describe the class the
     harness instantiates and drives through each test's operation sequence."""
     tests = list(tests)
     # Forward the full param specs ({name, type}) and the return type so the
     # harness can build/serialize custom types (e.g. TreeNode) at the boundary.
-    kind = getattr(problem, "kind", "function") or "function"
-    params = problem.params
-    return_type = getattr(problem, "return_type", "") or ""
+    pv = problem_view(problem)
     limits = Limits(
-        time_limit_ms=problem.time_limit_ms or settings.EXEC_TIME_LIMIT_MS,
-        memory_limit_mb=problem.memory_limit_mb or settings.EXEC_MEMORY_LIMIT_MB,
+        time_limit_ms=pv.time_limit_ms or settings.EXEC_TIME_LIMIT_MS,
+        memory_limit_mb=pv.memory_limit_mb or settings.EXEC_MEMORY_LIMIT_MB,
         max_output_kb=settings.EXEC_MAX_OUTPUT_KB,
     )
     specs = [TestSpec(name=t.name, input=t.input) for t in tests]
     outcomes: dict[str, Outcome] = _backend()(
-        code, problem.function_name, params, return_type, specs, limits,
-        kind=kind,
-        class_name=getattr(problem, "class_name", None),
-        class_methods=getattr(problem, "class_methods", None),
+        code, pv.function_name, pv.params, pv.return_type, specs, limits,
+        kind=pv.kind, class_name=pv.class_name, class_methods=pv.class_methods,
     )
-    compare = getattr(problem, "compare", "exact") or "exact"
+    compare = pv.compare
 
     results: list[TestResult] = []
     earned = total = passed_count = 0
@@ -122,8 +166,7 @@ def run_submission(code: str, problem, tests) -> GradedRun:
             returned=(oc.returned if oc.status == "ok" else None),
         ))
 
-    points = getattr(problem, "points", 100) or 100
-    score = round(points * earned / total) if total else 0
+    score = round(pv.points * earned / total) if total else 0
     return GradedRun(
         results=results, passed_count=passed_count, total_count=len(tests),
         earned_weight=earned, total_weight=total, score=score,

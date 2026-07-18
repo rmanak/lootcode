@@ -38,7 +38,7 @@ from types import SimpleNamespace
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from app import content  # noqa: E402
-from app.executor import run_submission  # noqa: E402
+from app.executor import run_submission, problem_view  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -81,21 +81,10 @@ class Result:
     failed_tests: list[tuple[dict, object]] = field(default_factory=list)
 
 
-def _as_prob(p: dict) -> SimpleNamespace:
-    """Build the lightweight problem stand-in run_submission expects (mirrors
-    scripts/verify_json.py and the Admin verify endpoint)."""
-    return SimpleNamespace(
-        kind=p.get("kind", "function") or "function",
-        function_name=(p.get("function_name") or "").strip(),
-        params=p.get("params", []),
-        return_type=(p.get("return_type") or "").strip(),
-        class_name=p.get("class_name"),
-        class_methods=p.get("class_methods"),
-        time_limit_ms=p["time_limit_ms"],
-        memory_limit_mb=p["memory_limit_mb"],
-        points=p.get("points", 100),
-        compare=p.get("compare", "exact"),
-    )
+def _as_prob(p: dict):
+    """The problem's grading view — the shared executor contract run_submission
+    reads (function and class/design kinds), so nothing here drifts."""
+    return problem_view(p)
 
 
 def _as_tests(p: dict) -> list[SimpleNamespace]:

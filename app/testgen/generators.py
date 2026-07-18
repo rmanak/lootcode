@@ -960,3 +960,191 @@ def generate_candidates(params: list[dict], seeds: list[dict],
         rest = [c for c in cands if not c.protected]
         cands = protected + rest[: max(0, cfg.max_candidates - len(protected))]
     return cands
+
+
+# --------------------------------------------------------------------------- #
+# Class-based ("design") problems: {operations, args} sequence generation
+#
+# A design problem (kind == "class") is graded by replaying a method-call
+# sequence against one instance (see docs/design-problems.md). Its test input is
+#   {"operations": ["<ClassName>", "<method>", ...],
+#    "args":       [[<ctor args>],  [<method args>], ...]}
+# where ``operations[0]`` constructs the instance and every later entry dispatches
+# a method. The two lists are correlated and aligned. Random JSON fuzzing destroys
+# that structure (illegal method names, wrong arity), so — exactly as for the
+# function-style "operations" generator above — we synthesize *valid* sequences
+# from the class's own method signatures (arg types from ``class_methods``) plus a
+# value pool learned from the example inputs. Inputs are fair by construction.
+# --------------------------------------------------------------------------- #
+def _elem_bounds_for(bounds: dict, name: str) -> tuple[Optional[int], Optional[int]]:
+    try:
+        return C.elem_bounds(bounds, name)
+    except Exception:  # noqa: BLE001 - bounds parsing is best-effort
+        return None, None
+
+
+def generate_class_candidates(class_name: str, ctor_params: list[dict],
+                              class_methods: list[dict], seeds: list[dict],
+                              bounds: dict, cfg: GenConfig,
+                              validator: Optional[Callable[[dict], bool]] = None
+                              ) -> list[Candidate]:
+    """Candidate ``{operations, args}`` inputs for a ``kind == "class"`` problem.
+
+    ``ctor_params`` are the constructor's params, ``class_methods`` the method
+    signatures (``[{name, params:[{name,type}], returns:{type}}]``). Sequences
+    always start with the constructor and then call methods with type-correct args
+    drawn from the signatures and a value pool learned from ``seeds``. ``validator``
+    (if any) is the stated-constraint gate, applied exactly as in
+    ``generate_candidates``. Mirrors that function's T1/T3/T4 structure:
+    edge sequences ∪ seed replays ∪ small fuzz ∪ one modest stress run."""
+    rng = random.Random(cfg.seed)
+    cands: list[Candidate] = []
+    seen: set[str] = set()
+
+    # Signature table: op-name -> [{name, type}]. The constructor is an "op" too.
+    sigs: dict[str, list[dict]] = {class_name: list(ctor_params or [])}
+    method_names: list[str] = []
+    for m in class_methods or []:
+        nm = m.get("name")
+        if not nm:
+            continue
+        sigs[nm] = list(m.get("params") or [])
+        method_names.append(nm)
+
+    # Learn an observed-value pool per (op, arg-index) from the example sequences,
+    # and a small shared int span so duplicate keys / collisions stay frequent
+    # (those are what expose stateful bugs).
+    pool: dict[tuple, list] = {}
+    ints: list[int] = []
+    for s in seeds:
+        ops = s.get("operations") if isinstance(s, dict) else None
+        args = s.get("args") if isinstance(s, dict) else None
+        if not isinstance(ops, list) or not isinstance(args, list):
+            continue
+        for op, a in zip(ops, args):
+            if not isinstance(a, list):
+                continue
+            for i, v in enumerate(a):
+                pool.setdefault((op, i), [])
+                if v not in pool[(op, i)]:
+                    pool[(op, i)].append(v)
+                if isinstance(v, int) and not isinstance(v, bool):
+                    ints.append(v)
+    int_lo, int_hi = (min(ints), max(min(ints) + 8, max(ints))) if ints else (1, 9)
+
+    def gen_arg(op: str, i: int, ptype: str, small: bool):
+        base, dims = parse_type(ptype)
+        observed = pool.get((op, i), [])
+        # Structured args (arrays / rich types): prefer replaying an observed value
+        # (guaranteed in-domain); otherwise synthesize a small one.
+        if dims >= 1 or base in _RICH_ARRAY_BASES:
+            if observed and rng.random() < 0.75:
+                return copy.deepcopy(rng.choice(observed))
+            lo, hi = _elem_bounds_for(bounds, sigs_argname(op, i))
+            return _rand_value(rng, base, dims, lo, hi, 6)
+        b = _base(base)
+        if b == "string":
+            return rng.choice((observed or []) + ["a", "b", "c"])
+        if b == "bool":
+            return rng.choice([True, False])
+        if b == "float":
+            if observed and rng.random() < 0.5:
+                return rng.choice(observed)
+            return float(rng.randint(1, 6) if small else rng.randint(int_lo, int_hi))
+        if b == "int":
+            if observed and rng.random() < 0.5:
+                return rng.choice(observed)
+            lo, hi = (1, 6) if small else (int_lo, int_hi)
+            return rng.randint(lo, hi)
+        # Unknown/other type: replay an observed value or fall back to 0.
+        return copy.deepcopy(observed[0]) if observed else 0
+
+    def sigs_argname(op: str, i: int) -> str:
+        sig = sigs.get(op, [])
+        return sig[i]["name"] if i < len(sig) else f"{op}{i}"
+
+    def gen_call(op: str, small: bool) -> list:
+        return [gen_arg(op, i, p.get("type", "int"), small)
+                for i, p in enumerate(sigs.get(op, []))]
+
+    def seq(n_methods: int, small: bool = True) -> dict:
+        ops = [class_name]
+        args = [gen_call(class_name, small)]
+        for _ in range(n_methods):
+            m = rng.choice(method_names) if method_names else class_name
+            ops.append(m)
+            args.append(gen_call(m, small))
+        return {"operations": ops, "args": args}
+
+    def emit(inp: dict, origin: str, protected: bool = False) -> None:
+        if validator is not None:
+            try:
+                if not validator(inp):
+                    return
+            except Exception:  # noqa: BLE001 - a raising validator rejects
+                return
+        k = _key(inp)
+        if k in seen:
+            return
+        seen.add(k)
+        cands.append(Candidate(input=inp, origin=origin, protected=protected))
+
+    # T1 — edge sequences (protected: always kept).
+    emit({"operations": [class_name], "args": [gen_call(class_name, True)]},
+         "edge", protected=True)                         # construct only
+    for m in method_names:                               # single call of each method
+        emit({"operations": [class_name, m],
+              "args": [gen_call(class_name, True), gen_call(m, True)]},
+             "edge", protected=True)
+    # A burst of the first method, then one of every method (exercises order/state).
+    if method_names:
+        first = method_names[0]
+        ops = [class_name] + [first] * 4 + list(method_names)
+        args = [gen_call(class_name, True)] + [gen_call(first, True) for _ in range(4)] \
+            + [gen_call(m, True) for m in method_names]
+        emit({"operations": ops, "args": args}, "edge", protected=True)
+        # Duplicate-key-heavy: repeat the same first-arg value across calls so
+        # collisions/overwrites are hit (the classic LRU/HashMap bug regime).
+        dup_ops = [class_name] + [first] * 5 + list(method_names)
+        dup_args = [gen_call(class_name, True)]
+        fixed = gen_call(first, True)
+        for _ in range(5):
+            dup_args.append([fixed[i] if i == 0 else v
+                             for i, v in enumerate(gen_call(first, True))]
+                            if fixed else gen_call(first, True))
+        for m in method_names:
+            dup_args.append(gen_call(m, True))
+        emit({"operations": dup_ops, "args": dup_args}, "edge", protected=True)
+
+    # T3 — seed replays + fresh small fuzz.
+    for s in seeds:
+        if isinstance(s, dict) and "operations" in s and "args" in s:
+            emit(copy.deepcopy(s), "seed", protected=True)
+    for _ in range(cfg.n_fuzz):
+        emit(seq(rng.randint(1, 12), small=True), "fuzz")
+
+    # T4 — one modest stress run (dominated by mutating calls, sprinkled queries so
+    # the output list — and thus `expected` — stays under the size cap).
+    if cfg.include_stress and method_names:
+        n = min(cfg.stress_n, 400)
+        mutators = [m for m in method_names if sigs.get(m)] or method_names
+        queries = [m for m in method_names if not sigs.get(m)]
+        ops = [class_name]
+        args = [gen_call(class_name, False)]
+        every = max(1, n // 40)
+        for i in range(n):
+            if queries and i % every == every - 1:
+                q = rng.choice(queries)
+                ops.append(q)
+                args.append(gen_call(q, False))
+            else:
+                m = rng.choice(mutators)
+                ops.append(m)
+                args.append(gen_call(m, False))
+        emit({"operations": ops, "args": args}, "stress", protected=True)
+
+    if len(cands) > cfg.max_candidates:
+        protected = [c for c in cands if c.protected]
+        rest = [c for c in cands if not c.protected]
+        cands = protected + rest[: max(0, cfg.max_candidates - len(protected))]
+    return cands

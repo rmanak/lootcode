@@ -55,7 +55,7 @@ from sqlalchemy import func, select  # noqa: E402
 
 from app import content  # noqa: E402
 from app.db import SessionLocal, init_db  # noqa: E402
-from app.executor import run_submission  # noqa: E402
+from app.executor import run_submission, problem_view  # noqa: E402
 from app.models import Problem, Submission, User  # noqa: E402
 
 
@@ -202,7 +202,7 @@ class Job:
     title: str
     difficulty: str
     code: str
-    prob: SimpleNamespace
+    prob: object                 # an executor ProblemView (the shared grading contract)
     tests: list[SimpleNamespace]
     submitted_at: object
     orig_passed: int
@@ -251,14 +251,14 @@ def latest_successful_by_problem(db, user_id: str) -> dict[int, Submission]:
 
 
 def _spec_from_db(prob: Problem) -> dict:
-    """Normalize a DB Problem row into the same shape content.load_problem_dir
-    produces, so one builder handles both test sources."""
+    """Snapshot a DB Problem row into a session-independent spec for the worker
+    threads. Grading attributes are captured through ``problem_view()`` — the shared
+    executor contract — so this never re-lists them (that hand-maintained list
+    drifting is exactly what once graded a design solution as a function → a false
+    regression). Only display fields + the tests are copied out here."""
     return {
         "slug": prob.slug, "title": prob.title, "difficulty": prob.difficulty,
-        "function_name": prob.function_name, "params": prob.params,
-        "return_type": prob.return_type or "", "time_limit_ms": prob.time_limit_ms,
-        "memory_limit_mb": prob.memory_limit_mb, "points": prob.points,
-        "compare": prob.compare,
+        "view": problem_view(prob),
         "tests": [
             {"name": t.name, "input": t.input, "expected": t.expected,
              "weight": t.weight, "hidden": t.hidden}
@@ -268,14 +268,12 @@ def _spec_from_db(prob: Problem) -> dict:
 
 
 def _job_from_spec(spec: dict, sub: Submission) -> Job:
-    """Build a session-independent Job from a spec dict (DB- or content-sourced)
-    plus the user's accepted submission."""
-    prob_ns = SimpleNamespace(
-        function_name=spec["function_name"], params=spec.get("params", []),
-        return_type=spec.get("return_type") or "", time_limit_ms=spec["time_limit_ms"],
-        memory_limit_mb=spec["memory_limit_mb"], points=spec.get("points", 100),
-        compare=spec.get("compare", "exact"),
-    )
+    """Build a session-independent Job from a spec (a DB snapshot carrying a
+    ``view``, or a ``content.load_problem_dir`` dict) plus the user's accepted
+    submission. The problem is normalized through the shared ``problem_view()``
+    contract — the exact object the server hands ``run_submission`` — so there is no
+    per-script field list to keep in sync."""
+    prob_ns = spec.get("view") or problem_view(spec)
     tests_ns = [
         SimpleNamespace(name=t["name"], input=t["input"], expected=t["expected"],
                         weight=t.get("weight", 1), hidden=t.get("hidden", False))

@@ -10,7 +10,7 @@ Nothing here re-implements the sandbox or the judge: expected values and mutant
 grading both go through ``app.executor.run_submission`` so ``compare`` semantics
 and the ``TreeNode`` codec are honored automatically.
 """
-from .generators import GenConfig, generate_candidates
+from .generators import GenConfig, generate_candidates, generate_class_candidates
 from .constraints import parse_constraints
 from .mutate import make_mutants
 from .select import select_cases
@@ -18,6 +18,7 @@ from .select import select_cases
 __all__ = [
     "GenConfig",
     "generate_candidates",
+    "generate_class_candidates",
     "parse_constraints",
     "make_mutants",
     "select_cases",

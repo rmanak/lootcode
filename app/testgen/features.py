@@ -173,6 +173,55 @@ def _tree_feats(arr: list) -> set[str]:
 # --------------------------------------------------------------------------- #
 # Public API
 # --------------------------------------------------------------------------- #
+def _count_bucket(n: int) -> str:
+    """Coarse call-count bucket for how often one method appears in a sequence."""
+    if n == 0:
+        return "c0"
+    if n == 1:
+        return "c1"
+    if n <= 3:
+        return "c<=3"
+    if n <= 10:
+        return "c<=10"
+    return "cMany"
+
+
+def _ops_seq_feats(operations: list, args: list) -> set[str]:
+    """Structural regimes of a design problem's ``{operations, args}`` sequence.
+
+    Solution-independent, exactly like the other feature extractors: length band,
+    per-method call-count band, how many distinct methods are exercised, first/last
+    method, and whether a first-argument value repeats (the collision/overwrite
+    regime that trips stateful bugs). Emitted as ``feat:ops:*`` tokens so a handful
+    of selected sequences cover the distinct shapes."""
+    out: set[str] = {f"len:{_size_bucket(len(operations))}"}
+    from collections import Counter
+    names = [o for o in operations if isinstance(o, str)]
+    counts = Counter(names)
+    for name, c in counts.items():
+        out.add(f"{name}:{_count_bucket(c)}")
+    out.add(f"distinct:{min(len(counts), 6)}")
+    # Skip index 0 (the constructor) for first/last-*method* signals.
+    methods = names[1:]
+    if methods:
+        out.add(f"first:{methods[0]}")
+        out.add(f"last:{methods[-1]}")
+    # First-argument repetition across method calls (key collisions / overwrites).
+    first_args = [a[0] for a in args[1:]
+                  if isinstance(a, list) and a and _hashable(a[0])]
+    if len(first_args) >= 2 and len(set(first_args)) < len(first_args):
+        out.add("dup-first-arg")
+    return out
+
+
+def _hashable(v: Any) -> bool:
+    try:
+        hash(v)
+        return True
+    except TypeError:
+        return False
+
+
 def input_features(inp: dict, params: list[dict],
                    expr_hint: set[str] | None = None) -> set[str]:
     """Structural ``feat:<param>:<tok>`` tokens for one input.
@@ -180,6 +229,10 @@ def input_features(inp: dict, params: list[dict],
     ``expr_hint`` (optional) names string params already known to carry
     expressions (inferred once from the seeds by the caller); those get the
     richer :func:`_expr_feats` treatment in addition to generic string features.
+
+    A design problem's ``{operations, args}`` input (``kind == "class"``) is
+    recognized by its keys and gets :func:`_ops_seq_feats` sequence tokens instead
+    of per-param ones (its "params" are the constructor's, not the whole input).
     """
     expr_hint = expr_hint or set()
     out: set[str] = set()
@@ -187,6 +240,12 @@ def input_features(inp: dict, params: list[dict],
     def add(name: str, toks: set[str]) -> None:
         for t in toks:
             out.add(f"feat:{name}:{t}")
+
+    # Class/design problems: the input is a method-call sequence, not per-param.
+    if (isinstance(inp.get("operations"), list)
+            and isinstance(inp.get("args"), list)):
+        add("ops", _ops_seq_feats(inp["operations"], inp["args"]))
+        return out
 
     for p in params:
         name = p["name"]

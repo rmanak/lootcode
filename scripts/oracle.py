@@ -76,7 +76,7 @@ sys.path.insert(0, str(_SCRIPTS_DIR))  # so sibling scripts (strengthen_tests) i
 
 from app import content              # noqa: E402
 from app.config import settings      # noqa: E402
-from app.executor import run_submission, _equal  # noqa: E402
+from app.executor import run_submission, _equal, problem_view  # noqa: E402
 from app.executor.harness import _CODECS  # noqa: E402
 
 # A grade status of "passed"/"wrong" both mean the code *ran cleanly* and produced
@@ -99,16 +99,10 @@ def _find_problem(slug: str) -> dict | None:
     return None
 
 
-def _as_prob(p: dict) -> SimpleNamespace:
-    return SimpleNamespace(
-        function_name=(p.get("function_name") or "").strip(),
-        params=p.get("params", []),
-        return_type=(p.get("return_type") or "").strip(),
-        time_limit_ms=p["time_limit_ms"],
-        memory_limit_mb=p["memory_limit_mb"],
-        points=p.get("points", 100),
-        compare=p.get("compare", "exact"),
-    )
+def _as_prob(p: dict):
+    """The problem's grading view — the shared executor contract (handles function
+    and class/design kinds, so nothing here drifts from what run_submission reads)."""
+    return problem_view(p)
 
 
 def _mk_tests(inputs, expected=None):
@@ -340,7 +334,8 @@ def _has_rich_type(prob: dict) -> bool:
 
 
 def cmd_fuzz(args) -> int:
-    from app.testgen.generators import generate_candidates, GenConfig
+    from app.testgen.generators import (generate_candidates,
+                                         generate_class_candidates, GenConfig)
     from app.testgen.constraints import parse_constraints
     from app.testgen.shrink import shrink
 
@@ -359,7 +354,12 @@ def cmd_fuzz(args) -> int:
     bounds = parse_constraints(prob.get("statement_md", ""))
     seeds = [t["input"] for t in prob["tests"]]
     cfg = GenConfig(n_fuzz=args.fuzz, seed=args.seed, include_stress=False)
-    cands = generate_candidates(params, seeds, bounds, cfg, validator=validator)
+    if prob_ns.kind == "class":
+        cands = generate_class_candidates(
+            prob_ns.class_name, params, prob_ns.class_methods or [],
+            seeds, bounds, cfg, validator=validator)
+    else:
+        cands = generate_candidates(params, seeds, bounds, cfg, validator=validator)
     inputs = [c.input for c in cands]
 
     canon_res = _run(canonical, prob_ns, inputs)
