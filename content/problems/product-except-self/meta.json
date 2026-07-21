@@ -9,7 +9,7 @@
   "hints": [
     "Notice that the product for index i consists of everything to its left multiplied by everything to its right.",
     "Compute prefix products from the start and suffix products from the end, then combine them for each position.",
-    "The output at index i is simply the product of all preceding elements times the product of all succeeding elements."
+    "You don't need two separate arrays. Fill the result with running left-side products in one forward pass, then sweep backward, multiplying each entry by a right-side product you accumulate on the fly. A single extra variable carries that suffix product."
   ],
   "languages": [
     "python"

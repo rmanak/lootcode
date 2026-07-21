@@ -9,7 +9,7 @@
   "hints": [
     "Check if the lengths match first, then consider how s3 is built character by character from s1 and s2.",
     "This problem has overlapping subproblems and optimal substructure, suggesting dynamic programming is a suitable approach.",
-    "Define dp[i][j] as whether s3[0..i+j-1] is an interleaving of s1[0..i-1] and s2[0..j-1], deriving transitions from previous states."
+    "Track how many characters you have consumed from each source string; that pair of counts fully describes your progress, since their total is your position in the target. From a given state you may take the next target character from whichever source's next character matches it, so a state's reachability depends only on the states one step back in each source."
   ],
   "languages": [
     "python"

@@ -10,7 +10,7 @@
   "hints": [
     "First, count bulls by comparing characters at identical indices in both strings.",
     "Next, count the frequency of each digit in both strings, ignoring positions already matched as bulls.",
-    "Cows equal the sum of minimum frequencies of each digit across both strings, minus the bull count."
+    "Once the bulls are set aside, a cow for a given digit is limited by how many unmatched copies of that digit remain on each side \u2014 you can only pair up as many as the scarcer side has. Counting per-digit availability among the leftover characters, rather than rescanning positions, makes the cow total fall out."
   ],
   "languages": [
     "python"

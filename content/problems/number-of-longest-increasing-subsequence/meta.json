@@ -9,7 +9,7 @@
   "hints": [
     "Consider computing the length of the longest increasing subsequence ending at each index. How does this help you count the total number of such subsequences?",
     "Use dynamic programming with two arrays: one for the maximum length ending at each index, and another for the count of subsequences achieving that length.",
-    "For each index, look back at all previous indices with smaller values. If a previous length plus one matches the current max length, add its count; if it exceeds, reset the count."
+    "The counting has two regimes as you scan compatible earlier elements: finding a strictly longer chain than any before makes the running tally obsolete and restarts it, while matching the best length seen means those possibilities accumulate. Keeping the length and the count in lockstep at each index captures both."
   ],
   "languages": [
     "python"

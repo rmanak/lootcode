@@ -10,7 +10,7 @@
   "hints": [
     "Sort the jobs by their end times to process them in chronological order of completion.",
     "Use dynamic programming where the state represents the maximum profit achievable using a subset of the first i jobs.",
-    "For each job, decide whether to include it: if included, add its profit to the max profit from jobs ending no later than its start time."
+    "Sorting by finish time pays off: when you weigh taking a job, every job compatible with it forms a contiguous prefix \u2014 those that finish by the time this one starts. Locating the edge of that prefix quickly (the finish times are sorted) lets you look up the best profit reachable before this job in one step."
   ],
   "languages": [
     "python"

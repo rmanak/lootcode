@@ -9,7 +9,7 @@
   "hints": [
     "Notice that functions are properly nested like parentheses, suggesting a last-in-first-out structure to track the currently executing function.",
     "Use a stack to keep track of active function calls and maintain a variable for the previous timestamp to calculate elapsed time.",
-    "When a function ends, pop it from the stack; the time spent is the current timestamp minus the previous timestamp, plus one. When a new function starts, subtract the elapsed time since the previous timestamp from the function currently on top of the stack."
+    "At every log event, the function currently running (the innermost active one) has earned all the time since the previous event \u2014 credit it before the set of active functions changes. The subtlety is that a start and an end treat the boundary timestamp differently, since an 'end' includes the whole of its own time unit while a 'start' begins one; advance your 'last event' marker to match."
   ],
   "languages": [
     "python"

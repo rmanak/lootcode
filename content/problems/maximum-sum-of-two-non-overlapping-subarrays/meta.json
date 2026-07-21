@@ -11,7 +11,7 @@
   "hints": [
     "Focus on the boundary between the two subarrays. Once you fix the split point, the problem becomes finding the best window of length L to the left and the best of length M to the right.",
     "Precompute the maximum sum of a contiguous subarray of length K ending at or before index i for all valid i. This allows O(1) lookup for the best left or right candidate.",
-    "Calculate prefix sums to get any subarray sum in O(1). Then, for each possible split point, combine the precomputed best-left and best-right sums to find the global maximum."
+    "One case is easy to forget: the length-L window may lie either before or after the length-M window. Solve the problem once assuming L comes first and once assuming M comes first, then take the better. Within each case, a single left-to-right pass that remembers the best fixed-length window seen so far is enough."
   ],
   "languages": [
     "python"

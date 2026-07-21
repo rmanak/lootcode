@@ -9,7 +9,7 @@
   "hints": [
     "Consider how the largest square ending at a cell depends on its neighbors.",
     "Use dynamic programming where each cell stores the side length of the largest square ending there.",
-    "The value at a cell is the minimum of its top, left, and top-left neighbors plus one."
+    "A cell can anchor a square only as large as the smallest square its three already-computed neighbors (up, left, and the diagonal) can support \u2014 one big neighbor is wasted if another is small. Notice too that this side length is exactly how many new squares end at that cell, so accumulating those side lengths gives the total."
   ],
   "languages": [
     "python"

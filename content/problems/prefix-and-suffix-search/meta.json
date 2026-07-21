@@ -9,7 +9,7 @@
   "hints": [
     "Check if the problem allows preprocessing words once to speed up repeated queries, or if you must search from scratch each time.",
     "Store words in two separate lookup structures: one indexed by prefix and another by suffix, mapping each to a list of candidate weights.",
-    "For each query, intersect the candidate lists from both structures to find the common word with the maximum weight."
+    "Because a word's weight is just its position, the highest-weight match is simply the latest qualifying word \u2014 you never compare weights, only find the last word satisfying both ends. Whatever indexing you build, lean on that 'latest one wins' property."
   ],
   "languages": [
     "python"

@@ -8,7 +8,7 @@
   ],
   "hints": [
     "This problem involves making sequential choices about which elements to include, suggesting a dynamic programming approach on indices.",
-    "Define dp[i][j] as the max dot product using subsequences from nums1[i:] and nums2[j:]. Consider three transitions: pair current elements, skip i, or skip j.",
+    "Define the subproblem over prefixes of the two arrays: the best dot product obtainable using elements up to a chosen position in each. Fill a table indexed by those two positions, building larger cases from smaller ones.",
     "Handle the non-empty constraint by initializing with negative infinity and ensuring at least one pair is formed before propagating results."
   ],
   "languages": [

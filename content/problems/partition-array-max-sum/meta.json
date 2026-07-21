@@ -7,8 +7,9 @@
     "dynamic-programming"
   ],
   "hints": [
-    "Think dynamic programming: dp[i] will be the answer for array A[0], ..., A[i-1].",
-    "For j = 1 .. k that keeps everything in bounds, dp[i] is the maximum of dp[i-j] + max(A[i-1], ..., A[i-j]) * j ."
+    "Scan the array left to right and ask where the final block ends. If you already knew the best achievable total for every shorter prefix, you could settle the last block by trying each allowed length and reusing a previously-solved prefix.",
+    "This is a one-dimensional dynamic program over prefix lengths. The last block may be any length from 1 up to k; each choice reduces to a shorter prefix you have already solved, and that block's own contribution depends only on the largest value it contains. Trying the allowed block lengths and keeping the best is the shape of the recurrence.",
+    "The value you multiply by a block's length is the maximum inside that block, which you can extend cheaply as you grow the block one element leftward \u2014 no need to rescan the block each time."
   ],
   "languages": [
     "python"

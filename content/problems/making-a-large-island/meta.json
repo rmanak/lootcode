@@ -12,7 +12,7 @@
   "hints": [
     "Consider the island sizes if no flip occurred. How can you efficiently identify which cell belongs to which island?",
     "Label each existing island with a unique ID and store its size. Then, for every 0, check its neighbors' IDs to calculate the potential new island size.",
-    "Iterate through all 0s. Sum the sizes of unique neighboring islands plus one. Track the maximum found, handling the edge case where no 0 exists separately."
+    "Two traps decide correctness: a single 0 may border the same island on more than one side, so each distinct neighboring island should be counted only once; and if the grid contains no 0 at all, the answer is just the largest island as it stands. Joining a flipped cell to its distinct neighbors is where the size grows."
   ],
   "languages": [
     "python"

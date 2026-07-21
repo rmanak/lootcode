@@ -10,7 +10,7 @@
   "hints": [
     "Notice how nested brackets require processing inner content before outer repetition. This suggests a Last-In-First-Out structure.",
     "Use a stack to track characters and numbers. When you hit a closing bracket, pop until the matching opening bracket to decode that segment.",
-    "Pop the segment, the preceding number, and any characters before that. Repeat the segment that many times and push the result back onto the stack."
+    "The crucial detail is what to remember at the moment a bracket opens: the text already built up outside it and the repeat count that will apply to the text inside. With those saved, closing the bracket lets you fold the finished inner segment back into its outer prefix and carry on as if nothing had nested."
   ],
   "languages": [
     "python"

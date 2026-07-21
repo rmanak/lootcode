@@ -9,7 +9,7 @@
   "hints": [
     "Model the history as a sequence where you can move left or right. How do you track your current position?",
     "Use two stacks: one for back history and one for forward history. What happens to the forward stack when you visit a new URL?",
-    "When moving back, pop from the back stack and push to the forward stack. Clamp steps so you never underflow the back stack."
+    "Two rules are the ones to get right: visiting a new page invalidates everything ahead of your current position, and both back and forward are capped so you can never step past either end. Tracking just your current position within the recorded history makes both of those behave naturally."
   ],
   "languages": [
     "python"

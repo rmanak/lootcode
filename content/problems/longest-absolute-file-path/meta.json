@@ -10,7 +10,7 @@
   "hints": [
     "Parse the string line by line, using the number of leading tabs to determine each entry's depth in the hierarchy.",
     "Use an array to store the cumulative path length at each depth, updating it as you traverse deeper or shallower.",
-    "When you encounter a file, its absolute path length is the sum of lengths at all preceding depths plus its own name length; track the maximum such sum."
+    "For each depth, remember the total length of the path leading up to that level. Because entries arrive in traversal order, by the time you reach a file you already hold its parent directory's accumulated length, so its full path length is immediately at hand \u2014 use directories to build these per-depth prefixes and test files against the running best."
   ],
   "languages": [
     "python"

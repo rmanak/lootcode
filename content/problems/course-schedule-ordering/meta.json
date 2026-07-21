@@ -8,7 +8,7 @@
   "hints": [
     "This is a topological sort problem on a directed graph. A cycle means no valid order exists.",
     "Use Kahn's algorithm with a min-heap instead of a regular queue to ensure lexicographically smallest output.",
-    "Always extract the smallest available course (in-degree zero) from the heap to build the result sequence."
+    "Convince yourself of two things: among the courses currently free of unmet prerequisites, taking the numerically smallest first is always safe \u2014 it can never force a larger label earlier later on \u2014 and if you ever have courses left but none currently free, a cycle exists and no ordering is possible."
   ],
   "languages": [
     "python"
