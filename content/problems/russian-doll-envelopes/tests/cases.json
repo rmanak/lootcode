@@ -599,6 +599,36 @@
       "expected": 1,
       "weight": 1,
       "hidden": true
+    },
+    {
+      "name": "hidden-greedy-trap",
+      "input": {
+        "envelopes": [
+          [
+            6,
+            10
+          ],
+          [
+            11,
+            14
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            16,
+            14
+          ],
+          [
+            13,
+            2
+          ]
+        ]
+      },
+      "expected": 3,
+      "weight": 1,
+      "hidden": true
     }
   ]
 }
