@@ -220,6 +220,56 @@ def _progress_path(name: str) -> pathlib.Path:
     return REPORT_PATH.parent / f"{name}.progress.jsonl"
 
 
+def _slugs_from_file(path: pathlib.Path) -> list[str]:
+    """One slug per line; blank lines and `#` comments ignored."""
+    out = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.split("#", 1)[0].strip()
+        if line:
+            out.append(line)
+    return out
+
+
+def _slugs_from_dir(path: pathlib.Path) -> list[str]:
+    """Immediate child dirs of `path` that look like problems (have meta.json)."""
+    return sorted(c.name for c in path.iterdir()
+                  if c.is_dir() and (c / "meta.json").exists())
+
+
+def _resolve_slugs(args) -> None:
+    """Merge --slugs / --slugs-file / --slugs-dir into args.slug (in place).
+
+    All slug sources are additive and combine with any --slug flags. Downstream
+    selection (_select / apply-report / calibrate) already keys off args.slug, so
+    folding everything into it keeps one selection path.
+    """
+    extra: list[str] = []
+    for csv in getattr(args, "slugs", None) or []:
+        extra += [s.strip() for s in csv.split(",") if s.strip()]
+    for f in getattr(args, "slugs_file", None) or []:
+        p = pathlib.Path(f)
+        if not p.exists():
+            print(f"ERROR: --slugs-file not found: {p}")
+            raise SystemExit(2)
+        extra += _slugs_from_file(p)
+    for dpath in getattr(args, "slugs_dir", None) or []:
+        p = pathlib.Path(dpath)
+        if not p.is_dir():
+            print(f"ERROR: --slugs-dir is not a directory: {p}")
+            raise SystemExit(2)
+        found = _slugs_from_dir(p)
+        if not found:
+            print(f"WARNING: --slugs-dir {p} contained no problem subdirs (meta.json).")
+        extra += found
+    if extra:
+        # De-dupe while preserving order; keep any explicit --slug values too.
+        seen = set(args.slug)
+        for s in extra:
+            if s not in seen:
+                args.slug.append(s)
+                seen.add(s)
+
+
 # --------------------------------------------------------------------------- #
 # audit
 # --------------------------------------------------------------------------- #
@@ -646,6 +696,12 @@ def main() -> int:
                         help="parallel requests (match the server's slot count; default 4)")
     parent.add_argument("--slug", action="append", default=[],
                         help="only this slug (repeatable)")
+    parent.add_argument("--slugs", action="append", default=[], metavar="A,B,C",
+                        help="comma-separated list of slugs (repeatable; combines with --slug)")
+    parent.add_argument("--slugs-file", action="append", default=[], metavar="PATH",
+                        help="file with one slug per line (# comments/blank lines ignored; repeatable)")
+    parent.add_argument("--slugs-dir", action="append", default=[], metavar="DIR",
+                        help="select every problem subdir (with a meta.json) under DIR (repeatable)")
     parent.add_argument("--filter", default="",
                         help="only slugs containing this substring")
     parent.add_argument("--limit", type=int, default=0, help="cap problems processed (0=all)")
@@ -700,6 +756,7 @@ def main() -> int:
     pw.set_defaults(func=cmd_apply_report)
 
     args = ap.parse_args()
+    _resolve_slugs(args)
     return args.func(args)
 
 

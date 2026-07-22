@@ -94,13 +94,21 @@ def _client(base_url: str, api_key: str):
 
     Imported lazily so ``openai`` stays an optional dependency: modules that never
     call :func:`generate_hints` do not need the package installed.
+
+    The read timeout is set generously (``LLM_TIMEOUT`` env, default 900s): a local
+    reasoning model with "thinking" on can take minutes to answer a hard problem,
+    and a premature cut-off would surface as a transient error that just re-queues
+    the slug on the next resume. Connect stays short so a *down* server fails fast.
     """
     from openai import OpenAI
+    from httpx import Timeout
 
     base = base_url.rstrip("/")
     if not base.endswith("/v1"):
         base = f"{base}/v1"
-    return OpenAI(base_url=base, api_key=api_key)
+    read_timeout = float(os.environ.get("LLM_TIMEOUT", "900"))
+    return OpenAI(base_url=base, api_key=api_key,
+                  timeout=Timeout(read_timeout, connect=10.0))
 
 
 def _render_prompt(statement: str, max_hints: int) -> str:
