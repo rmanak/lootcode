@@ -324,8 +324,10 @@ class VerifyBody(BaseModel):
     compare: str = "exact"
 
 
-@router.post("/problems/{slug}/verify")
-def verify(slug: str, body: VerifyBody):
+def _run_verify(body: VerifyBody) -> dict:
+    """Run a solution against the posted (unsaved) tests and return full admin
+    detail. Shared by the edit page and the AI review page — neither needs a saved
+    problem; everything comes from the form fields in ``body``."""
     if not body.code.strip():
         raise HTTPException(status_code=400, detail="The solution is empty.")
     try:
@@ -370,6 +372,20 @@ def verify(slug: str, body: VerifyBody):
             "actual": r.returned, "error": r.error,
         } for i, r in enumerate(g.results)],
     }
+
+
+@router.post("/problems/{slug}/verify")
+def verify(slug: str, body: VerifyBody):
+    """Edit page: run the canonical against the current tests (slug is unused —
+    the run is entirely from ``body`` — but keeps the per-problem URL)."""
+    return _run_verify(body)
+
+
+@router.post("/verify")
+def verify_unsaved(body: VerifyBody):
+    """AI review page (and the New-problem form): same run for a draft that has no
+    slug yet, so authors get feedback before Create."""
+    return _run_verify(body)
 
 
 # --- create new -----------------------------------------------------------
@@ -452,125 +468,48 @@ def new_submit(
     return RedirectResponse(f"/admin/problems/{prob.slug}/edit", status_code=303)
 
 
-# --- AI generation --------------------------------------------------------
-# Generation NEVER writes to the bank directly. It produces one or more *drafts*
-# (held in app.llm.draft_store) and sends the author to a review page that is the
-# manual New-problem form, prefilled — so they confirm/edit every field and Create
-# through the same validated save path (POST /admin/new). This is what makes AI
-# authoring safe: a slug collision can't silently overwrite a problem, and a
-# canonical that doesn't verify can't land, because a human clears the same gate.
-@router.get("/generate")
-def generate_form(request: Request):
+# --- AI generation (two-step: idea → statement → full problem) ------------
+# Generation NEVER writes to the bank directly, and it is ONE problem at a time.
+# The owner either (choice 1) turns an idea into a problem *statement*, or
+# (choice 2) provides a statement directly; then — after a duplicate check keyed
+# off the statement's inferred title/slug — the statement is filled in to a full
+# problem (contract + canonical + tests + hints), exactly the CLI Mode-A pipeline
+# (scripts/generate_problem_from_statement.py). The finished problem is stashed as
+# a *draft* and the owner is sent to the review page (the New-problem form,
+# prefilled) to confirm/edit every field and Create through the same validated
+# save path (POST /admin/new). That is what keeps AI authoring safe: a slug
+# collision can't silently overwrite a problem, and a canonical that doesn't
+# verify can't land, because a human clears the same gate.
+
+
+def _generate_page(request: Request, *, error: str | None = None,
+                   status_code: int = 200):
+    """Render the two-choice generation landing page (optionally with an error)."""
     return templates.TemplateResponse(request, "admin/generate.html", {
         "request": request, "user_name": request.state.user_name,
-        "disabled": not settings.generation_enabled, "error": None,
+        "disabled": not settings.generation_enabled, "error": error,
         "backend": _BACKEND_LABELS.get(_active_backend(), ""),
-    })
+    }, status_code=status_code)
 
 
-def _generate(*, brief: str, difficulty: str, bulk_text: str, count: int,
-              on_progress, sink) -> None:
-    """Generate problems WITHOUT saving; call ``sink(draft_id, data)`` per finished
-    problem (each stashed as a review draft). Raises ValueError when neither a brief
-    nor bulk material was supplied."""
-    from ..llm import generator
-
-    def stash(data: dict) -> None:
-        sink(draft_store.add(data), data)
-
-    if bulk_text:
-        generator.generate_from_text(bulk_text, count, on_progress=on_progress,
-                                     on_problem=stash)
-    elif brief:
-        data = generator.generate_problem(brief, difficulty or None,
-                                          on_progress=on_progress)
-        stash(data)
-    else:
-        raise ValueError("Enter a problem idea or paste source material.")
-
-
-def _review_redirect(draft_ids: list[str]) -> str:
-    """Straight to the single draft's review page, or the queue for a batch."""
-    if len(draft_ids) == 1:
-        return f"/admin/generate/review/{draft_ids[0]}"
-    return "/admin/generate/review"
-
-
-@router.post("/generate")
-def generate_submit(
-    request: Request,
-    brief: str = Form(""), difficulty: str = Form(""),
-    bulk_text: str = Form(""), count: int = Form(3),
-):
-    """No-JS fallback: generate (blocking), then redirect to the review page(s)."""
-    if not settings.generation_enabled:
-        raise HTTPException(status_code=400, detail="AI generation is not configured.")
-
-    ids: list[str] = []
-    try:
-        _generate(brief=brief.strip(), difficulty=difficulty.strip(),
-                  bulk_text=bulk_text.strip(), count=count, on_progress=None,
-                  sink=lambda did, data: ids.append(did))
-    except Exception as exc:  # noqa: BLE001 - surface any generation/parse error
-        return templates.TemplateResponse(request, "admin/generate.html", {
-            "request": request, "user_name": request.state.user_name,
-            "disabled": False, "error": f"Generation failed: {exc}",
-            "backend": _BACKEND_LABELS.get(_active_backend(), ""),
-        }, status_code=400)
-    if not ids:
-        return templates.TemplateResponse(request, "admin/generate.html", {
-            "request": request, "user_name": request.state.user_name,
-            "disabled": False, "error": "No problems were generated — try again.",
-            "backend": _BACKEND_LABELS.get(_active_backend(), ""),
-        }, status_code=400)
-    return RedirectResponse(_review_redirect(ids), status_code=303)
-
-
-@router.post("/generate/stream")
-def generate_stream(
-    brief: str = Form(""), difficulty: str = Form(""),
-    bulk_text: str = Form(""), count: int = Form(3),
-):
-    """Server-Sent Events variant of ``POST /generate``.
-
-    Generation on a local endpoint takes the better part of a minute, so instead of a
-    blank blocking POST we run it in a worker thread and stream coarse progress. Each
-    finished problem becomes a review draft; when the run ends we emit
-    ``{"type": "done", "redirect": <review-url>}`` and the browser navigates there —
-    nothing is saved yet. Mirrors the streaming shape of the "Get More Help with AI"
-    endpoint (see app/routers/submissions.py).
+def _sse_stream(work) -> StreamingResponse:
+    """Run ``work(put)`` in a worker thread and stream whatever it ``put(...)``s as
+    Server-Sent Events. The worker reports coarse ``{"type":"status"}`` frames and
+    ends with a ``{"type":"done","redirect": url}`` (the browser navigates there);
+    any exception becomes a final ``{"type":"error"}``. Mirrors the SSE shape of the
+    "Get More Help with AI" endpoint so the client JS is the same pattern.
     """
-    if not settings.generation_enabled:
-        raise HTTPException(status_code=400, detail="AI generation is not configured.")
-    brief, difficulty, bulk_text = brief.strip(), difficulty.strip(), bulk_text.strip()
-
     events: queue.Queue = queue.Queue()
 
-    def worker():
-        ids: list[str] = []
+    def runner():
         try:
-            def on_progress(msg: str):
-                events.put({"type": "status", "message": msg})
-
-            def sink(did: str, data: dict):
-                ids.append(did)
-                events.put({"type": "status", "message":
-                            f"Drafted “{data.get('title') or data.get('slug')}” — "
-                            "ready for review."})
-
-            _generate(brief=brief, difficulty=difficulty, bulk_text=bulk_text,
-                      count=count, on_progress=on_progress, sink=sink)
-            if not ids:
-                events.put({"type": "error",
-                            "message": "No problems were generated — try again."})
-            else:
-                events.put({"type": "done", "redirect": _review_redirect(ids)})
+            work(lambda ev: events.put(ev))
         except Exception as exc:  # noqa: BLE001 - surface any generation/parse error
-            events.put({"type": "error", "message": f"Generation failed: {exc}"})
+            events.put({"type": "error", "message": str(exc)})
         finally:
             events.put(None)  # sentinel: end of stream
 
-    threading.Thread(target=worker, daemon=True).start()
+    threading.Thread(target=runner, daemon=True).start()
 
     def event_stream():
         while True:
@@ -581,14 +520,199 @@ def generate_stream(
 
     return StreamingResponse(
         event_stream(), media_type="text/event-stream",
-        # Defeat proxy/browser buffering so frames arrive as they're produced.
         headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+
+
+@router.get("/generate")
+def generate_form(request: Request):
+    """Landing page: choose to start from an idea (→ statement) or a statement."""
+    return _generate_page(request)
+
+
+# --- choice 1: idea → problem statement -----------------------------------
+@router.post("/generate/statement/stream")
+def statement_stream(idea: str = Form(""), difficulty: str = Form("")):
+    """SSE: write a problem statement from an idea, then redirect to the statement
+    page (choice 1, step 1). Only the *statement* is produced here — the full
+    problem is generated from it on the next page."""
+    if not settings.generation_enabled:
+        raise HTTPException(status_code=400, detail="AI generation is not configured.")
+    idea, difficulty = idea.strip(), difficulty.strip()
+
+    def work(put):
+        from ..llm import generator, statement_store
+        statement = generator.generate_statement(
+            idea, difficulty or None,
+            on_progress=lambda m: put({"type": "status", "message": m}))
+        sid = statement_store.add(statement)
+        put({"type": "done", "redirect": f"/admin/generate/statement/{sid}"})
+
+    return _sse_stream(work)
+
+
+@router.post("/generate/statement")
+def statement_submit(request: Request, idea: str = Form(""),
+                     difficulty: str = Form("")):
+    """No-JS fallback for choice 1: write the statement (blocking), then redirect."""
+    if not settings.generation_enabled:
+        raise HTTPException(status_code=400, detail="AI generation is not configured.")
+    from ..llm import generator, statement_store
+    try:
+        statement = generator.generate_statement(idea.strip(), difficulty.strip() or None)
+    except Exception as exc:  # noqa: BLE001 - surface any generation error
+        return _generate_page(request, error=f"Could not write a statement: {exc}",
+                              status_code=400)
+    sid = statement_store.add(statement)
+    return RedirectResponse(f"/admin/generate/statement/{sid}", status_code=303)
+
+
+# --- choice 2 entry: an owner-provided statement --------------------------
+@router.post("/generate/from-statement")
+def from_statement_submit(request: Request, statement: str = Form("")):
+    """Choice 2: take a pasted statement straight to the statement page (where the
+    duplicate check runs and the full problem is generated)."""
+    if not settings.generation_enabled:
+        raise HTTPException(status_code=400, detail="AI generation is not configured.")
+    from ..llm import statement_store
+    statement = statement.strip()
+    if not statement:
+        return _generate_page(request, error="Paste a problem statement to continue.",
+                              status_code=400)
+    sid = statement_store.add(statement)
+    return RedirectResponse(f"/admin/generate/statement/{sid}", status_code=303)
+
+
+# --- the statement page: duplicate check, then generate the full problem ---
+def _duplicate_check(db: Session, statement: str) -> dict:
+    """Infer a title + slug for a statement (one cheap LLM call) and use them to
+    surface the top similar existing problems — the "is this already in the bank?"
+    nudge that sits between writing a statement and filling it in."""
+    from ..llm import generator
+    try:
+        named = generator.suggest_title_slug(statement)
+    except Exception:  # noqa: BLE001 - naming is best-effort; degrade to no suggestion
+        named = {"title": "", "slug": ""}
+    similar = find_similar_problems(
+        db, slug=named.get("slug", ""), title=named.get("title", ""), tags=None)
+    return {"title": named.get("title", ""), "slug": named.get("slug", ""),
+            "similar": similar}
+
+
+def _statement_context(request: Request, db: Session, sid: str, entry: dict,
+                       *, error: str | None = None) -> dict:
+    check = entry.get("check")
+    if check is None:
+        check = _duplicate_check(db, entry["statement"])
+        from ..llm import statement_store
+        statement_store.set_check(sid, check)
+    return {
+        "request": request, "user_name": request.state.user_name,
+        "sid": sid, "statement": entry["statement"],
+        "title": check["title"], "slug": check["slug"], "similar": check["similar"],
+        "backend": _BACKEND_LABELS.get(_active_backend(), ""),
+        "disabled": not settings.generation_enabled, "error": error,
+    }
+
+
+@router.get("/generate/statement/{sid}")
+def statement_review(sid: str, request: Request, db: Session = Depends(get_db)):
+    """Show the (editable) statement with a duplicate check, and a button to
+    generate the full problem from it."""
+    from ..llm import statement_store
+    entry = statement_store.get(sid)
+    if entry is None:  # expired / already consumed — back to the start
+        return RedirectResponse("/admin/generate", status_code=303)
+    return templates.TemplateResponse(
+        request, "admin/generate_statement.html",
+        _statement_context(request, db, sid, entry))
+
+
+@router.post("/generate/duplicate-check")
+def duplicate_check_api(sid: str = Form(""), statement: str = Form(""),
+                        db: Session = Depends(get_db)):
+    """JSON: re-run the duplicate check for the current (possibly edited) statement.
+    Called by the statement page so the similar-problem list reflects live edits."""
+    statement = statement.strip()
+    if not statement:
+        return {"title": "", "slug": "", "similar": []}
+    from ..llm import statement_store
+    if sid:
+        statement_store.set_statement(sid, statement)
+    check = _duplicate_check(db, statement)
+    if sid:
+        statement_store.set_check(sid, check)
+    return check
+
+
+@router.post("/generate/full/stream")
+def full_stream(sid: str = Form(""), statement: str = Form(""),
+                title: str = Form(""), slug: str = Form("")):
+    """SSE: generate the full problem from the statement, stash it as a review
+    draft, then redirect to its review page."""
+    if not settings.generation_enabled:
+        raise HTTPException(status_code=400, detail="AI generation is not configured.")
+    statement, title, slug = statement.strip(), title.strip(), slug.strip()
+
+    def work(put):
+        from ..llm import generator, statement_store
+        data = generator.generate_from_statement(
+            statement, title=title, slug=slug,
+            on_progress=lambda m: put({"type": "status", "message": m}))
+        did = draft_store.add(data)
+        if sid:
+            statement_store.pop(sid)
+        put({"type": "status", "message":
+             f"Drafted “{data.get('title') or data.get('slug')}” — ready for review."})
+        put({"type": "done", "redirect": f"/admin/generate/review/{did}"})
+
+    return _sse_stream(work)
+
+
+@router.post("/generate/full")
+def full_submit(request: Request, sid: str = Form(""), statement: str = Form(""),
+                title: str = Form(""), slug: str = Form(""),
+                db: Session = Depends(get_db)):
+    """No-JS fallback: generate the full problem (blocking), then redirect to review."""
+    if not settings.generation_enabled:
+        raise HTTPException(status_code=400, detail="AI generation is not configured.")
+    from ..llm import generator, statement_store
+    statement = statement.strip()
+    if not statement:
+        entry = statement_store.get(sid)
+        if entry is not None:
+            return templates.TemplateResponse(
+                request, "admin/generate_statement.html",
+                _statement_context(request, db, sid, entry,
+                                   error="A problem statement is required."),
+                status_code=400)
+        return _generate_page(request, error="A problem statement is required.",
+                              status_code=400)
+    try:
+        data = generator.generate_from_statement(
+            statement, title=title.strip(), slug=slug.strip())
+    except Exception as exc:  # noqa: BLE001 - surface any generation/parse error
+        entry = statement_store.get(sid)
+        if entry is not None:
+            statement_store.set_statement(sid, statement)
+            entry = statement_store.get(sid)
+            return templates.TemplateResponse(
+                request, "admin/generate_statement.html",
+                _statement_context(request, db, sid, entry,
+                                   error=f"Generation failed: {exc}"),
+                status_code=400)
+        return _generate_page(request, error=f"Generation failed: {exc}",
+                              status_code=400)
+    did = draft_store.add(data)
+    if sid:
+        statement_store.pop(sid)
+    return RedirectResponse(f"/admin/generate/review/{did}", status_code=303)
 
 
 # --- review AI-generated drafts before saving -----------------------------
 @router.get("/generate/review")
 def generate_review_list(request: Request, db: Session = Depends(get_db)):
-    """The pending-draft queue (where a batch generation lands)."""
+    """The pending-draft queue. One problem is generated at a time, but a draft
+    persists until Created or evicted, so more than one can be waiting here."""
     ex = existing_slugs(db)
     drafts = []
     for did, data in draft_store.items():

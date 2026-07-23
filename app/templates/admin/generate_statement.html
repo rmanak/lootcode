@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Review statement · {{ app_name }}{% endblock %}
+{% block content %}
+<p class="crumb"><a href="/admin">← Admin</a> &nbsp;·&nbsp; <a href="/admin/generate">Generate</a></p>
+<h1>Problem statement</h1>
+
+<p class="muted gen-backend">Using the <strong>{{ backend }}</strong>.</p>
+<p class="muted">Edit the statement if you like, check it isn't a duplicate of an existing
+  problem, then generate the full problem (contract, canonical solution, tests, tags,
+  hints) from it. Nothing is saved until you Create on the next page.</p>
+
+{% if error %}<div class="run-error">{{ error }}</div>{% endif %}
+<div class="run-error" id="gen-live-error" hidden></div>
+
+{# The duplicate check: inferred title/slug + the top similar existing problems.
+   Re-rendered by JS whenever the statement is edited (see generate_statement.js). #}
+<div id="dup-box" class="similar-box"
+     data-title="{{ title }}" data-slug="{{ slug }}">
+  <div id="dup-summary">
+    <strong>Duplicate check</strong>
+    <span class="muted">— inferred title
+      <span id="dup-title">{{ title or "—" }}</span>,
+      slug <code id="dup-slug">{{ slug or "—" }}</code></span>
+    <button type="button" id="dup-recheck" class="btn-small">Re-check</button>
+  </div>
+  <div id="dup-list">
+    {% if similar %}
+    <p class="muted">{{ similar|length }} existing problem(s) look similar — make sure this isn't a duplicate:</p>
+    <ul>
+      {% for s in similar %}
+      <li>
+        <a href="/problems/{{ s.slug }}" target="_blank" rel="noopener">{{ s.title }}</a>
+        <code>{{ s.slug }}</code> <span class="muted">· {{ s.difficulty }}</span>
+        {% if s.shared_tags %}<span class="muted">· shared tags: {{ s.shared_tags|join(", ") }}</span>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="muted">No obviously-similar problems found — looks new.</p>
+    {% endif %}
+  </div>
+</div>
+
+<form class="bigform" id="full-form" method="post" action="/admin/generate/full">
+  <input type="hidden" name="sid" value="{{ sid }}">
+  <input type="hidden" name="title" id="full-title" value="{{ title }}">
+  <input type="hidden" name="slug" id="full-slug" value="{{ slug }}">
+  <label>Statement (Markdown)
+    <textarea name="statement" id="statement" rows="16" required>{{ statement }}</textarea>
+  </label>
+  <div class="gen-actions">
+    <button type="submit" id="full-submit">Generate full problem →</button>
+    <div class="ai-help-progress" id="full-progress" hidden>
+      <div class="ai-help-bar"><span id="full-bar-fill"></span></div>
+      <span class="ai-help-status" id="full-status"></span>
+    </div>
+  </div>
+  <p class="muted">This calls the {{ backend }} and may take a minute (longer on a local
+    endpoint). The reference solution is verified against its own tests before you review it.</p>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static('generate_statement.js') }}"></script>
+{% endblock %}

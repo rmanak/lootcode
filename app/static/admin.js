@@ -1,20 +1,28 @@
-// Admin edit page: run the canonical solution against the current tests.
+// Admin edit page AND AI review page: run the canonical solution against the
+// current (unsaved) tests. Works on either form — the edit form carries a
+// data-slug and posts to the per-problem verify URL; the review/new form has no
+// slug and posts to the slug-less /admin/verify. Both return identical detail.
 (function () {
-  const form = document.getElementById("edit-form");
+  const btn = document.getElementById("verify-btn");
+  if (!btn) return;
+  const form = btn.closest("form");
   if (!form) return;
 
-  const slug = form.dataset.slug;
-  const btn = document.getElementById("verify-btn");
+  const slug = form.dataset.slug || "";
+  const endpoint = slug ? `/admin/problems/${slug}/verify` : "/admin/verify";
   const statusEl = document.getElementById("verify-status");
   const out = document.getElementById("verify-results");
-  const val = (name) => form.querySelector(`[name="${name}"]`).value;
+  const val = (name) => {
+    const el = form.querySelector(`[name="${name}"]`);
+    return el ? el.value : "";
+  };
 
   btn.addEventListener("click", async () => {
     btn.disabled = true;
     statusEl.textContent = "Running…";
     out.innerHTML = "";
     try {
-      const resp = await fetch(`/admin/problems/${slug}/verify`, {
+      const resp = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

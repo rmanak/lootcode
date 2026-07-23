@@ -11,46 +11,60 @@
 
 <p class="muted gen-backend">Using the <strong>{{ backend }}</strong>.</p>
 
-<p class="muted">Generation doesn't save anything. Each problem is verified, then opens
-  in a <strong>review page</strong> (the New-problem form, prefilled) where you confirm,
-  edit, and Create it — with a duplicate check and a slug-collision guard.</p>
+<p class="muted">One problem at a time. Pick where to start — either way you end on a
+  <strong>review page</strong> (the New-problem form, prefilled) where you confirm, edit,
+  and Create it, with a duplicate check and a slug-collision guard. Nothing is saved
+  until you Create.</p>
 
-{# Server-rendered error is the no-JS fallback; with JS the form streams into
-   #gen-live-error and then redirects to the review page (see generate.js). #}
 {% if error %}<div class="run-error">{{ error }}</div>{% endif %}
-
 <div class="run-error" id="gen-live-error" hidden></div>
 
-<form class="bigform" id="gen-form" method="post" action="/admin/generate">
-  <h2>From an idea</h2>
-  <label>Problem idea / topic
-    <input name="brief" placeholder="dynamic programming on a 1D array, like climbing stairs">
-  </label>
-  <label>Difficulty (optional)
-    <select name="difficulty">
-      <option value="">let the model choose</option>
-      <option value="easy">easy</option><option value="medium">medium</option>
-      <option value="hard">hard</option>
-    </select>
-  </label>
+<div class="gen-choices">
+  {# ---- Choice 1: an idea → a problem statement ---- #}
+  <section class="gen-card">
+    <h2>1 · Start from an idea</h2>
+    <p class="muted">Describe a topic or idea and let the model draft a problem
+      <strong>statement</strong> first. You review the statement, then generate the rest
+      of the problem from it.</p>
+    <form class="bigform" id="idea-form" method="post" action="/admin/generate/statement">
+      <label>Problem idea / topic
+        <input name="idea" required
+          placeholder="dynamic programming on a 1D array, like climbing stairs">
+      </label>
+      <label>Difficulty (optional)
+        <select name="difficulty">
+          <option value="">let the model choose</option>
+          <option value="easy">easy</option><option value="medium">medium</option>
+          <option value="hard">hard</option>
+        </select>
+      </label>
+      <div class="gen-actions">
+        <button type="submit" id="idea-submit">Write a statement →</button>
+        <div class="ai-help-progress" id="idea-progress" hidden>
+          <div class="ai-help-bar"><span id="idea-bar-fill"></span></div>
+          <span class="ai-help-status" id="idea-status"></span>
+        </div>
+      </div>
+    </form>
+  </section>
 
-  <h2>…or from a batch of material</h2>
-  <label>Paste a list of problem ideas / descriptions
-    <textarea name="bulk_text" rows="6"
-      placeholder="Paste several problem ideas or a topic outline; the model will create similar problems."></textarea></label>
-  <label>How many to generate (max 5)<input name="count" type="number" value="3" min="1" max="5"></label>
-
-  <div class="gen-actions">
-    <button type="submit" id="gen-submit">Generate &amp; review</button>
-    <div class="ai-help-progress" id="gen-progress" hidden>
-      <div class="ai-help-bar"><span id="gen-bar-fill"></span></div>
-      <span class="ai-help-status" id="gen-status"></span>
-    </div>
-  </div>
-  <p class="muted">Each problem is verified against its own tests, then opens in a review
-     page — you save it from there. This calls the {{ backend }} and may take a minute
-     (longer on a local endpoint).</p>
-</form>
+  {# ---- Choice 2: an existing statement → the full problem ---- #}
+  <section class="gen-card">
+    <h2>2 · Start from a statement</h2>
+    <p class="muted">Already have the problem statement? Paste it and we'll generate the
+      rest — contract, canonical solution, tests, tags, and hints — the same way the
+      command-line generator does.</p>
+    <form class="bigform" method="post" action="/admin/generate/from-statement">
+      <label>Problem statement (Markdown)
+        <textarea name="statement" rows="10" required
+          placeholder="Given an integer array `nums`… Constraints: … Examples: …"></textarea>
+      </label>
+      <div class="gen-actions">
+        <button type="submit">Continue →</button>
+      </div>
+    </form>
+  </section>
+</div>
 {% endif %}
 {% endblock %}
 

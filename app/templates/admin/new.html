@@ -12,14 +12,38 @@
     hand-authored problem.</p>
   <p>
     {% if generation and generation.solved %}
-      <span class="ok-tag">reference verified ✓ ({{ generation.passed }}/{{ generation.total }})</span>
+      <span class="ok-tag">reference solution passes all its tests ✓ ({{ generation.passed }}/{{ generation.total }})</span>
     {% elif generation and generation.total is not none %}
-      <span class="warn-tag">⚠ reference failed at generation ({{ generation.passed }}/{{ generation.total }}) — inspect it</span>
+      <span class="warn-tag">⚠ reference solution passes only {{ generation.passed }} of {{ generation.total }} test cases</span>
     {% endif %}
     {% if generation and generation.dropped %}
       <span class="warn-tag">dropped {{ generation.dropped|length }} malformed test(s)</span>
     {% endif %}
   </p>
+  {% if generation and generation.total is not none and not generation.solved %}
+  <div class="ref-fail">
+    <p><strong>The reference (canonical) solution disagrees with its own test cases.</strong>
+      Running the generated canonical solution against the {{ generation.total }} generated
+      tests, it produced the expected answer on {{ generation.passed }} and failed on
+      {{ generation.total - generation.passed }}. That means either the canonical solution is
+      wrong, or the failing test's <code>expected</code> value is wrong — the two must agree.
+      <strong>Fix the canonical solution or the failing test(s) below, use “Run canonical
+      against tests” to re-check, then Create.</strong> (Create is blocked until all tests pass.)</p>
+    {% if generation.failing %}
+    <ul>
+      {% for t in generation.failing %}
+      <li><code>{{ t.name }}</code> <span class="warn-tag">{{ t.status }}</span>
+        {% if t.status == "wrong" %}
+          — expected <code>{{ t.expected|tojson }}</code>, canonical produced <code>{{ t.actual|tojson }}</code>
+        {% elif t.error %}
+          — {{ t.error }}
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+  {% endif %}
   {% if pending_count and pending_count > 1 %}
   <p class="muted">{{ pending_count }} drafts pending review —
     <a href="/admin/generate/review">open the review queue</a>.</p>
@@ -117,9 +141,15 @@
   <label>Tests (JSON array) <span class="muted kind-class">— each input is <code>{"operations": [...], "args": [[...], ...]}</code>; expected is the per-operation outputs list (<code>null</code> for the constructor and void methods)</span>
     <textarea name="tests_json" class="mono" rows="10">{{ f.tests_json }}</textarea></label>
 
-  <button type="submit">{% if ai %}Create problem{% else %}Save problem{% endif %}</button>
+  <div class="actions">
+    <button type="submit">{% if ai %}Create problem{% else %}Save problem{% endif %}</button>
+    <button type="button" id="verify-btn" class="secondary">▶ Run canonical against tests</button>
+    <span id="verify-status"></span>
+  </div>
+  <div id="verify-results"></div>
 </form>
 
+<script src="{{ static('admin.js') }}"></script>
 <script>
 // Show only the fields relevant to the selected problem kind (function vs class).
 (function () {

@@ -1,34 +1,30 @@
-// Admin "Generate & review": stream generation progress, then navigate to the review
-// page(s). Progressive enhancement — if this script doesn't run, the form posts normally
-// to /admin/generate and the server issues the same redirect. Mirrors the SSE shape of
-// the "Get More Help with AI" endpoint.
-//
-// Generation no longer saves anything: on the `done` event the server hands back a
-// `redirect` URL (the single draft's review page, or the batch review queue) and we send
-// the browser there to confirm + Create each problem.
+// Admin "Generate with AI" landing page, choice 1 (idea → statement).
+// Progressive enhancement: streams generation progress from
+// /admin/generate/statement/stream, then navigates to the statement review page.
+// Without JS the form posts normally to /admin/generate/statement and the server
+// issues the same redirect. Mirrors the SSE shape of the "Get More Help with AI"
+// endpoint.
 (function () {
-  const form = document.getElementById("gen-form");
+  const form = document.getElementById("idea-form");
   if (!form || !window.fetch) return;
 
-  const submit = document.getElementById("gen-submit");
-  const progress = document.getElementById("gen-progress");
-  const bar = document.getElementById("gen-bar-fill");
-  const statusEl = document.getElementById("gen-status");
+  const submit = document.getElementById("idea-submit");
+  const progress = document.getElementById("idea-progress");
+  const bar = document.getElementById("idea-bar-fill");
+  const statusEl = document.getElementById("idea-status");
   const liveError = document.getElementById("gen-live-error");
 
   let busy = false, timer = null, t0 = 0, pct = 0, latest = "";
 
   const setBar = (p) => { pct = p; bar.style.width = p + "%"; };
   function tick() {
-    // Ease toward 92% (we have no true length signal), then snap to 100% on done.
-    setBar(pct + (92 - pct) * 0.02);
+    setBar(pct + (92 - pct) * 0.03);
     const secs = ((Date.now() - t0) / 1000).toFixed(1);
     statusEl.textContent = `${latest || "Working…"} (${secs}s)`;
   }
 
   async function run() {
-    liveError.hidden = true;
-    liveError.textContent = "";
+    if (liveError) { liveError.hidden = true; liveError.textContent = ""; }
     busy = true;
     submit.disabled = true;
     submit.classList.add("is-busy");
@@ -39,7 +35,7 @@
 
     let errored = false, redirect = null;
     try {
-      const resp = await fetch("/admin/generate/stream", {
+      const resp = await fetch("/admin/generate/statement/stream", {
         method: "POST", body: new FormData(form),
       });
       if (!resp.ok || !resp.body) {
@@ -70,21 +66,24 @@
             redirect = evt.redirect || null;
           } else if (evt.type === "error") {
             errored = true;
-            liveError.textContent = evt.message || "Generation failed.";
-            liveError.hidden = false;
+            if (liveError) {
+              liveError.textContent = evt.message || "Generation failed.";
+              liveError.hidden = false;
+            }
           }
         }
       }
     } catch (err) {
       errored = true;
-      liveError.textContent = err.message || "Generation failed.";
-      liveError.hidden = false;
+      if (liveError) {
+        liveError.textContent = err.message || "Generation failed.";
+        liveError.hidden = false;
+      }
     } finally {
       if (timer) { clearInterval(timer); timer = null; }
       setBar(100);
       if (redirect && !errored) {
-        statusEl.textContent = "Done ✓ — opening review…";
-        // Keep the button disabled; we're leaving the page.
+        statusEl.textContent = "Done ✓ — opening statement…";
         window.location.assign(redirect);
         return;
       }

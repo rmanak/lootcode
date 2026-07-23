@@ -142,22 +142,30 @@ works for a fresh checkout.
   `oracle.py fuzz <slug> --solution X --shrink` when a concrete failing solution is
   in hand; or the **`scripts/strengthen_tests.py`** sweep for the whole bank. All
   keep the canonical as the only oracle and gate every input through the validator.
-- **LLM generation** comes in three modes depending on what's already given —
-  fill-in (full statement / description-only) vs. from-scratch — sharing one
-  "core" output contract. See `docs/problem-generation.md`. The **fill-in** mode
-  (given a statement, emit the core) is a CLI:
-  `scripts/generate_problem_from_statement.py <statement-file>`, prompt in
-  `app/llm/problem_prompt.txt`, validated by `scripts/test_llm_output.py`. The in-app
-  "Auto-generate with AI" admin feature is the from-scratch mode
-  (`app/llm/generator.py`). It runs on either backend — the Claude API when
-  `ANTHROPIC_API_KEY` is set (preferred), otherwise the same OpenAI-compatible
-  `LLM_HELP_URL` endpoint the AI-help button uses (`generator.active_backend()`);
-  the button is enabled when either is available (`settings.generation_enabled`).
-  **Generation never saves directly:** each problem is verified, then opens a
-  **review page** (the New-problem form, prefilled) with a slug-collision guard and
-  similar-problem suggestions; the owner confirms and Creates it through the one
-  validated save path (`POST /admin/new` → `app/problem_validation.py`), the same
-  gate the manual form and edit form use. See `docs/problem-generation.md`.
+- **LLM generation** shares one "core" output contract across modes (see
+  `docs/problem-generation.md`). The **fill-in / Mode A** transform — given a
+  statement, emit the core — has two front ends: a CLI
+  (`scripts/generate_problem_from_statement.py <statement-file>`, prompt in
+  `app/llm/problem_prompt.txt`, validated by `scripts/test_llm_output.py`) **and** the
+  in-app admin **"Generate with AI"** page. `generator.generate_from_statement`
+  **calls the CLI's `generate()` directly** (not a re-implementation), so the fill-in is
+  byte-for-byte identical incl. the typed per-kind schema and generated hints — don't
+  re-route it through the generic JSON helper (that drops the optional hints).
+  The in-app page is a **one-at-a-time, two-step** flow (no batch): choice 1 turns an
+  *idea* into a **statement** (`generator.generate_statement`, the one piece the CLI
+  lacks); choice 2 takes a *statement* (typed or from choice 1) and, after a
+  **duplicate check** (`generator.suggest_title_slug` → `find_similar_problems`, top-5),
+  fills it in to a full problem (`generator.generate_from_statement`). Statements
+  in flight live in `app/llm/statement_store.py`. It runs on the local OpenAI-compatible
+  `LLM_HELP_*` endpoint (the CLI's default). Idea→statement / title-slug also run — Claude API
+  when `ANTHROPIC_API_KEY` is set (preferred), else the OpenAI-compatible `LLM_HELP_URL`
+  endpoint (`generator.active_backend()`); enabled when either is available
+  (`settings.generation_enabled`). **Generation never saves directly:** the verified
+  problem opens a **review page** (New-problem form, prefilled) with a slug-collision
+  guard and similar-problem suggestions; the owner Creates it through the one validated
+  save path (`POST /admin/new` → `app/problem_validation.py`), the same gate the manual
+  and edit forms use. (The from-scratch `generator.generate_problem` remains in code but
+  is no longer wired to the UI.) See `docs/problem-generation.md`.
 - **Figures:** when a problem needs a diagram, follow `docs/problem-images.md`
   (when to add one, SVG how-to, and the `content/problems/<slug>/assets/` +
   `/problems/{slug}/assets/{filename}` serving API). Bulk text imports go through

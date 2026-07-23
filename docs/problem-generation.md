@@ -22,7 +22,38 @@ caller supplies**:
 | **C — From scratch** | nothing, or just a brief / topic / source blob | core **+ title + statement** | LLM | LLM, or derived from title | **LLM** |
 
 Modes A and B are *"fill in the rest"*; Mode C is *"author the whole thing."*
-Mode C is the existing in-app **"Auto-generate with AI"** admin feature.
+
+### In-app "Generate with AI" is two-step (idea → statement → Mode A)
+
+The admin **"Generate with AI"** page (`GET /admin/generate`) is now a **one-at-a-time,
+two-step** flow built on **Mode A**, not the old Mode-C batch:
+
+1. **Choice 1 — from an idea:** the owner gives a topic/idea (+ optional difficulty) and
+   the model writes a **problem statement** only (`generator.generate_statement`, a small
+   statement-schema call — the one piece the CLI flow doesn't have). The owner reviews /
+   edits it on the statement page.
+2. **Choice 2 — from a statement:** the owner instead pastes a statement directly and lands
+   on that same statement page.
+
+On the statement page, before the full problem is generated, a **duplicate check** runs:
+one cheap LLM call infers a `title` + `slug` for the statement
+(`generator.suggest_title_slug`), and those tokens drive `find_similar_problems` to surface
+the top ~5 existing problems that look like the same problem. Then **Generate full problem**
+runs **Mode A** on the (possibly edited) statement.
+`generator.generate_from_statement` **calls the CLI driver's own
+`scripts/generate_problem_from_statement.generate()` directly** (not a
+re-implementation) — so the in-app and command-line fill-in are byte-for-byte the same
+generation: same prompt (`app/llm/problem_prompt.txt`), same kind classifier, same
+per-kind **tight typed schema** (`problem_schema(kind)`, which requires the contract
+fields and includes `hints`), same schema-constrained completion params, and the same
+static + behavioral verify with a conversation-based corrective retry. (An earlier
+version routed this through the generic JSON helper with `strict`/thinking-off/fixed
+temperature and silently dropped the optional `hints` the CLI produces — hence the
+direct call.) The verified result is stashed as a draft that opens the same review page.
+Statements in flight are held in `app/llm/statement_store.py`.
+
+Mode C (`generator.generate_problem`) remains in `generator.py` but is no longer wired to
+the admin UI.
 
 ## The shared "core" contract
 
@@ -87,13 +118,20 @@ both wrong:
 
 > A slug hit is the exact / trivial end of the duplicate-detection spectrum; the
 > fuzzier near-duplicate detector remains future work (`docs/duplicate-detection-plan.md`),
-> and `find_similar_problems` is a cheap token/tag-overlap stand-in until it lands.
+> and `find_similar_problems` is a cheap stand-in until it lands. It scores shared
+> slug/title tokens by **IDF** (a token common across the bank — "number", "count",
+> "string" — barely counts; a rare one — "palindrom", "subsequenc" — dominates) after
+> a small **stemmer** unifies inflections (plurals, and the adjective/noun split like
+> `palindromic`/`palindrome`), plus a modest shared-tag bump. This is what lets a real
+> near-duplicate under a different slug (e.g. "All Unique Palindromic Subsequences" →
+> "Longest Palindromic Subsequence") outrank problems that merely share a generic word.
 
 ## Where each mode lives
 
 | Mode | Status | Code / artifact |
 |------|--------|-----------------|
-| **C** (from scratch) | **implemented** — admin *"Auto-generate with AI"* | `app/llm/generator.py` (`generate_problem`, `generate_from_text`); route `POST /admin/generate[/stream]`. Its `PROBLEM_SCHEMA` is the **full** entity (core + `title` + `slug` + `statement_md`), verified in the sandbox before returning. Generation **never saves**: each problem becomes a *draft* (`app/llm/draft_store.py`) and opens the **review page** (the New-problem form, prefilled — collision guard + similar-problems + full re-validation) where the admin confirms and Creates it through the one validated save path (`POST /admin/new`). |
+| **A** (in-app, two-step) | **implemented** — admin *"Generate with AI"* | Two steps, **one problem at a time** (batch generation was removed): `generator.generate_statement` (idea → statement) then `generator.generate_from_statement` (statement → core, **calls the CLI's `generate()` directly** — identical prompt/typed-schema/verify, incl. hints). Routes: `GET /admin/generate` (landing), `POST /admin/generate/statement[/stream]` (choice 1), `POST /admin/generate/from-statement` (choice 2), `GET /admin/generate/statement/{sid}` (statement page), `POST /admin/generate/duplicate-check` (title/slug + similar), `POST /admin/generate/full[/stream]` (fill-in). Generation **never saves**: the verified problem becomes a *draft* (`app/llm/draft_store.py`) and opens the **review page** (collision guard + similar-problems + full re-validation) where the admin Creates it through the one validated save path (`POST /admin/new`). |
+| **C** (from scratch) | **in code, unwired** — `app/llm/generator.py` (`generate_problem`). Its `PROBLEM_SCHEMA` is the **full** entity (core + `title` + `slug` + `statement_md`), verified in the sandbox before returning. No longer reachable from the admin UI (superseded by the two-step Mode-A flow above). |
 | **A** (fill-in, full statement) | **CLI driver** | `app/llm/problem_prompt.txt` (the prompt template, statement injected in place of the `{{PROBLEM_STATEMENT}}` token) driven by `scripts/generate_problem_from_statement.py` (OpenAI-compatible endpoint, schema-constrained JSON via `response_format`) + `scripts/test_llm_output.py` (validates the **core**; it intentionally *rejects* `title`/`slug`/`statement_md` via `extra="forbid"`, so a model that ignores the contract and re-emits the statement is caught). The prompt/schema/validator all cover both problem `kind`s (function + class/design), the rich types (`TreeNode`/`ListNode`), and `hints`. |
 | **B** (fill-in, description only) | **not built** | Reuses Mode A's prompt with `title` added back to the output contract, and slug derived from the generated title. |
 

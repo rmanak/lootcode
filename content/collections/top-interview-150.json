@@ -1,10 +1,9 @@
 {
   "slug": "top-interview-150",
   "title": "Top Interview 150",
-  "subtitle": "LeetCode's Top Interview 150 \u2014 the must-know questions for coding interviews.",
+  "subtitle": "LeetCode's Top Interview 150 — the must-know questions for coding interviews.",
   "problems": [
     "merge-sorted-array",
-    "remove-element",
     "remove-duplicates-sorted-array",
     "remove-duplicates-from-sorted-array-ii",
     "majority-element",

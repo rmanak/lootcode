@@ -38,6 +38,7 @@ from __future__ import annotations
 import re
 import sys
 from dataclasses import dataclass, field
+from math import log
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -213,46 +214,105 @@ def validate_problem(data: dict, *, db: Session | None = None, is_new: bool = Tr
 # docs/duplicate-detection-plan.md); this is a cheap token/tag-overlap heuristic,
 # surfaced for the human to eyeball — never a hard gate.
 # ---------------------------------------------------------------------------
-def _tokens(s: str) -> set[str]:
-    return set(re.findall(r"[a-z0-9]+", (s or "").lower()))
+def _raw_tokens(s: str) -> list[str]:
+    return re.findall(r"[a-z0-9]+", (s or "").lower())
 
 
-# Genuine function words that carry no "is this the same problem" signal. Kept
-# deliberately small: content words like "two", "sum", "array", "tree", "matrix"
-# ARE discriminating for duplicate detection, so they must NOT be stripped (that
-# was what hid "Two Sum" from its own near-duplicates).
+def _stem(w: str) -> str:
+    """A deliberately small, conservative stemmer: collapse the inflections that
+    otherwise hide near-duplicates — plurals and the adjective/noun split
+    (``palindromic``/``palindrome``/``palindromes`` → ``palindrom``,
+    ``subsequences``/``subsequence`` → ``subsequenc``, ``strings`` → ``string``).
+
+    It intentionally does NOT strip ``-ing``/``-ed`` (which would mangle common
+    content words like ``string`` → ``str``); the goal is unifying obvious variants,
+    not linguistic correctness. Over-stemming risks false matches, so we keep it
+    minimal and let IDF weighting do the discriminating.
+    """
+    if len(w) <= 3:
+        return w
+    if w.endswith("ies") and len(w) > 4:
+        w = w[:-3] + "y"          # queries -> query
+    elif w.endswith("es") and len(w) > 4 and not w.endswith(("ses", "zes")):
+        w = w[:-2]                # boxes -> box, palindromes -> palindrom
+    elif w.endswith("s") and not w.endswith("ss"):
+        w = w[:-1]                # strings -> string (class stays class)
+    if w.endswith("ical") and len(w) > 5:
+        w = w[:-4]
+    elif w.endswith("ic") and len(w) > 4:
+        w = w[:-2]                # palindromic -> palindrom
+    if len(w) > 3 and w.endswith("e"):
+        w = w[:-1]                # palindrome -> palindrom, subsequence -> subsequenc
+    return w
+
+
+# Genuine function words that carry no "is this the same problem" signal. IDF
+# weighting (below) already demotes anything common, so this set only needs the
+# truly ubiquitous glue words; content words like "two", "sum", "array", "tree"
+# must NOT be here (that was what hid "Two Sum" from its own near-duplicates).
 _STOPWORDS = frozenset({
     "the", "a", "an", "of", "to", "and", "or", "in", "on", "with", "for", "is",
     "are", "be", "as", "at", "by", "from", "that", "this", "it", "its", "if",
-    "you", "your", "given", "find", "problem",
+    "you", "your", "given", "find", "problem", "all", "each", "every", "any",
 })
+
+
+def _stemmed_tokens(*parts: str) -> set[str]:
+    """Stemmed, stop-word-filtered token set for one or more strings (slug, title)."""
+    out = set()
+    for p in parts:
+        for w in _raw_tokens(p):
+            if w in _STOPWORDS:
+                continue
+            out.add(_stem(w))
+    return out
 
 
 def find_similar_problems(db: Session, *, slug: str, title: str,
                           tags: list[str] | None, limit: int = 5) -> list[dict]:
     """Existing problems that look like they might be the same problem.
 
-    Scored by shared meaningful slug/title tokens (weighted) plus shared canonical
-    tags. Requires at least one shared meaningful token so a purely tag-matching
-    flood is excluded. Returns up to ``limit`` dicts: slug, title, difficulty,
-    shared_tags, matched (the overlapping tokens), sorted most-similar first.
+    Scored by shared slug/title tokens weighted by **inverse document frequency**
+    (a token shared by half the bank — "number", "string", "count" — barely counts;
+    a rare one — "palindrom", "subsequenc" — counts a lot), plus a small bump for
+    shared canonical tags. Tokens are stemmed first, so "palindromic subsequences"
+    matches "palindromic subsequence". Requires at least one shared meaningful token
+    so a purely tag-matching flood is excluded. Returns up to ``limit`` dicts: slug,
+    title, difficulty, shared_tags, matched (the overlapping stems), most-similar
+    first.
     """
     if db is None:
         return []
-    want_tokens = (_tokens(slug) | _tokens(title)) - _STOPWORDS
+    want_tokens = _stemmed_tokens(slug, title)
     want_tags = set(normalize_tags(tags)) if tags else set()
     rows = db.execute(
         select(Problem.slug, Problem.title, Problem.topics, Problem.difficulty)).all()
+
+    # Document frequency of each stem across the bank, so a token's weight reflects
+    # how discriminating it is (rare = informative). Computed once per call — the
+    # bank is at most a few thousand rows, so this is a handful of milliseconds.
+    others = [(s, t, topics, diff) for s, t, topics, diff in rows if s != slug]
+    n = len(others) or 1
+    df: dict[str, int] = {}
+    their_tokens_by_slug: dict[str, set[str]] = {}
+    for s, t, _topics, _diff in others:
+        toks = _stemmed_tokens(s, t)
+        their_tokens_by_slug[s] = toks
+        for w in toks:
+            df[w] = df.get(w, 0) + 1
+
+    def idf(tok: str) -> float:
+        # Smoothed IDF: 0 for a token in every problem, growing as it gets rarer.
+        return log((n + 1) / (df.get(tok, 0) + 1)) + 1.0
+
     scored = []
-    for s, t, topics, diff in rows:
-        if s == slug:
-            continue
-        their_tokens = (_tokens(s) | _tokens(t)) - _STOPWORDS
-        shared_tokens = want_tokens & their_tokens
-        shared_tags = want_tags & set(topics or [])
+    for s, t, topics, diff in others:
+        shared_tokens = want_tokens & their_tokens_by_slug[s]
         if not shared_tokens:
             continue  # require a real name overlap, not just a shared tag
-        score = 2 * len(shared_tokens) + len(shared_tags)
+        shared_tags = want_tags & set(topics or [])
+        # Weight name overlap by IDF; give tags a modest fixed nudge (they're broad).
+        score = sum(idf(w) for w in shared_tokens) + 0.75 * len(shared_tags)
         scored.append((score, s, {
             "slug": s, "title": t, "difficulty": diff,
             "shared_tags": sorted(shared_tags),

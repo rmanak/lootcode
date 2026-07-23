@@ -686,6 +686,22 @@ td.fail { color: var(--fail); font-weight: 600; }
 .gen-actions .ai-help-progress { margin-top: 0; }
 .gen-actions button.is-busy { cursor: progress; }
 
+/* Two-choice generation landing: idea → statement | statement → full problem. */
+.gen-choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px; margin-top: 14px; align-items: start; }
+.gen-card { background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 4px 18px 16px; }
+.gen-card > h2 { margin-top: 16px; }
+.gen-card .bigform { background: transparent; border: 0; padding: 0; margin-bottom: 0; }
+
+/* Duplicate-check panel on the statement page. */
+#dup-summary { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+#dup-list p { margin: 8px 0 0; }
+.btn-small { margin-left: auto; font-size: 12px; padding: 3px 10px; border-radius: 6px;
+  border: 1px solid var(--border); background: #fff; color: var(--primary); cursor: pointer; }
+.btn-small:hover { background: #f0faf8; }
+.btn-small:disabled { color: var(--muted); cursor: progress; }
+
 /* Validation errors/warnings + AI review context (admin new/edit/review) */
 .run-error ul, .val-warnings ul { margin: 6px 0 0; padding-left: 20px; }
 .run-error li, .val-warnings li { margin: 3px 0; }
@@ -694,6 +710,12 @@ td.fail { color: var(--fail); font-weight: 600; }
 .ai-banner { background: #eef4ff; border: 1px solid #c9d9f5; color: var(--ink);
   padding: 12px 16px; border-radius: 8px; margin-bottom: 14px; }
 .ai-banner p { margin: 6px 0; }
+.ref-fail { background: #fff8e6; border: 1px solid #f0d68a; color: #7a5a00;
+  border-radius: 8px; padding: 10px 14px; margin: 10px 0 2px; }
+.ref-fail p { margin: 0 0 6px; }
+.ref-fail ul { margin: 6px 0 2px; padding-left: 20px; }
+.ref-fail li { margin: 3px 0; }
+.ref-fail code { background: #fff; }
 .similar-box { background: var(--surface); border: 1px solid var(--border);
   border-radius: 8px; padding: 10px 16px; margin: 14px 0; }
 .similar-box summary { cursor: pointer; font-weight: 600; }
