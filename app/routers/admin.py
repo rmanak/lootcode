@@ -26,6 +26,7 @@ from ..executor import run_submission
 from ..llm import draft_store
 from ..logging_config import audit, get_logger
 from ..models import Problem
+from ..pagination import page_window
 from ..problem_validation import (
     existing_slugs,
     find_similar_problems,
@@ -33,7 +34,6 @@ from ..problem_validation import (
     validate_problem,
 )
 from ..templating import templates
-from .pages import _page_window
 
 log = get_logger(__name__)
 
@@ -268,7 +268,7 @@ def dashboard(request: Request, q: str | None = None, page: int = 1,
         "user_name": request.state.user_name,
         "f_q": q or "", "total": total,
         "page": page, "pages": pages, "base_qs": base_qs,
-        "page_items": _page_window(page, pages),
+        "page_items": page_window(page, pages),
         "range_start": start + 1 if total else 0,
         "range_end": start + len(page_problems),
         "gen_enabled": settings.generation_enabled,

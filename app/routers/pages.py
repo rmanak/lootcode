@@ -19,6 +19,7 @@ from .. import store
 from ..config import settings
 from ..db import get_db
 from ..models import Collection, Problem, Submission, User
+from ..pagination import page_window
 from ..templating import templates
 
 router = APIRouter()
@@ -349,26 +350,6 @@ def _parse_cal_month(cal: str | None, today: date) -> tuple[int, int]:
     return today.year, today.month
 
 
-def _page_window(page: int, pages: int, span: int = 2) -> list[int | None]:
-    """Page numbers to show, with `None` marking an ellipsis gap.
-
-    Always includes the first/last page and a small window around `page`,
-    e.g. [1, None, 4, 5, 6, None, 20]."""
-    if pages <= 7:
-        return list(range(1, pages + 1))
-    wanted = {1, pages, page}
-    for d in range(1, span + 1):
-        wanted.add(page - d)
-        wanted.add(page + d)
-    items: list[int | None] = []
-    prev = 0
-    for n in sorted(n for n in wanted if 1 <= n <= pages):
-        if n - prev > 1:
-            items.append(None)
-        items.append(n)
-        prev = n
-    return items
-
 # Figures live at content/problems/<slug>/assets/<file> (see docs/problem-images.md).
 # Only these image types are served; never the problem's solution/ or tests/.
 _IMAGE_MEDIA = {
@@ -574,7 +555,7 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
         "topic_counts": topic_counts, "topic_toggle_min": TOPIC_BAR_TOGGLE_MIN,
         "topic_expanded": topic_expanded,
         "page": page, "pages": pages, "total": total, "base_qs": base_qs,
-        "page_items": _page_window(page, pages),
+        "page_items": page_window(page, pages),
         "range_start": start + 1 if total else 0,
         "range_end": start + len(page_problems),
     })
