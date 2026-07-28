@@ -10,14 +10,13 @@ from sqlalchemy import select, text
 
 from app import main as app_main
 from app.config import settings
-from app.content import write_problem_files
+from app.content import owning_root, write_problem_files
 from app.db import engine
 
 # TestResult is aliased away from a `Test*` name so pytest doesn't try to
 # collect the ORM model as a test class.
 from app.models import Submission, User
 from app.models import TestResult as ResultRow
-from app.routers.admin import _owning_root
 from app.routers.submissions import MAX_CODE_CHARS, MAX_STORED_STDOUT
 
 SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"></svg>'
@@ -76,7 +75,7 @@ def test_editing_an_extended_problem_writes_back_to_the_extended_root(tmp_conten
     extended = tmp_content_dir.parent / "problems-extended"
     write_problem_files(_problem("zz-owned-by-extended"), extended)
 
-    assert _owning_root("zz-owned-by-extended") == extended
+    assert owning_root("zz-owned-by-extended") == extended
     # ...and the default root is untouched, which is the actual bug: a save used
     # to create a second, git-tracked copy there.
     assert not (tmp_content_dir / "zz-owned-by-extended").exists()
@@ -84,11 +83,11 @@ def test_editing_an_extended_problem_writes_back_to_the_extended_root(tmp_conten
 
 def test_a_problem_in_the_default_root_resolves_to_it(tmp_content_dir):
     write_problem_files(_problem("zz-owned-by-default"), tmp_content_dir)
-    assert _owning_root("zz-owned-by-default") == tmp_content_dir
+    assert owning_root("zz-owned-by-default") == tmp_content_dir
 
 
 def test_a_brand_new_problem_goes_to_the_default_root(tmp_content_dir):
-    assert _owning_root("zz-does-not-exist-anywhere") == settings.CONTENT_DIR
+    assert owning_root("zz-does-not-exist-anywhere") == settings.CONTENT_DIR
 
 
 # --- #3 a failed disk mirror was swallowed -------------------------------
@@ -96,7 +95,7 @@ def test_a_failed_disk_mirror_is_reported_not_swallowed(client, db, tmp_content_
                                                         monkeypatch):
     """`except OSError: pass` let a full disk or a read-only mount desync the DB
     from the durable source of truth with no log line and nothing shown."""
-    import app.routers.admin as admin_mod
+    import app.routers.admin_problems as admin_mod
 
     def read_only(*a, **kw):
         raise OSError(30, "Read-only file system")

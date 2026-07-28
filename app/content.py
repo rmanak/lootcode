@@ -143,6 +143,22 @@ def load_collections(collections_dir: Path | None = None) -> list[dict]:
     return collections
 
 
+def owning_root(slug: str) -> Path:
+    """The content root a problem already lives in, or the default root for a new one.
+
+    Problems live in two roots: the committed ``content/problems/`` and the
+    gitignored ``content/problems-extended/``. Writing every save to the first
+    one meant editing an extended problem created a *second* copy under
+    ``content/problems/`` — tracked by git, and loaded alongside the original at
+    seed time — while the edit the author actually made sat in the copy that
+    ``load_all_roots`` reads first and ``upsert_problem`` then overwrites.
+    """
+    for root in settings.content_dirs:
+        if (root / slug / "meta.json").exists():
+            return root
+    return settings.CONTENT_DIR
+
+
 def write_problem_files(data: dict, content_dir: Path | None = None) -> Path:
     """Write a problem dict back to the on-disk content format (so manually- and
     AI-created problems are durable and live alongside the seeded ones)."""

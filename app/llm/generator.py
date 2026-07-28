@@ -206,6 +206,19 @@ def active_backend() -> str:
     return available[0]
 
 
+#: Human-readable name for each backend, for the admin pages that say which one
+#: a generation will run on. Lives here so the label and the choice cannot drift.
+_BACKEND_LABELS = {
+    "anthropic": "Claude API",
+    "openai": "local LLM endpoint (LLM_HELP_URL)",
+}
+
+
+def backend_label() -> str:
+    """The active backend's display name, or '' when generation is unavailable."""
+    return _BACKEND_LABELS.get(active_backend(), "")
+
+
 def _loads_loose(text: str) -> dict:
     text = text.strip()
     if text.startswith("```"):
