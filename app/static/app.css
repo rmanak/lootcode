@@ -154,18 +154,35 @@ h2 { font-size: 18px; margin: 28px 0 12px; }
 .quick-pick.disabled { color: var(--muted); background: var(--bg); border-color: var(--border);
   pointer-events: none; opacity: .6; }
 
-/* Category (topic) bar above the problem list. Top topics show by default; the
-   rest reveal via a pure-CSS checkbox toggle (the visually-hidden #topic-expand
-   sits just before .topic-bar so its :checked state can drive the siblings).
-   Each chip links to that topic's filtered list. */
-.topic-bar-wrap { margin-bottom: 18px; }
+/* Category (topic) bar above the problem list. Every topic chip lives in one
+   wrapping list (.topic-chips); collapsed, that list is clipped to a single row
+   and the rest reveal via a pure-CSS checkbox toggle (the visually-hidden
+   #topic-expand sits just before .topic-bar so its :checked state can drive the
+   siblings). Each chip links to that topic's filtered list.
+
+   Layout rules that keep the first row honest:
+     - every chip is exactly --topic-row-h tall, so "one row" is a known height
+       and clipping to it can never show a sliver of the next row;
+     - the row gap (8px) exceeds nothing that matters — row 2 starts below the
+       clip, so no half-chips peek out;
+     - the toggle is a *sibling* of the list, not an item in it, so it can't be
+       pushed onto a line of its own no matter how the chips wrap.
+   The visible chip count is therefore whatever actually fits, which is the
+   whole point: chip width varies with the topic name and its count badge. */
+.topic-bar-wrap { --topic-row-h: 38px; margin-bottom: 18px; }
 .topic-expand-cb { position: absolute; width: 1px; height: 1px;
   opacity: 0; overflow: hidden; pointer-events: none; }
-.topic-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 6px;
+.topic-bar { display: flex; align-items: flex-start; gap: 6px;
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 12px 14px; }
+.topic-chips { flex: 1 1 auto; min-width: 0;
+  display: flex; flex-wrap: wrap; gap: 8px 6px;
+  max-height: var(--topic-row-h); overflow: hidden; }
+.topic-expand-cb:checked ~ .topic-bar .topic-chips {
+  max-height: none; overflow: visible; }
 .topic-chip { display: inline-flex; align-items: center; gap: 7px;
-  padding: 5px 11px; border-radius: 999px; font-size: 14px; font-weight: 600;
+  height: var(--topic-row-h); padding: 5px 11px;
+  border-radius: 999px; font-size: 14px; font-weight: 600;
   color: var(--ink); border: 1px solid transparent;
   transition: background .12s, border-color .12s, color .12s; }
 .topic-chip:hover { text-decoration: none; background: var(--bg); border-color: var(--border); }
@@ -178,20 +195,11 @@ h2 { font-size: 18px; margin: 28px 0 12px; }
   background: var(--bg); border: 1px solid var(--border); border-radius: 999px; }
 .topic-chip:hover .tc-count { background: var(--surface); }
 .topic-chip.active .tc-count { color: var(--primary); background: #fff; border-color: #bfe3dd; }
-/* The overflow topics occupy a full-width row (flex-basis 100% forces them onto
-   their own line below the first row). Height animates via the grid 0fr↔1fr
-   trick — no magic max-height. The inner div holds the chips and is the grid row
-   that grows; its overflow is clipped while collapsed. */
-.topic-extra { flex: 0 0 100%; display: grid; grid-template-rows: 0fr;
-  transition: grid-template-rows .2s ease; }
-.topic-extra-inner { overflow: hidden; min-height: 0;
-  display: flex; flex-wrap: wrap; gap: 8px 6px; }
-.topic-expand-cb:checked ~ .topic-bar .topic-extra { grid-template-rows: 1fr; }
-/* A little breathing room between the first row and the revealed rows, but only
-   while open (margin doesn't participate in the collapsed 0fr height). */
-.topic-expand-cb:checked ~ .topic-bar .topic-extra-inner { margin-top: 2px; }
-
-.topic-toggle { margin-left: auto; cursor: pointer; user-select: none;
+/* Same height as a chip and pinned to the top of the bar, so it reads as part
+   of the first row however many rows the list below it grows to. */
+.topic-toggle { flex: none; align-self: flex-start; height: var(--topic-row-h);
+  display: inline-flex; align-items: center;
+  cursor: pointer; user-select: none;
   white-space: nowrap; color: var(--muted); font-size: 13px; font-weight: 600;
   padding: 5px 11px; border-radius: 999px; transition: background .12s, color .12s; }
 .topic-toggle:hover { color: var(--ink); background: var(--bg); }

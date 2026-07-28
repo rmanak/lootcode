@@ -55,32 +55,26 @@
 {% endif %}
 
 {% if topic_counts %}
-{# Category bar: top topics by count; the rest expand via a pure-CSS checkbox
-   toggle. Each chip filters the list to that topic. #}
+{# Category bar: every topic chip, most-common first, in ONE wrapping row list.
+   Collapsed, CSS clips .topic-chips to a single row, so exactly as many chips
+   as actually fit are shown — the split is the browser's, not a fixed count
+   here (chip widths vary with the topic name and the size of its count). The
+   toggle is a sibling of the list, so it always sits on that first row. #}
 <div class="topic-bar-wrap">
   <input type="checkbox" id="topic-expand" class="topic-expand-cb" {{ 'checked' if topic_expanded }}>
   <div class="topic-bar">
-    {% for tc in topic_counts[:topic_top_n] %}
-    <a class="topic-chip {{ 'active' if f_topic == tc.topic }}"
-       href="{{ tc.href }}">{{ tc.topic }}
-      <span class="tc-count">{{ tc.count }}</span></a>
-    {% endfor %}
-    {% if topic_counts | length > topic_top_n %}
+    <div class="topic-chips">
+      {% for tc in topic_counts %}
+      <a class="topic-chip {{ 'active' if f_topic == tc.topic }}"
+         href="{{ tc.href }}">{{ tc.topic }}
+        <span class="tc-count">{{ tc.count }}</span></a>
+      {% endfor %}
+    </div>
+    {% if topic_counts | length > topic_toggle_min %}
     <label class="topic-toggle" for="topic-expand">
       <span class="tt-expand">Expand ⌄</span>
       <span class="tt-collapse">Collapse ⌃</span>
     </label>
-    {# The overflow topics live in a full-width block that reveals on its own
-       line(s) below the first row, with a smooth grid-fr height animation. #}
-    <div class="topic-extra">
-      <div class="topic-extra-inner">
-        {% for tc in topic_counts[topic_top_n:] %}
-        <a class="topic-chip {{ 'active' if f_topic == tc.topic }}"
-           href="{{ tc.href }}">{{ tc.topic }}
-          <span class="tc-count">{{ tc.count }}</span></a>
-        {% endfor %}
-      </div>
-    </div>
     {% endif %}
   </div>
 </div>

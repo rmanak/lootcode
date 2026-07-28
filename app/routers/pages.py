@@ -103,8 +103,11 @@ def favicon():
 # The problem bank has grown large enough that one long list is unwieldy.
 PROBLEMS_PER_PAGE = 25
 
-# How many topic chips the category bar shows before the "Expand" toggle.
-TOPIC_BAR_TOP_N = 8
+# The category bar renders every topic chip and CSS clips it to one row, so how
+# many are visible is a browser-side question. This is only the threshold for
+# offering the "Expand" toggle at all: a deliberate under-estimate of how many
+# chips fit on one row, so the toggle appears whenever there is certainly more.
+TOPIC_BAR_TOGGLE_MIN = 8
 
 # How many problems the "Recent submissions" list shows. The cap is per problem
 # (each shown with its full attempt history), not per attempt.
@@ -471,12 +474,12 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
             ],
         }
 
-    # Category bar: published-problem count per topic, most-common first. If the
-    # active topic filter is one of the "extra" (hidden) chips, start expanded so
-    # the highlighted chip is visible.
+    # Category bar: published-problem count per topic, most-common first. Which
+    # chips the collapsed bar clips away is decided by CSS, not here, so whenever
+    # a topic filter is active we start expanded — that's the only way to be sure
+    # the highlighted chip is on screen.
     topic_counts = _topic_counts(db)
-    topic_expanded = bool(topic) and any(
-        tc["topic"] == topic for tc in topic_counts[TOPIC_BAR_TOP_N:])
+    topic_expanded = bool(topic)
 
     # Counts per difficulty for the "jump to a random unsolved" buttons — skipping
     # solved *and* known so the count matches what the random jump can land on.
@@ -560,7 +563,7 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
         "unsolved_href": unsolved_href, "unknown_href": unknown_href,
         "visit_later_href": visit_later_href,
         "unsolved_counts": unsolved_counts,
-        "topic_counts": topic_counts, "topic_top_n": TOPIC_BAR_TOP_N,
+        "topic_counts": topic_counts, "topic_toggle_min": TOPIC_BAR_TOGGLE_MIN,
         "topic_expanded": topic_expanded,
         "page": page, "pages": pages, "total": total, "base_qs": base_qs,
         "page_items": _page_window(page, pages),
