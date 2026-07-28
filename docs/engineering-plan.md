@@ -3,7 +3,7 @@
 > **Status: in progress.** Findings audit + phased execution plan. Written
 > 2026-07-28 against HEAD `8215128`.
 >
-> **Phases 0–3 are done** (2026-07-28). Phases 4–6 are still proposals.
+> **Phases 0–4 are done** (2026-07-28). Phases 5–6 are still proposals.
 > See [Execution log](#execution-log) at the bottom for what landed, what was
 > done differently from this plan, and why.
 
@@ -184,7 +184,7 @@ confirm no new dir appears under `content/problems/`; `make check`; `tests/test_
 
 ---
 
-## Phase 4 — Structural refactor _(not started)_
+## Phase 4 — Structural refactor ✅
 
 Move domain logic out of HTTP handlers; collapse the copies; make the layering honest.
 
@@ -508,3 +508,77 @@ satisfied.
 - `_owning_root` in `admin.py` is a content-layer concern living in a router —
   a candidate to move alongside the `app/pagination.py` / `app/progress.py`
   extractions.
+
+### Phase 4 — landed 2026-07-28
+
+Nine commits, `1695727..fa96f2b`, one extraction each, `make check` between.
+`app/routers/pages.py` 763 → 464 lines; `admin.py` 809 → 35 (a mount point over
+three modules); **275 → 384 tests**. The bank is untouched: 1,173 canonicals
+over 16,338 test cases, 1,173/1,173 validators.
+
+| Commit | What moved |
+|---|---|
+| `7c126f4` | `app/pagination.py` |
+| `9090d35` | `app/progress.py` + `tests/test_progress.py` |
+| `5bd04b1` | `app/provided_types.py` + `tests/test_provided_types.py` |
+| `1d9c2ac` | `admin_problems` / `admin_generate` / `admin_forms` |
+| `a2d903a` | `CaseView`/`case_views` next to `ProblemView`; four shims gone |
+| `c12dca6` | `app/llm/client.py` + `tests/test_llm_client.py` |
+| `e35b49f` | `app/static/sse.js` + `tests/test_static_assets.py` |
+| `a6de5fe` | `app/problem_spec.py`, `app/llm/fill_in.py` — the layering fix |
+| `fa96f2b` | `authoring/` |
+
+### Where Phase 4 differed from the plan, and why
+
+- **The provided-type defs are rendered from the harness, not merely moved.**
+  The plan said "one source, both readers", but the harness cannot import from
+  `app` — it is stdlib-only and gets copied into the container as one file. So
+  the arrow points the other way: `app/provided_types.py` reads the real classes
+  via `inspect`, so class names, constructor parameters and defaults, and method
+  names are derived. Only prose and return annotations are authored, and a test
+  pins those. Output is byte-identical bar one misaligned comment.
+- **The form consolidation went further than the plan's five copies.** Using a
+  pydantic model as the request body removed the two handler signatures as well.
+  Worth knowing: FastAPI flattens a form model into the body only when it is the
+  *sole* body parameter, so `source`/`draft_id` had to become fields of a
+  subclass rather than extra `Form(...)` arguments — otherwise every field has to
+  arrive nested under `form`, i.e. a 422 for the browser posting a flat form.
+- **The test-case shims were killed too.** The plan named the four *problem*
+  shims; the same four callers each had a test-case shim beside it, guessing
+  differently at a missing `weight` or `name`. `CaseView`/`case_views` is the
+  counterpart to `ProblemView`/`problem_view`. Named `CaseView` because pytest
+  collects anything called `Test*` — the ORM's `TestResult` already needs an
+  import alias in the suite for that.
+- **`generators.py` was not split.** The plan listed it as optional; it is 1,150
+  lines that nothing else in the phase depends on, and splitting it would have
+  been the one change in Phase 4 with no test to hold it.
+- **`_owning_root` moved to `app/content.py`** as the Phase 3 notes suggested,
+  and the backend display label moved next to `active_backend()`.
+
+### Found during Phase 4, not in the audit
+
+- **`llm.generator` could not grade a class problem at all.** `_ProblemLike`
+  omitted `kind`/`class_name`/`class_methods`, so a class/design draft was
+  graded as a function problem and every test failed with "must define a
+  function named ''". The audit predicted a latent bug here; this is it, and it
+  is now pinned by a test.
+- **`scripts/generate_problem_from_statement.py` held a fifth copy of the
+  OpenAI-client construction and a third `_loads_loose`** — invisible from
+  `app/`, found only when the code moved into it.
+- **`scripts/generate_constraint_validators.py` broke silently** two commits
+  into the phase: it imported `_loads_loose` from the hint generator, which the
+  client consolidation had removed. Nothing in `make check` imports that script.
+  Phase 5's `--help` smoke test over every script would have caught it same-day;
+  it is worth pulling forward.
+- **The Phase 2 guard tests earned their keep.** The dead-reference guard failed
+  the build with the exact list of stale doc paths when `authoring/` landed.
+
+### Notes for Phase 5
+
+- `scripts/build_bank.py` imports `scripts.bank_new_p`, which does not exist —
+  the script has been unrunnable for some time. Verified pre-existing.
+- Every other script in `scripts/` now imports cleanly. Add the `--help` smoke
+  test as a real test, not a manual step.
+- `scripts/verify_json.py::grade` is now the last hand-rolled problem/test shim
+  in the repo; `run_submission` normalizes what it builds.
+- The per-file ruff ignore list for `scripts/` is unchanged and still large.
