@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import json
 import math
-from types import SimpleNamespace
 from typing import Annotated
 from urllib.parse import urlencode
 
@@ -21,7 +20,7 @@ from sqlalchemy.orm import Session
 from .. import content, store
 from ..config import settings
 from ..db import get_db
-from ..executor import run_submission
+from ..executor import case_views, run_submission
 from ..llm import draft_store
 from ..logging_config import audit, get_logger
 from ..models import Problem
@@ -221,11 +220,7 @@ def _run_verify(body: VerifyBody) -> dict:
         "memory_limit_mb": settings.EXEC_MEMORY_LIMIT_MB, "points": 100,
         "compare": body.compare if body.compare in COMPARE_MODES else "exact",
     }
-    tests = [SimpleNamespace(
-        name=t.get("name", f"test-{i + 1}"), input=t.get("input", {}),
-        expected=t.get("expected"), weight=t.get("weight", 1),
-        hidden=t.get("hidden", False)) for i, t in enumerate(tests_raw)]
-
+    tests = case_views(tests_raw)
     g = run_submission(body.code, prob, tests)
     # Admin sees full detail (including hidden tests' expected/actual).
     return {

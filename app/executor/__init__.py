@@ -94,12 +94,64 @@ class ProblemView:
     class_methods: list | None
 
 
+@dataclass(frozen=True)
+class CaseView:
+    """One test case as the grader reads it — the test-side counterpart to
+    :class:`ProblemView`, and frozen for the same reason: a snapshot stays valid
+    after the DB session that produced it has closed, so grading can run with no
+    connection held.
+
+    Every caller used to build its own: the run endpoint from ORM rows, and the
+    admin verify / problem-validation / generator paths from plain dicts, each
+    re-deciding what an absent ``weight`` or ``name`` means.
+
+    Named ``CaseView`` rather than ``TestView`` because pytest collects anything
+    called ``Test*`` and then errors on the constructor — the ORM's
+    ``TestResult`` already has to be import-aliased in the suite for exactly
+    that reason, and one such workaround is enough."""
+    name: str
+    input: dict
+    expected: object
+    weight: int
+    hidden: bool
+
+
+def _getter(src):  # noqa: ANN001, ANN202 - a `get(key, default)` over either shape
+    """Uniform ``get(key, default)`` access to a dict or an object."""
+    if isinstance(src, dict):
+        return src.get
+    return lambda k, d=None: getattr(src, k, d)
+
+
+def case_views(raw) -> list[CaseView]:
+    """Normalize test cases from ORM ``Test`` rows or plain dicts.
+
+    An unnamed test is given a positional name, because the harness keys its
+    results by name and two blank names would collide.
+    """
+    out = []
+    for i, t in enumerate(raw):
+        if isinstance(t, CaseView):
+            out.append(t)
+            continue
+        get = _getter(t)
+        weight = get("weight", 1)
+        out.append(CaseView(
+            name=get("name") or f"test-{i + 1}",
+            input=get("input") or {},
+            expected=get("expected"),
+            weight=1 if weight is None else weight,
+            hidden=bool(get("hidden", False)),
+        ))
+    return out
+
+
 def problem_view(src) -> ProblemView:
     """Build a :class:`ProblemView` from an ORM ``Problem``, a content dict, an
     existing view, or any object with the grading fields."""
     if isinstance(src, ProblemView):
         return src
-    get = src.get if isinstance(src, dict) else (lambda k, d=None: getattr(src, k, d))
+    get = _getter(src)
     return ProblemView(
         function_name=(get("function_name") or "").strip(),
         params=get("params") or [],
@@ -120,13 +172,13 @@ def run_submission(code: str, problem, tests) -> GradedRun:
     ``problem`` is any *problem-like* source — an ORM ``Problem`` row (what the
     server passes), a ``content.load_problem_dir`` dict, or a :class:`ProblemView`;
     it is normalized via :func:`problem_view` so no caller maintains its own field
-    list. ``tests`` is an iterable of objects with .name/.input/.expected/.weight/
-    .hidden.
+    list. ``tests`` is an iterable of ORM ``Test`` rows, dicts, or
+    :class:`CaseView`\\ s, normalized the same way via :func:`case_views`.
 
     For a class-based "design" problem (``kind == "class"``), ``params`` holds the
     constructor params and ``class_name``/``class_methods`` describe the class the
     harness instantiates and drives through each test's operation sequence."""
-    tests = list(tests)
+    tests = case_views(tests)
     # Forward the full param specs ({name, type}) and the return type so the
     # harness can build/serialize custom types (e.g. TreeNode) at the boundary.
     pv = problem_view(problem)

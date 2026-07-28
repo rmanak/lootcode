@@ -21,7 +21,6 @@ from __future__ import annotations
 import json
 import re
 from collections.abc import Callable
-from dataclasses import dataclass
 
 from ..config import BASE_DIR, settings
 from ..executor import run_submission
@@ -161,25 +160,6 @@ def _system_prompt() -> str:
         return SYSTEM
     return (f"{SYSTEM}\n\nPROJECT AUTHORING GUIDELINES (mandatory — follow in "
             f"addition to the rules above):\n\n{extra}")
-
-
-@dataclass
-class _ProblemLike:
-    function_name: str
-    params: list
-    time_limit_ms: int
-    memory_limit_mb: int
-    compare: str = "exact"
-    points: int = 100
-
-
-@dataclass
-class _TestLike:
-    name: str
-    input: dict
-    expected: object
-    weight: int
-    hidden: bool
 
 
 def active_backend() -> str:
@@ -372,14 +352,14 @@ def _to_internal(raw: dict) -> dict:
 
 
 def _validate(data: dict):
-    prob = _ProblemLike(
-        function_name=data["function_name"], params=data["params"],
-        time_limit_ms=data["time_limit_ms"], memory_limit_mb=data["memory_limit_mb"],
-        compare=data.get("compare", "exact"),
-    )
-    tcs = [_TestLike(t["name"], t["input"], t["expected"], t["weight"], t["hidden"])
-           for t in data["tests"]]
-    return run_submission(data.get("canonical_solution") or "", prob, tcs)
+    """Grade the draft's canonical against its own tests, in the real sandbox.
+
+    Hands the problem dict over whole. The hand-rolled shim this replaced listed
+    six fields and omitted `kind`/`class_name`/`class_methods`, so a class
+    problem was silently graded as if it were a function — every test erroring
+    with "must define a function named ''".
+    """
+    return run_submission(data.get("canonical_solution") or "", data, data["tests"])
 
 
 def _sync_expected_to_canonical(data: dict) -> dict:

@@ -40,7 +40,6 @@ import sys
 from dataclasses import dataclass, field
 from math import log
 from pathlib import Path
-from types import SimpleNamespace
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -442,28 +441,18 @@ def _type_note(label: str, typ: str) -> str | None:
 
 
 def _run_canonical(data: dict):
-    """Run the canonical solution against the problem's tests in the real sandbox."""
+    """Run the canonical solution against the problem's tests in the real sandbox.
+
+    The problem dict is handed straight to ``run_submission``, which normalizes
+    it through ``problem_view``/``test_views``. An unrecognized `compare` mode is
+    the one thing worth correcting first: it would otherwise reach the judge as
+    an unknown string and quietly compare nothing the way the author meant.
+    """
     compare = data.get("compare", "exact")
-    prob = SimpleNamespace(
-        kind=data.get("kind", "function") or "function",
-        function_name=(data.get("function_name") or "").strip(),
-        params=data.get("params", []) or [],
-        return_type=(data.get("return_type") or "").strip(),
-        class_name=data.get("class_name"),
-        class_methods=data.get("class_methods"),
-        compare=compare if compare in COMPARE_MODES else "exact",
-        time_limit_ms=data.get("time_limit_ms", settings.EXEC_TIME_LIMIT_MS),
-        memory_limit_mb=data.get("memory_limit_mb", settings.EXEC_MEMORY_LIMIT_MB),
-        points=data.get("points", 100),
-    )
-    tests = [
-        SimpleNamespace(
-            name=t.get("name", f"test-{i + 1}"), input=t.get("input", {}),
-            expected=t.get("expected"), weight=t.get("weight", 1),
-            hidden=t.get("hidden", False))
-        for i, t in enumerate(data.get("tests", []) or [])
-    ]
-    return run_submission(data.get("canonical_solution") or "", prob, tests)
+    if compare not in COMPARE_MODES:
+        data = {**data, "compare": "exact"}
+    return run_submission(data.get("canonical_solution") or "", data,
+                          data.get("tests") or [])
 
 
 def _failing_detail(g) -> str:

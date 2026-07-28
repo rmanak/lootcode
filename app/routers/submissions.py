@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import json
 import time
-from types import SimpleNamespace
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
@@ -14,7 +13,7 @@ from sqlalchemy.orm import Session
 from .. import store
 from ..config import settings
 from ..db import SessionLocal, get_db
-from ..executor import problem_view, run_submission
+from ..executor import case_views, problem_view, run_submission
 from ..logging_config import get_logger
 from ..models import Problem, Submission, TestResult
 
@@ -67,12 +66,9 @@ def run(slug: str, body: RunBody, request: Request):
         if prob is None:
             raise HTTPException(status_code=404, detail="Problem not found")
         problem_id, points = prob.id, prob.points
-        # ProblemView is frozen precisely so it can outlive its session; the
-        # tests are copied into plain objects for the same reason.
+        # Both views are frozen precisely so they can outlive this session.
         view = problem_view(prob)
-        tests = [SimpleNamespace(name=t.name, input=t.input, expected=t.expected,
-                                 weight=t.weight, hidden=t.hidden)
-                 for t in prob.tests]
+        tests = case_views(prob.tests)
 
     # Normalize tabs to spaces so mixed tab/space indentation can't raise a
     # Python TabError. expandtabs(4) matches the editor's 4-space tab stops, so
