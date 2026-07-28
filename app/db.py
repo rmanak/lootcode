@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from collections.abc import Iterator
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, event
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 from .config import settings
@@ -13,6 +13,39 @@ engine = create_engine(
     connect_args={"check_same_thread": False},  # SQLite + threaded server
     future=True,
 )
+
+
+@event.listens_for(engine, "connect")
+def _sqlite_pragmas(dbapi_connection, _record) -> None:
+    """Make SQLite survive a threaded server.
+
+    The defaults are wrong for this app in three ways, and they compound:
+
+    * **journal_mode=WAL** — the default rollback journal takes an exclusive lock
+      for every write, so one writer blocks every reader. The identity middleware
+      writes on requests that mint a guest, and grading writes a submission plus
+      one row per test, all while pages are being read.
+    * **busy_timeout** — the default is 0 ms: a concurrent write raises
+      ``database is locked`` immediately instead of waiting. Five seconds turns a
+      contended write into a slightly slow one.
+    * **foreign_keys=ON** — SQLite does not enforce foreign keys unless asked, so
+      the ``cascade="all, delete-orphan"`` relationships in models.py were being
+      honoured only by the ORM, and never by a direct SQL path.
+
+    WAL is persistent (it is a property of the database file), but it is set on
+    every connect anyway so a fresh file gets it too; the other two are per
+    connection and must be.
+    """
+    cursor = dbapi_connection.cursor()
+    try:
+        cursor.execute("PRAGMA journal_mode=WAL")
+        cursor.execute("PRAGMA busy_timeout=5000")
+        cursor.execute("PRAGMA foreign_keys=ON")
+        # Durable enough for a home server: WAL + NORMAL loses at most the last
+        # transaction on an OS crash, never a corrupt database.
+        cursor.execute("PRAGMA synchronous=NORMAL")
+    finally:
+        cursor.close()
 
 SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
 
