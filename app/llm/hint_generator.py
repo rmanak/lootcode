@@ -26,10 +26,11 @@ Example
 """
 from __future__ import annotations
 
-import json
 import os
 import re
 from pathlib import Path
+
+from . import client as llm_client
 
 # --------------------------------------------------------------------------- #
 # LLM server location — EDIT THIS (or set the env vars) to point at your server.
@@ -90,25 +91,17 @@ def _hints_schema(max_hints: int) -> dict:
 
 
 def _client(base_url: str, api_key: str):
-    """Build an OpenAI client pointed at the local server's ``/v1`` endpoint.
+    """An OpenAI client for the local server, with a generous read timeout.
 
-    Imported lazily so ``openai`` stays an optional dependency: modules that never
-    call :func:`generate_hints` do not need the package installed.
-
-    The read timeout is set generously (``LLM_TIMEOUT`` env, default 900s): a local
-    reasoning model with "thinking" on can take minutes to answer a hard problem,
-    and a premature cut-off would surface as a transient error that just re-queues
-    the slug on the next resume. Connect stays short so a *down* server fails fast.
+    ``LLM_TIMEOUT`` (default 900s): a local reasoning model with "thinking" on
+    can take minutes on a hard problem, and a premature cut-off surfaces as a
+    transient error that just re-queues the slug on the next resume. Connect
+    stays short so a *down* server still fails fast.
     """
-    from httpx import Timeout
-    from openai import OpenAI
-
-    base = base_url.rstrip("/")
-    if not base.endswith("/v1"):
-        base = f"{base}/v1"
-    read_timeout = float(os.environ.get("LLM_TIMEOUT", "900"))
-    return OpenAI(base_url=base, api_key=api_key,
-                  timeout=Timeout(read_timeout, connect=10.0))
+    return llm_client.openai_client(
+        base_url, api_key,
+        timeout=float(os.environ.get("LLM_TIMEOUT", "900")),
+        connect_timeout=llm_client.CONNECT_TIMEOUT_S)
 
 
 def _render_prompt(statement: str, max_hints: int) -> str:
@@ -127,29 +120,13 @@ def _render_prompt(statement: str, max_hints: int) -> str:
     )
 
 
-def _loads_loose(text: str):
-    """``json.loads`` that tolerates code fences / stray prose from weaker models."""
-    text = text.strip()
-    if text.startswith("```"):
-        text = text.split("```", 2)[1]
-        if text.lstrip().lower().startswith("json"):
-            text = text.lstrip()[4:]
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        i, j = text.find("{"), text.rfind("}")
-        if i != -1 and j != -1 and j > i:
-            return json.loads(text[i:j + 1])
-        raise
-
-
 def _parse_hints(content: str, max_hints: int) -> list[str]:
     """Pull the hint strings out of the model's reply, defensively.
 
     Accepts the expected ``{"hints": [...]}`` object, but also a bare JSON array,
     and drops blank entries before capping the list at ``max_hints``.
     """
-    data = _loads_loose(content)
+    data = llm_client.loads_loose(content)
     if isinstance(data, dict):
         raw = data.get("hints", [])
     elif isinstance(data, list):
@@ -233,40 +210,11 @@ def generate_hints(
         {"role": "system", "content": _SYSTEM},
         {"role": "user", "content": user_content},
     ]
-    schema = _hints_schema(max_hints)
-
-    # Enforce structure when the server supports it, degrading to laxer modes so a
-    # minimal endpoint still works. Ordered most-constrained first.
-    response_formats = [
-        {"type": "json_schema",
-         "json_schema": {"name": "hints", "schema": schema, "strict": True}},
-        {"type": "json_object"},
-        None,  # plain request; rely on the prompt + loose parsing
-    ]
-
-    # Reasoning models default to "thinking on"; disable it explicitly when asked.
-    # This is a llama.cpp / Qwen convention passed through the OpenAI client's
-    # `extra_body`; unknown to a plain OpenAI server, which ignores it.
-    extra_body = {} if thinking else {"chat_template_kwargs": {"enable_thinking": False}}
-
-    last_err: Exception | None = None
-    for rf in response_formats:
-        kwargs = {"model": model, "messages": messages, "temperature": temperature,
-                      "extra_body": extra_body}
-        if rf is not None:
-            kwargs["response_format"] = rf
-        try:
-            resp = client.chat.completions.create(**kwargs)
-            return _parse_hints(resp.choices[0].message.content or "", max_hints)
-        except Exception as e:  # noqa: BLE001
-            last_err = e
-            # A network/timeout failure won't be fixed by a laxer response_format;
-            # only a rejected/unsupported param is worth retrying with the next mode.
-            if any(k in type(e).__name__ for k in ("Connection", "Timeout")):
-                break
-            continue
-
-    raise RuntimeError(f"LLM hint generation failed: {last_err}") from last_err
+    return llm_client.chat_json(
+        client, model=model, messages=messages, what="hint generation",
+        schema=_hints_schema(max_hints), schema_name="hints",
+        parse=lambda content: _parse_hints(content, max_hints),
+        temperature=temperature, thinking=thinking)
 
 
 # --------------------------------------------------------------------------- #
@@ -355,12 +303,12 @@ def _judge_schema(n_hints: int) -> dict:
 def _parse_verdict(content: str, n_hints: int) -> dict:
     """Pull ``{"verdicts": [...], "regenerate": [...]}`` out of the critic reply.
 
-    Defensive against fences / stray prose (reuses :func:`_loads_loose`). Always
+    Defensive against fences / stray prose (reuses ``llm_client.loads_loose``). Always
     returns a dict with ``verdicts`` (list) and ``regenerate`` (sorted unique
     1-based tiers); ``regenerate`` is reconciled with the labels so a model that
     forgets to fill it, or fills it inconsistently, still yields the right set.
     """
-    data = _loads_loose(content)
+    data = llm_client.loads_loose(content)
     verdicts = data.get("verdicts", []) if isinstance(data, dict) else []
     clean: list[dict] = []
     for v in verdicts:
@@ -420,31 +368,11 @@ def judge_hints(
         {"role": "system", "content": _JUDGE_SYSTEM},
         {"role": "user", "content": _render_judge_prompt(statement, solution, hints, len(hints))},
     ]
-    schema = _judge_schema(len(hints))
-    response_formats = [
-        {"type": "json_schema",
-         "json_schema": {"name": "verdict", "schema": schema, "strict": True}},
-        {"type": "json_object"},
-        None,
-    ]
-    extra_body = {} if thinking else {"chat_template_kwargs": {"enable_thinking": False}}
-
-    last_err: Exception | None = None
-    for rf in response_formats:
-        kwargs = {"model": model, "messages": messages, "temperature": temperature,
-                      "extra_body": extra_body}
-        if rf is not None:
-            kwargs["response_format"] = rf
-        try:
-            resp = client.chat.completions.create(**kwargs)
-            return _parse_verdict(resp.choices[0].message.content or "", len(hints))
-        except Exception as e:  # noqa: BLE001
-            last_err = e
-            if any(k in type(e).__name__ for k in ("Connection", "Timeout")):
-                break
-            continue
-
-    raise RuntimeError(f"LLM hint judging failed: {last_err}") from last_err
+    return llm_client.chat_json(
+        client, model=model, messages=messages, what="hint judging",
+        schema=_judge_schema(len(hints)), schema_name="verdict",
+        parse=lambda content: _parse_verdict(content, len(hints)),
+        temperature=temperature, thinking=thinking)
 
 
 def _feedback_from(flags: dict[int, str], verdicts: list[dict]) -> str:

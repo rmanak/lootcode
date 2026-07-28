@@ -31,6 +31,7 @@ from collections.abc import Iterator
 from pathlib import Path
 
 from ..config import settings
+from . import client as llm_client
 
 _PROMPT_TEMPLATE_PATH = Path(__file__).with_name("help_prompt.txt")
 
@@ -42,21 +43,8 @@ _SYSTEM = (
 )
 
 
-def _client(base_url: str, api_key: str, *, timeout: float, max_retries: int = 0):
-    """Build an OpenAI client pointed at the endpoint's ``/v1`` path.
-
-    Imported lazily so ``openai`` stays an optional dependency. ``max_retries`` is 0
-    by default because both callers want to fail fast rather than stall the UI.
-    """
-    from openai import OpenAI
-
-    base = base_url.rstrip("/")
-    if not base.endswith("/v1"):
-        base = f"{base}/v1"
-    return OpenAI(base_url=base, api_key=api_key, timeout=timeout,
-                  max_retries=max_retries)
-
-
+# Neither caller below retries (`openai_client` defaults `max_retries` to 0):
+# both are on a path where a person is waiting, so failing fast beats stalling.
 def probe_endpoint(
     *,
     base_url: str | None = None,
@@ -73,7 +61,7 @@ def probe_endpoint(
     base_url = base_url or settings.LLM_HELP_URL
     api_key = api_key or settings.LLM_HELP_API_KEY
     try:
-        client = _client(base_url, api_key, timeout=timeout)
+        client = llm_client.openai_client(base_url, api_key, timeout=timeout)
         client.models.list()
         return True
     except Exception:  # noqa: BLE001 - availability probe: any failure => "off"
@@ -156,7 +144,7 @@ def stream_help(
     api_key = api_key or settings.LLM_HELP_API_KEY
     model = model or settings.LLM_HELP_MODEL
 
-    client = _client(base_url, api_key, timeout=timeout)
+    client = llm_client.openai_client(base_url, api_key, timeout=timeout)
     messages = [
         {"role": "system", "content": _SYSTEM},
         {"role": "user", "content": _render_prompt(title, statement, hints)},

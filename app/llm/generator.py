@@ -24,6 +24,7 @@ from collections.abc import Callable
 
 from ..config import BASE_DIR, settings
 from ..executor import run_submission
+from . import client as llm_client
 
 # Authoring guidelines live in specs/ as the single source of truth. The block
 # between the AI-GUIDELINES markers is injected into the system prompt at
@@ -199,34 +200,13 @@ def backend_label() -> str:
     return _BACKEND_LABELS.get(active_backend(), "")
 
 
-def _loads_loose(text: str) -> dict:
-    text = text.strip()
-    if text.startswith("```"):
-        text = text.split("```", 2)[1]
-        if text.lstrip().startswith("json"):
-            text = text.lstrip()[4:]
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        i, j = text.find("{"), text.rfind("}")
-        if i == -1 or j == -1:
-            raise
-        return json.loads(text[i:j + 1])
-
-
 # --- Anthropic backend ----------------------------------------------------
-def _anthropic_client():
-    import anthropic
-
-    return anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
-
-
 def _extract_text(resp) -> str:
     return "".join(b.text for b in resp.content if getattr(b, "type", None) == "text")
 
 
 def _anthropic_json(system: str, user: str, schema: dict, max_tokens: int) -> dict:
-    client = _anthropic_client()
+    client = llm_client.anthropic_client(settings.ANTHROPIC_API_KEY)
     common = {"model": settings.ANTHROPIC_MODEL, "max_tokens": max_tokens,
                   "system": system, "messages": [{"role": "user", "content": user}]}
     try:
@@ -236,54 +216,24 @@ def _anthropic_json(system: str, user: str, schema: dict, max_tokens: int) -> di
         )
     except Exception:  # noqa: BLE001 - older SDK / unsupported param: plain JSON ask
         resp = client.messages.create(**common)
-    return _loads_loose(_extract_text(resp))
+    return llm_client.loads_loose(_extract_text(resp))
 
 
 # --- OpenAI-compatible backend --------------------------------------------
-def _openai_client():
-    from openai import OpenAI
-
-    base = settings.LLM_HELP_URL.rstrip("/")
-    if not base.endswith("/v1"):
-        base = f"{base}/v1"
+def _openai_json(system: str, user: str, schema: dict, max_tokens: int) -> dict:
     # Generation is heavy (a full problem + canonical + tests), so allow plenty of
     # time and one retry; unlike the interactive hint path this isn't latency-bound.
-    return OpenAI(base_url=base, api_key=settings.LLM_HELP_API_KEY,
-                  timeout=300.0, max_retries=1)
-
-
-def _openai_json(system: str, user: str, schema: dict, max_tokens: int) -> dict:
-    client = _openai_client()
-    messages = [{"role": "system", "content": system},
-                {"role": "user", "content": user}]
+    client = llm_client.openai_client(
+        settings.LLM_HELP_URL, settings.LLM_HELP_API_KEY,
+        timeout=300.0, max_retries=1)
     # Reasoning off: keeps generation from stalling and its tokens from crowding out
-    # the JSON (a llama.cpp/Qwen convention; plain OpenAI servers ignore it). The
-    # canonical is verified afterwards, with one corrective retry, either way.
-    extra_body = {"chat_template_kwargs": {"enable_thinking": False}}
-    # Enforce structure when supported, degrading to laxer modes for bare endpoints.
-    response_formats = [
-        {"type": "json_schema",
-         "json_schema": {"name": "problem", "schema": schema, "strict": True}},
-        {"type": "json_object"},
-        None,
-    ]
-    last_err: Exception | None = None
-    for rf in response_formats:
-        kwargs = {"model": settings.LLM_HELP_MODEL, "messages": messages,
-                      "max_tokens": max_tokens, "temperature": 0.3, "extra_body": extra_body}
-        if rf is not None:
-            kwargs["response_format"] = rf
-        try:
-            resp = client.chat.completions.create(**kwargs)
-            return _loads_loose(resp.choices[0].message.content or "")
-        except Exception as e:  # noqa: BLE001
-            last_err = e
-            # A network failure won't be fixed by a laxer response_format; only a
-            # rejected/unsupported param is worth retrying with the next mode.
-            if any(k in type(e).__name__ for k in ("Connection", "Timeout")):
-                break
-            continue
-    raise RuntimeError(f"LLM problem generation failed: {last_err}") from last_err
+    # the JSON. The canonical is verified afterwards, with one corrective retry.
+    return llm_client.chat_json(
+        client, model=settings.LLM_HELP_MODEL, what="problem generation",
+        messages=[{"role": "system", "content": system},
+                  {"role": "user", "content": user}],
+        schema=schema, schema_name="problem",
+        max_tokens=max_tokens, temperature=0.3)
 
 
 def _llm_json(system: str, user: str, schema: dict, max_tokens: int) -> dict:

@@ -99,11 +99,14 @@ class Candidate:
 
 
 def client(base_url: str = LLM_SERVER_URL, api_key: str = LLM_API_KEY):
-    from openai import OpenAI
-    base = base_url.rstrip("/")
-    if not base.endswith("/v1"):
-        base = f"{base}/v1"
-    return OpenAI(base_url=base, api_key=api_key)
+    """An OpenAI client for the local candidate-generation endpoint.
+
+    600s matches the SDK's own default and is only a backstop: every call in
+    this module passes its own, much shorter, per-request `timeout`.
+    """
+    from ..llm import client as llm_client
+
+    return llm_client.openai_client(base_url, api_key, timeout=600.0)
 
 
 def _signature_line(prob: dict) -> str:
