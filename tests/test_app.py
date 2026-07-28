@@ -263,7 +263,7 @@ def test_calendar_green_matches_weekly_met_with_spillover():
     # views shared no completion logic before and disagreed. Regression guard.
     from datetime import date
 
-    from app.routers.pages import DAY_BLOCKS, _lay_out_week, _month_calendar
+    from app.progress import DAY_BLOCKS, lay_out_week, month_calendar
 
     # Sunday gets 1.5 days of work; the half-day overflow pre-fills Monday, which
     # has only a partial day of its own — so Monday hits the goal only via carry.
@@ -273,7 +273,7 @@ def test_calendar_green_matches_weekly_met_with_spillover():
         monday: ["hard"] * (DAY_BLOCKS // 2),               # own work < a full day
     }
     week = [date(2026, 6, 21 + i) for i in range(7)]  # Sun … Sat
-    placed = _lay_out_week(week, blocks)
+    placed = lay_out_week(week, blocks)
     assert len(placed[0]) >= DAY_BLOCKS                       # Sunday met
     assert len(blocks[monday]) < DAY_BLOCKS                   # Monday own < goal
     assert len(placed[1]) >= DAY_BLOCKS                       # Monday met via carry
@@ -281,18 +281,18 @@ def test_calendar_green_matches_weekly_met_with_spillover():
     # The calendar must mark Monday done too (pretend "today" is later so it's past).
     from zoneinfo import ZoneInfo
 
-    import app.routers.pages as pages
+    import app.progress as progress
 
-    class _FixedDT(pages.datetime):
+    class _FixedDT(progress.datetime):
         @classmethod
         def now(cls, tz=None):
-            return pages.datetime(2026, 6, 30, 12, tzinfo=tz)
+            return progress.datetime(2026, 6, 30, 12, tzinfo=tz)
 
-    orig = pages.datetime
-    pages.datetime = _FixedDT
+    orig = progress.datetime
+    progress.datetime = _FixedDT
     try:
-        mc = _month_calendar(blocks, ZoneInfo("UTC"), 2026, 6)
+        mc = month_calendar(blocks, ZoneInfo("UTC"), 2026, 6)
     finally:
-        pages.datetime = orig
+        progress.datetime = orig
     done = {c["day"]: c["done"] for wk in mc["weeks"] for c in wk if c["in_month"]}
     assert done[21] is True and done[22] is True
