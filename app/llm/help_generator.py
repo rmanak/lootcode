@@ -16,6 +16,9 @@ Two entry points:
 
 * :func:`probe_endpoint` — a fast, cheap health check run once at startup to decide
   whether the button is shown enabled (see ``app/main.py`` lifespan).
+* :func:`refresh_availability` — re-run that probe and update
+  ``settings.llm_help_available``, so a server started before the local LLM can pick
+  it up later without a restart (the "re-check" button in the UI).
 * :func:`stream_help` — a generator yielding the hint text in chunks as the model
   produces it, so the UI can render it live and show progress.
 
@@ -75,6 +78,22 @@ def probe_endpoint(
         return True
     except Exception:  # noqa: BLE001 - availability probe: any failure => "off"
         return False
+
+
+def refresh_availability(*, timeout: float = 2.5) -> bool:
+    """Re-probe the endpoint and store the result in ``settings.llm_help_available``.
+
+    The startup probe runs once, so a server launched before the local LLM leaves
+    both AI features off for its whole lifetime. This is the same probe, callable
+    later: the UI's "re-check" button (``POST /api/llm/refresh``) and the startup
+    lifespan both go through here. Never raises.
+    """
+    try:
+        available = probe_endpoint(timeout=timeout)
+    except Exception:  # noqa: BLE001 - optional feature: any failure => "off"
+        available = False
+    settings.llm_help_available = available
+    return available
 
 
 def _format_hints(hints: list[str]) -> str:

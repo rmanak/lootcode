@@ -178,6 +178,8 @@ works for a fresh checkout.
   rules in `specs/problem-schema.md`; pipeline in `docs/hint-generation.md`. A
   separate **on-demand** "Get More Help with AI" button on the problem page streams
   one extra, more-revealing hint from an OpenAI-compatible LLM endpoint
-  (`LLM_HELP_URL`, probed once at startup → `settings.llm_help_available`); engine in
+  (`LLM_HELP_URL`, probed at startup → `settings.llm_help_available`; re-probe later
+  without a restart via the "↻ Re-check connection" button on **/admin** →
+  `POST /api/llm/refresh` → `help_generator.refresh_availability`); engine in
   `app/llm/help_generator.py`, see `docs/ai-help.md`.
 - Keep this file and `docs/` in sync with reality as the app grows.

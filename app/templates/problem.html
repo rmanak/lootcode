@@ -111,10 +111,13 @@
         <div class="ai-help-bar"><span id="ai-help-bar-fill"></span></div>
         <span class="ai-help-status" id="ai-help-status"></span>
       </div>
+      {# Probed at startup; if the LLM server came up later, the admin page's
+         "↻ Re-check connection" button re-probes and turns this on. #}
       {% if not ai_help_enabled %}
       <p class="muted ai-help-note">AI help is off. Point <code>LLM_HELP_URL</code>
         (and <code>LLM_HELP_API_KEY</code> if your endpoint needs auth) at a running
-        OpenAI-compatible endpoint and restart to enable this.</p>
+        OpenAI-compatible endpoint, then re-check the connection on the admin page
+        (or restart), to enable this.</p>
       {% endif %}
       <div class="ai-help-output" id="ai-help-output" hidden></div>
     </div>

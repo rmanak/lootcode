@@ -387,6 +387,12 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 .ai-help-btn.is-busy { cursor: progress; }
 .ai-help-note { font-size: 12.5px; margin: 8px 0 0; }
 
+/* Inline "re-check the LLM connection" button, shown on the admin page when AI
+   generation is off (the endpoint is otherwise only probed at startup). */
+.llm-refresh { margin: 0 0 0 4px; vertical-align: baseline; }
+.llm-refresh + span:not(:empty) { margin-left: 6px; font-size: 12.5px;
+  color: var(--muted); }
+
 /* Streaming progress shown next to the button while a hint is generated. */
 .ai-help-progress { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
 .ai-help-bar { flex: 0 1 220px; height: 6px; border-radius: 999px;

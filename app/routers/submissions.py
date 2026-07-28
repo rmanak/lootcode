@@ -104,6 +104,26 @@ def set_visit_later(slug: str, body: VisitLaterBody, request: Request,
     return {"visit_later": visit_later}
 
 
+@router.post("/llm/refresh")
+def refresh_llm():
+    """Re-probe the optional LLM endpoint and report what it enables.
+
+    The startup probe runs once, so starting lootcode before the local LLM server
+    leaves "Get More Help with AI" and admin "Generate with AI" off until a restart.
+    The small "re-check" buttons the UI shows while those are disabled post here;
+    on success the page reloads and re-renders with the features on.
+    """
+    from ..llm.help_generator import refresh_availability
+
+    available = refresh_availability()
+    return {
+        "available": available,
+        "endpoint": settings.LLM_HELP_URL,
+        "ai_help_enabled": settings.llm_help_available,
+        "generation_enabled": settings.generation_enabled,
+    }
+
+
 def _sse(payload: dict) -> str:
     """Encode one Server-Sent Events frame (a single JSON ``data:`` line)."""
     return f"data: {json.dumps(payload)}\n\n"

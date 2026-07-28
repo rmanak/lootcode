@@ -50,5 +50,18 @@ All optional; sensible defaults point at a local llama.cpp `llama-server`.
 
 Because the defaults fall back to the same `LLM_SERVER_URL` / `LLM_API_KEY` /
 `LLM_MODEL` the bulk hint generator uses, an existing local Qwen setup enables this
-feature with no extra configuration. The probe runs **once at startup**, so start
-your LLM server before lootcode (or restart lootcode after) to enable the button.
+feature with no extra configuration.
+
+### Re-checking the connection without a restart
+
+The probe runs **once at startup**, so a lootcode started before the LLM server
+would otherwise stay off for its whole lifetime. The off-state notice on **`/admin`**
+(under the greyed-out "Generate with AI") carries a small **↻ Re-check connection**
+button — the one place to re-probe. It posts to `POST /api/llm/refresh`, which
+re-runs the same probe (`help_generator.refresh_availability`, also used by the
+startup lifespan), updates `settings.llm_help_available`, and returns
+`{available, endpoint, ai_help_enabled, generation_enabled}`. On success the page
+reloads and **both** AI features come up enabled — the flag is global, so the problem
+page's button works on its next load too (its own off-state note just points at
+`/admin`; deliberately no button there, to keep the solver page uncluttered). Front
+end: `app/static/llm_refresh.js` (any element with `data-llm-refresh`).

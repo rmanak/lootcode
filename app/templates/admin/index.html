@@ -9,8 +9,14 @@
 {% if gen_enabled %}
 <p class="muted">AI generation is on — using the {{ gen_backend }}.</p>
 {% else %}
+{# The LLM endpoint is probed once at startup, so a server started before the local
+   LLM stays off. "Re-check" re-probes and reloads if it's up now. #}
 <p class="muted">AI generation is off. Set <code>ANTHROPIC_API_KEY</code> in <code>.env</code>,
-  or point <code>LLM_HELP_URL</code> at a running OpenAI-compatible endpoint and restart, to enable it.</p>
+  or point <code>LLM_HELP_URL</code> at a running OpenAI-compatible endpoint, to enable it.
+  Already started your LLM server?
+  <button type="button" class="btn-small llm-refresh" data-llm-refresh
+          data-llm-refresh-status="llm-refresh-status">↻ Re-check connection</button>
+  <span class="muted" id="llm-refresh-status"></span></p>
 {% endif %}
 
 <h2>Problems ({{ total }})</h2>
@@ -69,3 +75,5 @@
 </nav>
 {% endif %}
 {% endblock %}
+
+{% block scripts %}<script src="{{ static('llm_refresh.js') }}"></script>{% endblock %}
