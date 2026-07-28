@@ -4,7 +4,6 @@
     "allow": [
       "Read(./**)",
       "Edit(./**)",
-      "Write(./**)",
       "Bash(.venv/bin/python:*)",
       "Bash(.venv/bin/pip install:*)",
       "Bash(python -m pytest:*)",

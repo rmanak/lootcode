@@ -1,0 +1,51 @@
+{
+  "slug": "minimum-cost-to-travel",
+  "title": "Minimum Cost to Travel",
+  "difficulty": "hard",
+  "tags": [
+    "array",
+    "greedy",
+    "monotonic-stack"
+  ],
+  "hints": [
+    "A unit of fuel is not tied to the road right in front of the pump that sold it. The only thing limiting how far it can be carried is the size of the tank, so think about which purchase ends up paying for each stretch of road.",
+    "What matters at a station is not its price on its own, but how it compares to the prices still within reach. Locating the next strictly cheaper station to the right, for every station at once, is the classic job of a monotonic stack.",
+    "The decision at a station is never a matter of degree, it is forced. Either something cheaper sits close enough to reach, which caps how much is worth buying here, or nothing cheaper is in range, which makes this the best fuel available for a while. Remember too that the tank starts full, so the opening stretch of road is already paid for."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minTravelCost",
+    "params": [
+      {
+        "name": "target",
+        "type": "int"
+      },
+      {
+        "name": "capacity",
+        "type": "int"
+      },
+      {
+        "name": "position",
+        "type": "int[]"
+      },
+      {
+        "name": "price",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

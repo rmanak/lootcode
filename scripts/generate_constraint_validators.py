@@ -578,7 +578,7 @@ def _reverify(args) -> int:
     verification logic to reflect the new outcome on disk without regenerating.
     A validator whose source no longer parses/loads is left untouched and reported.
     """
-    content_dir = settings.CONTENT_DIR
+    content_dir = pathlib.Path(args.content_dir)
     out_dir = pathlib.Path(args.out_dir)
     wanted = set(args.slug)
     if not out_dir.exists():
@@ -659,6 +659,10 @@ def main() -> int:
                     help="number of concurrent LLM requests to run in parallel; set "
                          "to how many simultaneous calls your endpoint accepts "
                          "(e.g. llama.cpp slot count). Default 4.")
+    ap.add_argument("--content-dir", default=str(settings.CONTENT_DIR),
+                    help="content root holding the <slug>/ problem dirs "
+                         f"(default {settings.CONTENT_DIR}); pass "
+                         "content/problems-extended to target the extended set")
     ap.add_argument("--out-dir", default="constraint_validators",
                     help="directory to write validators into: <slug>_input_test.py "
                          "when it passes self-verify, else <slug>_input_test.flagged.py "
@@ -693,7 +697,7 @@ def main() -> int:
     if args.reverify:
         return _reverify(args)
 
-    content_dir = settings.CONTENT_DIR
+    content_dir = pathlib.Path(args.content_dir)
     out_dir = pathlib.Path(args.out_dir)
     wanted = set(args.slug)
 

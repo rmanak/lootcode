@@ -28,6 +28,12 @@ from app.store import seed_collections, seed_from_content  # noqa: E402
 AMBIGUITY = ("any order", "in any order", "any valid", "you may return",
              "return any", "multiple valid")
 
+# Return types with no internal ordering to relax. For these, `exact` is the only
+# meaningful compare mode, so ordering language in the statement describes the
+# process ("sell the balls in any order"), never the answer — flagging it would
+# always be a false positive.
+SCALAR_RETURNS = frozenset({"int", "bool", "string", "float", "double", "long", "char"})
+
 
 def _permute(out, mode):
     """Produce a differently-ordered but equivalent answer for `mode`."""
@@ -67,6 +73,8 @@ def audit_problem(p: Problem) -> list[str]:
     #    line-wrapped "any\norder" is still detected)
     text = " ".join((p.statement_md or "").lower().split())
     amb = any(kw in text for kw in AMBIGUITY)
+    if amb and mode == "exact" and (p.return_type or "") in SCALAR_RETURNS:
+        amb = False  # scalar answer: nothing to order, so the phrase isn't about the output
     if amb and mode == "exact":
         issues.append("statement allows 'any order' but compare=exact (judge is strict)")
 
