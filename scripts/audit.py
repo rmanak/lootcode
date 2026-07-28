@@ -9,15 +9,28 @@ For each problem it verifies:
   3. fairness: for order-insensitive modes, a deliberately RE-ORDERED valid
      answer is still accepted (proving the judge honours the promised flexibility).
 
-Exits non-zero if any inconsistency is found.  Run:  python scripts/audit.py
+Exits non-zero if any inconsistency is found.
+
+Run:  python scripts/audit.py
+      python scripts/audit.py -j 8                  parallel
+      python scripts/audit.py --skip-canonical      skip step 1 (see below)
+
+Step 1 is a sandbox run per problem and dominates the runtime — and it is the
+same check ``scripts/verify_bank.py -j`` performs far faster. When both run (as
+in ``make check``), pass ``--skip-canonical`` here.
 """
 from __future__ import annotations
 
+import argparse
 import copy
 import pathlib
 import sys
+import time
+from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
+
+from sqlalchemy.orm import selectinload  # noqa: E402
 
 from app.db import SessionLocal, init_db  # noqa: E402
 from app.executor import _equal, run_submission  # noqa: E402
@@ -79,18 +92,28 @@ def _codecs_for(p):
     return decoders, (ret[2] if ret else None)
 
 
-def audit_problem(p: Problem) -> list[str]:
+def audit_problem(p: Problem, *, run_canonical: bool = True) -> list[str]:
+    """Audit one problem. ``run_canonical=False`` skips step 1 (the sandbox run).
+
+    Step 1 is by far the most expensive part, and it is the *same* check
+    ``scripts/verify_bank.py`` performs. Skip it when that has already run — as
+    ``make check`` does — and this becomes a pure text/in-process audit. The
+    remaining steps still need to know whether the canonical is trustworthy, so
+    skipping treats it as verified rather than as unknown.
+    """
     issues: list[str] = []
     mode = p.compare or "exact"
 
     # 1) canonical passes its own tests (sandbox) => tests <-> canonical agree
     canon_ok = False
-    if p.canonical_solution:
+    if not p.canonical_solution:
+        issues.append("no canonical solution")
+    elif not run_canonical:
+        canon_ok = True  # verify_bank.py's job; assumed done (see docstring)
+    else:
         canon_ok = run_submission(p.canonical_solution, p, p.tests).solved
         if not canon_ok:
             issues.append("canonical solution does NOT pass all its tests")
-    else:
-        issues.append("no canonical solution")
 
     # 2) statement ordering language vs compare mode (collapse whitespace so a
     #    line-wrapped "any\norder" is still detected)
@@ -138,24 +161,58 @@ def audit_problem(p: Problem) -> list[str]:
     return issues
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("-j", "--jobs", type=int, default=1, metavar="N",
+                    help="audit with N worker threads (default 1). Only step 1 "
+                         "parallelizes usefully — it is a subprocess per problem; "
+                         "steps 2-3 are in-process and GIL-bound.")
+    ap.add_argument("--skip-canonical", action="store_true",
+                    help="skip step 1, the sandbox run. It duplicates "
+                         "scripts/verify_bank.py; skip it when that runs too.")
+    ap.add_argument("-q", "--quiet", action="store_true",
+                    help="print only problems with issues, not the full table")
+    args = ap.parse_args(argv)
+
     init_db()
     with SessionLocal() as db:
         if not db.query(Problem).count():
             seed_from_content(db)
-        problems = sorted(db.query(Problem).all(), key=lambda p: p.slug)
+        # Eager-load `tests`: audit_problem walks it, and with -j that would
+        # otherwise lazy-load from several threads against one Session.
+        problems = sorted(
+            db.query(Problem).options(selectinload(Problem.tests)).all(),
+            key=lambda p: p.slug)
 
-        all_issues: dict[str, list[str]] = {}
-        print(f"{'slug':38} {'diff':6} {'compare':13} {'canon':6} {'any-order?':11} {'fairness':9}")
-        print("-" * 95)
+        run_canonical = not args.skip_canonical
+        start = time.perf_counter()
+        if args.jobs > 1:
+            with ThreadPoolExecutor(max_workers=args.jobs) as pool:
+                futures = {
+                    pool.submit(audit_problem, p, run_canonical=run_canonical): p
+                    for p in problems}
+                # Also populates each p._mode/_amb/_fair/_canon for the table.
+                all_issues = {p.slug: fut.result() for fut, p in futures.items()}
+        else:
+            all_issues = {p.slug: audit_problem(p, run_canonical=run_canonical)
+                          for p in problems}
+
+        if not args.quiet:
+            print(f"{'slug':38} {'diff':6} {'compare':13} {'canon':6} "
+                  f"{'any-order?':11} {'fairness':9}")
+            print("-" * 95)
+        canon_label = "skip" if args.skip_canonical else None
         for p in problems:
-            issues = audit_problem(p)
-            all_issues[p.slug] = issues
+            issues = all_issues[p.slug]
+            if args.quiet and not issues:
+                continue
             flag = "  <-- " + "; ".join(issues) if issues else ""
+            canon = canon_label or ("OK" if p._canon else "FAIL")
             print(f"{p.slug:38} {p.difficulty:6} {p._mode:13} "
-                  f"{'OK' if p._canon else 'FAIL':6} "
-                  f"{('yes' if p._amb else 'no'):11} {p._fair:9}{flag}")
+                  f"{canon:6} {('yes' if p._amb else 'no'):11} {p._fair:9}{flag}")
 
+        elapsed = time.perf_counter() - start
         bad = {s: i for s, i in all_issues.items() if i}
 
         # Collection integrity: every manifest slug must resolve to a real problem,
@@ -163,6 +220,9 @@ def main() -> int:
         n_coll, unresolved = seed_collections(db)
 
         print("\n" + ("=" * 95))
+        print(f"Audited {len(problems)} problem(s) in {elapsed:.1f}s"
+              f"{f' across {args.jobs} workers' if args.jobs > 1 else ''}"
+              f"{' (step 1 skipped)' if args.skip_canonical else ''}.")
         if bad:
             print(f"INCONSISTENT: {len(bad)} problem(s) need attention:")
             for s, i in bad.items():

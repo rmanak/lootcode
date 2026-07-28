@@ -56,14 +56,17 @@ jobs:
       # (content/problems-extended/, 435 problems) is gitignored by design, so
       # CI can only ever see the 738 committed problems — that is expected, not
       # a gap to fix here. See docs/extended-problems.md.
+      # `verify_bank` below is the authoritative canonical run. Seeding and
+      # auditing skip what it covers, so the bank's canonicals go through the
+      # sandbox once instead of three times (see the Makefile's `check`).
       - name: Seed the bank
-        run: python scripts/seed.py
+        run: python scripts/seed.py --no-verify
 
       - name: Audit (statement <-> judge consistency)
-        run: python scripts/audit.py
+        run: python scripts/audit.py --skip-canonical -q
 
       - name: Verify every canonical solution
-        run: python scripts/verify_bank.py -j 4
+        run: python scripts/verify_bank.py -j 4 -q
 
       - name: Verify input validators
         run: python scripts/check_constraint_validators.py

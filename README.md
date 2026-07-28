@@ -60,8 +60,10 @@ cp .env.example .env        # then set ANTHROPIC_API_KEY
 ```bash
 pip install -r requirements-dev.txt
 python -m pytest -q          # tests, incl. adversarial executor (TLE / fork-bomb / error)
-python scripts/seed.py       # (re)load content into the DB and verify canonical solutions
-python scripts/audit.py      # check statement ↔ test ↔ judge consistency
+make check                   # all of the below, deduplicated and parallel (~19s)
+
+python scripts/seed.py -j 8  # (re)load content into the DB and verify canonical solutions
+python scripts/audit.py -j 8 # check statement ↔ test ↔ judge consistency
 python scripts/verify_bank.py -j 8               # run every canonical against its own tests (all roots)
 python scripts/check_constraint_validators.py    # check every stored test input satisfies its validate_input()
 python scripts/verify_json.py <folder>           # batch-verify loose problem JSON (e.g. generator output) before importing
