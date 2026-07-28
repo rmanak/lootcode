@@ -79,3 +79,24 @@
       ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
 })();
+
+
+// Show only the fields relevant to the selected problem kind (function vs class).
+// Lives here rather than inline in the templates: the New form and the Edit form
+// carried character-identical copies of this, and admin.js is already loaded by
+// both. No-ops on any page without the selector.
+(function () {
+  const sel = document.getElementById("kind-select");
+  if (!sel) return;
+  function sync() {
+    const isClass = sel.value === "class";
+    document.querySelectorAll(".kind-function").forEach((e) => {
+      e.style.display = isClass ? "none" : "";
+    });
+    document.querySelectorAll(".kind-class").forEach((e) => {
+      e.style.display = isClass ? "" : "none";
+    });
+  }
+  sel.addEventListener("change", sync);
+  sync();
+})();

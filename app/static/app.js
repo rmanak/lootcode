@@ -235,29 +235,12 @@
 
     let text = "", errored = false;
     try {
-      const resp = await fetch(`/api/problems/${slug}/help`, { method: "POST" });
-      if (!resp.ok || !resp.body) {
-        let detail = "Request failed";
-        try { detail = (await resp.json()).detail || detail; } catch (_) { /* non-JSON */ }
-        throw new Error(detail);
-      }
-      timer = setInterval(tick, 200);
-
-      const reader = resp.body.getReader();
-      const dec = new TextDecoder();
-      let buf = "";
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) break;
-        buf += dec.decode(value, { stream: true });
-        let sep;
-        while ((sep = buf.indexOf("\n\n")) !== -1) {
-          const frame = buf.slice(0, sep);
-          buf = buf.slice(sep + 2);
-          const line = frame.split("\n").find((l) => l.startsWith("data:"));
-          if (!line) continue;
-          let evt;
-          try { evt = JSON.parse(line.slice(5).trim()); } catch (_) { continue; }
+      // Unlike the admin generation pages, this stream carries the hint itself
+      // (`delta` frames), so the bar tracks how much text has arrived rather
+      // than easing on a timer.
+      await window.lootcode.postStream(`/api/problems/${slug}/help`, {
+        onOpen: () => { timer = setInterval(tick, 200); },
+        onEvent(evt) {
           if (evt.type === "delta") {
             text += evt.text;
             paint("hint", text);
@@ -266,8 +249,8 @@
             errored = true;
             paint("error", evt.message || "AI help failed.");
           }
-        }
-      }
+        },
+      });
     } catch (err) {
       errored = true;
       paint("error", err.message || "AI help failed.");

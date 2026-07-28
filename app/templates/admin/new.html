@@ -150,22 +150,4 @@
 </form>
 
 <script src="{{ static('admin.js') }}"></script>
-<script>
-// Show only the fields relevant to the selected problem kind (function vs class).
-(function () {
-  var sel = document.getElementById("kind-select");
-  if (!sel) return;
-  function sync() {
-    var isClass = sel.value === "class";
-    document.querySelectorAll(".kind-function").forEach(function (e) {
-      e.style.display = isClass ? "none" : "";
-    });
-    document.querySelectorAll(".kind-class").forEach(function (e) {
-      e.style.display = isClass ? "" : "none";
-    });
-  }
-  sel.addEventListener("change", sync);
-  sync();
-})();
-</script>
 {% endblock %}
