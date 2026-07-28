@@ -91,7 +91,8 @@ single root.
 
 | Path | What it is |
 |------|------------|
-| `scripts/build_bank.py`, `scripts/bank_new_p/` | Bulk-author pipeline. Each problem ships a canonical solution; every test's expected output is *computed* by running that canonical and cross-checked against a brute-force reference, so a buggy problem can't enter the bank. Output is written into `content/problems/`. |
+| `scripts/build_bank.py` | Bulk-author pipeline. Each problem ships a canonical solution; every test's expected output is *computed* by running that canonical and cross-checked against a brute-force reference, so a buggy problem can't enter the bank. Output is written into `content/problems/`. |
+| `scripts/import_generated_problems.py` | The gate for importing a staging folder of already-generated problems (function or class). See `docs/importing-problems.md`. |
 
 
 ## License

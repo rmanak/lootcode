@@ -138,7 +138,7 @@ a genuine duplicate. The importer distinguishes two cases:
 
 Broader **near-duplicate** detection (a rephrasing under a *different* slug) is
 designed but not built (`docs/duplicate-detection-plan.md`, status: proposed).
-When `app/dedup.py` lands, add it as a gate right after the slug-collision check.
+When that detector lands, add it as a gate right after the slug-collision check.
 
 ## Flags & exit status
 
