@@ -34,6 +34,29 @@ AMBIGUITY = ("any order", "in any order", "any valid", "you may return",
 # always be a false positive.
 SCALAR_RETURNS = frozenset({"int", "bool", "string", "float", "double", "long", "char"})
 
+# A mutator method declares `void` and contributes a bare `null` to the outputs
+# list — as orderless as a scalar. Only meaningful for class problems.
+ORDERLESS_RETURNS = SCALAR_RETURNS | {"void"}
+
+
+def _returns_are_orderless(p) -> bool:
+    """True when nothing in this problem's answer has an order to relax.
+
+    A function problem declares a single ``return_type``. A class problem leaves
+    it empty and declares one return per method in ``class_methods`` instead, so
+    it qualifies only when *every* method is orderless — one list-returning
+    method is enough to keep the ordering check meaningful.
+    """
+    if (p.kind or "function") == "class":
+        methods = p.class_methods or []
+        if not methods:
+            return False
+        return all(
+            ((m.get("returns") or {}).get("type") or "void") in ORDERLESS_RETURNS
+            for m in methods
+        )
+    return (p.return_type or "") in SCALAR_RETURNS
+
 
 def _permute(out, mode):
     """Produce a differently-ordered but equivalent answer for `mode`."""
@@ -73,7 +96,7 @@ def audit_problem(p: Problem) -> list[str]:
     #    line-wrapped "any\norder" is still detected)
     text = " ".join((p.statement_md or "").lower().split())
     amb = any(kw in text for kw in AMBIGUITY)
-    if amb and mode == "exact" and (p.return_type or "") in SCALAR_RETURNS:
+    if amb and mode == "exact" and _returns_are_orderless(p):
         amb = False  # scalar answer: nothing to order, so the phrase isn't about the output
     if amb and mode == "exact":
         issues.append("statement allows 'any order' but compare=exact (judge is strict)")
