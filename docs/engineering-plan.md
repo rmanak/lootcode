@@ -1,7 +1,11 @@
 # lootcode — Engineering Hardening Program
 
-> **Status: proposal.** Findings audit + phased execution plan. Nothing here has been
-> executed yet. Written 2026-07-28 against HEAD `8215128`.
+> **Status: in progress.** Findings audit + phased execution plan. Written
+> 2026-07-28 against HEAD `8215128`.
+>
+> **Phases 0–3 are done** (2026-07-28). Phases 4–6 are still proposals.
+> See [Execution log](#execution-log) at the bottom for what landed, what was
+> done differently from this plan, and why.
 
 ## Context
 
@@ -55,7 +59,7 @@ Two documents, written in Phase 0 and kept current as the program runs:
 
 ---
 
-## Phase 0 — Land what's in flight, write the program docs
+## Phase 0 — Land what's in flight, write the program docs ✅
 
 The working tree holds **three unrelated changes** (LLM re-check feature, topic-chip
 CSS refactor, `audit.py` class-problem fix). All three look finished and consistent.
@@ -74,7 +78,7 @@ CSS refactor, `audit.py` class-problem fix). All three look finished and consist
 
 ---
 
-## Phase 1 — Engineering floor
+## Phase 1 — Engineering floor ✅
 
 The cheapest, highest-leverage phase. The suppression work for ruff is *already done*.
 
@@ -108,7 +112,7 @@ The cheapest, highest-leverage phase. The suppression work for ruff is *already 
 
 ---
 
-## Phase 2 — Test foundation
+## Phase 2 — Test foundation ✅
 
 - **`tests/conftest.py`** — the single most important file in this program. Today
   `TestClient(app)` runs the real lifespan against `settings.DB_PATH`, i.e. the
@@ -142,7 +146,7 @@ The cheapest, highest-leverage phase. The suppression work for ruff is *already 
 
 ---
 
-## Phase 3 — Correctness & reliability
+## Phase 3 — Correctness & reliability ✅
 
 Confirmed bugs, each verified by hand this session.
 
@@ -180,7 +184,7 @@ confirm no new dir appears under `content/problems/`; `make check`; `tests/test_
 
 ---
 
-## Phase 4 — Structural refactor
+## Phase 4 — Structural refactor _(not started)_
 
 Move domain logic out of HTTP handlers; collapse the copies; make the layering honest.
 
@@ -242,7 +246,7 @@ extractions are mechanical; the test suite from Phase 2 is what makes them safe.
 
 ---
 
-## Phase 5 — `scripts/` consolidation & repo hygiene
+## Phase 5 — `scripts/` consolidation & repo hygiene _(not started)_
 
 `scripts/` is 24.8k LOC, is **not a package**, has no shared library, and uses two
 mutually-incompatible import conventions (18 files `sys.path.insert` the repo root;
@@ -276,7 +280,7 @@ the path and bare-`import` a sibling).
 
 ---
 
-## Phase 6 — Documentation revamp
+## Phase 6 — Documentation revamp _(not started)_
 
 26 markdown files, 14 dead references, 22 factually-wrong claims. Ordered by blast radius.
 
@@ -423,3 +427,84 @@ prompt-injection fixes) are cheap and high-value and could be pulled forward.
    confirm no duplicate dir appears under `content/problems/` (Phase 3 #2), progress page,
    AI help, admin generate flow.
 5. CI green on a PR.
+
+---
+
+## Execution log
+
+### Phases 0–3 — landed 2026-07-28
+
+Twelve commits, `8215128..bc77f7e`. `make check` (lint → types → tests → seed →
+audit → verify_bank → validators) is green end to end: **275 tests**, coverage
+**55% → 78%**, 1,173 canonicals passing 16,338 test cases, 1,173/1,173 validators
+satisfied.
+
+| Phase | Commits |
+|---|---|
+| 0 | `98fd045` `aadc1f5` `f638db3` `75b7a66` |
+| 1 | `7964078` `ad81162` |
+| 2 | `ba24359` `f80bfb0` `edd9ec4` |
+| 3 | `1f2ca09` `ffb7e11` `666d68b` `cd021bd` `bc77f7e` |
+
+### Where execution differed from the plan, and why
+
+- **`ruff format` is opt-in, not automated.** The plan put it in pre-commit.
+  Running it today rewrites **3,174 lines in `app/` alone** — ~38% of the runtime
+  package, most of it hand-aligned deliberately — and would destroy `git blame`
+  immediately before Phase 4, which depends on it. It is `make format`; the
+  enforced gate is `ruff check` (which still fixes import order).
+- **`ANN001` and `PLC0415` are not enabled.** The plan listed `ANN001` among the
+  rule families to select. It has **865 violations**, and `PLC0415`
+  (import-outside-top-level) has 137 — where lazy imports are a deliberate
+  pattern here (optional LLM deps, circular-import breaks). Enabling either would
+  mean a thousand suppressions or a separate annotation project. The existing
+  `# noqa: ANN001` / `# noqa: PLC0415` directives stay as the record of intent,
+  and `RUF100` is off so its autofix cannot delete their written rationale.
+- **E501 errors at 100, not 88.** `line-length = 88` still drives the formatter,
+  but `app/` has only **3** lines over 100 versus 61 over 88; reflowing 300-odd
+  prose comments across the repo buys nothing.
+- **`app/testgen/` is excluded from mypy** rather than annotated: 21 errors, all
+  `ast`/`Any` juggling, in a package nothing in `app/` imports and that Phase 4
+  moves to `authoring/` anyway. Annotate it there.
+- **`scripts/` has a per-file ignore list.** It is linted for real bugs but not
+  style (321 long lines, 24.8k LOC). Phase 5 should shrink that list to nothing.
+- **Two items were pulled forward from Phase 6**, both because they sit in the
+  security path and cost one word each: the four `services/executor` references
+  (6a) — including `.claude/agents/executor-security-reviewer.md`'s
+  `description:`, i.e. its selection trigger — and the two dead references the
+  new guard test found (`scripts/bank_new_p/`, `app/dedup.py`).
+
+### Found during execution, not in the audit
+
+- **`load_all_roots` does not de-duplicate.** A slug present in both content
+  roots is returned twice, and the *extended* copy is the one that survives
+  `upsert_problem`. This is the other half of the admin-edit bug and is now
+  pinned by a test that names it as a hazard rather than an endorsement.
+- **A `startswith("/admin")` prefix check also matches `/admin.php`.** The first
+  cut of the identity-minting fix still created a user row for that. Caught by
+  pointing scanner paths at a running server — not by the unit test, which used
+  `/wp-login.php`. The check is now segment-wise.
+- **`store.merge_guest_into_account` reused one loop variable** for both
+  `KnownProblem` and `VisitLaterProblem` rows (found by mypy).
+- **`build_bank.py`'s `_lb_brute_filedup` shadowed the imported `content`
+  module** with a loop variable (found by ruff).
+
+### Deferred, with reasons
+
+- **`.env.example` was not updated** with `LOOTCODE_TRUST_LAN` / `LOG_LEVEL` — a
+  permission guard blocks writing it. `docs/security.md` documents both. The
+  env-var reference in Phase 6f should sweep this up.
+- **CI has not run.** `.github/workflows/ci.yml` is committed but unproven until
+  a push; every step in it was run locally and is green.
+- **The coverage floor is 74%** against an actual 78%. Raise it as phases land.
+
+### Notes for Phase 4
+
+- `app/logging_config.py` is new and is imported by `main`, `admin` and
+  `submissions`. Fold the remaining `print`-style reporting into it.
+- `submissions.run` no longer takes `Depends(get_db)`; it opens two short
+  sessions around the grade. `admin.py:256` and `:400` still hold a session
+  across a sandbox run and should get the same treatment.
+- `_owning_root` in `admin.py` is a content-layer concern living in a router —
+  a candidate to move alongside the `app/pagination.py` / `app/progress.py`
+  extractions.
