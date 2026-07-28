@@ -1,0 +1,44 @@
+# Git hooks for lootcode.  Install once:  pre-commit install
+#
+# Deliberately NOT here: `ruff-format`. Running it today rewrites 3,174 lines in
+# app/ alone (~38% of the runtime package) — hand-laid tables, aligned literals
+# and compact codec pairs that are that way on purpose. `ruff format` is
+# available as an opt-in `make format` for new files; the enforced gate is
+# `ruff check`, which still fixes import order (I001) and the real defects.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.0
+    hooks:
+      - id: ruff
+        name: ruff (lint + autofix)
+        args: [--fix]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        # Problem statements are markdown, where two trailing spaces is a
+        # hard line break.
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+        args: [--maxkb=512]
+      - id: check-merge-conflict
+      # The one that would actually have hurt: content/problems/**/meta.json is
+      # the durable mirror of the bank, and a truncated write is silent.
+      - id: check-json
+        exclude: ^\.vscode/
+
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy (app/)
+        entry: .venv/bin/mypy
+        language: system
+        types: [python]
+        # mypy reads `files` from pyproject.toml; passing pre-commit's changed-file
+        # list would typecheck them out of package context.
+        pass_filenames: false
+        require_serial: true

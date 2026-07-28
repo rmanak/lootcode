@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      # Never let CI touch a checked-in database, and never let a test that
+      # forgets its fixture fall back to the repo root.
+      LOOTCODE_DB: ${{ runner.temp }}/ci-lootcode.db
+      # The bank canonicals run in the real subprocess sandbox; give them the
+      # same budget the app uses so a slow runner doesn't produce flaky TLEs.
+      EXEC_TIME_LIMIT_MS: "20000"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+            constraints.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install -U pip
+          pip install -r requirements-dev.txt -c constraints.txt
+
+      - name: Lint (ruff)
+        run: ruff check --output-format=github .
+
+      - name: Type check (mypy)
+        run: mypy
+
+      - name: Tests
+        run: pytest
+
+      # Everything below runs against content/problems/ only. The extended root
+      # (content/problems-extended/, 435 problems) is gitignored by design, so
+      # CI can only ever see the 738 committed problems — that is expected, not
+      # a gap to fix here. See docs/extended-problems.md.
+      - name: Seed the bank
+        run: python scripts/seed.py
+
+      - name: Audit (statement <-> judge consistency)
+        run: python scripts/audit.py
+
+      - name: Verify every canonical solution
+        run: python scripts/verify_bank.py -j 4
+
+      - name: Verify input validators
+        run: python scripts/check_constraint_validators.py
