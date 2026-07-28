@@ -28,7 +28,7 @@ paren stack is ≥2 deep — a joint value regime no stored case covers.
 LLM population, or a concrete solution handed to you) may only ever *add* cases —
 they are just extra token universes, never a veto.
 
-### The coverage model (`app/testgen/`)
+### The coverage model (`authoring/testgen/`)
 
 Each candidate input is valued by the set of **coverage tokens** it covers, drawn
 from a union of universes — all computed from the input and the *trusted canonical*
@@ -52,7 +52,7 @@ delta-debugs a fuzz catcher down to a minimal reproducer.
 - **`scripts/strengthen_tests.py`** — the batch sweep. Best run bank-wide; selects
   coverage-widening cases per problem with no per-problem thought. `--dry-run` by
   default; `--apply` writes cases back.
-- **`scripts/oracle.py`** — single-problem, agent-facing, same `app/testgen` engine:
+- **`scripts/oracle.py`** — single-problem, agent-facing, same `authoring/testgen` engine:
   - `cover <slug>` — coverage-first hardening (the backbone; no adversary needed).
   - `fuzz <slug> --solution X [--shrink]` — when a concrete failing/suspect solution
     is in hand, target it: keep every in-domain input it fails on, shrink to minimal
@@ -75,7 +75,7 @@ Their test input is not a bag of typed params but
 `{"operations": ["<ClassName>", "<method>", …], "args": [[…], …]}`, and the whole
 engine is class-aware:
 
-- **Input generation** (`generate_class_candidates` in `app/testgen/generators.py`)
+- **Input generation** (`generate_class_candidates` in `authoring/testgen/generators.py`)
   synthesizes *valid* operation sequences from the class's own **method signatures**
   (`class_methods`) plus a value pool learned from the example inputs — edge
   sequences (construct-only, single-call-of-each, mutating burst, duplicate-key-heavy)
@@ -186,12 +186,12 @@ and canonical re-verification go through `app.executor.run_submission`, so
 | Path | Role |
 |------|------|
 | `scripts/strengthen_tests.py` | Driver: load → generate → grade → select → report/apply. |
-| `app/testgen/generators.py` | Candidate **inputs** by param type (`int[]`, grids, strings, `TreeNode`, …) **plus** a vocabulary-aware generator for design/"operations" problems. Covers edge shapes, seed perturbations, small fuzz, and one large stress input. Enforces parsed length bounds and **learned structural invariants** (see Fairness). |
-| `app/testgen/constraints.py` | Best-effort parser for prose bounds in `problem.md` (`1 <= n <= 10^5`, comma-lists, `len(x)`/`x.length`). |
-| `app/testgen/mutate.py` | AST **mutants** of the canonical: single-token edits (comparison/arithmetic/boolean swaps, off-by-one constants, `min`/`max`) **and statement-deletion (SDL)** — the missing-logic class. |
-| `app/testgen/candidates.py` | LLM **candidate-solution population**: prompts the local qwen server (`:8080`) for several independent attempts per problem across temperatures / prompt styles. Screened + parsed into gradeable functions. |
+| `authoring/testgen/generators.py` | Candidate **inputs** by param type (`int[]`, grids, strings, `TreeNode`, …) **plus** a vocabulary-aware generator for design/"operations" problems. Covers edge shapes, seed perturbations, small fuzz, and one large stress input. Enforces parsed length bounds and **learned structural invariants** (see Fairness). |
+| `authoring/testgen/constraints.py` | Best-effort parser for prose bounds in `problem.md` (`1 <= n <= 10^5`, comma-lists, `len(x)`/`x.length`). |
+| `authoring/testgen/mutate.py` | AST **mutants** of the canonical: single-token edits (comparison/arithmetic/boolean swaps, off-by-one constants, `min`/`max`) **and statement-deletion (SDL)** — the missing-logic class. |
+| `authoring/testgen/candidates.py` | LLM **candidate-solution population**: prompts the local qwen server (`:8080`) for several independent attempts per problem across temperatures / prompt styles. Screened + parsed into gradeable functions. |
 | `scripts/collect_candidates.py` | Resumable, checkpointed collector for the population (2 workers = 2 server slots). |
-| `app/testgen/select.py` | Greedy set-cover: minimal set of new cases that kills the discriminators (mutants + population) the existing suite misses; always keeps the stress case. |
+| `authoring/testgen/select.py` | Greedy set-cover: minimal set of new cases that kills the discriminators (mutants + population) the existing suite misses; always keeps the stress case. |
 
 ### Pipeline (per problem)
 

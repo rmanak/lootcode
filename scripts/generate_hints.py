@@ -2,7 +2,7 @@
 
 For each `content/problems/<slug>/`, this reads `problem.md` (the statement),
 asks the local LLM for up to 3 progressive, non-spoiling hints via
-`app.llm.hint_generator.generate_hints`, and inserts a `hints` array into that
+`authoring.hint_generator.generate_hints`, and inserts a `hints` array into that
 problem's `meta.json` (right after `tags`, matching `write_problem_files`).
 
 It is:
@@ -39,7 +39,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from app.config import settings  # noqa: E402
 from app.content import MAX_HINTS, normalize_hints  # noqa: E402
-from app.llm.hint_generator import (  # noqa: E402
+from authoring.hint_generator import (  # noqa: E402
     LLM_MODEL,
     LLM_SERVER_URL,
     generate_hints,

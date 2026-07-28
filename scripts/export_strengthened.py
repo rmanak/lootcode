@@ -61,7 +61,7 @@ from concurrent.futures import ProcessPoolExecutor
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from app import content  # noqa: E402
-from app.testgen import GenConfig  # noqa: E402
+from authoring.testgen import GenConfig  # noqa: E402
 from scripts.strengthen_tests import (  # noqa: E402
     Report,
     _print,

@@ -49,7 +49,7 @@ third is a one-time human/Claude calibration.
    the core of the gate. It decodes greedily on purpose: at 0.2 the same borderline
    leak was caught on one call and missed on the next — unacceptable for a gate — so
    the grader is deterministic run to run.
-3. **Calibration** (`app/llm/hint_exemplars.json`) — 17 hand-curated gold hint sets
+3. **Calibration** (`authoring/hint_exemplars.json`) — 17 hand-curated gold hint sets
    spanning the pattern taxonomy (1D/2D/interval DP, stack, two-pointers, sliding
    window, grid DFS, topo-sort, tree DP, binary-search-on-answer, greedy, …). A few
    are baked into the prompts as few-shot; the whole set is the bench that
@@ -64,10 +64,10 @@ rounds. The first fully-clean set wins; otherwise the least-flagged set is retur
 
 | File | Role |
 |------|------|
-| `app/llm/hint_generator.py` | `generate_hints`, `leak_flags`, `judge_hints`, `generate_hints_verified` |
-| `app/llm/hint_prompt.txt` | generator prompt — tier defs, anti-leak block, few-shot |
-| `app/llm/hint_judge_prompt.txt` | critic prompt — the grading rubric |
-| `app/llm/hint_exemplars.json` | gold hint sets: few-shot source + calibration bench |
+| `authoring/hint_generator.py` | `generate_hints`, `leak_flags`, `judge_hints`, `generate_hints_verified` |
+| `authoring/hint_prompt.txt` | generator prompt — tier defs, anti-leak block, few-shot |
+| `authoring/hint_judge_prompt.txt` | critic prompt — the grading rubric |
+| `authoring/hint_exemplars.json` | gold hint sets: few-shot source + calibration bench |
 | `scripts/improve_hints.py` | batch driver: `audit` / `fix` / `calibrate` |
 | `scripts/generate_hints.py` | original one-shot bulk generator (no gate) — still used to seed hints on brand-new problems |
 
@@ -133,7 +133,7 @@ after each re-audit / re-fix.
 ## Recalibrating
 
 If the judge is mis-grading (too strict → churn and residual flags; too lax → leaks
-slip through), tune `app/llm/hint_judge_prompt.txt` and re-run `calibrate` until the
+slip through), tune `authoring/hint_judge_prompt.txt` and re-run `calibrate` until the
 gold sets grade `ok` and the seeded leaks are caught. Adjust the tier definitions and
-few-shot in `app/llm/hint_prompt.txt` to change what the generator produces. Add new
+few-shot in `authoring/hint_prompt.txt` to change what the generator produces. Add new
 patterns to `hint_exemplars.json` when a class of problem is under-served.

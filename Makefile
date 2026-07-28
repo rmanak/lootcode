@@ -55,7 +55,7 @@ lint-fix:       ## ruff check --fix
 format:         ## ruff format — OPT-IN, not part of `check`. See .pre-commit-config.yaml.
 	.venv/bin/ruff format .
 
-typecheck:      ## mypy over app/
+typecheck:      ## mypy over app/ + authoring/
 	.venv/bin/mypy
 
 audit:          ## statement <-> test <-> judge consistency over the bank

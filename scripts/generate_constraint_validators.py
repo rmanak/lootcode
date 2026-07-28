@@ -21,7 +21,7 @@ for auditing that our own test cases are in-bounds, and for input sanitisation.
 
 The LLM endpoint is any **OpenAI-client-compatible** server — the same local
 llama.cpp `llama-server` the rest of the repo talks to (see
-`app/llm/hint_generator.py`), or a real OpenAI endpoint (set `--base-url`,
+`authoring/hint_generator.py`), or a real OpenAI endpoint (set `--base-url`,
 `--model`, `--api-key`, or the `LLM_*` env vars).
 
 Prompting follows current best practice: a focused system persona; an explicit,
@@ -86,12 +86,12 @@ from app.config import settings  # noqa: E402
 
 # Reuse the repo's LLM connection defaults so this script points at the same
 # server as everything else unless overridden on the CLI / via env vars.
-from app.llm.hint_generator import (  # noqa: E402
+from app.llm.client import loads_loose  # noqa: E402
+from authoring.hint_generator import (  # noqa: E402
     LLM_API_KEY,
     LLM_MODEL,
     LLM_SERVER_URL,
     _client,
-    _loads_loose,
 )
 
 # The generated predicate is always given this name so callers (and the
@@ -340,7 +340,7 @@ def generate_validator(
     """Return ``(code, notes)`` for one problem's constraint validator.
 
     Tries progressively looser response formats so a bare-bones OpenAI-compatible
-    endpoint still works, mirroring ``app.llm.hint_generator``.
+    endpoint still works, mirroring ``authoring.hint_generator``.
     """
     client = _client(base_url, api_key)
     messages = build_messages(statement, params)
@@ -362,7 +362,7 @@ def generate_validator(
         try:
             resp = client.chat.completions.create(**kwargs)
             content = resp.choices[0].message.content or ""
-            data = _loads_loose(content)
+            data = loads_loose(content)
             if isinstance(data, dict) and "code" in data:
                 return _strip_code_fence(str(data["code"])), str(data.get("notes", ""))
             # Some models ignore the schema and just emit code — accept that too.

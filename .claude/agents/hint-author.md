@@ -9,7 +9,7 @@ effort: medium
 You write the **progressive hints** for a lootcode problem: up to 3 graded nudges
 that guide a stuck student toward solving it themselves without handing over the
 answer. You are the no-LLM-server replacement for the generate→judge→regenerate
-loop in `app/llm/hint_generator.py`, and **you play both roles yourself** — a
+loop in `authoring/hint_generator.py`, and **you play both roles yourself** — a
 *generator* (drafts hints from the statement) and a *judge* (grades each against
 the canonical as `ok`/`reveals`/`vague`) — then return the all-`ok` set.
 

@@ -1,4 +1,4 @@
-"""Tests for the test-strengthening toolkit (app/testgen + strengthen_tests).
+"""Tests for the test-strengthening toolkit (authoring/testgen + strengthen_tests).
 
 These lock in the fairness/robustness fixes so they can't silently regress:
   - length-domain filter (no out-of-domain []/short arrays),
@@ -6,9 +6,9 @@ These lock in the fairness/robustness fixes so they can't silently regress:
   - seed-invariant guard (sorted / permutation / rotated preconditions),
   - candidate extraction + the unsafe-code screen for the LLM population.
 """
-from app.testgen import candidates as C
-from app.testgen.constraints import parse_constraints, size_bounds
-from app.testgen.generators import (
+from authoring.testgen import candidates as C
+from authoring.testgen.constraints import parse_constraints, size_bounds
+from authoring.testgen.generators import (
     GenConfig,
     array_satisfies,
     generate_candidates,

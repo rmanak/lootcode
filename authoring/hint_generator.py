@@ -18,7 +18,7 @@ with loose parsing — so the function still works against a bare-bones endpoint
 
 Example
 -------
-    from app.llm.hint_generator import generate_hints
+    from authoring.hint_generator import generate_hints
 
     hints = generate_hints("Given an array of integers nums ... return indices ...")
     for i, h in enumerate(hints, 1):
@@ -30,7 +30,7 @@ import os
 import re
 from pathlib import Path
 
-from . import client as llm_client
+from app.llm import client as llm_client
 
 # --------------------------------------------------------------------------- #
 # LLM server location — EDIT THIS (or set the env vars) to point at your server.

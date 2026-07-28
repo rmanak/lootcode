@@ -334,8 +334,8 @@ def _has_rich_type(prob: dict) -> bool:
 
 
 def cmd_fuzz(args) -> int:
-    from app.testgen.constraints import parse_constraints
-    from app.testgen.generators import (
+    from authoring.testgen.constraints import parse_constraints
+    from authoring.testgen.generators import (
         GenConfig,
         generate_candidates,
         generate_class_candidates,
@@ -470,17 +470,17 @@ def _shrink_catcher(inp, canonical, cand_code, prob, compare, validator):
 
     if not keep(inp):
         return inp
-    from app.testgen.shrink import shrink
+    from authoring.testgen.shrink import shrink
     return shrink(inp, keep)
 
 
 def cmd_cover(args) -> int:
-    """Coverage-first hardening for one problem via the shared app.testgen engine
+    """Coverage-first hardening for one problem via the shared authoring.testgen engine
     (the same engine strengthen_tests.py drives in batch) — selects inputs that
     widen behavioral coverage, no adversary required."""
     from strengthen_tests import apply_cases, strengthen  # sibling; shares the engine
 
-    from app.testgen import GenConfig
+    from authoring.testgen import GenConfig
 
     by_slug = {p["slug"]: p for p in content.load_all_roots()}
     if args.slug not in by_slug:

@@ -130,7 +130,7 @@ docstring-code-format = true
 # ---------------------------------------------------------------------------
 [tool.mypy]
 python_version = "3.12"
-files = ["app"]
+files = ["app", "authoring"]
 ignore_missing_imports = true
 follow_imports = "silent"
 # Off for now — each is a separate, tractable cleanup. Turn on one per phase.
@@ -149,11 +149,11 @@ module = "app.executor.harness"
 ignore_errors = true
 
 [[tool.mypy.overrides]]
-# Offline authoring tooling, not runtime: 2.4k lines of deliberate `ast` and
-# `Any` juggling (21 errors, all of that flavour), and nothing in app/ imports
-# it. It moves out to a top-level authoring/ package in a later phase; annotate
-# it there, not here.
-module = "app.testgen.*"
+# The test-strengthening engine: 2.4k lines of deliberate `ast` and `Any`
+# juggling. Now that it lives in authoring/ it is at least *in* the type-check
+# run (`make typecheck` covers app/ and authoring/), which is how the rest of
+# the package stays honest; annotating this one is its own piece of work.
+module = "authoring.testgen.*"
 ignore_errors = true
 
 # ---------------------------------------------------------------------------
@@ -177,8 +177,6 @@ filterwarnings = [
 source = ["app"]
 omit = [
     "app/executor/harness.py",     # runs in the sandbox, not in-process
-    "app/testgen/*",               # offline authoring tooling (test_testgen covers it)
-    "app/llm/hint_generator.py",   # ditto — a batch CLI engine, no runtime importer
 ]
 
 [tool.coverage.report]

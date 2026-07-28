@@ -52,17 +52,17 @@ from app.executor import _equal, problem_view, run_submission  # noqa: E402
 from app.executor.harness import (  # noqa: E402
     _CODECS,
 )
-from app.testgen import (  # noqa: E402
+from authoring.testgen import (  # noqa: E402
     GenConfig,
     generate_candidates,
     generate_class_candidates,
     make_mutants,
     parse_constraints,
 )
-from app.testgen.coverage import CanonicalTracer  # noqa: E402
-from app.testgen.features import expression_params, input_features  # noqa: E402
-from app.testgen.mutate import Mutant  # noqa: E402
-from app.testgen.select import select_cases  # noqa: E402
+from authoring.testgen.coverage import CanonicalTracer  # noqa: E402
+from authoring.testgen.features import expression_params, input_features  # noqa: E402
+from authoring.testgen.mutate import Mutant  # noqa: E402
+from authoring.testgen.select import select_cases  # noqa: E402
 
 # Population of LLM candidate solutions (collected by scripts/collect_candidates.py).
 # A wrong candidate is a discriminator exactly like a mutant — the difference the
@@ -588,9 +588,9 @@ def strengthen(p: dict, cfg: GenConfig, cap: int, mut_cap: int,
         # 5. COVERAGE TOKENS per valid input — the backbone of selection. Each input
         #    is valued by how much *new behavior* it covers (solution-independent),
         #    NOT by whether some invented wrong solution fails on it. Two universes:
-        #      * structural input features (app/testgen/features.py)
+        #      * structural input features (authoring/testgen/features.py)
         #      * canonical execution regimes: line + joint value-signature + output
-        #        class (app/testgen/coverage.py)
+        #        class (authoring/testgen/coverage.py)
         #    Mutant/population kills are folded in below as one MORE universe of
         #    ('kill', i) tokens — add-only, never a gate. This is the fix to the old
         #    flaw where a genuinely-discriminating input was discarded merely because

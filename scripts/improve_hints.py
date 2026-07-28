@@ -6,7 +6,7 @@ while a minority are too vague. This tool adds the missing gate. It never invent
 answer of its own — the canonical solution is the only yardstick — and it leaves
 good hints untouched.
 
-Two roles, both played by the local Qwen model (see app/llm/hint_generator.py):
+Two roles, both played by the local Qwen model (see authoring/hint_generator.py):
   * generator  — writes hints from the statement only (no solution => no transcription)
   * judge      — grades each hint against the canonical solution as `ok` / `reveals`
                  / `vague`, and says which tiers to regenerate (thinking ON)
@@ -18,7 +18,7 @@ Subcommands
   fix        Regenerate the flagged hint sets via the verified loop and write them
              back to meta.json. DRY-RUN by default; pass --apply to write. Only
              problems that come out strictly better than before are overwritten.
-  calibrate  Sanity-check the judge against app/llm/hint_exemplars.json (gold sets
+  calibrate  Sanity-check the judge against authoring/hint_exemplars.json (gold sets
              must grade `ok`; known leaks must be caught). Validates the rubric.
   apply-report  Write the reviewed hints straight from a fix dry-run report
              (.hints/fix-dry.json) into meta.json — the exact sets you previewed,
@@ -62,7 +62,7 @@ from generate_hints import _meta_with_hints, _preflight, _write_hints  # noqa: E
 
 from app.config import settings  # noqa: E402
 from app.content import normalize_hints  # noqa: E402
-from app.llm.hint_generator import (  # noqa: E402
+from authoring.hint_generator import (  # noqa: E402
     LLM_SERVER_URL,
     generate_hints_verified,
     judge_hints,
@@ -71,7 +71,7 @@ from app.llm.hint_generator import (  # noqa: E402
 
 DEFAULT_MODEL = os.environ.get("LLM_MODEL") or "qwen36"
 REPORT_PATH = ROOT / ".hints" / "audit.json"
-EXEMPLARS_PATH = ROOT / "app" / "llm" / "hint_exemplars.json"
+EXEMPLARS_PATH = ROOT / "authoring" / "hint_exemplars.json"
 
 
 # --------------------------------------------------------------------------- #
@@ -744,7 +744,7 @@ def main() -> int:
     pf.set_defaults(func=cmd_fix)
 
     pc = sub.add_parser("calibrate", parents=[parent],
-                        help="check the judge against app/llm/hint_exemplars.json")
+                        help="check the judge against authoring/hint_exemplars.json")
     pc.set_defaults(func=cmd_calibrate)
 
     pw = sub.add_parser("apply-report", parents=[parent],

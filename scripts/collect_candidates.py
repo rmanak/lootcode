@@ -5,7 +5,7 @@ For every problem, ask the local qwen server for several independent solution
 attempts at varying temperature / reasoning. Some will be correct, some subtly
 wrong — the wrong ones are the realistic stand-in bugs the population-differential
 selector will turn into discriminating hidden tests (the canonical stays the sole
-oracle; see app/testgen/candidates.py for the trust argument).
+oracle; see authoring/testgen/candidates.py for the trust argument).
 
 This is the slow, network-bound half of the pipeline, so it is a standalone,
 **resumable, checkpointed** collector: one JSON per problem under
@@ -31,7 +31,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from app import content  # noqa: E402
-from app.testgen.candidates import (  # noqa: E402
+from authoring.testgen.candidates import (  # noqa: E402
     DEFAULT_CONFIGS,
     THINKING_CONFIGS,
     Candidate,
