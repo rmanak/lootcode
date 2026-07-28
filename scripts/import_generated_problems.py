@@ -23,7 +23,7 @@ broken slug:
 
   1. **Presence / slug** — each dir needs both JSON files, valid JSON, a non-empty
      ``title``, and a kebab-case slug.
-  2. **Structural** — ``scripts/test_llm_output.py`` (strict pydantic + AST):
+  2. **Structural** — ``app/problem_spec.py`` (strict pydantic + AST):
      kind-aware required fields, valid signatures, per-test ``input`` keys ==
      params / ``{operations, args}``, compare-mode shape, hints cap,
      JSON-serializable values. ``--strict`` promotes its warnings to failures.
@@ -78,10 +78,10 @@ sys.path.insert(0, str(ROOT / "scripts"))  # scripts/ is not a package
 
 # Reuse the project's existing, tested machinery — this script only orchestrates.
 import audit  # noqa: E402  - scripts/audit.py: behavioral + statement<->judge consistency
-import test_llm_output as tlo  # noqa: E402  - strict structural (pydantic + AST) validator
 import verify_json as vj  # noqa: E402  - run_submission wrapper w/ per-test failure detail
 
 from app import content, store  # noqa: E402
+from app import problem_spec as tlo  # noqa: E402 - strict structural (pydantic + AST)
 from app.config import settings  # noqa: E402
 from app.db import SessionLocal, init_db  # noqa: E402
 from app.executor import run_submission  # noqa: E402
@@ -255,7 +255,7 @@ def check_slug(src_dir: Path, out_slugs: set[str], foreign: dict[str, str],
         c.reason = "generated_full_problem.json is not a JSON object"
         return c
 
-    # 4) STRUCTURAL — strict core-contract validation (test_llm_output.py) ----
+    # 4) STRUCTURAL — strict core-contract validation (app/problem_spec.py) ----
     #    Kind-aware and hints-aware (hints are a first-class field there).
     rep = tlo.validate(gen, strict=strict)
     if rep.errors:
@@ -266,7 +266,7 @@ def check_slug(src_dir: Path, out_slugs: set[str], foreign: dict[str, str],
         c.reason = "structural (strict): " + rep.warnings[0]
         c.detail = [f"WARN: {w}" for w in rep.warnings[1:]]
         return c
-    # Keep test_llm_output's warnings except its blanket "not canonical" tag note:
+    # Keep problem_spec's warnings except its blanket "not canonical" tag note:
     # it fires even for aliases that fold cleanly. We replace it below with the
     # precise "won't fold" signal from unknown_tags.
     c.warnings.extend(w for w in rep.warnings if not w.lstrip().lower().startswith("tags:"))

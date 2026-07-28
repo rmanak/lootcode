@@ -11,7 +11,7 @@ more costly steps for a given field):
 
   * **SLUG** — lowercase kebab-case, and (for a new problem) not already taken, so
     authoring/generation can never silently overwrite an existing problem.
-  * **STRUCTURAL** — reuses ``scripts/test_llm_output.py`` (strict pydantic + static
+  * **STRUCTURAL** — reuses ``app/problem_spec.py`` (strict pydantic + static
     ``ast``): valid identifiers, canonical/starter parse and define the declared
     function with exactly the declared params, each test's ``input`` keys equal the
     param names, ``expected`` shape matches the compare mode, enough/unique tests,
@@ -36,14 +36,17 @@ check here is pure string work.
 from __future__ import annotations
 
 import re
-import sys
 from dataclasses import dataclass, field
 from math import log
-from pathlib import Path
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+# The structural validator (pydantic + static AST). It NEVER executes code, which
+# is what makes it safe to run in the web process, and it is the exact gate
+# scripts/import_generated_problems.py uses — so structural rules stay defined in
+# one place.
+from . import problem_spec as _tlo
 from .config import settings
 from .executor import run_submission
 from .models import Problem
@@ -54,15 +57,6 @@ from .tags import (
     normalize_tags,
     unknown_tags,
 )
-
-# Reuse the project's standalone structural validator (pydantic + static AST). It
-# NEVER executes code, imports nothing from ``app``, and is the exact gate
-# scripts/import_generated_problems.py uses — so structural rules stay defined in
-# one place.
-_SCRIPTS = Path(__file__).resolve().parent.parent / "scripts"
-if str(_SCRIPTS) not in sys.path:
-    sys.path.insert(0, str(_SCRIPTS))
-import test_llm_output as _tlo  # noqa: E402
 
 COMPARE_MODES = ("exact", "unordered", "set_of_lists")
 
@@ -354,7 +348,7 @@ def suggest_slug(slug: str, existing: set[str]) -> str:
 # ---------------------------------------------------------------------------
 def _core_contract(data: dict) -> dict:
     """Adapt the internal problem dict into the "core contract" shape
-    ``test_llm_output.validate`` expects (``tags`` not ``topics``; no slug/title/
+    ``problem_spec.validate`` expects (``tags`` not ``topics``; no slug/title/
     statement). Fills weight/hidden/name defaults so the structural gate doesn't
     reject a hand-authored test merely for omitting an optional field."""
     tests = []

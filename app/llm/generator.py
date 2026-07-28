@@ -25,6 +25,7 @@ from collections.abc import Callable
 from ..config import BASE_DIR, settings
 from ..executor import run_submission
 from . import client as llm_client
+from . import fill_in
 
 # Authoring guidelines live in specs/ as the single source of truth. The block
 # between the AI-GUIDELINES markers is injected into the system prompt at
@@ -406,26 +407,11 @@ def generate_problem(brief: str, difficulty: str | None = None,
 # Step 1 (optional): idea -> problem STATEMENT (generate_statement).
 # Step 2: STATEMENT -> full problem (generate_from_statement), reusing the exact
 #   prompt + per-kind schema + verify/retry the CLI Mode-A driver uses
-#   (scripts/generate_problem_from_statement.py), so the in-app and command-line
+#   (app/llm/fill_in.py, driven by scripts/generate_problem_from_statement.py),
+#   so the in-app and command-line
 #   paths stay one process. suggest_title_slug names a statement for the
 #   duplicate check that sits between the two steps.
 # ---------------------------------------------------------------------------
-import sys as _sys  # noqa: E402
-
-
-def _scripts_module(name: str):
-    """Import a helper module from ``scripts/`` (the CLI generation machinery).
-
-    The web process already reuses ``scripts/test_llm_output.py`` and
-    ``scripts/verify_json.py`` this way (see app/problem_validation.py); doing the
-    same here keeps the statement->problem contract defined in exactly one place.
-    """
-    scripts_dir = BASE_DIR / "scripts"
-    if str(scripts_dir) not in _sys.path:
-        _sys.path.insert(0, str(scripts_dir))
-    return __import__(name)
-
-
 def generate_statement(idea: str, difficulty: str | None = None,
                        on_progress: Progress = None) -> str:
     """Write a self-contained problem STATEMENT (Markdown) from a short idea/topic.
@@ -523,9 +509,9 @@ def generate_from_statement(statement: str, *, title: str = "", slug: str = "",
                             max_retries: int = 1) -> dict:
     """Generate one verified problem draft FROM a fixed statement (Mode A).
 
-    This delegates the whole fill-in to the CLI driver's
-    :func:`scripts.generate_problem_from_statement.generate` — the *same function*
-    the command line runs — so the in-app and CLI paths are byte-for-byte the same
+    This delegates the whole fill-in to :func:`app.llm.fill_in.generate` — the
+    *same function* ``scripts/generate_problem_from_statement.py`` runs — so the
+    in-app and CLI paths are byte-for-byte the same
     generation: the same prompt template (``app/llm/problem_prompt.txt``), the same
     cheap kind classifier, the same per-kind **tight typed schema**
     (``problem_schema(kind)`` — which requires the contract fields and includes
@@ -545,16 +531,14 @@ def generate_from_statement(statement: str, *, title: str = "", slug: str = "",
     if not statement:
         raise ValueError("A problem statement is required.")
 
-    gpfs = _scripts_module("generate_problem_from_statement")
-
     _emit(on_progress, "Filling in the full problem from the statement…")
     # The exact CLI entry point: auto-classify kind → tight per-kind schema →
     # schema-constrained completion → static + behavioral verify with one retry.
-    # gpfs.generate raises SystemExit on an endpoint/transport failure (fine for a
+    # fill_in.generate raises SystemExit on an endpoint/transport failure (fine for a
     # CLI); convert it to a normal exception so the web worker's `except Exception`
     # surfaces it instead of the SSE stream ending silently.
     try:
-        res = gpfs.generate(
+        res = fill_in.generate(
             statement,
             base_url=settings.LLM_HELP_URL,
             model=settings.LLM_HELP_MODEL,
@@ -580,9 +564,8 @@ def generate_from_statement(statement: str, *, title: str = "", slug: str = "",
 
     # Final behavioral grade (both kinds) for the review banner — same judge path.
     _emit(on_progress, "Finalizing…")
-    vj = _scripts_module("verify_json")
     try:
-        graded = vj.grade(data)
+        graded = _validate(data)
         data["_validation"] = {
             "solved": graded.solved, "passed": graded.passed_count,
             "total": graded.total_count, "dropped": [],
