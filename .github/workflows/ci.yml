@@ -49,7 +49,8 @@ jobs:
         run: mypy
 
       - name: Tests
-        run: pytest
+        # --cov enforces the fail_under floor in pyproject.toml.
+        run: pytest --cov --cov-report=term-missing
 
       # Everything below runs against content/problems/ only. The extended root
       # (content/problems-extended/, 435 problems) is gitignored by design, so

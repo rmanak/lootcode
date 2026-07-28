@@ -173,11 +173,18 @@ filterwarnings = [
 [tool.coverage.run]
 source = ["app"]
 omit = [
-    "app/executor/harness.py",  # runs in the sandbox, not in-process
-    "app/testgen/*",            # offline authoring tooling, covered by test_testgen
+    "app/executor/harness.py",     # runs in the sandbox, not in-process
+    "app/testgen/*",               # offline authoring tooling (test_testgen covers it)
+    "app/llm/hint_generator.py",   # ditto — a batch CLI engine, no runtime importer
 ]
 
 [tool.coverage.report]
+# The floor, not the goal. Raise it whenever a phase lands and the number goes
+# up — never lower it to make a red build green.
+#   before the test foundation: 55%
+#   after  the test foundation: 77%
+fail_under = 74
+skip_covered = true
 exclude_also = [
     "if TYPE_CHECKING:",
     "raise NotImplementedError",
