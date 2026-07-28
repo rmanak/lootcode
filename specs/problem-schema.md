@@ -262,8 +262,9 @@ are injected for design problems (param-only):
 | `Iterator` (or `Iterator<int>`) | `Iterator` with `next()`/`hasNext()` | a flat JSON array | `peeking-iterator` |
 | `List<NestedInteger>` (or `NestedInteger[]`) | list of `NestedInteger` (`isInteger()`/`getInteger()`/`getList()`) | a nested JSON list | `flatten-nested-list-iterator` |
 
-Codecs and helper classes live in `app/executor/harness.py` (`_CODECS`); their
-displayed definitions live in `app/routers/pages.py` (`PROVIDED_TYPE_DEFS`).
+Codecs and helper classes live in `app/executor/harness.py` (`_CODECS`); the
+definitions shown to solvers are rendered from those same classes by
+`app/provided_types.py` (`PROVIDED_TYPE_DEFS`).
 
 **Not yet supported** (grade by exact outputs only, so avoid or defer these):
 problems whose answer is non-deterministic (`getRandom`, `shuffle`) or graded by

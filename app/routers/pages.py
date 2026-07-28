@@ -19,74 +19,10 @@ from ..config import settings
 from ..db import get_db
 from ..models import Collection, Problem, Submission, User
 from ..pagination import page_window
+from ..provided_types import provided_types
 from ..templating import templates
 
 router = APIRouter()
-
-# Read-only helper definitions surfaced next to the function signature when a
-# problem declares a rich input/return type, so solvers know the object shape.
-# The harness injects the real class (see app/executor/harness.py); this is just
-# the documentation shown in the UI. Keep the shape in sync with that class.
-PROVIDED_TYPE_DEFS = {
-    "TreeNode": (
-        "class TreeNode:  # binary tree node — provided, do not redefine\n"
-        "    def __init__(self, value=None, left=None, right=None):\n"
-        "        self.value = value\n"
-        "        self.left = left\n"
-        "        self.right = right"
-    ),
-    "ListNode": (
-        "class ListNode:  # singly-linked list node — provided, do not redefine\n"
-        "    def __init__(self, val=0, next=None):\n"
-        "        self.val = val\n"
-        "        self.next = next"
-    ),
-    "DoublyLinkedList": (
-        "class Node:  # doubly-linked list node — provided, do not redefine\n"
-        "    def __init__(self, val=0, prev=None, next=None):\n"
-        "        self.val = val\n"
-        "        self.prev = prev\n"
-        "        self.next = next"
-    ),
-    # Helper types the harness injects for class-based ("design") problems whose
-    # constructor/method takes one (see app/executor/harness.py).
-    "Iterator": (
-        "class Iterator:  # provided, do not redefine\n"
-        "    def hasNext(self) -> bool: ...  # another element remains?\n"
-        "    def next(self) -> int: ...      # return the next element, advance"
-    ),
-    "NestedInteger": (
-        "class NestedInteger:  # provided, do not redefine\n"
-        "    def isInteger(self) -> bool: ...  # holds a single integer?\n"
-        "    def getInteger(self) -> int: ...  # the integer (else None)\n"
-        "    def getList(self) -> list: ...     # the nested list (else None)"
-    ),
-}
-# Type-label aliases that map onto the same provided-type definition.
-PROVIDED_TYPE_DEFS["Iterator<int>"] = PROVIDED_TYPE_DEFS["Iterator"]
-for _alias in ("List<NestedInteger>", "NestedInteger[]"):
-    PROVIDED_TYPE_DEFS[_alias] = PROVIDED_TYPE_DEFS["NestedInteger"]
-
-
-def _provided_types(prob) -> dict:
-    """Ordered map of declared custom type -> its definition snippet, for the
-    rich/helper types this problem actually uses. Covers a function's params and
-    return, and (for a class problem) the constructor params plus every method's
-    params and return."""
-    used: list[str] = [(p.get("type") or "") for p in (prob.params or [])]
-    used.append(getattr(prob, "return_type", "") or "")
-    for m in (getattr(prob, "class_methods", None) or []):
-        used.extend((p.get("type") or "") for p in (m.get("params") or []))
-        used.append((m.get("returns") or {}).get("type") or "")
-    # De-dup by definition (aliases share one), preserving first-seen order.
-    out: dict = {}
-    seen: set = set()
-    for t in used:
-        defn = PROVIDED_TYPE_DEFS.get(t)
-        if defn and defn not in seen:
-            out[t] = defn
-            seen.add(defn)
-    return out
 
 
 @router.get("/favicon.ico", include_in_schema=False)
@@ -405,7 +341,7 @@ def problem_detail(slug: str, request: Request, submission: str | None = None,
         "user_name": request.state.user_name,
         "initial_code": initial_code, "loaded_submission": loaded_submission,
         "problem_submissions": problem_submissions,
-        "provided_types": _provided_types(prob),
+        "provided_types": provided_types(prob),
         # Enables the "Get More Help with AI" button — set by the startup probe.
         "ai_help_enabled": settings.llm_help_available,
     })

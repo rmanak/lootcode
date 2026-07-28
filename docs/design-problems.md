@@ -39,7 +39,7 @@ sandbox seam differs:
 
 Beyond `TreeNode`/`ListNode`, two param-only helper types are injected for design
 problems (defined in `app/executor/harness.py`, displayed via
-`app/routers/pages.py::PROVIDED_TYPE_DEFS`):
+`app/provided_types.py::PROVIDED_TYPE_DEFS`):
 
 - `Iterator` / `Iterator<int>` — wraps a flat JSON array; exposes
   `hasNext()`/`next()`. (`peeking-iterator`)
@@ -47,8 +47,10 @@ problems (defined in `app/executor/harness.py`, displayed via
   of `NestedInteger` (`isInteger()`/`getInteger()`/`getList()`).
   (`flatten-nested-list-iterator`)
 
-Adding another helper type = one `_CODECS` entry + one `PROVIDED_TYPE_DEFS` entry
-(+ an `executor-security-reviewer` pass on the harness change).
+Adding another helper type = one `_CODECS` entry + one `app/provided_types.py`
+spec (the displayed snippet is rendered from the harness class, so only the
+prose and the return annotations are written by hand) + an
+`executor-security-reviewer` pass on the harness change.
 
 ## Authoring one
 
