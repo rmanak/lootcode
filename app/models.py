@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from sqlalchemy import (
     JSON,
@@ -50,7 +50,7 @@ def _uuid() -> str:
 
 
 def _now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 class User(Base):
@@ -72,7 +72,7 @@ class User(Base):
     claimed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     last_login_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
 
-    submissions: Mapped[list["Submission"]] = relationship(back_populates="user")
+    submissions: Mapped[list[Submission]] = relationship(back_populates="user")
 
     @property
     def is_account(self) -> bool:
@@ -127,7 +127,7 @@ class Problem(Base):
     is_published: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
 
-    tests: Mapped[list["TestCase"]] = relationship(
+    tests: Mapped[list[TestCase]] = relationship(
         back_populates="problem", cascade="all, delete-orphan", order_by="TestCase.id"
     )
 
@@ -148,7 +148,7 @@ class Collection(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
 
     # Ordered by the curated study position, not problem id.
-    items: Mapped[list["CollectionProblem"]] = relationship(
+    items: Mapped[list[CollectionProblem]] = relationship(
         back_populates="collection", cascade="all, delete-orphan",
         order_by="CollectionProblem.position",
     )
@@ -203,7 +203,7 @@ class Submission(Base):
 
     user: Mapped[User] = relationship(back_populates="submissions")
     problem: Mapped[Problem] = relationship()
-    results: Mapped[list["TestResult"]] = relationship(
+    results: Mapped[list[TestResult]] = relationship(
         back_populates="submission", cascade="all, delete-orphan"
     )
 

@@ -16,8 +16,8 @@ only ever help an input get picked, never veto one.
 """
 from __future__ import annotations
 
+from collections.abc import Hashable
 from dataclasses import dataclass, field
-from typing import Hashable
 
 
 @dataclass

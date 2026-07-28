@@ -100,8 +100,8 @@ def _client(base_url: str, api_key: str):
     and a premature cut-off would surface as a transient error that just re-queues
     the slug on the next resume. Connect stays short so a *down* server fails fast.
     """
-    from openai import OpenAI
     from httpx import Timeout
+    from openai import OpenAI
 
     base = base_url.rstrip("/")
     if not base.endswith("/v1"):
@@ -251,8 +251,8 @@ def generate_hints(
 
     last_err: Exception | None = None
     for rf in response_formats:
-        kwargs = dict(model=model, messages=messages, temperature=temperature,
-                      extra_body=extra_body)
+        kwargs = {"model": model, "messages": messages, "temperature": temperature,
+                      "extra_body": extra_body}
         if rf is not None:
             kwargs["response_format"] = rf
         try:
@@ -279,9 +279,11 @@ def generate_hints(
 # false positives are rare; the LLM judge catches the subtler cases these miss.
 _LEAK_PATTERNS: list[tuple[re.Pattern, str]] = [
     (re.compile(r"\bdp\s*[\[\(]"), "contains a literal dp[...] state expression"),
-    (re.compile(r"[A-Za-z_]\w*\s*\[[^\]]+\]\s*="), "writes an indexed-array assignment (pseudocode)"),
+    (re.compile(r"[A-Za-z_]\w*\s*\[[^\]]+\]\s*="),
+     "writes an indexed-array assignment (pseudocode)"),
     (re.compile(r"=\s*(?:min|max)\s*\("), "states a min/max transition formula"),
-    (re.compile(r"[A-Za-z_]\w*\s*\[[^\]]+\]\s*[+\-*]\s*[A-Za-z_]\w*\s*\["), "spells out an index-arithmetic formula"),
+    (re.compile(r"[A-Za-z_]\w*\s*\[[^\]]+\]\s*[+\-*]\s*[A-Za-z_]\w*\s*\["),
+     "spells out an index-arithmetic formula"),
     (re.compile(r"```"), "contains a code fence"),
     (re.compile(r"\bstep\s*\d\b", re.I), "gives an enumerated step-by-step recipe"),
 ]
@@ -429,8 +431,8 @@ def judge_hints(
 
     last_err: Exception | None = None
     for rf in response_formats:
-        kwargs = dict(model=model, messages=messages, temperature=temperature,
-                      extra_body=extra_body)
+        kwargs = {"model": model, "messages": messages, "temperature": temperature,
+                      "extra_body": extra_body}
         if rf is not None:
             kwargs["response_format"] = rf
         try:
@@ -466,7 +468,8 @@ def _feedback_from(flags: dict[int, str], verdicts: list[dict]) -> str:
         "reveals": ("rewrite it to point at the insight WITHOUT the mechanics — say what the "
                     "state/array represents and its base or edge cases, but never how one state "
                     "is computed from others, and no formula, code, or step list"),
-        "vague": "make it concrete and specific to this problem — name the actual handle, not generic advice",
+        "vague": ("make it concrete and specific to this problem — name the actual "
+                  "handle, not generic advice"),
     }
     lines: list[str] = []
     for tier in sorted(by_tier):

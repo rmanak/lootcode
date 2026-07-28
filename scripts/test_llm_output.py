@@ -88,7 +88,7 @@ except ImportError:  # pragma: no cover - environment problem, not LLM problem
         "This validator needs pydantic v2. Install it with:\n"
         "    pip install 'pydantic>=2'\n"
     )
-    raise SystemExit(2)
+    raise SystemExit(2) from None
 
 
 # ---------------------------------------------------------------------------
@@ -242,7 +242,7 @@ class ProblemOutput(BaseModel):
         return v
 
     @model_validator(mode="after")
-    def _require_kind_fields(self) -> "ProblemOutput":
+    def _require_kind_fields(self) -> ProblemOutput:
         if self.kind == "function":
             if not self.function_name:
                 raise ValueError("function_name is required for kind='function'")
@@ -402,7 +402,7 @@ def _method_positional_params(fn: ast.FunctionDef) -> list[str]:
 
 def _check_python_class(
     label: str, source: str, class_name: str, ctor_params: list[str],
-    methods: list["Method"], rep: Report,
+    methods: list[Method], rep: Report,
 ) -> None:
     """Validate that ``source`` parses and defines ``class_name`` with an
     ``__init__`` matching the declared constructor params and every declared
@@ -723,7 +723,7 @@ def load_json_object(path: Path) -> dict:
             "       The LLM likely wrapped the JSON in prose or ``` fences, or "
             "truncated it. The output must be a single bare JSON object.\n"
         )
-        raise SystemExit(2)
+        raise SystemExit(2) from exc
     if not isinstance(data, dict):
         sys.stderr.write(
             f"ERROR: top-level JSON value is a {type(data).__name__}, expected an "

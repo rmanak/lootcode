@@ -24,7 +24,7 @@ from threading import Lock
 # Plenty for an interactive review queue; oldest drafts evict past this.
 _MAX_DRAFTS = 64
 
-_store: "OrderedDict[str, dict]" = OrderedDict()
+_store: OrderedDict[str, dict] = OrderedDict()
 _lock = Lock()
 
 

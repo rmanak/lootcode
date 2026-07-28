@@ -5,8 +5,6 @@ These run the real subprocess sandbox, so they only pass on POSIX.
 from pathlib import Path
 from types import SimpleNamespace as NS
 
-import pytest
-
 from app.content import load_problem_dir
 from app.executor import run_submission
 

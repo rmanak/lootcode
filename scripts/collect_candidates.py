@@ -32,7 +32,11 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from app import content  # noqa: E402
 from app.testgen.candidates import (  # noqa: E402
-    DEFAULT_CONFIGS, THINKING_CONFIGS, Candidate, client, generate_candidate,
+    DEFAULT_CONFIGS,
+    THINKING_CONFIGS,
+    Candidate,
+    client,
+    generate_candidate,
 )
 
 CACHE_DIR = pathlib.Path(__file__).resolve().parent.parent / "testgen_cache" / "candidates"

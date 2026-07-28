@@ -35,7 +35,6 @@ import re
 import signal
 import sys
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from types import SimpleNamespace
 
@@ -45,12 +44,13 @@ sys.path.insert(0, str(_SCRIPTS_DIR))  # so the sibling generator imports
 
 from app import content  # noqa: E402
 from app.config import settings  # noqa: E402
-from app.executor import run_submission, _equal, problem_view  # noqa: E402
+from app.executor import _equal, problem_view, run_submission  # noqa: E402
+
 # Reuse the harness's own rich-type codecs (the exact same array<->object mapping
 # the real judge uses) so TreeNode/ListNode problems can grade on the fast
 # in-process path instead of the ~100× slower sandbox path. Side-effect-free.
 from app.executor.harness import (  # noqa: E402
-    _CODECS, TreeNode, _tree_decode, _tree_encode,
+    _CODECS,
 )
 from app.testgen import (  # noqa: E402
     GenConfig,
@@ -59,10 +59,10 @@ from app.testgen import (  # noqa: E402
     make_mutants,
     parse_constraints,
 )
+from app.testgen.coverage import CanonicalTracer  # noqa: E402
+from app.testgen.features import expression_params, input_features  # noqa: E402
 from app.testgen.mutate import Mutant  # noqa: E402
 from app.testgen.select import select_cases  # noqa: E402
-from app.testgen.coverage import CanonicalTracer  # noqa: E402
-from app.testgen.features import input_features, expression_params  # noqa: E402
 
 # Population of LLM candidate solutions (collected by scripts/collect_candidates.py).
 # A wrong candidate is a discriminator exactly like a mutant — the difference the
@@ -128,7 +128,9 @@ def _load_input_validator(slug: str, params: list[dict]):
             try:
                 if bool(fn(**tf(inp))):
                     return True
-            except Exception:
+            # A transform the validator rejects tells us nothing; try the next
+            # one. Logging every raise here would drown a whole-bank run.
+            except Exception:  # noqa: S112
                 continue
         return False
 
@@ -295,9 +297,11 @@ def _run_forked(fn, timeout_s: float):
 
     try:
         with open(path, "rb") as f:
-            kind, val = pickle.load(f)
-    except (EOFError, OSError, pickle.UnpicklingError):
-        raise RuntimeError("in-process grader died")
+            # Written moments ago by our own forked child, to a private temp
+            # path. Never touches anything a submitter can reach.
+            kind, val = pickle.load(f)  # noqa: S301
+    except (EOFError, OSError, pickle.UnpicklingError) as exc:
+        raise RuntimeError("in-process grader died") from exc
     finally:
         try:
             os.unlink(path)
@@ -742,11 +746,10 @@ def strengthen(p: dict, cfg: GenConfig, cap: int, mut_cap: int,
                 rs2 = _grade(canonical, prob, pick_inputs)
                 rs3 = _grade(canonical, prob, pick_inputs)
                 for i, (a, b, c) in enumerate(zip(rs, rs2, rs3)):
-                    if any(x is None or x.status not in ("passed", "wrong")
-                           for x in (a, b, c)):
-                        stable[i] = False
-                    elif not (_equal(a.returned, b.returned, compare)
-                              and _equal(a.returned, c.returned, compare)):
+                    graded = all(x is not None and x.status in ("passed", "wrong")
+                                 for x in (a, b, c))
+                    if not graded or not (_equal(a.returned, b.returned, compare)
+                                          and _equal(a.returned, c.returned, compare)):
                         stable[i] = False
             existing_names = {t["name"] for t in p.get("tests", [])}
             n = 1

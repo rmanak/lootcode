@@ -234,8 +234,8 @@ def _extract_text(resp) -> str:
 
 def _anthropic_json(system: str, user: str, schema: dict, max_tokens: int) -> dict:
     client = _anthropic_client()
-    common = dict(model=settings.ANTHROPIC_MODEL, max_tokens=max_tokens,
-                  system=system, messages=[{"role": "user", "content": user}])
+    common = {"model": settings.ANTHROPIC_MODEL, "max_tokens": max_tokens,
+                  "system": system, "messages": [{"role": "user", "content": user}]}
     try:
         resp = client.messages.create(
             output_config={"format": {"type": "json_schema", "schema": schema}},
@@ -276,8 +276,8 @@ def _openai_json(system: str, user: str, schema: dict, max_tokens: int) -> dict:
     ]
     last_err: Exception | None = None
     for rf in response_formats:
-        kwargs = dict(model=settings.LLM_HELP_MODEL, messages=messages,
-                      max_tokens=max_tokens, temperature=0.3, extra_body=extra_body)
+        kwargs = {"model": settings.LLM_HELP_MODEL, "messages": messages,
+                      "max_tokens": max_tokens, "temperature": 0.3, "extra_body": extra_body}
         if rf is not None:
             kwargs["response_format"] = rf
         try:

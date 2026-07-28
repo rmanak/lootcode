@@ -1,0 +1,30 @@
+# Upper bounds for the runtime dependencies in requirements.txt.
+#
+# requirements.txt declares only `>=` floors, so a fresh `pip install` a year
+# from now can pull a FastAPI or SQLAlchemy major that breaks the app. These are
+# the versions this app is known to run on (captured from the working .venv on
+# 2026-07-28), pinned below the *next* major/minor that could break API compat.
+#
+# Use with:   pip install -r requirements.txt -c constraints.txt
+# (the Dockerfile and CI both do). Bump deliberately, then re-run `make check`.
+#
+# This is not a lockfile: it constrains the direct deps only, and deliberately
+# leaves room for patch and minor upgrades within a known-compatible range.
+
+fastapi>=0.139,<0.140
+uvicorn>=0.51,<0.52
+jinja2>=3.1,<4
+sqlalchemy>=2.0,<2.1
+python-multipart>=0.0.32,<0.1
+markdown>=3.10,<4
+python-dotenv>=1.2,<2
+
+# Optional (AI problem generation / hints). Both move fast, so the ceiling is
+# the next major only.
+anthropic>=0.116,<1
+openai>=2.45,<3
+
+# Transitive, but pinned because a starlette major is what actually breaks
+# FastAPI apps, and pydantic v3 would break every model in app/.
+starlette>=1.3,<2
+pydantic>=2.13,<3

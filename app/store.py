@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from sqlalchemy import select, update
 from sqlalchemy.exc import IntegrityError
@@ -26,7 +26,7 @@ log = logging.getLogger(__name__)
 
 
 def _now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 _PROBLEM_FIELDS = (
     "title", "difficulty", "topics", "hints", "statement_md", "function_name",
@@ -84,7 +84,10 @@ def seed_collections(db: Session) -> tuple[int, list[str]]:
 
     Seeds problems first (`seed_from_content`) since membership needs problem ids.
     """
-    problem_ids = {
+    # noqa C416: ruff wants `dict(...)` here, but SQLAlchemy hands back `Row`
+    # objects, and dict() over Rows is what mypy (correctly) rejects. Unpacking
+    # in the comprehension is what makes the (str, int) pair types visible.
+    problem_ids: dict[str, int] = {  # noqa: C416
         slug: pid for slug, pid in db.execute(select(Problem.slug, Problem.id)).all()
     }
     unresolved: list[str] = []
@@ -218,9 +221,9 @@ def create_account(db: Session, user_id: str, username: str, password: str,
         user.name = username
     try:
         db.commit()
-    except IntegrityError:  # lost a uniqueness race between the check and commit
+    except IntegrityError as exc:  # lost a uniqueness race between check and commit
         db.rollback()
-        raise ValueError("That username or email is already in use.")
+        raise ValueError("That username or email is already in use.") from exc
     db.refresh(user)
     return user
 
@@ -260,11 +263,11 @@ def merge_user(db: Session, from_id: str, into_id: str) -> None:
             mark.user_id = into_id
     # Same for the guest's "visit later" bookmarks.
     account_later = user_visit_later_problem_ids(db, into_id)
-    for mark in db.scalars(select(VisitLaterProblem).where(
+    for later in db.scalars(select(VisitLaterProblem).where(
             VisitLaterProblem.user_id == from_id)):
-        if mark.problem_id in account_later:
-            db.delete(mark)
+        if later.problem_id in account_later:
+            db.delete(later)
         else:
-            mark.user_id = into_id
+            later.user_id = into_id
     db.delete(guest)
     db.commit()

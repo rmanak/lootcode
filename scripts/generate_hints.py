@@ -39,7 +39,11 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from app.config import settings  # noqa: E402
 from app.content import MAX_HINTS, normalize_hints  # noqa: E402
-from app.llm.hint_generator import LLM_MODEL, LLM_SERVER_URL, generate_hints  # noqa: E402
+from app.llm.hint_generator import (  # noqa: E402
+    LLM_MODEL,
+    LLM_SERVER_URL,
+    generate_hints,
+)
 
 
 def _iter_problem_dirs(content_dir: pathlib.Path):
@@ -80,7 +84,8 @@ def _preflight(base_url: str) -> bool:
     """Cheap reachability check so we fail fast instead of 700x when the server is down."""
     url = f"{base_url.rstrip('/')}/v1/models"
     try:
-        with urllib.request.urlopen(url, timeout=5) as resp:
+        # `url` is the operator's own --base-url, not user input.
+        with urllib.request.urlopen(url, timeout=5) as resp:  # noqa: S310
             return resp.status == 200
     except (urllib.error.URLError, OSError):
         return False

@@ -329,10 +329,10 @@ def _loads_loose(text: str) -> dict:
 def _client(base_url: str, api_key: str):
     try:
         from openai import OpenAI
-    except ImportError:
+    except ImportError as exc:
         raise SystemExit(
             "ERROR: the 'openai' package is required. Install it with:\n"
-            "    pip install openai")
+            "    pip install openai") from exc
     base = base_url.rstrip("/")
     if not base.endswith("/v1"):
         base = f"{base}/v1"
@@ -387,7 +387,7 @@ def classify_kind(statement: str, *, client, model: str) -> str:
 def generate(statement: str, *, base_url: str, model: str, api_key: str,
              temperature: float | None, max_tokens: int, reasoning: str,
              kind: str = "auto", verify: bool = True, max_retries: int = 1,
-             strict: bool = False) -> "GenResult":
+             strict: bool = False) -> GenResult:
     """Generate a problem object, optionally verifying it and retrying on failure.
 
     ``kind`` is "auto" (default), "function", or "class". In ``auto`` the kind is
@@ -488,7 +488,7 @@ def _complete(client, messages: list, schema: dict, *, model: str,
     ]
     last_err: Exception | None = None
     for rf in response_formats:
-        kwargs = dict(model=model, messages=messages, max_tokens=max_tokens)
+        kwargs = {"model": model, "messages": messages, "max_tokens": max_tokens}
         # Omit temperature entirely unless the caller set it, so the server's own
         # default governs sampling (don't silently impose one here).
         if temperature is not None:
@@ -778,10 +778,10 @@ def main(argv: list[str] | None = None) -> int:
 
     warn_if_tags_drifted()
 
-    gen_kwargs = dict(base_url=args.base_url, model=args.model, api_key=args.api_key,
-                      temperature=args.temperature, max_tokens=args.max_tokens,
-                      reasoning=args.reasoning, kind=args.kind, verify=verify,
-                      max_retries=args.max_retries, strict=args.strict)
+    gen_kwargs = {"base_url": args.base_url, "model": args.model, "api_key": args.api_key,
+                      "temperature": args.temperature, "max_tokens": args.max_tokens,
+                      "reasoning": args.reasoning, "kind": args.kind, "verify": verify,
+                      "max_retries": args.max_retries, "strict": args.strict}
 
     # Folder mode: PATH is a directory of <slug>/problem.md problem folders.
     if path.is_dir():

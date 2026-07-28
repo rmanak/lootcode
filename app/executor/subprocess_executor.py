@@ -11,6 +11,7 @@ instance and is the zero-dependency default.
 """
 from __future__ import annotations
 
+import contextlib
 import json
 import os
 import shutil
@@ -26,7 +27,7 @@ HARNESS = os.path.join(os.path.dirname(__file__), "harness.py")
 try:
     import resource  # POSIX only
 except ImportError:  # pragma: no cover - Windows fallback
-    resource = None
+    resource = None  # type: ignore[assignment]  # every use is guarded by `is None`
 
 
 def _preexec(mem_bytes: int, cpu_seconds: int, fsize_bytes: int):
@@ -38,10 +39,9 @@ def _preexec(mem_bytes: int, cpu_seconds: int, fsize_bytes: int):
         resource.setrlimit(resource.RLIMIT_AS, (mem_bytes, mem_bytes))
         resource.setrlimit(resource.RLIMIT_CPU, (cpu_seconds, cpu_seconds))
         resource.setrlimit(resource.RLIMIT_FSIZE, (fsize_bytes, fsize_bytes))
-        try:
+        # Not every platform/user can set NPROC; the other limits still apply.
+        with contextlib.suppress(ValueError, OSError):
             resource.setrlimit(resource.RLIMIT_NPROC, (256, 256))  # anti fork-bomb
-        except (ValueError, OSError):
-            pass
 
     return apply
 
@@ -88,10 +88,9 @@ def run(code: str, function_name: str, params: list,
             proc.communicate(timeout=overall_s)
         except subprocess.TimeoutExpired:
             timed_out = True
-            try:
+            # Already dead, or not ours to kill — either way, move on and reap.
+            with contextlib.suppress(ProcessLookupError, PermissionError):
                 os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
-            except (ProcessLookupError, PermissionError):
-                pass
             proc.communicate()
 
         return _collect(workdir, tests, timed_out)
@@ -104,7 +103,8 @@ def _collect(workdir: str, tests: list[TestSpec], timed_out: bool) -> dict[str, 
     by_name: dict[str, Outcome] = {}
     if os.path.exists(result_path):
         try:
-            data = json.load(open(result_path, encoding="utf-8"))
+            with open(result_path, encoding="utf-8") as fh:
+                data = json.load(fh)
             for r in data.get("results", []):
                 by_name[r["name"]] = Outcome.from_dict(r)
         except (ValueError, OSError):

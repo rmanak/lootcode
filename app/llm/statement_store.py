@@ -22,7 +22,7 @@ from threading import Lock
 
 _MAX_STATEMENTS = 32
 
-_store: "OrderedDict[str, dict]" = OrderedDict()
+_store: OrderedDict[str, dict] = OrderedDict()
 _lock = Lock()
 
 

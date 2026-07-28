@@ -16,7 +16,6 @@ Everything is best-effort: callers fall back to type defaults when a lookup fail
 from __future__ import annotations
 
 import re
-from typing import Optional
 
 # A numeric literal as written in constraint prose: 10^9, 5*10^4, 2 * 10^5, -1000.
 _NUM = r"-?\d+(?:\s*\*\s*10\s*\^\s*\d+|\s*\^\s*\d+|10\^\d+)?|-?10\^\d+|-?\d+"
@@ -24,7 +23,7 @@ _NUM = r"-?\d+(?:\s*\*\s*10\s*\^\s*\d+|\s*\^\s*\d+|10\^\d+)?|-?10\^\d+|-?\d+"
 _VAR = r"[A-Za-z_]\w*(?:\[[^\]]*\])*(?:\.(?:length|size))?|len\([A-Za-z_]\w*\)"
 
 
-def _num(tok: str) -> Optional[int]:
+def _num(tok: str) -> int | None:
     """Parse a constraint numeric literal (``10^5``, ``5*10^4`` …) to an int."""
     s = tok.strip().replace(" ", "").replace("^", "**")
     if not re.fullmatch(r"-?\d+(?:\*\*\d+)?(?:\*\d+(?:\*\*\d+)?)*", s):
@@ -41,11 +40,11 @@ def _norm_key(var: str) -> str:
     return var.strip()
 
 
-def parse_constraints(md_text: str) -> dict[str, tuple[Optional[int], Optional[int]]]:
+def parse_constraints(md_text: str) -> dict[str, tuple[int | None, int | None]]:
     """Return ``{token: (lo, hi)}`` for every bound we can recognize."""
-    bounds: dict[str, list[Optional[int]]] = {}
+    bounds: dict[str, list[int | None]] = {}
 
-    def add(name: str, lo: Optional[int], hi: Optional[int]) -> None:
+    def add(name: str, lo: int | None, hi: int | None) -> None:
         cur = bounds.setdefault(_norm_key(name), [None, None])
         if lo is not None:
             cur[0] = lo if cur[0] is None else max(cur[0], lo)
@@ -54,8 +53,9 @@ def parse_constraints(md_text: str) -> dict[str, tuple[Optional[int], Optional[i
 
     text = md_text
     # Two-sided over a comma-list:  A <= v1, v2, v3 <= B  (each var gets [A, B]).
-    _VARG = rf"(?:{_VAR})"  # parenthesized so the inner `|` alternation can't escape
-    _VARLIST = rf"{_VARG}(?:\s*,\s*{_VARG})+"
+    # Regex fragments, not variables: named like the module constants they extend.
+    _VARG = rf"(?:{_VAR})"  # noqa: N806 - parenthesized so the inner `|` can't escape
+    _VARLIST = rf"{_VARG}(?:\s*,\s*{_VARG})+"  # noqa: N806
     for m in re.finditer(rf"({_NUM})\s*<=?\s*({_VARLIST})\s*<=?\s*({_NUM})", text):
         lo, hi = _num(m.group(1)), _num(m.group(3))
         for var in re.split(r"\s*,\s*", m.group(2)):
@@ -80,25 +80,25 @@ def parse_constraints(md_text: str) -> dict[str, tuple[Optional[int], Optional[i
     return {k: (v[0], v[1]) for k, v in bounds.items()}
 
 
-def _lookup(bounds: dict, keys: list[str]) -> tuple[Optional[int], Optional[int]]:
+def _lookup(bounds: dict, keys: list[str]) -> tuple[int | None, int | None]:
     for k in keys:
         if k in bounds:
             return bounds[k]
     return (None, None)
 
 
-def elem_bounds(bounds: dict, param: str) -> tuple[Optional[int], Optional[int]]:
+def elem_bounds(bounds: dict, param: str) -> tuple[int | None, int | None]:
     """Value range for the *elements* of an array param (``nums[i]`` forms)."""
     # Try more-specific (deeper-indexed) forms first so that e.g. board[i][j]
     # is preferred over board[i] when both are present in the bounds dict.
     return _lookup(bounds, [f"{param}[i][j]", f"{param}[i]", f"{param}[j]"])
 
 
-def size_bounds(bounds: dict, param: str) -> tuple[Optional[int], Optional[int]]:
+def size_bounds(bounds: dict, param: str) -> tuple[int | None, int | None]:
     """Length range for an array/string param (``len(nums)`` / ``nums.length``)."""
     return _lookup(bounds, [f"len({param})", f"{param}.length", f"{param}.size"])
 
 
-def scalar_bounds(bounds: dict, param: str) -> tuple[Optional[int], Optional[int]]:
+def scalar_bounds(bounds: dict, param: str) -> tuple[int | None, int | None]:
     """Value range for a scalar param (looked up by its bare name)."""
     return _lookup(bounds, [param])

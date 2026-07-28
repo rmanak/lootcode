@@ -58,12 +58,16 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))  # reuse generate_hints' surgical writer
 
-from app.config import settings  # noqa: E402
-from app.content import MAX_HINTS, normalize_hints  # noqa: E402
-from app.llm.hint_generator import (  # noqa: E402
-    LLM_SERVER_URL, generate_hints_verified, judge_hints, leak_flags,
-)
 from generate_hints import _meta_with_hints, _preflight, _write_hints  # noqa: E402,F401
+
+from app.config import settings  # noqa: E402
+from app.content import normalize_hints  # noqa: E402
+from app.llm.hint_generator import (  # noqa: E402
+    LLM_SERVER_URL,
+    generate_hints_verified,
+    judge_hints,
+    leak_flags,
+)
 
 DEFAULT_MODEL = os.environ.get("LLM_MODEL") or "qwen36"
 REPORT_PATH = ROOT / ".hints" / "audit.json"
@@ -154,7 +158,7 @@ class _Checkpoint:
         self._lock = threading.Lock()
         self._f = None
 
-    def load(self) -> "_Checkpoint":
+    def load(self) -> _Checkpoint:
         if self.path.exists():
             for line in self.path.read_text(encoding="utf-8").splitlines():
                 line = line.strip()
@@ -187,7 +191,7 @@ class _Checkpoint:
         self.prior_meta = None
         self.path.unlink(missing_ok=True)
 
-    def open(self) -> "_Checkpoint":
+    def open(self) -> _Checkpoint:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         fresh = not self.path.exists()
         self._f = self.path.open("a", encoding="utf-8")
@@ -540,7 +544,7 @@ def cmd_fix(args) -> int:
           + ("" if args.apply else "  (dry run: nothing written)"))
     if cp.done:
         print(f"Compare report:  {fix_report}")
-        print(f"Browse old->new: python scripts/hint_compare_report.py"
+        print("Browse old->new: python scripts/hint_compare_report.py"
               + (" --apply" if args.apply else "") + " --open")
     if wrote and args.apply:
         print("Reseed to load into the DB:  python scripts/seed.py")
@@ -586,7 +590,7 @@ def cmd_calibrate(args) -> int:
             caught = len(probe) in set(lv["regenerate"]) or bool(leak_flags(probe))
             leak_caught += 1 if caught else 0
             line += f"   leak->{'CAUGHT' if caught else col.red('MISSED')}"
-        print((col.green(line) if gold_ok else col.yellow(line)))
+        print(col.green(line) if gold_ok else col.yellow(line))
 
     print(f"\n{col.bold('Calibration')}  gold ok: {gold_pass}/{gold_total}"
           f"   leaks caught: {leak_caught}/{leak_total}")

@@ -83,6 +83,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from app.config import settings  # noqa: E402
+
 # Reuse the repo's LLM connection defaults so this script points at the same
 # server as everything else unless overridden on the CLI / via env vars.
 from app.llm.hint_generator import (  # noqa: E402
@@ -354,8 +355,8 @@ def generate_validator(
 
     last_err: Exception | None = None
     for rf in response_formats:
-        kwargs = dict(model=model, messages=messages, temperature=temperature,
-                      extra_body=extra_body)
+        kwargs = {"model": model, "messages": messages, "temperature": temperature,
+                      "extra_body": extra_body}
         if rf is not None:
             kwargs["response_format"] = rf
         try:
@@ -408,7 +409,7 @@ class _TreeNode:
     guess. Mirrors the level-order decoding in ``app/executor/harness.py``.
     """
 
-    __slots__ = ("val", "value", "left", "right")
+    __slots__ = ("left", "right", "val", "value")
 
     def __init__(self, v):
         self.val = self.value = v
@@ -521,7 +522,8 @@ def _preflight(base_url: str) -> bool:
     """Cheap reachability check so we fail fast instead of erroring N times."""
     url = f"{base_url.rstrip('/')}/v1/models"
     try:
-        with urllib.request.urlopen(url, timeout=5) as resp:
+        # `url` is the operator's own --base-url, not user input.
+        with urllib.request.urlopen(url, timeout=5) as resp:  # noqa: S310
             return resp.status == 200
     except (urllib.error.URLError, OSError):
         return False
@@ -792,7 +794,7 @@ def main() -> int:
                 vstr = ""
                 flagged = False
                 if verify is not None:
-                    passed, tot, detail = verify
+                    passed, tot, _detail = verify
                     if tot == 0:
                         vstr = "  verify=n/a"
                     elif passed == tot:

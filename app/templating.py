@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import os
-from datetime import datetime, timezone, tzinfo
+from datetime import UTC, datetime, tzinfo
 
 import markdown as _md
 from fastapi.templating import Jinja2Templates
@@ -25,7 +25,7 @@ def _local_dt(dt: datetime | None, tz: tzinfo, fmt: str = "%Y-%m-%d %H:%M") -> s
     if dt is None:
         return ""
     if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=timezone.utc)
+        dt = dt.replace(tzinfo=UTC)
     return dt.astimezone(tz).strftime(fmt)
 
 

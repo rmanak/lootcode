@@ -5,7 +5,7 @@ import calendar
 import math
 import os
 import random
-from datetime import date, datetime, timedelta, timezone
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from urllib.parse import quote, unquote, urlencode
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
@@ -161,7 +161,7 @@ def _topic_cloud(solved: list[Problem]) -> list[dict]:
     topics can end up too small to read comfortably — that's fine; the cloud's
     zoom button blows everything up for a closer look. Each gets a distinct hue
     the template paints with. Sorted by count (then name) so the biggest lead."""
-    UNIT_PX = 26  # pixels per log2 unit; count == 1 -> one unit -> 26px bubble
+    UNIT_PX = 26  # noqa: N806 - a constant, scoped to this function; pixels per log2 unit; count == 1 -> one unit -> 26px bubble
     counts: dict[str, int] = {}
     for p in solved:
         for t in (p.topics or []):
@@ -227,7 +227,7 @@ def _blocks_by_local_date(
     units_by_date: dict[date, int] = {}
     blocks_by_date: dict[date, list[str]] = {}
     for s in first_solved.values():  # iterated in created_at order
-        d = s.created_at.replace(tzinfo=timezone.utc).astimezone(tz).date()
+        d = s.created_at.replace(tzinfo=UTC).astimezone(tz).date()
         diff = s.problem.difficulty if s.problem.difficulty in UNIT_WEIGHTS else "easy"
         weight = UNIT_WEIGHTS[diff]
         units_by_date[d] = units_by_date.get(d, 0) + weight

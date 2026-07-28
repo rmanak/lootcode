@@ -252,6 +252,7 @@ def test_user_tz_decodes_percent_encoded_cookie():
     # server must unquote it. Otherwise every real zone silently became UTC and
     # an evening solve rolled into the next UTC day. Regression guard.
     from zoneinfo import ZoneInfo
+
     from starlette.requests import Request
 
     from app.routers.pages import _user_tz
@@ -290,6 +291,7 @@ def test_calendar_green_matches_weekly_met_with_spillover():
 
     # The calendar must mark Monday done too (pretend "today" is later so it's past).
     from zoneinfo import ZoneInfo
+
     import app.routers.pages as pages
 
     class _FixedDT(pages.datetime):

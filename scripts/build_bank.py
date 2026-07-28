@@ -18,6 +18,8 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
+import itertools
+
 from app import content  # noqa: E402
 from scripts import figures  # noqa: E402
 
@@ -27,12 +29,12 @@ PROBLEMS: list[dict] = []
 def add(slug, title, difficulty, topics, fn, params, ret, statement, solution,
         visible, hidden=None, gen=None, brute=None, checks=None, norm=None,
         source="bank", assets=None):
-    PROBLEMS.append(dict(
-        slug=slug, title=title, difficulty=difficulty, topics=topics, fn=fn,
-        params=params, ret=ret, statement=statement.strip() + "\n", solution=solution,
-        visible=visible, hidden=hidden or [], gen=gen, brute=brute,
-        checks=checks or [], norm=norm or (lambda x: x), source=source,
-        assets=assets or {}))
+    PROBLEMS.append({
+        "slug": slug, "title": title, "difficulty": difficulty, "topics": topics, "fn": fn,
+        "params": params, "ret": ret, "statement": statement.strip() + "\n", "solution": solution,
+        "visible": visible, "hidden": hidden or [], "gen": gen, "brute": brute,
+        "checks": checks or [], "norm": norm or (lambda x: x), "source": source,
+        "assets": assets or {}})
 
 
 def stub(fn, params):
@@ -425,8 +427,8 @@ subarray.
     visible=[{"nums": [2, 3, -2, 4]}, {"nums": [-2, 0, -1]}],
     hidden=[{"nums": [-2]}, {"nums": [0, 2]}, {"nums": [-2, 3, -4]}],
     gen=lambda r: [{"nums": ilist(r, 1, 9, -4, 4)} for _ in range(5)],
-    brute=lambda nums: max((__import__("math").prod(nums[i:j])
-                           for i in range(len(nums)) for j in range(i + 1, len(nums) + 1))),
+    brute=lambda nums: max(__import__("math").prod(nums[i:j])
+                           for i in range(len(nums)) for j in range(i + 1, len(nums) + 1)),
     checks=[({"nums": [2, 3, -2, 4]}, 6), ({"nums": [-2, 0, -1]}, 0)], source="file")
 
 add("find-minimum-rotated-sorted", "Find Minimum in Rotated Sorted Array", "medium",
@@ -1651,7 +1653,7 @@ Output: `30`
 
 # ---- Binary-tree helpers (module-level; used by brute/gen references) -------
 class _TN:
-    __slots__ = ("val", "left", "right")
+    __slots__ = ("left", "right", "val")
 
     def __init__(self, val):
         self.val, self.left, self.right = val, None, None
@@ -5409,7 +5411,7 @@ def _lb_brute_alien(words):
     from itertools import permutations
     chars = sorted(set("".join(words)))
     cons = []
-    for w1, w2 in zip(words, words[1:]):
+    for w1, w2 in itertools.pairwise(words):
         found = False
         for k in range(min(len(w1), len(w2))):
             if w1[k] != w2[k]:
@@ -5964,8 +5966,8 @@ def _lb_filedup_case(r):
 
 def _lb_brute_filedup(files):
     seen = {}
-    for path, content in files:
-        seen.setdefault(content, []).append(path)
+    for path, body in files:  # not `content`: shadows the module imported above
+        seen.setdefault(body, []).append(path)
     return [v for v in seen.values() if len(v) >= 2]
 
 
@@ -9357,7 +9359,7 @@ def _b_arrows(points):
     if not points:
         return 0
     from itertools import combinations
-    cand = sorted(set(p for pt in points for p in pt))
+    cand = sorted({p for pt in points for p in pt})
     n = len(points)
     for r in range(1, n + 1):
         for combo in combinations(cand, r):
@@ -12152,10 +12154,7 @@ def _b_hascycle(n, edges):
                 return True
         return False
 
-    for s in range(n):
-        if s not in seen and dfs(s, -1):
-            return True
-    return False
+    return any(s not in seen and dfs(s, -1) for s in range(n))
 
 
 def _qb_digraph(r):
@@ -12236,7 +12235,7 @@ def _qb_altedges(r):
 
 
 def _b_altpath(n, redEdges, blueEdges):
-    from collections import deque, defaultdict
+    from collections import defaultdict, deque
     red, blue = defaultdict(list), defaultdict(list)
     for u, v in redEdges:
         red[u].append(v)
@@ -12350,7 +12349,7 @@ def _b_bridge(grid):
                             st.append((nx, ny))
                 islands.append(comp)
     a, b = islands[0], set(islands[1])
-    dist = {cell: 0 for cell in a}
+    dist = dict.fromkeys(a, 0)
     q = deque(a)
     while q:
         x, y = q.popleft()
@@ -13210,8 +13209,8 @@ def _qb_largestcomp(r):
 
 
 def _b_largestcomp(nums):
-    from math import gcd
     from collections import Counter
+    from math import gcd
     n = len(nums)
     parent = list(range(n))
 
@@ -14400,7 +14399,7 @@ Explanation: `B` has no stock, so the request is rejected.
 
 def _qb_timemap(r):
     keys = ["a", "b", "foo"]
-    ts = {k: 0 for k in keys}
+    ts = dict.fromkeys(keys, 0)
     ops = []
     for _ in range(r.randint(1, 12)):
         if r.random() < 0.5:
@@ -14654,7 +14653,7 @@ def _b_calendar2(operations):
     for op in operations:
         _, s, e = op
         trial = accepted + [(s, e)]
-        points = sorted(set(x for iv in trial for x in iv))
+        points = sorted({x for iv in trial for x in iv})
         ok = True
         for p in points:
             if sum(1 for a, b in trial if a <= p < b) > 2:
@@ -15587,8 +15586,9 @@ if __name__ == "__main__":
     # `from scripts.build_bank import add`) append to THIS same PROBLEMS list,
     # not a second copy created under the name "__main__". Importing the package
     # also runs all the top-level add() calls under scripts.build_bank.
-    from scripts import build_bank as _bb  # noqa: E402
     import scripts.bank_new_p  # noqa: F401,E402  (side effect: registers batch problems)
+
+    from scripts import build_bank as _bb  # noqa: E402
 
     n = _bb.build()
     print(f"\nWrote {n} problems to content/problems/. Now run: python scripts/seed.py")

@@ -10,7 +10,6 @@ from pathlib import Path
 from .config import settings
 from .tags import normalize_tags
 
-
 #: A problem may carry at most this many hints (shown as "Hint 1..N").
 MAX_HINTS = 3
 

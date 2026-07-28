@@ -17,6 +17,7 @@ from .models import Problem, User
 from .routers import admin, pages, submissions
 from .store import seed_collections, seed_from_content
 
+
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     init_db()

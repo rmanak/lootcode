@@ -6,6 +6,7 @@ These lock in the fairness/robustness fixes so they can't silently regress:
   - seed-invariant guard (sorted / permutation / rotated preconditions),
   - candidate extraction + the unsafe-code screen for the LLM population.
 """
+from app.testgen import candidates as C
 from app.testgen.constraints import parse_constraints, size_bounds
 from app.testgen.generators import (
     GenConfig,
@@ -15,7 +16,6 @@ from app.testgen.generators import (
     learn_array_invariants,
     learn_intmatrix_domain,
 )
-from app.testgen import candidates as C
 
 
 # --------------------------------------------------------------------------- #
@@ -188,14 +188,17 @@ def test_unsafe_screen():
 # --------------------------------------------------------------------------- #
 def test_treenode_codec_roundtrip():
     from types import SimpleNamespace as NS
+
     import scripts.strengthen_tests as st
+    from app.executor.harness import TreeNode
+
     # a solution that increments every node value — needs real TreeNode objects
     code = ("def bump(root):\n"
             "    if root is None:\n        return None\n"
             "    root.value += 1\n"
             "    bump(root.left)\n    bump(root.right)\n"
             "    return root\n")
-    f = st._compile(code, "bump", {"TreeNode": st.TreeNode})
+    f = st._compile(code, "bump", {"TreeNode": TreeNode})
     prob = NS(params=[{"name": "root", "type": "TreeNode"}], return_type="TreeNode")
     decoders, encoder = st._rich_codec(prob)
     assert list(decoders) == ["root"] and encoder is not None
@@ -206,6 +209,7 @@ def test_treenode_codec_roundtrip():
 
 def test_listnode_codec_roundtrip():
     from types import SimpleNamespace as NS
+
     import scripts.strengthen_tests as st
     # a solution that doubles every node value — needs real ListNode objects
     code = ("def dbl(head):\n"
@@ -224,6 +228,7 @@ def test_listnode_codec_roundtrip():
 
 def test_treenode_fast_path_available():
     from types import SimpleNamespace as NS
+
     import scripts.strengthen_tests as st
     assert st._fast_available(NS(params=[{"name": "root", "type": "TreeNode"}],
                                  return_type="TreeNode"))

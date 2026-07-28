@@ -55,7 +55,7 @@ from sqlalchemy import func, select  # noqa: E402
 
 from app import content  # noqa: E402
 from app.db import SessionLocal, init_db  # noqa: E402
-from app.executor import run_submission, problem_view  # noqa: E402
+from app.executor import problem_view, run_submission  # noqa: E402
 from app.models import Problem, Submission, User  # noqa: E402
 
 
@@ -320,8 +320,8 @@ def build_jobs(db, user_id: str,
 
 def evaluate(job: Job) -> Recheck:
     """Re-grade one accepted solution. Never raises."""
-    base = dict(slug=job.slug, title=job.title, difficulty=job.difficulty,
-                submitted_at=job.submitted_at)
+    base = {"slug": job.slug, "title": job.title, "difficulty": job.difficulty,
+                "submitted_at": job.submitted_at}
     if not job.tests:
         # No tests today (all removed?) — nothing to fail against.
         return Recheck(**base, kind="pass", now_passed=0, now_total=0)
@@ -481,9 +481,9 @@ def run_check(db, c: Palette, args) -> int:
 # ===========================================================================
 # CLI
 # ===========================================================================
-from datetime import datetime, timezone  # noqa: E402
+from datetime import UTC, datetime  # noqa: E402
 
-_EPOCH = datetime(1970, 1, 1, tzinfo=timezone.utc)
+_EPOCH = datetime(1970, 1, 1, tzinfo=UTC)
 
 
 def main(argv: list[str] | None = None) -> int:

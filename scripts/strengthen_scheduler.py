@@ -45,7 +45,7 @@ import os
 import subprocess
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -71,7 +71,7 @@ SLACK = Path(os.environ.get("STRENGTHEN_SLACK", "/home/arman/.claude/slack-send.
 
 
 def now_iso() -> str:
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    return datetime.now(UTC).replace(microsecond=0).isoformat()
 
 
 def log(msg: str) -> None:
@@ -156,6 +156,8 @@ def counts(q: dict) -> dict[str, int]:
 # The per-slug agent run
 # ---------------------------------------------------------------------------
 def build_prompt(slug: str) -> str:
+    # Prose, not SQL. (Ruff reads the interpolated f-string below as a query;
+    # S608 is silenced for this file in pyproject.toml.)
     return f"""You are running UNATTENDED as a scheduled background job inside the lootcode repo.
 Harden the hidden test suite of exactly ONE problem, slug: "{slug}".
 

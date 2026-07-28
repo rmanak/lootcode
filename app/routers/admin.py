@@ -59,10 +59,13 @@ ADMIN_PROBLEMS_PER_PAGE = 1000
 def _save(db: Session, data: dict) -> Problem:
     """Persist a problem to the DB and mirror it into content/ on disk."""
     prob = store.upsert_problem(db, data)
-    try:
+    try:  # noqa: SIM105 - known gap, see docs/engineering-plan.md Phase 3 #3
         content.write_problem_files(data)
     except OSError:
-        pass  # DB is the source of truth at runtime; file mirror is best-effort
+        # Silently desyncs the DB from the on-disk source of truth. Should log
+        # and surface; deliberately left visible rather than dressed up as
+        # contextlib.suppress, which would hide the same bug more neatly.
+        pass
     return prob
 
 
@@ -302,8 +305,7 @@ def edit_submit(
     if not result.ok:
         return _reject(result.errors, result.warnings)
 
-    _save(db, data)
-    prob = db.scalar(select(Problem).where(Problem.slug == slug))
+    prob = _save(db, data)
     return templates.TemplateResponse(request, "admin/edit.html", {
         "request": request, "user_name": request.state.user_name,
         "f": _form_view(prob), "compare_modes": COMPARE_MODES,
@@ -335,7 +337,8 @@ def _run_verify(body: VerifyBody) -> dict:
         if not isinstance(tests_raw, list) or not tests_raw:
             raise ValueError("Tests must be a non-empty JSON array.")
     except (ValueError, json.JSONDecodeError) as exc:
-        raise HTTPException(status_code=400, detail=f"Invalid tests JSON: {exc}")
+        raise HTTPException(
+            status_code=400, detail=f"Invalid tests JSON: {exc}") from exc
 
     kind = body.kind if body.kind in ("function", "class") else "function"
     class_methods = None
@@ -345,7 +348,9 @@ def _run_verify(body: VerifyBody) -> dict:
             if not isinstance(class_methods, list):
                 raise ValueError("Class methods must be a JSON array.")
         except (ValueError, json.JSONDecodeError) as exc:
-            raise HTTPException(status_code=400, detail=f"Invalid class methods JSON: {exc}")
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid class methods JSON: {exc}") from exc
 
     prob = SimpleNamespace(
         kind=kind,
@@ -694,7 +699,7 @@ def full_submit(request: Request, sid: str = Form(""), statement: str = Form("")
         entry = statement_store.get(sid)
         if entry is not None:
             statement_store.set_statement(sid, statement)
-            entry = statement_store.get(sid)
+            entry = statement_store.get(sid) or entry
             return templates.TemplateResponse(
                 request, "admin/generate_statement.html",
                 _statement_context(request, db, sid, entry,

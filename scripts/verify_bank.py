@@ -38,7 +38,7 @@ from types import SimpleNamespace
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from app import content  # noqa: E402
-from app.executor import run_submission, problem_view  # noqa: E402
+from app.executor import problem_view, run_submission  # noqa: E402
 
 
 # ---------------------------------------------------------------------------

@@ -56,7 +56,7 @@ import json
 import pathlib
 import sys
 import time
-from concurrent.futures import ProcessPoolExecutor, as_completed
+from concurrent.futures import ProcessPoolExecutor
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 

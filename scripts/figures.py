@@ -151,7 +151,7 @@ def unique_paths_svg(m, n) -> str:
 
 # --- Binary trees: root and subRoot side by side ----------------------------
 class _N:
-    __slots__ = ("v", "l", "r")
+    __slots__ = ("l", "r", "v")
 
     def __init__(self, v):
         self.v, self.l, self.r = v, None, None

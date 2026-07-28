@@ -47,8 +47,9 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
-from app.config import settings  # noqa: E402
 import generate_constraint_validators as gcv  # noqa: E402  (reuse verify_against_cases)
+
+from app.config import settings  # noqa: E402
 
 VALIDATOR_NAME = "validate_input"
 
@@ -207,7 +208,7 @@ def main() -> int:
 
     considered = wrote = skipped = flagged = failed = 0
     seen: set[str] = set()
-    for root, d, meta in _iter_class_dirs(wanted):
+    for _root, d, meta in _iter_class_dirs(wanted):
         slug = d.name
         seen.add(slug)
         considered += 1

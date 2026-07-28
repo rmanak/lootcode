@@ -14,10 +14,11 @@ import copy
 import json
 import random
 import string as _string
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Any, Callable, Optional
+from typing import Any
 
-from . import constraints as C
+from . import constraints as C  # noqa: N812 - `C.` keeps the many call sites short
 
 
 @dataclass
@@ -50,7 +51,7 @@ _SCALAR_ALIASES = {"num": "int", "integer": "int", "str": "string", "boolean": "
 # encoding is an *array*: TreeNode is a level-order array; the linked-list nodes
 # are a flat value array. Generators treat these as arrays, not scalars.
 _LINKED_LIST_BASES = ("ListNode", "DoublyLinkedList")
-_RICH_ARRAY_BASES = ("TreeNode",) + _LINKED_LIST_BASES
+_RICH_ARRAY_BASES = ("TreeNode", *_LINKED_LIST_BASES)
 
 
 def _base(t: str) -> str:
@@ -60,7 +61,7 @@ def _base(t: str) -> str:
 # --------------------------------------------------------------------------- #
 # Scalar / value generation
 # --------------------------------------------------------------------------- #
-def _rand_scalar(rng: random.Random, base: str, lo: Optional[int], hi: Optional[int]) -> Any:
+def _rand_scalar(rng: random.Random, base: str, lo: int | None, hi: int | None) -> Any:
     base = _base(base)
     if base == "bool":
         return rng.choice([True, False])
@@ -84,7 +85,7 @@ def _rand_scalar(rng: random.Random, base: str, lo: Optional[int], hi: Optional[
 
 
 def _rand_value(rng: random.Random, base: str, dims: int,
-                lo: Optional[int], hi: Optional[int], size: int) -> Any:
+                lo: int | None, hi: int | None, size: int) -> Any:
     if base == "TreeNode":
         return _rand_tree(rng, size, lo, hi)
     if base in _LINKED_LIST_BASES:
@@ -96,7 +97,7 @@ def _rand_value(rng: random.Random, base: str, dims: int,
     return [_rand_value(rng, base, dims - 1, lo, hi, size) for _ in range(n)]
 
 
-def _rand_tree(rng: random.Random, size: int, lo: Optional[int], hi: Optional[int]) -> list:
+def _rand_tree(rng: random.Random, size: int, lo: int | None, hi: int | None) -> list:
     """Random level-order tree array (with ``None`` holes), the harness input form."""
     n = rng.randint(0, max(1, size))
     out: list[Any] = []
@@ -177,7 +178,7 @@ def _expr_edges() -> list[str]:
 # --------------------------------------------------------------------------- #
 # T1 — structured edge shapes (per param type)
 # --------------------------------------------------------------------------- #
-def _scalar_edges(base: str, lo: Optional[int], hi: Optional[int]) -> list[Any]:
+def _scalar_edges(base: str, lo: int | None, hi: int | None) -> list[Any]:
     base = _base(base)
     if base == "bool":
         return [True, False]
@@ -202,7 +203,7 @@ def _scalar_edges(base: str, lo: Optional[int], hi: Optional[int]) -> list[Any]:
     return out or [lo if lo is not None else 0]
 
 
-def _array_edges(base: str, dims: int, lo: Optional[int], hi: Optional[int]) -> list[Any]:
+def _array_edges(base: str, dims: int, lo: int | None, hi: int | None) -> list[Any]:
     if base == "TreeNode":
         return [[], [1], [1, 2, 3], [1, 2, 3, 4, 5, 6, 7],
                 [1, 2, None, 3, None, 4], [1, None, 2, None, 3]]  # empty/single/full/left/right
@@ -227,7 +228,7 @@ def _array_edges(base: str, dims: int, lo: Optional[int], hi: Optional[int]) -> 
     return shapes
 
 
-def edge_values(param_type: str, lo: Optional[int], hi: Optional[int]) -> list[Any]:
+def edge_values(param_type: str, lo: int | None, hi: int | None) -> list[Any]:
     base, dims = parse_type(param_type)
     if base in _RICH_ARRAY_BASES:
         return _array_edges(base, 1, lo, hi)
@@ -269,7 +270,7 @@ def _mutate_json(rng: random.Random, val: Any) -> Any:
 # T4 — one large-stress input per array/string param
 # --------------------------------------------------------------------------- #
 def _stress_value(rng: random.Random, base: str, dims: int,
-                  lo: Optional[int], hi: Optional[int], n: int) -> Any:
+                  lo: int | None, hi: int | None, n: int) -> Any:
     if base in _RICH_ARRAY_BASES:
         return [rng.randint(1, 100) for _ in range(n)]
     if dims == 0:
@@ -348,14 +349,14 @@ def _gen_op(rng: random.Random, v: _OpVocab, name: str, small_ints: bool) -> lis
         observed = v.arg_vals.get((name, i), [])
         if t == "str":
             # sample from observed keys plus a couple fresh ones (small alphabet)
-            pool = observed + ["a", "b", "c"]
+            pool = [*observed, "a", "b", "c"]
             op.append(rng.choice(pool))
         elif t in ("int", "float"):
             if small_ints or not observed:
                 lo, hi = (1, 6) if small_ints else (v.int_lo, v.int_hi)
                 val = rng.randint(lo, hi)
             else:
-                val = rng.choice(observed + [rng.randint(v.int_lo, v.int_hi)])
+                val = rng.choice([*observed, rng.randint(v.int_lo, v.int_hi)])
             op.append(val if t == "int" else float(val))
         elif t == "bool":
             op.append(rng.choice([True, False]))
@@ -584,7 +585,7 @@ def _endpoint_ints(m: list) -> list:
 
 
 def learn_intmatrix_domain(name: str, seed_mats: list,
-                           scalar_seeds: dict) -> Optional[dict]:
+                           scalar_seeds: dict) -> dict | None:
     """Learn the node-label domain of an int[][] edge/adjacency param.
 
     Returns a dict with any of ``{"nonneg", "lt_len", "lt_params"}`` or None.
@@ -668,7 +669,7 @@ class Candidate:
 
 def generate_candidates(params: list[dict], seeds: list[dict],
                         bounds: dict, cfg: GenConfig,
-                        validator: Optional[Callable[[dict], bool]] = None
+                        validator: Callable[[dict], bool] | None = None
                         ) -> list[Candidate]:
     """Produce de-duplicated candidate inputs (T1 ∪ T3 ∪ T4; T2 folds into bounds).
 
@@ -710,7 +711,7 @@ def generate_candidates(params: list[dict], seeds: list[dict],
                 invariants[_p["name"]] = got
 
     # Node-label domains for int[][] edge/adjacency params (the "A+" graph guard).
-    _INT_BASES = ("int", "integer", "num")
+    _INT_BASES = ("int", "integer", "num")  # noqa: N806 - constant, scoped here
     scalar_int_names = [p["name"] for p in params
                         if parse_type(p["type"])[1] == 0
                         and parse_type(p["type"])[0] in _INT_BASES]
@@ -758,7 +759,7 @@ def generate_candidates(params: list[dict], seeds: list[dict],
         seen.add(k)
         cands.append(Candidate(input=inp, origin=origin, protected=protected))
 
-    def eb(p: dict) -> tuple[Optional[int], Optional[int]]:
+    def eb(p: dict) -> tuple[int | None, int | None]:
         base, dims = parse_type(p["type"])
         name = p["name"]
         if dims == 0 and base not in _RICH_ARRAY_BASES:
@@ -807,7 +808,7 @@ def generate_candidates(params: list[dict], seeds: list[dict],
                 # so _learn_ops(list[list[list]]) gets the expected format.
                 combined_sequences: list = []
                 for ov, av in zip(ops_obs, args_obs):
-                    seq = [[o] + list(a) for o, a in zip(ov, av)]
+                    seq = [[o, *list(a)] for o, a in zip(ov, av)]
                     combined_sequences.append(seq)
                 split_ops_vocab = _learn_ops(combined_sequences)
                 split_ops_names = (ops_p["name"], args_p["name"])
@@ -976,7 +977,7 @@ def generate_candidates(params: list[dict], seeds: list[dict],
 # from the class's own method signatures (arg types from ``class_methods``) plus a
 # value pool learned from the example inputs. Inputs are fair by construction.
 # --------------------------------------------------------------------------- #
-def _elem_bounds_for(bounds: dict, name: str) -> tuple[Optional[int], Optional[int]]:
+def _elem_bounds_for(bounds: dict, name: str) -> tuple[int | None, int | None]:
     try:
         return C.elem_bounds(bounds, name)
     except Exception:  # noqa: BLE001 - bounds parsing is best-effort
@@ -986,7 +987,7 @@ def _elem_bounds_for(bounds: dict, name: str) -> tuple[Optional[int], Optional[i
 def generate_class_candidates(class_name: str, ctor_params: list[dict],
                               class_methods: list[dict], seeds: list[dict],
                               bounds: dict, cfg: GenConfig,
-                              validator: Optional[Callable[[dict], bool]] = None
+                              validator: Callable[[dict], bool] | None = None
                               ) -> list[Candidate]:
     """Candidate ``{operations, args}`` inputs for a ``kind == "class"`` problem.
 

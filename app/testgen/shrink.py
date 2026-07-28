@@ -12,7 +12,8 @@ all the semantic work, so the shrinker needs no problem knowledge.
 """
 from __future__ import annotations
 
-from typing import Any, Callable, Iterator
+from collections.abc import Callable, Iterator
+from typing import Any
 
 
 def _str_reductions(s: str) -> Iterator[str]:
@@ -39,7 +40,7 @@ def _list_reductions(v: list) -> Iterator[list]:
         yield v[:i] + v[i + 1:]
     for i, x in enumerate(v):
         if isinstance(x, int) and not isinstance(x, bool) and x not in (0,):
-            yield v[:i] + [0] + v[i + 1:]
+            yield [*v[:i], 0, *v[i + 1:]]
 
 
 def _reductions(v: Any) -> Iterator[Any]:
@@ -47,10 +48,9 @@ def _reductions(v: Any) -> Iterator[Any]:
         yield from _str_reductions(v)
     elif isinstance(v, list):
         yield from _list_reductions(v)
-    elif isinstance(v, int) and not isinstance(v, bool):
-        if v not in (0, 1, -1):
-            yield 0
-            yield v // 2
+    elif isinstance(v, int) and not isinstance(v, bool) and v not in (0, 1, -1):
+        yield 0
+        yield v // 2
 
 
 def shrink(inp: dict, keep: Callable[[dict], bool], max_rounds: int = 40) -> dict:

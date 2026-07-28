@@ -1,0 +1,185 @@
+[project]
+name = "lootcode"
+version = "0.1.0"
+description = "A lightweight web app for practicing Python coding exercises."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+# Runtime dependencies are declared in requirements.txt (and pinned by
+# constraints.txt) so the Dockerfile can `pip install -r` without installing the
+# project itself. This file is here for tooling config, not for packaging.
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["app"]
+
+# ---------------------------------------------------------------------------
+# ruff — linter + formatter
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+# Generated / vendored trees that are not ours to lint. `content/` holds problem
+# definitions plus 738 machine-generated input validators; `staging/` is import
+# scratch; `constraint_validators/` is a stale generated copy of the same.
+extend-exclude = [
+    ".venv",
+    "content",
+    "staging",
+    "constraint_validators",
+    "scratchpad",
+]
+
+[tool.ruff.lint]
+# The families the codebase's existing `# noqa` directives already reference
+# (BLE001, N802, E402, A002, S307, S102, F401), plus the cheap correctness and
+# modernization families. Deliberately NOT enabled:
+#   ANN  — 865 violations; annotating every argument is its own project.
+#   PLC0415 (import-outside-top-level) — 137 sites, and lazy imports are a
+#          deliberate pattern here (optional LLM deps, circular-import breaks).
+# The `# noqa: ANN001` / `# noqa: PLC0415` comments already in the tree are
+# therefore inert but harmless, and document intent if those rules are turned on.
+select = [
+    "E", "W", "F",  # pycodestyle + pyflakes (E402 unsorted-imports, F401 unused)
+    "I",            # isort — import ordering
+    "B",            # bugbear — likely bugs
+    "C4",           # comprehension simplifications
+    "SIM",          # simplifications
+    "UP",           # pyupgrade
+    "N",            # pep8-naming (N802 …)
+    "A",            # builtin shadowing (A002 …)
+    "BLE",          # blind `except:` (BLE001 …)
+    "S",            # bandit security checks (S102 exec, S307 eval …)
+    "RUF",
+]
+ignore = [
+    # The app renders and stores prose with typographic punctuation (— … ’ ×)
+    # on purpose; "ambiguous unicode" is noise for a repo full of problem text.
+    "RUF001", "RUF002", "RUF003",
+    # `random` here picks a random *problem*, never a secret.
+    "S311",
+    # Reads fine and is used consistently for tight one-line guards.
+    "E731",
+    # `zip(...)` without strict= : the callers already know the lengths match,
+    # and several are hot loops in the test generator.
+    "B905",
+    # "return the negated condition directly". The predicates here are chains of
+    # `if <violation>: return False` guard clauses ending in `return True`;
+    # collapsing the last one into `return not (...)` reads worse than the chain.
+    "SIM103",
+    # The tree carries deliberate `# noqa: ANN001` / `# noqa: PLC0415` / `A002`
+    # directives for the rules listed above as not-yet-enabled, each with a
+    # written rationale. They are inert, but they are the record of why — and
+    # RUF100's autofix would delete the rationale along with the directive.
+    # Re-enable this the day ANN/PLC go on.
+    "RUF100",
+]
+
+[tool.ruff.lint.flake8-bugbear]
+# FastAPI's dependency-injection idiom is a function call in a default argument.
+extend-immutable-calls = [
+    "fastapi.Depends", "fastapi.Query", "fastapi.Form", "fastapi.Body",
+    "fastapi.Path", "fastapi.Header", "fastapi.Cookie", "fastapi.File",
+]
+
+[tool.ruff.lint.pycodestyle]
+# Format to 88 (below), but only *error* past 100 — reflowing prose comments in
+# the 300-odd lines that sit between the two buys nothing. New code gets wrapped
+# at 88 by `ruff format`; the ceiling is what CI enforces.
+max-line-length = 100
+
+[tool.ruff.lint.per-file-ignores]
+# The harness is copied verbatim into the container by docker_executor.py, so it
+# must stay one stdlib-only file — and the one file that stays easy to audit, so
+# it is not churned for style. `_Timeout` is a control-flow signal, not an error
+# the caller handles (N818); `__slots__` mirrors the LeetCode field order rather
+# than the alphabet (RUF023); the codecs use `a = x; b = y` pairs to keep the
+# tree/list walkers compact (E702). Its exec/eval/blind-except sites each carry
+# their own `# noqa` with a written reason.
+"app/executor/harness.py" = ["N818", "RUF023", "E702"]
+# `_Timeout` again — same control-flow signal, in the in-process fast path.
+"scripts/strengthen_tests.py" = ["N818"]
+# build_prompt() is one long interpolated f-string of English instructions; ruff
+# reads the interpolation as query construction. There is no SQL in this file.
+"scripts/strengthen_scheduler.py" = ["S608"]
+# The executors' whole job is to spawn a subprocess running submitted code.
+"app/executor/subprocess_executor.py" = ["S603", "S607"]
+"app/executor/docker_executor.py" = ["S603", "S607"]
+# Tests assert, and mirror sandbox/eval behaviour on purpose.
+"tests/*" = ["S101", "S102", "S307", "S603", "S607", "N802", "N814", "N812"]
+# `scripts/` (24.8k LOC of offline tooling) is consolidated in a later phase;
+# until then it is linted for real bugs but not for style. Shrink this list as
+# scripts/_common.py absorbs the duplication.
+"scripts/*" = [
+    "E501", "E702", "N803", "N806", "S101", "S102", "S110", "S307", "S603",
+    "S607", "UP031", "RUF005", "BLE001", "SIM105", "E741",
+]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+# ---------------------------------------------------------------------------
+# mypy — deliberately lenient to start. `app/` is already 74% return-annotated;
+# tighten a setting at a time rather than annotating 8k lines at once.
+# ---------------------------------------------------------------------------
+[tool.mypy]
+python_version = "3.12"
+files = ["app"]
+ignore_missing_imports = true
+follow_imports = "silent"
+# Off for now — each is a separate, tractable cleanup. Turn on one per phase.
+check_untyped_defs = false
+disallow_untyped_defs = false
+warn_return_any = false
+warn_unused_ignores = false
+# On, because they catch real bugs and cost nothing today.
+warn_redundant_casts = true
+no_implicit_optional = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+# Runs inside the sandbox with no imports available to typecheck against.
+module = "app.executor.harness"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+# Offline authoring tooling, not runtime: 2.4k lines of deliberate `ast` and
+# `Any` juggling (21 errors, all of that flavour), and nothing in app/ imports
+# it. It moves out to a top-level authoring/ package in a later phase; annotate
+# it there, not here.
+module = "app.testgen.*"
+ignore_errors = true
+
+# ---------------------------------------------------------------------------
+# pytest
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+# Without this, a bare `pytest` from the repo root also walks scripts/ and
+# imports scripts/test_llm_output.py at collection time (it matches test_*.py
+# but is a validator, not a test module).
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+markers = [
+    "slow: spawns a real sandbox subprocess (executor + class-problem tiers). Skip with -m 'not slow'.",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning:starlette.*",
+    "ignore:Using `httpx` with `starlette.testclient` is deprecated:UserWarning",
+]
+
+[tool.coverage.run]
+source = ["app"]
+omit = [
+    "app/executor/harness.py",  # runs in the sandbox, not in-process
+    "app/testgen/*",            # offline authoring tooling, covered by test_testgen
+]
+
+[tool.coverage.report]
+exclude_also = [
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]

@@ -57,7 +57,9 @@ def run(code: str, function_name: str, params: list,
             "--cap-drop", "ALL",
             "--security-opt", "no-new-privileges",
             "--read-only",
-            "--tmpfs", "/tmp:size=16m",
+            # A container-internal tmpfs, not a host path: the rootfs is read-only,
+            # so this is the only writable scratch and it dies with the container.
+            "--tmpfs", "/tmp:size=16m",  # noqa: S108
             "-v", f"{workdir}:/sandbox:rw",
             "-w", "/sandbox",
             "--user", "65534:65534",  # nobody

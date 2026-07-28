@@ -74,9 +74,9 @@ _SCRIPTS_DIR = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(_SCRIPTS_DIR.parent))
 sys.path.insert(0, str(_SCRIPTS_DIR))  # so sibling scripts (strengthen_tests) import
 
-from app import content              # noqa: E402
-from app.config import settings      # noqa: E402
-from app.executor import run_submission, _equal, problem_view  # noqa: E402
+from app import content  # noqa: E402
+from app.config import settings  # noqa: E402
+from app.executor import _equal, problem_view, run_submission  # noqa: E402
 from app.executor.harness import _CODECS  # noqa: E402
 
 # A grade status of "passed"/"wrong" both mean the code *ran cleanly* and produced
@@ -334,10 +334,12 @@ def _has_rich_type(prob: dict) -> bool:
 
 
 def cmd_fuzz(args) -> int:
-    from app.testgen.generators import (generate_candidates,
-                                         generate_class_candidates, GenConfig)
     from app.testgen.constraints import parse_constraints
-    from app.testgen.shrink import shrink
+    from app.testgen.generators import (
+        GenConfig,
+        generate_candidates,
+        generate_class_candidates,
+    )
 
     prob = _find_problem(args.slug)
     if prob is None:
@@ -476,7 +478,8 @@ def cmd_cover(args) -> int:
     """Coverage-first hardening for one problem via the shared app.testgen engine
     (the same engine strengthen_tests.py drives in batch) — selects inputs that
     widen behavioral coverage, no adversary required."""
-    from strengthen_tests import strengthen, apply_cases  # sibling; shares the engine
+    from strengthen_tests import apply_cases, strengthen  # sibling; shares the engine
+
     from app.testgen import GenConfig
 
     by_slug = {p["slug"]: p for p in content.load_all_roots()}

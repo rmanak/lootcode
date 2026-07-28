@@ -80,11 +80,12 @@ sys.path.insert(0, str(ROOT / "scripts"))  # scripts/ is not a package
 import audit  # noqa: E402  - scripts/audit.py: behavioral + statement<->judge consistency
 import test_llm_output as tlo  # noqa: E402  - strict structural (pydantic + AST) validator
 import verify_json as vj  # noqa: E402  - run_submission wrapper w/ per-test failure detail
+
 from app import content, store  # noqa: E402
 from app.config import settings  # noqa: E402
 from app.db import SessionLocal, init_db  # noqa: E402
-from app.models import Problem  # noqa: E402
 from app.executor import run_submission  # noqa: E402
+from app.models import Problem  # noqa: E402
 from app.tags import unknown_tags  # noqa: E402
 
 DEFAULT_OUT = ROOT / "content" / "problems-extended"

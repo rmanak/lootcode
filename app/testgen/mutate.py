@@ -15,7 +15,6 @@ from __future__ import annotations
 
 import ast
 from dataclasses import dataclass
-from typing import Optional
 
 # Comparison flips: the classic off-by-one / boundary-weakening bugs.
 _CMP = {
@@ -132,7 +131,7 @@ def _count_stmts(source: str) -> int:
     return d.i + 1
 
 
-def _sdl_mutant(source: str, target: int) -> Optional[tuple[str, str]]:
+def _sdl_mutant(source: str, target: int) -> tuple[str, str] | None:
     tree = _Deleter(target).visit(ast.parse(source))
     ast.fix_missing_locations(tree)
     try:
@@ -205,7 +204,7 @@ def make_mutants(source: str, cap: int = 60, seed: int = 0) -> list[Mutant]:
     return mutants
 
 
-def _nth(tree: ast.AST, idx: int) -> Optional[ast.AST]:
+def _nth(tree: ast.AST, idx: int) -> ast.AST | None:
     for i, node in enumerate(_dfs(tree)):
         if i == idx:
             return node

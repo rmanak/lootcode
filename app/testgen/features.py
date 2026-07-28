@@ -26,7 +26,10 @@ from __future__ import annotations
 from typing import Any
 
 from .generators import (
-    parse_type, looks_expression, _RICH_ARRAY_BASES, _LINKED_LIST_BASES,
+    _LINKED_LIST_BASES,
+    _RICH_ARRAY_BASES,
+    looks_expression,
+    parse_type,
 )
 
 

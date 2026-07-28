@@ -33,7 +33,7 @@ class Outcome:
     stdout: str = ""
 
     @classmethod
-    def from_dict(cls, d: dict) -> "Outcome":
+    def from_dict(cls, d: dict) -> Outcome:
         return cls(
             status=d.get("status", "error"),
             returned=d.get("returned"),

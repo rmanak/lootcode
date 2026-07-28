@@ -42,10 +42,11 @@ _SCRIPTS = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(_SCRIPTS.parent))  # repo root, so `app` imports
 sys.path.insert(0, str(_SCRIPTS))         # so the sibling generator imports
 
-from app.config import settings  # noqa: E402
 # Reuse the generator's verification verbatim (same dual-encoding TreeNode logic),
 # so a validator that passes here passes there and vice versa.
 import generate_constraint_validators as gcv  # noqa: E402
+
+from app.config import settings  # noqa: E402
 
 
 def _validator_file(slug: str, flat_dir: pathlib.Path | None,

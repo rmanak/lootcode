@@ -22,8 +22,7 @@ from __future__ import annotations
 import os
 import re
 import time
-from dataclasses import dataclass, field
-from typing import Optional
+from dataclasses import dataclass
 
 LLM_SERVER_URL = os.environ.get("LLM_SERVER_URL", "http://localhost:8080")
 LLM_MODEL = os.environ.get("LLM_MODEL", "qwen36")
@@ -85,7 +84,7 @@ class Candidate:
     style: str
     code: str                 # extracted function source ("" if none found)
     parse_ok: bool            # code compiles AND defines the required function
-    error: Optional[str] = None
+    error: str | None = None
     elapsed_s: float = 0.0
     completion_tokens: int = 0
 
