@@ -5,8 +5,13 @@ These run the real subprocess sandbox, so they only pass on POSIX.
 from pathlib import Path
 from types import SimpleNamespace as NS
 
+import pytest
+
 from app.content import load_problem_dir
 from app.executor import run_submission
+
+# Every test here spawns a real sandbox subprocess.
+pytestmark = pytest.mark.slow
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 

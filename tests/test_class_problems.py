@@ -6,7 +6,12 @@ See specs/problem-schema.md (class kind) and docs/design-problems.md.
 """
 from types import SimpleNamespace as NS
 
+import pytest
+
 from app.executor import run_submission
+
+# Every test here grades a class problem through the real sandbox.
+pytestmark = pytest.mark.slow
 
 
 def _class_problem(class_name, ctor_params, methods, *, compare="exact",

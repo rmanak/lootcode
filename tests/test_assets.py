@@ -4,15 +4,6 @@ The route must serve only a problem's own assets/ dir, only image types, and mus
 never let a request escape into solution/ or tests/.
 """
 import pytest
-from fastapi.testclient import TestClient
-
-from app.main import app
-
-
-@pytest.fixture(scope="module")
-def client():
-    with TestClient(app) as c:  # runs startup (init_db + seed from content/)
-        yield c
 
 
 def test_serves_problem_figure(client):

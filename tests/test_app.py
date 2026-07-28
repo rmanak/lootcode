@@ -1,11 +1,6 @@
 """End-to-end app tests via FastAPI's TestClient (uses the real executor)."""
 import re
 
-import pytest
-from fastapi.testclient import TestClient
-
-from app.main import app
-
 CANONICAL = (
     "def twoSum(nums, target):\n"
     "    seen = {}\n"
@@ -15,12 +10,6 @@ CANONICAL = (
     "        seen[n] = i\n"
     "    return []\n"
 )
-
-
-@pytest.fixture(scope="module")
-def client():
-    with TestClient(app) as c:  # context manager runs startup (init_db + seed)
-        yield c
 
 
 def test_home_lists_problems(client):
@@ -203,7 +192,7 @@ def test_progress_links_submission_into_editor(client):
     assert "Loaded your submission" in page      # and the note tells the user so
 
 
-def test_cannot_load_another_users_submission(client):
+def test_cannot_load_another_users_submission(client, new_browser):
     # Make a submission as the default identity, grab its id...
     r = client.post("/api/problems/two-sum/run",
                     json={"code": "def twoSum(nums, target):\n    # privatecode\n    return []\n"})
@@ -213,10 +202,10 @@ def test_cannot_load_another_users_submission(client):
 
     # ...then a *fresh* client (new cookie => new user) must not see that code; it
     # falls back to the starter solution instead of leaking another user's code.
-    with TestClient(app) as other:
-        page = other.get(f"/problems/two-sum?submission={sub_id}").text
-        assert "privatecode" not in page
-        assert "Loaded your submission" not in page
+    other = new_browser()
+    page = other.get(f"/problems/two-sum?submission={sub_id}").text
+    assert "privatecode" not in page
+    assert "Loaded your submission" not in page
 
 
 def test_quick_picks_on_both_pages(client):

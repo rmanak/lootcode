@@ -10,7 +10,6 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.db import SessionLocal
-from app.main import app
 from app.models import Problem, Submission, User
 
 
@@ -39,9 +38,16 @@ def _new_guest_uid(client: TestClient) -> str:
 
 
 @pytest.fixture
-def client():
-    with TestClient(app) as c:
-        yield c
+def client(client):
+    """Each identity test starts as a brand-new visitor.
+
+    Overrides conftest's session-scoped client (pytest resolves the same-named
+    argument to the parent fixture) so the app is started once but every test
+    still gets a fresh guest.
+    """
+    client.cookies.clear()
+    yield client
+    client.cookies.clear()
 
 
 def test_create_account_keeps_guest_progress(client):
@@ -66,7 +72,7 @@ def test_create_account_keeps_guest_progress(client):
     assert "Signed in as" in client.get("/me").text
 
 
-def test_login_from_new_browser_merges_guest_progress(client):
+def test_login_from_new_browser_merges_guest_progress(client, new_browser):
     """A different browser's guest progress is folded into the account on login."""
     a_uid = _new_guest_uid(client)
     pid_a, pid_b = _two_problem_ids()
@@ -74,16 +80,16 @@ def test_login_from_new_browser_merges_guest_progress(client):
     u = _uname()
     client.post("/account", data={"username": u, "password": "password123"})
 
-    with TestClient(app) as other:
-        b_uid = _new_guest_uid(other)
-        assert b_uid != a_uid
-        _record_solved(b_uid, pid_b)  # solved as a guest in this browser
+    other = new_browser()
+    b_uid = _new_guest_uid(other)
+    assert b_uid != a_uid
+    _record_solved(b_uid, pid_b)  # solved as a guest in this browser
 
-        r = other.post("/login", data={"username": u, "password": "password123"},
-                       follow_redirects=False)
-        assert r.status_code == 303 and r.headers["location"] == "/me"
-        # The browser is now the account…
-        assert other.cookies.get("lc_uid") == a_uid
+    r = other.post("/login", data={"username": u, "password": "password123"},
+                   follow_redirects=False)
+    assert r.status_code == 303 and r.headers["location"] == "/me"
+    # The browser is now the account…
+    assert other.cookies.get("lc_uid") == a_uid
 
     with SessionLocal() as db:
         assert db.get(User, b_uid) is None  # empty guest row removed
@@ -91,30 +97,30 @@ def test_login_from_new_browser_merges_guest_progress(client):
         assert {pid_a, pid_b} <= pids       # both solves now under the account
 
 
-def test_duplicate_username_refused_case_insensitively(client):
+def test_duplicate_username_refused_case_insensitively(client, new_browser):
     u = _uname()
     client.post("/account", data={"username": u, "password": "password123"})
-    with TestClient(app) as other:
-        _new_guest_uid(other)
-        r = other.post("/account",
-                       data={"username": u.upper(), "password": "password123"},
-                       follow_redirects=False)
-        assert r.status_code == 303 and "/account?error=" in r.headers["location"]
-        assert "taken" in other.get(r.headers["location"]).text
+    other = new_browser()
+    _new_guest_uid(other)
+    r = other.post("/account",
+                   data={"username": u.upper(), "password": "password123"},
+                   follow_redirects=False)
+    assert r.status_code == 303 and "/account?error=" in r.headers["location"]
+    assert "taken" in other.get(r.headers["location"]).text
 
 
-def test_duplicate_email_refused(client):
+def test_duplicate_email_refused(client, new_browser):
     email = f"{_uname()}@example.com"
     client.post("/account",
                 data={"username": _uname(), "password": "password123", "email": email})
-    with TestClient(app) as other:
-        _new_guest_uid(other)
-        r = other.post("/account",
-                       data={"username": _uname(), "password": "password123",
-                             "email": email.upper()},
-                       follow_redirects=False)
-        assert "/account?error=" in r.headers["location"]
-        assert "already in use" in other.get(r.headers["location"]).text
+    other = new_browser()
+    _new_guest_uid(other)
+    r = other.post("/account",
+                   data={"username": _uname(), "password": "password123",
+                         "email": email.upper()},
+                   follow_redirects=False)
+    assert "/account?error=" in r.headers["location"]
+    assert "already in use" in other.get(r.headers["location"]).text
 
 
 def test_short_password_refused(client):
@@ -125,15 +131,15 @@ def test_short_password_refused(client):
     assert "at least" in client.get(r.headers["location"]).text
 
 
-def test_login_wrong_password_refused(client):
+def test_login_wrong_password_refused(client, new_browser):
     u = _uname()
     client.post("/account", data={"username": u, "password": "password123"})
-    with TestClient(app) as other:
-        _new_guest_uid(other)
-        r = other.post("/login", data={"username": u, "password": "wrongpass1"},
-                       follow_redirects=False)
-        assert "/account?error=" in r.headers["location"]
-        assert "Wrong username or password" in other.get(r.headers["location"]).text
+    other = new_browser()
+    _new_guest_uid(other)
+    r = other.post("/login", data={"username": u, "password": "wrongpass1"},
+                   follow_redirects=False)
+    assert "/account?error=" in r.headers["location"]
+    assert "Wrong username or password" in other.get(r.headers["location"]).text
 
 
 def test_logout_returns_to_fresh_guest(client):

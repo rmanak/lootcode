@@ -16,7 +16,10 @@ from sqlalchemy.orm import Session
 
 from app.db import Base
 from app.models import Problem
-from app.models import TestCase as TestCaseModel
+
+# Aliased away from a `Test*` name so pytest doesn't try to collect the
+# ORM model as a test class.
+from app.models import TestCase as CaseRow
 
 BIG = 46970481301346070551168882056905936076800000000000000  # >> 2**63
 
@@ -40,12 +43,12 @@ def test_big_integer_roundtrips_exact(session):
                    statement_md="", function_name="f")
     session.add(prob)
     session.flush()
-    session.add(TestCaseModel(problem_id=prob.id, name="c1",
+    session.add(CaseRow(problem_id=prob.id, name="c1",
                          input={"n": BIG}, expected=BIG, weight=1, hidden=False))
     session.commit()
     session.expire_all()  # drop cached instances so we read back through the DB
 
-    t = session.scalar(select(TestCaseModel))
+    t = session.scalar(select(CaseRow))
     assert t.expected == BIG and isinstance(t.expected, int)
     assert t.input["n"] == BIG and isinstance(t.input["n"], int)
 
