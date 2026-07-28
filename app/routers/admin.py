@@ -9,6 +9,7 @@ import json
 import math
 import queue
 import threading
+from pathlib import Path
 from types import SimpleNamespace
 from urllib.parse import urlencode
 
@@ -23,6 +24,7 @@ from ..config import settings
 from ..db import get_db
 from ..executor import run_submission
 from ..llm import draft_store
+from ..logging_config import audit, get_logger
 from ..models import Problem
 from ..problem_validation import (
     existing_slugs,
@@ -32,6 +34,8 @@ from ..problem_validation import (
 )
 from ..templating import templates
 from .pages import _page_window
+
+log = get_logger(__name__)
 
 router = APIRouter(prefix="/admin")
 
@@ -56,17 +60,48 @@ def _active_backend() -> str:
 ADMIN_PROBLEMS_PER_PAGE = 1000
 
 
-def _save(db: Session, data: dict) -> Problem:
-    """Persist a problem to the DB and mirror it into content/ on disk."""
+def _owning_root(slug: str) -> Path:
+    """The content root a problem already lives in, or the default root for a new one.
+
+    Problems live in two roots: the committed ``content/problems/`` and the
+    gitignored ``content/problems-extended/``. Writing every save to the first
+    one meant editing an extended problem created a *second* copy under
+    ``content/problems/`` — tracked by git, and loaded alongside the original at
+    seed time — while the edit the author actually made sat in the copy that
+    ``load_all_roots`` reads first and ``upsert_problem`` then overwrites.
+    """
+    for root in settings.content_dirs:
+        if (root / slug / "meta.json").exists():
+            return root
+    return settings.CONTENT_DIR
+
+
+def _save(db: Session, data: dict) -> tuple[Problem, str]:
+    """Persist a problem to the DB and mirror it into content/ on disk.
+
+    Returns the saved problem and a **mirror-failure message** — empty when the
+    disk write succeeded. The DB write has already committed by the time a mirror
+    can fail, so this is not a rollback: it is reporting a partial save honestly
+    instead of reporting success. This used to be ``except OSError: pass``, which
+    let a full disk or a read-only mount desync the DB from the durable source of
+    truth with no log line and nothing shown to the author.
+    """
     prob = store.upsert_problem(db, data)
-    try:  # noqa: SIM105 - known gap, see docs/engineering-plan.md Phase 3 #3
-        content.write_problem_files(data)
-    except OSError:
-        # Silently desyncs the DB from the on-disk source of truth. Should log
-        # and surface; deliberately left visible rather than dressed up as
-        # contextlib.suppress, which would hide the same bug more neatly.
-        pass
-    return prob
+    slug = data["slug"]
+    root = _owning_root(slug)
+    try:
+        content.write_problem_files(data, root)
+    except OSError as exc:
+        log.exception("failed to mirror %r into %s — the database and content/ "
+                      "are now out of step for this problem", slug, root)
+        audit("saved problem %r to the DB but FAILED to write it to %s", slug, root)
+        return prob, (
+            f"Saved to the database, but writing {slug} to {root} failed: {exc}. "
+            "content/ is now out of step — fix the disk problem and save again "
+            "before the next re-seed, or the change will be lost.")
+    audit("saved problem %r to %s (%d tests)", slug, root,
+          len(data.get("tests") or []))
+    return prob, ""
 
 
 def _parse_params(text: str) -> list[dict]:
@@ -305,11 +340,14 @@ def edit_submit(
     if not result.ok:
         return _reject(result.errors, result.warnings)
 
-    prob = _save(db, data)
+    prob, mirror_error = _save(db, data)
     return templates.TemplateResponse(request, "admin/edit.html", {
         "request": request, "user_name": request.state.user_name,
         "f": _form_view(prob), "compare_modes": COMPARE_MODES,
-        "errors": [], "warnings": result.warnings, "saved": True,
+        # A mirror failure is not a validation error — the save happened — but the
+        # author has to know their edit only reached the DB.
+        "errors": [], "saved": True,
+        "warnings": [*result.warnings, *([mirror_error] if mirror_error else [])],
     })
 
 
@@ -467,9 +505,17 @@ def new_submit(
     if not result.ok:
         return _reject(result.errors, result.warnings)
 
-    prob = _save(db, data)
+    prob, mirror_error = _save(db, data)
     if draft_id:
         draft_store.pop(draft_id)  # confirmed → drop the pending draft
+    if mirror_error:
+        # Created, but not on disk: land on the edit form with the warning rather
+        # than redirecting to a page that would look like an unqualified success.
+        return templates.TemplateResponse(request, "admin/edit.html", {
+            "request": request, "user_name": request.state.user_name,
+            "f": _form_view(prob), "compare_modes": COMPARE_MODES,
+            "errors": [], "warnings": [*result.warnings, mirror_error], "saved": True,
+        })
     return RedirectResponse(f"/admin/problems/{prob.slug}/edit", status_code=303)
 
 

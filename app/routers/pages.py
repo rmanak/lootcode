@@ -380,7 +380,13 @@ _IMAGE_MEDIA = {
 @router.get("/problems/{slug}/assets/{filename}")
 def problem_asset(slug: str, filename: str):
     """Serve a problem figure. Deliberately narrow: only the per-problem `assets/`
-    dir, only image extensions, and path-traversal is rejected."""
+    dir, only image extensions, and path-traversal is rejected.
+
+    Searches **every** content root, not just ``CONTENT_DIR``. Problems live in
+    two roots (the committed default set and the gitignored extended set, see
+    ``settings.content_dirs``); resolving only the first made every figure in the
+    extended set 404 while its statement still rendered the ``<img>``.
+    """
     if any(bad in slug for bad in ("/", "\\", "..")) or \
        any(bad in filename for bad in ("/", "\\", "..")):
         raise HTTPException(status_code=404, detail="Not found")
@@ -388,13 +394,15 @@ def problem_asset(slug: str, filename: str):
     if media_type is None:
         raise HTTPException(status_code=404, detail="Not found")
 
-    assets_dir = (settings.CONTENT_DIR / slug / "assets").resolve()
-    target = (assets_dir / filename).resolve()
-    # Belt-and-suspenders: the resolved file must stay inside that assets dir.
-    if os.path.commonpath([str(assets_dir), str(target)]) != str(assets_dir) \
-       or not target.is_file():
-        raise HTTPException(status_code=404, detail="Not found")
-    return FileResponse(target, media_type=media_type)
+    for root in settings.content_dirs:
+        assets_dir = (root / slug / "assets").resolve()
+        target = (assets_dir / filename).resolve()
+        # Belt-and-suspenders: the resolved file must stay inside that assets dir.
+        if os.path.commonpath([str(assets_dir), str(target)]) != str(assets_dir):
+            continue
+        if target.is_file():
+            return FileResponse(target, media_type=media_type)
+    raise HTTPException(status_code=404, detail="Not found")
 
 
 @router.get("/")
