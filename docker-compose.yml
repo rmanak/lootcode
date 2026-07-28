@@ -1,12 +1,20 @@
 # Run lootcode on your home server:  docker compose up --build
 # Then visit http://<server-ip>:8000 from any device on your LAN.
+#
+# WARNING: publishing this port puts an app with NO authentication on your
+# network. Anyone who can reach it can rewrite the problem bank and execute
+# arbitrary Python (the default `subprocess` backend does not block network
+# access). Read docs/security.md; set EXECUTOR_BACKEND=docker for real isolation.
 services:
   web:
     build: .
     ports:
+      # Change to "127.0.0.1:8000:8000" to keep it on the host only.
       - "8000:8000"
     environment:
       HOST: "0.0.0.0"
+      # Publishing the port above is the deliberate act; see the Dockerfile.
+      LOOTCODE_TRUST_LAN: "1"
       LOOTCODE_DB: "/app/data/lootcode.db"
       EXECUTOR_BACKEND: "subprocess"
       # Uncomment to enable AI problem generation:

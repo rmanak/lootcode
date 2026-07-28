@@ -109,7 +109,10 @@ max-line-length = 100
 "app/executor/subprocess_executor.py" = ["S603", "S607"]
 "app/executor/docker_executor.py" = ["S603", "S607"]
 # Tests assert, and mirror sandbox/eval behaviour on purpose.
-"tests/*" = ["S101", "S102", "S307", "S603", "S607", "N802", "N814", "N812"]
+# S104: the LAN-bind guard tests name "0.0.0.0" on purpose — that is the
+# string under test, not a bind.
+"tests/*" = ["S101", "S102", "S104", "S307", "S603", "S607", "N802",
+             "N814", "N812", "SIM117"]
 # `scripts/` (24.8k LOC of offline tooling) is consolidated in a later phase;
 # until then it is linted for real bugs but not for style. Shrink this list as
 # scripts/_common.py absorbs the duplication.

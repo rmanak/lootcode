@@ -25,6 +25,14 @@ class Settings:
     HOST = os.environ.get("HOST", "127.0.0.1")
     PORT = _int("PORT", 8000)
 
+    # lootcode has no authentication: /admin can rewrite the bank and execute
+    # arbitrary Python, and the default sandbox does not block network access, so
+    # the security boundary is the network (docs/security.md). Binding anywhere
+    # but loopback therefore has to be a decision, not a default — the app
+    # refuses to start otherwise (app.main.check_bind_is_intentional).
+    TRUST_LAN = os.environ.get("LOOTCODE_TRUST_LAN", "").strip().lower() in (
+        "1", "true", "yes", "on")
+
     DB_PATH = os.environ.get("LOOTCODE_DB", str(BASE_DIR / "lootcode.db"))
     DATABASE_URL = f"sqlite:///{DB_PATH}"
 

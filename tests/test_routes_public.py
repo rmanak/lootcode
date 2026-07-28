@@ -100,7 +100,18 @@ def test_account_page_shows_an_error_query(client):
 
 
 # --- POST /api/llm/refresh ------------------------------------------------
-def test_llm_refresh_reports_unavailable_when_the_probe_fails(client, monkeypatch):
+@pytest.fixture
+def unthrottled_refresh():
+    """Clear the route's replay cache so each test really re-probes."""
+    from app.routers import submissions
+
+    submissions._last_refresh.update(at=0.0, result=None)
+    yield
+    submissions._last_refresh.update(at=0.0, result=None)
+
+
+def test_llm_refresh_reports_unavailable_when_the_probe_fails(
+        client, monkeypatch, unthrottled_refresh):
     from app.llm import help_generator
 
     monkeypatch.setattr(help_generator, "probe_endpoint", lambda **kw: False)
@@ -114,7 +125,8 @@ def test_llm_refresh_reports_unavailable_when_the_probe_fails(client, monkeypatc
     assert settings.llm_help_available is False
 
 
-def test_llm_refresh_turns_the_features_on_when_the_probe_succeeds(client, monkeypatch):
+def test_llm_refresh_turns_the_features_on_when_the_probe_succeeds(
+        client, monkeypatch, unthrottled_refresh):
     from app.llm import help_generator
 
     monkeypatch.setattr(help_generator, "probe_endpoint", lambda **kw: True)
@@ -124,7 +136,8 @@ def test_llm_refresh_turns_the_features_on_when_the_probe_succeeds(client, monke
     assert body["generation_enabled"] is True
 
 
-def test_llm_refresh_never_raises_even_if_the_probe_explodes(client, monkeypatch):
+def test_llm_refresh_never_raises_even_if_the_probe_explodes(
+        client, monkeypatch, unthrottled_refresh):
     from app.llm import help_generator
 
     def boom(**kw):
@@ -133,6 +146,25 @@ def test_llm_refresh_never_raises_even_if_the_probe_explodes(client, monkeypatch
     monkeypatch.setattr(help_generator, "probe_endpoint", boom)
     r = client.post("/api/llm/refresh")
     assert r.status_code == 200 and r.json()["available"] is False
+
+
+def test_llm_refresh_replays_its_answer_instead_of_re_probing(
+        client, monkeypatch, unthrottled_refresh):
+    """The route is unauthenticated, flips a process-wide flag and makes an
+    outbound request, so back-to-back calls must not each re-probe."""
+    from app.llm import help_generator
+
+    calls = []
+
+    def counting_probe(**kw):
+        calls.append(1)
+        return True
+
+    monkeypatch.setattr(help_generator, "probe_endpoint", counting_probe)
+    first = client.post("/api/llm/refresh").json()
+    second = client.post("/api/llm/refresh").json()
+    assert first == second
+    assert len(calls) == 1, "the second call inside the window must be replayed"
 
 
 def test_the_admin_page_offers_a_recheck_button_only_while_generation_is_off(

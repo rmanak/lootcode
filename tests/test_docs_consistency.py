@@ -89,12 +89,17 @@ FORWARD_LOOKING = {
     "docs/duplicate-detection-plan.md",
 }
 
-# A path that looks like a repo path in prose. Only `app/` and `scripts/`:
-# "tests/cases.json" in the docs means content/problems/<slug>/tests/cases.json,
-# a fragment, not a repo-root path.
+# A path that looks like a repo path in prose. `app/`, `scripts/` and
+# `services/` only: "tests/cases.json" in the docs means
+# content/problems/<slug>/tests/cases.json, a fragment, not a repo-root path.
+#
+# `services/` is in the list precisely because it does not exist: four docs —
+# including the security-review gate and the reviewer agent's own selection
+# trigger — pointed at `services/executor` for months after the executor was
+# built at app/executor/. Keeping the prefix here means it can never come back.
 _PATH_RE = re.compile(
     r"(?<![\w./-])"
-    r"((?:app|scripts)/[A-Za-z0-9_./-]*[A-Za-z0-9_])"
+    r"((?:app|scripts|services)/[A-Za-z0-9_./-]*[A-Za-z0-9_])"
 )
 
 # Prose that names a *pattern* rather than one file.

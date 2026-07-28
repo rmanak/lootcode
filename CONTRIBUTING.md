@@ -17,7 +17,7 @@
 
 ## Security-sensitive areas
 
-Changes to `services/executor/` or any path that runs user-submitted code get an
+Changes to `app/executor/` or any path that runs user-submitted code get an
 extra security review. Never weaken the sandbox guarantees in
 `docs/code-execution.md` for convenience. If you must, write an ADR first.
 

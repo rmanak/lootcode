@@ -1,6 +1,6 @@
 # Code execution (running untrusted code safely)
 
-> This is the highest-risk subsystem. **Read before changing `services/executor`
+> This is the highest-risk subsystem. **Read before changing `app/executor/`
 > or any path that runs user code.** Pair changes with the
 > `executor-security-reviewer` subagent and `docs/security.md`.
 

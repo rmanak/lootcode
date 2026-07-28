@@ -28,6 +28,9 @@ seed:           ## load content into the DB and verify canonical solutions
 dev:            ## run the dev server with autoreload (localhost only)
 	.venv/bin/uvicorn app.main:app --reload
 
+# A non-loopback bind needs LOOTCODE_TRUST_LAN=1 — the app has no auth, so
+# exposing it has to be a decision. Put it in .env or the environment; this
+# target deliberately does not set it for you. See docs/security.md.
 run:            ## run the server bound to $(HOST) (default 0.0.0.0 — the LAN)
 	.venv/bin/uvicorn app.main:app --host $(HOST) --port $(PORT)
 
