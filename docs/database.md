@@ -51,7 +51,13 @@ The same applies to any tool that "helpfully" snapshots a working tree.
 
 ### Before any git operation that rewrites the working tree
 
-Nothing needs doing *now* that the ignore rules are right. But if you are on an
+**Stop the dev server first.** A running `uvicorn` holds all three files open at
+once (`/proc/<pid>/fd` shows `.db`, `.db-wal` and `.db-shm`), and the
+shared-memory index describes the log that was there when it opened. Rewriting
+those files underneath it is the dangerous case — and since the server is
+normally up while you work, it is the default case rather than an unlucky one.
+
+Nothing else needs doing *now* that the ignore rules are right. But if you are on an
 older checkout — anything before `a236a44`, where `lootcode.db-wal` is still in
 the tree — delete `lootcode.db-wal` and `lootcode.db-shm` **before** starting the
 app, so a log from that commit is never replayed over your current data.

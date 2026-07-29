@@ -52,14 +52,34 @@ Being precise here matters, because the difference changes what to fix.
 - The end state is physical corruption (above), which application code cannot
   cause.
 
-**Not proven:** the exact operation that tipped it. I tried to reproduce it in a
-synthetic repo and could not do so reliably — whether a given stash corrupts
-depends on which process holds the database open when git swaps the files, and
-that interleaving is not recoverable after the fact.
+**Not proven — and I tried:** the exact operation that tipped it. I built three
+synthetic repos with the same `.gitignore` configuration and could not reproduce
+the corruption: stash/pop alone leaves the database `ok`; so does a checkpoint of
+the stale log during the stashed window; so does holding a connection open across
+the whole sequence, which is the closest analogue to a running server. SQLite's
+WAL salt and checksums evidently reject a mismatched log more often than they
+replay it. The mechanism below is therefore *inferred*, not demonstrated, and I
+would rather say so than dress up a plausible story as a finding.
 
-I am not going to hide behind that. The hazard was real and documented above;
-mine were the only commands in the session that rewrote those files; and the
-verification failure below is unambiguous regardless of who tipped it.
+What is new and checkable is the missing condition. A running `uvicorn` holds
+**all three files open at once** — verified against the live process:
+
+```
+/proc/<pid>/fd/13 -> lootcode.db
+/proc/<pid>/fd/14 -> lootcode.db-wal
+/proc/<pid>/fd/15 -> lootcode.db-shm
+```
+
+So the dangerous window is not "git rewrote a file" but "git rewrote a file that
+a live connection had open, and the shared-memory index still described the old
+one". The dev server is normally up while working on this project — it is how
+the `/admin` failure was noticed at all — which makes that window the default
+condition rather than an unlucky one. Hence the rule: stop the server before any
+git operation that rewrites the working tree, or better, do not run one.
+
+I am not hiding behind the unproven part. The hazard was real and is documented
+above; mine were the only commands in the session that rewrote those files; and
+the verification failure below is unambiguous regardless of what tipped it.
 
 ## Why the checks did not catch it
 

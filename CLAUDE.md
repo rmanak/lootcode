@@ -125,7 +125,10 @@ works for a fresh checkout.
     as a way of "peeking at another version"** while the working tree holds the
     live database. Use `git worktree add` (a separate directory) or
     `git show <ref>:<path>`. A stash mutates the tree the database sits in; this
-    is exactly how it got corrupted on 2026-07-28.
+    is exactly how it got corrupted on 2026-07-28. If some git operation really
+    is unavoidable, **stop the dev server first** — a running uvicorn holds
+    `.db`, `.db-wal` and `.db-shm` open simultaneously, and rewriting those
+    under a live connection is the dangerous case.
   - **Never blanket-stage.** `git add -A` / `git commit -a` is how the SQLite
     write-ahead log got committed in the first place. Stage what you changed.
   - Never delete or recreate the database to "fix" something without first
