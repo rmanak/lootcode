@@ -47,6 +47,40 @@ alone, no wrong solution required:
 toward the smaller input, so cases stay compact); capped at `--cap`. `shrink.py`
 delta-debugs a fuzz catcher down to a minimal reproducer.
 
+### Generator reach: a token nothing can reach is not coverage
+
+Coverage-first selection is only as good as the candidate pool it selects *from*.
+A token universe the generator cannot produce an input for looks, from the
+selector's point of view, exactly like a universe that is fully covered — the run
+reports "coverage 55→88/88, saturated" and stops, while a whole behavioral regime
+sits untested. **Saturation is evidence about the generator, not about the
+problem.** Two concrete instances of this, both found via
+`minimum-deletions-to-make-string-balanced` (a wrong greedy scored 100/100 on a
+suite of ten inputs, none longer than 18 characters):
+
+- **Scalar strings were never stressed.** `_stress_value` put its long-string
+  branch under `dims == 1` (`string[]`), so a plain `string` param fell through to
+  `_rand_scalar`'s 1–6 characters. Every other producer is small too, so the
+  `n<=100` / `n<=1k` / `nBig` size buckets in `features.py` were *unreachable* for
+  all 178 string problems in the bank — 79 of which state a max length above 1000.
+- **`10⁵` parsed as `10`.** `constraints.py` understood `10^5` but not the Unicode
+  superscript that LeetCode-sourced statements actually use, so
+  `1 <= s.length <= 10⁵` became a max length of **10** — and 28% of the bank writes
+  its bounds that way. 154 problems had a size bound silently truncated to ≤10,
+  capping every generated input.
+
+Both are fixed, plus a **size ladder** (`T3b`) that emits mid/large strings —
+uniform and run-structured — at 20/60/300/1500 characters, clipped to the stated
+bound. The ladder is unprotected: selection still only keeps a rung that covers
+something new. Long runs matter specifically because uniform sampling almost never
+produces them, and they are where greedy solutions diverge from optimal.
+
+The general lesson, when a `cover` run reports full saturation on a suite that
+still lets a wrong solution through: check what the *pool* contained before
+concluding the problem is simple. `generate_candidates` returning nothing past
+length 9 for a 10⁵-length problem is a generator bug wearing a coverage report as
+a disguise.
+
 ### Two entry points, one engine
 
 - **`scripts/strengthen_tests.py`** — the batch sweep. Best run bank-wide; selects
@@ -66,6 +100,14 @@ validator** (`content/problems/<slug>/input_validator/input_validator.py`; see
 `docs/input-validators.md`). A validator that is too *weak* (wrongly accepts an
 out-of-domain input the fuzzer/shrinker can drift into) is itself a bug to fix — as
 `basic-calculator`'s charset-only validator was, replaced with a grammar check.
+
+Together these two invariants are **necessary but not sufficient** for a fair case.
+They make the answer trustworthy *given a well-posed input*; they say nothing about
+whether the input is well-posed. Where the statement promises something about the
+**answer** — that it is unique, that the values are distinct, that the target is
+reachable — the validator does not encode it, the canonical returns a plausible
+value anyway, and the resulting case unfairly fails correct solutions. See
+`docs/input-validators.md` § "Semantic preconditions".
 
 ## Class/design problems (`kind: "class"`)
 
@@ -270,6 +312,46 @@ guards below it are a cheap first pass that runs before it.
   the first two also missing an explicit Constraints section) were `--exclude`d from the
   apply pending statement tightening. The gate loads once per problem in
   `strengthen_tests._load_input_validator`, mirroring the audit's TreeNode dual-encoding.
+
+  **That three-problem exclude list is an undercount, and it is the blocker on any
+  bank-wide `--apply`.** It was derived from the owner's 93 solved problems at the
+  time; a full-bank sweep (2026-07-28, 5784 cases across 1029 problems) regressed 8
+  of the owner's 175 accepted solutions, and **5 were unfair tests of exactly this
+  kind** — each an input the validator accepts and the statement forbids:
+
+  | Problem | Generated input | Unstated precondition it violates |
+  |---|---|---|
+  | `missing-number` | `nums=[2,2]` | "*n distinct* numbers in `[0,n]`" |
+  | `two-sum` | `[-4,-4,4,3,91], target=0` | "exactly **one** solution" (here two) |
+  | `gas-station` | `gas=[3,4], cost=[2,1]` | "if a solution exists it is **unique**" |
+  | `jump-game-ii` | `nums=[0,0,0]` | "guaranteed you **can reach** `n-1`" |
+  | `notification-dedup` | — | already on the known exclude list |
+
+  On each, the canonical returns a meaningless value, that value is baked as
+  `expected`, and a *correct* solution fails. The sweep was rolled back. The other 3
+  regressions were genuine catches (two TLEs at the stated maximum size — `4sum` at
+  n=200, `reverse-substrings-between-each-pair-of-parentheses` at n=2000 — and the
+  wrong greedy in `minimum-deletions-to-make-string-balanced`); that is the value
+  being held up.
+
+  The prerequisite for shipping a bank-wide sweep is teaching validators to encode
+  **semantic** preconditions, not just ranges: uniqueness of the answer, distinctness
+  of values, and solvability/reachability. Until then, run `cover` per problem where
+  the domain is fully pinned down by explicit bounds, and read the statement before
+  applying. **The design note for that work — the taxonomy of these preconditions,
+  why every gate in this repo passes them silently, and the proposed `well_posed`
+  predicate — is `docs/input-validators.md` § "Semantic preconditions". Read it
+  before extending anything that generates inputs.**
+
+  Two traps worth naming explicitly, because both point the wrong way:
+
+  - **`verify_bank` is vacuous on generated cases.** "The canonical passes its own
+    tests" carries no information when `expected` *is* whatever the canonical
+    returned. It catches non-determinism (that is how `all-oone-data-structure`
+    surfaced) and nothing else about fairness.
+  - **Coverage selection actively prefers ill-posed inputs.** They tend to be
+    structurally degenerate — all-equal, all-zero, duplicate-heavy — so they light
+    up feature tokens nothing else covers and win on marginal coverage.
 
 The mechanical pre-pass guards (each also useful when a validator is absent):
 

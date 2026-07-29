@@ -37,6 +37,18 @@ So:
    validator *wrongly accepts* an out-of-domain input (e.g. fuzz/shrink drifts to
    something ungrammatical the validator's too weak to reject), the validator is
    too **weak** — fix/flag it; never bake an unfair case on illegal input.
+3. **The input must be well-posed, not merely legal.** The validator checks ranges
+   and shapes; it does **not** check what the statement promises about the
+   *answer*. Before baking a case, re-read the statement for phrases like *exactly
+   one solution*, *guaranteed to be unique*, *distinct*, *it is guaranteed that*,
+   *you may assume*, *return any*. If the problem makes such a promise, every input
+   you add must honour it — the canonical will happily return a plausible value on
+   an input that breaks it, `verify_bank` will pass (`expected` is by construction
+   whatever the canonical returned), and a **correct** solution will then be marked
+   wrong. Known live examples: `two-sum` and `gas-station` (answer uniqueness),
+   `missing-number` (distinctness), `jump-game-ii` (reachability),
+   `all-oone-data-structure` (arbitrary tie-breaking). See
+   `docs/input-validators.md` § "Semantic preconditions".
 
 ## Workflow (per problem)
 

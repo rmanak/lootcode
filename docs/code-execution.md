@@ -26,11 +26,21 @@ Every run MUST be:
    - **memory** (`EXECUTOR_MEMORY_LIMIT_MB`, via cgroups),
    - **CPU** shares,
    - **processes/threads** (PID limit → stops fork bombs),
-   - **output size** (`EXECUTOR_MAX_OUTPUT_KB`, truncate beyond).
+   - **output size** (`EXECUTOR_MAX_OUTPUT_KB`, truncate beyond) — a budget for
+     the **whole run**, not per test, because it has to match the file-size
+     rlimit covering the single `result.json` that holds every test's output.
+     Truncation is announced in the captured output, never silent.
 6. **Side-effect free toward us** — no access to host, API, DB, env secrets, or
    other submissions.
 
 If a change can weaken any of the above, stop and write an ADR.
+
+The **file-size** rlimit is not in that list on purpose. It bounds a single file
+(so it never limited total bytes written) and exists to size `result.json`, not
+to stop a submission filling the disk — the wall-clock limit and the workdir
+cleanup are what do that, and less comfortably than they look. See
+[ADR 0002](adr/0002-sandbox-file-size-limit.md), which also records where the
+default subprocess backend falls short of guarantees 4 and 6.
 
 ## Backends in this repository
 

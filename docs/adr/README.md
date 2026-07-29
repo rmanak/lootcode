@@ -11,11 +11,14 @@ Short documents capturing a significant decision, its context, and consequences.
 
 ## Suggested ADRs to write soon
 
-- `0002` — Build vs. buy the code executor (see `docs/code-execution.md`).
-- `0003` — Source of truth for problems: `content/` files vs. database.
-- `0004` — Backend framework & language.
-- `0005` — Scoring model.
+Numbers are assigned when an ADR is written, not reserved in advance.
+
+- Build vs. buy the code executor (see `docs/code-execution.md`).
+- Source of truth for problems: `content/` files vs. database.
+- Backend framework & language.
+- Scoring model.
 
 ## Index
 
 - [0001 — Record architecture decisions](0001-record-architecture-decisions.md)
+- [0002 — Sandbox file-size rlimit: bounds `result.json`, not disk usage](0002-sandbox-file-size-limit.md)

@@ -17,15 +17,26 @@ from __future__ import annotations
 
 import re
 
-# A numeric literal as written in constraint prose: 10^9, 5*10^4, 2 * 10^5, -1000.
-_NUM = r"-?\d+(?:\s*\*\s*10\s*\^\s*\d+|\s*\^\s*\d+|10\^\d+)?|-?10\^\d+|-?\d+"
+# Unicode superscript digits. LeetCode-sourced statements write exponents as
+# `10⁵`, not `10^5`, and a parser that only knows the caret form silently reads
+# `1 <= s.length <= 10⁵` as a max length of *10* — capping every generated input
+# for that problem at 10 elements. 28% of the bank uses this notation.
+_SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹"
+_SUP_MAP = str.maketrans(_SUP, "0123456789")
+
+# A numeric literal as written in constraint prose: 10^9, 5*10^4, 2 * 10^5, 10⁵, -1000.
+_NUM = (rf"-?\d+(?:\s*\*\s*10\s*\^\s*\d+|\s*\^\s*\d+|10\^\d+|[{_SUP}]+)?"
+        rf"|-?10\^\d+|-?10[{_SUP}]+|-?\d+")
 # A "variable" token: identifier, len(x), x.length/.size, or indexed x[i], x[i][j].
 _VAR = r"[A-Za-z_]\w*(?:\[[^\]]*\])*(?:\.(?:length|size))?|len\([A-Za-z_]\w*\)"
 
 
 def _num(tok: str) -> int | None:
-    """Parse a constraint numeric literal (``10^5``, ``5*10^4`` …) to an int."""
-    s = tok.strip().replace(" ", "").replace("^", "**")
+    """Parse a constraint numeric literal (``10^5``, ``5*10^4``, ``10⁵`` …) to an int."""
+    s = tok.strip().replace(" ", "")
+    # Unicode superscript exponent -> caret form, before the `^`->`**` rewrite.
+    s = re.sub(rf"([{_SUP}]+)", lambda m: "^" + m.group(1).translate(_SUP_MAP), s)
+    s = s.replace("^", "**")
     if not re.fullmatch(r"-?\d+(?:\*\*\d+)?(?:\*\d+(?:\*\*\d+)?)*", s):
         return None
     try:

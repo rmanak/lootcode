@@ -61,7 +61,29 @@ def _base(t: str) -> str:
 # --------------------------------------------------------------------------- #
 # Scalar / value generation
 # --------------------------------------------------------------------------- #
-def _rand_scalar(rng: random.Random, base: str, lo: int | None, hi: int | None) -> Any:
+def learn_string_alphabet(vals: list) -> str | None:
+    """The character set a string param actually draws from, learned from its seeds.
+
+    Many string problems restrict the alphabet ("``s`` consists only of ``'a'``
+    and ``'b'``"), and their ``validate_input`` enforces it. A generator that
+    emits ``ascii_lowercase`` then has almost every candidate thrown away by the
+    domain gate, leaving a pool too thin to discriminate. Returns the observed
+    alphabet when it is small enough to be a real restriction, else ``None``
+    (fall back to generic letters)."""
+    chars: set[str] = set()
+    seen = 0
+    for v in vals:
+        if not isinstance(v, str):
+            continue
+        seen += 1
+        chars |= set(v)
+    if not seen or not chars or len(chars) > 8:
+        return None
+    return "".join(sorted(chars))
+
+
+def _rand_scalar(rng: random.Random, base: str, lo: int | None, hi: int | None,
+                 alpha: str | None = None) -> Any:
     base = _base(base)
     if base == "bool":
         return rng.choice([True, False])
@@ -70,7 +92,7 @@ def _rand_scalar(rng: random.Random, base: str, lo: int | None, hi: int | None) 
         b = hi if hi is not None else 50
         return round(rng.uniform(a, b), 3)
     if base in ("string",):
-        alpha = _string.ascii_lowercase[: rng.choice([2, 3, 4, 26])]
+        alpha = alpha or _string.ascii_lowercase[: rng.choice([2, 3, 4, 26])]
         n = rng.randint(1, 6)
         return "".join(rng.choice(alpha) for _ in range(n))
     # int / any / unknown -> small int
@@ -85,16 +107,17 @@ def _rand_scalar(rng: random.Random, base: str, lo: int | None, hi: int | None) 
 
 
 def _rand_value(rng: random.Random, base: str, dims: int,
-                lo: int | None, hi: int | None, size: int) -> Any:
+                lo: int | None, hi: int | None, size: int,
+                alpha: str | None = None) -> Any:
     if base == "TreeNode":
         return _rand_tree(rng, size, lo, hi)
     if base in _LINKED_LIST_BASES:
         # Flat value array (the linked-list wire form): a list of node values.
         return [_rand_scalar(rng, "int", lo, hi) for _ in range(rng.randint(0, size))]
     if dims == 0:
-        return _rand_scalar(rng, base, lo, hi)
+        return _rand_scalar(rng, base, lo, hi, alpha)
     n = rng.randint(0, size)
-    return [_rand_value(rng, base, dims - 1, lo, hi, size) for _ in range(n)]
+    return [_rand_value(rng, base, dims - 1, lo, hi, size, alpha) for _ in range(n)]
 
 
 def _rand_tree(rng: random.Random, size: int, lo: int | None, hi: int | None) -> list:
@@ -178,7 +201,8 @@ def _expr_edges() -> list[str]:
 # --------------------------------------------------------------------------- #
 # T1 — structured edge shapes (per param type)
 # --------------------------------------------------------------------------- #
-def _scalar_edges(base: str, lo: int | None, hi: int | None) -> list[Any]:
+def _scalar_edges(base: str, lo: int | None, hi: int | None,
+                  alpha: str | None = None) -> list[Any]:
     base = _base(base)
     if base == "bool":
         return [True, False]
@@ -190,6 +214,15 @@ def _scalar_edges(base: str, lo: int | None, hi: int | None) -> list[Any]:
             vals.append(float(hi))
         return vals
     if base == "string":
+        if alpha:
+            # Degenerate shapes built from the param's own alphabet: empty, each
+            # single char, each char repeated, and the two orderings of the first
+            # two chars (the "already sorted" vs "fully inverted" regimes).
+            out = ["", *alpha, *(c * 4 for c in alpha)]
+            if len(alpha) >= 2:
+                a, b = alpha[0], alpha[1]
+                out += [a + b, b + a, b * 3 + a * 3, a * 3 + b * 3]
+            return list(dict.fromkeys(out))
         return ["", "a", "aa", "ab", "zzzz"]
     vals = [0, 1, -1]
     for v in (lo, hi):
@@ -203,15 +236,16 @@ def _scalar_edges(base: str, lo: int | None, hi: int | None) -> list[Any]:
     return out or [lo if lo is not None else 0]
 
 
-def _array_edges(base: str, dims: int, lo: int | None, hi: int | None) -> list[Any]:
+def _array_edges(base: str, dims: int, lo: int | None, hi: int | None,
+                 alpha: str | None = None) -> list[Any]:
     if base == "TreeNode":
         return [[], [1], [1, 2, 3], [1, 2, 3, 4, 5, 6, 7],
                 [1, 2, None, 3, None, 4], [1, None, 2, None, 3]]  # empty/single/full/left/right
     if base in _LINKED_LIST_BASES:
         return [[], [1], [1, 2], [2, 1], [1, 1, 1], [1, 2, 3, 4, 5],
                 [5, 4, 3, 2, 1], [1, 1, 2, 2]]  # empty/single/pair/dup/sorted/reversed
-    inner = (_array_edges(base, dims - 1, lo, hi) if dims > 1
-             else _scalar_edges(base, lo, hi))
+    inner = (_array_edges(base, dims - 1, lo, hi, alpha) if dims > 1
+             else _scalar_edges(base, lo, hi, alpha))
     # a representative single element for building shapes
     one = inner[0] if inner else (0 if _base(base) == "int" else "")
     two = inner[1] if len(inner) > 1 else one
@@ -228,19 +262,20 @@ def _array_edges(base: str, dims: int, lo: int | None, hi: int | None) -> list[A
     return shapes
 
 
-def edge_values(param_type: str, lo: int | None, hi: int | None) -> list[Any]:
+def edge_values(param_type: str, lo: int | None, hi: int | None,
+                alpha: str | None = None) -> list[Any]:
     base, dims = parse_type(param_type)
     if base in _RICH_ARRAY_BASES:
-        return _array_edges(base, 1, lo, hi)
+        return _array_edges(base, 1, lo, hi, alpha)
     if dims == 0:
-        return _scalar_edges(base, lo, hi)
-    return _array_edges(base, dims, lo, hi)
+        return _scalar_edges(base, lo, hi, alpha)
+    return _array_edges(base, dims, lo, hi, alpha)
 
 
 # --------------------------------------------------------------------------- #
 # T3 — seed-based structural mutation (perturb an existing example input)
 # --------------------------------------------------------------------------- #
-def _mutate_json(rng: random.Random, val: Any) -> Any:
+def _mutate_json(rng: random.Random, val: Any, alpha: str | None = None) -> Any:
     if isinstance(val, bool):
         return not val if rng.random() < 0.5 else val
     if isinstance(val, int):
@@ -251,10 +286,13 @@ def _mutate_json(rng: random.Random, val: Any) -> Any:
         if not val or rng.random() < 0.3:
             return val
         i = rng.randrange(len(val))
-        c = rng.choice(_string.ascii_lowercase[:4])
+        # Draw the replacement from the param's own alphabet when we know it —
+        # otherwise most perturbations of a restricted-alphabet string are
+        # rejected by the domain gate and the seed neighbourhood goes unexplored.
+        c = rng.choice(alpha or _string.ascii_lowercase[:4])
         return val[:i] + c + val[i + 1:]
     if isinstance(val, list):
-        out = [_mutate_json(rng, x) for x in val]
+        out = [_mutate_json(rng, x, alpha) for x in val]
         r = rng.random()
         if out and r < 0.25:                 # duplicate an element
             out.insert(rng.randrange(len(out)), copy.deepcopy(rng.choice(out)))
@@ -270,16 +308,24 @@ def _mutate_json(rng: random.Random, val: Any) -> Any:
 # T4 — one large-stress input per array/string param
 # --------------------------------------------------------------------------- #
 def _stress_value(rng: random.Random, base: str, dims: int,
-                  lo: int | None, hi: int | None, n: int) -> Any:
+                  lo: int | None, hi: int | None, n: int,
+                  alpha: str | None = None) -> Any:
     if base in _RICH_ARRAY_BASES:
         return [rng.randint(1, 100) for _ in range(n)]
     if dims == 0:
+        if _base(base) == "string":
+            # A scalar string param IS the sized input — stress it by length, the
+            # same way an array param is stressed by element count. Without this it
+            # fell through to _rand_scalar's 1-6 chars, so no string problem ever
+            # saw a large input and the n<=100/n<=1k/nBig size regimes were
+            # unreachable for the whole coverage model.
+            return "".join(rng.choice(alpha or "ab") for _ in range(max(1, n)))
         # a scalar "n" param: push it large (bounded by hi if known)
         top = hi if hi is not None else n
         return min(top, n) if _base(base) == "int" else _rand_scalar(rng, base, lo, hi)
     if dims == 1:
         if _base(base) == "string":
-            return "".join(rng.choice("ab") for _ in range(n))
+            return "".join(rng.choice(alpha or "ab") for _ in range(n))
         a = max(lo if lo is not None else -1000, -10**6)
         b = min(hi if hi is not None else 1000, 10**6)
         # adversarial-ish: long runs plus periodic repeats
@@ -836,6 +882,19 @@ def generate_candidates(params: list[dict], seeds: list[dict],
     # Set of param names handled by split-ops (generated together, not individually)
     _split_ops_set: set[str] = set(split_ops_names) if split_ops_names else set()
 
+    # Per-param character sets, learned from the seeds (see learn_string_alphabet).
+    # Expression params have their own grammar fuzzer and are excluded.
+    alphabets: dict[str, str] = {}
+    for p in params:
+        _ab, _ad = parse_type(p["type"])
+        if _ab in ("string", "str") and p["name"] not in expr_names \
+                and p["name"] not in ops_vocab and p["name"] not in _split_ops_set:
+            _got = learn_string_alphabet(
+                [s[p["name"]] for s in seeds if p["name"] in s] if _ad == 0
+                else [x for s in seeds for x in s.get(p["name"], [])])
+            if _got:
+                alphabets[p["name"]] = _got
+
     def gen_param(p: dict, size: int, small_ints: bool = True):
         name = p["name"]
         if name in _split_ops_set:
@@ -847,7 +906,7 @@ def generate_candidates(params: list[dict], seeds: list[dict],
             return _gen_expression(rng, max_depth=rng.randint(1, 3))
         base, dims = parse_type(p["type"])
         lo, hi = eb(p)
-        return _rand_value(rng, base, dims, lo, hi, size)
+        return _rand_value(rng, base, dims, lo, hi, size, alphabets.get(name))
 
     def a_small_input() -> dict:
         size = rng.randint(1, 4)
@@ -879,7 +938,7 @@ def generate_candidates(params: list[dict], seeds: list[dict],
             evs = _expr_edges()
         else:
             lo, hi = eb(p)
-            evs = edge_values(p["type"], lo, hi)
+            evs = edge_values(p["type"], lo, hi, alphabets.get(name))
         for ev in evs:
             inp = a_small_input()
             inp[name] = copy.deepcopy(ev)
@@ -910,7 +969,7 @@ def generate_candidates(params: list[dict], seeds: list[dict],
                     length = len(v) if isinstance(v, list) and v else 4
                     m[k] = _gen_ops_seq(rng, ops_vocab[k], rng.randint(1, max(2, length)))
                 else:
-                    m[k] = _mutate_json(rng, copy.deepcopy(v))
+                    m[k] = _mutate_json(rng, copy.deepcopy(v), alphabets.get(k))
             # Fill split-ops params together
             if split_ops_names and split_ops_vocab:
                 ops_n, args_n = split_ops_names
@@ -934,6 +993,46 @@ def generate_candidates(params: list[dict], seeds: list[dict],
                 inp[name] = val
         emit(inp, "fuzz")
 
+    # T3b — size ladder for scalar string params.
+    #
+    # The coverage model buckets an input's length as n0/n1/n2/n<=10/n<=100/n<=1k/
+    # nBig, but every other producer above caps a scalar string at ~6 characters,
+    # so the four largest buckets were unreachable: no candidate could *ever* earn
+    # those tokens, and coverage saturated on tiny inputs while whole regimes went
+    # untested. A ladder of mid/large random strings makes them reachable; nothing
+    # here is protected, so selection still only keeps a rung if it covers
+    # something new. Repeat-heavy variants are included because a uniform random
+    # draw rarely produces the long runs that separate greedy from optimal.
+    _ladder_names = [p["name"] for p in params
+                     if parse_type(p["type"])[1] == 0
+                     and parse_type(p["type"])[0] in ("string", "str")
+                     and p["name"] not in expr_names
+                     and p["name"] not in ops_vocab
+                     and p["name"] not in _split_ops_set]
+    for name in _ladder_names:
+        alpha = alphabets.get(name) or _string.ascii_lowercase[:3]
+        _, hi_len = C.size_bounds(bounds, name)
+        for rung in (20, 60, 300, 1500):
+            n = min(rung, hi_len) if hi_len is not None else rung
+            if n < 1:
+                continue
+            for _ in range(2):
+                inp = a_small_input()
+                inp[name] = "".join(rng.choice(alpha) for _ in range(n))
+                emit(inp, "fuzz")
+            # Run-structured variant: blocks of a repeated character. Uniform
+            # sampling almost never yields these, yet they are exactly where
+            # "delete from the left" style greedies diverge from the optimum.
+            inp = a_small_input()
+            blocks: list[str] = []
+            left = n
+            while left > 0:
+                k = min(left, rng.randint(1, max(2, n // 4)))
+                blocks.append(rng.choice(alpha) * k)
+                left -= k
+            inp[name] = "".join(blocks)
+            emit(inp, "fuzz")
+
     # T4 — one large-stress input.
     if cfg.include_stress:
         out = {}
@@ -946,7 +1045,12 @@ def generate_candidates(params: list[dict], seeds: list[dict],
             else:
                 base, dims = parse_type(p["type"])
                 lo, hi = eb(p)
-                out[name] = _stress_value(rng, base, dims, lo, hi, cfg.stress_n)
+                n = cfg.stress_n
+                _, hi_len = C.size_bounds(bounds, name)
+                if hi_len is not None:
+                    n = min(n, hi_len)
+                out[name] = _stress_value(rng, base, dims, lo, hi, n,
+                                          alphabets.get(name))
         # Fill split-ops params together
         if split_ops_names and split_ops_vocab:
             ops_n, args_n = split_ops_names

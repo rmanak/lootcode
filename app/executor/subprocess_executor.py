@@ -24,6 +24,11 @@ from .base import Limits, Outcome, TestSpec
 
 HARNESS = os.path.join(os.path.dirname(__file__), "harness.py")
 
+# Room in the file-size rlimit for the JSON around the captured output: every
+# test's returned value, name, status and timing. Still small enough that the
+# cap remains a real anti-disk-fill control (the workdir is deleted afterwards).
+_RESULT_HEADROOM_BYTES = 1024 * 1024
+
 try:
     import resource  # POSIX only
 except ImportError:  # pragma: no cover - Windows fallback
@@ -73,6 +78,11 @@ def run(code: str, function_name: str, params: list,
         overall_s = limits.import_budget_s + per_test_s * len(tests) + 5.0
         cpu_s = int(overall_s) + 1
         mem_bytes = limits.memory_limit_mb * 1024 * 1024
+        # The file cap has to fit the whole result.json: the run-wide stdout
+        # budget the harness enforces, plus every test's returned value. Sizing
+        # it for one test's output made a solution that prints in a loop die
+        # mid-write with no results at all.
+        fsize_bytes = limits.max_output_kb * 1024 + _RESULT_HEADROOM_BYTES
         env = {"PATH": "/usr/bin:/bin", "PYTHONDONTWRITEBYTECODE": "1",
                "PYTHONIOENCODING": "utf-8", "HOME": workdir}
 
@@ -80,8 +90,7 @@ def run(code: str, function_name: str, params: list,
             [sys.executable, "-I", HARNESS, workdir],
             stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
             cwd=workdir, env=env, start_new_session=True,
-            preexec_fn=_preexec(mem_bytes, cpu_s, limits.max_output_kb * 1024 + 4096)
-            if resource else None,
+            preexec_fn=_preexec(mem_bytes, cpu_s, fsize_bytes) if resource else None,
         )
         timed_out = False
         try:

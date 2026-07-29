@@ -129,6 +129,98 @@ content/problems/<slug>/input_validator/input_validator.py   # rename fn to vali
 The staging directory is scratch and is not committed; the per-problem
 `input_validator/` files are the source of truth.
 
+## Semantic preconditions — the layer validators do *not* cover
+
+> Design note from the 2026-07-28 bank-wide sweep, which was rolled back. Read this
+> before building anything that **generates** test inputs.
+
+`validate_input` answers a **syntactic** question: *are the values in range, the
+lengths legal, the characters allowed, the shapes well-formed?* Many statements
+additionally promise something about the relationship between the input and its
+**answer**. Those promises are preconditions too, and nothing in the pipeline
+checks them:
+
+| Precondition | Example statement wording | An input that satisfies `validate_input` and violates it |
+|---|---|---|
+| **Answer uniqueness** | "You may assume that each input would have *exactly one* solution" | `two-sum`: `nums=[-4,-4,4,3,91], target=0` — two valid index pairs |
+| | "If there exists a solution, it is *guaranteed to be unique*" | `gas-station`: `gas=[3,4], cost=[2,1]` — both starts work |
+| **Value distinctness** | "an array containing `n` *distinct* numbers" | `missing-number`: `nums=[2,2]` |
+| **Solvability / reachability** | "It is *guaranteed* that you can reach `nums[n-1]`" | `jump-game-ii`: `nums=[0,0,0]` |
+| **Answer-range** | "the answer *fits in* a 32-bit integer" | any input whose true answer overflows |
+| **Ordering / causality** | "events are given in *time order*" | a shuffled event list |
+| **Determinism of the answer** | ties broken arbitrarily ("return *any* key with the maximal count") | `all-oone-data-structure`: any tie-heavy op sequence |
+
+### Why this is specifically a *generation* hazard
+
+A human authoring a case starts from a scenario and naturally lands on a
+well-posed input. A generator samples the **syntactic** domain more or less
+uniformly, so it hits the gap between "syntactically legal" and "well-posed" at a
+high rate — and every gate we own says yes:
+
+1. `validate_input` passes — the values *are* in range.
+2. The canonical **runs cleanly** and returns a plausible-looking value. It does
+   not crash; there is no signal.
+3. That value is baked as `expected`.
+4. `verify_bank` passes — **necessarily**, because `expected` is by construction
+   whatever the canonical returned. *"The canonical passes its own tests" carries
+   no information about a case the canonical itself authored.* This is the trap:
+   the strongest-looking gate in the repo is vacuous here.
+5. `audit.py` passes — the answer's *order* is consistent; its *value* is not
+   something the audit knows how to question.
+
+So the failure is invisible until a **correct** solution — one that read the
+statement and relied on the promise — disagrees with the canonical's arbitrary
+tie-break and gets marked wrong. The only detector we currently have is
+`recheck_solutions.py check <user>`, i.e. a human's accepted solutions, which
+covers a small and non-representative slice of the bank.
+
+### Consequences for future tooling
+
+- **Coverage-first selection makes this worse, not better.** Ill-posed inputs are
+  often *structurally unusual* (all-equal, all-zero, degenerate), so they light up
+  feature tokens nothing else covers and score **highly** on marginal coverage.
+  The selector actively prefers them.
+- **"Canonical is the only oracle" guarantees fairness only on well-posed
+  inputs.** The invariant is necessary, not sufficient, and it is worth stating
+  that way wherever it appears — it currently reads as if it settles the question.
+- **Do not gate on "the canonical didn't crash."** On every case in the table
+  above it returns quietly.
+
+### The shape of the fix
+
+Add a **second, separate predicate** rather than overloading `validate_input`
+(which is deliberately mechanical, machine-generated, and cheap):
+
+```python
+def well_posed(<params>) -> bool:
+    """Does the statement's promise about the ANSWER hold for this input?
+    Distinct from validate_input, which only checks the input's own shape."""
+```
+
+Properties it needs:
+
+- **Three-valued in practice.** Absent = *unknown*, which must not read as *true*.
+  A generator should refuse to bake a case for a problem whose statement contains
+  a promise it cannot check.
+- **May call the canonical.** Unlike `validate_input` (pure, no project imports),
+  well-posedness is often only decidable by solving: "is the answer unique?"
+  usually means enumerating solutions. That is acceptable — this is offline
+  authoring, and the canonical is already trusted here.
+- **Authored from the statement, not inferred from examples.** The promises are
+  prose. `learn_array_invariants`-style inference over stored examples cannot see
+  "exactly one solution"; two examples that happen to have unique answers do not
+  establish the rule.
+- **Cheap triage first.** Grep the statement for the marker phrases — *exactly
+  one*, *guaranteed*, *it is guaranteed that*, *distinct*, *unique*, *you may
+  assume*, *return any*, *fits in a 32-bit* — to partition the bank into
+  "needs `well_posed`" and "explicit bounds fully pin the domain". Only the second
+  partition is safe to sweep today. This triage is a prerequisite for any
+  bank-wide `--apply`; the `--exclude` list in `docs/test-strengthening.md` is the
+  hand-built, badly-undercounting version of it.
+
+Until `well_posed` exists, the operating rule is: **per-problem `oracle.py cover`,
+with the statement read first**, and a bank-wide `--apply` stays blocked.
+
 ## Notes & limitations
 
 - The app does **not** load these at runtime — they are an authoring/QA aid, not
@@ -139,4 +231,5 @@ The staging directory is scratch and is not committed; the per-problem
   change a problem's stated constraints, update its validator too (and re-run the
   audit).
 - Validators are best-effort machine output. A `True` means "no stated constraint
-  is violated," not "this is a good test case."
+  is violated," not "this is a good test case" — and specifically not "the problem
+  has a well-defined answer on this input" (see *Semantic preconditions* above).

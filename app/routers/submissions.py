@@ -35,6 +35,18 @@ MAX_CODE_CHARS = 256 * 1024
 MAX_STORED_STDOUT = 4000
 
 
+_STDOUT_CLIPPED = "\n... [output truncated]"
+
+
+def _clip_stdout(text: str) -> str:
+    """Cap captured output, saying so — a silent cut reads like the print stopped
+    working. The notice fits *inside* MAX_STORED_STDOUT so the cap stays a hard
+    bound. (The sandbox applies its own, larger run-wide budget first.)"""
+    if len(text) <= MAX_STORED_STDOUT:
+        return text
+    return text[:MAX_STORED_STDOUT - len(_STDOUT_CLIPPED)] + _STDOUT_CLIPPED
+
+
 class RunBody(BaseModel):
     code: str = Field(max_length=MAX_CODE_CHARS)
 
@@ -90,7 +102,7 @@ def run(slug: str, body: RunBody, request: Request):
         db.flush()
 
         for r in graded.results:
-            stdout = (r.stdout or "")[:MAX_STORED_STDOUT]
+            stdout = _clip_stdout(r.stdout or "")
             db.add(TestResult(
                 submission_id=sub.id, name=r.name, hidden=r.hidden, passed=r.passed,
                 status=r.status, time_ms=int(r.time_ms or 0), error=r.error,

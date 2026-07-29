@@ -175,6 +175,14 @@ works for a fresh checkout.
   `oracle.py fuzz <slug> --solution X --shrink` when a concrete failing solution is
   in hand; or the **`scripts/strengthen_tests.py`** sweep for the whole bank. All
   keep the canonical as the only oracle and gate every input through the validator.
+  **Those two rules are necessary, not sufficient — the validator checks the
+  input's ranges, never what the statement promises about the *answer* ("exactly
+  one solution", "distinct", "guaranteed reachable"). On an input that breaks such
+  a promise the canonical returns a plausible value, it is baked as `expected`,
+  `verify_bank` passes vacuously, and a *correct* solution is then failed. Read the
+  statement before `--apply`; a bank-wide `strengthen_tests.py --apply` is blocked
+  until a `well_posed` predicate exists (design note: `docs/input-validators.md`
+  § "Semantic preconditions").**
 - **LLM generation** shares one "core" output contract across modes (see
   `docs/problem-generation.md`). The **fill-in / Mode A** transform — given a
   statement, emit the core — has two front ends: a CLI

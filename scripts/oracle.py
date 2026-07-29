@@ -15,6 +15,14 @@ Two hard rules, enforced by construction:
     input is gated through the problem's own
     `content/problems/<slug>/input_validator/input_validator.py`.
 
+These two rules are *necessary but not sufficient*. The validator checks the input's
+own ranges/shapes; it does not check what the statement promises about the **answer**
+("exactly one solution", "distinct", "guaranteed reachable", "return any"). On an
+input that breaks such a promise the canonical still returns a plausible value, it
+gets baked as `expected`, and a *correct* solution is then marked wrong — with no
+gate anywhere raising a flag. Read the statement before `--apply`.
+See docs/input-validators.md § "Semantic preconditions".
+
 Everything runs through the real judge (``app.executor.run_submission``), so
 `compare` semantics (exact / unordered / set_of_lists) and the rich-type codecs
 (TreeNode / ListNode / DoublyLinkedList) match the running app exactly.
@@ -309,7 +317,7 @@ def _find_slug_root(slug: str) -> pathlib.Path | None:
     return None
 
 
-def _append_cases(slug: str, cases: list[dict]) -> int:
+def _append_cases(slug: str, cases: list[dict]) -> tuple[int, pathlib.Path]:
     root = _find_slug_root(slug) or settings.CONTENT_DIR
     path = root / slug / "tests" / "cases.json"
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -325,7 +333,7 @@ def _append_cases(slug: str, cases: list[dict]) -> int:
             {"name": name, "input": c["input"], "expected": c["expected"],
              "weight": 1, "hidden": True})
     path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
-    return len(cases)
+    return len(cases), path
 
 
 def _has_rich_type(prob: dict) -> bool:
@@ -418,8 +426,8 @@ def cmd_fuzz(args) -> int:
               f"(candidate {how})")
 
     if args.apply and keep:
-        added = _append_cases(args.slug, keep)
-        print(f"\n# applied {added} case(s) to content/problems/{args.slug}/tests/cases.json"
+        added, dest = _append_cases(args.slug, keep)
+        print(f"\n# applied {added} case(s) to {dest}"
               f" — now run check_constraint_validators.py --slug {args.slug} && seed.py && audit.py")
     elif keep:
         print("\n# paste-ready (add --apply to write, --shrink to minimize):")

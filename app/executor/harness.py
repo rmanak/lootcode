@@ -13,7 +13,6 @@ CPU/memory/PID/file-size rlimits and an overall kill-timeout as a backstop.
 from __future__ import annotations
 
 import importlib.util
-import io
 import json
 import os
 import signal
@@ -29,6 +28,168 @@ class _Timeout(Exception):
 
 def _on_alarm(signum, frame):  # noqa: ANN001
     raise _Timeout()
+
+
+_TRUNCATED = "\n... [output truncated — your solution printed too much]"
+
+
+class _OutputBudget:
+    """A cap on captured stdout for the WHOLE run, not per test.
+
+    The parent sizes its RLIMIT_FSIZE for a single result.json, and result.json
+    holds every test's captured stdout. A per-test cap therefore multiplies by
+    the number of tests: a solution that prints in a loop blew past the file
+    limit, killed the harness mid-write, and lost *every* result. Each test now
+    gets whatever is left of one shared budget, and the user sees a truncation
+    notice instead of a dead run.
+    """
+
+    def __init__(self, total: int) -> None:
+        self.total = max(total, 0)
+        self.remaining = self.total
+
+    def new_buffer(self):
+        """A stdout stand-in for one test (or the import), pre-capped so nothing
+        unbounded is ever held in memory."""
+        return _CappedBuffer(self.total)
+
+    def take(self, text: str) -> str:
+        if len(text) <= self.remaining:
+            self.remaining -= len(text)
+            return text
+        kept = text[:self.remaining]
+        self.remaining = 0
+        return kept + _TRUNCATED
+
+
+class _CappedBuffer:
+    """A `sys.stdout` replacement that stops storing past `limit` characters.
+
+    Not an io.StringIO, for two reasons, both learned the hard way:
+
+    * StringIO grows without bound, so a print bomb hit the memory cap and killed
+      the harness — losing every result — where truncating would have graded the
+      run fine.
+    * It stands in for `sys.stdout` while *untrusted* code runs. `close()` on a
+      StringIO makes the later `getvalue()` raise, so a solution doing
+      `sys.stdout.close()` took the whole run down with it. Here close/flush are
+      no-ops and reads never raise.
+    """
+
+    def __init__(self, limit: int) -> None:
+        self._parts: list[str] = []
+        self._len = 0
+        self._limit = max(limit, 0)
+        self._dropped = False
+        self.closed = False  # some libraries probe this before writing
+
+    def write(self, s) -> int:
+        text = s if isinstance(s, str) else str(s)
+        room = self._limit - self._len
+        if len(text) > room:
+            self._dropped = True
+        if room > 0:
+            self._parts.append(text[:room])
+            self._len += min(len(text), room)
+        return len(text)  # claim the whole write; truncation is ours, not an error
+
+    def writelines(self, lines) -> None:
+        for line in lines:
+            self.write(line)
+
+    def getvalue(self) -> str:
+        # The marker belongs here, not in _OutputBudget.take: dropping at write
+        # time is invisible to the budget, and a silent cut reads to the solver
+        # like their print stopped working.
+        return "".join(self._parts) + (_TRUNCATED if self._dropped else "")
+
+    def flush(self) -> None:
+        pass
+
+    def close(self) -> None:
+        pass
+
+    def isatty(self) -> bool:
+        return False
+
+    def writable(self) -> bool:
+        return True
+
+    def readable(self) -> bool:
+        return False
+
+    def seekable(self) -> bool:
+        return False
+
+
+def _value(buf) -> str:
+    """Read back a capture buffer without ever raising into the harness.
+
+    `sys.stdout` is under the solution's control while its code runs; it can be
+    closed, replaced or swapped for an object whose reads throw. Extraction must
+    not be able to kill the run — that failure mode loses every test's result.
+    """
+    try:
+        return buf.getvalue()
+    except BaseException:  # noqa: BLE001 - hostile or closed buffer
+        return ""
+
+
+def _attach_import_output(results: list, import_out: str, out_budget) -> None:
+    """Show what the solution printed at module level on the first test, so a
+    `print` outside the function is not silently dropped."""
+    if import_out and results:
+        results[0]["stdout"] = out_budget.take(import_out) + results[0].get("stdout", "")
+
+
+def _write_results(workdir: str, results: list) -> None:
+    """Write result.json, degrading rather than dying if it exceeds the parent's
+    file-size rlimit — an OSError here would lose every test's result.
+
+    Degradation drops the least valuable fields first and always lands on a
+    *failure* for the affected tests, never on a pass: the parent only awards a
+    pass for status "ok" whose `returned` equals the (sandbox-invisible)
+    expected value, so a result stripped of `returned` grades as wrong.
+
+    CPython ignores SIGXFSZ by default, which is what turns an over-limit write
+    into a catchable OSError. Untrusted code runs first and can restore the
+    default disposition, in which case the process is killed outright and the
+    parent's own "run was stopped" fallback covers it.
+    """
+    path = os.path.join(workdir, "result.json")
+
+    def _attempt() -> bool:
+        try:
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump({"results": results}, f)
+            return True
+        except OSError:
+            return False
+
+    if _attempt():
+        return
+    # 1. Captured output is the biggest and least important field.
+    for r in results:
+        if r.get("stdout"):
+            r["stdout"] = "[output dropped — the results were too large to store]"
+    if _attempt():
+        return
+    # 2. Tracebacks next: bounded per test, but they multiply across tests and
+    #    non-ASCII characters cost up to 12 bytes each once JSON-escaped.
+    for r in results:
+        if r.get("error"):
+            r["error"] = r["error"][:200]
+    if _attempt():
+        return
+    # 3. Finally the returned values, which nothing else bounds. Say why, so the
+    #    user sees a real explanation rather than a bare wrong answer.
+    for r in results:
+        r.pop("returned", None)
+        if r.get("status") == "ok":
+            r["status"] = "error"
+            r["error"] = ("Your solution returned too much data for the grader to "
+                          "store. Check the size of what you return.")
+    _attempt()
 
 
 def _short_tb(limit: int = 2000) -> str:
@@ -291,31 +452,40 @@ _CODECS = {
 }
 
 
-def _load_solution(path: str, budget_s: float, inject: dict | None = None):
+def _load_solution(path: str, budget_s: float, inject: dict | None, out_budget):
     """Import the user's solution.py, guarding against import-time hangs.
 
     `inject` maps names (e.g. "TreeNode") to objects placed in the solution's
     module globals before its top-level code runs, so user code can reference
     them at import and call time without defining them.
+
+    Returns (module, error, captured_stdout). Module-level prints are captured
+    like per-test ones — otherwise a `print` outside the function vanishes into
+    the parent's pipe and the solver sees nothing.
     """
+    buf = out_budget.new_buffer()
+    real_stdout = sys.stdout
     signal.setitimer(signal.ITIMER_REAL, budget_s)
     try:
+        sys.stdout = buf
         spec = importlib.util.spec_from_file_location("solution", path)
         module = importlib.util.module_from_spec(spec)
         for name, obj in (inject or {}).items():
             setattr(module, name, obj)
         spec.loader.exec_module(module)  # type: ignore[union-attr]
-        return module, None
+        return module, None, _value(buf)
     except _Timeout:
-        return None, "Import timed out (module-level code took too long)."
+        return None, "Import timed out (module-level code took too long).", _value(buf)
     except BaseException:  # noqa: BLE001 - report anything, incl. SystemExit
-        return None, "Error while loading your solution:\n" + _short_tb()
+        return (None, "Error while loading your solution:\n" + _short_tb(),
+                _value(buf))
     finally:
         signal.setitimer(signal.ITIMER_REAL, 0)
+        sys.stdout = real_stdout
 
 
-def _run_one(func, params, decoders, encoder, inp, time_limit_s, max_output) -> dict:
-    buf = io.StringIO()
+def _run_one(func, params, decoders, encoder, inp, time_limit_s, out_budget) -> dict:
+    buf = out_budget.new_buffer()
     real_stdout = sys.stdout
     start = time.perf_counter()
     try:
@@ -344,16 +514,16 @@ def _run_one(func, params, decoders, encoder, inp, time_limit_s, max_output) -> 
         except (TypeError, ValueError):
             return {"status": "error", "time_ms": elapsed,
                     "error": f"Return value is not JSON-serializable: {type(returned).__name__}",
-                    "stdout": buf.getvalue()[:max_output]}
+                    "stdout": out_budget.take(_value(buf))}
         return {"status": "ok", "returned": returned, "time_ms": elapsed,
-                "stdout": buf.getvalue()[:max_output]}
+                "stdout": out_budget.take(_value(buf))}
     except _Timeout:
         return {"status": "timeout", "time_ms": time_limit_s * 1000,
-                "error": "Time limit exceeded.", "stdout": buf.getvalue()[:max_output]}
+                "error": "Time limit exceeded.", "stdout": out_budget.take(_value(buf))}
     except BaseException:  # noqa: BLE001
         elapsed = (time.perf_counter() - start) * 1000
         return {"status": "error", "time_ms": elapsed, "error": _short_tb(),
-                "stdout": buf.getvalue()[:max_output]}
+                "stdout": out_budget.take(_value(buf))}
     finally:
         signal.setitimer(signal.ITIMER_REAL, 0)
         sys.stdout = real_stdout
@@ -384,7 +554,7 @@ def _decode_args(args, decoders) -> None:
 
 
 def _run_class(cls, ctor_decoders, method_dispatch, inp, time_limit_s,
-               max_output) -> dict:
+               out_budget) -> dict:
     """Run one class test: instantiate `cls` then replay a sequence of method
     calls, collecting one output per call (``None`` for the constructor and for
     void methods). `method_dispatch` maps method name -> (arg-decoders, encoder).
@@ -392,7 +562,7 @@ def _run_class(cls, ctor_decoders, method_dispatch, inp, time_limit_s,
     Mirrors `_run_one`'s contract: the whole operation sequence runs under a
     single per-test SIGALRM (LeetCode-style overall time budget), stdout is
     captured, and the collected outputs list is JSON-gated before returning."""
-    buf = io.StringIO()
+    buf = out_budget.new_buffer()
     real_stdout = sys.stdout
     start = time.perf_counter()
     try:
@@ -426,7 +596,7 @@ def _run_class(cls, ctor_decoders, method_dispatch, inp, time_limit_s,
                 return {"status": "error",
                         "time_ms": (time.perf_counter() - start) * 1000,
                         "error": f"Test calls unknown method `{op}` on the class.",
-                        "stdout": buf.getvalue()[:max_output]}
+                        "stdout": out_budget.take(_value(buf))}
             decoders, encoder = spec
             _decode_args(call_args, decoders)
             result = getattr(instance, op)(*call_args)
@@ -442,22 +612,22 @@ def _run_class(cls, ctor_decoders, method_dispatch, inp, time_limit_s,
             return {"status": "error", "time_ms": elapsed,
                     "error": "An operation returned a value that is not "
                              "JSON-serializable.",
-                    "stdout": buf.getvalue()[:max_output]}
+                    "stdout": out_budget.take(_value(buf))}
         return {"status": "ok", "returned": outputs, "time_ms": elapsed,
-                "stdout": buf.getvalue()[:max_output]}
+                "stdout": out_budget.take(_value(buf))}
     except _Timeout:
         return {"status": "timeout", "time_ms": time_limit_s * 1000,
-                "error": "Time limit exceeded.", "stdout": buf.getvalue()[:max_output]}
+                "error": "Time limit exceeded.", "stdout": out_budget.take(_value(buf))}
     except BaseException:  # noqa: BLE001
         elapsed = (time.perf_counter() - start) * 1000
         return {"status": "error", "time_ms": elapsed, "error": _short_tb(),
-                "stdout": buf.getvalue()[:max_output]}
+                "stdout": out_budget.take(_value(buf))}
     finally:
         signal.setitimer(signal.ITIMER_REAL, 0)
         sys.stdout = real_stdout
 
 
-def _run_class_problem(workdir, payload, tests, max_output) -> None:
+def _run_class_problem(workdir, payload, tests, out_budget) -> None:
     """Load a class solution and dispatch every test through `_run_class`."""
     class_name = payload.get("class_name") or ""
     ctor_params = payload.get("params", []) or []
@@ -476,10 +646,11 @@ def _run_class_problem(workdir, payload, tests, max_output) -> None:
         method_dispatch[m["name"]] = (decoders, encoder)
 
     signal.signal(signal.SIGALRM, _on_alarm)
-    module, load_err = _load_solution(
+    module, load_err, import_out = _load_solution(
         os.path.join(workdir, "solution.py"),
         float(payload.get("import_budget_s", 5.0)),
         inject,
+        out_budget,
     )
     # A misconfigured class problem (no class name) should report a clean per-test
     # error, not raise out of the harness (getattr(module, None) is a TypeError).
@@ -497,12 +668,12 @@ def _run_class_problem(workdir, payload, tests, max_output) -> None:
                             "time_ms": 0, "stdout": ""})
             continue
         out = _run_class(cls, ctor_decoders, method_dispatch, t["input"],
-                         float(t["time_limit_s"]), max_output)
+                         float(t["time_limit_s"]), out_budget)
         out["name"] = t["name"]
         results.append(out)
 
-    with open(os.path.join(workdir, "result.json"), "w", encoding="utf-8") as f:
-        json.dump({"results": results}, f)
+    _attach_import_output(results, import_out, out_budget)
+    _write_results(workdir, results)
 
 
 def main() -> None:
@@ -510,13 +681,13 @@ def main() -> None:
     with open(os.path.join(workdir, "payload.json"), encoding="utf-8") as f:
         payload = json.load(f)
 
-    max_output = int(payload.get("max_output_bytes", 65536))
+    out_budget = _OutputBudget(int(payload.get("max_output_bytes", 65536)))
     tests = payload["tests"]
 
     # Class-based "design" problems: instantiate a class and replay a sequence of
     # method calls, instead of calling one top-level function per test.
     if payload.get("kind") == "class":
-        _run_class_problem(workdir, payload, tests, max_output)
+        _run_class_problem(workdir, payload, tests, out_budget)
         return
 
     fn_name = payload["function_name"]
@@ -545,10 +716,11 @@ def main() -> None:
 
     signal.signal(signal.SIGALRM, _on_alarm)
 
-    module, load_err = _load_solution(
+    module, load_err, import_out = _load_solution(
         os.path.join(workdir, "solution.py"),
         float(payload.get("import_budget_s", 5.0)),
         inject,
+        out_budget,
     )
     func = getattr(module, fn_name, None) if module else None
     if module and func is None:
@@ -562,12 +734,12 @@ def main() -> None:
                             "time_ms": 0, "stdout": ""})
             continue
         out = _run_one(func, params, decoders, encoder, t["input"],
-                       float(t["time_limit_s"]), max_output)
+                       float(t["time_limit_s"]), out_budget)
         out["name"] = t["name"]
         results.append(out)
 
-    with open(os.path.join(workdir, "result.json"), "w", encoding="utf-8") as f:
-        json.dump({"results": results}, f)
+    _attach_import_output(results, import_out, out_budget)
+    _write_results(workdir, results)
 
 
 if __name__ == "__main__":

@@ -78,6 +78,69 @@ def test_missing_function_is_error():
     assert graded.results[0].status == "error"
 
 
+def test_debug_print_is_captured():
+    code = CANONICAL.replace("    seen = {}\n",
+                             "    print('debug', nums)\n    seen = {}\n")
+    graded = run_submission(code, _problem(), _tests())
+    assert graded.solved
+    assert "debug [2, 7, 11, 15]" in graded.results[0].stdout
+
+
+def test_module_level_print_is_captured():
+    graded = run_submission("print('at import')\n" + CANONICAL, _problem(), _tests())
+    assert graded.solved
+    assert "at import" in graded.results[0].stdout
+
+
+def test_closing_stdout_does_not_kill_the_run():
+    """Capturing stdout must survive the solution closing it.
+
+    `sys.stdout` is the harness's own capture buffer while user code runs, so a
+    `close()` used to make the later read raise, take the harness down, and lose
+    every result — both at module level and inside the function.
+    """
+    at_import = "import sys\nsys.stdout.close()\n" + CANONICAL
+    assert run_submission(at_import, _problem(), _tests()).solved
+
+    in_function = CANONICAL.replace(
+        "    seen = {}\n", "    import sys\n    sys.stdout.close()\n    seen = {}\n")
+    assert run_submission(in_function, _problem(), _tests()).solved
+
+
+def test_module_level_print_bomb_is_truncated_not_fatal():
+    """Printing without bound at import time is truncated, not an OOM kill."""
+    code = "for _ in range(100000): print('A' * 100000)\n" + CANONICAL
+    graded = run_submission(code, _problem(), _tests())
+    assert graded.solved, [r.error for r in graded.results]
+
+
+def test_oversized_return_reports_a_real_reason():
+    """A return too big for result.json must explain itself, not come back as
+    the generic "the run was stopped" (which is what unbudgeted `returned`
+    values produced before the write path degraded in steps)."""
+    code = "def twoSum(nums, target):\n    return ['A' * 1000000] * 20\n"
+    graded = run_submission(code, _problem(), _tests())
+    assert not graded.solved
+    assert "returned too much data" in (graded.results[0].error or "")
+
+
+def test_heavy_printing_still_grades():
+    """A solution that prints in a loop must be graded, not killed.
+
+    Regression: stdout was capped per test but the parent's file-size rlimit
+    covered the whole result.json, so N tests' worth of output blew the limit
+    mid-write and every test came back "the run was stopped".
+    """
+    code = CANONICAL.replace(
+        "    seen = {}\n",
+        "    for _ in range(1000):\n        print('x' * 100)\n    seen = {}\n")
+    graded = run_submission(code, _problem(), _tests())
+    assert graded.solved, [r.error for r in graded.results]
+    assert "truncated" in graded.results[0].stdout
+    # The run-wide budget holds: total captured output stays near the cap.
+    assert sum(len(r.stdout) for r in graded.results) < 128 * 1024
+
+
 # --- comparison modes (statement/judge consistency) ----------------------
 def _problem_mode(mode):
     return NS(function_name="twoSum", params=PARAMS, time_limit_ms=3000,
