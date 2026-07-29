@@ -1,4 +1,9 @@
 # lootcode — Engineering Hardening Program
+> **Stale section warning (2026-07-29):** everything below about `testgen/`,
+> `strengthen_tests.py`, `oracle.py`, `strengthen_scheduler.py`,
+> `collect_candidates.py`, `export_strengthened.py` and the `test-strengthener`
+> agent is obsolete — that subsystem was **deleted**. See `docs/test-strengthening.md`.
+
 
 > **Status: in progress.** Findings audit + phased execution plan. Written
 > 2026-07-28 against HEAD `8215128`.

@@ -34,7 +34,6 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `app/content.py` | Load/write problems to `content/problems/`; `owning_root(slug)` resolves which content root a problem lives in. |
 | `app/templates/` · `app/static/` | Jinja2 templates, CSS, JS. |
 | `authoring/` | **Offline authoring tooling — nothing in `app/` imports it.** The arrow points one way: `authoring/` uses `app/` (executor, LLM transport, content loader), never the reverse. `hint_generator.py` is the hint generate→judge→regenerate quality gate plus its prompt templates and judge exemplars (driven by `scripts/improve_hints.py`). |
-| `authoring/testgen/` | Test-strengthening engine (under `authoring/`, above). Machine-generates hidden cases to catch buggy *user* solutions by **coverage**, not by beating an invented wrong solution: `features.py` (structural input tokens) + `coverage.py` (canonical execution tokens) are the backbone; `mutate.py`/`candidates.py` kills are add-only universes; `select.py` set-covers the union; `shrink.py` minimizes; `generators.py`/`constraints.py` build the input pool. See `docs/test-strengthening.md`. |
 | `content/problems/` | Problem definitions (see `specs/problem-schema.md`); optional `<slug>/assets/` holds statement figures (see `docs/problem-images.md`); `<slug>/input_validator/input_validator.py` is the per-problem `validate_input()` legal-input predicate (see `docs/input-validators.md`). |
 | `content/problems-extended/` | Optional **extended** problem set — extra problems kept local (**gitignored**), seeded alongside the default set when present. A fresh clone drops these (and any collection references to them) cleanly; skipped references are reported by `seed.py` but non-fatal. See `docs/extended-problems.md`. |
 | `content/collections/` | Curated, system-defined problem lists (e.g. `blind-73.json`) used as a list filter (see `docs/collections.md`). |
@@ -46,10 +45,8 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `scripts/verify_bank.py` | Run every problem's canonical solution against its own tests (the whole on-disk bank — **both** content roots, default + extended), via the same `run_submission` path; prints per-problem pass/fail + statistics. `--content-dir <dir>` scopes to one root; args for slug/substring filtering, `-v`/`-q` verbosity, `-j` parallelism, `--failfast`, `--strict`. **This is the authoritative canonical run** — `seed.py --no-verify` and `audit.py --skip-canonical` exist so `make check` doesn't do the same work three times. |
 | `scripts/audit.py` | Statement ↔ test ↔ judge consistency over the whole bank: (1) canonical passes its own tests in the sandbox, (2) "any order" language matches the compare mode, (3) a re-ordered valid answer is still accepted. `-j N` parallel; `--skip-canonical` drops step 1 (duplicates `verify_bank.py`); `-q` shows only problems with issues. |
 | `scripts/import_generated_problems.py` | The bulk-import **gate** for a staging folder of **fully-generated** problems (function **or** class/design) — `<src>/<slug>/{meta.json (title+body), generated_full_problem.json (kind, contract, canonical, tests, hints, tags), assets/}`. Runs every existing gate cheapest→dearest, short-circuiting: presence/slug, **structural** (`app/problem_spec.py`, strict pydantic+AST; `--strict` promotes warnings), **slug-collision** (cross-root/DB = hard skip; target-root needs `--overwrite`), **behavioral + statement↔judge consistency** (`scripts/audit.py`). Only slugs passing **all** qualify; prints a report, confirms (`--yes`), then writes each to a content root (default `content/problems-extended/`, `--out` to choose; title/body from meta.json, rest from the core via `app.content.write_problem_files`; rewrites `](assets/x)` paths, copies figures), reloads from disk, **upserts into the DB, and re-verifies from the DB**. `--dry-run`/`--slug`/`-v`. Driven by the `generated-problem-import` agent. See `docs/importing-problems.md`. |
-| `scripts/strengthen_tests.py` | Batch sweep (**both content roots**): generate hidden cases that widen behavioral **coverage** of the canonical (structural + execution tokens; mutant/population kills add-only) over `authoring/testgen/`. `--dry-run` by default, `--apply` writes cases back. Handles **class/design (`kind: "class"`)** problems (coverage-only, sandbox-graded). See `docs/test-strengthening.md`. |
-| `scripts/oracle.py` | Single-problem hardening on the same `authoring/testgen` engine, agent-facing: `cover` (coverage-first selection — the backbone, no adversary needed), `fuzz --solution X --shrink` (a concrete failing solution IS in hand → keep every in-domain input it fails on, shrunk to minimal reproducers; **add-only**), `suite` (does a wrong solution slip the stored suite?), `analyze` (per-input oracle table). Canonical is the only oracle; every input gated through the validator; all via `run_submission`. **Class/design (`kind: "class"`) problems supported**: generates `{operations, args}` sequences from the method signatures, coverage = op-sequence features + output signature, graded sandbox-only. |
 | `scripts/check_constraint_validators.py` · `generate_constraint_validators.py` · `generate_class_validators.py` | Audit / generate the per-problem input validators (`<root>/<slug>/input_validator/input_validator.py`): every stored test input must satisfy its problem's `validate_input()`. The checker audits **both** content roots (default + extended). Function problems: `generate_constraint_validators.py` (LLM, from prose bounds). **Class/design problems: `generate_class_validators.py` — deterministic (no LLM), emits `validate_input(operations, args)` straight from the class block** (aligned lists, constructor-once-at-front, declared methods, per-arg arity/type). Run when adding test cases. See `docs/input-validators.md`. |
-| `scripts/recheck_solutions.py` | Re-grade users' accepted solutions against the *current* tests, via `run_submission`. `users` lists every user + stats (submissions / solved / attempted); `check <user>` takes each solved problem's latest passing submission and re-runs it, flagging **regressions** (accepted before, fail now — the point of strengthening). Grades against the DB by default, or `--from-content` for the freshest on-disk tests (no re-seed). `-v` per-failing-test detail, `-j` parallelism. |
+| `scripts/recheck_solutions.py` | Re-grade users' accepted solutions against the *current* tests, via `run_submission`. `users` lists every user + stats (submissions / solved / attempted); `check <user>` takes each solved problem's latest passing submission and re-runs it, flagging **regressions** (accepted before, fail now — e.g. after adding hidden test cases). Grades against the DB by default, or `--from-content` for the freshest on-disk tests (no re-seed). `-v` per-failing-test detail, `-j` parallelism. |
 | `scripts/improve_hints.py` | Hint **quality gate**: a generate→judge→regenerate loop that fixes hints which give away the solution (or are too vague). `audit` grades every problem's hints against its canonical solution (local Qwen judge) → `.hints/audit.json`; `fix --from-report` regenerates only the flagged ones (`--dry-run` default, `--apply` writes, strictly-better-only) and writes a durable old→new report (`.hints/fix-dry.json`); `apply-report` writes the exact reviewed hints from that report verbatim (no regeneration — `fix --apply` re-rolls at temperature>0); `calibrate` checks the judge against `authoring/hint_exemplars.json`. `scripts/hint_audit_report.py` / `hint_compare_report.py` render the audit and old→new reports into self-contained browsable HTML. Engine in `authoring/hint_generator.py`. See `docs/hint-generation.md`. (`scripts/generate_hints.py` is the older one-shot, ungated seeder.) |
 | `tests/` | pytest (incl. adversarial executor tests). |
 | `docs/` · `specs/` · `.claude/` | Docs, content spec, Claude Code config. |
@@ -76,9 +73,6 @@ python scripts/verify_bank.py -j 8          # run every canonical solution again
 # one colocated <slug>/{meta.json, generated_full_problem.json, assets/} per problem:
 python scripts/import_generated_problems.py <staging-dir> --dry-run  # validate + report every gate, write nothing
 python scripts/import_generated_problems.py <staging-dir>            # ...then confirm to write + upsert the ones that qualify
-python scripts/strengthen_tests.py --filter tree -j 8          # dry-run: coverage-widening hidden cases (batch)
-python scripts/oracle.py cover <slug>                          # coverage-first hardening for one problem
-python scripts/oracle.py fuzz <slug> --solution bad.py --shrink  # add minimal cases a known-bad solution fails
 python scripts/check_constraint_validators.py                  # audit that every test input satisfies its validate_input()
 uvicorn app.main:app --reload              # dev server (http://127.0.0.1:8000)
 HOST=0.0.0.0 uvicorn app.main:app          # reachable on your home network
@@ -167,22 +161,21 @@ works for a fresh checkout.
   `validate_input(<params>) -> bool`. A new `(input, expected)` case's input must
   satisfy it (i.e. be in-bounds for the stated constraints) before you add it —
   run `python scripts/check_constraint_validators.py --slug <slug>`. See
-  `docs/input-validators.md`. To *strengthen* a weak suite (a wrong solution
-  scores full marks — the "passes here, fails on LeetCode" gap), the principle is
-  **coverage keeps an input; wrong solutions only ever add cases, never veto one**
-  (see `docs/test-strengthening.md`). Use the **`test-strengthener` subagent** or
-  `scripts/oracle.py cover <slug>` (coverage-first) for one problem;
-  `oracle.py fuzz <slug> --solution X --shrink` when a concrete failing solution is
-  in hand; or the **`scripts/strengthen_tests.py`** sweep for the whole bank. All
-  keep the canonical as the only oracle and gate every input through the validator.
-  **Those two rules are necessary, not sufficient — the validator checks the
-  input's ranges, never what the statement promises about the *answer* ("exactly
-  one solution", "distinct", "guaranteed reachable"). On an input that breaks such
-  a promise the canonical returns a plausible value, it is baked as `expected`,
-  `verify_bank` passes vacuously, and a *correct* solution is then failed. Read the
-  statement before `--apply`; a bank-wide `strengthen_tests.py --apply` is blocked
-  until a `well_posed` predicate exists (design note: `docs/input-validators.md`
-  § "Semantic preconditions").**
+  `docs/input-validators.md`.
+- **Strengthening a weak suite** (a wrong solution scores full marks — the
+  "passes here, fails on LeetCode" gap): **there is no tool for this right now.**
+  The old engine was retired on 2026-07-29; `docs/test-strengthening.md` is a plan,
+  not a description of anything that exists. Do the simple thing by hand: sample
+  random inputs, keep the ones `validate_input` accepts, and store what the
+  **canonical** returns as `expected` — it is the only oracle, never hand-write an
+  expected value. Sample until the *outputs* are varied, not just the inputs; a
+  uniform draw usually lands in one boring regime and catches nothing. Two traps
+  before you write cases back: float returns are compared with exact `==` (skip
+  inputs whose answer isn't bit-stable), and `validate_input` checks input ranges
+  but never the statement's promises about the *answer* ("exactly one solution",
+  "distinct", "guaranteed reachable") — on an input that breaks one, the canonical
+  returns a plausible value, it gets baked in, `verify_bank` passes vacuously, and
+  a *correct* solution is then failed. Read the statement first.
 - **LLM generation** shares one "core" output contract across modes (see
   `docs/problem-generation.md`). The **fill-in / Mode A** transform — given a
   statement, emit the core — has two front ends: a CLI

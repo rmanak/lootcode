@@ -1,7 +1,7 @@
 """One transport for every LLM call in the project.
 
 Four modules each built their own client — the AI-help endpoint, the hint
-generator, the problem generator, and the test-strengthening candidate
+generator and the problem generator
 generator — with four different timeout policies and four copies of the "append
 /v1 if it isn't there" fixup. Two carried their own `_loads_loose`, and three
 carried the same `response_format` degradation ladder, comment for comment.

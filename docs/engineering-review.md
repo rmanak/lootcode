@@ -1,4 +1,9 @@
 # lootcode — Engineering Review
+> **Stale section warning (2026-07-29):** everything below about `testgen/`,
+> `strengthen_tests.py`, `oracle.py`, `strengthen_scheduler.py`,
+> `collect_candidates.py`, `export_strengthened.py` and the `test-strengthener`
+> agent is obsolete — that subsystem was **deleted**. See `docs/test-strengthening.md`.
+
 
 > **Status: reference.** Findings audit conducted 2026-07-28 against HEAD `8215128`
 > (working tree: 12 modified files, 1 untracked). The remediation plan derived from

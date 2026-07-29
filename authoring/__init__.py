@@ -10,9 +10,6 @@ The dependency points one way: `authoring/` imports from `app/` (the executor,
 the LLM transport, the content loader), and `app/` never imports from here. A
 new import of `authoring` inside `app` is a mistake.
 
-- `testgen/`           the test-strengthening engine (coverage-first hidden-case
-                       generation). Driven by `scripts/strengthen_tests.py` and
-                       `scripts/oracle.py`. See `docs/test-strengthening.md`.
 - `hint_generator.py`  the hint generate -> judge -> regenerate quality gate,
                        with its prompt templates and judge exemplars. Driven by
                        `scripts/improve_hints.py`. See `docs/hint-generation.md`.

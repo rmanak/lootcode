@@ -38,12 +38,12 @@ and method arg ranges, cross-argument rules (`0 <= start < end`), cross-paramete
 rules that reference a constructor arg (`1 <= seatNumber <= n`), and total-call
 limits.
 
-> **Validators come before strengthening.** The validator is the fairness gate that
+> **Validators come before new test cases.** The validator is the fairness gate that
 > keeps generated hidden tests in-domain, so it must exist (with value bounds, not
-> just structure) *before* `strengthen_tests.py`/`oracle.py` bakes cases. A
-> structural-only class validator lets the generator produce out-of-domain args
-> (e.g. `book(6, 1)` where the statement requires `start < end`), which then become
-> unfair hidden tests. Generate/tighten the validator first, then (re)strengthen.
+> just structure) *before* anything bakes cases. A structural-only class validator
+> lets a generator produce out-of-domain args (e.g. `book(6, 1)` where the statement
+> requires `start < end`), which then become unfair hidden tests. Generate/tighten
+> the validator first, then add cases.
 
 ## Why they exist — and when to use them
 
@@ -215,11 +215,10 @@ Properties it needs:
   assume*, *return any*, *fits in a 32-bit* — to partition the bank into
   "needs `well_posed`" and "explicit bounds fully pin the domain". Only the second
   partition is safe to sweep today. This triage is a prerequisite for any
-  bank-wide `--apply`; the `--exclude` list in `docs/test-strengthening.md` is the
-  hand-built, badly-undercounting version of it.
+  bank-wide auto-apply.
 
-Until `well_posed` exists, the operating rule is: **per-problem `oracle.py cover`,
-with the statement read first**, and a bank-wide `--apply` stays blocked.
+Until `well_posed` exists, the operating rule is: **one problem at a time, with the
+statement read first**, and a bank-wide auto-apply stays blocked.
 
 ## Notes & limitations
 

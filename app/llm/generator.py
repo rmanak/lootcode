@@ -316,7 +316,7 @@ def _validate(data: dict):
 def _sync_expected_to_canonical(data: dict) -> dict:
     """Overwrite each test's `expected` with what the canonical solution actually returns.
 
-    The canonical is this project's sole oracle (see docs/test-strengthening.md). A weaker
+    The canonical is this project's sole oracle. A weaker
     model reliably mis-formats or mis-computes `expected` — even under constrained decoding
     it wraps a scalar as ``{"result": 5}`` because the field is an untyped ("any") slot —
     so rather than trust it, we run the canonical over the model's (grammar-valid) `input`s

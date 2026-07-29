@@ -235,7 +235,7 @@ Two independent checks, both required:
    inside the sandbox (`docs/code-execution.md`): `app.llm.generator` does it
    inline via `run_submission`, and `python scripts/seed.py` re-verifies every
    problem on disk. The from-scratch path (`generate_problem`) goes one step further:
-   it treats the **canonical as the oracle** (per `docs/test-strengthening.md`) and
+   it treats the **canonical as the oracle** and
    *ground-truths* every test's `expected` to what the canonical actually returns
    (`_sync_expected_to_canonical`), rather than trusting the model's `expected`. That
    collapses the dominant failure modes — a mis-computed or mis-formatted `expected`

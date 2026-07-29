@@ -50,11 +50,6 @@ when you want to scope to one. So an extended-only problem is verified/audited
 locally exactly like a committed one, and a fresh clone with no extended root just
 sees the default set.
 
-> Not (yet) extended-aware: the offline test-generation scripts
-> (`strengthen_tests.py`, `collect_candidates.py`, `export_strengthened.py`) still
-> call `content.load_all()` (default root only). Swap to `load_all_roots()` if you
-> want them to cover the extended set too.
-
 > **Doing a bulk edit across "all problems" by hand?** The same caution applies to
 > *ad-hoc* sweeps, not just the scripts above. Because `content/problems-extended/`
 > is **gitignored**, it is invisible to `git grep`, `git ls-files`, and any shell

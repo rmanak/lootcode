@@ -21,7 +21,7 @@ browse/filter facets stay meaningful and near-synonyms don't multiply.
 
 `design` tags problems that ask you to **implement a data structure** driven by a
 sequence of operations (the input is an operations list, e.g.
-`["LRUCache", "put", "get", ...]` with per-op arguments; the harness/testgen
+`["LRUCache", "put", "get", ...]` with per-op arguments; the harness
 support this shape). Use it for the "build/design a structure" pattern, not for
 one-shot computational problems.
 

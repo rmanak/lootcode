@@ -16,7 +16,7 @@ Example — a statement that says the input is an integer ``n`` with ``0 < n < 1
 yields ``def validate_input(n): return isinstance(n, int) and 0 < n < 10**3``.
 
 Why generate these? A cheap, executable oracle for "is this a legal input?" is
-useful for fuzzing / test-strengthening (reject inputs the statement forbids),
+useful for fuzzing / generating new test cases (reject inputs the statement forbids),
 for auditing that our own test cases are in-bounds, and for input sanitisation.
 
 The LLM endpoint is any **OpenAI-client-compatible** server — the same local

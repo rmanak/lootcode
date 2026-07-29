@@ -18,7 +18,7 @@ model here — we emit the validator directly from the signatures:
         # (exactly once, at the front); every later op is a declared method; each
         # arg list matches its op's arity and per-arg declared type.
 
-This gate is what ``scripts/strengthen_tests.py`` / ``scripts/oracle.py`` use to keep
+This gate is what any generated-test tooling uses to keep
 generated operation sequences in-domain (a fuzzer that produced a wrong method name
 or arg type would be rejected). It is intentionally **structure + type only** — it
 does not invent per-value numeric bounds (those are semantic and risk over-tightening;

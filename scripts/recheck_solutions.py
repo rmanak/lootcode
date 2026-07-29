@@ -15,16 +15,15 @@ Two operations on the existing database:
      but fail today because the test suite has since been strengthened. Nothing
      about the sandbox / executor / judge is re-implemented here.
 
-Why this exists: after hardening a problem's hidden tests (the ``test-strengthener``
-agent / ``scripts/oracle.py`` / ``scripts/strengthen_tests.py``), an old solution
-that "passed here but had a bug" can now be caught. This sweeps your own accepted
+Why this exists: after adding hidden test cases to a problem, an old solution that
+"passed here but had a bug" can now be caught. This sweeps your own accepted
 solutions to find those gaps.
 
 Test source: by default it grades against the tests **currently in the database**
 (the runtime source of truth — what the live app would judge against). Pass
 ``--from-content`` to instead load the freshest tests straight from
 ``content/problems/<slug>/`` — i.e. grade "as if you had just re-seeded", handy
-right after strengthening tests without running ``scripts/seed.py``. (User and
+right after adding test cases without running ``scripts/seed.py``. (User and
 submission data always come from the DB regardless.)
 
 Usage:
