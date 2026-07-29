@@ -6,9 +6,18 @@ __pycache__/
 venv/
 env/
 
-# Local database & sandbox scratch
+# Local database & sandbox scratch.
+# The -wal/-shm siblings MUST be ignored alongside the .db. They are part of the
+# same database: the write-ahead log holds committed transactions not yet folded
+# into the main file. Tracking them while the .db itself is ignored means any
+# checkout, stash or branch switch swaps the log out from under the data file,
+# and SQLite then replays a mismatched WAL — which corrupts the database (a page
+# from one table surfacing inside another). That happened. Pinned by
+# tests/test_repo_hygiene.py, which also records how the data was recovered.
 *.db
 *.db-journal
+*.db-wal
+*.db-shm
 .sandbox/
 tmp/
 
