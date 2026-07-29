@@ -38,6 +38,7 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `content/problems/` | Problem definitions (see `specs/problem-schema.md`); optional `<slug>/assets/` holds statement figures (see `docs/problem-images.md`); `<slug>/input_validator/input_validator.py` is the per-problem `validate_input()` legal-input predicate (see `docs/input-validators.md`). |
 | `content/problems-extended/` | Optional **extended** problem set — extra problems kept local (**gitignored**), seeded alongside the default set when present. A fresh clone drops these (and any collection references to them) cleanly; skipped references are reported by `seed.py` but non-fatal. See `docs/extended-problems.md`. |
 | `content/collections/` | Curated, system-defined problem lists (e.g. `blind-73.json`) used as a list filter (see `docs/collections.md`). |
+| `scripts/check_db.py` | Assert the local database is physically intact (`PRAGMA quick_check`; `--full` for `integrity_check`). Runs **first** in `make check-bank`, before `seed.py` can write into a damaged file. Prints the backup/`.recover` procedure on failure. See `docs/database.md`. |
 | `scripts/seed.py` | Load content into the DB + verify canonical solutions. `-j N` verifies in parallel; `--no-verify` seeds only (use when `verify_bank.py` runs next — it does the same work). |
 | `scripts/generate_problem_from_statement.py` | **Mode A (fill-in) CLI:** take a problem-statement file, inject it into `app/llm/problem_prompt.txt`, and call an OpenAI-compatible endpoint (defaults to the app's `LLM_HELP_*` env) asking for **schema-constrained JSON** (`PROBLEM_SCHEMA`, consistent with the data model / `app/problem_spec.py`). Emits the problem object and (unless `--no-validate`) validates it. **CLI front end only** — the generation itself is `app/llm/fill_in.py`, which the in-app generator runs too. Warns if the prompt's hard-coded tag list has drifted from `app/tags.py`. See `docs/problem-generation.md`. |
 | `scripts/test_llm_output.py` | **CLI** for the structural validator: check one LLM-produced problem object (from `app/llm/problem_prompt.txt`) against the core contract. The checks themselves are `app/problem_spec.py`. |
@@ -64,6 +65,7 @@ optional) · **Anthropic Claude API** for optional problem generation.
 .venv/bin/python -m pip install -r requirements.txt      # runtime deps
 .venv/bin/python -m pip install -r requirements-dev.txt  # + pytest/httpx for tests
 make check                                 # lint + types + tests + the whole bank (~19s)
+python scripts/check_db.py                 # is lootcode.db physically intact?
 python scripts/seed.py -j 8                # seed DB from content/ and verify
 python scripts/audit.py -j 8               # check statement/test/judge consistency
 python scripts/build_bank.py               # (re)generate the bundled problem bank
@@ -115,6 +117,30 @@ works for a fresh checkout.
 
 ## Working agreements for Claude
 
+- **The database is not a scratch file.** `lootcode.db` holds accounts,
+  submissions and solved history that exist **nowhere else** — `content/` is the
+  source of truth for problems only (see `docs/database.md` for which tables are
+  derived and which are not). Therefore:
+  - **Never run `git stash`, `git checkout <ref>`, `git clean` or a branch switch
+    as a way of "peeking at another version"** while the working tree holds the
+    live database. Use `git worktree add` (a separate directory) or
+    `git show <ref>:<path>`. A stash mutates the tree the database sits in; this
+    is exactly how it got corrupted on 2026-07-28.
+  - **Never blanket-stage.** `git add -A` / `git commit -a` is how the SQLite
+    write-ahead log got committed in the first place. Stage what you changed.
+  - Never delete or recreate the database to "fix" something without first
+    copying `lootcode.db`, `lootcode.db-wal` and `lootcode.db-shm` together, and
+    saying out loud what user data is at stake.
+  - `python scripts/check_db.py` before and after anything unusual;
+    `make check` runs it first.
+- **"Done" means the real thing ran.** A green `pytest` proves nothing about the
+  live database — `tests/conftest.py` deliberately redirects `LOOTCODE_DB` to a
+  temp file, so the suite cannot observe it. Before reporting that a change to
+  routes, templates, models or queries works, start the actual server against
+  the actual database and open the affected pages. `TestClient` against a
+  fixture is not a substitute, and reporting one as if it were is how a 500 on
+  `/admin` shipped past a green build.
+  See `docs/retrospectives/2026-07-28-database-corruption.md`.
 - **Security-critical:** any change under `app/executor/` (especially
   `harness.py`) or any path that runs user code must preserve the sandbox
   guarantees in `docs/code-execution.md`. Keep `tests/test_executor.py` (TLE /

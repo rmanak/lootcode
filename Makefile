@@ -11,7 +11,8 @@ PORT    ?= 8000
 JOBS    ?= $(shell nproc 2>/dev/null || echo 8)
 
 .PHONY: help install hooks seed dev run test test-fast test-cov lint lint-fix \
-        format typecheck audit verify validators check check-bank docker clean
+        format typecheck audit verify validators db-check check check-bank \
+        docker clean
 
 help:           ## list the targets
 	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -64,6 +65,9 @@ audit:          ## statement <-> test <-> judge consistency over the bank
 verify:         ## run every problem's canonical solution against its own tests
 	$(PY) scripts/verify_bank.py -j $(JOBS)
 
+db-check:       ## assert the local database is physically intact
+	$(PY) scripts/check_db.py --full
+
 validators:     ## assert every stored test input satisfies its validate_input()
 	$(PY) scripts/check_constraint_validators.py
 
@@ -88,7 +92,8 @@ check:  ## everything (deduplicated + parallel); serial output with -j1
 	@$(MAKE) --no-print-directory lint typecheck
 	@$(MAKE) --no-print-directory -j2 test check-bank
 
-check-bank:     ## the bank half of `check`: seed -> audit -> verify -> validators
+check-bank:     ## the bank half of `check`: db -> seed -> audit -> verify -> validators
+	@$(PY) scripts/check_db.py
 	@$(PY) scripts/seed.py --no-verify
 	@$(PY) scripts/audit.py --skip-canonical -q
 	@$(PY) scripts/verify_bank.py -j $(JOBS) -q
