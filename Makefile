@@ -4,7 +4,7 @@
 # depends on what happens to be on PATH.
 PY      := .venv/bin/python
 PIP     := .venv/bin/pip
-HOST    ?= 10.8.0.1
+HOST    ?= 127.0.0.1
 PORT    ?= 8000
 # Worker threads for the bank-wide checks. Each unit of work is its own sandbox
 # subprocess, so this scales with cores rather than with the GIL.
