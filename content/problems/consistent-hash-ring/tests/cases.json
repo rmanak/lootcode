@@ -4,45 +4,50 @@
       "name": "example-1",
       "input": {
         "operations": [
+          "HashRing",
+          "addServer",
+          "addServer",
+          "addServer",
+          "getServer",
+          "getServer",
+          "getServer",
+          "getServer",
+          "removeServer",
+          "getServer"
+        ],
+        "args": [
+          [],
           [
-            "addServer",
             10
           ],
           [
-            "addServer",
             20
           ],
           [
-            "addServer",
             30
           ],
           [
-            "getServer",
             5
           ],
           [
-            "getServer",
             15
           ],
           [
-            "getServer",
             25
           ],
           [
-            "getServer",
             35
           ],
           [
-            "removeServer",
             20
           ],
           [
-            "getServer",
             15
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -60,13 +65,18 @@
       "name": "example-2",
       "input": {
         "operations": [
+          "HashRing",
+          "getServer"
+        ],
+        "args": [
+          [],
           [
-            "getServer",
             1
           ]
         ]
       },
       "expected": [
+        null,
         null
       ],
       "weight": 1,
@@ -76,17 +86,22 @@
       "name": "example-3",
       "input": {
         "operations": [
+          "HashRing",
+          "addServer",
+          "getServer"
+        ],
+        "args": [
+          [],
           [
-            "addServer",
             7
           ],
           [
-            "getServer",
             7
           ]
         ]
       },
       "expected": [
+        null,
         null,
         7
       ],
@@ -97,21 +112,26 @@
       "name": "hidden-1",
       "input": {
         "operations": [
+          "HashRing",
+          "addServer",
+          "addServer",
+          "getServer"
+        ],
+        "args": [
+          [],
           [
-            "addServer",
             5
           ],
           [
-            "addServer",
             5
           ],
           [
-            "getServer",
             5
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         5
@@ -123,24 +143,44 @@
       "name": "hidden-2",
       "input": {
         "operations": [
+          "HashRing",
+          "addServer",
+          "removeServer",
+          "getServer",
+          "addServer",
+          "getServer",
+          "getServer"
+        ],
+        "args": [
+          [],
           [
-            "addServer",
             1
           ],
           [
-            "removeServer",
             1
           ],
           [
-            "getServer",
             0
+          ],
+          [
+            7
+          ],
+          [
+            7
+          ],
+          [
+            8
           ]
         ]
       },
       "expected": [
         null,
         null,
-        null
+        null,
+        null,
+        null,
+        7,
+        7
       ],
       "weight": 1,
       "hidden": true
@@ -149,49 +189,54 @@
       "name": "hidden-3",
       "input": {
         "operations": [
+          "HashRing",
+          "addServer",
+          "getServer",
+          "addServer",
+          "getServer",
+          "removeServer",
+          "getServer",
+          "getServer",
+          "getServer",
+          "getServer",
+          "addServer"
+        ],
+        "args": [
+          [],
           [
-            "addServer",
             22
           ],
           [
-            "getServer",
             13
           ],
           [
-            "addServer",
             13
           ],
           [
-            "getServer",
             26
           ],
           [
-            "removeServer",
             4
           ],
           [
-            "getServer",
             20
           ],
           [
-            "getServer",
             23
           ],
           [
-            "getServer",
             13
           ],
           [
-            "getServer",
             19
           ],
           [
-            "addServer",
             4
           ]
         ]
       },
       "expected": [
+        null,
         null,
         22,
         null,
@@ -210,19 +255,39 @@
       "name": "hidden-4",
       "input": {
         "operations": [
+          "HashRing",
+          "addServer",
+          "addServer",
+          "addServer",
+          "getServer",
+          "getServer"
+        ],
+        "args": [
+          [],
           [
-            "addServer",
             6
           ],
           [
-            "addServer",
             32
+          ],
+          [
+            7
+          ],
+          [
+            7
+          ],
+          [
+            8
           ]
         ]
       },
       "expected": [
         null,
-        null
+        null,
+        null,
+        null,
+        7,
+        32
       ],
       "weight": 1,
       "hidden": true
@@ -231,41 +296,46 @@
       "name": "hidden-5",
       "input": {
         "operations": [
+          "HashRing",
+          "getServer",
+          "getServer",
+          "addServer",
+          "getServer",
+          "removeServer",
+          "addServer",
+          "getServer",
+          "addServer"
+        ],
+        "args": [
+          [],
           [
-            "getServer",
             30
           ],
           [
-            "getServer",
             16
           ],
           [
-            "addServer",
             37
           ],
           [
-            "getServer",
             39
           ],
           [
-            "removeServer",
             31
           ],
           [
-            "addServer",
             26
           ],
           [
-            "getServer",
             31
           ],
           [
-            "addServer",
             5
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -282,49 +352,54 @@
       "name": "hidden-6",
       "input": {
         "operations": [
+          "HashRing",
+          "getServer",
+          "getServer",
+          "addServer",
+          "getServer",
+          "getServer",
+          "getServer",
+          "getServer",
+          "removeServer",
+          "addServer",
+          "addServer"
+        ],
+        "args": [
+          [],
           [
-            "getServer",
             8
           ],
           [
-            "getServer",
             3
           ],
           [
-            "addServer",
             24
           ],
           [
-            "getServer",
             43
           ],
           [
-            "getServer",
             21
           ],
           [
-            "getServer",
             7
           ],
           [
-            "getServer",
             30
           ],
           [
-            "removeServer",
             13
           ],
           [
-            "addServer",
             9
           ],
           [
-            "addServer",
             41
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -343,37 +418,42 @@
       "name": "hidden-7",
       "input": {
         "operations": [
+          "HashRing",
+          "getServer",
+          "addServer",
+          "addServer",
+          "addServer",
+          "removeServer",
+          "getServer",
+          "addServer"
+        ],
+        "args": [
+          [],
           [
-            "getServer",
             49
           ],
           [
-            "addServer",
             44
           ],
           [
-            "addServer",
             35
           ],
           [
-            "addServer",
             21
           ],
           [
-            "removeServer",
             43
           ],
           [
-            "getServer",
             21
           ],
           [
-            "addServer",
             12
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -389,41 +469,46 @@
       "name": "hidden-8",
       "input": {
         "operations": [
+          "HashRing",
+          "getServer",
+          "addServer",
+          "removeServer",
+          "getServer",
+          "getServer",
+          "getServer",
+          "removeServer",
+          "getServer"
+        ],
+        "args": [
+          [],
           [
-            "getServer",
             43
           ],
           [
-            "addServer",
             18
           ],
           [
-            "removeServer",
             12
           ],
           [
-            "getServer",
             43
           ],
           [
-            "getServer",
             6
           ],
           [
-            "getServer",
             50
           ],
           [
-            "removeServer",
             23
           ],
           [
-            "getServer",
             13
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -440,57 +525,62 @@
       "name": "hidden-9",
       "input": {
         "operations": [
+          "HashRing",
+          "addServer",
+          "getServer",
+          "getServer",
+          "getServer",
+          "getServer",
+          "addServer",
+          "addServer",
+          "getServer",
+          "getServer",
+          "removeServer",
+          "getServer",
+          "addServer"
+        ],
+        "args": [
+          [],
           [
-            "addServer",
             11
           ],
           [
-            "getServer",
             34
           ],
           [
-            "getServer",
             10
           ],
           [
-            "getServer",
             14
           ],
           [
-            "getServer",
             11
           ],
           [
-            "addServer",
             23
           ],
           [
-            "addServer",
             24
           ],
           [
-            "getServer",
             19
           ],
           [
-            "getServer",
             5
           ],
           [
-            "removeServer",
             42
           ],
           [
-            "getServer",
             47
           ],
           [
-            "addServer",
             35
           ]
         ]
       },
       "expected": [
+        null,
         null,
         11,
         11,
@@ -511,53 +601,58 @@
       "name": "hidden-10",
       "input": {
         "operations": [
+          "HashRing",
+          "removeServer",
+          "removeServer",
+          "getServer",
+          "addServer",
+          "addServer",
+          "getServer",
+          "getServer",
+          "getServer",
+          "addServer",
+          "addServer",
+          "getServer"
+        ],
+        "args": [
+          [],
           [
-            "removeServer",
             44
           ],
           [
-            "removeServer",
             42
           ],
           [
-            "getServer",
             46
           ],
           [
-            "addServer",
             18
           ],
           [
-            "addServer",
             17
           ],
           [
-            "getServer",
             33
           ],
           [
-            "getServer",
             31
           ],
           [
-            "getServer",
             31
           ],
           [
-            "addServer",
             17
           ],
           [
-            "addServer",
             22
           ],
           [
-            "getServer",
             38
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -577,37 +672,42 @@
       "name": "hidden-11",
       "input": {
         "operations": [
+          "HashRing",
+          "removeServer",
+          "addServer",
+          "addServer",
+          "getServer",
+          "getServer",
+          "addServer",
+          "getServer"
+        ],
+        "args": [
+          [],
           [
-            "removeServer",
             36
           ],
           [
-            "addServer",
             42
           ],
           [
-            "addServer",
             43
           ],
           [
-            "getServer",
             24
           ],
           [
-            "getServer",
             26
           ],
           [
-            "addServer",
             4
           ],
           [
-            "getServer",
             18
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -623,37 +723,42 @@
       "name": "hidden-12",
       "input": {
         "operations": [
+          "HashRing",
+          "addServer",
+          "getServer",
+          "addServer",
+          "addServer",
+          "addServer",
+          "addServer",
+          "addServer"
+        ],
+        "args": [
+          [],
           [
-            "addServer",
             28
           ],
           [
-            "getServer",
             40
           ],
           [
-            "addServer",
             44
           ],
           [
-            "addServer",
             47
           ],
           [
-            "addServer",
             46
           ],
           [
-            "addServer",
             29
           ],
           [
-            "addServer",
             29
           ]
         ]
       },
       "expected": [
+        null,
         null,
         28,
         null,
@@ -669,33 +774,49 @@
       "name": "gen-1",
       "input": {
         "operations": [
+          "HashRing",
+          "removeServer",
+          "removeServer",
+          "addServer",
+          "addServer",
+          "removeServer",
+          "removeServer",
+          "getServer",
+          "addServer",
+          "getServer",
+          "getServer"
+        ],
+        "args": [
+          [],
           [
-            "removeServer",
             2
           ],
           [
-            "removeServer",
             1
           ],
           [
-            "addServer",
             5
           ],
           [
-            "addServer",
             5
           ],
           [
-            "removeServer",
             1
           ],
           [
-            "removeServer",
             5
           ],
           [
-            "getServer",
             1
+          ],
+          [
+            7
+          ],
+          [
+            7
+          ],
+          [
+            8
           ]
         ]
       },
@@ -706,7 +827,11 @@
         null,
         null,
         null,
-        null
+        null,
+        null,
+        null,
+        7,
+        7
       ],
       "weight": 1,
       "hidden": true

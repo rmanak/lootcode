@@ -3,6 +3,7 @@
   "title": "Union Find Connectivity Queries",
   "difficulty": "medium",
   "tags": [
+    "design",
     "union-find",
     "graph"
   ],
@@ -18,21 +19,51 @@
     "timeLimitMs": 10000,
     "memoryLimitMb": 512
   },
-  "function": {
-    "name": "connectivity",
-    "params": [
+  "kind": "class",
+  "class": {
+    "name": "UnionFind",
+    "constructor": {
+      "params": [
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ]
+    },
+    "methods": [
       {
-        "name": "n",
-        "type": "int"
+        "name": "union",
+        "params": [
+          {
+            "name": "a",
+            "type": "int"
+          },
+          {
+            "name": "b",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
       },
       {
-        "name": "operations",
-        "type": "any[][]"
+        "name": "connected",
+        "params": [
+          {
+            "name": "a",
+            "type": "int"
+          },
+          {
+            "name": "b",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "bool"
+        }
       }
-    ],
-    "returns": {
-      "type": "bool[]"
-    }
+    ]
   },
   "scoring": {
     "type": "weighted",

@@ -1,21 +1,29 @@
-def maxStack(operations):
-    stack = []
-    out = []
-    for op in operations:
-        if op[0] == "push":
-            stack.append(op[1])
-            out.append(None)
-        elif op[0] == "pop":
-            out.append(stack.pop())
-        elif op[0] == "top":
-            out.append(stack[-1])
-        elif op[0] == "peekMax":
-            out.append(max(stack))
-        else:
-            m = max(stack)
-            for i in range(len(stack) - 1, -1, -1):
-                if stack[i] == m:
-                    stack.pop(i)
-                    break
-            out.append(m)
-    return out
+class MaxStack:
+    def __init__(self):
+        self.stack = []
+        # maxes[i] is the maximum of stack[0..i], so maxes[-1] is the current max.
+        self.maxes = []
+
+    def push(self, x):
+        self.stack.append(x)
+        self.maxes.append(x if not self.maxes else max(x, self.maxes[-1]))
+
+    def pop(self):
+        self.maxes.pop()
+        return self.stack.pop()
+
+    def top(self):
+        return self.stack[-1]
+
+    def peekMax(self):
+        return self.maxes[-1]
+
+    def popMax(self):
+        m = self.maxes[-1]
+        buf = []
+        while self.stack[-1] != m:
+            buf.append(self.pop())
+        self.pop()
+        while buf:
+            self.push(buf.pop())
+        return m

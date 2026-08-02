@@ -1,16 +1,15 @@
-def connectivity(n, operations):
-    parent = list(range(n))
+class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))
 
-    def find(x):
-        while parent[x] != x:
-            parent[x] = parent[parent[x]]
-            x = parent[x]
+    def _find(self, x):
+        while self.parent[x] != x:
+            self.parent[x] = self.parent[self.parent[x]]
+            x = self.parent[x]
         return x
 
-    out = []
-    for op, a, b in operations:
-        if op == "union":
-            parent[find(a)] = find(b)
-        else:
-            out.append(find(a) == find(b))
-    return out
+    def union(self, a, b):
+        self.parent[self._find(a)] = self._find(b)
+
+    def connected(self, a, b):
+        return self._find(a) == self._find(b)

@@ -4,37 +4,42 @@
       "name": "example-1",
       "input": {
         "operations": [
+          "HitCounter",
+          "hit",
+          "hit",
+          "hit",
+          "getHits",
+          "hit",
+          "getHits",
+          "getHits"
+        ],
+        "args": [
+          [],
           [
-            "hit",
             1
           ],
           [
-            "hit",
             2
           ],
           [
-            "hit",
             3
           ],
           [
-            "getHits",
             4
           ],
           [
-            "hit",
             300
           ],
           [
-            "getHits",
             300
           ],
           [
-            "getHits",
             301
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -50,17 +55,22 @@
       "name": "example-2",
       "input": {
         "operations": [
+          "HitCounter",
+          "hit",
+          "getHits"
+        ],
+        "args": [
+          [],
           [
-            "hit",
             1
           ],
           [
-            "getHits",
             1
           ]
         ]
       },
       "expected": [
+        null,
         null,
         1
       ],
@@ -71,13 +81,18 @@
       "name": "example-3",
       "input": {
         "operations": [
+          "HitCounter",
+          "getHits"
+        ],
+        "args": [
+          [],
           [
-            "getHits",
             100
           ]
         ]
       },
       "expected": [
+        null,
         0
       ],
       "weight": 1,
@@ -87,21 +102,26 @@
       "name": "hidden-1",
       "input": {
         "operations": [
+          "HitCounter",
+          "hit",
+          "hit",
+          "getHits"
+        ],
+        "args": [
+          [],
           [
-            "hit",
             1
           ],
           [
-            "hit",
             1
           ],
           [
-            "getHits",
             1
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         2
@@ -113,17 +133,22 @@
       "name": "hidden-2",
       "input": {
         "operations": [
+          "HitCounter",
+          "hit",
+          "getHits"
+        ],
+        "args": [
+          [],
           [
-            "hit",
             10
           ],
           [
-            "getHits",
             350
           ]
         ]
       },
       "expected": [
+        null,
         null,
         0
       ],
@@ -134,33 +159,38 @@
       "name": "hidden-3",
       "input": {
         "operations": [
+          "HitCounter",
+          "getHits",
+          "getHits",
+          "getHits",
+          "hit",
+          "hit",
+          "hit"
+        ],
+        "args": [
+          [],
           [
-            "getHits",
             107
           ],
           [
-            "getHits",
             196
           ],
           [
-            "getHits",
             216
           ],
           [
-            "hit",
             297
           ],
           [
-            "hit",
             440
           ],
           [
-            "hit",
             502
           ]
         ]
       },
       "expected": [
+        null,
         0,
         0,
         0,
@@ -175,25 +205,30 @@
       "name": "hidden-4",
       "input": {
         "operations": [
+          "HitCounter",
+          "hit",
+          "getHits",
+          "hit",
+          "getHits"
+        ],
+        "args": [
+          [],
           [
-            "hit",
             2
           ],
           [
-            "getHits",
             138
           ],
           [
-            "hit",
             228
           ],
           [
-            "getHits",
             279
           ]
         ]
       },
       "expected": [
+        null,
         null,
         1,
         null,
@@ -206,25 +241,30 @@
       "name": "hidden-5",
       "input": {
         "operations": [
+          "HitCounter",
+          "hit",
+          "getHits",
+          "hit",
+          "getHits"
+        ],
+        "args": [
+          [],
           [
-            "hit",
             87
           ],
           [
-            "getHits",
             220
           ],
           [
-            "hit",
             341
           ],
           [
-            "getHits",
             360
           ]
         ]
       },
       "expected": [
+        null,
         null,
         1,
         null,
@@ -237,49 +277,54 @@
       "name": "hidden-6",
       "input": {
         "operations": [
+          "HitCounter",
+          "hit",
+          "hit",
+          "getHits",
+          "hit",
+          "getHits",
+          "getHits",
+          "hit",
+          "getHits",
+          "hit",
+          "getHits"
+        ],
+        "args": [
+          [],
           [
-            "hit",
             135
           ],
           [
-            "hit",
             200
           ],
           [
-            "getHits",
             207
           ],
           [
-            "hit",
             337
           ],
           [
-            "getHits",
             433
           ],
           [
-            "getHits",
             505
           ],
           [
-            "hit",
             638
           ],
           [
-            "getHits",
             685
           ],
           [
-            "hit",
             772
           ],
           [
-            "getHits",
             822
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         2,
@@ -298,41 +343,46 @@
       "name": "hidden-7",
       "input": {
         "operations": [
+          "HitCounter",
+          "hit",
+          "hit",
+          "hit",
+          "hit",
+          "getHits",
+          "getHits",
+          "hit",
+          "getHits"
+        ],
+        "args": [
+          [],
           [
-            "hit",
             100
           ],
           [
-            "hit",
             161
           ],
           [
-            "hit",
             303
           ],
           [
-            "hit",
             329
           ],
           [
-            "getHits",
             452
           ],
           [
-            "getHits",
             517
           ],
           [
-            "hit",
             657
           ],
           [
-            "getHits",
             802
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -349,21 +399,26 @@
       "name": "hidden-8",
       "input": {
         "operations": [
+          "HitCounter",
+          "hit",
+          "hit",
+          "getHits"
+        ],
+        "args": [
+          [],
           [
-            "hit",
             16
           ],
           [
-            "hit",
             97
           ],
           [
-            "getHits",
             128
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         2
@@ -375,41 +430,46 @@
       "name": "hidden-9",
       "input": {
         "operations": [
+          "HitCounter",
+          "hit",
+          "getHits",
+          "hit",
+          "getHits",
+          "hit",
+          "getHits",
+          "hit",
+          "getHits"
+        ],
+        "args": [
+          [],
           [
-            "hit",
             18
           ],
           [
-            "getHits",
             142
           ],
           [
-            "hit",
             156
           ],
           [
-            "getHits",
             174
           ],
           [
-            "hit",
             309
           ],
           [
-            "getHits",
             381
           ],
           [
-            "hit",
             472
           ],
           [
-            "getHits",
             488
           ]
         ]
       },
       "expected": [
+        null,
         null,
         1,
         null,
@@ -426,29 +486,34 @@
       "name": "hidden-10",
       "input": {
         "operations": [
+          "HitCounter",
+          "getHits",
+          "getHits",
+          "hit",
+          "getHits",
+          "getHits"
+        ],
+        "args": [
+          [],
           [
-            "getHits",
             137
           ],
           [
-            "getHits",
             244
           ],
           [
-            "hit",
             302
           ],
           [
-            "getHits",
             390
           ],
           [
-            "getHits",
             498
           ]
         ]
       },
       "expected": [
+        null,
         0,
         0,
         null,

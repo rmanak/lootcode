@@ -3,6 +3,7 @@
   "title": "Median From Data Stream",
   "difficulty": "hard",
   "tags": [
+    "design",
     "heap"
   ],
   "hints": [
@@ -17,17 +18,33 @@
     "timeLimitMs": 10000,
     "memoryLimitMb": 512
   },
-  "function": {
-    "name": "medianStream",
-    "params": [
+  "kind": "class",
+  "class": {
+    "name": "MedianFinder",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
       {
-        "name": "operations",
-        "type": "any[][]"
+        "name": "addNum",
+        "params": [
+          {
+            "name": "num",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "findMedian",
+        "params": [],
+        "returns": {
+          "type": "float"
+        }
       }
-    ],
-    "returns": {
-      "type": "any[]"
-    }
+    ]
   },
   "scoring": {
     "type": "weighted",

@@ -3,6 +3,7 @@
   "title": "Consistent Hash Ring",
   "difficulty": "medium",
   "tags": [
+    "design",
     "binary-search"
   ],
   "hints": [
@@ -17,17 +18,50 @@
     "timeLimitMs": 10000,
     "memoryLimitMb": 512
   },
-  "function": {
-    "name": "hashRing",
-    "params": [
+  "kind": "class",
+  "class": {
+    "name": "HashRing",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
       {
-        "name": "operations",
-        "type": "int[][]"
+        "name": "addServer",
+        "params": [
+          {
+            "name": "id",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "removeServer",
+        "params": [
+          {
+            "name": "id",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "getServer",
+        "params": [
+          {
+            "name": "key",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "int"
+        }
       }
-    ],
-    "returns": {
-      "type": "any[]"
-    }
+    ]
   },
   "scoring": {
     "type": "weighted",

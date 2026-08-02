@@ -1,14 +1,14 @@
-def hitCounter(operations):
-    from collections import deque
-    hits = deque()
-    out = []
-    for op in operations:
-        if op[0] == "hit":
-            hits.append(op[1])
-            out.append(None)
-        else:
-            t = op[1]
-            while hits and hits[0] <= t - 300:
-                hits.popleft()
-            out.append(len(hits))
-    return out
+from collections import deque
+
+
+class HitCounter:
+    def __init__(self):
+        self.hits = deque()
+
+    def hit(self, timestamp):
+        self.hits.append(timestamp)
+
+    def getHits(self, timestamp):
+        while self.hits and self.hits[0] <= timestamp - 300:
+            self.hits.popleft()
+        return len(self.hits)

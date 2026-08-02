@@ -1,23 +1,22 @@
-def hashRing(operations):
-    import bisect
-    servers, out = [], []
-    for op in operations:
-        name = op[0]
-        if name == "addServer":
-            i = bisect.bisect_left(servers, op[1])
-            if i == len(servers) or servers[i] != op[1]:
-                servers.insert(i, op[1])
-            out.append(None)
-        elif name == "removeServer":
-            i = bisect.bisect_left(servers, op[1])
-            if i < len(servers) and servers[i] == op[1]:
-                servers.pop(i)
-            out.append(None)
-        else:
-            key = op[1]
-            if not servers:
-                out.append(None)
-            else:
-                i = bisect.bisect_left(servers, key)
-                out.append(servers[i] if i < len(servers) else servers[0])
-    return out
+import bisect
+
+
+class HashRing:
+    def __init__(self):
+        self.servers = []
+
+    def addServer(self, id):
+        i = bisect.bisect_left(self.servers, id)
+        if i == len(self.servers) or self.servers[i] != id:
+            self.servers.insert(i, id)
+
+    def removeServer(self, id):
+        i = bisect.bisect_left(self.servers, id)
+        if i < len(self.servers) and self.servers[i] == id:
+            self.servers.pop(i)
+
+    def getServer(self, key):
+        if not self.servers:
+            return None
+        i = bisect.bisect_left(self.servers, key)
+        return self.servers[i] if i < len(self.servers) else self.servers[0]

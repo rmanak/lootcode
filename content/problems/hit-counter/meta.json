@@ -3,6 +3,7 @@
   "title": "Hit Counter",
   "difficulty": "medium",
   "tags": [
+    "design",
     "queue"
   ],
   "hints": [
@@ -17,17 +18,38 @@
     "timeLimitMs": 10000,
     "memoryLimitMb": 512
   },
-  "function": {
-    "name": "hitCounter",
-    "params": [
+  "kind": "class",
+  "class": {
+    "name": "HitCounter",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
       {
-        "name": "operations",
-        "type": "any[][]"
+        "name": "hit",
+        "params": [
+          {
+            "name": "timestamp",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "getHits",
+        "params": [
+          {
+            "name": "timestamp",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "int"
+        }
       }
-    ],
-    "returns": {
-      "type": "any[]"
-    }
+    ]
   },
   "scoring": {
     "type": "weighted",

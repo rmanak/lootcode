@@ -1,19 +1,22 @@
-def kvStore(operations):
-    store, snaps, out = {}, [], []
-    for op in operations:
-        name = op[0]
-        if name == "set":
-            store[op[1]] = op[2]
-            out.append(None)
-        elif name == "get":
-            out.append(store.get(op[1]))
-        elif name == "delete":
-            store.pop(op[1], None)
-            out.append(None)
-        elif name == "snapshot":
-            snaps.append(dict(store))
-            out.append(len(snaps) - 1)
-        else:
-            k, sid = op[1], op[2]
-            out.append(snaps[sid].get(k) if 0 <= sid < len(snaps) else None)
-    return out
+class KeyValueStore:
+    def __init__(self):
+        self.store = {}
+        self.snaps = []
+
+    def set(self, key, value):
+        self.store[key] = value
+
+    def get(self, key):
+        return self.store.get(key)
+
+    def delete(self, key):
+        self.store.pop(key, None)
+
+    def snapshot(self):
+        self.snaps.append(dict(self.store))
+        return len(self.snaps) - 1
+
+    def getAt(self, key, id):
+        if 0 <= id < len(self.snaps):
+            return self.snaps[id].get(key)
+        return None

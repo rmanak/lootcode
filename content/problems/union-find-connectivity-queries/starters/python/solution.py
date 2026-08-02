@@ -1,3 +1,9 @@
-def connectivity(n, operations):
-    # Write your solution here.
-    pass
+class UnionFind:
+    def __init__(self, n):
+        pass
+
+    def union(self, a, b):
+        pass
+
+    def connected(self, a, b):
+        pass

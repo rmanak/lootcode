@@ -4,36 +4,47 @@
       "name": "example-1",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "push",
+          "push",
+          "top",
+          "popMax",
+          "top",
+          "peekMax",
+          "pop",
+          "top"
+        ],
+        "args": [
+          [],
           [
-            "push",
             5
           ],
           [
-            "push",
             1
           ],
           [
-            "push",
             5
           ],
-          [
-            "top"
-          ],
-          [
-            "popMax"
-          ],
-          [
-            "top"
-          ]
+          [],
+          [],
+          [],
+          [],
+          [],
+          []
         ]
       },
       "expected": [
         null,
         null,
         null,
+        null,
         5,
         5,
-        1
+        1,
+        5,
+        1,
+        5
       ],
       "weight": 1,
       "hidden": false
@@ -42,16 +53,20 @@
       "name": "example-2",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "peekMax"
+        ],
+        "args": [
+          [],
           [
-            "push",
             2
           ],
-          [
-            "peekMax"
-          ]
+          []
         ]
       },
       "expected": [
+        null,
         null,
         2
       ],
@@ -62,23 +77,26 @@
       "name": "hidden-1",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "pop",
+          "push",
+          "peekMax"
+        ],
+        "args": [
+          [],
           [
-            "push",
             1
           ],
+          [],
           [
-            "pop"
-          ],
-          [
-            "push",
             3
           ],
-          [
-            "peekMax"
-          ]
+          []
         ]
       },
       "expected": [
+        null,
         null,
         1,
         null,
@@ -91,30 +109,32 @@
       "name": "hidden-2",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "push",
+          "push",
+          "popMax",
+          "popMax",
+          "top"
+        ],
+        "args": [
+          [],
           [
-            "push",
             5
           ],
           [
-            "push",
             1
           ],
           [
-            "push",
             5
           ],
-          [
-            "popMax"
-          ],
-          [
-            "popMax"
-          ],
-          [
-            "top"
-          ]
+          [],
+          [],
+          []
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -129,30 +149,32 @@
       "name": "hidden-3",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "popMax",
+          "push",
+          "push",
+          "peekMax",
+          "popMax"
+        ],
+        "args": [
+          [],
           [
-            "push",
             11
           ],
+          [],
           [
-            "popMax"
-          ],
-          [
-            "push",
             3
           ],
           [
-            "push",
             0
           ],
-          [
-            "peekMax"
-          ],
-          [
-            "popMax"
-          ]
+          [],
+          []
         ]
       },
       "expected": [
+        null,
         null,
         11,
         null,
@@ -167,14 +189,28 @@
       "name": "hidden-4",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "peekMax",
+          "top",
+          "popMax"
+        ],
+        "args": [
+          [],
           [
-            "push",
             15
-          ]
+          ],
+          [],
+          [],
+          []
         ]
       },
       "expected": [
-        null
+        null,
+        null,
+        15,
+        15,
+        15
       ],
       "weight": 1,
       "hidden": true
@@ -183,20 +219,24 @@
       "name": "hidden-5",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "peekMax",
+          "push"
+        ],
+        "args": [
+          [],
           [
-            "push",
             9
           ],
+          [],
           [
-            "peekMax"
-          ],
-          [
-            "push",
             11
           ]
         ]
       },
       "expected": [
+        null,
         null,
         9,
         null
@@ -208,20 +248,24 @@
       "name": "hidden-6",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "popMax",
+          "push"
+        ],
+        "args": [
+          [],
           [
-            "push",
             4
           ],
+          [],
           [
-            "popMax"
-          ],
-          [
-            "push",
             6
           ]
         ]
       },
       "expected": [
+        null,
         null,
         4,
         null
@@ -233,27 +277,30 @@
       "name": "hidden-7",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "popMax",
+          "push",
+          "popMax",
+          "push"
+        ],
+        "args": [
+          [],
           [
-            "push",
             9
           ],
+          [],
           [
-            "popMax"
-          ],
-          [
-            "push",
             13
           ],
+          [],
           [
-            "popMax"
-          ],
-          [
-            "push",
             8
           ]
         ]
       },
       "expected": [
+        null,
         null,
         9,
         null,
@@ -267,27 +314,30 @@
       "name": "hidden-8",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "pop",
+          "push",
+          "popMax",
+          "push"
+        ],
+        "args": [
+          [],
           [
-            "push",
             5
           ],
+          [],
           [
-            "pop"
-          ],
-          [
-            "push",
             11
           ],
+          [],
           [
-            "popMax"
-          ],
-          [
-            "push",
             7
           ]
         ]
       },
       "expected": [
+        null,
         null,
         5,
         null,
@@ -301,51 +351,54 @@
       "name": "hidden-9",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "push",
+          "pop",
+          "pop",
+          "push",
+          "push",
+          "push",
+          "push",
+          "push",
+          "push",
+          "push"
+        ],
+        "args": [
+          [],
           [
-            "push",
             10
           ],
           [
-            "push",
             5
           ],
+          [],
+          [],
           [
-            "pop"
-          ],
-          [
-            "pop"
-          ],
-          [
-            "push",
             4
           ],
           [
-            "push",
             14
           ],
           [
-            "push",
             2
           ],
           [
-            "push",
             11
           ],
           [
-            "push",
             10
           ],
           [
-            "push",
             14
           ],
           [
-            "push",
             8
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         5,
@@ -365,20 +418,24 @@
       "name": "hidden-10",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "popMax",
+          "push"
+        ],
+        "args": [
+          [],
           [
-            "push",
             13
           ],
+          [],
           [
-            "popMax"
-          ],
-          [
-            "push",
             14
           ]
         ]
       },
       "expected": [
+        null,
         null,
         13,
         null
@@ -390,32 +447,36 @@
       "name": "hidden-11",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "push",
+          "pop",
+          "push",
+          "push",
+          "push"
+        ],
+        "args": [
+          [],
           [
-            "push",
             10
           ],
           [
-            "push",
             9
           ],
+          [],
           [
-            "pop"
-          ],
-          [
-            "push",
             6
           ],
           [
-            "push",
             13
           ],
           [
-            "push",
             15
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         9,
@@ -430,36 +491,40 @@
       "name": "hidden-12",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "push",
+          "push",
+          "push",
+          "top",
+          "push",
+          "push"
+        ],
+        "args": [
+          [],
           [
-            "push",
             3
           ],
           [
-            "push",
             8
           ],
           [
-            "push",
             9
           ],
           [
-            "push",
             2
           ],
+          [],
           [
-            "top"
-          ],
-          [
-            "push",
             15
           ],
           [
-            "push",
             8
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -475,28 +540,32 @@
       "name": "hidden-13",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "push",
+          "push",
+          "push",
+          "peekMax"
+        ],
+        "args": [
+          [],
           [
-            "push",
             4
           ],
           [
-            "push",
             0
           ],
           [
-            "push",
             5
           ],
           [
-            "push",
             1
           ],
-          [
-            "peekMax"
-          ]
+          []
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -510,31 +579,34 @@
       "name": "hidden-14",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "top",
+          "pop",
+          "push",
+          "push",
+          "push"
+        ],
+        "args": [
+          [],
           [
-            "push",
             1
           ],
+          [],
+          [],
           [
-            "top"
-          ],
-          [
-            "pop"
-          ],
-          [
-            "push",
             6
           ],
           [
-            "push",
             2
           ],
           [
-            "push",
             9
           ]
         ]
       },
       "expected": [
+        null,
         null,
         1,
         1,
@@ -549,37 +621,38 @@
       "name": "gen-1",
       "input": {
         "operations": [
+          "MaxStack",
+          "push",
+          "push",
+          "top",
+          "push",
+          "push",
+          "popMax",
+          "top",
+          "peekMax"
+        ],
+        "args": [
+          [],
           [
-            "push",
             6
           ],
           [
-            "push",
+            1
+          ],
+          [],
+          [
             1
           ],
           [
-            "top"
-          ],
-          [
-            "push",
-            1
-          ],
-          [
-            "push",
             3
           ],
-          [
-            "popMax"
-          ],
-          [
-            "top"
-          ],
-          [
-            "peekMax"
-          ]
+          [],
+          [],
+          []
         ]
       },
       "expected": [
+        null,
         null,
         null,
         1,
@@ -587,6 +660,388 @@
         null,
         6,
         3,
+        3
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-15",
+      "input": {
+        "operations": [
+          "MaxStack",
+          "push",
+          "push",
+          "push",
+          "push",
+          "popMax",
+          "peekMax",
+          "popMax",
+          "top",
+          "pop",
+          "top"
+        ],
+        "args": [
+          [],
+          [
+            -4
+          ],
+          [
+            -2
+          ],
+          [
+            -9
+          ],
+          [
+            -2
+          ],
+          [],
+          [],
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        -2,
+        -2,
+        -2,
+        -9,
+        -9,
+        -4
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-16",
+      "input": {
+        "operations": [
+          "MaxStack",
+          "push",
+          "push",
+          "push",
+          "push",
+          "push",
+          "popMax",
+          "popMax",
+          "popMax",
+          "top",
+          "peekMax"
+        ],
+        "args": [
+          [],
+          [
+            7
+          ],
+          [
+            7
+          ],
+          [
+            3
+          ],
+          [
+            7
+          ],
+          [
+            1
+          ],
+          [],
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        7,
+        7,
+        7,
+        1,
+        3
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-17",
+      "input": {
+        "operations": [
+          "MaxStack",
+          "push",
+          "push",
+          "push",
+          "push",
+          "pop",
+          "popMax",
+          "push",
+          "peekMax",
+          "popMax",
+          "top"
+        ],
+        "args": [
+          [],
+          [
+            10000000
+          ],
+          [
+            -10000000
+          ],
+          [
+            0
+          ],
+          [
+            5
+          ],
+          [],
+          [],
+          [
+            42
+          ],
+          [],
+          [],
+          []
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        5,
+        10000000,
+        null,
+        42,
+        42,
+        0
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-2",
+      "input": {
+        "operations": [
+          "MaxStack",
+          "push",
+          "push",
+          "push",
+          "top",
+          "pop",
+          "push",
+          "peekMax",
+          "popMax",
+          "push",
+          "popMax",
+          "top",
+          "peekMax"
+        ],
+        "args": [
+          [],
+          [
+            2
+          ],
+          [
+            8
+          ],
+          [
+            8
+          ],
+          [],
+          [],
+          [
+            4
+          ],
+          [],
+          [],
+          [
+            8
+          ],
+          [],
+          [],
+          []
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        8,
+        8,
+        null,
+        8,
+        8,
+        null,
+        8,
+        4,
+        4
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-18",
+      "input": {
+        "operations": [
+          "MaxStack",
+          "push",
+          "push",
+          "push",
+          "popMax",
+          "top",
+          "peekMax",
+          "pop",
+          "top"
+        ],
+        "args": [
+          [],
+          [
+            9
+          ],
+          [
+            3
+          ],
+          [
+            9
+          ],
+          [],
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        9,
+        3,
+        9,
+        3,
+        9
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-19",
+      "input": {
+        "operations": [
+          "MaxStack",
+          "push",
+          "push",
+          "push",
+          "push",
+          "push",
+          "popMax",
+          "top",
+          "popMax",
+          "top",
+          "peekMax",
+          "pop",
+          "pop",
+          "top"
+        ],
+        "args": [
+          [],
+          [
+            6
+          ],
+          [
+            2
+          ],
+          [
+            6
+          ],
+          [
+            1
+          ],
+          [
+            6
+          ],
+          [],
+          [],
+          [],
+          [],
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        6,
+        1,
+        6,
+        1,
+        6,
+        1,
+        2,
+        6
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "hidden-20",
+      "input": {
+        "operations": [
+          "MaxStack",
+          "push",
+          "push",
+          "pop",
+          "peekMax",
+          "push",
+          "popMax",
+          "top"
+        ],
+        "args": [
+          [],
+          [
+            3
+          ],
+          [
+            9
+          ],
+          [],
+          [],
+          [
+            4
+          ],
+          [],
+          []
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        9,
+        3,
+        null,
+        4,
         3
       ],
       "weight": 1,

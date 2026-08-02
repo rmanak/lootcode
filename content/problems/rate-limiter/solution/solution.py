@@ -1,15 +1,17 @@
-def rateLimiter(limit, window, operations):
-    from collections import defaultdict, deque
-    hist = defaultdict(deque)
-    out = []
-    for op in operations:
-        _, user, t = op
-        dq = hist[user]
-        while dq and dq[0] <= t - window:
+from collections import defaultdict, deque
+
+
+class RateLimiter:
+    def __init__(self, limit, window):
+        self.limit = limit
+        self.window = window
+        self.hist = defaultdict(deque)
+
+    def request(self, userId, timestamp):
+        dq = self.hist[userId]
+        while dq and dq[0] <= timestamp - self.window:
             dq.popleft()
-        if len(dq) < limit:
-            dq.append(t)
-            out.append(True)
-        else:
-            out.append(False)
-    return out
+        if len(dq) < self.limit:
+            dq.append(timestamp)
+            return True
+        return False

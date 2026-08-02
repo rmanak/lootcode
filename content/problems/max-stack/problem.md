@@ -1,18 +1,42 @@
-Implement a stack that also supports retrieving and removing the maximum. Replay
-`operations`, returning the list of results. Operations are `["push", x]` (returns
-`null`), `["pop"]` (remove and return the top), `["top"]` (return the top),
-`["peekMax"]` (return the maximum), and `["popMax"]` (remove and return the maximum;
-if it appears multiple times, remove the one closest to the top).
+Design a max stack that supports the usual stack operations and additionally
+supports finding and removing the stack's maximum element.
 
-## Constraints
-- `1 <= len(operations) <= 10^4`
-- `pop`/`top`/`peekMax`/`popMax` are only called on a non-empty stack
+Implement the `MaxStack` class:
 
-## Examples
-Input: `operations = [["push",5],["push",1],["push",5],["top"],["popMax"],["top"]]`
-Output: `[null,null,null,5,5,1]`
-Explanation: `popMax` removes the most recent `5`, leaving `1` on top.
+- `MaxStack()` initializes the stack object.
+- `void push(int x)` pushes the element `x` onto the stack.
+- `int pop()` removes the element on top of the stack and returns it.
+- `int top()` gets the element on top of the stack without removing it.
+- `int peekMax()` retrieves the maximum element in the stack without removing it.
+- `int popMax()` retrieves the maximum element in the stack and removes it. If
+  there is more than one maximum element, only remove the **top-most** one.
 
-Input: `operations = [["push",2],["peekMax"]]`
-Output: `[null,2]`
-Explanation: The only value is the maximum.
+**Example 1:**
+
+```
+Input
+["MaxStack","push","push","push","top","popMax","top","peekMax","pop","top"]
+[[],[5],[1],[5],[],[],[],[],[],[]]
+
+Output
+[null,null,null,null,5,5,1,5,1,5]
+
+Explanation
+MaxStack stk = new MaxStack();
+stk.push(5);      // [5]
+stk.push(1);      // [5, 1]
+stk.push(5);      // [5, 1, 5]
+stk.top();        // return 5, [5, 1, 5]
+stk.popMax();     // return 5, [5, 1] -- the top-most 5 is removed
+stk.top();        // return 1, [5, 1]
+stk.peekMax();    // return 5, [5, 1]
+stk.pop();        // return 1, [5]
+stk.top();        // return 5, [5]
+```
+
+**Constraints:**
+
+- `-10⁷ <= x <= 10⁷`
+- At most `10⁴` calls will be made to `push`, `pop`, `top`, `peekMax`, and `popMax`.
+- There will be **at least one element** in the stack when `pop`, `top`, `peekMax`,
+  or `popMax` is called.

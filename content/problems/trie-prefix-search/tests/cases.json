@@ -4,33 +4,38 @@
       "name": "example-1",
       "input": {
         "operations": [
+          "Trie",
+          "insert",
+          "search",
+          "search",
+          "startsWith",
+          "insert",
+          "search"
+        ],
+        "args": [
+          [],
           [
-            "insert",
             "apple"
           ],
           [
-            "search",
             "apple"
           ],
           [
-            "search",
             "app"
           ],
           [
-            "startsWith",
             "app"
           ],
           [
-            "insert",
             "app"
           ],
           [
-            "search",
             "app"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         true,
         false,
@@ -45,29 +50,13 @@
       "name": "example-2",
       "input": {
         "operations": [
+          "Trie",
+          "search"
+        ],
+        "args": [
+          [],
           [
-            "search",
             "a"
-          ]
-        ]
-      },
-      "expected": [
-        false
-      ],
-      "weight": 1,
-      "hidden": false
-    },
-    {
-      "name": "example-3",
-      "input": {
-        "operations": [
-          [
-            "insert",
-            "ab"
-          ],
-          [
-            "startsWith",
-            "abc"
           ]
         ]
       },
@@ -79,24 +68,55 @@
       "hidden": false
     },
     {
+      "name": "example-3",
+      "input": {
+        "operations": [
+          "Trie",
+          "insert",
+          "startsWith"
+        ],
+        "args": [
+          [],
+          [
+            "ab"
+          ],
+          [
+            "abc"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        false
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
       "name": "hidden-1",
       "input": {
         "operations": [
+          "Trie",
+          "insert",
+          "insert",
+          "search"
+        ],
+        "args": [
+          [],
           [
-            "insert",
             "a"
           ],
           [
-            "insert",
             "a"
           ],
           [
-            "search",
             "a"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         true
@@ -108,21 +128,26 @@
       "name": "hidden-2",
       "input": {
         "operations": [
+          "Trie",
+          "insert",
+          "startsWith",
+          "search"
+        ],
+        "args": [
+          [],
           [
-            "insert",
             "abc"
           ],
           [
-            "startsWith",
             "ab"
           ],
           [
-            "search",
             "ab"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         true,
         false
@@ -134,37 +159,42 @@
       "name": "hidden-3",
       "input": {
         "operations": [
+          "Trie",
+          "search",
+          "insert",
+          "search",
+          "startsWith",
+          "insert",
+          "startsWith",
+          "insert"
+        ],
+        "args": [
+          [],
           [
-            "search",
             "bbb"
           ],
           [
-            "insert",
             "bbb"
           ],
           [
-            "search",
             "ba"
           ],
           [
-            "startsWith",
             "b"
           ],
           [
-            "insert",
             "bbbb"
           ],
           [
-            "startsWith",
             "aaaa"
           ],
           [
-            "insert",
             "bb"
           ]
         ]
       },
       "expected": [
+        null,
         false,
         null,
         false,
@@ -180,37 +210,42 @@
       "name": "hidden-4",
       "input": {
         "operations": [
+          "Trie",
+          "search",
+          "startsWith",
+          "search",
+          "startsWith",
+          "search",
+          "search",
+          "startsWith"
+        ],
+        "args": [
+          [],
           [
-            "search",
             "aa"
           ],
           [
-            "startsWith",
             "abab"
           ],
           [
-            "search",
             "b"
           ],
           [
-            "startsWith",
             "ab"
           ],
           [
-            "search",
             "b"
           ],
           [
-            "search",
             "ab"
           ],
           [
-            "startsWith",
             "ab"
           ]
         ]
       },
       "expected": [
+        null,
         false,
         false,
         false,
@@ -226,45 +261,50 @@
       "name": "hidden-5",
       "input": {
         "operations": [
+          "Trie",
+          "startsWith",
+          "insert",
+          "insert",
+          "insert",
+          "search",
+          "search",
+          "search",
+          "insert",
+          "insert"
+        ],
+        "args": [
+          [],
           [
-            "startsWith",
             "bbab"
           ],
           [
-            "insert",
             "aba"
           ],
           [
-            "insert",
             "a"
           ],
           [
-            "insert",
             "abba"
           ],
           [
-            "search",
             "bbb"
           ],
           [
-            "search",
             "bba"
           ],
           [
-            "search",
             "aaba"
           ],
           [
-            "insert",
             "a"
           ],
           [
-            "insert",
             "ab"
           ]
         ]
       },
       "expected": [
+        null,
         false,
         null,
         null,
@@ -282,41 +322,46 @@
       "name": "hidden-6",
       "input": {
         "operations": [
+          "Trie",
+          "search",
+          "insert",
+          "insert",
+          "search",
+          "search",
+          "startsWith",
+          "insert",
+          "startsWith"
+        ],
+        "args": [
+          [],
           [
-            "search",
             "bba"
           ],
           [
-            "insert",
             "bbba"
           ],
           [
-            "insert",
             "b"
           ],
           [
-            "search",
             "bba"
           ],
           [
-            "search",
             "ab"
           ],
           [
-            "startsWith",
             "b"
           ],
           [
-            "insert",
             "abbb"
           ],
           [
-            "startsWith",
             "ab"
           ]
         ]
       },
       "expected": [
+        null,
         false,
         null,
         null,
@@ -333,53 +378,58 @@
       "name": "hidden-7",
       "input": {
         "operations": [
+          "Trie",
+          "search",
+          "insert",
+          "insert",
+          "search",
+          "startsWith",
+          "insert",
+          "insert",
+          "search",
+          "startsWith",
+          "insert",
+          "startsWith"
+        ],
+        "args": [
+          [],
           [
-            "search",
             "bbb"
           ],
           [
-            "insert",
             "ab"
           ],
           [
-            "insert",
             "abab"
           ],
           [
-            "search",
             "bbb"
           ],
           [
-            "startsWith",
             "a"
           ],
           [
-            "insert",
             "abab"
           ],
           [
-            "insert",
             "aab"
           ],
           [
-            "search",
             "bbab"
           ],
           [
-            "startsWith",
             "aaa"
           ],
           [
-            "insert",
             "a"
           ],
           [
-            "startsWith",
             "babb"
           ]
         ]
       },
       "expected": [
+        null,
         false,
         null,
         null,
@@ -399,29 +449,34 @@
       "name": "hidden-8",
       "input": {
         "operations": [
+          "Trie",
+          "startsWith",
+          "search",
+          "insert",
+          "search",
+          "insert"
+        ],
+        "args": [
+          [],
           [
-            "startsWith",
             "a"
           ],
           [
-            "search",
             "aab"
           ],
           [
-            "insert",
             "bb"
           ],
           [
-            "search",
             "baaa"
           ],
           [
-            "insert",
             "aa"
           ]
         ]
       },
       "expected": [
+        null,
         false,
         false,
         null,
@@ -435,21 +490,26 @@
       "name": "hidden-9",
       "input": {
         "operations": [
+          "Trie",
+          "insert",
+          "startsWith",
+          "insert"
+        ],
+        "args": [
+          [],
           [
-            "insert",
             "bbbb"
           ],
           [
-            "startsWith",
             "bab"
           ],
           [
-            "insert",
             "baab"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         false,
         null
@@ -461,49 +521,54 @@
       "name": "hidden-10",
       "input": {
         "operations": [
+          "Trie",
+          "startsWith",
+          "insert",
+          "insert",
+          "search",
+          "insert",
+          "startsWith",
+          "startsWith",
+          "search",
+          "search",
+          "search"
+        ],
+        "args": [
+          [],
           [
-            "startsWith",
             "a"
           ],
           [
-            "insert",
             "a"
           ],
           [
-            "insert",
             "ab"
           ],
           [
-            "search",
             "a"
           ],
           [
-            "insert",
             "bb"
           ],
           [
-            "startsWith",
             "ba"
           ],
           [
-            "startsWith",
             "bb"
           ],
           [
-            "search",
             "a"
           ],
           [
-            "search",
             "aaab"
           ],
           [
-            "search",
             "aab"
           ]
         ]
       },
       "expected": [
+        null,
         false,
         null,
         null,
@@ -522,37 +587,42 @@
       "name": "hidden-11",
       "input": {
         "operations": [
+          "Trie",
+          "insert",
+          "search",
+          "insert",
+          "search",
+          "search",
+          "startsWith",
+          "startsWith"
+        ],
+        "args": [
+          [],
           [
-            "insert",
             "baaa"
           ],
           [
-            "search",
             "bab"
           ],
           [
-            "insert",
             "baa"
           ],
           [
-            "search",
             "b"
           ],
           [
-            "search",
             "aab"
           ],
           [
-            "startsWith",
             "b"
           ],
           [
-            "startsWith",
             "b"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         false,
         null,
@@ -568,21 +638,26 @@
       "name": "hidden-12",
       "input": {
         "operations": [
+          "Trie",
+          "search",
+          "startsWith",
+          "insert"
+        ],
+        "args": [
+          [],
           [
-            "search",
             "ab"
           ],
           [
-            "startsWith",
             "b"
           ],
           [
-            "insert",
             "b"
           ]
         ]
       },
       "expected": [
+        null,
         false,
         false,
         null
@@ -594,53 +669,58 @@
       "name": "gen-1",
       "input": {
         "operations": [
+          "Trie",
+          "startsWith",
+          "startsWith",
+          "search",
+          "search",
+          "startsWith",
+          "startsWith",
+          "startsWith",
+          "search",
+          "search",
+          "insert",
+          "search"
+        ],
+        "args": [
+          [],
           [
-            "startsWith",
             "aaaa"
           ],
           [
-            "startsWith",
             "ab"
           ],
           [
-            "search",
             "bba"
           ],
           [
-            "search",
             "baaa"
           ],
           [
-            "startsWith",
             "aaa"
           ],
           [
-            "startsWith",
             "b"
           ],
           [
-            "startsWith",
             "bb"
           ],
           [
-            "search",
             "aa"
           ],
           [
-            "search",
             "baaa"
           ],
           [
-            "insert",
             "b"
           ],
           [
-            "search",
             "b"
           ]
         ]
       },
       "expected": [
+        null,
         false,
         false,
         false,
@@ -660,25 +740,37 @@
       "name": "gen-2",
       "input": {
         "operations": [
+          "Trie",
+          "insert",
+          "insert",
+          "insert",
+          "insert",
+          "insert",
+          "search",
+          "startsWith"
+        ],
+        "args": [
+          [],
           [
-            "insert",
             "ab"
           ],
           [
-            "insert",
             "baa"
           ],
           [
-            "insert",
             "app"
           ],
           [
-            "insert",
             "c"
           ],
           [
-            "insert",
             "ab"
+          ],
+          [
+            "ab"
+          ],
+          [
+            "a"
           ]
         ]
       },
@@ -687,7 +779,10 @@
         null,
         null,
         null,
-        null
+        null,
+        null,
+        true,
+        true
       ],
       "weight": 1,
       "hidden": true
@@ -696,41 +791,46 @@
       "name": "gen-3",
       "input": {
         "operations": [
+          "Trie",
+          "insert",
+          "insert",
+          "startsWith",
+          "startsWith",
+          "search",
+          "search",
+          "insert",
+          "insert"
+        ],
+        "args": [
+          [],
           [
-            "insert",
             "abba"
           ],
           [
-            "insert",
             "bb"
           ],
           [
-            "startsWith",
             "c"
           ],
           [
-            "startsWith",
             "abc"
           ],
           [
-            "search",
             "b"
           ],
           [
-            "search",
             "bab"
           ],
           [
-            "insert",
             "aba"
           ],
           [
-            "insert",
             "abab"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         false,
@@ -747,41 +847,46 @@
       "name": "gen-4",
       "input": {
         "operations": [
+          "Trie",
+          "startsWith",
+          "search",
+          "startsWith",
+          "insert",
+          "search",
+          "insert",
+          "insert",
+          "startsWith"
+        ],
+        "args": [
+          [],
           [
-            "startsWith",
             "app"
           ],
           [
-            "search",
             "app"
           ],
           [
-            "startsWith",
             "bbab"
           ],
           [
-            "insert",
             "c"
           ],
           [
-            "search",
             "c"
           ],
           [
-            "insert",
             "baa"
           ],
           [
-            "insert",
             "aba"
           ],
           [
-            "startsWith",
             "bb"
           ]
         ]
       },
       "expected": [
+        null,
         false,
         false,
         false,
@@ -798,49 +903,54 @@
       "name": "gen-5",
       "input": {
         "operations": [
+          "Trie",
+          "search",
+          "insert",
+          "search",
+          "startsWith",
+          "insert",
+          "insert",
+          "startsWith",
+          "search",
+          "startsWith",
+          "insert"
+        ],
+        "args": [
+          [],
           [
-            "search",
             "b"
           ],
           [
-            "insert",
             "aa"
           ],
           [
-            "search",
             "bbb"
           ],
           [
-            "startsWith",
             "ab"
           ],
           [
-            "insert",
             "baaa"
           ],
           [
-            "insert",
             "bbb"
           ],
           [
-            "startsWith",
             "bb"
           ],
           [
-            "search",
             "bbb"
           ],
           [
-            "startsWith",
             "b"
           ],
           [
-            "insert",
             "b"
           ]
         ]
       },
       "expected": [
+        null,
         false,
         null,
         false,
@@ -859,19 +969,34 @@
       "name": "gen-6",
       "input": {
         "operations": [
+          "Trie",
+          "insert",
+          "insert",
+          "search",
+          "startsWith"
+        ],
+        "args": [
+          [],
           [
-            "insert",
             "baab"
           ],
           [
-            "insert",
             "aa"
+          ],
+          [
+            "aa"
+          ],
+          [
+            "a"
           ]
         ]
       },
       "expected": [
         null,
-        null
+        null,
+        null,
+        true,
+        true
       ],
       "weight": 1,
       "hidden": true
@@ -880,25 +1005,30 @@
       "name": "gen-7",
       "input": {
         "operations": [
+          "Trie",
+          "insert",
+          "insert",
+          "insert",
+          "search"
+        ],
+        "args": [
+          [],
           [
-            "insert",
             "abba"
           ],
           [
-            "insert",
             "ab"
           ],
           [
-            "insert",
             "apple"
           ],
           [
-            "search",
             "c"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -911,45 +1041,50 @@
       "name": "gen-8",
       "input": {
         "operations": [
+          "Trie",
+          "insert",
+          "insert",
+          "startsWith",
+          "insert",
+          "insert",
+          "insert",
+          "startsWith",
+          "search",
+          "search"
+        ],
+        "args": [
+          [],
           [
-            "insert",
             "b"
           ],
           [
-            "insert",
             "baab"
           ],
           [
-            "startsWith",
             "a"
           ],
           [
-            "insert",
             "baa"
           ],
           [
-            "insert",
             "abba"
           ],
           [
-            "insert",
             "b"
           ],
           [
-            "startsWith",
             "aaaa"
           ],
           [
-            "search",
             "c"
           ],
           [
-            "search",
             "bbab"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         false,
@@ -967,17 +1102,22 @@
       "name": "gen-9",
       "input": {
         "operations": [
+          "Trie",
+          "search",
+          "search"
+        ],
+        "args": [
+          [],
           [
-            "search",
             "a"
           ],
           [
-            "search",
             "bab"
           ]
         ]
       },
       "expected": [
+        null,
         false,
         false
       ],
@@ -988,17 +1128,22 @@
       "name": "gen-10",
       "input": {
         "operations": [
+          "Trie",
+          "search",
+          "search"
+        ],
+        "args": [
+          [],
           [
-            "search",
             "bbb"
           ],
           [
-            "search",
             "b"
           ]
         ]
       },
       "expected": [
+        null,
         false,
         false
       ],
@@ -1009,24 +1154,39 @@
       "name": "gen-11",
       "input": {
         "operations": [
+          "Trie",
+          "insert",
+          "insert",
+          "insert",
+          "search",
+          "startsWith"
+        ],
+        "args": [
+          [],
           [
-            "insert",
             "a"
           ],
           [
-            "insert",
             "b"
           ],
           [
-            "insert",
             "bb"
+          ],
+          [
+            "bb"
+          ],
+          [
+            "b"
           ]
         ]
       },
       "expected": [
         null,
         null,
-        null
+        null,
+        null,
+        true,
+        true
       ],
       "weight": 1,
       "hidden": true
@@ -1035,39 +1195,136 @@
       "name": "gen-12",
       "input": {
         "operations": [
+          "Trie",
+          "search",
+          "search",
+          "search",
+          "search",
+          "search",
+          "search"
+        ],
+        "args": [
+          [],
           [
-            "search",
             "ab"
           ],
           [
-            "search",
             "ab"
           ],
           [
-            "search",
             "a"
           ],
           [
-            "search",
             "aaba"
           ],
           [
-            "search",
             "a"
           ],
           [
-            "search",
             "b"
           ]
         ]
       },
       "expected": [
+        null,
         false,
         false,
         false,
         false,
         false,
         false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-20",
+      "input": {
+        "operations": [
+          "Trie",
+          "insert",
+          "search",
+          "search",
+          "search",
+          "startsWith",
+          "startsWith"
+        ],
+        "args": [
+          [],
+          [
+            "banana"
+          ],
+          [
+            "ban"
+          ],
+          [
+            "banan"
+          ],
+          [
+            "banana"
+          ],
+          [
+            "banan"
+          ],
+          [
+            "bananas"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        false,
+        false,
+        true,
+        true,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-21",
+      "input": {
+        "operations": [
+          "Trie",
+          "insert",
+          "insert",
+          "search",
+          "search",
+          "search",
+          "startsWith"
+        ],
+        "args": [
+          [],
+          [
+            "cart"
+          ],
+          [
+            "car"
+          ],
+          [
+            "ca"
+          ],
+          [
+            "car"
+          ],
+          [
+            "cart"
+          ],
+          [
+            "cart"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        false,
+        true,
+        true,
+        true
       ],
       "weight": 1,
       "hidden": true

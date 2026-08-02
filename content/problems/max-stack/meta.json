@@ -1,15 +1,16 @@
 {
   "slug": "max-stack",
-  "title": "Max Stack Operations",
+  "title": "Max Stack",
   "difficulty": "hard",
   "tags": [
+    "design",
     "stack",
     "heap"
   ],
   "hints": [
     "Consider how to maintain the maximum efficiently alongside the standard stack operations.",
     "Use a secondary stack or structure that tracks the current maximum value at each level of the primary stack.",
-    "The secondary structure should store the running maximum up to that point, so the top always reflects the global maximum of all elements below it."
+    "The secondary structure should store the running maximum up to that point, so its top always reflects the maximum of everything currently in the stack; removing that maximum from the middle is the only operation that has to disturb the elements above it, and they can be put back afterwards."
   ],
   "languages": [
     "python"
@@ -18,17 +19,54 @@
     "timeLimitMs": 10000,
     "memoryLimitMb": 512
   },
-  "function": {
-    "name": "maxStack",
-    "params": [
+  "kind": "class",
+  "class": {
+    "name": "MaxStack",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
       {
-        "name": "operations",
-        "type": "any[][]"
+        "name": "push",
+        "params": [
+          {
+            "name": "x",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "pop",
+        "params": [],
+        "returns": {
+          "type": "int"
+        }
+      },
+      {
+        "name": "top",
+        "params": [],
+        "returns": {
+          "type": "int"
+        }
+      },
+      {
+        "name": "peekMax",
+        "params": [],
+        "returns": {
+          "type": "int"
+        }
+      },
+      {
+        "name": "popMax",
+        "params": [],
+        "returns": {
+          "type": "int"
+        }
       }
-    ],
-    "returns": {
-      "type": "any[]"
-    }
+    ]
   },
   "scoring": {
     "type": "weighted",

@@ -3,6 +3,7 @@
   "title": "Autocomplete Top K",
   "difficulty": "hard",
   "tags": [
+    "design",
     "trie",
     "heap",
     "sorting"
@@ -19,21 +20,47 @@
     "timeLimitMs": 10000,
     "memoryLimitMb": 512
   },
-  "function": {
-    "name": "autocomplete",
-    "params": [
+  "kind": "class",
+  "class": {
+    "name": "AutocompleteSystem",
+    "constructor": {
+      "params": [
+        {
+          "name": "k",
+          "type": "int"
+        }
+      ]
+    },
+    "methods": [
       {
-        "name": "k",
-        "type": "int"
+        "name": "add",
+        "params": [
+          {
+            "name": "sentence",
+            "type": "string"
+          },
+          {
+            "name": "count",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
       },
       {
-        "name": "operations",
-        "type": "any[][]"
+        "name": "query",
+        "params": [
+          {
+            "name": "prefix",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "string[]"
+        }
       }
-    ],
-    "returns": {
-      "type": "any[]"
-    }
+    ]
   },
   "scoring": {
     "type": "weighted",

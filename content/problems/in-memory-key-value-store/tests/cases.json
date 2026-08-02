@@ -4,39 +4,43 @@
       "name": "example-1",
       "input": {
         "operations": [
+          "KeyValueStore",
+          "set",
+          "snapshot",
+          "set",
+          "get",
+          "getAt",
+          "delete",
+          "get"
+        ],
+        "args": [
+          [],
           [
-            "set",
             "a",
             1
           ],
+          [],
           [
-            "snapshot"
-          ],
-          [
-            "set",
             "a",
             2
           ],
           [
-            "get",
             "a"
           ],
           [
-            "getAt",
             "a",
             0
           ],
           [
-            "delete",
             "a"
           ],
           [
-            "get",
             "a"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         0,
         null,
@@ -52,13 +56,18 @@
       "name": "example-2",
       "input": {
         "operations": [
+          "KeyValueStore",
+          "get"
+        ],
+        "args": [
+          [],
           [
-            "get",
             "x"
           ]
         ]
       },
       "expected": [
+        null,
         null
       ],
       "weight": 1,
@@ -68,26 +77,30 @@
       "name": "example-3",
       "input": {
         "operations": [
+          "KeyValueStore",
+          "set",
+          "snapshot",
+          "delete",
+          "getAt"
+        ],
+        "args": [
+          [],
           [
-            "set",
             "k",
             9
           ],
+          [],
           [
-            "snapshot"
-          ],
-          [
-            "delete",
             "k"
           ],
           [
-            "getAt",
             "k",
             0
           ]
         ]
       },
       "expected": [
+        null,
         null,
         0,
         null,
@@ -100,23 +113,28 @@
       "name": "hidden-1",
       "input": {
         "operations": [
+          "KeyValueStore",
+          "set",
+          "set",
+          "get"
+        ],
+        "args": [
+          [],
           [
-            "set",
             "a",
             1
           ],
           [
-            "set",
             "a",
             2
           ],
           [
-            "get",
             "a"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         2
@@ -128,17 +146,21 @@
       "name": "hidden-2",
       "input": {
         "operations": [
+          "KeyValueStore",
+          "snapshot",
+          "getAt"
+        ],
+        "args": [
+          [],
+          [],
           [
-            "snapshot"
-          ],
-          [
-            "getAt",
             "a",
             5
           ]
         ]
       },
       "expected": [
+        null,
         0,
         null
       ],
@@ -149,13 +171,26 @@
       "name": "hidden-3",
       "input": {
         "operations": [
+          "KeyValueStore",
+          "get",
+          "snapshot",
+          "get"
+        ],
+        "args": [
+          [],
           [
-            "get",
+            "a"
+          ],
+          [],
+          [
             "a"
           ]
         ]
       },
       "expected": [
+        null,
+        null,
+        0,
         null
       ],
       "weight": 1,
@@ -165,56 +200,59 @@
       "name": "hidden-4",
       "input": {
         "operations": [
+          "KeyValueStore",
+          "getAt",
+          "getAt",
+          "set",
+          "delete",
+          "set",
+          "snapshot",
+          "snapshot",
+          "delete",
+          "set",
+          "delete",
+          "get"
+        ],
+        "args": [
+          [],
           [
-            "getAt",
             "b",
             0
           ],
           [
-            "getAt",
             "c",
             2
           ],
           [
-            "set",
             "a",
             4
           ],
           [
-            "delete",
             "c"
           ],
           [
-            "set",
             "c",
             6
           ],
+          [],
+          [],
           [
-            "snapshot"
-          ],
-          [
-            "snapshot"
-          ],
-          [
-            "delete",
             "b"
           ],
           [
-            "set",
             "b",
             9
           ],
           [
-            "delete",
             "c"
           ],
           [
-            "get",
             "a"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -234,37 +272,41 @@
       "name": "hidden-5",
       "input": {
         "operations": [
+          "KeyValueStore",
+          "delete",
+          "set",
+          "snapshot",
+          "delete",
+          "get",
+          "get",
+          "get"
+        ],
+        "args": [
+          [],
           [
-            "delete",
             "a"
           ],
           [
-            "set",
             "c",
             6
           ],
+          [],
           [
-            "snapshot"
-          ],
-          [
-            "delete",
             "a"
           ],
           [
-            "get",
             "c"
           ],
           [
-            "get",
             "c"
           ],
           [
-            "get",
             "c"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         0,
@@ -280,57 +322,67 @@
       "name": "hidden-6",
       "input": {
         "operations": [
+          "KeyValueStore",
+          "set",
+          "getAt",
+          "set",
+          "set",
+          "set",
+          "get",
+          "getAt",
+          "delete",
+          "get",
+          "set",
+          "set",
+          "snapshot",
+          "get"
+        ],
+        "args": [
+          [],
           [
-            "set",
             "a",
             0
           ],
           [
-            "getAt",
             "b",
             0
           ],
           [
-            "set",
             "a",
             7
           ],
           [
-            "set",
             "a",
             1
           ],
           [
-            "set",
             "a",
             7
           ],
           [
-            "get",
             "b"
           ],
           [
-            "getAt",
             "c",
             0
           ],
           [
-            "delete",
             "c"
           ],
           [
-            "get",
             "c"
           ],
           [
-            "set",
             "a",
             1
           ],
           [
-            "set",
             "a",
             7
+          ],
+          [],
+          [
+            "a"
           ]
         ]
       },
@@ -345,7 +397,10 @@
         null,
         null,
         null,
-        null
+        null,
+        null,
+        0,
+        7
       ],
       "weight": 1,
       "hidden": true
@@ -354,56 +409,61 @@
       "name": "hidden-7",
       "input": {
         "operations": [
+          "KeyValueStore",
+          "set",
+          "set",
+          "getAt",
+          "delete",
+          "get",
+          "delete",
+          "getAt",
+          "set",
+          "set",
+          "set"
+        ],
+        "args": [
+          [],
           [
-            "set",
             "c",
             5
           ],
           [
-            "set",
             "b",
             6
           ],
           [
-            "getAt",
             "b",
             1
           ],
           [
-            "delete",
             "b"
           ],
           [
-            "get",
             "c"
           ],
           [
-            "delete",
             "b"
           ],
           [
-            "getAt",
             "b",
             1
           ],
           [
-            "set",
             "a",
             8
           ],
           [
-            "set",
             "a",
             6
           ],
           [
-            "set",
             "b",
             5
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -422,60 +482,63 @@
       "name": "hidden-8",
       "input": {
         "operations": [
+          "KeyValueStore",
+          "set",
+          "set",
+          "snapshot",
+          "set",
+          "get",
+          "get",
+          "snapshot",
+          "delete",
+          "delete",
+          "get",
+          "set",
+          "set"
+        ],
+        "args": [
+          [],
           [
-            "set",
             "b",
             3
           ],
           [
-            "set",
             "a",
             0
           ],
+          [],
           [
-            "snapshot"
-          ],
-          [
-            "set",
             "a",
             9
           ],
           [
-            "get",
             "b"
           ],
           [
-            "get",
             "b"
           ],
+          [],
           [
-            "snapshot"
-          ],
-          [
-            "delete",
             "a"
           ],
           [
-            "delete",
             "b"
           ],
           [
-            "get",
             "b"
           ],
           [
-            "set",
             "a",
             1
           ],
           [
-            "set",
             "a",
             9
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         0,
@@ -496,21 +559,34 @@
       "name": "hidden-9",
       "input": {
         "operations": [
+          "KeyValueStore",
+          "set",
+          "set",
+          "snapshot",
+          "get"
+        ],
+        "args": [
+          [],
           [
-            "set",
             "c",
             0
           ],
           [
-            "set",
             "a",
             3
+          ],
+          [],
+          [
+            "a"
           ]
         ]
       },
       "expected": [
         null,
-        null
+        null,
+        null,
+        0,
+        3
       ],
       "weight": 1,
       "hidden": true
@@ -519,32 +595,42 @@
       "name": "hidden-10",
       "input": {
         "operations": [
+          "KeyValueStore",
+          "getAt",
+          "get",
+          "set",
+          "getAt",
+          "get",
+          "get",
+          "snapshot",
+          "get"
+        ],
+        "args": [
+          [],
           [
-            "getAt",
             "c",
             1
           ],
           [
-            "get",
             "c"
           ],
           [
-            "set",
             "b",
             4
           ],
           [
-            "getAt",
             "c",
             2
           ],
           [
-            "get",
             "a"
           ],
           [
-            "get",
             "a"
+          ],
+          [],
+          [
+            "b"
           ]
         ]
       },
@@ -554,7 +640,10 @@
         null,
         null,
         null,
-        null
+        null,
+        null,
+        0,
+        4
       ],
       "weight": 1,
       "hidden": true
@@ -563,49 +652,53 @@
       "name": "hidden-11",
       "input": {
         "operations": [
+          "KeyValueStore",
+          "set",
+          "set",
+          "getAt",
+          "set",
+          "set",
+          "delete",
+          "delete",
+          "delete",
+          "snapshot"
+        ],
+        "args": [
+          [],
           [
-            "set",
             "c",
             7
           ],
           [
-            "set",
             "c",
             6
           ],
           [
-            "getAt",
             "c",
             2
           ],
           [
-            "set",
             "b",
             3
           ],
           [
-            "set",
             "c",
             1
           ],
           [
-            "delete",
             "c"
           ],
           [
-            "delete",
             "c"
           ],
           [
-            "delete",
             "b"
           ],
-          [
-            "snapshot"
-          ]
+          []
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -623,40 +716,50 @@
       "name": "hidden-12",
       "input": {
         "operations": [
+          "KeyValueStore",
+          "delete",
+          "getAt",
+          "delete",
+          "set",
+          "getAt",
+          "delete",
+          "delete",
+          "get",
+          "snapshot",
+          "get"
+        ],
+        "args": [
+          [],
           [
-            "delete",
             "c"
           ],
           [
-            "getAt",
             "a",
             0
           ],
           [
-            "delete",
             "c"
           ],
           [
-            "set",
             "c",
             2
           ],
           [
-            "getAt",
             "a",
             1
           ],
           [
-            "delete",
             "a"
           ],
           [
-            "delete",
             "b"
           ],
           [
-            "get",
             "b"
+          ],
+          [],
+          [
+            "c"
           ]
         ]
       },
@@ -668,7 +771,10 @@
         null,
         null,
         null,
-        null
+        null,
+        null,
+        0,
+        2
       ],
       "weight": 1,
       "hidden": true

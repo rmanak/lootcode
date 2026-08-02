@@ -1,13 +1,12 @@
-def autocomplete(k, operations):
-    freq, out = {}, []
-    for op in operations:
-        if op[0] == "add":
-            s, c = op[1], op[2]
-            freq[s] = freq.get(s, 0) + c
-            out.append(None)
-        else:
-            prefix = op[1]
-            cands = [s for s in freq if s.startswith(prefix)]
-            cands.sort(key=lambda s: (-freq[s], s))
-            out.append(cands[:k])
-    return out
+class AutocompleteSystem:
+    def __init__(self, k):
+        self.k = k
+        self.freq = {}
+
+    def add(self, sentence, count):
+        self.freq[sentence] = self.freq.get(sentence, 0) + count
+
+    def query(self, prefix):
+        cands = [s for s in self.freq if s.startswith(prefix)]
+        cands.sort(key=lambda s: (-self.freq[s], s))
+        return cands[:self.k]

@@ -3,6 +3,7 @@
   "title": "Insert Delete GetRandom O(1)",
   "difficulty": "medium",
   "tags": [
+    "design",
     "array",
     "hash-table"
   ],
@@ -18,17 +19,45 @@
     "timeLimitMs": 10000,
     "memoryLimitMb": 512
   },
-  "function": {
-    "name": "randomizedSet",
-    "params": [
+  "kind": "class",
+  "class": {
+    "name": "RandomizedSet",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
       {
-        "name": "operations",
-        "type": "any[][]"
+        "name": "insert",
+        "params": [
+          {
+            "name": "val",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "bool"
+        }
+      },
+      {
+        "name": "remove",
+        "params": [
+          {
+            "name": "val",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "bool"
+        }
+      },
+      {
+        "name": "getRandom",
+        "params": [],
+        "returns": {
+          "type": "int"
+        }
       }
-    ],
-    "returns": {
-      "type": "any[]"
-    }
+    ]
   },
   "scoring": {
     "type": "weighted",

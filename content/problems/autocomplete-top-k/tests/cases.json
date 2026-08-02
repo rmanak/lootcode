@@ -3,34 +3,40 @@
     {
       "name": "example-1",
       "input": {
-        "k": 2,
         "operations": [
+          "AutocompleteSystem",
+          "add",
+          "add",
+          "add",
+          "query",
+          "query"
+        ],
+        "args": [
           [
-            "add",
+            2
+          ],
+          [
             "ice cream",
             3
           ],
           [
-            "add",
             "icing",
             2
           ],
           [
-            "add",
             "igloo",
             5
           ],
           [
-            "query",
             "i"
           ],
           [
-            "query",
             "ic"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -49,25 +55,31 @@
     {
       "name": "example-2",
       "input": {
-        "k": 2,
         "operations": [
+          "AutocompleteSystem",
+          "add",
+          "add",
+          "query"
+        ],
+        "args": [
           [
-            "add",
+            2
+          ],
+          [
             "cat",
             1
           ],
           [
-            "add",
             "car",
             1
           ],
           [
-            "query",
             "ca"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         [
@@ -81,15 +93,21 @@
     {
       "name": "example-3",
       "input": {
-        "k": 1,
         "operations": [
+          "AutocompleteSystem",
+          "query"
+        ],
+        "args": [
           [
-            "query",
+            1
+          ],
+          [
             "z"
           ]
         ]
       },
       "expected": [
+        null,
         []
       ],
       "weight": 1,
@@ -98,30 +116,36 @@
     {
       "name": "hidden-1",
       "input": {
-        "k": 3,
         "operations": [
+          "AutocompleteSystem",
+          "add",
+          "add",
+          "add",
+          "query"
+        ],
+        "args": [
           [
-            "add",
+            3
+          ],
+          [
             "a",
             1
           ],
           [
-            "add",
             "ab",
             1
           ],
           [
-            "add",
             "abc",
             1
           ],
           [
-            "query",
             "a"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -137,25 +161,31 @@
     {
       "name": "hidden-2",
       "input": {
-        "k": 1,
         "operations": [
+          "AutocompleteSystem",
+          "add",
+          "add",
+          "query"
+        ],
+        "args": [
           [
-            "add",
+            1
+          ],
+          [
             "x",
             1
           ],
           [
-            "add",
             "x",
             5
           ],
           [
-            "query",
             "x"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         [
@@ -168,30 +198,36 @@
     {
       "name": "hidden-3",
       "input": {
-        "k": 3,
         "operations": [
+          "AutocompleteSystem",
+          "add",
+          "add",
+          "query",
+          "add"
+        ],
+        "args": [
           [
-            "add",
+            3
+          ],
+          [
             "bad",
             5
           ],
           [
-            "add",
             "bad",
             3
           ],
           [
-            "query",
             "ab"
           ],
           [
-            "add",
             "ba",
             1
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         [],
@@ -203,17 +239,30 @@
     {
       "name": "hidden-4",
       "input": {
-        "k": 2,
         "operations": [
+          "AutocompleteSystem",
+          "add",
+          "query"
+        ],
+        "args": [
           [
-            "add",
+            2
+          ],
+          [
             "abd",
             1
+          ],
+          [
+            "a"
           ]
         ]
       },
       "expected": [
-        null
+        null,
+        null,
+        [
+          "abd"
+        ]
       ],
       "weight": 1,
       "hidden": true
@@ -221,39 +270,45 @@
     {
       "name": "hidden-5",
       "input": {
-        "k": 2,
         "operations": [
+          "AutocompleteSystem",
+          "add",
+          "query",
+          "add",
+          "query",
+          "add",
+          "add"
+        ],
+        "args": [
           [
-            "add",
+            2
+          ],
+          [
             "abd",
             4
           ],
           [
-            "query",
             "ab"
           ],
           [
-            "add",
             "ba",
             4
           ],
           [
-            "query",
             ""
           ],
           [
-            "add",
             "abc",
             3
           ],
           [
-            "add",
             "abcd",
             2
           ]
         ]
       },
       "expected": [
+        null,
         null,
         [
           "abd"
@@ -272,20 +327,26 @@
     {
       "name": "hidden-6",
       "input": {
-        "k": 1,
         "operations": [
+          "AutocompleteSystem",
+          "query",
+          "add"
+        ],
+        "args": [
           [
-            "query",
+            1
+          ],
+          [
             ""
           ],
           [
-            "add",
             "abcd",
             2
           ]
         ]
       },
       "expected": [
+        null,
         [],
         null
       ],
@@ -295,15 +356,21 @@
     {
       "name": "hidden-7",
       "input": {
-        "k": 1,
         "operations": [
+          "AutocompleteSystem",
+          "query"
+        ],
+        "args": [
           [
-            "query",
+            1
+          ],
+          [
             "ab"
           ]
         ]
       },
       "expected": [
+        null,
         []
       ],
       "weight": 1,
@@ -312,29 +379,35 @@
     {
       "name": "hidden-8",
       "input": {
-        "k": 1,
         "operations": [
+          "AutocompleteSystem",
+          "query",
+          "add",
+          "query",
+          "add"
+        ],
+        "args": [
           [
-            "query",
+            1
+          ],
+          [
             "ab"
           ],
           [
-            "add",
             "ba",
             5
           ],
           [
-            "query",
             "a"
           ],
           [
-            "add",
             "ab",
             3
           ]
         ]
       },
       "expected": [
+        null,
         [],
         null,
         [],
@@ -346,19 +419,25 @@
     {
       "name": "hidden-9",
       "input": {
-        "k": 2,
         "operations": [
+          "AutocompleteSystem",
+          "query",
+          "query"
+        ],
+        "args": [
           [
-            "query",
+            2
+          ],
+          [
             "abc"
           ],
           [
-            "query",
             "b"
           ]
         ]
       },
       "expected": [
+        null,
         [],
         []
       ],
@@ -368,57 +447,63 @@
     {
       "name": "hidden-10",
       "input": {
-        "k": 2,
         "operations": [
+          "AutocompleteSystem",
+          "add",
+          "query",
+          "query",
+          "add",
+          "query",
+          "add",
+          "query",
+          "add",
+          "add",
+          "add"
+        ],
+        "args": [
           [
-            "add",
+            2
+          ],
+          [
             "abcd",
             1
           ],
           [
-            "query",
             "b"
           ],
           [
-            "query",
             ""
           ],
           [
-            "add",
             "ab",
             4
           ],
           [
-            "query",
             "abc"
           ],
           [
-            "add",
             "bad",
             3
           ],
           [
-            "query",
             "b"
           ],
           [
-            "add",
             "ab",
             5
           ],
           [
-            "add",
             "abc",
             3
           ],
           [
-            "add",
             "abc",
             4
           ]
         ]
       },
       "expected": [
+        null,
         null,
         [],
         [
@@ -442,34 +527,40 @@
     {
       "name": "hidden-11",
       "input": {
-        "k": 3,
         "operations": [
+          "AutocompleteSystem",
+          "add",
+          "query",
+          "add",
+          "query",
+          "add"
+        ],
+        "args": [
           [
-            "add",
+            3
+          ],
+          [
             "ba",
             3
           ],
           [
-            "query",
             ""
           ],
           [
-            "add",
             "ba",
             3
           ],
           [
-            "query",
             "b"
           ],
           [
-            "add",
             "abcd",
             5
           ]
         ]
       },
       "expected": [
+        null,
         null,
         [
           "ba"
@@ -486,23 +577,139 @@
     {
       "name": "hidden-12",
       "input": {
-        "k": 3,
         "operations": [
+          "AutocompleteSystem",
+          "add",
+          "add",
+          "query"
+        ],
+        "args": [
           [
-            "add",
+            3
+          ],
+          [
             "abc",
             5
           ],
           [
-            "add",
             "abd",
             5
+          ],
+          [
+            "a"
           ]
         ]
       },
       "expected": [
         null,
-        null
+        null,
+        null,
+        [
+          "abc",
+          "abd"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-20",
+      "input": {
+        "operations": [
+          "AutocompleteSystem",
+          "add",
+          "add",
+          "add",
+          "query",
+          "query"
+        ],
+        "args": [
+          [
+            2
+          ],
+          [
+            "zebra",
+            9
+          ],
+          [
+            "apple",
+            1
+          ],
+          [
+            "avocado",
+            5
+          ],
+          [
+            ""
+          ],
+          [
+            "a"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        [
+          "zebra",
+          "avocado"
+        ],
+        [
+          "avocado",
+          "apple"
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-21",
+      "input": {
+        "operations": [
+          "AutocompleteSystem",
+          "add",
+          "add",
+          "add",
+          "add",
+          "query"
+        ],
+        "args": [
+          [
+            2
+          ],
+          [
+            "ba",
+            4
+          ],
+          [
+            "bb",
+            4
+          ],
+          [
+            "bc",
+            7
+          ],
+          [
+            "bd",
+            1
+          ],
+          [
+            "b"
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        [
+          "bc",
+          "ba"
+        ]
       ],
       "weight": 1,
       "hidden": true

@@ -1,20 +1,46 @@
-Replay `operations` against an autocomplete index and return **the list of
-results**. Operations are `["add", sentence, count]` → `null` (adds `count` to the
-sentence's historical frequency), and `["query", prefix]` → the list of up to `k`
-sentences that start with `prefix`, ranked by **frequency descending, then
-lexicographically ascending**.
+Design an autocomplete index over historically typed sentences. Each sentence has
+a cumulative frequency, and a query returns the most popular sentences sharing a
+prefix.
 
-## Constraints
-- `1 <= k <= 10`, `1 <= len(operations) <= 10^4`.
-- Sentences are non-empty lowercase strings (spaces allowed); `1 <= count <= 10^6`.
+Implement the `AutocompleteSystem` class:
 
-## Examples
-Input: `k = 2, operations = [["add","ice cream",3],["add","icing",2],["add","igloo",5],["query","i"],["query","ic"]]`
-Output: `[null,null,null,["igloo","ice cream"],["ice cream","icing"]]`
+- `AutocompleteSystem(int k)` initializes an empty index that returns at most `k`
+  suggestions per query.
+- `void add(String sentence, int count)` adds `count` to the historical frequency
+  of `sentence` (inserting it if it has not been seen).
+- `String[] query(String prefix)` returns up to `k` sentences that start with
+  `prefix`, ranked by **frequency descending**, then **lexicographically
+  ascending** to break ties. Returns an empty list if nothing matches.
 
-Input: `k = 2, operations = [["add","cat",1],["add","car",1],["query","ca"]]`
-Output: `[null,null,["car","cat"]]`
-Explanation: equal frequency, so lexicographic order wins.
+**Example 1:**
 
-Input: `k = 1, operations = [["query","z"]]`
-Output: `[[]]`
+```
+Input
+["AutocompleteSystem", "add", "add", "add", "query", "query"]
+[[2], ["ice cream", 3], ["icing", 2], ["igloo", 5], ["i"], ["ic"]]
+
+Output
+[null, null, null, null, ["igloo", "ice cream"], ["ice cream", "icing"]]
+```
+
+Explanation: `"igloo"` (5) outranks `"ice cream"` (3), and only two suggestions are
+returned because `k = 2`. Narrowing the prefix to `"ic"` drops `"igloo"`.
+
+**Example 2:**
+
+```
+Input
+["AutocompleteSystem", "add", "add", "query"]
+[[2], ["cat", 1], ["car", 1], ["ca"]]
+
+Output
+[null, null, null, ["car", "cat"]]
+```
+
+Explanation: equal frequencies, so lexicographic order decides.
+
+**Constraints:**
+
+- `1 <= k <= 10`
+- Sentences are non-empty lowercase strings, spaces allowed; `1 <= count <= 10⁶`.
+- At most `10⁴` calls will be made to `add` and `query`.

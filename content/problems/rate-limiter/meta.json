@@ -3,6 +3,7 @@
   "title": "Rate Limiter",
   "difficulty": "medium",
   "tags": [
+    "design",
     "queue",
     "hash-table"
   ],
@@ -18,25 +19,39 @@
     "timeLimitMs": 10000,
     "memoryLimitMb": 512
   },
-  "function": {
-    "name": "rateLimiter",
-    "params": [
+  "kind": "class",
+  "class": {
+    "name": "RateLimiter",
+    "constructor": {
+      "params": [
+        {
+          "name": "limit",
+          "type": "int"
+        },
+        {
+          "name": "window",
+          "type": "int"
+        }
+      ]
+    },
+    "methods": [
       {
-        "name": "limit",
-        "type": "int"
-      },
-      {
-        "name": "window",
-        "type": "int"
-      },
-      {
-        "name": "operations",
-        "type": "any[][]"
+        "name": "request",
+        "params": [
+          {
+            "name": "userId",
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "bool"
+        }
       }
-    ],
-    "returns": {
-      "type": "bool[]"
-    }
+    ]
   },
   "scoring": {
     "type": "weighted",

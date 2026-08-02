@@ -4,26 +4,31 @@
       "name": "example-1",
       "input": {
         "operations": [
+          "FileSystem",
+          "mkdir",
+          "addContentToFile",
+          "ls",
+          "readContentFromFile"
+        ],
+        "args": [
+          [],
           [
-            "mkdir",
             "/a/b"
           ],
           [
-            "addContentToFile",
             "/a/b/f",
             "hi"
           ],
           [
-            "ls",
             "/a/b"
           ],
           [
-            "readContentFromFile",
             "/a/b/f"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         [
@@ -38,13 +43,18 @@
       "name": "example-2",
       "input": {
         "operations": [
+          "FileSystem",
+          "ls"
+        ],
+        "args": [
+          [],
           [
-            "ls",
             "/"
           ]
         ]
       },
       "expected": [
+        null,
         []
       ],
       "weight": 1,
@@ -54,17 +64,22 @@
       "name": "hidden-1",
       "input": {
         "operations": [
+          "FileSystem",
+          "mkdir",
+          "ls"
+        ],
+        "args": [
+          [],
           [
-            "mkdir",
             "/c"
           ],
           [
-            "ls",
             "/"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         [
           "c"
@@ -77,27 +92,32 @@
       "name": "hidden-2",
       "input": {
         "operations": [
+          "FileSystem",
+          "addContentToFile",
+          "addContentToFile",
+          "readContentFromFile",
+          "ls"
+        ],
+        "args": [
+          [],
           [
-            "addContentToFile",
             "/f",
             "ab"
           ],
           [
-            "addContentToFile",
             "/f",
             "cd"
           ],
           [
-            "readContentFromFile",
             "/f"
           ],
           [
-            "ls",
             "/f"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         "abcd",
@@ -112,50 +132,55 @@
       "name": "hidden-3",
       "input": {
         "operations": [
+          "FileSystem",
+          "mkdir",
+          "mkdir",
+          "mkdir",
+          "mkdir",
+          "addContentToFile",
+          "ls",
+          "ls",
+          "ls",
+          "ls",
+          "ls"
+        ],
+        "args": [
+          [],
           [
-            "mkdir",
             "/a/b"
           ],
           [
-            "mkdir",
             "/c"
           ],
           [
-            "mkdir",
             "/c/d"
           ],
           [
-            "mkdir",
             "/a"
           ],
           [
-            "addContentToFile",
             "/c/d/h",
             "yo"
           ],
           [
-            "ls",
             "/"
           ],
           [
-            "ls",
             "/a/b"
           ],
           [
-            "ls",
             "/c"
           ],
           [
-            "ls",
             "/c/d"
           ],
           [
-            "ls",
             "/a"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -183,49 +208,54 @@
       "name": "hidden-4",
       "input": {
         "operations": [
+          "FileSystem",
+          "mkdir",
+          "mkdir",
+          "addContentToFile",
+          "addContentToFile",
+          "addContentToFile",
+          "addContentToFile",
+          "ls",
+          "ls",
+          "ls"
+        ],
+        "args": [
+          [],
           [
-            "mkdir",
             "/a/b"
           ],
           [
-            "mkdir",
             "/c"
           ],
           [
-            "addContentToFile",
             "/g",
             "hi"
           ],
           [
-            "addContentToFile",
             "/a/b/h",
             "yo"
           ],
           [
-            "addContentToFile",
             "/a/b/h",
             "hi"
           ],
           [
-            "addContentToFile",
             "/a/b/g",
             "yo"
           ],
           [
-            "ls",
             "/"
           ],
           [
-            "ls",
             "/a/b"
           ],
           [
-            "ls",
             "/c"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -250,29 +280,34 @@
       "name": "hidden-5",
       "input": {
         "operations": [
+          "FileSystem",
+          "mkdir",
+          "mkdir",
+          "ls",
+          "ls",
+          "ls"
+        ],
+        "args": [
+          [],
           [
-            "mkdir",
             "/c"
           ],
           [
-            "mkdir",
             "/a/b"
           ],
           [
-            "ls",
             "/"
           ],
           [
-            "ls",
             "/c"
           ],
           [
-            "ls",
             "/a/b"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         [
@@ -289,55 +324,60 @@
       "name": "hidden-6",
       "input": {
         "operations": [
+          "FileSystem",
+          "mkdir",
+          "mkdir",
+          "mkdir",
+          "mkdir",
+          "addContentToFile",
+          "addContentToFile",
+          "ls",
+          "ls",
+          "ls",
+          "ls",
+          "ls"
+        ],
+        "args": [
+          [],
           [
-            "mkdir",
             "/a"
           ],
           [
-            "mkdir",
             "/c"
           ],
           [
-            "mkdir",
             "/c/d"
           ],
           [
-            "mkdir",
             "/a/b"
           ],
           [
-            "addContentToFile",
             "/a/b/h",
             "yo"
           ],
           [
-            "addContentToFile",
             "/a/f",
             "hi"
           ],
           [
-            "ls",
             "/"
           ],
           [
-            "ls",
             "/a"
           ],
           [
-            "ls",
             "/c"
           ],
           [
-            "ls",
             "/c/d"
           ],
           [
-            "ls",
             "/a/b"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -367,45 +407,50 @@
       "name": "hidden-7",
       "input": {
         "operations": [
+          "FileSystem",
+          "mkdir",
+          "mkdir",
+          "mkdir",
+          "mkdir",
+          "ls",
+          "ls",
+          "ls",
+          "ls",
+          "ls"
+        ],
+        "args": [
+          [],
           [
-            "mkdir",
             "/a/b"
           ],
           [
-            "mkdir",
             "/a"
           ],
           [
-            "mkdir",
             "/c/d"
           ],
           [
-            "mkdir",
             "/c"
           ],
           [
-            "ls",
             "/"
           ],
           [
-            "ls",
             "/a/b"
           ],
           [
-            "ls",
             "/a"
           ],
           [
-            "ls",
             "/c/d"
           ],
           [
-            "ls",
             "/c"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -430,65 +475,70 @@
       "name": "hidden-8",
       "input": {
         "operations": [
+          "FileSystem",
+          "mkdir",
+          "mkdir",
+          "mkdir",
+          "mkdir",
+          "addContentToFile",
+          "addContentToFile",
+          "addContentToFile",
+          "addContentToFile",
+          "ls",
+          "ls",
+          "ls",
+          "ls",
+          "ls"
+        ],
+        "args": [
+          [],
           [
-            "mkdir",
             "/a"
           ],
           [
-            "mkdir",
             "/a/b"
           ],
           [
-            "mkdir",
             "/c"
           ],
           [
-            "mkdir",
             "/c/d"
           ],
           [
-            "addContentToFile",
             "/a/b/f",
             "yo"
           ],
           [
-            "addContentToFile",
             "/a/b/h",
             "hi"
           ],
           [
-            "addContentToFile",
             "/a/h",
             "yo"
           ],
           [
-            "addContentToFile",
             "/c/d/g",
             "hi"
           ],
           [
-            "ls",
             "/"
           ],
           [
-            "ls",
             "/a"
           ],
           [
-            "ls",
             "/a/b"
           ],
           [
-            "ls",
             "/c"
           ],
           [
-            "ls",
             "/c/d"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -523,36 +573,41 @@
       "name": "hidden-9",
       "input": {
         "operations": [
+          "FileSystem",
+          "mkdir",
+          "addContentToFile",
+          "addContentToFile",
+          "addContentToFile",
+          "ls",
+          "ls"
+        ],
+        "args": [
+          [],
           [
-            "mkdir",
             "/c"
           ],
           [
-            "addContentToFile",
             "/g",
             "hi"
           ],
           [
-            "addContentToFile",
             "/c/f",
             "hi"
           ],
           [
-            "addContentToFile",
             "/g",
             "yo"
           ],
           [
-            "ls",
             "/"
           ],
           [
-            "ls",
             "/c"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -572,45 +627,50 @@
       "name": "hidden-10",
       "input": {
         "operations": [
+          "FileSystem",
+          "mkdir",
+          "mkdir",
+          "mkdir",
+          "mkdir",
+          "ls",
+          "ls",
+          "ls",
+          "ls",
+          "ls"
+        ],
+        "args": [
+          [],
           [
-            "mkdir",
             "/a"
           ],
           [
-            "mkdir",
             "/c"
           ],
           [
-            "mkdir",
             "/c/d"
           ],
           [
-            "mkdir",
             "/a/b"
           ],
           [
-            "ls",
             "/"
           ],
           [
-            "ls",
             "/a"
           ],
           [
-            "ls",
             "/c"
           ],
           [
-            "ls",
             "/c/d"
           ],
           [
-            "ls",
             "/a/b"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -635,29 +695,34 @@
       "name": "hidden-11",
       "input": {
         "operations": [
+          "FileSystem",
+          "mkdir",
+          "mkdir",
+          "ls",
+          "ls",
+          "ls"
+        ],
+        "args": [
+          [],
           [
-            "mkdir",
             "/a"
           ],
           [
-            "mkdir",
             "/c/d"
           ],
           [
-            "ls",
             "/"
           ],
           [
-            "ls",
             "/a"
           ],
           [
-            "ls",
             "/c/d"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         [
@@ -674,31 +739,36 @@
       "name": "hidden-12",
       "input": {
         "operations": [
+          "FileSystem",
+          "mkdir",
+          "addContentToFile",
+          "addContentToFile",
+          "ls",
+          "ls"
+        ],
+        "args": [
+          [],
           [
-            "mkdir",
             "/a/b"
           ],
           [
-            "addContentToFile",
             "/h",
             "yo"
           ],
           [
-            "addContentToFile",
             "/a/b/h",
             "hi"
           ],
           [
-            "ls",
             "/"
           ],
           [
-            "ls",
             "/a/b"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -717,52 +787,57 @@
       "name": "hidden-13",
       "input": {
         "operations": [
+          "FileSystem",
+          "mkdir",
+          "mkdir",
+          "mkdir",
+          "addContentToFile",
+          "addContentToFile",
+          "addContentToFile",
+          "ls",
+          "ls",
+          "ls",
+          "ls"
+        ],
+        "args": [
+          [],
           [
-            "mkdir",
             "/c/d"
           ],
           [
-            "mkdir",
             "/a"
           ],
           [
-            "mkdir",
             "/a/b"
           ],
           [
-            "addContentToFile",
             "/c/d/f",
             "hi"
           ],
           [
-            "addContentToFile",
             "/g",
             "yo"
           ],
           [
-            "addContentToFile",
             "/g",
             "yo"
           ],
           [
-            "ls",
             "/"
           ],
           [
-            "ls",
             "/c/d"
           ],
           [
-            "ls",
             "/a"
           ],
           [
-            "ls",
             "/a/b"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,
@@ -789,39 +864,44 @@
       "name": "hidden-14",
       "input": {
         "operations": [
+          "FileSystem",
+          "mkdir",
+          "mkdir",
+          "addContentToFile",
+          "addContentToFile",
+          "ls",
+          "ls",
+          "ls"
+        ],
+        "args": [
+          [],
           [
-            "mkdir",
             "/a/b"
           ],
           [
-            "mkdir",
             "/c/d"
           ],
           [
-            "addContentToFile",
             "/a/b/f",
             "yo"
           ],
           [
-            "addContentToFile",
             "/a/b/h",
             "hi"
           ],
           [
-            "ls",
             "/"
           ],
           [
-            "ls",
             "/a/b"
           ],
           [
-            "ls",
             "/c/d"
           ]
         ]
       },
       "expected": [
+        null,
         null,
         null,
         null,

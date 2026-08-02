@@ -3,27 +3,34 @@
     {
       "name": "example-1",
       "input": {
-        "n": 5,
         "operations": [
+          "UnionFind",
+          "connected",
+          "union",
+          "connected"
+        ],
+        "args": [
           [
-            "connected",
+            5
+          ],
+          [
             0,
             1
           ],
           [
-            "union",
             0,
             1
           ],
           [
-            "connected",
             0,
             1
           ]
         ]
       },
       "expected": [
+        null,
         false,
+        null,
         true
       ],
       "weight": 1,
@@ -32,26 +39,34 @@
     {
       "name": "example-2",
       "input": {
-        "n": 3,
         "operations": [
+          "UnionFind",
+          "union",
+          "union",
+          "connected"
+        ],
+        "args": [
           [
-            "union",
+            3
+          ],
+          [
             0,
             1
           ],
           [
-            "union",
             1,
             2
           ],
           [
-            "connected",
             0,
             2
           ]
         ]
       },
       "expected": [
+        null,
+        null,
+        null,
         true
       ],
       "weight": 1,
@@ -60,16 +75,22 @@
     {
       "name": "example-3",
       "input": {
-        "n": 2,
         "operations": [
+          "UnionFind",
+          "connected"
+        ],
+        "args": [
           [
-            "connected",
+            2
+          ],
+          [
             0,
             0
           ]
         ]
       },
       "expected": [
+        null,
         true
       ],
       "weight": 1,
@@ -78,16 +99,22 @@
     {
       "name": "hidden-1",
       "input": {
-        "n": 4,
         "operations": [
+          "UnionFind",
+          "connected"
+        ],
+        "args": [
           [
-            "connected",
+            4
+          ],
+          [
             0,
             3
           ]
         ]
       },
       "expected": [
+        null,
         false
       ],
       "weight": 1,
@@ -96,26 +123,34 @@
     {
       "name": "hidden-2",
       "input": {
-        "n": 4,
         "operations": [
+          "UnionFind",
+          "union",
+          "union",
+          "connected"
+        ],
+        "args": [
           [
-            "union",
+            4
+          ],
+          [
             0,
             1
           ],
           [
-            "union",
             2,
             3
           ],
           [
-            "connected",
             1,
             2
           ]
         ]
       },
       "expected": [
+        null,
+        null,
+        null,
         false
       ],
       "weight": 1,
@@ -124,58 +159,71 @@
     {
       "name": "hidden-3",
       "input": {
-        "n": 4,
         "operations": [
+          "UnionFind",
+          "union",
+          "union",
+          "connected",
+          "union",
+          "union",
+          "union",
+          "union",
+          "connected",
+          "union"
+        ],
+        "args": [
           [
-            "union",
+            4
+          ],
+          [
             2,
             0
           ],
           [
-            "union",
             3,
             1
           ],
           [
-            "connected",
             1,
             1
           ],
           [
-            "union",
             1,
             3
           ],
           [
-            "union",
             3,
             1
           ],
           [
-            "union",
             1,
             1
           ],
           [
-            "union",
             3,
             0
           ],
           [
-            "connected",
             2,
             0
           ],
           [
-            "union",
             1,
             1
           ]
         ]
       },
       "expected": [
+        null,
+        null,
+        null,
         true,
-        true
+        null,
+        null,
+        null,
+        null,
+        true,
+        null
       ],
       "weight": 1,
       "hidden": true
@@ -183,32 +231,41 @@
     {
       "name": "hidden-4",
       "input": {
-        "n": 4,
         "operations": [
+          "UnionFind",
+          "connected",
+          "union",
+          "union",
+          "union"
+        ],
+        "args": [
           [
-            "connected",
+            4
+          ],
+          [
             2,
             2
           ],
           [
-            "union",
             1,
             2
           ],
           [
-            "union",
             1,
             3
           ],
           [
-            "union",
             3,
             3
           ]
         ]
       },
       "expected": [
-        true
+        null,
+        true,
+        null,
+        null,
+        null
       ],
       "weight": 1,
       "hidden": true
@@ -216,57 +273,69 @@
     {
       "name": "hidden-5",
       "input": {
-        "n": 6,
         "operations": [
+          "UnionFind",
+          "connected",
+          "union",
+          "union",
+          "union",
+          "union",
+          "union",
+          "union",
+          "connected",
+          "connected"
+        ],
+        "args": [
           [
-            "connected",
+            6
+          ],
+          [
             2,
             0
           ],
           [
-            "union",
             5,
             5
           ],
           [
-            "union",
             2,
             4
           ],
           [
-            "union",
             5,
             0
           ],
           [
-            "union",
             3,
             0
           ],
           [
-            "union",
             0,
             1
           ],
           [
-            "union",
             1,
             2
           ],
           [
-            "connected",
             0,
             1
           ],
           [
-            "connected",
             4,
             4
           ]
         ]
       },
       "expected": [
+        null,
         false,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         true,
         true
       ],
@@ -276,38 +345,47 @@
     {
       "name": "hidden-6",
       "input": {
-        "n": 2,
         "operations": [
+          "UnionFind",
+          "connected",
+          "union",
+          "union",
+          "connected",
+          "union"
+        ],
+        "args": [
           [
-            "connected",
+            2
+          ],
+          [
             0,
             0
           ],
           [
-            "union",
             0,
             0
           ],
           [
-            "union",
             1,
             0
           ],
           [
-            "connected",
             0,
             1
           ],
           [
-            "union",
             1,
             0
           ]
         ]
       },
       "expected": [
+        null,
         true,
-        true
+        null,
+        null,
+        true,
+        null
       ],
       "weight": 1,
       "hidden": true
@@ -315,16 +393,22 @@
     {
       "name": "hidden-7",
       "input": {
-        "n": 3,
         "operations": [
+          "UnionFind",
+          "connected"
+        ],
+        "args": [
           [
-            "connected",
+            3
+          ],
+          [
             0,
             2
           ]
         ]
       },
       "expected": [
+        null,
         false
       ],
       "weight": 1,
@@ -333,57 +417,65 @@
     {
       "name": "hidden-8",
       "input": {
-        "n": 2,
         "operations": [
+          "UnionFind",
+          "connected",
+          "connected",
+          "connected",
+          "union",
+          "connected",
+          "connected",
+          "connected",
+          "union"
+        ],
+        "args": [
           [
-            "connected",
+            2
+          ],
+          [
             1,
             1
           ],
           [
-            "connected",
             1,
             0
           ],
           [
-            "connected",
             1,
             0
           ],
           [
-            "union",
             1,
             1
           ],
           [
-            "connected",
             0,
             1
           ],
           [
-            "connected",
             1,
             0
           ],
           [
-            "connected",
             0,
             0
           ],
           [
-            "union",
             0,
             0
           ]
         ]
       },
       "expected": [
+        null,
         true,
         false,
         false,
+        null,
         false,
         false,
-        true
+        true,
+        null
       ],
       "weight": 1,
       "hidden": true
@@ -391,49 +483,56 @@
     {
       "name": "hidden-9",
       "input": {
-        "n": 6,
         "operations": [
+          "UnionFind",
+          "connected",
+          "connected",
+          "connected",
+          "union",
+          "connected",
+          "connected",
+          "connected"
+        ],
+        "args": [
           [
-            "connected",
+            6
+          ],
+          [
             3,
             3
           ],
           [
-            "connected",
             5,
             4
           ],
           [
-            "connected",
             4,
             0
           ],
           [
-            "union",
             3,
             2
           ],
           [
-            "connected",
             5,
             0
           ],
           [
-            "connected",
             0,
             4
           ],
           [
-            "connected",
             5,
             5
           ]
         ]
       },
       "expected": [
+        null,
         true,
         false,
         false,
+        null,
         false,
         false,
         true
@@ -444,36 +543,717 @@
     {
       "name": "hidden-10",
       "input": {
-        "n": 2,
         "operations": [
+          "UnionFind",
+          "union",
+          "connected",
+          "connected",
+          "union",
+          "union"
+        ],
+        "args": [
           [
-            "union",
+            2
+          ],
+          [
             1,
             0
           ],
           [
-            "connected",
             0,
             0
           ],
           [
-            "connected",
             0,
             1
           ],
           [
-            "union",
             1,
             1
           ],
           [
-            "union",
             1,
             1
           ]
         ]
       },
       "expected": [
+        null,
+        null,
+        true,
+        true,
+        null,
+        null
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-20",
+      "input": {
+        "operations": [
+          "UnionFind",
+          "union",
+          "connected",
+          "connected",
+          "union",
+          "union",
+          "connected",
+          "union",
+          "union",
+          "connected",
+          "connected",
+          "connected"
+        ],
+        "args": [
+          [
+            4
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        false,
+        true,
+        null,
+        null,
+        false,
+        null,
+        null,
+        true,
+        true,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-21",
+      "input": {
+        "operations": [
+          "UnionFind",
+          "connected",
+          "union",
+          "union",
+          "union",
+          "connected",
+          "union",
+          "connected",
+          "union",
+          "connected",
+          "union",
+          "union",
+          "union",
+          "connected"
+        ],
+        "args": [
+          [
+            3
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        false,
+        null,
+        null,
+        null,
+        true,
+        null,
+        true,
+        null,
+        true,
+        null,
+        null,
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-22",
+      "input": {
+        "operations": [
+          "UnionFind",
+          "union",
+          "connected",
+          "connected",
+          "connected",
+          "union",
+          "union",
+          "union",
+          "connected",
+          "connected",
+          "union",
+          "connected"
+        ],
+        "args": [
+          [
+            6
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            5
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        false,
+        false,
+        false,
+        null,
+        null,
+        null,
+        false,
+        true,
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-23",
+      "input": {
+        "operations": [
+          "UnionFind",
+          "union",
+          "union",
+          "connected",
+          "union",
+          "union",
+          "union",
+          "union",
+          "union",
+          "union",
+          "connected"
+        ],
+        "args": [
+          [
+            7
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            6,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        false,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-24",
+      "input": {
+        "operations": [
+          "UnionFind",
+          "connected",
+          "connected",
+          "union",
+          "connected",
+          "union",
+          "connected",
+          "union",
+          "connected",
+          "connected",
+          "union",
+          "connected"
+        ],
+        "args": [
+          [
+            5
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            4,
+            3
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        false,
+        false,
+        null,
+        false,
+        null,
+        true,
+        null,
+        false,
+        true,
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-25",
+      "input": {
+        "operations": [
+          "UnionFind",
+          "connected",
+          "union",
+          "connected",
+          "union",
+          "union",
+          "connected",
+          "connected",
+          "connected",
+          "union",
+          "union",
+          "connected"
+        ],
+        "args": [
+          [
+            4
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        true,
+        null,
+        false,
+        null,
+        null,
+        true,
+        true,
+        true,
+        null,
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-26",
+      "input": {
+        "operations": [
+          "UnionFind",
+          "union",
+          "union",
+          "union",
+          "connected",
+          "union",
+          "union",
+          "connected",
+          "connected",
+          "union",
+          "union",
+          "union",
+          "connected"
+        ],
+        "args": [
+          [
+            8
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            5
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        false,
+        null,
+        null,
+        true,
+        false,
+        null,
+        null,
+        null,
+        true
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-27",
+      "input": {
+        "operations": [
+          "UnionFind",
+          "union",
+          "connected",
+          "connected",
+          "union",
+          "union",
+          "union",
+          "union",
+          "connected",
+          "connected"
+        ],
+        "args": [
+          [
+            3
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        null,
+        false,
+        false,
+        null,
+        null,
+        null,
+        null,
         true,
         true
       ],

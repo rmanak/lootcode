@@ -3,6 +3,7 @@
   "title": "In Memory File System",
   "difficulty": "hard",
   "tags": [
+    "design",
     "hash-table",
     "string"
   ],
@@ -18,17 +19,66 @@
     "timeLimitMs": 10000,
     "memoryLimitMb": 512
   },
-  "function": {
-    "name": "fileSystem",
-    "params": [
+  "kind": "class",
+  "class": {
+    "name": "FileSystem",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
       {
-        "name": "operations",
-        "type": "any[][]"
+        "name": "ls",
+        "params": [
+          {
+            "name": "path",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "string[]"
+        }
+      },
+      {
+        "name": "mkdir",
+        "params": [
+          {
+            "name": "path",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "addContentToFile",
+        "params": [
+          {
+            "name": "filePath",
+            "type": "string"
+          },
+          {
+            "name": "content",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "readContentFromFile",
+        "params": [
+          {
+            "name": "filePath",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "string"
+        }
       }
-    ],
-    "returns": {
-      "type": "any[]"
-    }
+    ]
   },
   "scoring": {
     "type": "weighted",

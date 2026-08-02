@@ -1,8 +1,9 @@
-def fileSystem(operations):
-    root = {"dirs": {}, "files": {}}
+class FileSystem:
+    def __init__(self):
+        self.root = {"dirs": {}, "files": {}}
 
-    def get_dir(parts, create=False):
-        node = root
+    def _dir(self, parts, create=False):
+        node = self.root
         for p in parts:
             if p not in node["dirs"]:
                 if not create:
@@ -11,28 +12,27 @@ def fileSystem(operations):
             node = node["dirs"][p]
         return node
 
-    out = []
-    for op in operations:
-        cmd = op[0]
-        if cmd == "mkdir":
-            get_dir([p for p in op[1].split("/") if p], create=True)
-            out.append(None)
-        elif cmd == "addContentToFile":
-            parts = [p for p in op[1].split("/") if p]
-            node = get_dir(parts[:-1], create=True)
-            node["files"][parts[-1]] = node["files"].get(parts[-1], "") + op[2]
-            out.append(None)
-        elif cmd == "readContentFromFile":
-            parts = [p for p in op[1].split("/") if p]
-            out.append(get_dir(parts[:-1])["files"][parts[-1]])
-        else:
-            parts = [p for p in op[1].split("/") if p]
-            if parts:
-                parent = get_dir(parts[:-1])
-                if parent and parts[-1] in parent["files"]:
-                    out.append([parts[-1]])
-                    continue
-            node = get_dir(parts)
-            out.append(sorted(list(node["dirs"].keys()) +
-                              list(node["files"].keys())))
-    return out
+    @staticmethod
+    def _parts(path):
+        return [p for p in path.split("/") if p]
+
+    def ls(self, path):
+        parts = self._parts(path)
+        if parts:
+            parent = self._dir(parts[:-1])
+            if parent and parts[-1] in parent["files"]:
+                return [parts[-1]]
+        node = self._dir(parts)
+        return sorted(list(node["dirs"].keys()) + list(node["files"].keys()))
+
+    def mkdir(self, path):
+        self._dir(self._parts(path), create=True)
+
+    def addContentToFile(self, filePath, content):
+        parts = self._parts(filePath)
+        node = self._dir(parts[:-1], create=True)
+        node["files"][parts[-1]] = node["files"].get(parts[-1], "") + content
+
+    def readContentFromFile(self, filePath):
+        parts = self._parts(filePath)
+        return self._dir(parts[:-1])["files"][parts[-1]]

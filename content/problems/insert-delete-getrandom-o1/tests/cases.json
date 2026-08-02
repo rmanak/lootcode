@@ -4,29 +4,28 @@
       "name": "example-1",
       "input": {
         "operations": [
+          "RandomizedSet",
+          "insert",
+          "getRandom",
+          "insert",
+          "remove",
+          "getRandom",
+          "remove"
+        ],
+        "args": [
+          [],
           [
-            "RandomizedSet"
-          ],
-          [
-            "insert",
             1
           ],
+          [],
           [
-            "getRandom"
-          ],
-          [
-            "insert",
             2
           ],
           [
-            "remove",
             1
           ],
+          [],
           [
-            "getRandom"
-          ],
-          [
-            "remove",
             2
           ]
         ]
@@ -47,24 +46,24 @@
       "name": "hidden-1",
       "input": {
         "operations": [
+          "RandomizedSet",
+          "remove",
+          "insert",
+          "insert",
+          "getRandom"
+        ],
+        "args": [
+          [],
           [
-            "RandomizedSet"
-          ],
-          [
-            "remove",
             5
           ],
           [
-            "insert",
             5
           ],
           [
-            "insert",
             5
           ],
-          [
-            "getRandom"
-          ]
+          []
         ]
       },
       "expected": [
@@ -81,32 +80,32 @@
       "name": "hidden-2",
       "input": {
         "operations": [
+          "RandomizedSet",
+          "insert",
+          "insert",
+          "remove",
+          "remove",
+          "insert",
+          "getRandom"
+        ],
+        "args": [
+          [],
           [
-            "RandomizedSet"
-          ],
-          [
-            "insert",
             3
           ],
           [
-            "insert",
             7
           ],
           [
-            "remove",
             3
           ],
           [
-            "remove",
             7
           ],
           [
-            "insert",
             9
           ],
-          [
-            "getRandom"
-          ]
+          []
         ]
       },
       "expected": [
@@ -125,40 +124,33 @@
       "name": "gen-1",
       "input": {
         "operations": [
+          "RandomizedSet",
+          "insert",
+          "insert",
+          "getRandom",
+          "getRandom",
+          "getRandom"
+        ],
+        "args": [
+          [],
           [
-            "insert",
-            4
+            -4
           ],
           [
-            "getRandom"
+            -4
           ],
-          [
-            "RandomizedSet"
-          ],
-          [
-            "insert",
-            2
-          ],
-          [
-            "insert",
-            3
-          ],
-          [
-            "getRandom"
-          ],
-          [
-            "getRandom"
-          ]
+          [],
+          [],
+          []
         ]
       },
       "expected": [
-        true,
-        4,
         null,
         true,
-        true,
-        2,
-        2
+        false,
+        -4,
+        -4,
+        -4
       ],
       "weight": 1,
       "hidden": true
@@ -167,42 +159,60 @@
       "name": "gen-2",
       "input": {
         "operations": [
+          "RandomizedSet",
+          "insert",
+          "getRandom",
+          "remove",
+          "insert",
+          "getRandom",
+          "insert",
+          "insert",
+          "insert",
+          "insert",
+          "insert"
+        ],
+        "args": [
+          [],
           [
-            "insert",
-            1
+            -7
+          ],
+          [],
+          [
+            -7
           ],
           [
-            "remove",
-            4
+            -2
+          ],
+          [],
+          [
+            -2
           ],
           [
-            "insert",
-            4
+            0
           ],
           [
-            "remove",
-            1
+            2
           ],
           [
-            "getRandom"
+            2
           ],
           [
-            "insert",
-            1
-          ],
-          [
-            "RandomizedSet"
+            -2
           ]
         ]
       },
       "expected": [
+        null,
         true,
+        -7,
+        true,
+        true,
+        -2,
         false,
         true,
         true,
-        4,
-        true,
-        null
+        false,
+        false
       ],
       "weight": 1,
       "hidden": true
@@ -211,37 +221,60 @@
       "name": "gen-3",
       "input": {
         "operations": [
+          "RandomizedSet",
+          "insert",
+          "remove",
+          "insert",
+          "insert",
+          "remove",
+          "remove",
+          "insert",
+          "insert",
+          "getRandom",
+          "getRandom"
+        ],
+        "args": [
+          [],
           [
-            "insert",
-            2
+            -1
           ],
           [
-            "insert",
-            5
+            -1
           ],
           [
-            "remove",
-            5
+            -2
           ],
           [
-            "remove",
-            4
+            -1
           ],
           [
-            "getRandom"
+            -1
           ],
           [
-            "getRandom"
-          ]
+            -2
+          ],
+          [
+            -1
+          ],
+          [
+            -1
+          ],
+          [],
+          []
         ]
       },
       "expected": [
+        null,
+        true,
+        true,
+        true,
+        true,
         true,
         true,
         true,
         false,
-        2,
-        2
+        -1,
+        -1
       ],
       "weight": 1,
       "hidden": true
@@ -250,43 +283,53 @@
       "name": "gen-4",
       "input": {
         "operations": [
+          "RandomizedSet",
+          "insert",
+          "remove",
+          "insert",
+          "getRandom",
+          "getRandom",
+          "remove",
+          "insert",
+          "insert",
+          "getRandom"
+        ],
+        "args": [
+          [],
           [
-            "remove",
             3
           ],
           [
-            "remove",
+            7
+          ],
+          [
+            3
+          ],
+          [],
+          [],
+          [
             3
           ],
           [
-            "insert",
             3
           ],
           [
-            "insert",
-            2
+            3
           ],
-          [
-            "remove",
-            2
-          ],
-          [
-            "RandomizedSet"
-          ],
-          [
-            "insert",
-            5
-          ]
+          []
         ]
       },
       "expected": [
-        false,
-        false,
-        true,
-        true,
-        true,
         null,
-        true
+        true,
+        false,
+        false,
+        3,
+        3,
+        true,
+        true,
+        false,
+        3
       ],
       "weight": 1,
       "hidden": true
@@ -295,18 +338,69 @@
       "name": "gen-5",
       "input": {
         "operations": [
+          "RandomizedSet",
+          "insert",
+          "getRandom",
+          "remove",
+          "insert",
+          "insert",
+          "remove",
+          "insert",
+          "remove",
+          "remove",
+          "getRandom",
+          "insert",
+          "insert"
+        ],
+        "args": [
+          [],
           [
-            "remove",
-            1
+            3
+          ],
+          [],
+          [
+            3
           ],
           [
-            "remove",
             3
+          ],
+          [
+            -6
+          ],
+          [
+            -6
+          ],
+          [
+            5
+          ],
+          [
+            5
+          ],
+          [
+            -6
+          ],
+          [],
+          [
+            -1
+          ],
+          [
+            -1
           ]
         ]
       },
       "expected": [
+        null,
+        true,
+        3,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
         false,
+        3,
+        true,
         false
       ],
       "weight": 1,
@@ -316,132 +410,57 @@
       "name": "gen-6",
       "input": {
         "operations": [
+          "RandomizedSet",
+          "insert",
+          "remove",
+          "insert",
+          "getRandom",
+          "remove",
+          "insert",
+          "getRandom",
+          "insert",
+          "insert",
+          "insert"
+        ],
+        "args": [
+          [],
           [
-            "insert",
-            1
+            -3
           ],
           [
-            "RandomizedSet"
+            -3
           ],
           [
-            "insert",
-            2
+            -3
+          ],
+          [],
+          [
+            -3
           ],
           [
-            "insert",
-            5
+            -3
+          ],
+          [],
+          [
+            -8
           ],
           [
-            "insert",
-            6
+            -8
           ],
           [
-            "getRandom"
-          ],
-          [
-            "RandomizedSet"
+            -8
           ]
         ]
       },
       "expected": [
-        true,
         null,
         true,
         true,
         true,
-        2,
-        null
-      ],
-      "weight": 1,
-      "hidden": true
-    },
-{
-      "name": "gen-8",
-      "input": {
-        "operations": [
-          [
-            "insert",
-            5
-          ],
-          [
-            "remove",
-            5
-          ],
-          [
-            "RandomizedSet"
-          ]
-        ]
-      },
-      "expected": [
+        -3,
         true,
         true,
-        null
-      ],
-      "weight": 1,
-      "hidden": true
-    },
-    {
-      "name": "gen-10",
-      "input": {
-        "operations": [
-          [
-            "remove",
-            5
-          ],
-          [
-            "RandomizedSet"
-          ],
-          [
-            "remove",
-            4
-          ],
-          [
-            "RandomizedSet"
-          ],
-          [
-            "insert",
-            1
-          ],
-          [
-            "getRandom"
-          ]
-        ]
-      },
-      "expected": [
-        false,
-        null,
-        false,
-        null,
-        true,
-        1
-      ],
-      "weight": 1,
-      "hidden": true
-    },
-    {
-      "name": "gen-11",
-      "input": {
-        "operations": [
-          [
-            "remove",
-            3
-          ],
-          [
-            "insert",
-            3
-          ],
-          [
-            "remove",
-            5
-          ],
-          [
-            "remove",
-            5
-          ]
-        ]
-      },
-      "expected": [
-        false,
+        -3,
         true,
         false,
         false
@@ -450,16 +469,206 @@
       "hidden": true
     },
     {
-      "name": "gen-13",
+      "name": "gen-7",
       "input": {
         "operations": [
+          "RandomizedSet",
+          "insert",
+          "remove",
+          "remove",
+          "insert",
+          "insert",
+          "insert",
+          "remove",
+          "insert"
+        ],
+        "args": [
+          [],
           [
-            "remove",
-            1
+            3
+          ],
+          [
+            0
+          ],
+          [
+            3
+          ],
+          [
+            3
+          ],
+          [
+            0
+          ],
+          [
+            -7
+          ],
+          [
+            3
+          ],
+          [
+            -7
           ]
         ]
       },
       "expected": [
+        null,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-8",
+      "input": {
+        "operations": [
+          "RandomizedSet",
+          "insert",
+          "insert",
+          "getRandom",
+          "getRandom",
+          "getRandom",
+          "remove",
+          "getRandom"
+        ],
+        "args": [
+          [],
+          [
+            1
+          ],
+          [
+            1
+          ],
+          [],
+          [],
+          [],
+          [
+            -5
+          ],
+          []
+        ]
+      },
+      "expected": [
+        null,
+        true,
+        false,
+        1,
+        1,
+        1,
+        false,
+        1
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-9",
+      "input": {
+        "operations": [
+          "RandomizedSet",
+          "insert",
+          "insert",
+          "insert",
+          "insert",
+          "remove",
+          "getRandom",
+          "getRandom",
+          "getRandom",
+          "getRandom",
+          "getRandom"
+        ],
+        "args": [
+          [],
+          [
+            7
+          ],
+          [
+            -7
+          ],
+          [
+            -7
+          ],
+          [
+            -7
+          ],
+          [
+            -7
+          ],
+          [],
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "expected": [
+        null,
+        true,
+        true,
+        false,
+        false,
+        true,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-10",
+      "input": {
+        "operations": [
+          "RandomizedSet",
+          "insert",
+          "insert",
+          "insert",
+          "remove",
+          "insert",
+          "remove",
+          "insert"
+        ],
+        "args": [
+          [],
+          [
+            -6
+          ],
+          [
+            -8
+          ],
+          [
+            6
+          ],
+          [
+            -8
+          ],
+          [
+            -8
+          ],
+          [
+            -6
+          ],
+          [
+            -8
+          ]
+        ]
+      },
+      "expected": [
+        null,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
         false
       ],
       "weight": 1,

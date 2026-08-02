@@ -3,6 +3,7 @@
   "title": "In Memory Key Value Store",
   "difficulty": "medium",
   "tags": [
+    "design",
     "hash-table"
   ],
   "hints": [
@@ -17,17 +18,77 @@
     "timeLimitMs": 10000,
     "memoryLimitMb": 512
   },
-  "function": {
-    "name": "kvStore",
-    "params": [
+  "kind": "class",
+  "class": {
+    "name": "KeyValueStore",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
       {
-        "name": "operations",
-        "type": "any[][]"
+        "name": "set",
+        "params": [
+          {
+            "name": "key",
+            "type": "string"
+          },
+          {
+            "name": "value",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "get",
+        "params": [
+          {
+            "name": "key",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "int"
+        }
+      },
+      {
+        "name": "delete",
+        "params": [
+          {
+            "name": "key",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "snapshot",
+        "params": [],
+        "returns": {
+          "type": "int"
+        }
+      },
+      {
+        "name": "getAt",
+        "params": [
+          {
+            "name": "key",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "int"
+        }
       }
-    ],
-    "returns": {
-      "type": "any[]"
-    }
+    ]
   },
   "scoring": {
     "type": "weighted",

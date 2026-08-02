@@ -3,6 +3,7 @@
   "title": "Trie Prefix Search",
   "difficulty": "medium",
   "tags": [
+    "design",
     "trie",
     "string"
   ],
@@ -18,17 +19,50 @@
     "timeLimitMs": 10000,
     "memoryLimitMb": 512
   },
-  "function": {
-    "name": "trieOps",
-    "params": [
+  "kind": "class",
+  "class": {
+    "name": "Trie",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
       {
-        "name": "operations",
-        "type": "string[][]"
+        "name": "insert",
+        "params": [
+          {
+            "name": "word",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "search",
+        "params": [
+          {
+            "name": "word",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "bool"
+        }
+      },
+      {
+        "name": "startsWith",
+        "params": [
+          {
+            "name": "prefix",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "bool"
+        }
       }
-    ],
-    "returns": {
-      "type": "any[]"
-    }
+    ]
   },
   "scoring": {
     "type": "weighted",

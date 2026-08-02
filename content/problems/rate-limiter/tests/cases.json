@@ -3,32 +3,38 @@
     {
       "name": "example-1",
       "input": {
-        "limit": 2,
-        "window": 10,
         "operations": [
+          "RateLimiter",
+          "request",
+          "request",
+          "request",
+          "request"
+        ],
+        "args": [
           [
-            "request",
+            2,
+            10
+          ],
+          [
             "a",
             1
           ],
           [
-            "request",
             "a",
             2
           ],
           [
-            "request",
             "a",
             3
           ],
           [
-            "request",
             "a",
             11
           ]
         ]
       },
       "expected": [
+        null,
         true,
         true,
         false,
@@ -40,27 +46,33 @@
     {
       "name": "example-2",
       "input": {
-        "limit": 1,
-        "window": 5,
         "operations": [
+          "RateLimiter",
+          "request",
+          "request",
+          "request"
+        ],
+        "args": [
           [
-            "request",
+            1,
+            5
+          ],
+          [
             "a",
             1
           ],
           [
-            "request",
             "b",
             1
           ],
           [
-            "request",
             "a",
             2
           ]
         ]
       },
       "expected": [
+        null,
         true,
         true,
         false
@@ -71,17 +83,23 @@
     {
       "name": "example-3",
       "input": {
-        "limit": 3,
-        "window": 100,
         "operations": [
+          "RateLimiter",
+          "request"
+        ],
+        "args": [
           [
-            "request",
+            3,
+            100
+          ],
+          [
             "x",
             50
           ]
         ]
       },
       "expected": [
+        null,
         true
       ],
       "weight": 1,
@@ -90,22 +108,28 @@
     {
       "name": "hidden-1",
       "input": {
-        "limit": 1,
-        "window": 1,
         "operations": [
+          "RateLimiter",
+          "request",
+          "request"
+        ],
+        "args": [
           [
-            "request",
+            1,
+            1
+          ],
+          [
             "a",
             1
           ],
           [
-            "request",
             "a",
             1
           ]
         ]
       },
       "expected": [
+        null,
         true,
         false
       ],
@@ -115,27 +139,33 @@
     {
       "name": "hidden-2",
       "input": {
-        "limit": 2,
-        "window": 3,
         "operations": [
+          "RateLimiter",
+          "request",
+          "request",
+          "request"
+        ],
+        "args": [
           [
-            "request",
+            2,
+            3
+          ],
+          [
             "a",
             1
           ],
           [
-            "request",
             "a",
             2
           ],
           [
-            "request",
             "a",
             5
           ]
         ]
       },
       "expected": [
+        null,
         true,
         true,
         true
@@ -146,27 +176,33 @@
     {
       "name": "hidden-3",
       "input": {
-        "limit": 3,
-        "window": 6,
         "operations": [
+          "RateLimiter",
+          "request",
+          "request",
+          "request"
+        ],
+        "args": [
           [
-            "request",
+            3,
+            6
+          ],
+          [
             "b",
             3
           ],
           [
-            "request",
             "b",
             7
           ],
           [
-            "request",
             "a",
             11
           ]
         ]
       },
       "expected": [
+        null,
         true,
         true,
         true
@@ -177,27 +213,33 @@
     {
       "name": "hidden-4",
       "input": {
-        "limit": 2,
-        "window": 6,
         "operations": [
+          "RateLimiter",
+          "request",
+          "request",
+          "request"
+        ],
+        "args": [
           [
-            "request",
+            2,
+            6
+          ],
+          [
             "b",
             3
           ],
           [
-            "request",
             "b",
             6
           ],
           [
-            "request",
             "b",
             9
           ]
         ]
       },
       "expected": [
+        null,
         true,
         true,
         true
@@ -208,82 +250,88 @@
     {
       "name": "hidden-5",
       "input": {
-        "limit": 1,
-        "window": 4,
         "operations": [
+          "RateLimiter",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request"
+        ],
+        "args": [
           [
-            "request",
+            1,
+            4
+          ],
+          [
             "a",
             3
           ],
           [
-            "request",
             "b",
             4
           ],
           [
-            "request",
             "a",
             6
           ],
           [
-            "request",
             "b",
             9
           ],
           [
-            "request",
             "b",
             13
           ],
           [
-            "request",
             "a",
             14
           ],
           [
-            "request",
             "b",
             18
           ],
           [
-            "request",
             "b",
             22
           ],
           [
-            "request",
             "a",
             23
           ],
           [
-            "request",
             "b",
             23
           ],
           [
-            "request",
             "b",
             26
           ],
           [
-            "request",
             "b",
             29
           ],
           [
-            "request",
             "b",
             30
           ],
           [
-            "request",
             "a",
             30
           ]
         ]
       },
       "expected": [
+        null,
         true,
         true,
         false,
@@ -305,17 +353,23 @@
     {
       "name": "hidden-6",
       "input": {
-        "limit": 3,
-        "window": 4,
         "operations": [
+          "RateLimiter",
+          "request"
+        ],
+        "args": [
           [
-            "request",
+            3,
+            4
+          ],
+          [
             "b",
             1
           ]
         ]
       },
       "expected": [
+        null,
         true
       ],
       "weight": 1,
@@ -324,37 +378,43 @@
     {
       "name": "hidden-7",
       "input": {
-        "limit": 1,
-        "window": 6,
         "operations": [
+          "RateLimiter",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request"
+        ],
+        "args": [
           [
-            "request",
+            1,
+            6
+          ],
+          [
             "b",
             0
           ],
           [
-            "request",
             "b",
             1
           ],
           [
-            "request",
             "b",
             3
           ],
           [
-            "request",
             "a",
             5
           ],
           [
-            "request",
             "b",
             8
           ]
         ]
       },
       "expected": [
+        null,
         true,
         false,
         false,
@@ -367,52 +427,58 @@
     {
       "name": "hidden-8",
       "input": {
-        "limit": 1,
-        "window": 8,
         "operations": [
+          "RateLimiter",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request"
+        ],
+        "args": [
           [
-            "request",
+            1,
+            8
+          ],
+          [
             "b",
             4
           ],
           [
-            "request",
             "a",
             7
           ],
           [
-            "request",
             "a",
             8
           ],
           [
-            "request",
             "b",
             9
           ],
           [
-            "request",
             "b",
             12
           ],
           [
-            "request",
             "b",
             14
           ],
           [
-            "request",
             "a",
             17
           ],
           [
-            "request",
             "b",
             20
           ]
         ]
       },
       "expected": [
+        null,
         true,
         true,
         false,
@@ -428,57 +494,63 @@
     {
       "name": "hidden-9",
       "input": {
-        "limit": 2,
-        "window": 5,
         "operations": [
+          "RateLimiter",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request"
+        ],
+        "args": [
           [
-            "request",
+            2,
+            5
+          ],
+          [
             "b",
             0
           ],
           [
-            "request",
             "b",
             2
           ],
           [
-            "request",
             "a",
             2
           ],
           [
-            "request",
             "b",
             4
           ],
           [
-            "request",
             "a",
             8
           ],
           [
-            "request",
             "a",
             8
           ],
           [
-            "request",
             "a",
             11
           ],
           [
-            "request",
             "a",
             12
           ],
           [
-            "request",
             "a",
             15
           ]
         ]
       },
       "expected": [
+        null,
         true,
         true,
         true,
@@ -495,32 +567,38 @@
     {
       "name": "hidden-10",
       "input": {
-        "limit": 1,
-        "window": 4,
         "operations": [
+          "RateLimiter",
+          "request",
+          "request",
+          "request",
+          "request"
+        ],
+        "args": [
           [
-            "request",
+            1,
+            4
+          ],
+          [
             "b",
             4
           ],
           [
-            "request",
             "b",
             6
           ],
           [
-            "request",
             "b",
             6
           ],
           [
-            "request",
             "b",
             9
           ]
         ]
       },
       "expected": [
+        null,
         true,
         false,
         false,
@@ -532,52 +610,58 @@
     {
       "name": "hidden-11",
       "input": {
-        "limit": 2,
-        "window": 2,
         "operations": [
+          "RateLimiter",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request"
+        ],
+        "args": [
           [
-            "request",
+            2,
+            2
+          ],
+          [
             "b",
             1
           ],
           [
-            "request",
             "b",
             5
           ],
           [
-            "request",
             "b",
             9
           ],
           [
-            "request",
             "a",
             11
           ],
           [
-            "request",
             "a",
             15
           ],
           [
-            "request",
             "a",
             17
           ],
           [
-            "request",
             "b",
             21
           ],
           [
-            "request",
             "b",
             24
           ]
         ]
       },
       "expected": [
+        null,
         true,
         true,
         true,
@@ -593,82 +677,88 @@
     {
       "name": "hidden-12",
       "input": {
-        "limit": 3,
-        "window": 6,
         "operations": [
+          "RateLimiter",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request",
+          "request"
+        ],
+        "args": [
           [
-            "request",
+            3,
+            6
+          ],
+          [
             "a",
             0
           ],
           [
-            "request",
             "a",
             3
           ],
           [
-            "request",
             "a",
             5
           ],
           [
-            "request",
             "a",
             8
           ],
           [
-            "request",
             "b",
             9
           ],
           [
-            "request",
             "a",
             10
           ],
           [
-            "request",
             "a",
             14
           ],
           [
-            "request",
             "b",
             17
           ],
           [
-            "request",
             "b",
             20
           ],
           [
-            "request",
             "a",
             20
           ],
           [
-            "request",
             "a",
             23
           ],
           [
-            "request",
             "a",
             26
           ],
           [
-            "request",
             "b",
             28
           ],
           [
-            "request",
             "a",
             31
           ]
         ]
       },
       "expected": [
+        null,
         true,
         true,
         true,
