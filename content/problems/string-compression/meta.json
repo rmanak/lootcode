@@ -1,7 +1,7 @@
 {
   "slug": "string-compression",
   "title": "String Compression",
-  "difficulty": "easy",
+  "difficulty": "medium",
   "tags": [
     "string",
     "two-pointers"
