@@ -4,7 +4,7 @@
   "difficulty": "easy",
   "tags": [
     "array",
-    "hash-set"
+    "hash-table"
   ],
   "hints": [
     "First, check if 0 is present in the list. If it is missing, the answer is immediately -1.",

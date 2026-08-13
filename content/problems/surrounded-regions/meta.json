@@ -3,9 +3,11 @@
   "title": "Surrounded Regions",
   "difficulty": "medium",
   "tags": [
-    "matrix",
-    "graph",
-    "depth-first-search"
+    "array",
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "matrix"
   ],
   "hints": [
     "Identify which 'O's are safe by tracing connections from the board's borders.",

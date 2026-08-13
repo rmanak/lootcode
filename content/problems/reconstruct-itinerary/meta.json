@@ -3,8 +3,12 @@
   "title": "Reconstruct Itinerary",
   "difficulty": "hard",
   "tags": [
+    "array",
+    "string",
+    "depth-first-search",
     "graph",
-    "depth-first-search"
+    "sorting",
+    "heap"
   ],
   "hints": [
     "Model the airports and tickets as a directed graph where each ticket is an edge.",

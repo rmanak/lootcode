@@ -3,9 +3,10 @@
   "title": "Check If a String Contains All Binary Codes of Size K",
   "difficulty": "medium",
   "tags": [
-    "string",
     "hash-table",
-    "bit-manipulation"
+    "string",
+    "bit-manipulation",
+    "hash-function"
   ],
   "hints": [
     "How many distinct binary strings of length k exist in total? Compare this count to the substrings you can extract from s.",

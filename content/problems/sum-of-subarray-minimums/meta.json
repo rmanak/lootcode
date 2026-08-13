@@ -4,9 +4,9 @@
   "difficulty": "medium",
   "tags": [
     "array",
+    "dynamic-programming",
     "stack",
-    "monotonic-stack",
-    "dynamic-programming"
+    "monotonic-stack"
   ],
   "hints": [
     "Instead of iterating all subarrays, calculate how much each element contributes to the total sum.",

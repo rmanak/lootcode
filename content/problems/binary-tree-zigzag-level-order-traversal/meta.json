@@ -3,9 +3,9 @@
   "title": "Binary Tree Zigzag Level Order Traversal",
   "difficulty": "medium",
   "tags": [
-    "binary-tree",
+    "tree",
     "breadth-first-search",
-    "tree"
+    "binary-tree"
   ],
   "hints": [
     "Focus on processing the tree level by level. Notice that the order of nodes flips direction at each depth.",

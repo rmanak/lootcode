@@ -4,8 +4,7 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "sorting",
-    "counting"
+    "sorting"
   ],
   "hints": [
     "Notice the definition depends only on counts, not specific paper IDs. How does sorting citations help you count papers with at least k citations efficiently?",

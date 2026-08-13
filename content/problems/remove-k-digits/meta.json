@@ -5,8 +5,8 @@
   "tags": [
     "string",
     "stack",
-    "monotonic-stack",
-    "greedy"
+    "greedy",
+    "monotonic-stack"
   ],
   "hints": [
     "Consider how the relative order of digits affects the final number's value. Does removing a larger digit that appears before a smaller one help?",

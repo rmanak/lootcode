@@ -3,10 +3,11 @@
   "title": "Max Area of Island",
   "difficulty": "medium",
   "tags": [
-    "matrix",
+    "array",
     "depth-first-search",
     "breadth-first-search",
-    "union-find"
+    "union-find",
+    "matrix"
   ],
   "hints": [
     "Explore each land cell to find its connected component, tracking the size of each island.",

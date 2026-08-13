@@ -3,9 +3,11 @@
   "title": "In Memory File System",
   "difficulty": "hard",
   "tags": [
-    "design",
     "hash-table",
-    "string"
+    "string",
+    "design",
+    "trie",
+    "sorting"
   ],
   "hints": [
     "Think of the file system as a tree where each node is either a directory or a file. How do you efficiently navigate from the root to any path?",

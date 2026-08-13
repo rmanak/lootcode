@@ -4,8 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "greedy",
     "two-pointers",
+    "greedy",
     "sorting"
   ],
   "hints": [

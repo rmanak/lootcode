@@ -5,7 +5,10 @@
   "tags": [
     "array",
     "hash-table",
-    "heap"
+    "divide-and-conquer",
+    "sorting",
+    "heap",
+    "counting"
   ],
   "hints": [
     "Count the occurrences of each number first. What data structure stores these counts efficiently?",

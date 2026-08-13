@@ -4,8 +4,9 @@
   "difficulty": "medium",
   "tags": [
     "tree",
+    "depth-first-search",
     "binary-search-tree",
-    "depth-first-search"
+    "binary-tree"
   ],
   "hints": [
     "Recall that a BST's in-order traversal always yields a strictly increasing sequence.",

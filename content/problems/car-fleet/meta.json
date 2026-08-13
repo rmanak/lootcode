@@ -5,8 +5,8 @@
   "tags": [
     "array",
     "stack",
-    "monotonic-stack",
-    "sorting"
+    "sorting",
+    "monotonic-stack"
   ],
   "hints": [
     "Calculate the time each car would take to reach the target if it drove alone.",

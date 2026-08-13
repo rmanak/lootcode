@@ -5,7 +5,7 @@
   "tags": [
     "array",
     "sliding-window",
-    "binary-search-tree"
+    "ordered-set"
   ],
   "hints": [
     "Consider maintaining a sliding window of size indexDiff + 1 to satisfy the index constraint.",

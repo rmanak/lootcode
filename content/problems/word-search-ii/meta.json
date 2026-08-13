@@ -3,8 +3,10 @@
   "title": "Word Search II",
   "difficulty": "hard",
   "tags": [
-    "trie",
+    "array",
+    "string",
     "backtracking",
+    "trie",
     "matrix"
   ],
   "hints": [

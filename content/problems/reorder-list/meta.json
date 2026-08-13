@@ -4,7 +4,9 @@
   "difficulty": "medium",
   "tags": [
     "linked-list",
-    "two-pointers"
+    "two-pointers",
+    "stack",
+    "recursion"
   ],
   "hints": [
     "Notice the pattern: the first half of the list stays in order, while the second half is reversed and interleaved.",

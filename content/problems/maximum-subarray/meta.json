@@ -4,8 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "dynamic-programming",
-    "divide-and-conquer"
+    "divide-and-conquer",
+    "dynamic-programming"
   ],
   "hints": [
     "Consider the maximum sum ending at each position. How does it relate to the previous position's result?",

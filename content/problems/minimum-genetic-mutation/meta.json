@@ -3,9 +3,9 @@
   "title": "Minimum Genetic Mutation",
   "difficulty": "medium",
   "tags": [
+    "hash-table",
     "string",
-    "breadth-first-search",
-    "graph"
+    "breadth-first-search"
   ],
   "hints": [
     "Think of this as finding the shortest path in a graph where nodes are genes.",

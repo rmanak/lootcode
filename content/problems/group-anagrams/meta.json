@@ -3,8 +3,9 @@
   "title": "Group Anagrams",
   "difficulty": "medium",
   "tags": [
-    "string",
+    "array",
     "hash-table",
+    "string",
     "sorting"
   ],
   "hints": [

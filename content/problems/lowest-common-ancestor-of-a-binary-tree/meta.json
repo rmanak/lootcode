@@ -4,7 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "tree",
-    "depth-first-search"
+    "depth-first-search",
+    "binary-tree"
   ],
   "hints": [
     "Consider a post-order traversal. What information does a subtree need to return to its parent?",

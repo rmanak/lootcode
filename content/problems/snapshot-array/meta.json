@@ -3,8 +3,10 @@
   "title": "Snapshot Array",
   "difficulty": "medium",
   "tags": [
+    "array",
     "hash-table",
-    "binary-search"
+    "binary-search",
+    "design"
   ],
   "hints": [
     "Notice that each index changes independently. You can treat the history of each index as a separate problem.",

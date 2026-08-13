@@ -3,9 +3,9 @@
   "title": "Minimum Window Substring",
   "difficulty": "hard",
   "tags": [
+    "hash-table",
     "string",
-    "sliding-window",
-    "hash-table"
+    "sliding-window"
   ],
   "hints": [
     "Consider how the set of required characters changes as you scan s from left to right.",

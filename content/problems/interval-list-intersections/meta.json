@@ -4,7 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "two-pointers"
+    "two-pointers",
+    "sorting"
   ],
   "hints": [
     "Since both lists are sorted and disjoint, you can process them simultaneously instead of comparing every pair.",

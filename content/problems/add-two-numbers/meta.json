@@ -3,7 +3,8 @@
   "title": "Add Two Numbers In Linked Lists",
   "difficulty": "medium",
   "tags": [
-    "linked-list"
+    "linked-list",
+    "recursion"
   ],
   "hints": [
     "Think about how you add numbers by hand, starting from the ones place and carrying over to the next.",

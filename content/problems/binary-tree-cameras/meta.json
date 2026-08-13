@@ -3,10 +3,10 @@
   "title": "Binary Tree Cameras",
   "difficulty": "hard",
   "tags": [
+    "dynamic-programming",
     "tree",
     "depth-first-search",
-    "dynamic-programming",
-    "greedy"
+    "binary-tree"
   ],
   "hints": [
     "Consider a post-order traversal (bottom-up) to decide camera placement based on children's needs.",

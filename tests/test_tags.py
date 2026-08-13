@@ -14,10 +14,10 @@ from app.tags import (
 )
 
 
-def test_vocabulary_is_thirty_nine_tags():
+def test_vocabulary_is_forty_four_tags():
     # Not a tautology: four other files hard-code this list (see
-    # test_docs_consistency.py), and the count is quoted in README.md.
-    assert len(CANONICAL_TAGS) == 39
+    # test_docs_consistency.py), and the count is quoted in CLAUDE.md.
+    assert len(CANONICAL_TAGS) == 44
 
 
 def test_aliases_and_dropped_never_overlap_the_vocabulary():
@@ -32,11 +32,15 @@ def test_aliases_and_dropped_never_overlap_the_vocabulary():
 def test_aliases_fold_to_canonical():
     assert normalize_tags(["bfs", "dfs"]) == [
         "breadth-first-search", "depth-first-search"]
-    assert normalize_tags(["segment-tree"]) == ["binary-indexed-tree"]
+    assert normalize_tags(["heap-priority-queue"]) == ["heap"]
+    assert normalize_tags(["hash-set"]) == ["hash-table"]
 
 
 def test_dropped_tags_are_removed():
     assert normalize_tags(["array", "enumeration", "queries"]) == ["array"]
+    # Delivery-style tags (how a problem is judged, not how it is solved).
+    assert normalize_tags(["array", "database", "interactive",
+                           "randomized"]) == ["array"]
 
 
 def test_case_and_whitespace_are_normalized():
@@ -54,11 +58,24 @@ def test_math_is_dropped_when_something_more_specific_applies():
     assert normalize_tags(["math", "dynamic-programming"]) == ["dynamic-programming"]
     # ...but kept when it is all there is.
     assert normalize_tags(["math"]) == ["math"]
-    assert normalize_tags(["number-theory", "geometry"]) == ["math"]
+    # ...and number-theory/geometry are now specific tags in their own right,
+    # so they displace the umbrella rather than folding into it.
+    assert normalize_tags(["math", "number-theory"]) == ["number-theory"]
+    assert normalize_tags(["number-theory", "geometry"]) == [
+        "number-theory", "geometry"]
+
+
+def test_split_out_tags_no_longer_fold_into_their_old_umbrella():
+    # These six were promoted out of a roll-up; folding them again would undo it.
+    assert normalize_tags(["segment-tree"]) == ["segment-tree"]
+    assert normalize_tags(["ordered-set"]) == ["ordered-set"]
+    assert normalize_tags(["topological-sort"]) == ["topological-sort"]
+    assert normalize_tags(["shortest-path"]) == ["shortest-path"]
+    assert normalize_tags(["dijkstra"]) == ["shortest-path"]
 
 
 def test_a_problem_is_never_left_tagless():
-    for empty in (None, [], [""], ["   "], ["enumeration"]):
+    for empty in (None, [], [""], ["   "], ["enumeration"], ["database"]):
         assert normalize_tags(empty) == ["math"]
 
 

@@ -5,7 +5,8 @@
   "tags": [
     "array",
     "two-pointers",
-    "binary-search"
+    "binary-search",
+    "bit-manipulation"
   ],
   "hints": [
     "Treat array values as pointers to indices to form a linked list structure.",

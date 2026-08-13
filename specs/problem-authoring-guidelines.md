@@ -85,7 +85,7 @@ that a deliberately re-ordered valid answer is still accepted.
 ## Difficulty & tags
 
 - Keep `difficulty` honest relative to the existing problems in `content/problems/`.
-- Tags MUST come from the **canonical vocabulary** (39 tags) — see
+- Tags MUST come from the **canonical vocabulary** (44 tags) — see
   `specs/tags.md` / `app/tags.py`. Pick 1–4 that describe the core
   technique/structure. Don't coin new tags or use near-synonyms (use
   `breadth-first-search` not `bfs`, `queue` not `monotonic-queue`); `math` is a

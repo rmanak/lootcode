@@ -5,7 +5,9 @@
   "tags": [
     "array",
     "binary-search",
-    "dynamic-programming"
+    "dynamic-programming",
+    "greedy",
+    "prefix-sum"
   ],
   "hints": [
     "Notice that if you raise the allowed maximum subarray sum, it becomes easier to fit the array into `m` parts. This monotonic relationship suggests a specific search strategy.",

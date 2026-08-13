@@ -4,8 +4,9 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "heap",
-    "sorting"
+    "divide-and-conquer",
+    "sorting",
+    "heap"
   ],
   "hints": [
     "Sorting the whole array works but is slower than necessary. Can you find the target without fully ordering all elements?",

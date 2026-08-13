@@ -3,7 +3,7 @@
   "title": "Valid Square",
   "difficulty": "medium",
   "tags": [
-    "math"
+    "geometry"
   ],
   "hints": [
     "Consider the distances between all pairs of points. A square has a very specific set of six distances.",

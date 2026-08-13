@@ -4,8 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "sliding-window",
-    "hash-table"
+    "hash-table",
+    "sliding-window"
   ],
   "hints": [
     "Notice that as you extend the window to the right, the left boundary only moves right to maintain the constraint.",

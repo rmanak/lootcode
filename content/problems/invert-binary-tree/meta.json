@@ -5,7 +5,8 @@
   "tags": [
     "tree",
     "depth-first-search",
-    "breadth-first-search"
+    "breadth-first-search",
+    "binary-tree"
   ],
   "hints": [
     "Consider how you would traverse the tree to visit every node. What happens when you reach a leaf or an empty subtree?",

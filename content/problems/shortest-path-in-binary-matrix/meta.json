@@ -3,8 +3,9 @@
   "title": "Shortest Path in Binary Matrix",
   "difficulty": "medium",
   "tags": [
-    "matrix",
-    "breadth-first-search"
+    "array",
+    "breadth-first-search",
+    "matrix"
   ],
   "hints": [
     "Think of this as finding the shortest path in an unweighted graph where each cell is a node.",

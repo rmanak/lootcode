@@ -3,6 +3,7 @@
   "title": "Longest Palindromic Substring",
   "difficulty": "medium",
   "tags": [
+    "two-pointers",
     "string",
     "dynamic-programming"
   ],

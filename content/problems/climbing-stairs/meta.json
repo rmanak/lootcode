@@ -3,7 +3,8 @@
   "title": "Climbing Stairs",
   "difficulty": "easy",
   "tags": [
-    "dynamic-programming"
+    "dynamic-programming",
+    "memoization"
   ],
   "hints": [
     "Consider the last move made to reach step n. Which previous steps could you have come from?",

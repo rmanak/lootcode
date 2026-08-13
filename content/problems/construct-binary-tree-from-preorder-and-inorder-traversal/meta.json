@@ -3,9 +3,11 @@
   "title": "Construct Binary Tree from Preorder and Inorder Traversal",
   "difficulty": "medium",
   "tags": [
-    "tree",
     "array",
-    "divide-and-conquer"
+    "hash-table",
+    "divide-and-conquer",
+    "tree",
+    "binary-tree"
   ],
   "hints": [
     "Identify the root from the first element of preorder and find its index in inorder to split left and right subtrees.",

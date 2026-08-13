@@ -4,7 +4,9 @@
   "difficulty": "easy",
   "tags": [
     "tree",
-    "depth-first-search"
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
   ],
   "hints": [
     "Consider how you would verify two trees match by checking their roots, then their children, and so on recursively.",

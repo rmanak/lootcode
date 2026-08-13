@@ -3,7 +3,8 @@
   "title": "Min Stack",
   "difficulty": "medium",
   "tags": [
-    "stack"
+    "stack",
+    "design"
   ],
   "hints": [
     "Focus on the getMin requirement: how can you track the minimum without scanning all elements every time?",

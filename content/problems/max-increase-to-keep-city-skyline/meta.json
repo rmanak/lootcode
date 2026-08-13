@@ -4,8 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "matrix",
-    "greedy"
+    "greedy",
+    "matrix"
   ],
   "hints": [
     "Calculate the maximum height for each row and each column to establish the skyline constraints.",

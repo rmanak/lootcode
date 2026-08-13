@@ -4,7 +4,9 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "sliding-window"
+    "binary-search",
+    "sliding-window",
+    "prefix-sum"
   ],
   "hints": [
     "Focus on maintaining a valid window of consecutive elements where the count of zeros stays within your flip limit.",

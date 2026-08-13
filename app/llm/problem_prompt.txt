@@ -65,17 +65,18 @@ Fields common to BOTH kinds:
 
   "tags"               array of 1-4 lowercase topic strings describing the core
                        technique/structure. Use ONLY this canonical vocabulary
-                       (39 tags):
+                       (44 tags):
                          array, backtracking, binary-indexed-tree, binary-search,
                          binary-search-tree, binary-tree, bit-manipulation,
                          bitmask, breadth-first-search, combinatorics, counting,
                          depth-first-search, design, divide-and-conquer,
-                         dynamic-programming, graph, greedy, hash-function,
-                         hash-set, hash-table, heap, linked-list, math, matrix,
-                         memoization, monotonic-stack, prefix-sum, queue,
-                         recursion, simulation, sliding-window, sorting, stack,
-                         string, suffix-array, tree, trie, two-pointers,
-                         union-find.
+                         dynamic-programming, geometry, graph, greedy,
+                         hash-function, hash-table, heap, linked-list, math,
+                         matrix, memoization, monotonic-stack, number-theory,
+                         ordered-set, prefix-sum, queue, recursion, segment-tree,
+                         shortest-path, simulation, sliding-window, sorting,
+                         stack, string, suffix-array, topological-sort, tree,
+                         trie, two-pointers, union-find.
                        Do NOT invent tags or use near-synonyms (use
                        "breadth-first-search" not "bfs", "queue" not
                        "monotonic-queue"). "math" is a catch-all umbrella — use it

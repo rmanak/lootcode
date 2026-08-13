@@ -4,7 +4,9 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "dynamic-programming"
+    "dynamic-programming",
+    "binary-indexed-tree",
+    "segment-tree"
   ],
   "hints": [
     "Consider computing the length of the longest increasing subsequence ending at each index. How does this help you count the total number of such subsequences?",

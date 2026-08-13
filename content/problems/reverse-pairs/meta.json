@@ -4,8 +4,12 @@
   "difficulty": "hard",
   "tags": [
     "array",
+    "binary-search",
+    "divide-and-conquer",
+    "binary-indexed-tree",
+    "segment-tree",
     "sorting",
-    "divide-and-conquer"
+    "ordered-set"
   ],
   "hints": [
     "Notice that the condition involves values, not just positions. How can you count pairs where a larger value precedes a smaller one efficiently?",

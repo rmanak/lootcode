@@ -4,7 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "hash-set"
+    "hash-table",
+    "union-find"
   ],
   "hints": [
     "Sorting helps find runs but is too slow. What data structure lets you check for the existence of a number in constant time?",

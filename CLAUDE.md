@@ -157,7 +157,7 @@ works for a fresh checkout.
   `python scripts/remove_problem.py <slug>` (or `<old>=<new>` to **deduplicate**,
   which points collection references at the surviving twin instead of shortening
   the list). `--dry-run` first. See `docs/removing-problems.md`.
-- **Tags:** use the canonical vocabulary only (39 tags). `app/tags.py` is the
+- **Tags:** use the canonical vocabulary only (44 tags). `app/tags.py` is the
   source of truth (`normalize_tags` runs on every content write); `specs/tags.md`
   is the prose taxonomy; the `canonical-tags` skill is the authoring workflow. If
   a problem fits no canonical tag, discuss adding one — don't invent it inline.

@@ -3,10 +3,10 @@
   "title": "Permutation in String",
   "difficulty": "medium",
   "tags": [
-    "string",
     "hash-table",
-    "sliding-window",
-    "two-pointers"
+    "two-pointers",
+    "string",
+    "sliding-window"
   ],
   "hints": [
     "Focus on character counts rather than order. A permutation matches if the frequency of each letter is identical.",

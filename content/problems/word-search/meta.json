@@ -3,9 +3,11 @@
   "title": "Word Search",
   "difficulty": "medium",
   "tags": [
+    "array",
+    "string",
     "backtracking",
-    "matrix",
-    "depth-first-search"
+    "depth-first-search",
+    "matrix"
   ],
   "hints": [
     "Start by trying to match the first character of the word at every cell in the board.",

@@ -25,12 +25,12 @@ from sqlalchemy.orm import Session
 
 from .models import Problem, Submission
 
-# "Units of work" a solve is worth, by difficulty. Each weekday is drawn as an
-# 8x2 grid of DAY_BLOCKS little blocks; a solve fills that many grey blocks with
+# "Units of work" a solve is worth, by difficulty. Each weekday is drawn as a
+# 6x2 grid of DAY_BLOCKS little blocks; a solve fills that many grey blocks with
 # a difficulty colour (easy 1 light-green, medium 4 yellow, hard 8 red). Anything
 # past a full day spills forward to pre-fill the next day(s).
 UNIT_WEIGHTS = {"easy": 1, "medium": 4, "hard": 8}
-DAY_BLOCKS = 16  # 8 rows x 2 columns
+DAY_BLOCKS = 12  # 6 rows x 2 columns
 
 
 def unsolved_counts(db: Session, skip_ids: set[int]) -> dict[str, int]:

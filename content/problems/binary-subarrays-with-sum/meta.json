@@ -5,8 +5,8 @@
   "tags": [
     "array",
     "hash-table",
-    "prefix-sum",
-    "sliding-window"
+    "sliding-window",
+    "prefix-sum"
   ],
   "hints": [
     "Since the array contains only 0s and 1s, the sum of any subarray is simply its count of 1s. How can you track these counts efficiently?",

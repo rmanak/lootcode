@@ -3,9 +3,10 @@
   "title": "Binary Tree Maximum Path Sum",
   "difficulty": "hard",
   "tags": [
+    "dynamic-programming",
     "tree",
     "depth-first-search",
-    "dynamic-programming"
+    "binary-tree"
   ],
   "hints": [
     "Consider a post-order traversal where each node computes the maximum gain it can contribute to its parent.",

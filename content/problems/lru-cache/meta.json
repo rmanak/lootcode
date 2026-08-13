@@ -4,7 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "hash-table",
-    "linked-list"
+    "linked-list",
+    "design"
   ],
   "hints": [
     "You need O(1) lookups and fast reordering of items based on access time.",

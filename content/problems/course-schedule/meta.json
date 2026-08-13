@@ -3,8 +3,10 @@
   "title": "Course Schedule",
   "difficulty": "medium",
   "tags": [
+    "depth-first-search",
+    "breadth-first-search",
     "graph",
-    "depth-first-search"
+    "topological-sort"
   ],
   "hints": [
     "Model the courses and prerequisites as a directed graph where edges point from prerequisite to dependent course.",

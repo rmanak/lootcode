@@ -3,6 +3,8 @@
   "title": "Hit Counter",
   "difficulty": "medium",
   "tags": [
+    "array",
+    "binary-search",
     "design",
     "queue"
   ],

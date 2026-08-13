@@ -3,9 +3,13 @@
   "title": "Evaluate Division Queries",
   "difficulty": "medium",
   "tags": [
-    "graph",
+    "array",
+    "string",
+    "depth-first-search",
+    "breadth-first-search",
     "union-find",
-    "depth-first-search"
+    "graph",
+    "shortest-path"
   ],
   "hints": [
     "Model the variables as nodes in a graph where equations define weighted directed edges.",

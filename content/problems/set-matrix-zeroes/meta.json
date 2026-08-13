@@ -4,8 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "matrix",
-    "hash-table"
+    "hash-table",
+    "matrix"
   ],
   "hints": [
     "Can you use the first row and first column of the matrix itself to store which rows and columns need zeroing?",

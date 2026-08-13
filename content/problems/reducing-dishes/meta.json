@@ -4,9 +4,9 @@
   "difficulty": "hard",
   "tags": [
     "array",
+    "dynamic-programming",
     "greedy",
-    "sorting",
-    "dynamic-programming"
+    "sorting"
   ],
   "hints": [
     "Does the order in which you cook the selected dishes matter for the total score? Try sorting the satisfaction array to simplify the decision of which dishes to keep.",

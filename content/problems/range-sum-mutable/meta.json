@@ -3,7 +3,9 @@
   "title": "Range Sum Query Mutable",
   "difficulty": "medium",
   "tags": [
-    "binary-indexed-tree"
+    "design",
+    "binary-indexed-tree",
+    "segment-tree"
   ],
   "hints": [
     "A naive scan for each query is too slow; consider a structure that supports fast range sums and point updates.",

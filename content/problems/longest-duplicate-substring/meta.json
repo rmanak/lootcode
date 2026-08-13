@@ -5,6 +5,7 @@
   "tags": [
     "string",
     "binary-search",
+    "sliding-window",
     "suffix-array",
     "hash-function"
   ],

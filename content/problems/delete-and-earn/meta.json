@@ -4,8 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "dynamic-programming",
-    "hash-table"
+    "hash-table",
+    "dynamic-programming"
   ],
   "hints": [
     "Consider the total points available for each distinct number in the input array.",

@@ -4,8 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "greedy",
-    "dynamic-programming"
+    "dynamic-programming",
+    "greedy"
   ],
   "hints": [
     "Think about the farthest index you can reach with k jumps, rather than tracking every possible path individually.",

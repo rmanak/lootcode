@@ -3,8 +3,8 @@
   "title": "Is Subsequence",
   "difficulty": "easy",
   "tags": [
-    "string",
     "two-pointers",
+    "string",
     "dynamic-programming"
   ],
   "hints": [

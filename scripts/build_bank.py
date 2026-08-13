@@ -67,7 +67,7 @@ def rotate(a, k):
 # ===========================================================================
 
 add("longest-consecutive-sequence", "Longest Consecutive Sequence", "medium",
-    ["array", "hash-set"], "longestConsecutive", [("nums", "int[]")], "int",
+    ["array", "hash-table", "union-find"], "longestConsecutive", [("nums", "int[]")], "int",
     """
 Given an unsorted array of integers `nums`, return the length of the longest
 sequence of consecutive integers (in value). Aim for `O(n)` time.
@@ -96,7 +96,7 @@ sequence of consecutive integers (in value). Aim for `O(n)` time.
     source="file")
 
 add("longest-substring-without-repeating", "Longest Substring Without Repeating Characters",
-    "medium", ["string", "sliding-window", "hash-table"], "lengthOfLongestSubstring",
+    "medium", ["hash-table", "string", "sliding-window"], "lengthOfLongestSubstring",
     [("s", "string")], "int",
     """
 Given a string `s`, return the length of the longest substring without repeating
@@ -123,7 +123,7 @@ characters.
             ({"s": ""}, 0)], source="file")
 
 add("longest-palindromic-substring", "Longest Palindromic Substring", "medium",
-    ["string", "dynamic-programming"], "longestPalindrome", [("s", "string")], "string",
+    ["two-pointers", "string", "dynamic-programming"], "longestPalindrome", [("s", "string")], "string",
     """
 Given a string `s`, return the longest palindromic substring. If several have the
 same maximal length, return the one that **starts at the smallest index**.
@@ -154,7 +154,7 @@ same maximal length, return the one that **starts at the smallest index**.
     source="file")
 
 add("palindromic-substrings", "Palindromic Substrings", "medium",
-    ["string", "dynamic-programming"], "countSubstrings", [("s", "string")], "int",
+    ["two-pointers", "string", "dynamic-programming"], "countSubstrings", [("s", "string")], "int",
     """
 Given a string `s`, return the number of palindromic substrings (contiguous,
 counted by position).
@@ -211,7 +211,8 @@ most water. Return that maximum area.
     checks=[({"height": [1, 8, 6, 2, 5, 4, 8, 3, 7]}, 49), ({"height": [1, 1]}, 1)],
     source="file")
 
-add("word-break", "Word Break", "medium", ["string", "dynamic-programming"],
+add("word-break", "Word Break", "medium", ["array", "hash-table", "string",
+    "dynamic-programming", "trie", "memoization"],
     "wordBreak", [("s", "string"), ("wordDict", "string[]")], "bool",
     """
 Given a string `s` and a list `wordDict`, return `true` if `s` can be segmented
@@ -264,7 +265,8 @@ number in that range missing from the array.
     checks=[({"nums": [3, 0, 1]}, 2), ({"nums": [0, 1]}, 2),
             ({"nums": [9, 6, 4, 2, 3, 5, 7, 0, 1]}, 8)], source="file")
 
-add("reorder-list", "Reorder List", "medium", ["linked-list", "two-pointers"],
+add("reorder-list", "Reorder List", "medium", ["linked-list", "two-pointers", "stack",
+    "recursion"],
     "reorderList", [("head", "int[]")], "int[]",
     """
 A list `L0 -> L1 -> ... -> Ln` (given as an array of its values) should be
@@ -314,7 +316,7 @@ from the end and return the remaining values.
     checks=[({"head": [1, 2, 3, 4, 5], "n": 2}, [1, 2, 3, 5]),
             ({"head": [1], "n": 1}, [])], source="file")
 
-add("valid-parentheses", "Valid Parentheses", "easy", ["stack", "string"],
+add("valid-parentheses", "Valid Parentheses", "easy", ["string", "stack"],
     "isValid", [("s", "string")], "bool",
     """
 Given a string `s` of just `()[]{}`, return `true` if every bracket is closed by
@@ -341,7 +343,8 @@ the same type in the correct order.
     checks=[({"s": "()[]{}"}, True), ({"s": "(]"}, False), ({"s": "([)]"}, False)],
     source="file")
 
-add("merge-two-sorted-lists", "Merge Two Sorted Lists", "easy", ["linked-list"],
+add("merge-two-sorted-lists", "Merge Two Sorted Lists", "easy", ["linked-list",
+    "recursion"],
     "mergeTwoLists", [("list1", "int[]"), ("list2", "int[]")], "int[]",
     """
 Merge two ascending lists (given as arrays) into one sorted list of their values.
@@ -373,7 +376,7 @@ Merge two ascending lists (given as arrays) into one sorted list of their values
     checks=[({"list1": [1, 2, 4], "list2": [1, 3, 4]}, [1, 1, 2, 3, 4, 4])], source="file")
 
 add("merge-k-sorted-lists", "Merge k Sorted Lists", "hard",
-    ["linked-list", "heap", "divide-and-conquer"], "mergeKLists",
+    ["linked-list", "divide-and-conquer", "heap", "sorting"], "mergeKLists",
     [("lists", "int[][]")], "int[]",
     """
 Given `k` ascending lists (as an array of arrays), merge them into one sorted
@@ -497,7 +500,7 @@ of `target`, or `-1`. Use `O(log n)` time.
             ({"nums": [4, 5, 6, 7, 0, 1, 2], "target": 3}, -1)], source="file")
 
 add("pacific-atlantic-water-flow", "Pacific Atlantic Water Flow", "medium",
-    ["graph", "depth-first-search", "matrix"], "pacificAtlantic",
+    ["array", "depth-first-search", "breadth-first-search", "matrix"], "pacificAtlantic",
     [("heights", "int[][]")], "int[][]",
     """
 On an `m x n` grid of heights, the Pacific touches the top/left edges and the
@@ -540,7 +543,7 @@ order** (each cell stays as `[row, col]`).
              [[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]]),
             ({"heights": [[1]]}, [[0, 0]])], source="file")
 
-add("combination-sum", "Combination Sum", "medium", ["backtracking", "array"],
+add("combination-sum", "Combination Sum", "medium", ["array", "backtracking"],
     "combinationSum", [("candidates", "int[]"), ("target", "int")], "int[][]",
     """
 Given distinct positive integers `candidates` and a `target`, return all unique
@@ -583,7 +586,7 @@ the numbers within each combination — may be in **any order**.
 # Additional similar problems (same techniques / difficulty)
 # ===========================================================================
 
-add("contains-duplicate", "Contains Duplicate", "easy", ["array", "hash-set"],
+add("contains-duplicate", "Contains Duplicate", "easy", ["array", "hash-table"],
     "containsDuplicate", [("nums", "int[]")], "bool",
     """
 Return `true` if any value appears at least twice in `nums`, else `false`.
@@ -601,7 +604,7 @@ Return `true` if any value appears at least twice in `nums`, else `false`.
                           for j in range(i + 1, len(nums))),
     checks=[({"nums": [1, 2, 3, 1]}, True), ({"nums": [1, 2, 3, 4]}, False)])
 
-add("valid-anagram", "Valid Anagram", "easy", ["string", "hash-table", "sorting"],
+add("valid-anagram", "Valid Anagram", "easy", ["hash-table", "string", "sorting"],
     "isAnagram", [("s", "string"), ("t", "string")], "bool",
     """
 Return `true` if `t` is an anagram of `s` (same letters, same counts).
@@ -618,7 +621,8 @@ Return `true` if `t` is an anagram of `s` (same letters, same counts).
     brute=lambda s, t: sorted(s) == sorted(t),
     checks=[({"s": "anagram", "t": "nagaram"}, True), ({"s": "rat", "t": "car"}, False)])
 
-add("group-anagrams", "Group Anagrams", "medium", ["string", "hash-table", "sorting"],
+add("group-anagrams", "Group Anagrams", "medium", ["array", "hash-table", "string",
+    "sorting"],
     "groupAnagrams", [("strs", "string[]")], "string[][]",
     """
 Group the words that are anagrams of one another. The groups — and the words
@@ -643,7 +647,7 @@ within each group — may be in **any order**.
             ({"strs": ["a"]}, [["a"]])])
 
 add("top-k-frequent-elements", "Top K Frequent Elements", "medium",
-    ["array", "hash-table", "heap"], "topKFrequent",
+    ["array", "hash-table", "divide-and-conquer", "sorting", "heap", "counting"], "topKFrequent",
     [("nums", "int[]"), ("k", "int")], "int[]",
     """
 Return the `k` most frequent values in `nums`, in **any order**. If two values
@@ -715,7 +719,7 @@ profit; return that profit (or `0` if impossible).
                                     for j in range(i + 1, len(prices))]),
     checks=[({"prices": [7, 1, 5, 3, 6, 4]}, 5), ({"prices": [7, 6, 4, 3, 1]}, 0)])
 
-add("valid-palindrome", "Valid Palindrome", "easy", ["string", "two-pointers"],
+add("valid-palindrome", "Valid Palindrome", "easy", ["two-pointers", "string"],
     "isPalindrome", [("s", "string")], "bool",
     """
 Return `true` if `s` reads the same forwards and backwards, considering only
@@ -804,7 +808,7 @@ or `-1`. Use `O(log n)` time.
     checks=[({"nums": [-1, 0, 3, 5, 9, 12], "target": 9}, 4),
             ({"nums": [-1, 0, 3, 5, 9, 12], "target": 2}, -1)])
 
-add("climbing-stairs", "Climbing Stairs", "easy", ["dynamic-programming", "math"],
+add("climbing-stairs", "Climbing Stairs", "easy", ["dynamic-programming", "memoization"],
     "climbStairs", [("n", "int")], "int",
     """
 You climb 1 or 2 steps at a time. Return the number of distinct ways to reach the
@@ -823,7 +827,8 @@ top of `n` steps.
     gen=lambda r: [{"n": r.randint(1, 25)} for _ in range(4)],
     checks=[({"n": 2}, 2), ({"n": 3}, 3), ({"n": 1}, 1), ({"n": 5}, 8)])
 
-add("coin-change", "Coin Change", "medium", ["dynamic-programming", "array"],
+add("coin-change", "Coin Change", "medium", ["array", "dynamic-programming",
+    "breadth-first-search"],
     "coinChange", [("coins", "int[]"), ("amount", "int")], "int",
     """
 Given coin denominations `coins` and an `amount`, return the fewest coins needed
@@ -848,7 +853,7 @@ to make `amount`, or `-1` if impossible. Each coin may be reused.
     checks=[({"coins": [1, 2, 5], "amount": 11}, 3), ({"coins": [2], "amount": 3}, -1),
             ({"coins": [1], "amount": 0}, 0)])
 
-add("house-robber", "House Robber", "medium", ["dynamic-programming", "array"],
+add("house-robber", "House Robber", "medium", ["array", "dynamic-programming"],
     "rob", [("nums", "int[]")], "int",
     """
 Houses in a row hold `nums[i]` money; you can't rob two adjacent houses. Return
@@ -870,7 +875,7 @@ the maximum you can rob.
     checks=[({"nums": [1, 2, 3, 1]}, 4), ({"nums": [2, 7, 9, 3, 1]}, 12)])
 
 add("maximum-subarray", "Maximum Subarray", "medium",
-    ["array", "dynamic-programming", "divide-and-conquer"], "maxSubArray",
+    ["array", "divide-and-conquer", "dynamic-programming"], "maxSubArray",
     [("nums", "int[]")], "int",
     """
 Return the largest sum of any contiguous subarray of `nums` (Kadane's algorithm).
@@ -1072,7 +1077,7 @@ def _b_unique(m, n):
 
 
 add("longest-repeating-character-replacement", "Longest Repeating Character Replacement",
-    "medium", ["string", "sliding-window"], "characterReplacement",
+    "medium", ["hash-table", "string", "sliding-window"], "characterReplacement",
     [("s", "string"), ("k", "int")], "int",
     """
 You are given a string `s` of uppercase English letters and an integer `k`. You may
@@ -1118,7 +1123,7 @@ Explanation: Replace the middle `A` with `B` to get `"AABBBBA"`; the run `"BBBB"
     checks=[({"s": "ABAB", "k": 2}, 4), ({"s": "AABABBA", "k": 1}, 4)])
 
 add("longest-increasing-subsequence", "Longest Increasing Subsequence", "medium",
-    ["array", "dynamic-programming", "binary-search"], "lengthOfLIS",
+    ["array", "binary-search", "dynamic-programming"], "lengthOfLIS",
     [("nums", "int[]")], "int",
     """
 Given an integer array `nums`, return **the length of the longest strictly
@@ -1213,7 +1218,7 @@ Output: `[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]`
             [[15, 13, 2, 5], [14, 3, 4, 1], [12, 6, 8, 9], [16, 7, 10, 11]])})
 
 add("non-overlapping-intervals", "Non-overlapping Intervals", "medium",
-    ["array", "greedy", "sorting"], "eraseOverlapIntervals", [("intervals", "int[][]")],
+    ["array", "dynamic-programming", "greedy", "sorting"], "eraseOverlapIntervals", [("intervals", "int[][]")],
     "int",
     """
 Given an array `intervals` where `intervals[i] = [start_i, end_i]`, return **the
@@ -1322,7 +1327,7 @@ Output: `[1,2,3,4,8,12,11,10,9,5,6,7]`
         "example-2.svg": figures.spiral_matrix_svg(
             [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])})
 
-add("jump-game", "Jump Game", "medium", ["array", "greedy", "dynamic-programming"],
+add("jump-game", "Jump Game", "medium", ["array", "dynamic-programming", "greedy"],
     "canJump", [("nums", "int[]")], "bool",
     """
 You start at index `0` of an integer array `nums`; `nums[i]` is the maximum jump
@@ -1579,7 +1584,7 @@ Explanation: Down-Down-Right, Down-Right-Down, and Right-Down-Down.
     checks=[({"m": 3, "n": 7}, 28), ({"m": 3, "n": 2}, 3), ({"m": 1, "n": 1}, 1)],
     assets={"example-1.svg": figures.unique_paths_svg(3, 7)})
 
-add("reverse-bits", "Reverse Bits", "easy", ["bit-manipulation", "divide-and-conquer"],
+add("reverse-bits", "Reverse Bits", "easy", ["divide-and-conquer", "bit-manipulation"],
     "reverseBits", [("n", "int")], "int",
     """
 Given a 32-bit unsigned integer `n`, **reverse the order of its 32 bits and return
@@ -1613,7 +1618,7 @@ Explanation: `01111111111111111111111111111100` reversed is
     checks=[({"n": 43261596}, 964176192), ({"n": 2147483644}, 1073741822)])
 
 add("number-of-1-bits", "Number of 1 Bits", "easy",
-    ["bit-manipulation", "divide-and-conquer"], "hammingWeight", [("n", "int")], "int",
+    ["divide-and-conquer", "bit-manipulation"], "hammingWeight", [("n", "int")], "int",
     """
 Given a positive integer `n`, return **the number of set bits (`1`s) in its binary
 representation** — the Hamming weight.
@@ -2212,7 +2217,7 @@ def _gen_lca_bst(r):
 
 
 add("number-of-islands", "Number of Islands", "medium",
-    ["graph", "matrix", "depth-first-search", "union-find"], "numIslands",
+    ["array", "depth-first-search", "breadth-first-search", "union-find", "matrix"], "numIslands",
     [("grid", "string[][]")], "int",
     """
 Given an `m x n` 2D binary grid `grid` of `'1'`s (land) and `'0'`s (water), return
@@ -2279,7 +2284,7 @@ Output: `3`
     })
 
 add("set-matrix-zeroes", "Set Matrix Zeroes", "medium",
-    ["array", "matrix", "hash-table"], "setZeroes", [("matrix", "int[][]")], "int[][]",
+    ["array", "hash-table", "matrix"], "setZeroes", [("matrix", "int[][]")], "int[][]",
     """
 Given an `m x n` integer matrix, if an element is `0`, set its **entire row and
 column** to `0`. Do it in place and **return the modified matrix**.
@@ -2331,7 +2336,7 @@ Output: `[[0,0,0,0],[0,4,5,0],[0,3,1,0]]`
     })
 
 add("minimum-window-substring", "Minimum Window Substring", "hard",
-    ["string", "sliding-window", "hash-table"], "minWindow",
+    ["hash-table", "string", "sliding-window"], "minWindow",
     [("s", "string"), ("t", "string")], "string",
     """
 Given strings `s` and `t`, return **the shortest substring of `s` that contains
@@ -2417,7 +2422,7 @@ Output: `[]`
             ({"head": []}, [])])
 
 add("word-search", "Word Search", "medium",
-    ["backtracking", "matrix", "depth-first-search"], "exist",
+    ["array", "string", "backtracking", "depth-first-search", "matrix"], "exist",
     [("board", "string[][]"), ("word", "string")], "bool",
     """
 Given an `m x n` grid of characters `board` and a string `word`, return **`true`
@@ -2487,7 +2492,7 @@ Explanation: the second `B` would reuse the only `B` cell.
     })
 
 add("course-schedule", "Course Schedule", "medium",
-    ["graph", "topological-sort", "depth-first-search"], "canFinish",
+    ["depth-first-search", "breadth-first-search", "graph", "topological-sort"], "canFinish",
     [("numCourses", "int"), ("prerequisites", "int[][]")], "bool",
     """
 There are `numCourses` courses labelled `0` to `numCourses - 1`. Each
@@ -2566,7 +2571,7 @@ Explanation: `3 = 11` has two set bits, `5 = 101` has two.
     checks=[({"n": 2}, [0, 1, 1]), ({"n": 5}, [0, 1, 1, 2, 1, 2])])
 
 add("word-search-ii", "Word Search II", "hard",
-    ["trie", "backtracking", "matrix"], "findWords",
+    ["array", "string", "backtracking", "trie", "matrix"], "findWords",
     [("board", "string[][]"), ("words", "string[]")], "string[]",
     """
 Given an `m x n` `board` of lowercase letters and a list of `words`, return
@@ -2714,7 +2719,7 @@ Explanation: a leading zero is invalid.
             ({"s": "11106"}, 2), ({"s": "100"}, 0)])
 
 add("validate-binary-search-tree", "Validate Binary Search Tree", "medium",
-    ["tree", "binary-search-tree", "depth-first-search"], "isValidBST",
+    ["tree", "depth-first-search", "binary-search-tree", "binary-tree"], "isValidBST",
     [("root", "int[]")], "bool",
     """
 Given the level-order array `root` of a binary tree (`null`/`None` marks a missing
@@ -2777,7 +2782,7 @@ Explanation: the right child `4` is smaller than the root `5`.
             ({"root": [5, 4, 6, None, None, 3, 7]}, False)])
 
 add("invert-binary-tree", "Invert Binary Tree", "easy",
-    ["tree", "depth-first-search", "breadth-first-search"], "invertTree",
+    ["tree", "depth-first-search", "breadth-first-search", "binary-tree"], "invertTree",
     [("root", "int[]")], "int[]",
     """
 Given the level-order array `root` of a binary tree, invert it (mirror every
@@ -2854,7 +2859,8 @@ Output: `[]`
             [4, 2, 7, 1, 3, 6, 9], [4, 7, 2, 9, 6, 3, 1]),
     })
 
-add("same-tree", "Same Tree", "easy", ["tree", "depth-first-search"], "isSameTree",
+add("same-tree", "Same Tree", "easy", ["tree", "depth-first-search",
+    "breadth-first-search", "binary-tree"], "isSameTree",
     [("p", "int[]"), ("q", "int[]")], "bool",
     """
 Given the level-order arrays `p` and `q` of two binary trees, return **`true` if
@@ -2959,7 +2965,7 @@ Output: `0`
             ({"text1": "abc", "text2": "def"}, 0)])
 
 add("binary-tree-level-order-traversal", "Binary Tree Level Order Traversal",
-    "medium", ["tree", "breadth-first-search"], "levelOrder",
+    "medium", ["tree", "breadth-first-search", "binary-tree"], "levelOrder",
     [("root", "int[]")], "int[][]",
     """
 Given the level-order array `root` of a binary tree, return **its level-order
@@ -3027,7 +3033,7 @@ Output: `[]`
             ({"root": [1]}, [[1]]), ({"root": []}, [])])
 
 add("kth-smallest-element-in-a-bst", "Kth Smallest Element in a BST", "medium",
-    ["tree", "binary-search-tree", "depth-first-search"], "kthSmallest",
+    ["tree", "depth-first-search", "binary-search-tree", "binary-tree"], "kthSmallest",
     [("root", "int[]"), ("k", "int")], "int",
     """
 Given the level-order array `root` of a binary search tree and an integer `k`,
@@ -3088,7 +3094,7 @@ Output: `3`
             ({"root": [5, 3, 6, 2, 4, None, None, 1], "k": 3}, 3)])
 
 add("maximum-depth-of-binary-tree", "Maximum Depth of Binary Tree", "easy",
-    ["tree", "depth-first-search", "breadth-first-search"], "maxDepth",
+    ["tree", "depth-first-search", "breadth-first-search", "binary-tree"], "maxDepth",
     [("root", "int[]")], "int",
     """
 Given the level-order array `root` of a binary tree, return **its maximum depth**
@@ -3144,7 +3150,7 @@ Output: `2`
 
 add("construct-binary-tree-from-preorder-and-inorder-traversal",
     "Construct Binary Tree from Preorder and Inorder Traversal", "medium",
-    ["tree", "array", "divide-and-conquer"], "buildTree",
+    ["array", "hash-table", "divide-and-conquer", "tree", "binary-tree"], "buildTree",
     [("preorder", "int[]"), ("inorder", "int[]")], "int[]",
     """
 Given `preorder` and `inorder` traversals of a binary tree with **unique** values,
@@ -3217,7 +3223,7 @@ Output: `[-1]`
 
 add("lowest-common-ancestor-of-a-binary-tree",
     "Lowest Common Ancestor of a Binary Tree", "medium",
-    ["tree", "depth-first-search"], "lowestCommonAncestor",
+    ["tree", "depth-first-search", "binary-tree"], "lowestCommonAncestor",
     [("root", "int[]"), ("p", "int"), ("q", "int")], "int",
     """
 Given the level-order array `root` of a binary tree and two values `p` and `q`
@@ -3328,7 +3334,7 @@ Output: `5`
             ({"a": -2, "b": -3}, -5)])
 
 add("binary-tree-maximum-path-sum", "Binary Tree Maximum Path Sum", "hard",
-    ["tree", "depth-first-search", "dynamic-programming"], "maxPathSum",
+    ["dynamic-programming", "tree", "depth-first-search", "binary-tree"], "maxPathSum",
     [("root", "int[]")], "int",
     """
 A path is a sequence of nodes connected by edges, each used at most once; it need
@@ -3556,7 +3562,7 @@ Output: `[]`
             ({"nums": [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]}, [0, 1, 2, 3, 4])])
 
 add("rotate-array", "Rotate Array Right", "medium",
-    ["array", "math"], "rotateArray", [("nums", "int[]"), ("k", "int")], "int[]",
+    ["array", "two-pointers"], "rotateArray", [("nums", "int[]"), ("k", "int")], "int[]",
     """
 Given an array `nums` and a non-negative integer `k`, rotate the array to the
 **right** by `k` positions and return **the resulting array**. Rotations wrap
@@ -3667,7 +3673,7 @@ Output: `[]`
     checks=[({"nums": [2, 4, 6]}, [2.0, 3.0, 4.0]), ({"nums": [1, 2]}, [1.0, 1.5])])
 
 add("find-duplicate-number", "Find Duplicate Number", "medium",
-    ["array", "two-pointers", "binary-search"], "findDuplicate", [("nums", "int[]")], "int",
+    ["array", "two-pointers", "binary-search", "bit-manipulation"], "findDuplicate", [("nums", "int[]")], "int",
     """
 Given an array `nums` of `n+1` integers where each value is in the range `[1, n]`,
 exactly one value is repeated (possibly more than once). Return **the repeated
@@ -3830,7 +3836,7 @@ Output: `1`
     checks=[({"nums": [1, 1, 1], "k": 2}, 2), ({"nums": [1, 2, 3], "k": 3}, 2)])
 
 add("minimum-size-subarray-sum", "Minimum Size Subarray Sum", "medium",
-    ["array", "two-pointers", "sliding-window"], "minSubArrayLen",
+    ["array", "binary-search", "sliding-window", "prefix-sum"], "minSubArrayLen",
     [("target", "int"), ("nums", "int[]")], "int",
     """
 Given an array of **positive** integers `nums` and an integer `target`, return
@@ -3988,7 +3994,7 @@ Output: `[0,0,0]`
     checks=[({"temperatures": [73, 74, 75, 71, 69, 72, 76, 73]}, [1, 1, 4, 2, 1, 1, 0, 0])])
 
 add("evaluate-reverse-polish-notation", "Evaluate Reverse Polish Notation", "medium",
-    ["stack", "math"], "evalRPN", [("tokens", "string[]")], "int",
+    ["array", "stack"], "evalRPN", [("tokens", "string[]")], "int",
     """
 Given `tokens` representing an arithmetic expression in Reverse Polish Notation,
 evaluate it and return **the integer result**. Valid operators are `+`, `-`, `*`,
@@ -4083,7 +4089,7 @@ Output: `4`
     checks=[({"heights": [2, 1, 5, 6, 2, 3]}, 10), ({"heights": [2, 4]}, 4)])
 
 add("sliding-window-maximum", "Sliding Window Maximum", "hard",
-    ["array", "sliding-window", "monotonic-queue"], "maxSlidingWindow",
+    ["array", "queue", "sliding-window", "heap"], "maxSlidingWindow",
     [("nums", "int[]"), ("k", "int")], "int[]",
     """
 Given an array `nums` and a window size `k`, return **an array of the maximum
@@ -4170,7 +4176,7 @@ Output: `[1,5,1]`
     checks=[({"nums": [1, 2, 3]}, [1, 3, 2]), ({"nums": [3, 2, 1]}, [1, 2, 3])])
 
 add("string-compression", "String Compression", "easy",
-    ["string", "two-pointers"], "compress", [("chars", "string")], "string",
+    ["two-pointers", "string"], "compress", [("chars", "string")], "string",
     """
 Given a string `chars`, compress it by replacing each maximal run of a repeated
 character with that character followed by the run length **when the run length is
@@ -4371,7 +4377,7 @@ Output: `4`
             ({"tasks": ["A", "B", "C", "D"], "n": 2}, 4)])
 
 add("meeting-rooms-required", "Meeting Rooms Required", "medium",
-    ["intervals", "sorting", "heap"], "minMeetingRooms", [("intervals", "int[][]")], "int",
+    ["array", "two-pointers", "greedy", "sorting", "heap", "prefix-sum"], "minMeetingRooms", [("intervals", "int[][]")], "int",
     """
 Given meeting time intervals `[start, end)` (half-open), return **the minimum
 number of rooms** required so that no two meetings sharing a room overlap. A
@@ -4414,7 +4420,7 @@ Output: `1`
             ({"intervals": [[7, 10], [2, 4]]}, 1)])
 
 add("employee-free-time", "Employee Free Time", "hard",
-    ["intervals", "sorting"], "employeeFreeTime", [("schedule", "int[][][]")], "int[][]",
+    ["array", "sorting", "heap"], "employeeFreeTime", [("schedule", "int[][][]")], "int[][]",
     """
 Each employee has a list of non-overlapping working intervals `[start, end]`,
 sorted by start. Return **the finite intervals of time, sorted, during which every
@@ -4634,7 +4640,7 @@ Explanation: the empty combination.
     checks=[({"amount": 5, "coins": [1, 2, 5]}, 4), ({"amount": 3, "coins": [2]}, 0)])
 
 add("partition-equal-subset-sum", "Partition Equal Subset Sum", "medium",
-    ["dynamic-programming", "array"], "canPartition", [("nums", "int[]")], "bool",
+    ["array", "dynamic-programming"], "canPartition", [("nums", "int[]")], "bool",
     """
 Given an array of positive integers `nums`, return **`true` if it can be split
 into two subsets with equal sum**, and `false` otherwise.
@@ -4964,7 +4970,7 @@ Explanation: a strictly increasing array peaks at its last index.
     checks=[({"nums": [1, 3, 5, 4, 2]}, 2), ({"nums": [10]}, 0)])
 
 add("kth-largest-element", "Kth Largest Element", "medium",
-    ["array", "heap", "sorting"], "findKthLargest",
+    ["array", "divide-and-conquer", "sorting", "heap"], "findKthLargest",
     [("nums", "int[]"), ("k", "int")], "int",
     """
 Given an integer array `nums` and an integer `k`, return **the `k`-th largest
@@ -5000,7 +5006,7 @@ Output: `1`
             ({"nums": [3, 2, 3, 1, 2, 4, 5, 5, 6], "k": 4}, 4)])
 
 add("median-of-two-sorted-arrays", "Median of Two Sorted Arrays", "hard",
-    ["array", "binary-search"], "findMedianSortedArrays",
+    ["array", "binary-search", "divide-and-conquer"], "findMedianSortedArrays",
     [("nums1", "int[]"), ("nums2", "int[]")], "num",
     """
 Given two sorted arrays `nums1` and `nums2`, return **the median of all the
@@ -5209,7 +5215,7 @@ def _lb_brute_binmatrix(grid):
 
 
 add("max-area-of-island", "Max Area of Island", "medium",
-    ["matrix", "dfs", "bfs", "union-find"], "maxAreaOfIsland", [("grid", "int[][]")], "int",
+    ["array", "depth-first-search", "breadth-first-search", "union-find", "matrix"], "maxAreaOfIsland", [("grid", "int[][]")], "int",
     """
 Given a binary grid where `1` is land and `0` is water, an **island** is a group
 of `1`s connected 4-directionally. Return **the number of cells in the largest
@@ -5261,7 +5267,7 @@ Output: `1`
             ({"grid": [[0, 0], [0, 0]]}, 0)])
 
 add("rotting-oranges", "Rotting Oranges", "medium",
-    ["matrix", "bfs"], "orangesRotting", [("grid", "int[][]")], "int",
+    ["array", "breadth-first-search", "matrix"], "orangesRotting", [("grid", "int[][]")], "int",
     """
 In a grid each cell is `0` (empty), `1` (fresh orange), or `2` (rotten orange).
 Every minute, any fresh orange adjacent (4-directionally) to a rotten orange
@@ -5316,7 +5322,7 @@ Output: `0`
             ({"grid": [[2, 1, 1], [0, 1, 1], [1, 0, 1]]}, -1)])
 
 add("shortest-path-in-binary-matrix", "Shortest Path in Binary Matrix", "medium",
-    ["matrix", "bfs"], "shortestPathBinaryMatrix", [("grid", "int[][]")], "int",
+    ["array", "breadth-first-search", "matrix"], "shortestPathBinaryMatrix", [("grid", "int[][]")], "int",
     """
 Given an `n x n` binary grid where `0` is open and `1` is blocked, return **the
 length (number of cells) of the shortest clear path** from the top-left cell to
@@ -5662,7 +5668,8 @@ Explanation: the two courses depend on each other.
             ({"numCourses": 2, "prerequisites": [[0, 1], [1, 0]]}, [])])
 
 add("alien-dictionary-order", "Alien Dictionary Order", "hard",
-    ["graph", "topological-sort", "string"], "alienOrder", [("words", "string[]")], "string",
+    ["array", "string", "depth-first-search", "breadth-first-search", "graph",
+    "topological-sort"], "alienOrder", [("words", "string[]")], "string",
     """
 Given a list of `words` sorted lexicographically by the rules of an unknown
 alphabet, derive **a possible character order** as a string. If several orders are
@@ -5770,7 +5777,7 @@ Output: `true`
             ({"graph": [[1, 2, 3], [0, 2], [0, 1, 3], [0, 2]]}, False)])
 
 add("network-delay-time", "Network Delay Time", "medium",
-    ["graph", "shortest-path", "heap"], "networkDelayTime",
+    ["depth-first-search", "breadth-first-search", "graph", "heap", "shortest-path"], "networkDelayTime",
     [("times", "int[][]"), ("n", "int"), ("k", "int")], "int",
     """
 A network has `n` nodes labelled `1..n`. Each `times[i] = [u, v, w]` is a directed
@@ -6056,7 +6063,8 @@ def _lb_brute_compact(samples):
 
 
 add("accounts-merge", "Accounts Merge", "medium",
-    ["union-find", "hash-table", "graph"], "accountsMerge", [("accounts", "string[][]")],
+    ["array", "hash-table", "string", "depth-first-search", "breadth-first-search",
+    "union-find", "sorting"], "accountsMerge", [("accounts", "string[][]")],
     "string[][]",
     """
 Each entry in `accounts` is `[name, email1, email2, ...]`. Two accounts belong to
@@ -6151,7 +6159,7 @@ Output: `[["a","c"],["b","d"]]`
             ({"files": [["a", "x"]]}, [])])
 
 add("web-crawler-same-host", "Web Crawler Same Host", "medium",
-    ["graph", "bfs", "string"], "crawl",
+    ["string", "depth-first-search", "breadth-first-search"], "crawl",
     [("startUrl", "string"), ("graph", "object")], "string[]",
     """
 Starting from `startUrl`, you may follow links given by `graph` (a map from a URL
@@ -6273,7 +6281,7 @@ Output: `0`
             ({"root": [4, 2, 7, 1, 3, 6, 9]}, 4)])
 
 add("linked-list-cycle", "Linked List Cycle", "easy",
-    ["linked-list", "two-pointers"], "hasCycle",
+    ["hash-table", "linked-list", "two-pointers"], "hasCycle",
     [("head", "int[]"), ("pos", "int")], "bool",
     """
 A singly linked list is given as the value array `head`, plus an integer `pos`:
@@ -6480,7 +6488,7 @@ def _lb_brute_skyline(buildings):
 
 
 add("subsets", "Subsets", "medium",
-    ["backtracking", "bit-manipulation", "array"], "subsets", [("nums", "int[]")], "int[][]",
+    ["array", "backtracking", "bit-manipulation"], "subsets", [("nums", "int[]")], "int[][]",
     """
 Given an array `nums` of **distinct** integers, return **all possible subsets**
 (the power set). The solution set must not contain duplicate subsets, and may be
@@ -6513,7 +6521,7 @@ Output: `[[],[0]]`
     checks=[({"nums": []}, [[]]), ({"nums": [0]}, [[], [0]])])
 
 add("permutations", "Permutations", "medium",
-    ["backtracking", "array"], "permute", [("nums", "int[]")], "int[][]",
+    ["array", "backtracking"], "permute", [("nums", "int[]")], "int[][]",
     """
 Given an array `nums` of **distinct** integers, return **all possible orderings**
 (permutations) of its elements. The list of permutations may be returned in any
@@ -6544,7 +6552,7 @@ Output: `[[0,1],[1,0]]`
     checks=[({"nums": [1]}, [[1]]), ({"nums": [0, 1]}, [[0, 1], [1, 0]])])
 
 add("generate-parentheses", "Generate Parentheses", "medium",
-    ["backtracking", "string"], "generateParenthesis", [("n", "int")], "string[]",
+    ["string", "dynamic-programming", "backtracking"], "generateParenthesis", [("n", "int")], "string[]",
     """
 Given `n` pairs of parentheses, return **all combinations of well-formed
 parentheses** of length `2n`. The combinations may be returned in any order.
@@ -6585,7 +6593,7 @@ Output: `[""]`
     checks=[({"n": 1}, ["()"]), ({"n": 0}, [""])])
 
 add("n-queens", "N Queens", "hard",
-    ["backtracking"], "solveNQueens", [("n", "int")], "string[][]",
+    ["array", "backtracking"], "solveNQueens", [("n", "int")], "string[][]",
     """
 Place `n` queens on an `n x n` board so that no two attack each other (no shared
 row, column, or diagonal). Return **all distinct solutions**; each solution is a
@@ -6861,7 +6869,7 @@ Output: `[null,null,1,null,1]`
              [None, None, None, -3, None, 0, -2])])
 
 add("lru-cache", "LRU Cache", "medium",
-    ["design", "hash-table", "linked-list"], "lruCache",
+    ["hash-table", "linked-list", "design"], "lruCache",
     [("capacity", "int"), ("operations", "any[][]")], "any[]",
     """
 Implement a Least-Recently-Used cache of the given `capacity` by replaying
@@ -6924,7 +6932,7 @@ Output: `[-1]`
              [None, None, 1, None, -1, None, -1, 3, 4])])
 
 add("lfu-cache", "LFU Cache", "hard",
-    ["design", "hash-table"], "lfuCache",
+    ["hash-table", "linked-list", "design"], "lfuCache",
     [("capacity", "int"), ("operations", "any[][]")], "any[]",
     """
 Implement a Least-Frequently-Used cache of the given `capacity` by replaying
@@ -7271,7 +7279,7 @@ Explanation: No cell holds `4`.
             ({"matrix": [[1, 3, 5], [7, 9, 11]], "target": 4}, False)])
 
 add("minimum-falling-path-sum", "Minimum Falling Path Sum", "medium",
-    ["matrix", "dynamic-programming"], "minFallingPathSum",
+    ["array", "dynamic-programming", "matrix"], "minFallingPathSum",
     [("matrix", "int[][]")], "int",
     """
 A falling path starts at any cell in the top row and chooses one cell per row,
@@ -7377,7 +7385,7 @@ Explanation: Every land cell already touches the boundary.
         "1 = land, 0 = sea")})
 
 add("surrounded-regions", "Surrounded Regions", "medium",
-    ["matrix", "graph", "flood-fill"], "solve",
+    ["array", "depth-first-search", "breadth-first-search", "union-find", "matrix"], "solve",
     [("board", "string[][]")], "string[][]",
     """
 `board` holds the letters `"X"` and `"O"`. Capture every region of `"O"`s that is
@@ -7476,7 +7484,7 @@ Explanation: Only the two diagonal `1x1` squares are all ones.
             ({"matrix": [[0, 1, 1, 1], [1, 1, 1, 1], [0, 1, 1, 1]]}, 15)])
 
 add("maximal-rectangle", "Maximal Rectangle of Ones", "hard",
-    ["matrix", "stack", "monotonic-stack", "dynamic-programming"], "maximalRectangle",
+    ["array", "dynamic-programming", "stack", "matrix", "monotonic-stack"], "maximalRectangle",
     [("matrix", "int[][]")], "int",
     """
 Given a binary `matrix`, return the **area of the largest rectangle** whose cells
@@ -7922,7 +7930,8 @@ Explanation: Nothing lies to the right of the only element.
     checks=[({"nums": [5, 2, 6, 1]}, [2, 1, 1, 0]), ({"nums": [-1]}, [0])])
 
 add("reverse-pairs", "Reverse Pairs Count", "hard",
-    ["array", "merge-sort", "divide-and-conquer"], "reversePairs",
+    ["array", "binary-search", "divide-and-conquer", "binary-indexed-tree",
+    "segment-tree", "sorting", "ordered-set"], "reversePairs",
     [("nums", "int[]")], "int",
     """
 Count the pairs of indices `i < j` such that `nums[i] > 2 * nums[j]`. Aim for
@@ -8175,7 +8184,7 @@ Explanation: No sequence of end removals sums to `4`.
             ({"nums": [3, 2, 20, 1, 1, 3], "x": 10}, 5)])
 
 add("maximum-erasure-value", "Maximum Erasure Value", "medium",
-    ["array", "sliding-window", "hash-set"], "maximumUniqueSubarray",
+    ["array", "hash-table", "sliding-window"], "maximumUniqueSubarray",
     [("nums", "int[]")], "int",
     """
 Return the **maximum sum** over all contiguous subarrays of `nums` whose elements
@@ -8217,7 +8226,7 @@ Explanation: `[5,2,1]` is one best distinct subarray.
             ({"nums": [5, 2, 1, 2, 5, 2, 1, 2, 5]}, 8)])
 
 add("subarray-product-less-than-k", "Subarray Product Less Than K", "medium",
-    ["array", "sliding-window", "two-pointers"], "numSubarrayProductLessThanK",
+    ["array", "binary-search", "sliding-window", "prefix-sum"], "numSubarrayProductLessThanK",
     [("nums", "int[]"), ("k", "int")], "int",
     """
 Given an array of **positive** integers `nums` and an integer `k`, return the number
@@ -8260,7 +8269,7 @@ Explanation: A positive product is never below `0`.
             ({"nums": [1, 2, 3], "k": 0}, 0)])
 
 add("max-consecutive-ones-iii", "Maximum Consecutive Ones With Flips", "medium",
-    ["array", "sliding-window"], "longestOnes",
+    ["array", "binary-search", "sliding-window", "prefix-sum"], "longestOnes",
     [("nums", "int[]"), ("k", "int")], "int",
     """
 Given a binary array `nums` and an integer `k`, return the length of the longest
@@ -8503,7 +8512,7 @@ Explanation: Both smallest pairs sum to `2`.
              [[1, 1], [1, 1]])])
 
 add("sliding-window-median", "Sliding Window Median", "hard",
-    ["array", "sliding-window", "heap"], "medianSlidingWindow",
+    ["array", "hash-table", "sliding-window", "heap"], "medianSlidingWindow",
     [("nums", "int[]"), ("k", "int")], "int[]",
     """
 Given an integer array `nums` and an **odd** window size `k`, return an array of the
@@ -8803,7 +8812,7 @@ def _b_jobsched(start, end, profit):
 
 
 add("car-fleet", "Car Fleet Count", "medium",
-    ["array", "stack", "monotonic-stack", "sorting"], "carFleet",
+    ["array", "stack", "sorting", "monotonic-stack"], "carFleet",
     [("target", "int"), ("position", "int[]"), ("speed", "int[]")], "int",
     """
 Cars drive toward `target` on a one-lane road; car `i` starts at `position[i]` with
@@ -8898,7 +8907,7 @@ Explanation: Equal opposite asteroids annihilate.
             ({"asteroids": [10, 2, -5]}, [10])])
 
 add("remove-k-digits", "Remove K Digits", "medium",
-    ["string", "stack", "monotonic-stack", "greedy"], "removeKdigits",
+    ["string", "stack", "greedy", "monotonic-stack"], "removeKdigits",
     [("num", "string"), ("k", "int")], "string",
     """
 Given a non-negative integer as the string `num`, remove exactly `k` digits so the
@@ -8941,7 +8950,7 @@ Explanation: Removing both digits leaves `0`.
             ({"num": "10200", "k": 1}, "200")])
 
 add("basic-calculator", "Basic Calculator With Parentheses", "hard",
-    ["string", "stack", "math"], "calculate", [("s", "string")], "int",
+    ["string", "stack", "recursion"], "calculate", [("s", "string")], "int",
     """
 Evaluate the arithmetic expression `s` containing non-negative integers, `+`, `-`,
 parentheses, and spaces, and return its integer value. (`-` is the binary subtraction
@@ -9292,7 +9301,7 @@ Explanation: Index 2 gives `3 * 10 = 30`.
             ({"nums1": [4, 2, 3, 1, 1], "nums2": [7, 5, 10, 9, 6], "k": 1}, 30)])
 
 add("maximum-profit-job-scheduling", "Maximum Profit Job Scheduling", "hard",
-    ["dynamic-programming", "binary-search", "sorting"], "jobScheduling",
+    ["array", "binary-search", "dynamic-programming", "sorting"], "jobScheduling",
     [("start", "int[]"), ("end", "int[]"), ("profit", "int[]")], "int",
     """
 You have `n` jobs; job `i` runs in the half-open interval `[start[i], end[i])` and
@@ -9888,7 +9897,7 @@ Explanation: The only parenthesization is true.
             ({"expr": "T^T^F"}, 0)])
 
 add("longest-arithmetic-subsequence", "Longest Arithmetic Subsequence", "medium",
-    ["array", "dynamic-programming", "hash-table"], "longestArithSeqLength",
+    ["array", "hash-table", "binary-search", "dynamic-programming"], "longestArithSeqLength",
     [("nums", "int[]")], "int",
     """
 Return the length of the **longest arithmetic subsequence** of `nums` (a subsequence
@@ -9971,7 +9980,7 @@ Explanation: e.g. `[1,11,12]` or `[3,11,14]`.
             ({"arr": [1, 3, 7, 11, 12, 14, 18]}, 3), ({"arr": [1, 5, 9]}, 0)])
 
 add("russian-doll-envelopes", "Russian Doll Envelopes", "hard",
-    ["array", "dynamic-programming", "binary-search", "sorting"], "maxEnvelopes",
+    ["array", "binary-search", "dynamic-programming", "sorting"], "maxEnvelopes",
     [("envelopes", "int[][]")], "int",
     """
 Each `envelopes[i] = [width, height]`. One envelope fits inside another only if
@@ -10392,7 +10401,7 @@ Explanation: Step on the six stairs that cost `1`.
             ({"cost": [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]}, 6)])
 
 add("delete-and-earn", "Delete and Earn", "medium",
-    ["array", "dynamic-programming", "hash-table"], "deleteAndEarn",
+    ["array", "hash-table", "dynamic-programming"], "deleteAndEarn",
     [("nums", "int[]")], "int",
     """
 Pick any value `x` from `nums` to earn `x` points, but doing so deletes **every**
@@ -10980,7 +10989,7 @@ def _b_sortedbst(nums):
 
 
 add("binary-tree-right-side-view", "Binary Tree Right Side View", "medium",
-    ["tree", "binary-tree", "breadth-first-search"], "rightSideView",
+    ["tree", "depth-first-search", "breadth-first-search", "binary-tree"], "rightSideView",
     [("root", "int[]")], "int[]",
     """
 Given a binary tree as a level-order array (`null` marks a missing child), imagine
@@ -11169,7 +11178,7 @@ Explanation: An empty tree stays empty.
             ({"root": []}, [])])
 
 add("count-complete-tree-nodes", "Count Complete Tree Nodes", "easy",
-    ["tree", "binary-tree", "binary-search"], "countNodes",
+    ["binary-search", "bit-manipulation", "tree", "binary-tree"], "countNodes",
     [("root", "int[]")], "int",
     """
 Given a **complete** binary tree as a level-order array (every level full except
@@ -11300,7 +11309,7 @@ Explanation: Only `1 -> 3` sums to `4`.
             ({"root": [1, 2, 3], "targetSum": 4}, [[1, 3]])])
 
 add("maximum-width-binary-tree", "Maximum Width of Binary Tree", "medium",
-    ["tree", "binary-tree", "breadth-first-search"], "widthOfBinaryTree",
+    ["tree", "depth-first-search", "breadth-first-search", "binary-tree"], "widthOfBinaryTree",
     [("root", "int[]")], "int",
     """
 The **width** of a level is the distance between its leftmost and rightmost non-null
@@ -11353,7 +11362,7 @@ Explanation: The level with `3` and `2` has width `2`.
             ({"root": [1, 3, 2, 5]}, 2)])
 
 add("symmetric-tree", "Symmetric Tree Check", "easy",
-    ["tree", "binary-tree", "depth-first-search"], "isSymmetric",
+    ["tree", "depth-first-search", "breadth-first-search", "binary-tree"], "isSymmetric",
     [("root", "int[]")], "bool",
     """
 Return `true` if the binary tree (level-order array) is a **mirror image of itself**
@@ -11394,7 +11403,7 @@ Explanation: The two `3`s sit on the same side, breaking the mirror.
             ({"root": [1, 2, 2, None, 3, None, 3]}, False)])
 
 add("sorted-array-to-bst", "Convert Sorted Array To Balanced BST", "easy",
-    ["tree", "binary-search-tree", "divide-and-conquer"], "sortedArrayToBST",
+    ["array", "divide-and-conquer", "tree", "binary-search-tree", "binary-tree"], "sortedArrayToBST",
     [("nums", "int[]")], "int[]",
     """
 Given `nums` sorted in non-decreasing order, build a **height-balanced** binary
@@ -11899,7 +11908,7 @@ Explanation: A path graph has no cycle.
             ({"n": 4, "edges": [[0, 1], [1, 2], [2, 3]]}, False)])
 
 add("eventual-safe-states", "Eventual Safe States", "medium",
-    ["graph", "depth-first-search", "topological-sort"], "eventualSafeNodes",
+    ["depth-first-search", "breadth-first-search", "graph", "topological-sort"], "eventualSafeNodes",
     [("graph", "int[][]")], "int[]",
     """
 `graph` is a directed graph given as an adjacency list (`graph[i]` lists the nodes
@@ -11946,7 +11955,7 @@ Explanation: All nodes sit on a directed cycle.
             ({"graph": [[1], [2], [0]]}, [])])
 
 add("minimum-genetic-mutation", "Minimum Genetic Mutation", "medium",
-    ["string", "breadth-first-search", "graph"], "minMutation",
+    ["hash-table", "string", "breadth-first-search"], "minMutation",
     [("startGene", "string"), ("endGene", "string"), ("bank", "string[]")], "int",
     """
 A gene is an 8-character string over `A`, `C`, `G`, `T`. One **mutation** changes a
@@ -12066,7 +12075,8 @@ Explanation: Two red edges cannot be used in a row.
              [0, 1, -1])])
 
 add("swim-in-rising-water", "Swim In Rising Water", "hard",
-    ["matrix", "heap", "binary-search", "union-find"], "swimInWater",
+    ["array", "binary-search", "depth-first-search", "breadth-first-search",
+    "union-find", "heap", "matrix"], "swimInWater",
     [("grid", "int[][]")], "int",
     """
 `grid[r][c]` is the elevation of cell `(r, c)`. At time `t` you may stand on any cell
@@ -12117,7 +12127,7 @@ Explanation: Every route must eventually cross elevation `8`.
             ({"grid": [[0, 1, 2], [5, 4, 3], [6, 7, 8]]}, 8)])
 
 add("shortest-bridge", "Shortest Bridge Between Islands", "medium",
-    ["matrix", "breadth-first-search", "flood-fill"], "shortestBridge",
+    ["array", "depth-first-search", "breadth-first-search", "matrix"], "shortestBridge",
     [("grid", "int[][]")], "int",
     """
 `grid` is a binary matrix containing **exactly two** islands (4-directionally
@@ -12575,7 +12585,8 @@ def _b_largestcomp(nums):
 
 
 add("evaluate-division", "Evaluate Division Queries", "medium",
-    ["graph", "union-find", "depth-first-search"], "calcEquation",
+    ["array", "string", "depth-first-search", "breadth-first-search", "union-find",
+    "graph", "shortest-path"], "calcEquation",
     [("equations", "string[][]"), ("values", "float[]"),
      ("queries", "string[][]")], "float[]",
     """
@@ -12636,7 +12647,7 @@ Explanation: Variable `e` never appears, so the ratio is unknown.
               "queries": [["a", "e"]]}, [-1.0])])
 
 add("reconstruct-itinerary", "Reconstruct Itinerary", "hard",
-    ["graph", "eulerian-path", "depth-first-search"], "findItinerary",
+    ["array", "string", "depth-first-search", "graph", "sorting", "heap"], "findItinerary",
     [("tickets", "string[][]")], "string[]",
     """
 You have a list of airline `tickets = [from, to]`. Among all itineraries that start
@@ -12805,7 +12816,7 @@ Explanation: Removing the only edge splits the network.
              [[1, 3]]), ({"n": 2, "connections": [[0, 1]]}, [[0, 1]])])
 
 add("number-of-restricted-paths", "Number Of Restricted Paths", "medium",
-    ["graph", "dijkstra", "dynamic-programming"], "countRestrictedPaths",
+    ["graph", "shortest-path", "dynamic-programming"], "countRestrictedPaths",
     [("n", "int"), ("edges", "int[][]")], "int",
     """
 An undirected weighted graph has nodes `1..n`; `edges[i] = [u, v, w]`. Let `dist(x)`
@@ -12867,7 +12878,7 @@ Explanation: `dist(1)=2, dist(2)=1, dist(3)=0`. Both `1 -> 2 -> 3` and the direc
             ({"n": 3, "edges": [[1, 2, 1], [2, 3, 1], [1, 3, 3]]}, 2)])
 
 add("maximum-probability-path", "Maximum Probability Path", "medium",
-    ["graph", "dijkstra", "shortest-path"], "maxProbability",
+    ["graph", "shortest-path"], "maxProbability",
     [("n", "int"), ("edges", "int[][]"), ("succProb", "float[]"),
      ("start", "int"), ("end", "int")], "float",
     """
@@ -13311,7 +13322,7 @@ def _b_reserve(stock, requests):
 
 
 add("add-two-numbers", "Add Two Numbers In Linked Lists", "medium",
-    ["linked-list", "math"], "addTwoNumbers",
+    ["linked-list", "recursion"], "addTwoNumbers",
     [("l1", "int[]"), ("l2", "int[]")], "int[]",
     """
 Two non-empty lists `l1` and `l2` store the digits of non-negative integers in
@@ -13576,7 +13587,7 @@ Explanation: A single event is its own session.
             ({"events": [["a", 2]], "gap": 5}, [["a", [2, 2]]])])
 
 add("kafka-contiguous-offset", "Kafka Contiguous Offset Commit", "easy",
-    ["array", "hash-set"], "contiguousOffset", [("processed", "int[]")], "int",
+    ["array", "hash-table"], "contiguousOffset", [("processed", "int[]")], "int",
     """
 `processed` lists the offsets that have been handled for one partition (unsorted, and
 possibly containing duplicates). Return the largest offset `m` such that **every**
@@ -13610,7 +13621,7 @@ Explanation: Offset `0` was never processed.
     checks=[({"processed": [0, 2, 1, 5]}, 2), ({"processed": [1, 2]}, -1)])
 
 add("object-store-multipart", "Object Store Multipart Completeness", "easy",
-    ["hash-set", "array"], "multipartComplete",
+    ["hash-table", "array"], "multipartComplete",
     [("parts", "int[][]"), ("expected", "int")], "[bool,int]",
     """
 A multipart upload provides `parts`, each `[partNumber, bytes]`. Return a two-element
@@ -14091,7 +14102,7 @@ Explanation: There is no value at or before timestamp 4.
              [None, ""])])
 
 add("snapshot-array", "Snapshot Array", "medium",
-    ["design", "hash-table", "binary-search"], "snapshotArray",
+    ["array", "hash-table", "binary-search", "design"], "snapshotArray",
     [("length", "int"), ("operations", "any[][]")], "any[]",
     """
 Implement an array of `length` integers (initially `0`) and replay `operations`,

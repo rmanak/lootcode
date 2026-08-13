@@ -4,8 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "greedy",
     "binary-indexed-tree",
+    "segment-tree",
     "sorting"
   ],
   "hints": [

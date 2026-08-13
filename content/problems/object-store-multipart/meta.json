@@ -3,7 +3,7 @@
   "title": "Object Store Multipart Completeness",
   "difficulty": "easy",
   "tags": [
-    "hash-set",
+    "hash-table",
     "array"
   ],
   "hints": [

@@ -4,8 +4,9 @@
   "difficulty": "hard",
   "tags": [
     "array",
+    "queue",
     "sliding-window",
-    "queue"
+    "heap"
   ],
   "hints": [
     "Consider how the maximum changes as the window slides one step to the right.",

@@ -4,7 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "dynamic-programming"
+    "dynamic-programming",
+    "sliding-window"
   ],
   "hints": [
     "Focus on the longest arithmetic subarray ending at each index. How does its length relate to the count of valid slices?",

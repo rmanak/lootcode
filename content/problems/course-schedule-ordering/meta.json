@@ -3,7 +3,8 @@
   "title": "Course Schedule Ordering",
   "difficulty": "medium",
   "tags": [
-    "graph"
+    "graph",
+    "topological-sort"
   ],
   "hints": [
     "This is a topological sort problem on a directed graph. A cycle means no valid order exists.",

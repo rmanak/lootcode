@@ -3,8 +3,8 @@
   "title": "Number of 1 Bits",
   "difficulty": "easy",
   "tags": [
-    "bit-manipulation",
-    "divide-and-conquer"
+    "divide-and-conquer",
+    "bit-manipulation"
   ],
   "hints": [
     "Consider how you can process the number bit by bit or remove bits one by one until nothing remains.",

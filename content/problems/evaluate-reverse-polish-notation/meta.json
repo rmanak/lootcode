@@ -3,6 +3,7 @@
   "title": "Evaluate Reverse Polish Notation",
   "difficulty": "medium",
   "tags": [
+    "array",
     "stack"
   ],
   "hints": [

@@ -4,8 +4,9 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "dynamic-programming",
-    "hash-table"
+    "hash-table",
+    "binary-search",
+    "dynamic-programming"
   ],
   "hints": [
     "Focus on pairs of indices and the difference between their values. How does extending a sequence depend on previous elements?",

@@ -4,7 +4,9 @@
   "difficulty": "medium",
   "tags": [
     "tree",
-    "breadth-first-search"
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
   ],
   "hints": [
     "Process the tree level by level to track the sum of values at each depth.",

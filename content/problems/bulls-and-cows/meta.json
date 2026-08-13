@@ -3,8 +3,8 @@
   "title": "Bulls and Cows",
   "difficulty": "medium",
   "tags": [
-    "string",
     "hash-table",
+    "string",
     "counting"
   ],
   "hints": [

@@ -4,7 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "tree",
-    "breadth-first-search"
+    "breadth-first-search",
+    "binary-tree"
   ],
   "hints": [
     "Consider how you would visit the tree layer by layer, ensuring you process all nodes at the current depth before moving to the next.",

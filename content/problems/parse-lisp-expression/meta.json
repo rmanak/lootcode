@@ -3,10 +3,10 @@
   "title": "Parse Lisp Expression",
   "difficulty": "hard",
   "tags": [
+    "hash-table",
     "string",
     "stack",
-    "recursion",
-    "hash-table"
+    "recursion"
   ],
   "hints": [
     "Parse the string into tokens first, handling nested parentheses carefully to identify each expression's boundaries.",

@@ -3,6 +3,7 @@
   "title": "Longest Repeating Character Replacement",
   "difficulty": "medium",
   "tags": [
+    "hash-table",
     "string",
     "sliding-window"
   ],

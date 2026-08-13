@@ -4,8 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "greedy",
-    "dynamic-programming"
+    "dynamic-programming",
+    "greedy"
   ],
   "hints": [
     "Consider tracking the furthest index reachable so far as you iterate through the array.",

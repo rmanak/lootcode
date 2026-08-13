@@ -4,8 +4,8 @@
   "difficulty": "hard",
   "tags": [
     "array",
-    "dynamic-programming",
     "binary-search",
+    "dynamic-programming",
     "sorting"
   ],
   "hints": [

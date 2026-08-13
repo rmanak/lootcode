@@ -3,9 +3,10 @@
   "title": "Maximum XOR of Two Numbers in an Array",
   "difficulty": "medium",
   "tags": [
+    "array",
+    "hash-table",
     "bit-manipulation",
-    "trie",
-    "hash-table"
+    "trie"
   ],
   "hints": [
     "Consider the bits from most significant to least significant. Can you determine if the maximum possible XOR has a 1 at the current bit position?",

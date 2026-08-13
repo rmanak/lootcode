@@ -3,8 +3,8 @@
   "title": "Online Stock Span",
   "difficulty": "medium",
   "tags": [
-    "array",
     "stack",
+    "design",
     "monotonic-stack"
   ],
   "hints": [

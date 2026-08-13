@@ -4,8 +4,9 @@
   "difficulty": "easy",
   "tags": [
     "tree",
-    "binary-tree",
-    "depth-first-search"
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
   ],
   "hints": [
     "Consider how the left subtree of the root must relate to the right subtree for the tree to be symmetric.",

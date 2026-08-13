@@ -4,8 +4,9 @@
   "difficulty": "medium",
   "tags": [
     "array",
+    "divide-and-conquer",
     "sorting",
-    "divide-and-conquer"
+    "heap"
   ],
   "hints": [
     "Consider algorithms with O(n log n) time complexity to handle the array size efficiently.",

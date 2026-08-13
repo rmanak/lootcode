@@ -3,6 +3,7 @@
   "title": "Number of Digit One",
   "difficulty": "hard",
   "tags": [
+    "dynamic-programming",
     "recursion"
   ],
   "hints": [

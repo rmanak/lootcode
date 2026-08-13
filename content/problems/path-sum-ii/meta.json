@@ -3,9 +3,10 @@
   "title": "Path Sum II",
   "difficulty": "medium",
   "tags": [
-    "tree",
     "backtracking",
-    "depth-first-search"
+    "tree",
+    "depth-first-search",
+    "binary-tree"
   ],
   "hints": [
     "Consider traversing the tree from the root down, keeping track of the current path and its running sum as you visit each node.",

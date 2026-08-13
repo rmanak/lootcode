@@ -731,7 +731,7 @@ never mention two of the three rich types (both are documented elsewhere:
 Recorded so it isn't lost in the revamp:
 
 - **The tag vocabulary is in perfect sync across four sources** — `app/tags.py`
-  (39 canonical, 28 aliases, 2 dropped), `specs/tags.md`,
+  (44 canonical, 34 aliases, 9 dropped), `specs/tags.md`,
   `app/llm/problem_prompt.txt`, and `.claude/skills/canonical-tags/SKILL.md` all match
   exactly. `scripts/generate_problem_from_statement.py` even warns on drift. This is
   the one place the repo already does the right thing; a test should make it

@@ -3,8 +3,8 @@
   "title": "Reverse Bits",
   "difficulty": "easy",
   "tags": [
-    "bit-manipulation",
-    "divide-and-conquer"
+    "divide-and-conquer",
+    "bit-manipulation"
   ],
   "hints": [
     "Think of the 32 bits as an array of length 32. How would you reverse a standard array?",

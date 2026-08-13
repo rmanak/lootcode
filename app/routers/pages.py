@@ -9,7 +9,7 @@ from pathlib import Path
 from urllib.parse import quote, unquote, urlencode
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from fastapi import APIRouter, Depends, Form, HTTPException, Request
+from fastapi import APIRouter, Depends, Form, HTTPException, Query, Request
 from fastapi.responses import FileResponse, RedirectResponse
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -106,6 +106,7 @@ def problem_asset(slug: str, filename: str):
 
 @router.get("/")
 def index(request: Request, difficulty: str | None = None, topic: str | None = None,
+          exclude_topic: list[str] = Query(default_factory=list),
           q: str | None = None, collection: str | None = None, unsolved: int = 0,
           solved: int = 0, unknown: int = 0, known: int = 0, visit_later: int = 0,
           page: int = 1, db: Session = Depends(get_db)):
@@ -117,6 +118,12 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
     problems = list(db.scalars(stmt.order_by(Problem.id)))
     if topic:
         problems = [p for p in problems if topic in (p.topics or [])]
+    # Negative tag filter: URL-only (no chip), repeatable — `?exclude_topic=dp&
+    # exclude_topic=greedy` hides anything carrying *either*. Independent of the
+    # positive `topic`, so a contradictory pair just yields an empty list.
+    excluded = {t for t in exclude_topic if t}
+    if excluded:
+        problems = [p for p in problems if not excluded & set(p.topics or [])]
 
     # Active curated list ("Blind 73", …). Resolve once to an ordered membership;
     # an unknown/stale slug is treated as no filter so a bad link isn't an empty
@@ -198,6 +205,7 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
     # clears just that one filter. (Passing an override of None drops that key.)
     current = {
         "q": q, "difficulty": difficulty, "topic": topic, "collection": collection,
+        "exclude_topic": sorted(excluded),
         "unsolved": 1 if unsolved else None,
         "unknown": 1 if unknown else None,
         "solved": 1 if solved else None,
@@ -205,7 +213,9 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
     }
 
     def _href(**overrides: object) -> str:
-        qs = urlencode({k: v for k, v in {**current, **overrides}.items() if v})
+        # doseq: `exclude_topic` is a list and must expand to one key per value.
+        qs = urlencode({k: v for k, v in {**current, **overrides}.items() if v},
+                       doseq=True)
         return f"/?{qs}" if qs else "/"
 
     unsolved_href = _href(unsolved=None) if unsolved \
@@ -248,11 +258,11 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
     # Current filters as a query string so pagination links keep them.
     base_qs = urlencode({k: v for k, v in (
         ("q", q), ("difficulty", difficulty), ("topic", topic),
-        ("collection", collection),
+        ("exclude_topic", sorted(excluded)), ("collection", collection),
         ("unsolved", 1 if unsolved else None), ("solved", 1 if solved else None),
         ("unknown", 1 if unknown else None), ("known", 1 if known else None),
         ("visit_later", 1 if visit_later else None),
-    ) if v})
+    ) if v}, doseq=True)
 
     return templates.TemplateResponse(request, "index.html", {
         "request": request, "problems": page_problems,
@@ -260,7 +270,7 @@ def index(request: Request, difficulty: str | None = None, topic: str | None = N
         "visit_later_ids": visit_later_ids,
         "user_name": request.state.user_name,
         "f_difficulty": difficulty or "", "f_topic": topic or "", "f_q": q or "",
-        "f_collection": collection or "",
+        "f_exclude_topic": sorted(excluded), "f_collection": collection or "",
         "f_unsolved": bool(unsolved), "f_solved": bool(solved),
         "f_unknown": bool(unknown), "f_visit_later": bool(visit_later),
         "collection_chips": collection_chips,

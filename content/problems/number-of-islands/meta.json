@@ -3,10 +3,11 @@
   "title": "Number of Islands",
   "difficulty": "medium",
   "tags": [
-    "graph",
-    "matrix",
+    "array",
     "depth-first-search",
-    "union-find"
+    "breadth-first-search",
+    "union-find",
+    "matrix"
   ],
   "hints": [
     "Iterate through every cell in the grid to find unvisited land cells.",

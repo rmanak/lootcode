@@ -3,7 +3,7 @@
   "title": "Prime Palindrome",
   "difficulty": "medium",
   "tags": [
-    "math"
+    "number-theory"
   ],
   "hints": [
     "Most palindromes have an even number of digits and are divisible by 11, except 11 itself. This eliminates huge ranges.",

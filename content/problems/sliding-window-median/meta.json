@@ -4,6 +4,7 @@
   "difficulty": "hard",
   "tags": [
     "array",
+    "hash-table",
     "sliding-window",
     "heap"
   ],

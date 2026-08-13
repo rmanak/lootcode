@@ -4,9 +4,11 @@
   "difficulty": "medium",
   "tags": [
     "array",
+    "hash-table",
+    "two-pointers",
     "string",
     "dynamic-programming",
-    "hash-table"
+    "sorting"
   ],
   "hints": [
     "Sort the words by length so you only need to look at shorter words when processing a longer one.",

@@ -4,9 +4,10 @@
   "difficulty": "medium",
   "tags": [
     "array",
+    "queue",
     "sliding-window",
     "heap",
-    "binary-search-tree"
+    "ordered-set"
   ],
   "hints": [
     "Consider expanding a window from left to right. What property must hold for every element inside the window to satisfy the condition?",

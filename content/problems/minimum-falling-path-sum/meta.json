@@ -3,8 +3,9 @@
   "title": "Minimum Falling Path Sum",
   "difficulty": "medium",
   "tags": [
-    "matrix",
-    "dynamic-programming"
+    "array",
+    "dynamic-programming",
+    "matrix"
   ],
   "hints": [
     "Consider building the solution row by row. For each cell, what determines the best path ending there?",

@@ -4,7 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "graph",
-    "tree"
+    "tree",
+    "topological-sort"
   ],
   "hints": [
     "Consider how the tree's height changes as you move the root from a leaf toward the middle.",

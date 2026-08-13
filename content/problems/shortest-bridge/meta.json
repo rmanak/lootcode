@@ -3,9 +3,10 @@
   "title": "Shortest Bridge Between Islands",
   "difficulty": "medium",
   "tags": [
-    "matrix",
+    "array",
+    "depth-first-search",
     "breadth-first-search",
-    "depth-first-search"
+    "matrix"
   ],
   "hints": [
     "First, identify and separate the two distinct islands in the grid.",

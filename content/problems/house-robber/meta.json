@@ -3,8 +3,8 @@
   "title": "House Robber",
   "difficulty": "medium",
   "tags": [
-    "dynamic-programming",
-    "array"
+    "array",
+    "dynamic-programming"
   ],
   "hints": [
     "Consider the decision at each house: do you include it in your total or skip it?",

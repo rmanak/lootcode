@@ -3,7 +3,6 @@
   "title": "Tiling a Rectangle with the Fewest Squares",
   "difficulty": "hard",
   "tags": [
-    "dynamic-programming",
     "backtracking"
   ],
   "hints": [

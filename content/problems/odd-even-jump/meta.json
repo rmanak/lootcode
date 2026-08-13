@@ -6,8 +6,9 @@
     "array",
     "dynamic-programming",
     "stack",
+    "sorting",
     "monotonic-stack",
-    "sorting"
+    "ordered-set"
   ],
   "hints": [
     "Process indices from right to left, determining reachability based on future states.",

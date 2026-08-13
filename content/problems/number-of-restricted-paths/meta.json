@@ -4,6 +4,7 @@
   "difficulty": "medium",
   "tags": [
     "graph",
+    "shortest-path",
     "dynamic-programming"
   ],
   "hints": [

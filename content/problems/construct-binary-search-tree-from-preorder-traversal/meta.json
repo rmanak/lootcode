@@ -3,10 +3,11 @@
   "title": "Construct Binary Search Tree From Preorder Traversal",
   "difficulty": "medium",
   "tags": [
+    "array",
     "stack",
-    "monotonic-stack",
     "tree",
     "binary-search-tree",
+    "monotonic-stack",
     "binary-tree"
   ],
   "hints": [

@@ -3,8 +3,8 @@
   "title": "Swap Adjacent In LR String",
   "difficulty": "medium",
   "tags": [
-    "string",
-    "two-pointers"
+    "two-pointers",
+    "string"
   ],
   "hints": [
     "Ignore the 'X' characters entirely and compare the remaining sequences of 'L' and 'R' in both strings.",

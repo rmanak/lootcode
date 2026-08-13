@@ -3,9 +3,11 @@
   "title": "Convert Sorted Array To Balanced BST",
   "difficulty": "easy",
   "tags": [
+    "array",
+    "divide-and-conquer",
     "tree",
     "binary-search-tree",
-    "divide-and-conquer"
+    "binary-tree"
   ],
   "hints": [
     "Focus on the relationship between the sorted array indices and the tree structure. How does choosing a root split the problem?",

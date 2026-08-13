@@ -3,8 +3,8 @@
   "title": "Last Substring in Lexicographical Order",
   "difficulty": "hard",
   "tags": [
-    "string",
-    "two-pointers"
+    "two-pointers",
+    "string"
   ],
   "hints": [
     "Compare suffixes starting at different indices; if one is lexicographically larger, the other cannot be the answer.",

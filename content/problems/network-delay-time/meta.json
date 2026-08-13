@@ -3,8 +3,11 @@
   "title": "Network Delay Time",
   "difficulty": "medium",
   "tags": [
+    "depth-first-search",
+    "breadth-first-search",
     "graph",
-    "heap"
+    "heap",
+    "shortest-path"
   ],
   "hints": [
     "Calculate the shortest time to reach every node from the source node k.",

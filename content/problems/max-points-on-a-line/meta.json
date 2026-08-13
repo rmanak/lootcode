@@ -4,7 +4,8 @@
   "difficulty": "hard",
   "tags": [
     "array",
-    "hash-table"
+    "hash-table",
+    "geometry"
   ],
   "hints": [
     "Two points always define a line. For each point, count how many other points share the same slope relative to it.",

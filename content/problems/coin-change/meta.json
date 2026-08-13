@@ -3,8 +3,9 @@
   "title": "Coin Change",
   "difficulty": "medium",
   "tags": [
+    "array",
     "dynamic-programming",
-    "array"
+    "breadth-first-search"
   ],
   "hints": [
     "Consider how the answer for a smaller amount relates to the target amount. If you knew the best way to make amount minus one coin, could you extend that?",

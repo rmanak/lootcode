@@ -3,10 +3,12 @@
   "title": "Vertical Order Traversal of a Binary Tree",
   "difficulty": "hard",
   "tags": [
+    "hash-table",
     "tree",
     "depth-first-search",
     "breadth-first-search",
-    "sorting"
+    "sorting",
+    "binary-tree"
   ],
   "hints": [
     "Consider assigning a coordinate pair to each node during traversal; the column index determines the output list position.",

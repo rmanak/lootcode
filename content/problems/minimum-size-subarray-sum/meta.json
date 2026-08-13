@@ -4,8 +4,9 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "two-pointers",
-    "sliding-window"
+    "binary-search",
+    "sliding-window",
+    "prefix-sum"
   ],
   "hints": [
     "Since all numbers are positive, adding elements increases the sum while removing them decreases it.",

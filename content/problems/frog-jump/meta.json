@@ -4,8 +4,7 @@
   "difficulty": "hard",
   "tags": [
     "array",
-    "dynamic-programming",
-    "hash-table"
+    "dynamic-programming"
   ],
   "hints": [
     "Notice that the jump size is determined by the previous jump, not just the current position. What two values define a unique state at each stone?",

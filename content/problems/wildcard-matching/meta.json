@@ -5,7 +5,8 @@
   "tags": [
     "string",
     "dynamic-programming",
-    "greedy"
+    "greedy",
+    "recursion"
   ],
   "hints": [
     "Consider how matching fails early: if characters differ and the pattern has no wildcard, the match is impossible immediately.",

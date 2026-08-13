@@ -5,7 +5,8 @@
   "tags": [
     "depth-first-search",
     "breadth-first-search",
-    "graph"
+    "graph",
+    "topological-sort"
   ],
   "hints": [
     "Model the courses and prerequisites as a directed graph where an edge from b to a means b must precede a.",

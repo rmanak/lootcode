@@ -3,7 +3,8 @@
   "title": "Rotate Array Right",
   "difficulty": "medium",
   "tags": [
-    "array"
+    "array",
+    "two-pointers"
   ],
   "hints": [
     "What is the effective number of rotations if k is larger than the array length?",

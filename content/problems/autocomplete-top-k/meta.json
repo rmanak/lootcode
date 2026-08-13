@@ -3,10 +3,12 @@
   "title": "Autocomplete Top K",
   "difficulty": "hard",
   "tags": [
+    "string",
+    "depth-first-search",
     "design",
     "trie",
-    "heap",
-    "sorting"
+    "sorting",
+    "heap"
   ],
   "hints": [
     "Consider how a Trie naturally groups sentences by shared prefixes for efficient retrieval.",

@@ -3,7 +3,9 @@
   "title": "LFU Cache",
   "difficulty": "hard",
   "tags": [
-    "hash-table"
+    "hash-table",
+    "linked-list",
+    "design"
   ],
   "hints": [
     "Track both frequency and recency for each key to handle eviction ties correctly.",

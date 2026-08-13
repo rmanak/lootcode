@@ -4,8 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "dynamic-programming",
-    "binary-search"
+    "binary-search",
+    "dynamic-programming"
   ],
   "hints": [
     "Focus on the length of the longest increasing subsequence ending at each specific index.",

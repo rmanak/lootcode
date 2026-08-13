@@ -4,8 +4,9 @@
   "difficulty": "medium",
   "tags": [
     "tree",
+    "depth-first-search",
     "binary-search-tree",
-    "depth-first-search"
+    "binary-tree"
   ],
   "hints": [
     "Recall that in a binary search tree, an in-order traversal visits nodes in ascending sorted order.",

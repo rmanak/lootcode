@@ -3,8 +3,8 @@
   "title": "Valid Palindrome",
   "difficulty": "easy",
   "tags": [
-    "string",
-    "two-pointers"
+    "two-pointers",
+    "string"
   ],
   "hints": [
     "Focus only on alphanumeric characters and treat uppercase and lowercase as identical.",

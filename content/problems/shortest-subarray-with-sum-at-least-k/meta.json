@@ -7,6 +7,7 @@
     "binary-search",
     "queue",
     "sliding-window",
+    "heap",
     "prefix-sum"
   ],
   "hints": [

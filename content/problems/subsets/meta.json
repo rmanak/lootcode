@@ -3,9 +3,9 @@
   "title": "Subsets",
   "difficulty": "medium",
   "tags": [
+    "array",
     "backtracking",
-    "bit-manipulation",
-    "array"
+    "bit-manipulation"
   ],
   "hints": [
     "Consider each element in the array as having two choices: either include it in a subset or exclude it.",

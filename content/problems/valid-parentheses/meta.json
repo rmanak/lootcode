@@ -3,8 +3,8 @@
   "title": "Valid Parentheses",
   "difficulty": "easy",
   "tags": [
-    "stack",
-    "string"
+    "string",
+    "stack"
   ],
   "hints": [
     "Consider how opening brackets must wait for their matching closing brackets later in the string.",

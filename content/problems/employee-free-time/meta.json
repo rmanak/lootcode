@@ -3,7 +3,9 @@
   "title": "Employee Free Time",
   "difficulty": "hard",
   "tags": [
-    "sorting"
+    "array",
+    "sorting",
+    "heap"
   ],
   "hints": [
     "Consider finding the union of all working intervals across every employee first, then identify the gaps between these merged blocks.",

@@ -4,8 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "dynamic-programming",
     "divide-and-conquer",
+    "dynamic-programming",
     "queue"
   ],
   "hints": [

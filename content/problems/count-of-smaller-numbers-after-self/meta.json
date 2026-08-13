@@ -4,9 +4,12 @@
   "difficulty": "hard",
   "tags": [
     "array",
-    "binary-indexed-tree",
+    "binary-search",
     "divide-and-conquer",
-    "sorting"
+    "binary-indexed-tree",
+    "segment-tree",
+    "sorting",
+    "ordered-set"
   ],
   "hints": [
     "Consider processing the array from right to left to transform the problem into counting elements smaller than the current one seen so far.",

@@ -3,10 +3,10 @@
   "title": "Sum of Distances in Tree",
   "difficulty": "hard",
   "tags": [
+    "dynamic-programming",
     "tree",
-    "graph",
     "depth-first-search",
-    "dynamic-programming"
+    "graph"
   ],
   "hints": [
     "Consider computing the answer for one root, then efficiently updating it for neighbors.",

@@ -6,6 +6,8 @@
     "array",
     "dynamic-programming",
     "backtracking",
+    "bit-manipulation",
+    "memoization",
     "bitmask"
   ],
   "hints": [

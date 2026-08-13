@@ -4,7 +4,8 @@
   "difficulty": "hard",
   "tags": [
     "array",
-    "binary-search"
+    "binary-search",
+    "divide-and-conquer"
   ],
   "hints": [
     "Consider the problem of finding the k-th smallest element in two sorted arrays. The median is just a specific case of this.",

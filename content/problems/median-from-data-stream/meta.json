@@ -3,7 +3,9 @@
   "title": "Median From Data Stream",
   "difficulty": "hard",
   "tags": [
+    "two-pointers",
     "design",
+    "sorting",
     "heap"
   ],
   "hints": [

@@ -3,8 +3,12 @@
   "title": "Meeting Rooms Required",
   "difficulty": "medium",
   "tags": [
+    "array",
+    "two-pointers",
+    "greedy",
     "sorting",
-    "heap"
+    "heap",
+    "prefix-sum"
   ],
   "hints": [
     "Consider the timeline as a sequence of events. What happens to the number of occupied rooms when a meeting starts versus when one ends?",

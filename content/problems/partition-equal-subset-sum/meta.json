@@ -3,8 +3,8 @@
   "title": "Partition Equal Subset Sum",
   "difficulty": "medium",
   "tags": [
-    "dynamic-programming",
-    "array"
+    "array",
+    "dynamic-programming"
   ],
   "hints": [
     "Check if the total sum is even; if odd, splitting equally is impossible.",

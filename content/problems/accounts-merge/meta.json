@@ -3,9 +3,13 @@
   "title": "Accounts Merge",
   "difficulty": "medium",
   "tags": [
-    "union-find",
+    "array",
     "hash-table",
-    "graph"
+    "string",
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "sorting"
   ],
   "hints": [
     "Focus on the emails as the primary identifiers; the name is just metadata attached to a group of connected emails.",

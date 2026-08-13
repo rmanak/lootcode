@@ -3,7 +3,7 @@
   "title": "K-th Smallest in Lexicographical Order",
   "difficulty": "hard",
   "tags": [
-    "math"
+    "trie"
   ],
   "hints": [
     "Visualize the numbers as nodes in a 10-ary tree where children of x are 10x through 10x+9.",

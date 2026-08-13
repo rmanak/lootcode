@@ -4,8 +4,7 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "simulation",
-    "counting"
+    "simulation"
   ],
   "hints": [
     "Map each friend to their current partner for O(1) lookup. Precompute preference ranks to quickly check if one friend is preferred over another.",

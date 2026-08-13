@@ -4,7 +4,7 @@
   "difficulty": "easy",
   "tags": [
     "array",
-    "hash-set"
+    "hash-table"
   ],
   "hints": [
     "Think about how you would quickly check if a new item has already been seen.",

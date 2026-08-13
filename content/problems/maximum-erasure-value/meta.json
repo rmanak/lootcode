@@ -4,8 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "array",
-    "sliding-window",
-    "hash-set"
+    "hash-table",
+    "sliding-window"
   ],
   "hints": [
     "Consider how the valid subarray changes as you extend it to the right. What happens when you encounter a duplicate?",

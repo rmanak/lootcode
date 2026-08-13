@@ -4,7 +4,8 @@
   "difficulty": "hard",
   "tags": [
     "string",
-    "stack"
+    "stack",
+    "recursion"
   ],
   "hints": [
     "Focus on how parentheses create nested scopes that must be resolved before combining with the outer expression.",

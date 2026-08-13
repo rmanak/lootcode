@@ -42,6 +42,90 @@ def test_pagination(client):
     assert client.get("/?page=99999").status_code == 200
 
 
+def _listed_slugs(client, query: str) -> set[str]:
+    """Every problem slug the list shows for `/?<query>`, across all its pages.
+
+    Out-of-range pages clamp to the last one, so the walk stops as soon as a page
+    adds nothing new rather than looking for a 404.
+    """
+    slugs: set[str] = set()
+    for page in range(1, 100):
+        r = client.get(f"/?{query}&page={page}")
+        assert r.status_code == 200
+        found = set(re.findall(r'href="/problems/([\w-]+)"', r.text))
+        if not found or found <= slugs:
+            return slugs
+        slugs |= found
+    raise AssertionError("list did not terminate")
+
+
+def _sum_problems(db):
+    """The published problems whose title contains "sum" — a small, stable slice
+    of the real bank to filter over."""
+    from sqlalchemy import select
+
+    from app.models import Problem
+
+    return list(db.scalars(select(Problem).where(
+        Problem.is_published.is_(True), Problem.title.ilike("%sum%"))))
+
+
+def test_exclude_topic_hides_exactly_the_problems_carrying_that_tag(client, db):
+    problems = _sum_problems(db)
+    # Pick the slice's most common tag rather than hard-coding one, so the test
+    # follows the bank's vocabulary instead of pinning it.
+    counts: dict[str, int] = {}
+    for p in problems:
+        for t in p.topics or []:
+            counts[t] = counts.get(t, 0) + 1
+    tag = max(counts, key=lambda t: counts[t])
+    carrying = {p.slug for p in problems if tag in (p.topics or [])}
+    assert carrying  # the slice would prove nothing otherwise
+
+    listed = _listed_slugs(client, f"q=sum&exclude_topic={tag}")
+    assert listed == {p.slug for p in problems} - carrying
+    assert not listed & carrying
+
+
+def test_exclude_topic_is_repeatable_and_combines_with_other_filters(client, db):
+    problems = [p for p in _sum_problems(db) if p.difficulty == "medium"]
+    tags = sorted({t for p in problems for t in (p.topics or [])})[:2]
+    assert len(tags) == 2
+
+    listed = _listed_slugs(
+        client, "q=sum&difficulty=medium&" + "&".join(
+            f"exclude_topic={t}" for t in tags))
+    # Repeated values are a union: a problem is hidden if it carries *either* tag.
+    assert listed == {p.slug for p in problems
+                      if not set(tags) & set(p.topics or [])}
+
+
+def test_exclude_topic_composes_with_the_positive_topic_filter(client, db):
+    problems = _sum_problems(db)
+    tag = next(t for p in problems for t in (p.topics or []))
+    # Include and exclude the same tag: contradictory, so nothing matches — an
+    # empty list, not an error.
+    r = client.get(f"/?q=sum&topic={tag}&exclude_topic={tag}")
+    assert r.status_code == 200
+    assert "No problems match your filters." in r.text
+
+
+def test_exclude_topic_ignores_blank_and_unknown_tags(client, db):
+    everything = _listed_slugs(client, "q=sum")
+    assert _listed_slugs(client, "q=sum&exclude_topic=") == everything
+    assert _listed_slugs(client, "q=sum&exclude_topic=no-such-tag") == everything
+
+
+def test_exclude_topic_survives_pagination_and_search_links(client):
+    r = client.get("/?exclude_topic=array&exclude_topic=hash-table")
+    assert r.status_code == 200
+    # Pagination links carry both values...
+    assert "exclude_topic=array&amp;exclude_topic=hash-table" in r.text
+    # ...and so does the search box, so typing a query doesn't drop the filter.
+    assert r.text.count(
+        '<input type="hidden" name="exclude_topic" value="array">') == 1
+
+
 def test_unsolved_filter(client):
     r = client.get("/?unsolved=1")
     assert r.status_code == 200

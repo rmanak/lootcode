@@ -3,8 +3,8 @@
   "title": "Permutations",
   "difficulty": "medium",
   "tags": [
-    "backtracking",
-    "array"
+    "array",
+    "backtracking"
   ],
   "hints": [
     "Think about building the result one element at a time, deciding which unused number goes next.",

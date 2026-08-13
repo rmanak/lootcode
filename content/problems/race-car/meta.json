@@ -3,8 +3,7 @@
   "title": "Race Car",
   "difficulty": "hard",
   "tags": [
-    "dynamic-programming",
-    "breadth-first-search"
+    "dynamic-programming"
   ],
   "hints": [
     "Symmetry allows solving for positive targets only by taking the absolute value.",

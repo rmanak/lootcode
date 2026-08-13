@@ -4,8 +4,9 @@
   "difficulty": "medium",
   "tags": [
     "array",
+    "binary-search",
     "sliding-window",
-    "two-pointers"
+    "prefix-sum"
   ],
   "hints": [
     "Notice that adding an element to a subarray always increases or maintains the product since elements are positive.",

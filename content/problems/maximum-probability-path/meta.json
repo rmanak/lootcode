@@ -3,7 +3,8 @@
   "title": "Maximum Probability Path",
   "difficulty": "medium",
   "tags": [
-    "graph"
+    "graph",
+    "shortest-path"
   ],
   "hints": [
     "Notice that maximizing the product of probabilities is similar to finding a shortest path, but the 'cost' accumulates multiplicatively rather than additively.",

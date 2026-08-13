@@ -626,16 +626,16 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 .streak-head h2 { margin: 0; }
 .streak-sub { color: var(--muted); font-size: 13px; }
 /* The week (seven tall day columns) sits on the left; the month calendar fills
-   the space their narrower 10x2 grids free up on the right. Wraps on narrow. */
+   the space their narrower 6x2 grids free up on the right. Wraps on narrow. */
 .streak-body { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
 .streak-bars { display: flex; gap: 26px; align-items: flex-end; }
 .streak-day { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-/* Each day is a 10-row x 2-column grid of little square blocks — a tall, narrow
+/* Each day is a 6-row x 2-column grid of little square blocks — a tall, narrow
    column so the seven days read as separate bars. A grey block is unfilled;
    solving a problem fills that many blocks with a difficulty colour (easy 1,
-   medium 4, hard 10). Cells fill left-to-right, top row down. */
+   medium 4, hard 8). Cells fill left-to-right, top row down. */
 .streak-grid { width: 44px; display: grid;
-  grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(8, 1fr);
+  grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(6, 1fr);
   gap: 6px; padding: 6px; background: var(--bg);
   border: 1px solid var(--border); border-radius: 8px; }
 .streak-cell { aspect-ratio: 1; border-radius: 2px; background: #d8d5cc;

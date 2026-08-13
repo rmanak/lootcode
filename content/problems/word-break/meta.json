@@ -3,8 +3,12 @@
   "title": "Word Break",
   "difficulty": "medium",
   "tags": [
+    "array",
+    "hash-table",
     "string",
-    "dynamic-programming"
+    "dynamic-programming",
+    "trie",
+    "memoization"
   ],
   "hints": [
     "Consider checking prefixes of the string to see if they end with a valid dictionary word.",

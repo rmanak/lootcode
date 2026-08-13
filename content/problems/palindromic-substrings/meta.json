@@ -3,6 +3,7 @@
   "title": "Palindromic Substrings",
   "difficulty": "medium",
   "tags": [
+    "two-pointers",
     "string",
     "dynamic-programming"
   ],

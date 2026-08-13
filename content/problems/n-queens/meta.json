@@ -3,6 +3,7 @@
   "title": "N Queens",
   "difficulty": "hard",
   "tags": [
+    "array",
     "backtracking"
   ],
   "hints": [

@@ -4,8 +4,9 @@
   "difficulty": "hard",
   "tags": [
     "linked-list",
+    "divide-and-conquer",
     "heap",
-    "divide-and-conquer"
+    "sorting"
   ],
   "hints": [
     "Consider how you would merge just two sorted lists efficiently, then extend that idea to handle multiple lists simultaneously.",

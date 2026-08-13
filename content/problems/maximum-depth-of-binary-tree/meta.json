@@ -5,7 +5,8 @@
   "tags": [
     "tree",
     "depth-first-search",
-    "breadth-first-search"
+    "breadth-first-search",
+    "binary-tree"
   ],
   "hints": [
     "Consider the empty tree case first. What should the depth be when the root is None?",

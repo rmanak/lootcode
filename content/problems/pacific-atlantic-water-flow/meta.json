@@ -3,8 +3,9 @@
   "title": "Pacific Atlantic Water Flow",
   "difficulty": "medium",
   "tags": [
-    "graph",
+    "array",
     "depth-first-search",
+    "breadth-first-search",
     "matrix"
   ],
   "hints": [

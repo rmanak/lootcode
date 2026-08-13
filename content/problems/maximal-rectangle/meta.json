@@ -3,10 +3,11 @@
   "title": "Maximal Rectangle of Ones",
   "difficulty": "hard",
   "tags": [
-    "matrix",
+    "array",
+    "dynamic-programming",
     "stack",
-    "monotonic-stack",
-    "dynamic-programming"
+    "matrix",
+    "monotonic-stack"
   ],
   "hints": [
     "Treat each row as the base of a histogram where heights accumulate consecutive 1s from above.",

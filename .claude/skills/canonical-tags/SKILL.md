@@ -14,25 +14,37 @@ taxonomy + rationale is **`specs/tags.md`**. This skill is the authoring
 workflow. If those files and this list ever disagree, `app/tags.py` wins — refresh
 this skill from it.
 
-## Canonical tags (39)
+## Canonical tags (44)
 
 Pick **1–4** that best describe the *technique/structure*, not incidental detail.
 
 - **Core data shapes:** `array` · `string` · `matrix` · `linked-list` · `tree` ·
   `binary-tree` · `graph`
-- **Structures:** `stack` · `monotonic-stack` · `queue` · `heap` · `hash-table` · `hash-set` ·
-  `hash-function` · `binary-search-tree` · `trie` · `union-find` ·
-  `binary-indexed-tree` · `suffix-array` · `design`
+- **Structures:** `stack` · `monotonic-stack` · `queue` · `heap` · `hash-table` ·
+  `hash-function` · `binary-search-tree` · `ordered-set` · `trie` · `union-find` ·
+  `binary-indexed-tree` · `segment-tree` · `suffix-array` · `design`
 - **Techniques:** `two-pointers` · `sliding-window` · `prefix-sum` ·
   `binary-search` · `sorting` · `greedy` · `backtracking` · `recursion` ·
   `divide-and-conquer` · `dynamic-programming` · `memoization` ·
-  `depth-first-search` · `breadth-first-search` · `bit-manipulation` · `bitmask`
-- **Counting / numeric:** `combinatorics` · `counting` · `simulation` · `math`
+  `depth-first-search` · `breadth-first-search` · `topological-sort` ·
+  `shortest-path` · `bit-manipulation` · `bitmask`
+- **Counting / numeric:** `combinatorics` · `counting` · `simulation` ·
+  `number-theory` · `geometry` · `math`
 
 `math` is a **catch-all umbrella** — use it only when no more specific tag
-applies (pure number-theory / geometry / probability / arithmetic-formula
-problems). If a problem already has a specific tag, do **not** also add `math`;
+applies (arithmetic-formula and probability problems; prefer `number-theory` for
+divisibility/primes/modular arithmetic and `geometry` for points, lines and
+areas). If a problem already has a specific tag, do **not** also add `math`;
 `normalize_tags` strips the redundant umbrella anyway.
+
+Four pairs look interchangeable but are **not** — pick deliberately:
+
+| | |
+|---|---|
+| `binary-indexed-tree` vs `segment-tree` | Fenwick/BIT (prefix aggregates) vs a segment tree (arbitrary range queries, lazy propagation). |
+| `binary-search-tree` vs `ordered-set` | The BST *is* the problem's subject vs you reach for a sorted container as a tool. |
+| `graph` vs `topological-sort` / `shortest-path` | Keep `graph` for general traversal/structure; add the named technique when the problem is specifically a DAG ordering or a weighted shortest path. |
+| `heap` vs `sorting` | A running priority queue vs a one-shot sort. |
 
 `design` is for **implement-a-data-structure** problems driven by an operations
 sequence (input like `["LRUCache", "put", "get", ...]` + per-op args). Use it
@@ -46,17 +58,21 @@ Common aliases (full map in `app/tags.py:TAG_ALIASES`):
 |---|---|
 | `bfs` | `breadth-first-search` |
 | `dfs`, `flood-fill` | `depth-first-search` |
-| `hashing` | `hash-table` |
-| `bucket-sort`, `merge-sort`, `intervals`, `sweep-line` | `sorting` |
+| `hashing`, `hash-set` | `hash-table` |
+| `bucket-sort`, `counting-sort`, `radix-sort`, `quickselect`, `merge-sort`, `interval`, `intervals`, `sweep-line`, `line-sweep` | `sorting` |
 | `monotonic-queue` | `queue` |
-| `ordered-set` | `binary-search-tree` |
-| `segment-tree` | `binary-indexed-tree` |
+| `heap-priority-queue`, `priority-queue` | `heap` |
+| `doubly-linked-list` | `linked-list` |
+| `data-stream`, `iterator` | `design` |
 | `interval-dp`, `game-theory` | `dynamic-programming` |
 | `string-matching`, `rolling-hash` | `string` |
-| `dijkstra`, `bridges`, `eulerian-path`, `shortest-path`, `topological-sort`, `minimum-spanning-tree` | `graph` |
-| `number-theory`, `geometry`, `probability`, `probability-and-statistics` | `math` |
+| `biconnected-component`, `bridges`, `eulerian-path`, `eulerian-circuit`, `minimum-spanning-tree` | `graph` |
+| `dijkstra` | `shortest-path` |
+| `probability`, `probability-and-statistics` | `math` |
 
-**Dropped entirely** (never use): `enumeration`, `queries`.
+**Dropped entirely** (never use): `enumeration`, `queries`, `brainteaser`, and
+the delivery-style tags `database`, `shell`, `concurrency`, `interactive`,
+`randomized`, `reservoir-sampling`.
 
 ## Workflow
 

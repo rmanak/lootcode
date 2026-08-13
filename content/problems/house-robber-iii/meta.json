@@ -3,9 +3,10 @@
   "title": "House Robber III",
   "difficulty": "medium",
   "tags": [
-    "tree",
     "dynamic-programming",
-    "depth-first-search"
+    "tree",
+    "depth-first-search",
+    "binary-tree"
   ],
   "hints": [
     "Consider the choice at each node: rob it or skip it. How does that choice affect the immediate children?",

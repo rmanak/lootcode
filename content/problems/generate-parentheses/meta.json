@@ -3,8 +3,9 @@
   "title": "Generate Parentheses",
   "difficulty": "medium",
   "tags": [
-    "backtracking",
-    "string"
+    "string",
+    "dynamic-programming",
+    "backtracking"
   ],
   "hints": [
     "Think about building the string character by character. What rule prevents an invalid sequence?",

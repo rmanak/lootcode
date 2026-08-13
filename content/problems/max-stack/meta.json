@@ -3,9 +3,10 @@
   "title": "Max Stack",
   "difficulty": "hard",
   "tags": [
-    "design",
+    "linked-list",
     "stack",
-    "heap"
+    "design",
+    "ordered-set"
   ],
   "hints": [
     "Consider how to maintain the maximum efficiently alongside the standard stack operations.",

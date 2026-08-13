@@ -4,8 +4,9 @@
   "difficulty": "medium",
   "tags": [
     "tree",
-    "binary-tree",
-    "breadth-first-search"
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
   ],
   "hints": [
     "Assign each node an index as if the tree were a perfect binary tree. The root is 0, and a node at index i has children at 2i+1 and 2i+2.",

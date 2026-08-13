@@ -3,8 +3,8 @@
   "title": "String Compression",
   "difficulty": "medium",
   "tags": [
-    "string",
-    "two-pointers"
+    "two-pointers",
+    "string"
   ],
   "hints": [
     "Consider iterating through the string once. What changes when the current character differs from the previous one?",

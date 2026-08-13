@@ -23,7 +23,7 @@ from __future__ import annotations
 # The umbrella catch-all (kept only when nothing more specific applies).
 MATH = "math"
 
-# Allowed vocabulary (39 tags). Keep alphabetised.
+# Allowed vocabulary (44 tags). Keep alphabetised.
 CANONICAL_TAGS: frozenset[str] = frozenset({
     "array",
     "backtracking",
@@ -40,10 +40,10 @@ CANONICAL_TAGS: frozenset[str] = frozenset({
     "design",
     "divide-and-conquer",
     "dynamic-programming",
+    "geometry",
     "graph",
     "greedy",
     "hash-function",
-    "hash-set",
     "hash-table",
     "heap",
     "linked-list",
@@ -51,15 +51,20 @@ CANONICAL_TAGS: frozenset[str] = frozenset({
     "matrix",
     "memoization",
     "monotonic-stack",
+    "number-theory",
+    "ordered-set",
     "prefix-sum",
     "queue",
     "recursion",
+    "segment-tree",
+    "shortest-path",
     "simulation",
     "sliding-window",
     "sorting",
     "stack",
     "string",
     "suffix-array",
+    "topological-sort",
     "tree",
     "trie",
     "two-pointers",
@@ -67,40 +72,56 @@ CANONICAL_TAGS: frozenset[str] = frozenset({
 })
 
 # Non-canonical tag -> canonical tag. Synonyms/abbreviations and too-detailed
-# techniques folded up into a broader kept category. The math family
-# (number-theory / geometry / probability*) folds into the ``math`` umbrella.
+# techniques folded up into a broader kept category.
 TAG_ALIASES: dict[str, str] = {
     "bfs": "breadth-first-search",
     "dfs": "depth-first-search",
     "hashing": "hash-table",
+    "hash-set": "hash-table",
     "bucket-sort": "sorting",
+    "counting-sort": "sorting",
     "merge-sort": "sorting",
+    "radix-sort": "sorting",
+    "quickselect": "sorting",
+    "interval": "sorting",
     "intervals": "sorting",
     "sweep-line": "sorting",
+    "line-sweep": "sorting",
     "monotonic-queue": "queue",
-    "ordered-set": "binary-search-tree",
-    "segment-tree": "binary-indexed-tree",
+    "heap-priority-queue": "heap",
+    "priority-queue": "heap",
+    "doubly-linked-list": "linked-list",
+    "data-stream": "design",
+    "iterator": "design",
     "interval-dp": "dynamic-programming",
     "game-theory": "dynamic-programming",
     "flood-fill": "depth-first-search",
     "string-matching": "string",
     "rolling-hash": "string",
+    "biconnected-component": "graph",
     "bridges": "graph",
-    "dijkstra": "graph",
-    "shortest-path": "graph",
+    "eulerian-circuit": "graph",
     "eulerian-path": "graph",
     "minimum-spanning-tree": "graph",
-    "topological-sort": "graph",
-    "number-theory": "math",
-    "geometry": "math",
+    "dijkstra": "shortest-path",
     "probability": "math",
     "probability-and-statistics": "math",
 }
 
-# Tags removed entirely: too vague / a problem-type meta-tag, with no good home.
+# Tags removed entirely: too vague / a problem-type meta-tag, or describing how a
+# problem is *delivered* rather than how it is solved (`database`, `shell` and
+# `concurrency` name a language we don't run; `interactive` and `randomized` name
+# a judging style we re-author away). No good home in the vocabulary.
 DROPPED_TAGS: frozenset[str] = frozenset({
+    "brainteaser",
+    "concurrency",
+    "database",
     "enumeration",
+    "interactive",
     "queries",
+    "randomized",
+    "reservoir-sampling",
+    "shell",
 })
 
 

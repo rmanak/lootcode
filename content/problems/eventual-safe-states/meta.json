@@ -3,8 +3,10 @@
   "title": "Eventual Safe States",
   "difficulty": "medium",
   "tags": [
+    "depth-first-search",
+    "breadth-first-search",
     "graph",
-    "depth-first-search"
+    "topological-sort"
   ],
   "hints": [
     "A node is safe if it cannot reach any cycle. Consider marking nodes based on whether they are part of or lead to a cycle.",

@@ -3,8 +3,8 @@
   "title": "Valid Anagram",
   "difficulty": "easy",
   "tags": [
-    "string",
     "hash-table",
+    "string",
     "sorting"
   ],
   "hints": [

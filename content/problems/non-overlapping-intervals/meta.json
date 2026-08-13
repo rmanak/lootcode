@@ -4,6 +4,7 @@
   "difficulty": "medium",
   "tags": [
     "array",
+    "dynamic-programming",
     "greedy",
     "sorting"
   ],

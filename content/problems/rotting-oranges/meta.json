@@ -3,8 +3,9 @@
   "title": "Rotting Oranges",
   "difficulty": "medium",
   "tags": [
-    "matrix",
-    "breadth-first-search"
+    "array",
+    "breadth-first-search",
+    "matrix"
   ],
   "hints": [
     "This problem involves spreading a state over time in steps, similar to how a fire spreads or ripples expand in water.",

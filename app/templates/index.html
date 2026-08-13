@@ -14,6 +14,7 @@
   <form class="search-form" method="get">
     {% if f_difficulty %}<input type="hidden" name="difficulty" value="{{ f_difficulty }}">{% endif %}
     {% if f_topic %}<input type="hidden" name="topic" value="{{ f_topic }}">{% endif %}
+    {% for t in f_exclude_topic %}<input type="hidden" name="exclude_topic" value="{{ t }}">{% endfor %}
     {% if f_collection %}<input type="hidden" name="collection" value="{{ f_collection }}">{% endif %}
     {% if f_unsolved %}<input type="hidden" name="unsolved" value="1">{% endif %}
     {% if f_unknown %}<input type="hidden" name="unknown" value="1">{% endif %}

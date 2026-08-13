@@ -3,7 +3,8 @@
   "title": "Merge Two Sorted Lists",
   "difficulty": "easy",
   "tags": [
-    "linked-list"
+    "linked-list",
+    "recursion"
   ],
   "hints": [
     "Compare the current heads of both lists to see which value is smaller.",

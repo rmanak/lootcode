@@ -4,7 +4,9 @@
   "difficulty": "medium",
   "tags": [
     "dynamic-programming",
-    "tree"
+    "tree",
+    "binary-search-tree",
+    "binary-tree"
   ],
   "hints": [
     "Consider how the root choice splits the remaining values into left and right subtrees.",

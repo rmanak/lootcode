@@ -3,8 +3,9 @@
   "title": "Maximum Profit Job Scheduling",
   "difficulty": "hard",
   "tags": [
-    "dynamic-programming",
+    "array",
     "binary-search",
+    "dynamic-programming",
     "sorting"
   ],
   "hints": [

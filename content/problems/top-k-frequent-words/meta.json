@@ -3,10 +3,13 @@
   "title": "Top K Frequent Words",
   "difficulty": "medium",
   "tags": [
+    "array",
     "hash-table",
     "string",
+    "trie",
     "sorting",
-    "heap"
+    "heap",
+    "counting"
   ],
   "hints": [
     "Count the occurrences of each word using a hash map or dictionary to store frequencies.",

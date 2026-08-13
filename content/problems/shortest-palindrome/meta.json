@@ -4,7 +4,7 @@
   "difficulty": "hard",
   "tags": [
     "string",
-    "hash-table"
+    "hash-function"
   ],
   "hints": [
     "Find the longest prefix of s that is already a palindrome.",

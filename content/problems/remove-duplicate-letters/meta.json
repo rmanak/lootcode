@@ -5,8 +5,8 @@
   "tags": [
     "string",
     "stack",
-    "monotonic-stack",
-    "greedy"
+    "greedy",
+    "monotonic-stack"
   ],
   "hints": [
     "Consider processing the string left-to-right, deciding for each character whether to keep it or discard it based on future occurrences.",

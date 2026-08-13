@@ -3,9 +3,10 @@
   "title": "Count Complete Tree Nodes",
   "difficulty": "easy",
   "tags": [
+    "binary-search",
+    "bit-manipulation",
     "tree",
-    "binary-tree",
-    "binary-search"
+    "binary-tree"
   ],
   "hints": [
     "Count the height of the leftmost path to the root. Then count the height of the rightmost path. If they match, the tree is perfectly full.",

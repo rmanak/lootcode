@@ -3,8 +3,8 @@
   "title": "Longest Substring with At Least K Repeating Characters",
   "difficulty": "medium",
   "tags": [
-    "string",
     "hash-table",
+    "string",
     "divide-and-conquer",
     "sliding-window"
   ],

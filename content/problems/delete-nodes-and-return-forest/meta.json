@@ -3,8 +3,11 @@
   "title": "Delete Nodes And Return Forest",
   "difficulty": "medium",
   "tags": [
+    "array",
+    "hash-table",
     "tree",
-    "depth-first-search"
+    "depth-first-search",
+    "binary-tree"
   ],
   "hints": [
     "Consider a post-order traversal. Why does processing children before parents help manage the forest structure?",

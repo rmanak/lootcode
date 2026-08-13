@@ -3,9 +3,9 @@
   "title": "Web Crawler Same Host",
   "difficulty": "medium",
   "tags": [
-    "graph",
-    "breadth-first-search",
-    "string"
+    "string",
+    "depth-first-search",
+    "breadth-first-search"
   ],
   "hints": [
     "Extract the hostname from startUrl to identify the target domain for filtering.",

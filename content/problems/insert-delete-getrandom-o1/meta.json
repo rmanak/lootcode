@@ -3,9 +3,9 @@
   "title": "Insert Delete GetRandom O(1)",
   "difficulty": "medium",
   "tags": [
-    "design",
     "array",
-    "hash-table"
+    "hash-table",
+    "design"
   ],
   "hints": [
     "To achieve O(1) removal, you need direct access to an element's position, not just its existence.",

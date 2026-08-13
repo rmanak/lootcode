@@ -3,8 +3,8 @@
   "title": "Combination Sum",
   "difficulty": "medium",
   "tags": [
-    "backtracking",
-    "array"
+    "array",
+    "backtracking"
   ],
   "hints": [
     "Treat this as a search problem: at each step, decide whether to include a candidate or move to the next one.",
