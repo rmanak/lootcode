@@ -26,11 +26,11 @@ from sqlalchemy.orm import Session
 from .models import Problem, Submission
 
 # "Units of work" a solve is worth, by difficulty. Each weekday is drawn as a
-# 6x2 grid of DAY_BLOCKS little blocks; a solve fills that many grey blocks with
+# 4x2 grid of DAY_BLOCKS little blocks; a solve fills that many grey blocks with
 # a difficulty colour (easy 1 light-green, medium 4 yellow, hard 8 red). Anything
 # past a full day spills forward to pre-fill the next day(s).
 UNIT_WEIGHTS = {"easy": 1, "medium": 4, "hard": 8}
-DAY_BLOCKS = 12  # 6 rows x 2 columns
+DAY_BLOCKS = 8  # 4 rows x 2 columns
 
 
 def unsolved_counts(db: Session, skip_ids: set[int]) -> dict[str, int]:
@@ -129,19 +129,39 @@ def blocks_by_local_date(
     return units_by_date, by_date
 
 
+def carry_into(day: date, blocks_by_date: dict[date, list[str]]) -> list[str]:
+    """The overflow still waiting when `day` starts: every earlier day's blocks laid
+    out one `DAY_BLOCKS`-slot day at a time, with no reset at week boundaries.
+
+    Each day — solved on or not — places up to `DAY_BLOCKS` of the carry, so a
+    big day spills through the following days (into next week and beyond) until
+    it runs out, and an empty stretch drains it the same way."""
+    carry: list[str] = []
+    prev: date | None = None
+    for d in sorted(k for k in blocks_by_date if k < day):
+        if prev is not None:  # the days strictly between prev and d drain the carry
+            carry = carry[((d - prev).days - 1) * DAY_BLOCKS:]
+        carry = (carry + blocks_by_date[d])[DAY_BLOCKS:]
+        prev = d
+    if prev is not None:
+        carry = carry[((day - prev).days - 1) * DAY_BLOCKS:]
+    return carry
+
+
 def lay_out_week(
     week_days: list[date], blocks_by_date: dict[date, list[str]]
 ) -> list[list[str]]:
     """Place each day's difficulty-blocks into its `DAY_BLOCKS`-slot grid, carrying
-    whatever overflows a full day forward to pre-fill later days *in the same week*.
+    whatever overflows a full day forward to pre-fill the following days.
 
     Returns one placed-block list per day, aligned with `week_days` (assumed to be
-    seven consecutive Sun–Sat dates). Carry starts empty at the week's Sunday, so a
-    week's completion never depends on a different week — this is the single source
-    of truth for "did a day hit the goal", shared by the weekly grid and the month
-    calendar so the two views can't disagree about a day."""
+    consecutive dates, normally a Sun–Sat week). The week opens with whatever
+    earlier days are still carrying (`carry_into`), so overflow crosses week
+    boundaries — this is the single source of truth for "did a day hit the goal",
+    shared by the weekly grid and the month calendar so the two views can't
+    disagree about a day."""
     placed_per_day: list[list[str]] = []
-    carry: list[str] = []
+    carry = carry_into(week_days[0], blocks_by_date)
     for d in week_days:
         filled = carry + blocks_by_date.get(d, [])
         placed, carry = filled[:DAY_BLOCKS], filled[DAY_BLOCKS:]
@@ -155,7 +175,8 @@ def weekly_streak(
     """Per-weekday (Sun–Sat, weekend included) block grid for the current week.
 
     Each day's grid holds `DAY_BLOCKS` blocks; blocks beyond a full day spill
-    forward to pre-fill the next day(s)."""
+    forward to pre-fill the next day(s), past Saturday into the weeks after.
+    `carry_out` is how many blocks are already headed for next week."""
     today = datetime.now(tz).date()
     # Sunday that starts this week. weekday(): Mon=0 … Sun=6, so (weekday+1)%7 is
     # the number of days back to the most recent Sunday.
@@ -182,6 +203,7 @@ def weekly_streak(
         "total": sum(units_by_date.get(d, 0) for d in week_days),
         # A still-to-come day pre-filled by overflow isn't a day you "hit".
         "days_met": sum(1 for x in days if x["met"] and not x["is_future"]),
+        "carry_out": len(carry_into(sunday + timedelta(days=7), blocks_by_date)),
     }
 
 
@@ -190,12 +212,16 @@ def month_calendar(
 ) -> dict:
     """A month grid (Sunday-first) marking which days hit the daily `DAY_BLOCKS` goal.
 
-    A day is `done` when its blocks — including overflow spilled forward from
-    earlier in the *same* Sun–Sat week — fill the day, exactly as the weekly grid
+    A day is `done` when its blocks — including overflow spilled forward from any
+    earlier day, last week's included — fill the day, exactly as the weekly grid
     counts it (both go through `lay_out_week`), so a day shown ✓ for this week also
-    lights up green here. Still-to-come days never light up (you can't have hit a
-    day that hasn't happened). Cells from adjacent months render blank (`in_month`
-    False) but still contribute their spillover to in-month days in the same week."""
+    lights up green here. A still-to-come day is never `done` (you can't have hit a
+    day that hasn't happened); if overflow has already filled it, it is
+    `prefilled` instead, which the page draws as a lighter green dot. A day with
+    some blocks but short of the goal — past, today or already-queued future —
+    is `partial`, drawn as a dot filled in proportion to `filled`. Cells from
+    adjacent months render blank (`in_month` False) but still pass their
+    spillover on to the in-month days after them."""
     today = datetime.now(tz).date()
     cal = calendar.Calendar(firstweekday=6)  # 6 == Sunday
 
@@ -204,9 +230,14 @@ def month_calendar(
             {
                 "day": d.day,
                 "in_month": d.month == month,
+                "filled": len(placed),
                 "done": (
                     d.month == month and d <= today and len(placed) >= DAY_BLOCKS
                 ),
+                "prefilled": (
+                    d.month == month and d > today and len(placed) >= DAY_BLOCKS
+                ),
+                "partial": d.month == month and 0 < len(placed) < DAY_BLOCKS,
                 "is_today": d == today,
                 "is_future": d > today,
             }
@@ -219,6 +250,7 @@ def month_calendar(
     next_y, next_m = (year + 1, 1) if month == 12 else (year, month + 1)
     return {
         "label": date(year, month, 1).strftime("%B %Y"),
+        "goal": DAY_BLOCKS,
         "weekday_labels": ["S", "M", "T", "W", "T", "F", "S"],
         "weeks": weeks,
         "prev": f"{prev_y:04d}-{prev_m:02d}",

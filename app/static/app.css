@@ -626,16 +626,16 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 .streak-head h2 { margin: 0; }
 .streak-sub { color: var(--muted); font-size: 13px; }
 /* The week (seven tall day columns) sits on the left; the month calendar fills
-   the space their narrower 6x2 grids free up on the right. Wraps on narrow. */
+   the space their narrower 4x2 grids free up on the right. Wraps on narrow. */
 .streak-body { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
 .streak-bars { display: flex; gap: 26px; align-items: flex-end; }
 .streak-day { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-/* Each day is a 6-row x 2-column grid of little square blocks — a tall, narrow
+/* Each day is a 4-row x 2-column grid of little square blocks — a tall, narrow
    column so the seven days read as separate bars. A grey block is unfilled;
    solving a problem fills that many blocks with a difficulty colour (easy 1,
    medium 4, hard 8). Cells fill left-to-right, top row down. */
 .streak-grid { width: 44px; display: grid;
-  grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 1fr);
   gap: 6px; padding: 6px; background: var(--bg);
   border: 1px solid var(--border); border-radius: 8px; }
 .streak-cell { aspect-ratio: 1; border-radius: 2px; background: #d8d5cc;
@@ -663,7 +663,10 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 .streak-key.hard::before { background: #f87171; }
 
 /* Month calendar (right of the weekly streak): each in-month day shows its date
-   and a tiny green dot when that day's daily 20-block goal was completed. */
+   and a small green marker — a full dot (●) when that day's daily block goal was
+   completed, a half dot (◖) when it has some blocks but not the goal. Either
+   one is faded for a still-to-come day that overflow from extra solves already
+   (part-)fills. */
 .month-cal { width: 252px; margin-left: auto; }
 .cal-head { display: flex; align-items: center; justify-content: space-between;
   gap: 8px; margin-bottom: 8px; }
@@ -686,9 +689,13 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 .cal-cell.today { border-color: var(--primary);
   box-shadow: 0 0 0 2px rgba(15, 118, 110, .18); }
 .cal-num { line-height: 1; }
-/* A reserved dot slot keeps every cell the same height; only "done" days fill it. */
-.cal-dot { width: 7px; height: 7px; border-radius: 50%; background: transparent; }
-.cal-cell.done .cal-dot { background: var(--pass); }
+/* A reserved marker slot keeps every cell the same height; an empty day leaves it
+   blank. ◖ is the left half of ●, so set from one font that has both they match. */
+.cal-dot { height: 7px; display: flex; align-items: center; justify-content: center;
+  overflow: visible; color: var(--pass);
+  font: 10px/7px "DejaVu Sans", "Segoe UI Symbol", "Apple Symbols", FreeSans, sans-serif; }
+.cal-cell.prefilled { background: #f3faf6; border-color: #d8eee0; }
+.cal-cell.future .cal-dot { opacity: .45; }
 td.pass { color: var(--pass); font-weight: 600; }
 td.fail { color: var(--fail); font-weight: 600; }
 .ok-tag { color: var(--pass); font-size: 12px; }

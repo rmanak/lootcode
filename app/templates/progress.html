@@ -25,7 +25,8 @@
   <div class="streak-head">
     <h2>This week</h2>
     <span class="streak-sub">{{ week_streak.days_met }}/7 days hit the goal ·
-      {{ week_streak.total }} units total</span>
+      {{ week_streak.total }} units total
+      {%- if week_streak.carry_out %} · {{ week_streak.carry_out }} block{{ 's' if week_streak.carry_out != 1 }} carried into next week{% endif %}</span>
   </div>
   <div class="streak-body">
     <div class="streak-bars">
@@ -60,11 +61,13 @@
         {% endfor %}
         {% for week in month_cal.weeks %}
           {% for cell in week %}
-          <div class="cal-cell{{ ' out' if not cell.in_month }}{{ ' today' if cell.is_today }}{{ ' done' if cell.done }}"
-               {% if cell.in_month %}title="{{ month_cal.label }} {{ cell.day }}{{ ' · daily goal met' if cell.done }}"{% endif %}>
+          <div class="cal-cell{{ ' out' if not cell.in_month }}{{ ' today' if cell.is_today }}{{ ' future' if cell.is_future }}{{ ' done' if cell.done }}{{ ' prefilled' if cell.prefilled }}{{ ' partial' if cell.partial }}"
+               {% if cell.in_month %}title="{{ month_cal.label }} {{ cell.day }}{{ ' · daily goal met' if cell.done }}{{ ' · already filled by extra solves' if cell.prefilled }}
+               {%- if cell.partial %} · {{ cell.filled }}/{{ month_cal.goal }} blocks{{ ' already filled by extra solves' if cell.is_future }}{% endif %}"{% endif %}>
             {% if cell.in_month %}
             <span class="cal-num">{{ cell.day }}</span>
-            <span class="cal-dot"></span>
+            {#- ● (U+25CF) and ◖ (U+25D6): ◖ is the left half of ●, so they size alike #}
+            <span class="cal-dot">{% if cell.done or cell.prefilled %}&#x25CF;{% elif cell.partial %}&#x25D6;{% endif %}</span>
             {% endif %}
           </div>
           {% endfor %}
@@ -73,7 +76,7 @@
     </div>
   </div>
   <p class="streak-legend muted">Fill each day's <strong>{{ week_streak.goal }} blocks</strong> —
-    extra work spills into the next day. <span class="streak-key easy">Easy = 1</span>
+    extra work spills into the following days, even into next week. <span class="streak-key easy">Easy = 1</span>
     <span class="streak-key medium">Medium = 4</span> <span class="streak-key hard">Hard = 8</span></p>
 </section>
 
