@@ -5,6 +5,10 @@ for one extra, more-concrete hint generated live. It appears on the problem page
 below the last stored hint, behind a **✨ Get More Help with AI** button that
 mirrors the admin "Generate with AI" look.
 
+The same endpoint (and availability flag) also backs the problem page's
+**✨ Analysis** button — an AI review of the solver's code; see
+[ai-analysis.md](ai-analysis.md).
+
 This is the interactive cousin of the bulk hint pipeline (see
 [hint-generation.md](hint-generation.md)). The bulk pipeline pre-authors up to 3
 progressive, gated hints and stores them; this feature generates a *fourth*,

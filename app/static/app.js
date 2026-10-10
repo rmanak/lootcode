@@ -9,6 +9,9 @@
   // Python syntax, context-aware auto-indent, 4-space Tab/Shift-Tab, and the
   // vertical indentation guides. Height comes from CSS (.editor-wrap .cm-editor).
   const editor = LootEditor.create(document.getElementById("code"));
+  // Shared with analysis.js, which sends the same code for an AI "Analysis".
+  window.lootcode = window.lootcode || {};
+  window.lootcode.editor = editor;
 
   const btn = document.getElementById("run-btn");
   const statusEl = document.getElementById("status");

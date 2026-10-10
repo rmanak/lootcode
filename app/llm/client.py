@@ -81,7 +81,7 @@ def loads_loose(text: str) -> Any:
         return json.loads(text[i:j + 1])
 
 
-def _response_formats(schema: dict | None, schema_name: str) -> list[dict | None]:
+def response_formats(schema: dict | None, schema_name: str) -> list[dict | None]:
     """Structured-output modes, most-constrained first.
 
     llama.cpp compiles a `json_schema` into a GBNF grammar and *guarantees* a
@@ -123,7 +123,7 @@ def chat_json(client, *, model: str, messages: list[dict], what: str,
         body.setdefault("chat_template_kwargs", {"enable_thinking": False})
 
     last_err: Exception | None = None
-    for rf in _response_formats(schema, schema_name):
+    for rf in response_formats(schema, schema_name):
         kwargs: dict[str, Any] = {"model": model, "messages": messages}
         if temperature is not None:
             kwargs["temperature"] = temperature

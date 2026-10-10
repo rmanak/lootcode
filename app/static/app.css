@@ -13,6 +13,14 @@
   --pass: #15803d;
   --fail: #b91c1c;
   --known: #2563eb;        /* blue-600 — "known" marker, paired with green solved */
+  /* AI "Analysis" — LeetCode-style purple→indigo on a lavender→blue wash. */
+  --ai-purple: #9b4fe0;
+  --ai-indigo: #5b6cf2;
+  --ai-good: #1a9e43;
+  --ai-wash-1: #f3e5fc;
+  --ai-wash-2: #e3e9fc;
+  --ai-card-1: #fbf6fe;
+  --ai-card-2: #f4f6fd;
   --radius: 10px;
 }
 
@@ -458,6 +466,90 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 #run-btn:hover { background: var(--primary-d); }
 #run-btn:disabled { opacity: .6; cursor: progress; }
 #status { color: var(--muted); font-size: 13px; }
+
+/* "✨ Analysis": AI report on the editor's code (static/analysis.js), styled
+   after LeetCode's — a lavender→blue wash with purple→indigo gradient text. The
+   button sits at the right end of the Run & Score row; the report renders in
+   #analysis, between that row and the test results. */
+.analysis-btn { margin-left: auto; display: inline-flex; align-items: center; gap: 7px;
+  padding: 10px 18px; border: 0; border-radius: 8px; cursor: pointer;
+  font: inherit; font-weight: 700;
+  background: linear-gradient(90deg, var(--ai-wash-1), var(--ai-wash-2)); }
+.analysis-btn .analysis-label { background: linear-gradient(90deg, var(--ai-purple), var(--ai-indigo));
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+.analysis-btn:hover:not(:disabled) { background: linear-gradient(90deg, #ecd9fb, #d9e2fb); }
+.analysis-btn:disabled { cursor: not-allowed; filter: grayscale(1); opacity: .55; }
+.analysis-btn.is-busy { cursor: progress; filter: none; opacity: 1; }
+.analysis-btn.is-busy .ai-spark { display: inline-block;
+  animation: ai-sparkle 1s ease-in-out infinite; }
+
+.analysis { display: flex; flex-direction: column; gap: 12px; margin: 0 0 14px; }
+.an-card { border-radius: 12px; padding: 16px 20px;
+  background: linear-gradient(110deg, var(--ai-card-1), var(--ai-card-2));
+  border: 1px solid #efe9fa; }
+.an-head { display: flex; align-items: center; gap: 12px; }
+.an-pillars { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.an-pillar { display: inline-flex; align-items: center; gap: 6px; font-size: 14.5px;
+  color: var(--ai-purple); }
+.an-tick { display: inline-flex; width: 15px; height: 15px; align-items: center;
+  justify-content: center; }
+.an-check { width: 15px; height: 15px; display: none; }
+.an-spin { width: 11px; height: 11px; border-radius: 50%;
+  border: 2px solid currentColor; border-right-color: transparent;
+  animation: an-spin .8s linear infinite; opacity: .7; }
+.an-pillar.is-done .an-check { display: block; }
+.an-pillar.is-done .an-spin, .an-pillar.is-idle .an-spin { display: none; }
+@keyframes an-spin { to { transform: rotate(360deg); } }
+.an-verdict { margin-left: auto; font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+.an-verdict.ok { color: var(--pass); }
+.an-verdict.no { color: var(--fail); }
+.an-close { margin-left: auto; border: 0; background: none; cursor: pointer;
+  font-size: 20px; line-height: 1; color: var(--muted); padding: 0 2px; }
+.an-verdict:not([hidden]) + .an-close { margin-left: 0; }
+.an-close:hover { color: var(--ink); }
+.an-body { margin-top: 12px; }
+
+.an-progress { display: flex; align-items: center; gap: 10px; }
+.an-bar { flex: 0 1 240px; height: 6px; border-radius: 999px;
+  background: #e6e0f3; overflow: hidden; }
+.an-bar > span { display: block; height: 100%; width: 0; border-radius: 999px;
+  background: linear-gradient(90deg, var(--ai-purple), var(--ai-indigo));
+  transition: width .3s ease; }
+.an-status { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+.an-error { margin: 0; color: var(--fail); font-size: 14px; }
+
+.an-summary { margin: 0; font-size: 15.5px; line-height: 1.55;
+  background: linear-gradient(90deg, var(--ai-purple), var(--ai-indigo));
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+.an-rule { border: 0; height: 1px; background: #e4e0ea; margin: 14px 0; }
+.an-title { display: flex; align-items: center; gap: 6px; margin: 0 0 10px;
+  font-size: 18px; font-weight: 500; }
+.an-title span { background: linear-gradient(90deg, var(--ai-purple), var(--ai-indigo));
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+.an-icon { width: 19px; height: 19px; color: var(--ai-purple); flex: none; }
+
+.an-rows { display: grid; grid-template-columns: max-content 1fr; gap: 7px 8px;
+  margin: 0; font-size: 14.5px; line-height: 1.5; }
+.an-rows[hidden] { display: none; }  /* `display: grid` would override [hidden] */
+.an-rows-loose { gap: 12px 8px; }
+.an-rows dt { color: var(--muted); }
+.an-rows dd { margin: 0; color: var(--ink); }
+.an-rows dd.an-good { color: var(--ai-good); }
+.an-rows code { font-size: 12.5px; background: rgba(124, 92, 230, .08);
+  padding: 1px 5px; border-radius: 5px; }
+.an-slash { margin: 0 9px; color: var(--ink); }
+.an-good .an-slash { color: var(--ai-good); }
+.an-math { font-family: "KaTeX_Main", "Latin Modern Roman", "STIX Two Text",
+  "Cambria Math", "Times New Roman", Times, serif; font-size: 17px; line-height: 1.2; }
+.an-math i { font-style: italic; }
+.an-math .an-fn { font-style: normal; }
+.an-math sup { font-size: .68em; }
+
+.an-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+.an-tab { border: 0; background: none; font: inherit; font-size: 14px; font-weight: 600;
+  color: var(--ink); padding: 6px 12px; border-radius: 8px; cursor: pointer; }
+.an-tab:hover { background: rgba(124, 92, 230, .06); }
+.an-tab.is-active { background: rgba(31, 36, 48, .07); }
 
 /* Results */
 .summary { display: flex; gap: 16px; align-items: center; padding: 12px 14px;

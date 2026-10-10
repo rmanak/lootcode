@@ -1,6 +1,6 @@
-// Shared Server-Sent-Events plumbing for the three streamed features:
-// "Get More Help with AI" (app.js), idea → statement (generate.js) and
-// statement → problem (generate_statement.js).
+// Shared Server-Sent-Events plumbing for the streamed features:
+// "Get More Help with AI" (app.js), "Analysis" (analysis.js), idea → statement
+// (generate.js) and statement → problem (generate_statement.js).
 //
 // The frame reader below was byte-identical in all three files, and so were the
 // error preamble and the creeping progress bar. The two admin generation pages
@@ -21,10 +21,11 @@ window.lootcode = window.lootcode || {};
   // reason in a JSON `detail`, which is what the user should see.
   // `onOpen` fires once the response is accepted and before the first frame, so
   // a caller can start its timer only after the request is known to be live.
-  async function postStream(url, { body = null, onEvent, onOpen = null }) {
-    const resp = await fetch(url, body === null
-      ? { method: "POST" }
-      : { method: "POST", body });
+  async function postStream(url, { body = null, headers = null, onEvent, onOpen = null }) {
+    const init = { method: "POST" };
+    if (body !== null) init.body = body;
+    if (headers) init.headers = headers;
+    const resp = await fetch(url, init);
     if (!resp.ok || !resp.body) {
       let detail = "Request failed";
       try { detail = (await resp.json()).detail || detail; } catch (_) { /* non-JSON */ }

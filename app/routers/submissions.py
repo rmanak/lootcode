@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import threading
 import time
 
 from fastapi import APIRouter, Depends, HTTPException, Request
@@ -242,9 +243,125 @@ def ai_help(slug: str, request: Request, db: Session = Depends(get_db)):
         else:
             yield _sse({"type": "done"})
 
+    return _sse_response(event_stream())
+
+
+def _sse_response(events) -> StreamingResponse:
     return StreamingResponse(
-        event_stream(),
+        events,
         media_type="text/event-stream",
         # Defeat proxy/browser buffering so chunks arrive as they're produced.
         headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
     )
+
+
+# The whole solution goes into the prompt. RunBody's 256 KB ceiling is about
+# storage; a model's context is far smaller, and no real solution is this long.
+MAX_ANALYSIS_CODE_CHARS = 20_000
+
+# Throttle for `progress` frames — one per streamed token is wasted bytes.
+_PROGRESS_EVERY_S = 0.2
+
+# Each analysis is a sandbox run plus an LLM stream that can hold a threadpool
+# thread for minutes against a busy model. The route is unauthenticated, so cap
+# how many run at once; a request over the cap is told to retry, never queued.
+_ANALYSES = threading.BoundedSemaphore(2)
+
+
+@router.post("/problems/{slug}/analyze")
+def analyze(slug: str, body: RunBody):
+    """Stream an AI "Analysis" of a solution: Approach, Efficiency, Code Style.
+
+    The code is graded first, through the same ``run_submission`` path as
+    ``/run`` — the model is told the real verdict, not asked to guess it — but
+    nothing is recorded: analysing is not an attempt. Then the optional LLM
+    endpoint writes a schema-constrained report (app/llm/solution_analyzer.py).
+
+    Server-Sent Events, ``{"type": ...}``:
+      ``status``   a progress message;
+      ``verdict``  ``{status, passed, total}`` once grading is done;
+      ``progress`` ``{chars, pillars}`` while the report streams — characters so
+                   far and how many pillars are complete;
+      ``result``   ``{analysis}``, the normalised report; then ``done``;
+      ``error``    ``{message}`` — terminal.
+
+    Like ``/run`` it holds no database session while grading or generating.
+    """
+    if not settings.llm_help_available:
+        raise HTTPException(status_code=503, detail="AI analysis is not configured.")
+    if not body.code.strip():
+        raise HTTPException(status_code=400, detail="Your solution is empty.")
+    code = body.code.expandtabs(4)  # as /run does, so the verdict matches it
+    # Measured after expandtabs: a tab-padded body would otherwise grow 4x past it.
+    if len(code) > MAX_ANALYSIS_CODE_CHARS:
+        raise HTTPException(status_code=400,
+                            detail="This solution is too long to analyse.")
+
+    from ..llm import solution_analyzer as analyzer
+
+    with SessionLocal() as db:
+        prob = db.scalar(select(Problem).where(Problem.slug == slug))
+        if prob is None:
+            raise HTTPException(status_code=404, detail="Problem not found")
+        view = problem_view(prob)
+        tests = case_views(prob.tests)
+        title, statement = prob.title, prob.statement_md or ""
+        reference = prob.canonical_solution or ""
+        signature = analyzer.signature(prob)
+        starter = (prob.starter_code or "").expandtabs(4).strip()
+
+    if code.strip() == starter:
+        raise HTTPException(status_code=400,
+                            detail="Write a solution first — this is still the starter code.")
+
+    def event_stream():
+        # Acquired inside the generator so the `finally` always releases it — a
+        # body that is never iterated never takes a slot.
+        if not _ANALYSES.acquire(blocking=False):
+            yield _sse({"type": "error", "message":
+                        "Other analyses are running — try again in a moment."})
+            return
+        try:
+            yield from analysis_events()
+        finally:
+            _ANALYSES.release()
+
+    def analysis_events():
+        yield _sse({"type": "status", "message": "Running your code against the tests…"})
+        try:
+            graded = run_submission(code, view, tests)
+            verdict = analyzer.build_verdict(graded, tests)
+            prompt = analyzer.render_prompt(
+                title=title, statement=statement, signature=signature,
+                reference=reference, code=code, verdict=verdict)
+        except Exception:  # noqa: BLE001 - details go to the log, not the page
+            log.exception("analyze %s: grading failed", slug)
+            yield _sse({"type": "error", "message": "Could not run your code."})
+            return
+        yield _sse({"type": "verdict", "status": verdict.status,
+                    "passed": verdict.passed, "total": verdict.total})
+        if len(prompt) > analyzer.MAX_PROMPT_CHARS:
+            log.warning("analyze %s: prompt of %d chars refused", slug, len(prompt))
+            yield _sse({"type": "error", "message":
+                        "This solution is too long to analyse."})
+            return
+        yield _sse({"type": "status", "message": "Analyzing your solution…"})
+
+        text, last = "", 0.0
+        try:
+            for piece in analyzer.stream_analysis(prompt):
+                text += piece
+                now = time.monotonic()
+                if now - last >= _PROGRESS_EVERY_S:
+                    last = now
+                    yield _sse({"type": "progress", "chars": len(text),
+                                "pillars": analyzer.pillars_done(text)})
+            analysis = analyzer.parse_analysis(text)
+        except Exception as exc:  # noqa: BLE001 - report failure to the client cleanly
+            log.warning("analyze %s: %s", slug, exc)
+            yield _sse({"type": "error", "message": f"AI analysis failed: {exc}"})
+            return
+        yield _sse({"type": "result", "analysis": analysis})
+        yield _sse({"type": "done"})
+
+    return _sse_response(event_stream())

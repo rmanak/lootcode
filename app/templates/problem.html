@@ -162,7 +162,18 @@
     <div class="actions">
       <button id="run-btn" type="button">▶ Run &amp; Score</button>
       <span id="status"></span>
+      {# AI "Analysis" of the editor's code (Approach / Efficiency / Code Style),
+         on the same LLM endpoint as "Get More Help with AI" — so it is greyed out
+         under the same condition. Report renders into #analysis, above results. #}
+      <button type="button" class="analysis-btn" id="analysis-btn"
+              data-enabled="{{ '1' if ai_help_enabled else '0' }}"
+              {% if ai_help_enabled %}title="Analyze your solution's approach, efficiency and code style with AI"
+              {% else %}disabled title="AI analysis is off — the LLM endpoint (LLM_HELP_URL) isn't reachable. Re-check the connection on the admin page."{% endif %}>
+        <span class="ai-spark" aria-hidden="true">✨</span>
+        <span class="analysis-label">Analysis</span>
+      </button>
     </div>
+    <div class="analysis" id="analysis" hidden aria-live="polite"></div>
     <div id="results"></div>
   </section>
 
@@ -173,6 +184,7 @@
 <script src="{{ static('vendor/cm6.js') }}"></script>
 <script src="{{ static('sse.js') }}"></script>
 <script src="{{ static('app.js') }}"></script>
+<script src="{{ static('analysis.js') }}"></script>
 <script>
   // Left-panel tabs: swap between the problem statement ("Description") and this
   // user's attempt history ("Submissions"). Both panels are in the DOM; we just

@@ -25,7 +25,7 @@ _STATIC_CALL = re.compile(r"""static\(\s*['"]([^'"]+)['"]\s*\)""")
 _SCRIPT_SRC = re.compile(r"""<script[^>]*\bsrc=["']?\{\{\s*static\(\s*['"]([^'"]+)['"]""")
 
 #: Scripts that call into `window.lootcode`, and so need sse.js loaded first.
-_NEEDS_SSE = {"app.js", "generate.js", "generate_statement.js"}
+_NEEDS_SSE = {"app.js", "analysis.js", "generate.js", "generate_statement.js"}
 
 
 def _templates() -> list[Path]:
