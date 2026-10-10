@@ -11,7 +11,10 @@ score. Designed to be lightweight and run on a home/LAN server.
 
 > **Status: working V1.** Browse/filter problems, solve in-browser, run against
 > all tests (visible + hidden), get scored, track solved/history. Admins can add
-> problems by hand or generate them with the Claude API. See `docs/roadmap.md`.
+> problems by hand or generate them with the Claude API. Plus one **optional
+> extension**, `icf/` — timed four-level industry-style assessments — which is
+> present or absent without the rest of the app noticing. See
+> `docs/roadmap.md`.
 
 ## Stack (see docs/tech-stack.md)
 
@@ -24,9 +27,10 @@ optional) · **Anthropic Claude API** for optional problem generation.
 
 | Path | What lives here |
 |------|-----------------|
-| `app/main.py` | FastAPI app: startup/seed, cookie identity middleware, routers. |
+| `app/main.py` | FastAPI app: startup/seed, cookie identity middleware, routers, optional-extension loading. |
+| `app/extensions.py` | The **optional-extension seam**: import a top-level package by name if it is on disk, let it `register(app)`, and collect its nav links + identity roots. Absent package = silent skip; any other import failure is raised. See `docs/extensions.md`. |
 | `app/routers/` | `pages.py` (HTML), `submissions.py` (run API), `admin.py`. |
-| `app/executor/` | Sandboxed code execution. `harness.py` runs INSIDE the sandbox. |
+| `app/executor/` | Sandboxed code execution. `sandbox.py` is the shared launcher — rlimits (the process cap is *headroom* over current machine usage, see `nproc_limit`), own process group, throwaway workdir, and the `EXECUTOR_BACKEND` dispatch, so every harness in the tree gets the same boundary and the same backend; `harness.py` runs INSIDE the sandbox. |
 | `app/llm/` | Problem generation. `client.py` is the one LLM transport (OpenAI/Anthropic construction, loose JSON parsing, the structured-output degradation ladder) every caller uses; `fill_in.py` is the Mode-A statement→problem generation the in-app generator **and** `scripts/generate_problem_from_statement.py` both run; `generator.py` is the in-app flow; `draft_store.py` holds AI-generated problems awaiting owner review (generation never auto-saves). Prompt templates live here as `*.txt` (`hint_prompt.txt`, `help_prompt.txt`, and `problem_prompt.txt` — the self-contained "Mode A" fill-in prompt: given a statement, emit the runnable core, contract + solution + tests + hints, for both function and class/design problems). **`problem_prompt.txt` embeds the canonical tag list verbatim — keep it in sync with `app/tags.py` when the vocabulary changes.** |
 | `app/problem_validation.py` | Pre-save gate shared by the manual **and** AI admin create flows: slug format+collision, structure (reuses `app/problem_spec.py`, static/no-exec), canonical-tags-only, statement↔compare consistency, and the canonical passing all tests in the sandbox; plus `find_similar_problems` (duplicate nudge). Nothing is written until it passes. |
 | `app/problem_spec.py` | The **structural** half of the problem contract: pydantic schema + static `ast` checks over one LLM-produced problem object. Never executes code, which is why it can run in the web process. Shared by `app/problem_validation.py`, `app/llm/fill_in.py` and `scripts/import_generated_problems.py`; `scripts/test_llm_output.py` is its CLI. |
@@ -41,6 +45,7 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `scripts/seed.py` | Load content into the DB + verify canonical solutions. `-j N` verifies in parallel; `--no-verify` seeds only (use when `verify_bank.py` runs next — it does the same work). |
 | `scripts/generate_problem_from_statement.py` | **Mode A (fill-in) CLI:** take a problem-statement file, inject it into `app/llm/problem_prompt.txt`, and call an OpenAI-compatible endpoint (defaults to the app's `LLM_HELP_*` env) asking for **schema-constrained JSON** (`PROBLEM_SCHEMA`, consistent with the data model / `app/problem_spec.py`). Emits the problem object and (unless `--no-validate`) validates it. **CLI front end only** — the generation itself is `app/llm/fill_in.py`, which the in-app generator runs too. Warns if the prompt's hard-coded tag list has drifted from `app/tags.py`. See `docs/problem-generation.md`. |
 | `scripts/test_llm_output.py` | **CLI** for the structural validator: check one LLM-produced problem object (from `app/llm/problem_prompt.txt`) against the core contract. The checks themselves are `app/problem_spec.py`. |
+| `scripts/find_problem.py` | **"Do we already have this problem?"** Look one problem up by URL, LeetCode slug or title across **both** content roots: slug/title match (conclusive), example inputs a stored case already grades, solver-function name, IDF name overlap, statement TF-IDF. Fetches LeetCode problems over GraphQL (premium statements from the doocs/leetcode mirror); `--save DIR` keeps the statement as draft Markdown, figure URLs, canonical tags and signature. Exit 0 in bank / 3 likely / 1 not found. Driven by the `/add-from-url` skill (look up, then author + import into `content/problems-extended/`). |
 | `scripts/verify_json.py` | Verify canonical solutions before importing: valid JSON + required fields + canonical passes its tests, via `run_submission`. Takes a folder of loose problem `.json` files (e.g. AI-generator output), a batch of `<slug>/generated_full_problem.json`, a single `<slug>/` dir (verifies just its `generated_full_problem.json`, ignoring the sibling `meta.json`), or a single `.json` file. |
 | `scripts/verify_bank.py` | Run every problem's canonical solution against its own tests (the whole on-disk bank — **both** content roots, default + extended), via the same `run_submission` path; prints per-problem pass/fail + statistics. `--content-dir <dir>` scopes to one root; args for slug/substring filtering, `-v`/`-q` verbosity, `-j` parallelism, `--failfast`, `--strict`. **This is the authoritative canonical run** — `seed.py --no-verify` and `audit.py --skip-canonical` exist so `make check` doesn't do the same work three times. |
 | `scripts/audit.py` | Statement ↔ test ↔ judge consistency over the whole bank: (1) canonical passes its own tests in the sandbox, (2) "any order" language matches the compare mode, (3) a re-ordered valid answer is still accepted. `-j N` parallel; `--skip-canonical` drops step 1 (duplicates `verify_bank.py`); `-q` shows only problems with issues. |
@@ -49,7 +54,8 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `scripts/remove_problem.py` | **Retire a problem** — content dir, every `content/collections/*.json` that names the slug, and every DB row keyed to it (incl. **user data**: submissions + test results, known/visit-later marks), then re-seeds collections so `position` stays contiguous. `<slug>` retires outright; `<old>=<new>` (or `<old>-><new>`) **deduplicates**, so collection refs point at the surviving twin **in the loser's position** (dropped, not duplicated, if the list already has it). `--from-file` for a batch. Submissions are **deleted** by default and reported per-user first; `--migrate-submissions` repoints them instead. Snapshots the DB (backup API, safe while uvicorn is live) to `scratchpad/db-backups/`. `--dry-run`/`--yes`/`-v`. Aborts before writing anything on an unknown slug or bad replacement. See `docs/removing-problems.md`. |
 | `scripts/recheck_solutions.py` | Re-grade users' accepted solutions against the *current* tests, via `run_submission`. `users` lists every user + stats (submissions / solved / attempted); `check <user>` takes each solved problem's latest passing submission and re-runs it, flagging **regressions** (accepted before, fail now — e.g. after adding hidden test cases). Grades against the DB by default, or `--from-content` for the freshest on-disk tests (no re-seed). `-v` per-failing-test detail, `-j` parallelism. |
 | `scripts/improve_hints.py` | Hint **quality gate**: a generate→judge→regenerate loop that fixes hints which give away the solution (or are too vague). `audit` grades every problem's hints against its canonical solution (local Qwen judge) → `.hints/audit.json`; `fix --from-report` regenerates only the flagged ones (`--dry-run` default, `--apply` writes, strictly-better-only) and writes a durable old→new report (`.hints/fix-dry.json`); `apply-report` writes the exact reviewed hints from that report verbatim (no regeneration — `fix --apply` re-rolls at temperature>0); `calibrate` checks the judge against `authoring/hint_exemplars.json`. `scripts/hint_audit_report.py` / `hint_compare_report.py` render the audit and old→new reports into self-contained browsable HTML. Engine in `authoring/hint_generator.py`. See `docs/hint-generation.md`. (`scripts/generate_hints.py` is the older one-shot, ungated seeder.) |
-| `tests/` | pytest (incl. adversarial executor tests). |
+| `icf/` | **Optional extension — the Industry Coding Framework.** Timed 4-level assessments (CodeSignal shape): one class, levels that stack, gated by their own visible+hidden tests, 90-minute clock. Self-contained: own config, own SQLite file (`icf/data/icf.db`, never `lootcode.db`), own templates/static/content/scripts/tests/docs. Delete the folder and the app is unchanged. Nothing in `app/` imports it. **Grading is two processes and two runs** — the harness supervisor writes the results and never imports the solution, and hidden cases run in a separate sandbox whose output is discarded (ADR 0003) — because ICF's oracle is code and cannot stay outside the sandbox the way the core bank's expected values do. See `icf/README.md`, `icf/docs/security.md`, `docs/extensions.md`. |
+| `tests/` · `conftest.py` | pytest (incl. adversarial executor tests and the sandbox/extension-seam tests). The **root** `conftest.py` is the extension harness: it redirects every database env var to a temp file on any invocation and adds an installed extension's `tests/` to the run. |
 | `docs/` · `specs/` · `.claude/` | Docs, content spec, Claude Code config. |
 
 ## Common commands
@@ -68,6 +74,7 @@ python scripts/seed.py -j 8                # seed DB from content/ and verify
 python scripts/audit.py -j 8               # check statement/test/judge consistency
 python scripts/build_bank.py               # (re)generate the bundled problem bank
 python scripts/generate_problem_from_statement.py statement.txt -o problem.json  # Mode A: LLM fill-in from a statement
+python scripts/find_problem.py <leetcode-url>  # is this problem already in the bank? (or /add-from-url <url> to add it)
 python scripts/verify_json.py test_output  # batch-verify loose problem JSON before importing
 python scripts/verify_bank.py -j 8          # run every canonical solution against its tests
 # Bulk-import a staging folder of fully-generated problems (function or class),
@@ -77,6 +84,8 @@ python scripts/import_generated_problems.py <staging-dir>            # ...then c
 python scripts/check_constraint_validators.py                  # audit that every test input satisfies its validate_input()
 python scripts/remove_problem.py <slug> --dry-run              # retire a problem: content + collections + DB (report first)
 python scripts/remove_problem.py <old-slug>=<new-slug>         # ...or dedupe: collection refs point at the surviving twin
+python icf/scripts/verify_icf.py           # ICF extension: every canonical passes every level
+make icf-verify                            # the same, and part of `make check` (no-op if icf/ is absent)
 uvicorn app.main:app --reload              # dev server (http://127.0.0.1:8000)
 HOST=0.0.0.0 uvicorn app.main:app          # reachable on your home network
 python -m pytest -q                        # run tests
@@ -142,9 +151,14 @@ works for a fresh checkout.
   `/admin` shipped past a green build.
   See `docs/retrospectives/2026-07-28-database-corruption.md`.
 - **Security-critical:** any change under `app/executor/` (especially
-  `harness.py`) or any path that runs user code must preserve the sandbox
-  guarantees in `docs/code-execution.md`. Keep `tests/test_executor.py` (TLE /
-  error / fork cases) green. Use the `executor-security-reviewer` subagent.
+  `harness.py` and the shared launcher `sandbox.py`), or under `icf/sandbox/`,
+  or any other path that runs user code, must preserve the sandbox guarantees
+  in `docs/code-execution.md`. Keep `tests/test_executor.py` (TLE / error /
+  fork cases), `tests/test_sandbox.py` and
+  `icf/tests/test_sandbox_integrity.py` green. Use the
+  `executor-security-reviewer` subagent — it has caught real holes here, and
+  the second review is what found that `EXECUTOR_BACKEND=docker` had never
+  worked at all.
 - Adding/editing a problem? Follow `specs/problem-schema.md` (format) **and**
   `specs/problem-authoring-guidelines.md` (quality bar + owner's house rules), and
   make sure the canonical solution passes all tests (`python scripts/seed.py`).
@@ -183,7 +197,11 @@ works for a fresh checkout.
   but never the statement's promises about the *answer* ("exactly one solution",
   "distinct", "guaranteed reachable") — on an input that breaks one, the canonical
   returns a plausible value, it gets baked in, `verify_bank` passes vacuously, and
-  a *correct* solution is then failed. Read the statement first.
+  a *correct* solution is then failed. Read the statement first. Also read the
+  validator's docstring: generated ones that say `Skipped '...'` may not check
+  even the input's *format* ("a valid expression"), which is how
+  `basic-calculator-ii` got a hidden `" 3b2 "` case. A 2026-10-08 sweep tightened
+  122 validators and replaced 74 such cases (see `docs/input-validators.md`).
 - **LLM generation** shares one "core" output contract across modes (see
   `docs/problem-generation.md`). The **fill-in / Mode A** transform — given a
   statement, emit the core — has two front ends: a CLI
@@ -225,4 +243,16 @@ works for a fresh checkout.
   without a restart via the "↻ Re-check connection" button on **/admin** →
   `POST /api/llm/refresh` → `help_generator.refresh_availability`); engine in
   `app/llm/help_generator.py`, see `docs/ai-help.md`.
+- **Optional extensions (`icf/`)**: the contract is that the folder can be
+  deleted and nothing notices. So core must never import an extension, must
+  never gain a branch naming one (the registry in `app/extensions.py` is the
+  only mechanism), and an extension must keep its state out of `lootcode.db`.
+  Tooling is existence-guarded (root `conftest.py`, `$(EXTENSIONS)` in the
+  Makefile, explicit mypy paths). `tests/test_extensions.py` pins all of it,
+  including a run of the real app with the package's import blocked. ICF
+  problems are **file-authored only** — its test modules execute in the
+  sandbox, so no route may ever accept them — and a submission must never be
+  able to read them or write its own verdict (`docs/adr/0003-icf-grading-runs-two-processes.md`;
+  the attack submissions are pinned in `icf/tests/test_sandbox_integrity.py`).
+  See `docs/extensions.md`, `icf/README.md`, `icf/docs/`.
 - Keep this file and `docs/` in sync with reality as the app grows.

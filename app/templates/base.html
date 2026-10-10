@@ -30,6 +30,11 @@
     <nav>
       <a href="/">Problems</a>
       <a href="/me">My Progress</a>
+      {# Optional extensions (app/extensions.py) contribute their own links.
+         Nothing is registered on a stock install, so this loop renders nothing. #}
+      {% for item in extensions.nav %}
+      <a href="{{ item.href }}"{% if item.title %} title="{{ item.title }}"{% endif %}>{{ item.label }}</a>
+      {% endfor %}
       <a href="/admin">Admin</a>
     </nav>
     <span class="who">

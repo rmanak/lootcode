@@ -20,6 +20,7 @@ A lightweight, self-hostable LeetCode-style platform. Python 3 · FastAPI · SQL
 - **Run & score** against all tests (visible examples + hidden), weighted per test, with per-visible-test feedback. Multiple answer-ordering judges (`exact` / `unordered` / `set_of_lists`).
 - **Sandboxed execution** — user code runs with per-test time limits, a memory cap, a process cap (anti fork-bomb), an output cap, and a throwaway working dir. Two backends: `subprocess` (default, zero-dependency) and `docker` (network-disabled, stronger isolation).
 - **No-password profiles** — a cookie gives each visitor their own identity; track solved problems and submission history. Optional username/password accounts let progress follow you across devices.
+- **Industry Coding Framework** *(optional)* — timed, four-level assessments in the CodeSignal shape used by real hiring loops: you implement **one class**, each level adds requirements while the earlier ones must keep passing, and a level unlocks only when all of its tests — visible *and* hidden — go green, against a 90-minute clock. Ships as a **removable extension** (`icf/`): delete the folder and lootcode is exactly what it was. See `icf/README.md`.
 - **Admin tools** — add a problem by hand, or **generate one with the Claude API** (every AI problem is verified by running its reference solution against its own tests before it's saved).
 
 > Built to be lightweight and run on a home/LAN server. See `docs/roadmap.md` for status and what's next.
@@ -84,6 +85,7 @@ single root.
 | `content/problems/` | The 741 problem definitions (Markdown statement + tests + starter + canonical solution; optional `assets/` figures and an `input_validator/` legal-input predicate). Durable, human-editable mirror of the DB. |
 | `content/problems-extended/`, `content/collections/` | Optional **extended** problem set kept local (gitignored, seeded alongside the default set when present — see `docs/extended-problems.md`), and curated **collections** (`blind-73.json`, `top-interview-150.json`, …) used as a list filter. |
 | `scripts/seed.py`, `audit.py`, `verify_bank.py`, `check_constraint_validators.py`, `import_generated_problems.py`, `verify_json.py`, `figures.py` | Operational scripts: seed/verify the DB, statement↔test↔judge consistency audit, run every canonical against its tests, audit per-problem input validators, bulk-import a staging folder of fully-generated problems, batch-verify loose problem JSON before importing, and SVG figure helpers. |
+| `icf/` | **Optional extension**: the Industry Coding Framework — timed 4-level assessments, with its own problems, database, templates, scripts, tests and docs. Loaded at startup if the folder exists (`app/extensions.py`), invisible if it does not. See `docs/extensions.md`. |
 | `tests/` | pytest suite. |
 | `docs/`, `specs/` | Engineering docs and the problem-schema / authoring / tags specs. |
 | `Dockerfile`, `docker-compose.yml`, `infra/`, `Makefile`, `requirements*.txt`, `.env.example` | Build / run / deploy config. |

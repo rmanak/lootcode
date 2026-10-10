@@ -33,6 +33,13 @@
 - [ ] Real (3rd-party / SSO) auth if you expose lootcode beyond a trusted LAN.
 
 ## Phase 4 — Polish & growth
+- [x] **Industry Coding Framework (ICF)** — timed, four-level assessments in
+  the CodeSignal shape (one class, stacking levels, gated by visible+hidden
+  tests, 90-minute clock). Built as an **optional extension**: the whole
+  feature lives in `icf/` and the app is unchanged without it, via a generic
+  three-part seam in core (`app/extensions.py`, a nav/identity registry, and
+  the shared sandbox primitive `app/executor/sandbox.py`). See
+  `docs/extensions.md` and `icf/README.md`.
 - [ ] Streaks / progress dashboard; per-topic mastery.
 - [ ] Efficiency tests (time/memory affecting score).
 - [ ] More solver languages (add a per-language harness + runner image).

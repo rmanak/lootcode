@@ -1,6 +1,6 @@
 ---
 name: executor-security-reviewer
-description: Reviews changes to app/executor/ or any path that runs untrusted user code, against the sandbox guarantees in docs/code-execution.md and docs/security.md. Use before merging changes in those areas.
+description: Reviews changes to app/executor/ (including the shared launcher sandbox.py), icf/sandbox/, or any other path that runs untrusted user code, against the sandbox guarantees in docs/code-execution.md and docs/security.md. Use before merging changes in those areas.
 tools: Read, Grep, Glob, Bash
 ---
 

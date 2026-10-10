@@ -6,6 +6,12 @@
 > return HTML. The fuller REST sketch below is kept as design reference for when an
 > API/SPA split is wanted.
 
+> **Extensions add their own surface.** When `icf/` is installed it mounts
+> `/icf` (HTML: the problem list, the workspace, an attempt report) and
+> `/api/icf/...` (JSON: start an attempt, run a level, submit a level,
+> autosave, finish). They follow the conventions below but are versioned with
+> the extension, not with this API. See `icf/README.md`.
+
 ## Conventions
 
 - Base path `/api/v1`. Errors: `{ "error": { "code", "message" } }`.

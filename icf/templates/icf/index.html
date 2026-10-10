@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Industry Coding · {{ app_name }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ icf_static('icf.css') }}">{% endblock %}
+
+{% block content %}
+<h1>Industry Coding Framework</h1>
+<p class="icf-lede">
+  Assessment-shaped problems: you implement <strong>one class</strong> across
+  <strong>four levels</strong>, each adding requirements while everything below it must
+  keep passing, against a clock. Levels unlock only when every test in the level
+  before them passes — the same gating a real industry coding assessment uses.
+</p>
+
+{% if not problems %}
+<p class="muted">No ICF problems are installed yet. Add one under
+  <code>icf/problems/&lt;slug&gt;/</code> — see <code>icf/docs/problem-format.md</code>.</p>
+{% endif %}
+
+<div class="icf-grid">
+  {% for p in problems %}
+  {% set row = best.get(p.slug) %}
+  <a class="icf-card" href="/icf/{{ p.slug }}">
+    <div class="icf-card-head">
+      <h2>{{ p.title }}</h2>
+      <span class="badge {{ p.difficulty }}">{{ p.difficulty }}</span>
+    </div>
+    <p class="icf-blurb">{{ p.blurb }}</p>
+    <ol class="icf-levels">
+      {% for lv in p.levels %}
+      <li class="{{ 'done' if row and row.level >= lv.number }}">
+        <span class="icf-ln">L{{ lv.number }}</span> {{ lv.title }}
+      </li>
+      {% endfor %}
+    </ol>
+    <div class="icf-card-foot">
+      <span class="icf-meta">⏱ {{ p.time_cap_minutes }} min</span>
+      <span class="icf-meta">{{ p.case_count }} tests</span>
+      {% if row and row.active %}
+        <span class="icf-chip live">Attempt in progress</span>
+      {% elif row and row.level %}
+        <span class="icf-chip done">Best: level {{ row.level }}/4</span>
+      {% elif row %}
+        <span class="icf-chip">{{ row.attempts }} attempt{{ '' if row.attempts == 1 else 's' }}</span>
+      {% else %}
+        <span class="icf-chip">Not started</span>
+      {% endif %}
+    </div>
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}

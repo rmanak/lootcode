@@ -1,0 +1,186 @@
+/* Industry Coding Framework — styles for /icf.
+   Built on core's variables (app.css) so the feature looks like the rest of
+   lootcode; every selector here is prefixed `icf-` so it can never collide
+   with the core pages, and the whole file goes away with the folder. */
+
+.icf-lede { max-width: 70ch; color: var(--muted); margin: -6px 0 22px; }
+.icf-lede strong { color: var(--ink); }
+
+/* --- problem list -------------------------------------------------------- */
+.icf-grid { display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+.icf-card { display: block; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px 20px; color: var(--ink);
+  transition: border-color .12s, box-shadow .12s, transform .12s; }
+.icf-card:hover { text-decoration: none; border-color: var(--primary);
+  box-shadow: 0 6px 20px -14px rgba(15, 118, 110, .7); transform: translateY(-1px); }
+.icf-card-head { display: flex; align-items: center; gap: 10px; }
+.icf-card-head h2 { margin: 0; font-size: 17px; }
+.icf-blurb { color: var(--muted); font-size: 13.5px; margin: 8px 0 14px; }
+.icf-levels { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 4px; }
+.icf-levels li { font-size: 13px; color: var(--muted); display: flex; gap: 8px; }
+.icf-levels li.done { color: var(--pass); }
+.icf-ln { font-weight: 700; font-size: 11.5px; letter-spacing: .04em;
+  color: var(--primary); min-width: 20px; }
+.icf-levels li.done .icf-ln { color: var(--pass); }
+.icf-card-foot { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  border-top: 1px solid var(--border); padding-top: 12px; }
+.icf-meta { font-size: 12px; color: var(--muted); }
+.icf-chip { margin-left: auto; font-size: 12px; font-weight: 700; padding: 3px 10px;
+  border-radius: 999px; background: var(--bg); color: var(--muted);
+  border: 1px solid var(--border); }
+.icf-chip.live { color: var(--accent); border-color: #f2dcc0; background: #fbeede; }
+.icf-chip.done { color: var(--pass); border-color: #cfe9da; background: #e7f4ec; }
+
+/* --- the assessment bar -------------------------------------------------- */
+/* One row: what this is on the left, what you can do about it on the right.
+   Level state lives on the tabs in the statement panel — it used to be here
+   too, and two copies of the same four pills is one copy too many. */
+.icf-bar { display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  padding: 10px 14px; margin-bottom: 14px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius); }
+.icf-bar-title { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.icf-bar-title h1 { margin: 0; font-size: 19px; }
+.icf-bar-note { font-size: 12.5px; color: var(--muted); }
+.icf-back { color: var(--muted); font-size: 18px; line-height: 1; }
+.icf-back:hover { color: var(--ink); text-decoration: none; }
+
+.icf-bar-actions { margin-left: auto; display: flex; align-items: center; gap: 10px;
+  flex-wrap: wrap; }
+.icf-start-btn { margin-top: 0; }
+
+.icf-clock { font-variant-numeric: tabular-nums;
+  font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 19px;
+  font-weight: 700; padding: 4px 12px; border-radius: 8px; background: var(--bg);
+  border: 1px solid var(--border); }
+.icf-clock.warn { color: var(--accent); border-color: #f2dcc0; background: #fbeede; }
+.icf-clock.danger { color: var(--fail); border-color: #f3d2cd; background: #fbe7e6; }
+.icf-clock.over { color: var(--fail); background: #fbe7e6; border-color: #f3d2cd; }
+.icf-finish { border: 1px solid var(--border); background: var(--surface);
+  color: var(--muted); border-radius: 8px; padding: 7px 12px; font: inherit;
+  font-size: 12.5px; font-weight: 600; cursor: pointer; }
+.icf-finish:hover { color: var(--fail); border-color: #f3d2cd; }
+.icf-ghost { border: 1px solid var(--border); background: var(--surface); color: var(--ink);
+  border-radius: 8px; padding: 10px 16px; font: inherit; font-weight: 600; cursor: pointer; }
+.icf-ghost:hover { border-color: var(--primary); color: var(--primary-d); }
+
+/* --- split layout -------------------------------------------------------- */
+/* Two columns with a draggable gutter between them, the same shape as core's
+   .solve: --split is the left column width (set by icf.js while dragging). */
+.icf-solve { display: grid;
+  grid-template-columns: minmax(0, var(--split, 1fr)) 10px minmax(0, 1fr);
+  gap: 0 12px; align-items: start; }
+.icf-gutter { align-self: stretch; min-height: 120px; cursor: col-resize;
+  position: relative; touch-action: none; }
+.icf-gutter::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%;
+  transform: translateX(-50%); width: 4px; border-radius: 999px;
+  background: var(--border); transition: background .12s; }
+.icf-gutter:hover::before, .icf-gutter.dragging::before { background: var(--primary); }
+/* Before an attempt starts the editor is still there to read — only the
+   controls are inert, and they say why. */
+.icf-workbench.is-idle .editor-wrap { opacity: .8; }
+@media (max-width: 1100px) {
+  .icf-solve { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .icf-gutter { display: none; }
+}
+
+.icf-statement { background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0 20px 20px; max-height: 78vh; overflow: auto; }
+.icf-tabs { display: flex; gap: 4px; position: sticky; top: 0; z-index: 2;
+  background: var(--surface); padding: 12px 0 10px; border-bottom: 1px solid var(--border);
+  margin-bottom: 14px; flex-wrap: wrap; }
+.icf-tab { border: 1px solid transparent; background: none; color: var(--muted);
+  font: inherit; font-size: 13px; font-weight: 600; padding: 6px 12px;
+  border-radius: 999px; cursor: pointer; }
+.icf-tab:hover { color: var(--ink); background: var(--bg); }
+.icf-tab.is-active { color: var(--primary-d); background: #e8f5f3; border-color: #cfe7e3; }
+.icf-tab.is-passed { color: var(--pass); }
+.icf-tab.is-active.is-passed { background: #e7f4ec; border-color: #cfe9da; }
+.icf-tab-mark::after { content: ""; }
+.icf-tab.is-locked .icf-tab-mark::after { content: " 🔒"; font-size: 10px; }
+.icf-tab.is-passed .icf-tab-mark::after { content: " ✓"; font-weight: 700; }
+.icf-level-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.icf-level-head h2 { margin: 0 0 8px; font-size: 18px; }
+.icf-count { font-size: 12px; color: var(--muted); }
+.icf-locked-note { background: var(--bg); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 12px; font-size: 13px; color: var(--muted); }
+.icf-h { font-size: 13px; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--muted); margin: 22px 0 8px; }
+.icf-sig { background: #0f1720; color: #e6edf3; padding: 12px 14px; border-radius: 8px;
+  font-size: 12.5px; overflow: auto; }
+.icf-note { font-size: 12.5px; margin-top: 14px; }
+
+.icf-work-head { display: flex; align-items: baseline; gap: 10px; }
+.icf-work-head label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; }
+.icf-saved { margin-left: auto; font-size: 12px; color: var(--muted); }
+.icf-actions { gap: 10px; flex-wrap: wrap; }
+.icf-run, .icf-submit { border: 0; border-radius: 8px; padding: 10px 18px; font: inherit;
+  font-weight: 700; cursor: pointer; }
+.icf-run { background: var(--surface); color: var(--primary-d);
+  border: 1px solid var(--primary); }
+.icf-run:hover { background: #e8f5f3; }
+.icf-submit { background: var(--primary); color: #fff; }
+.icf-submit:hover { background: var(--primary-d); }
+.icf-run:disabled, .icf-submit:disabled { opacity: .55; cursor: progress; }
+#icf-status { color: var(--muted); font-size: 13px; }
+
+/* --- results ------------------------------------------------------------- */
+.icf-runhead { display: flex; align-items: center; gap: 14px; padding: 12px 14px;
+  border-radius: 8px; margin-bottom: 12px; font-size: 14px; }
+.icf-runhead.ok { background: #e7f4ec; color: var(--pass); }
+.icf-runhead.no { background: #fbe7e6; color: var(--fail); }
+.icf-runhead strong { color: var(--ink); }
+.icf-unlocked { margin-left: auto; font-weight: 700; color: var(--primary-d); }
+.icf-late { background: #fbeede; color: var(--accent); border-radius: 8px;
+  padding: 10px 14px; margin-bottom: 12px; font-size: 13.5px; }
+.icf-loaderr { background: #2b1414; color: #ffd9d4; padding: 12px 14px; border-radius: 8px;
+  font-size: 12.5px; white-space: pre-wrap; margin-bottom: 12px; overflow: auto; }
+
+.icf-levelblock { margin-bottom: 14px; }
+.icf-levelblock > h3 { display: flex; align-items: center; gap: 10px; margin: 0 0 8px;
+  font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.icf-levelblock .tally { font-size: 12.5px; font-weight: 700; letter-spacing: 0;
+  text-transform: none; }
+.icf-levelblock .tally.ok { color: var(--pass); }
+.icf-levelblock .tally.no { color: var(--fail); }
+.icf-cases { display: flex; flex-direction: column; gap: 6px; }
+.icf-case { display: grid; grid-template-columns: 10px 1fr auto; gap: 10px;
+  align-items: center; padding: 8px 10px; border: 1px solid var(--border);
+  border-radius: 8px; font-size: 13.5px; }
+.icf-case .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
+.icf-case.pass .dot { background: var(--pass); }
+.icf-case.fail .dot { background: var(--fail); }
+.icf-case.timeout .dot, .icf-case.error .dot { background: var(--accent); }
+.icf-case .t { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.icf-case.hidden-case .label { color: var(--muted); }
+.icf-case pre { grid-column: 1 / -1; margin: 6px 0 0; background: #0f1720; color: #e6edf3;
+  padding: 8px 10px; border-radius: 6px; font-size: 12px; overflow: auto;
+  white-space: pre-wrap; }
+.icf-case pre.err { background: #2b1414; color: #ffd9d4; }
+.icf-out-toggle { grid-column: 1 / -1; justify-self: start; background: none; border: 0;
+  color: var(--muted); font: inherit; font-size: 12px; cursor: pointer; padding: 2px 0; }
+.icf-out-toggle:hover { color: var(--primary-d); }
+
+/* --- attempt history / report -------------------------------------------- */
+.icf-past { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13.5px; }
+.icf-past th, .icf-past td { text-align: left; padding: 8px 12px 8px 0;
+  border-bottom: 1px solid var(--border); }
+.icf-past th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--muted); }
+.icf-past td.pass { color: var(--pass); font-weight: 600; }
+.icf-past td.fail { color: var(--fail); font-weight: 600; }
+
+.icf-report-head { display: flex; gap: 14px; flex-wrap: wrap; margin: 18px 0 10px; }
+.icf-stat { background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 20px; min-width: 150px; }
+.icf-stat-n { display: block; font-size: 26px; font-weight: 700;
+  font-variant-numeric: tabular-nums; }
+.icf-stat-l { font-size: 12px; color: var(--muted); }
+.icf-report-levels { display: grid; gap: 8px; max-width: 620px; }
+.icf-report-level { display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+.icf-report-level.passed { border-color: #cfe9da; background: #e7f4ec; }
+.icf-report-level.locked { color: var(--muted); }
+.icf-rl-state { margin-left: auto; font-size: 12.5px; color: var(--muted); }
+.icf-report-level.passed .icf-rl-state { color: var(--pass); font-weight: 700; }
+.icf-report-foot { margin-top: 26px; }

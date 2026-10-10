@@ -1,0 +1,50 @@
+{
+  "slug": "recipe-manager",
+  "title": "Recipe Manager",
+  "difficulty": "medium",
+  "blurb": "CRUD with case-insensitive names, then search and sorting, users who may edit, and a version history you can roll back to.",
+  "tags": ["hash-map", "design", "string", "sorting"],
+  "class_name": "RecipeManager",
+  "time_cap_minutes": 90,
+  "case_time_limit_ms": 4000,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Recipes",
+      "points": 25,
+      "methods": [
+        "def add_recipe(self, recipe_id: str, name: str, ingredients: list[str]) -> bool: ...",
+        "def get_recipe(self, recipe_id: str) -> dict | None: ...",
+        "def update_recipe(self, recipe_id: str, name: str, ingredients: list[str]) -> bool: ...",
+        "def delete_recipe(self, recipe_id: str) -> bool: ..."
+      ]
+    },
+    {
+      "level": 2,
+      "title": "Search and order",
+      "points": 25,
+      "methods": [
+        "def search_recipes(self, query: str) -> list[dict]: ...",
+        "def get_all_recipes(self) -> list[dict]: ..."
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Cooks",
+      "points": 25,
+      "methods": [
+        "def add_user(self, user_id: str, username: str) -> bool: ...",
+        "def edit_recipe(self, user_id: str, recipe_id: str, name: str, ingredients: list[str]) -> bool: ..."
+      ]
+    },
+    {
+      "level": 4,
+      "title": "History and rollback",
+      "points": 25,
+      "methods": [
+        "def get_recipe_history(self, recipe_id: str) -> list[dict] | None: ...",
+        "def rollback_recipe(self, user_id: str, recipe_id: str, version: int) -> bool: ..."
+      ]
+    }
+  ]
+}

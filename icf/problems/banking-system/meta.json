@@ -1,0 +1,48 @@
+{
+  "slug": "banking-system",
+  "title": "Banking System",
+  "difficulty": "hard",
+  "blurb": "Accounts and transfers, then spend rankings, delayed cashback, and merging two accounts without losing their history.",
+  "tags": ["hash-map", "design", "simulation", "sorting", "heap"],
+  "class_name": "Bank",
+  "time_cap_minutes": 90,
+  "case_time_limit_ms": 4000,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Accounts and transfers",
+      "points": 25,
+      "methods": [
+        "def create_account(self, timestamp: int, account_id: str) -> bool: ...",
+        "def deposit(self, timestamp: int, account_id: str, amount: int) -> int | None: ...",
+        "def transfer(self, timestamp: int, source_id: str, target_id: str, amount: int) -> int | None: ..."
+      ]
+    },
+    {
+      "level": 2,
+      "title": "Who spends the most",
+      "points": 25,
+      "methods": [
+        "def top_spenders(self, timestamp: int, n: int) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Payments and cashback",
+      "points": 25,
+      "methods": [
+        "def pay(self, timestamp: int, account_id: str, amount: int) -> str | None: ...",
+        "def get_payment_status(self, timestamp: int, account_id: str, payment: str) -> str | None: ..."
+      ]
+    },
+    {
+      "level": 4,
+      "title": "Merging accounts",
+      "points": 25,
+      "methods": [
+        "def merge_accounts(self, timestamp: int, account_id_1: str, account_id_2: str) -> bool: ...",
+        "def get_balance(self, timestamp: int, account_id: str, time_at: int) -> int | None: ..."
+      ]
+    }
+  ]
+}

@@ -42,7 +42,61 @@ cleanup are what do that, and less comfortably than they look. See
 [ADR 0002](adr/0002-sandbox-file-size-limit.md), which also records where the
 default subprocess backend falls short of guarantees 4 and 6.
 
-## Backends in this repository
+## One launcher, two backends, two harnesses
+
+`app/executor/sandbox.py` is the **launcher**: it materialises a throwaway run
+directory, applies the limits, starts the process, and parses `result.json`.
+Every harness in the tree goes through it, which is what stops a second one
+from quietly getting a weaker boundary — `run_harness` dispatches on
+`EXECUTOR_BACKEND`, so turning on `docker` turns it on for *all* grading, and
+the container flags are written once (`sandbox.docker_command`).
+
+Two things in there are worth knowing:
+
+- **The process cap is headroom, not an absolute** (`sandbox.nproc_limit`).
+  `RLIMIT_NPROC` counts every task the *machine's user* already owns — the
+  browser and editor included — so a flat 256 means "256 minus whatever else
+  is running", which on a workstation can be nothing at all. It is now
+  measured-plus-64, which is what the anti-fork-bomb control always meant.
+- **Run directories live in a private parent** (`sandbox.make_workdir`):
+  `/tmp/lootcode-runs-<uid>`, mode 0700, `lstat`-checked so a pre-planted
+  symlink or a squatted directory is refused. A run directory in a listable
+  `/tmp` hands the submitted code to every local user.
+- **The container runs as *our* uid, not `nobody`** (`sandbox.docker_command`,
+  which refuses to run at all as root). A bind mount has no uid mapping, so
+  anything another user created in the run directory — a `__pycache__` with a
+  compiled copy of the submission, say — could not be deleted afterwards, and
+  the "destroyed after the run" guarantee quietly stopped holding. Teardown
+  (`sandbox._destroy`) now logs a warning instead of swallowing the failure.
+- **The container gets the same file-size cap as the subprocess backend**
+  (`--ulimit fsize=`). `/sandbox` is a host bind mount, so `--tmpfs /tmp`
+  bounds nothing that matters; without the ulimit a container could fill the
+  host disk, and the harness's own degradation ladder could never fire.
+- **A timed-out container is killed by name** (`sandbox.kill_container`).
+  `subprocess` timing out kills the `docker run` *client*; the daemon keeps
+  the container, and an infinite loop keeps its CPU share indefinitely.
+- **The harness's stdout/stderr go to `/dev/null`, and the process group is
+  always killed.** Nothing grades on them, and *reading* them meant waiting
+  for EOF — which one `setsid` grandchild could hold open for the entire run
+  budget. Killing the group unconditionally (not only on timeout) is what
+  makes "its own disposable sandbox" true for orphans too.
+
+### The run directory belongs to the submission
+
+Anything read back out of it is a path untrusted code controls, so neither
+harness uses a plain `open()`:
+
+- **Writing** `result.json` (`_open_result` in both harnesses) unlinks first,
+  then creates with `O_EXCL | O_NOFOLLOW | O_NONBLOCK`. A submission that
+  plants a fifo there otherwise blocks the harness for the whole run budget;
+  a symlink would redirect the write.
+- **Reading** it back (`sandbox.read_results`) opens with `O_NOFOLLOW |
+  O_NONBLOCK`, requires a regular file, and caps the size. `os.symlink(
+  "/dev/zero", "result.json")` previously made the *server* read until it was
+  OOM-killed — with SQLite mid-write, that is the corruption scenario
+  `docs/database.md` exists for — and a fifo blocked the request thread and
+  leaked the run directory with it. Both are pinned by tests
+  (`tests/test_executor.py`, `tests/test_sandbox.py`).
 
 Two backends implement one interface (`app/executor/`); pick via `EXECUTOR_BACKEND`:
 
@@ -53,11 +107,36 @@ Two backends implement one interface (`app/executor/`); pick via `EXECUTOR_BACKE
   home instance where solvers are trusted (you and family on the LAN).
 - **`docker` (opt-in).** Runs the same harness in a throwaway container with
   `--network none --cap-drop ALL --security-opt no-new-privileges --read-only`,
-  capped memory/CPU/PIDs, and a non-root user — for untrusted, multi-user use.
+  capped memory/CPU/PIDs/file-size, and a non-root user (the app's own uid, so
+  the bind-mounted run directory stays deletable) — for untrusted, multi-user
+  use.
   Build the image: `docker build -f infra/runner.Dockerfile -t lootcode-runner .`
 
 Expected outputs never enter the sandbox (only inputs do); comparison and scoring
-happen in the trusted parent (`app/executor/__init__.py`). The adversarial suite
+happen in the trusted parent (`app/executor/__init__.py`).
+
+### The second harness: ICF
+
+The optional `icf/` extension (`docs/extensions.md`) grades differently — its
+oracle *is* code, so authored test functions run beside the solution and the
+"expected values stay outside" property above cannot hold for it. It uses the
+same launcher and the same limits, and recovers as much of the guarantee as it
+can inside the sandbox:
+
+- the harness process that writes `result.json` never imports the solution; a
+  forked worker runs the cases and reports over a pipe, so a case with no
+  report is failed, never passed;
+- test sources (and their `__pycache__` copies — `python -I` ignores
+  `PYTHONDONTWRITEBYTECODE`) are deleted before the worker starts;
+- visible and hidden cases are graded in **separate runs**, and the hidden
+  run's messages and output are discarded, so nothing hidden can be printed
+  back to the solver.
+
+What it does *not* get is a verdict the submission cannot influence at all.
+See [ADR 0003](adr/0003-icf-grading-runs-two-processes.md) and
+`icf/docs/security.md`.
+
+The adversarial suite
 lives in `tests/test_executor.py` — keep it green.
 
 ### Rich types (`TreeNode`, `ListNode`, `DoublyLinkedList`)

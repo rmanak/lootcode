@@ -1,0 +1,49 @@
+{
+  "slug": "inventory-management",
+  "title": "Inventory Management",
+  "difficulty": "medium",
+  "blurb": "Items and copies, then prefix/suffix search, users with stock capacities that evict the largest items, and packing items into half the space.",
+  "tags": ["hash-table", "design", "sorting", "string"],
+  "class_name": "InventoryManager",
+  "time_cap_minutes": 90,
+  "case_time_limit_ms": 4000,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Items",
+      "points": 25,
+      "methods": [
+        "def add_item(self, name: str, quantity: int) -> bool: ...",
+        "def copy_item(self, name_from: str, name_to: str) -> bool: ...",
+        "def get_item_quantity(self, name: str) -> int | None: ..."
+      ]
+    },
+    {
+      "level": 2,
+      "title": "Finding items",
+      "points": 25,
+      "methods": [
+        "def find_items(self, prefix: str, suffix: str) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Users and capacity",
+      "points": 25,
+      "methods": [
+        "def add_user(self, user_id: str, capacity: int) -> bool: ...",
+        "def add_item_by(self, user_id: str, name: str, quantity: int) -> int | None: ...",
+        "def update_capacity(self, user_id: str, capacity: int) -> int | None: ..."
+      ]
+    },
+    {
+      "level": 4,
+      "title": "Packing items",
+      "points": 25,
+      "methods": [
+        "def pack_item(self, user_id: str, name: str) -> int | None: ...",
+        "def unpack_item(self, user_id: str, name: str) -> int | None: ..."
+      ]
+    }
+  ]
+}

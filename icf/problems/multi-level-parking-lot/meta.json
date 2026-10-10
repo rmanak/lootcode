@@ -1,0 +1,51 @@
+{
+  "slug": "multi-level-parking-lot",
+  "title": "Multi-Level Parking Lot",
+  "difficulty": "medium",
+  "blurb": "Park motorcycles and cars across several levels, then rank levels by free space, fit five-spot buses, and charge hourly fees.",
+  "tags": ["hash-table", "design", "simulation", "sorting"],
+  "class_name": "ParkingLot",
+  "time_cap_minutes": 90,
+  "case_time_limit_ms": 4000,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Levels and parking",
+      "points": 25,
+      "methods": [
+        "def add_level(self, timestamp: int, level_id: str, layout: str) -> bool: ...",
+        "def park(self, timestamp: int, plate: str, vehicle_type: str) -> str | None: ...",
+        "def unpark(self, timestamp: int, plate: str) -> str | None: ...",
+        "def find_vehicle(self, timestamp: int, plate: str) -> str | None: ..."
+      ]
+    },
+    {
+      "level": 2,
+      "title": "Free spots",
+      "points": 25,
+      "methods": [
+        "def count_free(self, timestamp: int, level_id: str, spot_type: str) -> int | None: ...",
+        "def top_levels(self, timestamp: int, n: int) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Buses",
+      "points": 25,
+      "methods": [
+        "def list_level(self, timestamp: int, level_id: str) -> list[str] | None: ..."
+      ]
+    },
+    {
+      "level": 4,
+      "title": "Fees",
+      "points": 25,
+      "methods": [
+        "def set_rate(self, timestamp: int, vehicle_type: str, rate: int) -> None: ...",
+        "def get_fee(self, timestamp: int, plate: str) -> int | None: ...",
+        "def get_history(self, timestamp: int, plate: str) -> list[str]: ...",
+        "def get_revenue(self, timestamp: int) -> int: ..."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "slug": "chat-history",
+  "title": "Chat Message History",
+  "difficulty": "medium",
+  "blurb": "Per-user message histories, then sorted listings, disappearing messages with timed operations, and backups that restore expiry correctly.",
+  "tags": ["hash-table", "design", "sorting", "string"],
+  "class_name": "ChatHistory",
+  "time_cap_minutes": 90,
+  "case_time_limit_ms": 4000,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Messages",
+      "points": 25,
+      "methods": [
+        "def send_message(self, user_id: str, message_id: str, message: str) -> None: ...",
+        "def get_message(self, user_id: str, message_id: str) -> str | None: ...",
+        "def delete_message(self, user_id: str, message_id: str) -> bool: ..."
+      ]
+    },
+    {
+      "level": 2,
+      "title": "Listing messages",
+      "points": 25,
+      "methods": [
+        "def list_messages(self, user_id: str) -> list[str]: ...",
+        "def list_messages_by_prefix(self, user_id: str, prefix: str) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Expiring messages",
+      "points": 25,
+      "methods": [
+        "def send_message_at(self, user_id: str, message_id: str, message: str, timestamp: int) -> None: ...",
+        "def send_message_with_expiry(self, user_id: str, message_id: str, message: str, timestamp: int, expiry: int) -> None: ...",
+        "def get_message_at(self, user_id: str, message_id: str, timestamp: int) -> str | None: ...",
+        "def delete_message_at(self, user_id: str, message_id: str, timestamp: int) -> bool: ...",
+        "def list_messages_at(self, user_id: str, timestamp: int) -> list[str]: ...",
+        "def list_messages_by_prefix_at(self, user_id: str, prefix: str, timestamp: int) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 4,
+      "title": "Backup and restore",
+      "points": 25,
+      "methods": [
+        "def zip_messages(self, timestamp: int) -> int: ...",
+        "def unzip_messages(self, timestamp: int, backup_timestamp: int) -> None: ..."
+      ]
+    }
+  ]
+}

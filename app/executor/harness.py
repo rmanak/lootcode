@@ -142,6 +142,30 @@ def _attach_import_output(results: list, import_out: str, out_budget) -> None:
         results[0]["stdout"] = out_budget.take(import_out) + results[0].get("stdout", "")
 
 
+def _open_result(path: str):
+    """Open result.json for writing, never through whatever the solution left
+    there.
+
+    The run directory belongs to untrusted code by the time this runs. A
+    submission that plants a fifo at `result.json` makes a plain `open(...,
+    "w")` block until the parent's overall timeout — a whole run's budget,
+    burned from one line of user code — and a symlink would have us write
+    wherever it points. So: remove what is there, then create it ourselves and
+    refuse to follow a link.
+    """
+    try:  # noqa: SIM105 - this file stays on a deliberately small stdlib surface
+        os.unlink(path)
+    except OSError:
+        pass
+    flags = (os.O_WRONLY | os.O_CREAT | os.O_EXCL
+             | getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_NONBLOCK", 0))
+    # 0644, not 0600: on the docker backend this file is created by the
+    # container's `nobody` and read back by the server's user. The run
+    # directory it sits in is private (sandbox.make_workdir), so the mode of
+    # the file inside it is not what keeps a submission private.
+    return os.fdopen(os.open(path, flags, 0o644), "w", encoding="utf-8")
+
+
 def _write_results(workdir: str, results: list) -> None:
     """Write result.json, degrading rather than dying if it exceeds the parent's
     file-size rlimit — an OSError here would lose every test's result.
@@ -160,7 +184,7 @@ def _write_results(workdir: str, results: list) -> None:
 
     def _attempt() -> bool:
         try:
-            with open(path, "w", encoding="utf-8") as f:
+            with _open_result(path) as f:
                 json.dump({"results": results}, f)
             return True
         except OSError:

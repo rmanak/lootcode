@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Attempt · {{ problem.title }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ icf_static('icf.css') }}">{% endblock %}
+
+{% block content %}
+<p class="crumb"><a href="/icf">Industry Coding</a> ›
+  <a href="/icf/{{ problem.slug }}">{{ problem.title }}</a> › attempt</p>
+
+<h1>{{ problem.title }} — level {{ attempt.highest_level_passed }}/4</h1>
+
+<div class="icf-report-head">
+  <div class="icf-stat">
+    <span class="icf-stat-n">{{ attempt.highest_level_passed }}/4</span>
+    <span class="icf-stat-l">levels completed</span>
+  </div>
+  <div class="icf-stat">
+    <span class="icf-stat-n">{{ score }}</span>
+    <span class="icf-stat-l">of {{ problem.total_points }} points</span>
+  </div>
+  <div class="icf-stat">
+    <span class="icf-stat-n">{{ (elapsed_s // 60) }}:{{ '%02d' % (elapsed_s % 60) }}</span>
+    <span class="icf-stat-l">{{ 'used of ' ~ problem.time_cap_minutes ~ ' min' if attempt.mode == 'exam' else 'practice time' }}</span>
+  </div>
+  <div class="icf-stat">
+    <span class="icf-stat-n">{{ runs | length }}</span>
+    <span class="icf-stat-l">runs</span>
+  </div>
+</div>
+
+<h2>Levels</h2>
+<div class="icf-report-levels">
+  {% for lv in state.levels %}
+  <div class="icf-report-level {{ 'passed' if lv.passed else ('open' if lv.unlocked else 'locked') }}">
+    <span class="icf-ln">L{{ lv.level }}</span>
+    <span class="icf-rl-title">{{ lv.title }}</span>
+    <span class="icf-rl-state">
+      {% if lv.passed %}passed{% elif lv.unlocked %}{{ lv.best_passed }}/{{ lv.best_total }} best{% else %}never unlocked{% endif %}
+    </span>
+  </div>
+  {% endfor %}
+</div>
+
+<h2>Runs</h2>
+{% if runs %}
+<table class="icf-past">
+  <thead><tr><th>When</th><th>Level</th><th>Kind</th><th>Result</th><th>Time</th></tr></thead>
+  <tbody>
+    {% for r in runs %}
+    <tr>
+      <td>{{ r.created_at | localdt(tz) }}</td>
+      <td>L{{ r.level }}</td>
+      <td>{{ 'submit' if r.mode == 'submit' else 'run' }}{{ ' · late' if r.late else '' }}</td>
+      <td class="{{ 'pass' if r.all_passed else 'fail' }}">{{ r.passed_count }}/{{ r.total_count }}</td>
+      <td>{{ r.runtime_ms | round(0) | int }} ms</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="muted">No runs were recorded in this attempt.</p>
+{% endif %}
+
+<p class="icf-report-foot"><a href="/icf/{{ problem.slug }}">Back to {{ problem.title }} →</a></p>
+{% endblock %}

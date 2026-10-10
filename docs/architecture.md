@@ -16,7 +16,8 @@ home instance; p95 target ≤ 10s). No separate frontend, queue, or DB server.
                 │  FastAPI app (app/main.py)                   │
                 │  • identity middleware (cookie → User)       │
                 │  • routers: pages / submissions / admin      │
-                │  • startup: create tables + seed content     │
+                │  • startup: create tables + seed content,    │
+                │    then load optional extensions (icf/)      │
                 └───┬───────────────┬──────────────────┬───────┘
                     │               │                  │
             ┌───────▼──────┐ ┌──────▼─────────┐ ┌──────▼───────────┐
@@ -27,11 +28,27 @@ home instance; p95 target ≤ 10s). No separate frontend, queue, or DB server.
             └──────────────┘ └──────┬─────────┘ └──────────────────┘
                                     │ subprocess (default) or docker
                              ┌──────▼─────────┐
-                             │ harness.py     │  runs the solver function
-                             │ per test, with │  against each test under
-                             │ rlimits/timeout│  CPU/mem/PID/time limits
+                             │ sandbox.py     │  the shared launcher:
+                             │  → harness.py  │  rlimits, own process group,
+                             │                │  throwaway dir, backend choice
                              └────────────────┘
+                   (the optional icf/ extension puts its own harness
+                    behind the same launcher — see docs/extensions.md)
 ```
+
+## Optional extensions
+
+A feature can live in its own top-level folder and be deleted without a trace:
+`app/extensions.py` imports each optional package by name at startup and lets
+it `register(app)` — mounting routers, a static dir, its own templates, its own
+database — and core reads back only a nav link and a set of identity roots.
+Nothing in `app/` imports an extension, and the loader is a no-op when the
+folder is absent.
+
+`icf/` is the one that exists: the Industry Coding Framework, four-level timed
+assessments. It reuses the sandbox launcher and the CodeMirror bundle and keeps
+everything else (its problems, its SQLite file, its templates) to itself. See
+`docs/extensions.md` and `icf/README.md`.
 
 ## Run/score flow (the critical path)
 

@@ -16,6 +16,9 @@ services:
       # Publishing the port above is the deliberate act; see the Dockerfile.
       LOOTCODE_TRUST_LAN: "1"
       LOOTCODE_DB: "/app/data/lootcode.db"
+      # Only used if the optional icf/ extension is present; keeps its
+      # attempts on the same volume (see docs/extensions.md).
+      ICF_DB: "/app/data/icf.db"
       EXECUTOR_BACKEND: "subprocess"
       # Uncomment to enable AI problem generation:
       # ANTHROPIC_API_KEY: "sk-ant-..."

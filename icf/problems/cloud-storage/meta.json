@@ -1,0 +1,49 @@
+{
+  "slug": "cloud-storage",
+  "title": "Cloud Storage System",
+  "difficulty": "medium",
+  "blurb": "Files and copies, then prefix/suffix search, users with storage capacities that evict the largest files, and compressing files to half their size.",
+  "tags": ["hash-table", "design", "sorting", "string"],
+  "class_name": "CloudStorage",
+  "time_cap_minutes": 90,
+  "case_time_limit_ms": 4000,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Files",
+      "points": 25,
+      "methods": [
+        "def add_file(self, name: str, size: int) -> bool: ...",
+        "def copy_file(self, name_from: str, name_to: str) -> bool: ...",
+        "def get_file_size(self, name: str) -> int | None: ..."
+      ]
+    },
+    {
+      "level": 2,
+      "title": "Finding files",
+      "points": 25,
+      "methods": [
+        "def find_file(self, prefix: str, suffix: str) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Users and capacity",
+      "points": 25,
+      "methods": [
+        "def add_user(self, user_id: str, capacity: int) -> bool: ...",
+        "def add_file_by(self, user_id: str, name: str, size: int) -> int | None: ...",
+        "def update_capacity(self, user_id: str, capacity: int) -> int | None: ..."
+      ]
+    },
+    {
+      "level": 4,
+      "title": "Compression",
+      "points": 25,
+      "methods": [
+        "def compress_file(self, user_id: str, name: str) -> int | None: ...",
+        "def decompress_file(self, user_id: str, name: str) -> int | None: ..."
+      ]
+    }
+  ]
+}

@@ -17,6 +17,7 @@ from starlette.concurrency import run_in_threadpool
 
 from .config import settings
 from .db import SessionLocal, init_db
+from .extensions import REGISTRY, load_extensions
 from .logging_config import configure_logging, get_logger
 from .models import Problem, User
 from .routers import admin, pages, submissions
@@ -77,8 +78,14 @@ def _wants_identity(path: str) -> bool:
     # Segment-wise, not `startswith`: a bare prefix test also matches
     # "/admin.php" and "/api-docs.bak", which is exactly the scanner traffic
     # this is here to stop minting rows for.
+    #
+    # Optional extensions contribute their own roots (app/extensions.py): their
+    # pages extend base.html, which reads request.state.is_account, so they need
+    # an identity for the same reason /problems does. Nothing is registered on a
+    # stock install, and then this reads exactly as it did before.
+    roots = (*_IDENTITY_ROOTS, *REGISTRY.identity_roots)
     return path in _IDENTITY_EXACT or any(
-        path == root or path.startswith(root + "/") for root in _IDENTITY_ROOTS)
+        path == root or path.startswith(root + "/") for root in roots)
 
 
 def _load_or_create_user(uid: str | None) -> tuple[dict, bool]:
@@ -132,6 +139,10 @@ async def attach_user(request: Request, call_next):
 app.include_router(pages.router)
 app.include_router(submissions.router)
 app.include_router(admin.router)
+
+# Optional feature packages (see app/extensions.py and docs/extensions.md). A
+# no-op when none of them is on disk, which is the default.
+load_extensions(app)
 
 
 def effective_bind_host() -> str:

@@ -31,6 +31,12 @@ extend-exclude = [
     "staging",
     "constraint_validators",
     "scratchpad",
+    # ICF problem definitions are content too: reference solutions written to
+    # mirror the statement, starters that are deliberately stubs, and test
+    # modules importing `icf_testkit`, which only exists inside the sandbox.
+    # They get a stronger check than lint — `icf/scripts/verify_icf.py` parses
+    # every one of them and runs the canonical against every case.
+    "icf/problems",
 ]
 
 [tool.ruff.lint]
@@ -102,17 +108,33 @@ max-line-length = 100
 "app/executor/harness.py" = ["N818", "RUF023", "E702"]
 # `_Timeout` again — same control-flow signal, in the in-process fast path.
 "scripts/strengthen_tests.py" = ["N818"]
+# The ICF sandbox pair (optional extension, see docs/extensions.md) runs inside
+# the sandbox under the same rules as app/executor/harness.py: stdlib only, no
+# imports from the app. `_Timeout`/`ExpectationFailed` are control-flow signals
+# rather than errors a caller handles (N818).
+"icf/sandbox/*.py" = ["N818"]
+# The verifier is a CLI: it prints, and it inserts the repo root on sys.path
+# before importing the package it is verifying.
+"icf/scripts/*" = ["E402", "S101", "E501"]
 # build_prompt() is one long interpolated f-string of English instructions; ruff
 # reads the interpolation as query construction. There is no SQL in this file.
 "scripts/strengthen_scheduler.py" = ["S608"]
 # The executors' whole job is to spawn a subprocess running submitted code.
+"app/executor/sandbox.py" = ["S603", "S607"]
 "app/executor/subprocess_executor.py" = ["S603", "S607"]
 "app/executor/docker_executor.py" = ["S603", "S607"]
 # Tests assert, and mirror sandbox/eval behaviour on purpose.
 # S104: the LAN-bind guard tests name "0.0.0.0" on purpose — that is the
 # string under test, not a bind.
-"tests/*" = ["S101", "S102", "S104", "S307", "S603", "S607", "N802",
+# S108: the sandbox tests name /tmp paths as *input under test* (a path that
+# must be rejected, a workdir string handed to a command builder), not as
+# files they create.
+"tests/*" = ["S101", "S102", "S104", "S108", "S307", "S603", "S607", "N802",
              "N814", "N812", "SIM117"]
+# The extension's suite, same rules — plus S608: the table names it truncates
+# between tests come from its own metadata, not from input.
+"icf/tests/*" = ["S101", "S102", "S307", "S603", "S607", "N802", "N803",
+                 "N806", "SIM117", "S608"]
 # `scripts/` (24.8k LOC of offline tooling) is consolidated in a later phase;
 # until then it is linted for real bugs but not for style. Shrink this list as
 # scripts/_common.py absorbs the duplication.
@@ -130,7 +152,14 @@ docstring-code-format = true
 # ---------------------------------------------------------------------------
 [tool.mypy]
 python_version = "3.12"
+# `make typecheck` passes the paths explicitly (app, authoring and any
+# installed optional extension), because a path listed here that is not on
+# disk is an error and an extension folder may not be.
 files = ["app", "authoring"]
+# Problem definitions are content: reference solutions, starters that are
+# deliberately stubs, and test modules importing `icf_testkit` — which only
+# exists inside the sandbox.
+exclude = "icf/problems/"
 ignore_missing_imports = true
 follow_imports = "silent"
 # Off for now — each is a separate, tractable cleanup. Turn on one per phase.
@@ -146,6 +175,12 @@ strict_equality = true
 [[tool.mypy.overrides]]
 # Runs inside the sandbox with no imports available to typecheck against.
 module = "app.executor.harness"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+# Runs inside the sandbox with no imports available to typecheck against —
+# same rule as app.executor.harness, for the same reason.
+module = "icf.sandbox.*"
 ignore_errors = true
 
 [[tool.mypy.overrides]]

@@ -1,0 +1,49 @@
+{
+  "slug": "in-memory-database",
+  "title": "In-Memory Database",
+  "difficulty": "medium",
+  "blurb": "Build a key/field store, then grow it through prefix scans, expiring fields, and point-in-time restore.",
+  "tags": ["hash-map", "design", "simulation", "sorting"],
+  "class_name": "Database",
+  "time_cap_minutes": 90,
+  "case_time_limit_ms": 4000,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Records and fields",
+      "points": 25,
+      "methods": [
+        "def set(self, timestamp: int, key: str, field: str, value: str) -> None: ...",
+        "def get(self, timestamp: int, key: str, field: str) -> str | None: ...",
+        "def delete(self, timestamp: int, key: str, field: str) -> bool: ...",
+        "def compare_and_set(self, timestamp: int, key: str, field: str, expected: str, new_value: str) -> bool: ..."
+      ]
+    },
+    {
+      "level": 2,
+      "title": "Scanning a record",
+      "points": 25,
+      "methods": [
+        "def scan(self, timestamp: int, key: str) -> str: ...",
+        "def scan_by_prefix(self, timestamp: int, key: str, prefix: str) -> str: ..."
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Fields that expire",
+      "points": 25,
+      "methods": [
+        "def set_with_ttl(self, timestamp: int, key: str, field: str, value: str, ttl: int) -> None: ..."
+      ]
+    },
+    {
+      "level": 4,
+      "title": "Backup and restore",
+      "points": 25,
+      "methods": [
+        "def backup(self, timestamp: int) -> int: ...",
+        "def restore(self, timestamp: int, at_timestamp: int) -> None: ..."
+      ]
+    }
+  ]
+}

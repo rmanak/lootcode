@@ -15,7 +15,8 @@
 | Code execution | in-process **subprocess** sandbox (default) or **docker** | "Simple that works"; Docker is the Judge0-style hardened option. See `docs/code-execution.md`. |
 | Identity | cookie-based, no passwords | "Nothing fancy"; per-person progress on a LAN. |
 | AI generation | **Anthropic Claude API** (`claude-opus-4-8`) | Authoring help; optional, off unless `ANTHROPIC_API_KEY` is set. |
-| Tests | **pytest** | Incl. adversarial executor tests. |
+| Tests | **pytest** | Incl. adversarial executor tests, and any installed extension's own suite (collected by the root `conftest.py`). |
+| Optional features | top-level **extension packages** (`icf/`) | A feature can ship in one folder and be deleted without a trace — no new dependency, no new process. See `docs/extensions.md`. |
 
 ## Decisions (resolved)
 

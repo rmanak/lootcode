@@ -9,10 +9,14 @@ PORT    ?= 8000
 # Worker threads for the bank-wide checks. Each unit of work is its own sandbox
 # subprocess, so this scales with cores rather than with the GIL.
 JOBS    ?= $(shell nproc 2>/dev/null || echo 8)
+# Optional extensions (see docs/extensions.md). `$(wildcard …)` expands to
+# nothing when the folder is not there, so every target below works the same
+# with or without it.
+EXTENSIONS := $(wildcard icf)
 
 .PHONY: help install hooks seed dev run test test-fast test-cov lint lint-fix \
         format typecheck audit verify validators db-check check check-bank \
-        docker clean
+        icf-verify docker clean
 
 help:           ## list the targets
 	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -56,8 +60,8 @@ lint-fix:       ## ruff check --fix
 format:         ## ruff format — OPT-IN, not part of `check`. See .pre-commit-config.yaml.
 	.venv/bin/ruff format .
 
-typecheck:      ## mypy over app/ + authoring/
-	.venv/bin/mypy
+typecheck:      ## mypy over app/ + authoring/ (+ any installed extension)
+	.venv/bin/mypy app authoring $(EXTENSIONS)
 
 audit:          ## statement <-> test <-> judge consistency over the bank
 	$(PY) scripts/audit.py -j $(JOBS)
@@ -70,6 +74,11 @@ db-check:       ## assert the local database is physically intact
 
 validators:     ## assert every stored test input satisfies its validate_input()
 	$(PY) scripts/check_constraint_validators.py
+
+icf-verify:     ## ICF extension: every canonical passes every level (no-op if absent)
+ifneq ($(EXTENSIONS),)
+	$(PY) icf/scripts/verify_icf.py
+endif
 
 # The gate.
 #
@@ -86,8 +95,10 @@ validators:     ## assert every stored test input satisfies its validate_input()
 # versions; both take -j and are parallel by default now.
 #
 # Two phases, cheapest first, so a typo fails in seconds rather than minutes.
-# Phase 2 runs the test suite concurrently with the bank checks: they share
-# nothing (tests use a temp DB, the bank checks use content/ and lootcode.db).
+# Phase 2 runs the test suite concurrently with the bank checks: tests use a
+# temp DB, the bank checks use content/ and lootcode.db. The one thing they do
+# share is the sandbox runs root (/tmp/lootcode-runs-<uid>/), so a test must
+# only ever inspect the run directories it created itself.
 check:  ## everything (deduplicated + parallel); serial output with -j1
 	@$(MAKE) --no-print-directory lint typecheck
 	@$(MAKE) --no-print-directory -j2 test check-bank
@@ -98,6 +109,7 @@ check-bank:     ## the bank half of `check`: db -> seed -> audit -> verify -> va
 	@$(PY) scripts/audit.py --skip-canonical -q
 	@$(PY) scripts/verify_bank.py -j $(JOBS) -q
 	@$(PY) scripts/check_constraint_validators.py
+	@$(MAKE) --no-print-directory icf-verify
 
 # --- misc -----------------------------------------------------------------
 docker:         ## build and run via docker compose

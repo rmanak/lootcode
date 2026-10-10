@@ -12,7 +12,12 @@ COPY . .
 # it. So the LAN opt-in is set here; the guard still fires for anyone running
 # uvicorn directly. Read docs/security.md before publishing this port: there is
 # no authentication, and /admin can rewrite the bank and run arbitrary Python.
-ENV HOST=0.0.0.0 PORT=8000 LOOTCODE_DB=/app/data/lootcode.db LOOTCODE_TRUST_LAN=1
+# ICF_DB matters only when the optional icf/ extension is in the build context;
+# it is set unconditionally so that, if it is, its attempts and submitted code
+# land on the same persistent volume as the main database instead of inside an
+# ephemeral image layer.
+ENV HOST=0.0.0.0 PORT=8000 LOOTCODE_DB=/app/data/lootcode.db \
+    ICF_DB=/app/data/icf.db LOOTCODE_TRUST_LAN=1
 RUN mkdir -p /app/data
 EXPOSE 8000
 

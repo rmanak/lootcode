@@ -87,6 +87,9 @@ FORWARD_LOOKING = {
     "docs/engineering-plan.md",
     "docs/engineering-review.md",
     "docs/duplicate-detection-plan.md",
+    # The ICF (Industry Coding Framework) design: names the optional-extension
+    # seams (app/extensions.py, app/executor/sandbox.py) it proposes to add.
+    "docs/icf-plan.md",
     # A plan, not a description: it names the tool it proposes
     # (scripts/random_cases.py) and the retired one it replaces.
     "docs/test-strengthening.md",

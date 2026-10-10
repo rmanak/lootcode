@@ -14,10 +14,10 @@ import json
 import os
 import shutil
 import subprocess
-import tempfile
 
-from ..config import settings
 from .base import Limits, Outcome, TestSpec
+from .sandbox import container_name, docker_command, kill_container, make_workdir
+from .subprocess_executor import build_payload, overall_timeout_s
 
 HARNESS = os.path.join(os.path.dirname(__file__), "harness.py")
 
@@ -26,51 +26,33 @@ def run(code: str, function_name: str, params: list,
         return_type: str, tests: list[TestSpec], limits: Limits,
         *, kind: str = "function", class_name: str | None = None,
         class_methods: list | None = None) -> dict[str, Outcome]:
-    workdir = tempfile.mkdtemp(prefix="lc_docker_")
-    per_test_s = limits.time_limit_ms / 1000.0
+    workdir = make_workdir("lc_docker_")
+    name = container_name()
     try:
         shutil.copy(HARNESS, os.path.join(workdir, "harness.py"))
         with open(os.path.join(workdir, "solution.py"), "w", encoding="utf-8") as f:
             f.write(code)
-        payload = {
-            "kind": kind,
-            "function_name": function_name, "params": params,
-            "return_type": return_type,
-            "class_name": class_name,
-            "class_methods": class_methods,
-            "import_budget_s": limits.import_budget_s,
-            "max_output_bytes": limits.max_output_kb * 1024,
-            "tests": [{"name": t.name, "input": t.input, "time_limit_s": per_test_s}
-                      for t in tests],
-        }
+        # Same payload builder as the subprocess backend: the two backends run
+        # the *same* harness, so a divergence here would be a grading difference
+        # that depends on EXECUTOR_BACKEND.
+        payload = build_payload(code, function_name, params, return_type, tests,
+                                limits, kind=kind, class_name=class_name,
+                                class_methods=class_methods)
         with open(os.path.join(workdir, "payload.json"), "w", encoding="utf-8") as f:
             json.dump(payload, f)
 
-        overall_s = int(limits.import_budget_s + per_test_s * len(tests) + 5.0)
-        cmd = [
-            "docker", "run", "--rm",
-            "--network", "none",
-            "--memory", f"{limits.memory_limit_mb}m",
-            "--memory-swap", f"{limits.memory_limit_mb}m",
-            "--cpus", "1",
-            "--pids-limit", "128",
-            "--cap-drop", "ALL",
-            "--security-opt", "no-new-privileges",
-            "--read-only",
-            # A container-internal tmpfs, not a host path: the rootfs is read-only,
-            # so this is the only writable scratch and it dies with the container.
-            "--tmpfs", "/tmp:size=16m",  # noqa: S108
-            "-v", f"{workdir}:/sandbox:rw",
-            "-w", "/sandbox",
-            "--user", "65534:65534",  # nobody
-            settings.DOCKER_IMAGE,
-            "python", "-I", "/sandbox/harness.py", "/sandbox",
-        ]
+        overall_s = int(overall_timeout_s(tests, limits))
+        # The container flags live in sandbox.py, so the two harnesses that can
+        # run here cannot end up with different isolation.
+        cmd = docker_command(workdir, limits, "/sandbox/harness.py", name)
         timed_out = False
         try:
             subprocess.run(cmd, timeout=overall_s + 5, capture_output=True)
         except subprocess.TimeoutExpired:
             timed_out = True
+            # The client is dead; the container is not. An infinite loop would
+            # otherwise keep its CPU share until the daemon restarts.
+            kill_container(name)
 
         return _collect(workdir, tests, timed_out)
     finally:

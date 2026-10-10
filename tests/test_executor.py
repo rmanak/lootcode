@@ -2,6 +2,7 @@
 
 These run the real subprocess sandbox, so they only pass on POSIX.
 """
+import time
 from pathlib import Path
 from types import SimpleNamespace as NS
 
@@ -377,3 +378,24 @@ def test_migrated_listnode_problems_pass_canonical():
     for slug in ("reverse-linked-list", "merge-two-sorted-lists", "add-two-numbers",
                  "reverse-nodes-in-k-group", "linked-list-in-binary-tree"):
         _assert_bank_canonical_solved(slug)
+
+
+@pytest.mark.slow
+@pytest.mark.parametrize("plant,what", [
+    ('os.symlink("/dev/zero", "result.json")', "symlink"),
+    ('os.mkfifo("result.json")', "fifo"),
+])
+def test_a_submission_cannot_booby_trap_the_results_file(plant, what):
+    """The run directory belongs to the submission by the time it runs.
+
+    Planting a `result.json` that is not a regular file used to reach the
+    *host*: a symlink to /dev/zero was read until the server process was
+    OOM-killed, and a fifo blocked — first the harness writing it, then the
+    server reading it — for the whole run budget. Both must now cost nothing.
+    """
+    code = f"import os\n{plant}\n" + CANONICAL
+    started = time.monotonic()
+    graded = run_submission(code, _problem(), _tests())
+    assert time.monotonic() - started < 20, f"the {what} stalled the run"
+    # The harness replaces what it finds, so a correct solution still grades.
+    assert graded.solved, [r.status for r in graded.results]

@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block title %}{{ problem.title }} · Industry Coding{% endblock %}
+{% block container_class %}wide{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ icf_static('icf.css') }}">{% endblock %}
+
+{% block content %}
+{# One bar across the top: what this is, the clock, and the controls that
+   start or end a sitting. The level state lives on the tabs in the left
+   panel, so it is not repeated here. #}
+<div class="icf-bar">
+  <div class="icf-bar-title">
+    <a href="/icf" class="icf-back" title="All ICF problems">←</a>
+    <h1>{{ problem.title }}</h1>
+    <span class="badge {{ problem.difficulty }}">{{ problem.difficulty }}</span>
+    <span class="icf-bar-note">{{ problem.levels | length }} levels ·
+      {{ problem.class_name }}</span>
+  </div>
+
+  <div class="icf-bar-actions">
+    <div class="icf-clock" id="icf-clock" hidden><span id="icf-clock-time">--:--</span></div>
+    {% if attempt %}
+    <button type="button" class="icf-finish" id="icf-finish">End attempt</button>
+    {% else %}
+    <button type="button" class="btn icf-start-btn" id="icf-start-exam">
+      Start assessment · {{ problem.time_cap_minutes }} min
+    </button>
+    <button type="button" class="icf-ghost" id="icf-start-practice">
+      Practice (no clock)
+    </button>
+    {% endif %}
+  </div>
+</div>
+
+<div class="icf-solve">
+  <section class="icf-statement">
+    <div class="icf-tabs" role="tablist">
+      <button type="button" class="icf-tab is-active" data-panel="overview" role="tab">Overview</button>
+      {% for lv in problem.levels %}
+      {% set st = (state.levels[loop.index0] if state else None) %}
+      {% set open_now = st.unlocked if st else lv.number == 1 %}
+      <button type="button" role="tab"
+              class="icf-tab{{ ' is-locked' if not open_now }}{{ ' is-passed' if st and st.passed }}"
+              data-panel="level{{ lv.number }}" data-level="{{ lv.number }}"
+              title="{{ lv.title }}">
+        Level {{ lv.number }}<span class="icf-tab-mark"></span>
+      </button>
+      {% endfor %}
+    </div>
+
+    <div class="icf-panel" data-panel-view="overview">
+      <div class="md">{{ problem.intro_md | markdown | safe }}</div>
+      <h3 class="icf-h">The class you implement</h3>
+      <pre class="icf-sig"><code>class {{ problem.class_name }}:
+{%- for lv in problem.levels %}
+    # Level {{ lv.number }} — {{ lv.title }}
+{%- for m in lv.methods %}
+    {{ m }}
+{%- endfor %}
+{%- endfor %}</code></pre>
+      <p class="muted icf-note">
+        Time cap {{ problem.time_cap_minutes }} minutes ·
+        {{ problem.levels | map(attribute='visible_cases') | map('length') | sum }} visible and
+        {{ problem.levels | map(attribute='hidden_cases') | map('length') | sum }} hidden tests ·
+        Python 3 · each test has {{ (problem.case_time_limit_ms / 1000) | round(1) }}s
+      </p>
+
+      {% if past_attempts %}
+      <h3 class="icf-h">Your attempts</h3>
+      <table class="icf-past">
+        <thead><tr><th>Started</th><th>Mode</th><th>Reached</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          {% for a in past_attempts %}
+          <tr>
+            <td>{{ a.started_at | localdt(tz) }}</td>
+            <td>{{ a.mode }}</td>
+            <td>Level {{ a.highest_level_passed }}/4</td>
+            <td>{{ a.status }}</td>
+            <td><a href="/icf/attempts/{{ a.id }}">Report →</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+
+    {% for lv in problem.levels %}
+    {% set st = (state.levels[loop.index0] if state else None) %}
+    {% set open_now = st.unlocked if st else lv.number == 1 %}
+    <div class="icf-panel" data-panel-view="level{{ lv.number }}" hidden>
+      <div class="icf-level-head">
+        <h2>Level {{ lv.number }} — {{ lv.title }}</h2>
+        <span class="icf-count">{{ lv.visible_cases | length }} visible ·
+          {{ lv.hidden_cases | length }} hidden</span>
+      </div>
+      {% if not open_now %}
+      <p class="icf-locked-note">🔒 Locked. Pass every level-{{ lv.number - 1 }} test
+        — visible and hidden — to open this one.</p>
+      {% elif not attempt %}
+      <p class="icf-locked-note">Press <strong>Start assessment</strong> (or
+        <strong>Practice</strong>) above to begin. Your code carries forward
+        between levels, so build something you can extend.</p>
+      {% endif %}
+      <div class="md">{{ lv.statement_md | markdown | safe }}</div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <div class="icf-gutter" title="Drag to resize panels"></div>
+
+  <section class="icf-workbench{{ ' is-idle' if not attempt }}">
+    <div class="icf-work-head">
+      <label for="icf-code">Your solution</label>
+      <span class="icf-saved" id="icf-saved"></span>
+    </div>
+    <div class="editor-wrap">
+      <textarea id="icf-code">{{ code }}</textarea>
+      <div class="editor-resize" title="Drag to resize editor"></div>
+    </div>
+    <div class="actions icf-actions">
+      <button type="button" class="icf-run" id="icf-run"
+              {{ '' if attempt else 'disabled' }}>▶ Run visible tests</button>
+      <button type="button" class="icf-submit" id="icf-submit"
+              {{ '' if attempt else 'disabled' }}>✅ Submit level <span id="icf-submit-level">1</span></button>
+      <span id="icf-status">{{ '' if attempt else 'Start an attempt to run your code.' }}</span>
+    </div>
+    <div id="icf-results"></div>
+  </section>
+</div>
+
+<script id="icf-bootstrap" type="application/json">
+  {{ {
+       "slug": problem.slug,
+       "className": problem.class_name,
+       "starter": problem.starter_code,
+       "attempt": state,
+       "levels": problem.levels | map(attribute='number') | list
+     } | tojson }}
+</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static('vendor/cm6.js') }}"></script>
+<script src="{{ icf_static('icf.js') }}"></script>
+{% endblock %}

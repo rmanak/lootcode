@@ -1,0 +1,50 @@
+{
+  "slug": "meeting-room-scheduler",
+  "title": "Meeting Room Scheduler",
+  "difficulty": "medium",
+  "blurb": "Book meetings into rooms without overlaps, then find free rooms, rank the busiest, and reschedule or close rooms without losing meetings.",
+  "tags": ["hash-table", "design", "sorting", "simulation"],
+  "class_name": "MeetingScheduler",
+  "time_cap_minutes": 90,
+  "case_time_limit_ms": 4000,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Rooms and bookings",
+      "points": 25,
+      "methods": [
+        "def add_room(self, timestamp: int, room_id: str) -> bool: ...",
+        "def book_room(self, timestamp: int, room_id: str, start: int, end: int) -> str | None: ...",
+        "def cancel(self, timestamp: int, meeting_id: str) -> bool: ...",
+        "def get_meeting(self, timestamp: int, meeting_id: str) -> str | None: ..."
+      ]
+    },
+    {
+      "level": 2,
+      "title": "Finding a free room",
+      "points": 25,
+      "methods": [
+        "def free_rooms(self, timestamp: int, start: int, end: int) -> list[str]: ...",
+        "def book_any(self, timestamp: int, start: int, end: int) -> str | None: ..."
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Recent bookings and busy rooms",
+      "points": 25,
+      "methods": [
+        "def last_booked(self, timestamp: int, n: int) -> list[str]: ...",
+        "def busiest_rooms(self, timestamp: int, n: int) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 4,
+      "title": "Rescheduling and closing rooms",
+      "points": 25,
+      "methods": [
+        "def reschedule(self, timestamp: int, meeting_id: str, start: int, end: int) -> bool: ...",
+        "def close_room(self, timestamp: int, room_id: str) -> list[str] | None: ..."
+      ]
+    }
+  ]
+}

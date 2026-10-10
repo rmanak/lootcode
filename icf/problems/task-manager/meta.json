@@ -1,0 +1,50 @@
+{
+  "slug": "task-manager",
+  "title": "Task Manager",
+  "difficulty": "medium",
+  "blurb": "Tasks with priorities, then ranked search, users with quotas and deadlines, and a report of the work that slipped.",
+  "tags": ["hash-table", "design", "sorting", "simulation"],
+  "class_name": "TaskManager",
+  "time_cap_minutes": 90,
+  "case_time_limit_ms": 4000,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Tasks",
+      "points": 25,
+      "methods": [
+        "def add_task(self, timestamp: int, name: str, priority: int) -> str: ...",
+        "def update_task(self, timestamp: int, task_id: str, name: str, priority: int) -> bool: ...",
+        "def get_task(self, timestamp: int, task_id: str) -> str | None: ..."
+      ]
+    },
+    {
+      "level": 2,
+      "title": "Search and ranking",
+      "points": 25,
+      "methods": [
+        "def search_tasks(self, timestamp: int, name_filter: str, max_results: int) -> list[str]: ...",
+        "def list_tasks_sorted(self, timestamp: int, limit: int) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Users, quotas and deadlines",
+      "points": 25,
+      "methods": [
+        "def add_user(self, timestamp: int, user_id: str, quota: int) -> bool: ...",
+        "def assign_task(self, timestamp: int, task_id: str, user_id: str, finish_time: int) -> bool: ...",
+        "def get_user_tasks(self, timestamp: int, user_id: str) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 4,
+      "title": "Completion and overdue work",
+      "points": 25,
+      "methods": [
+        "def complete_task(self, timestamp: int, task_id: str, user_id: str) -> bool: ...",
+        "def get_overdue_assignments(self, timestamp: int, user_id: str) -> list[str]: ..."
+      ]
+    }
+  ]
+}

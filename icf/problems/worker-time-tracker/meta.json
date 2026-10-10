@@ -1,0 +1,47 @@
+{
+  "slug": "worker-time-tracker",
+  "title": "Worker Time Tracker",
+  "difficulty": "hard",
+  "blurb": "Badge workers in and out, rank them by time in the office, pay them through promotions, then add double-pay periods that must never stack.",
+  "tags": ["hash-table", "design", "simulation", "sorting"],
+  "class_name": "WorkerTimeTracker",
+  "time_cap_minutes": 90,
+  "case_time_limit_ms": 4000,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Office attendance",
+      "points": 25,
+      "methods": [
+        "def add_worker(self, worker_id: str, position: str, compensation: int) -> bool: ...",
+        "def register(self, worker_id: str, timestamp: int) -> bool: ...",
+        "def get_total_time(self, worker_id: str) -> int | None: ..."
+      ]
+    },
+    {
+      "level": 2,
+      "title": "Ranking by time",
+      "points": 25,
+      "methods": [
+        "def top_n_workers(self, n: int, position: str) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Promotions and salary",
+      "points": 25,
+      "methods": [
+        "def promote(self, worker_id: str, new_position: str, new_compensation: int) -> bool: ...",
+        "def calc_salary(self, worker_id: str, start_timestamp: int, end_timestamp: int) -> int | None: ..."
+      ]
+    },
+    {
+      "level": 4,
+      "title": "Double-pay periods",
+      "points": 25,
+      "methods": [
+        "def set_double_pay(self, start_timestamp: int, end_timestamp: int) -> None: ..."
+      ]
+    }
+  ]
+}

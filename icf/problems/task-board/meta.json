@@ -1,0 +1,52 @@
+{
+  "slug": "task-board",
+  "title": "Task Board",
+  "difficulty": "medium",
+  "blurb": "Create, update and delete tasks, then priority order, users with quotas, and an audit trail that can replay the board at any past moment.",
+  "tags": ["hash-table", "design", "sorting", "binary-search"],
+  "class_name": "TaskBoard",
+  "time_cap_minutes": 90,
+  "case_time_limit_ms": 4000,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Tasks",
+      "points": 25,
+      "methods": [
+        "def create_task(self, timestamp: int, task_id: str, title: str, priority: int) -> bool: ...",
+        "def get_task(self, timestamp: int, task_id: str) -> dict | None: ...",
+        "def update_task(self, timestamp: int, task_id: str, title: str, priority: int) -> bool: ...",
+        "def delete_task(self, timestamp: int, task_id: str) -> bool: ..."
+      ]
+    },
+    {
+      "level": 2,
+      "title": "Priority order",
+      "points": 25,
+      "methods": [
+        "def list_tasks(self, timestamp: int, limit: int) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Users and quotas",
+      "points": 25,
+      "methods": [
+        "def add_user(self, timestamp: int, user_id: str, quota: int) -> bool: ...",
+        "def assign_task(self, timestamp: int, task_id: str, user_id: str) -> bool: ...",
+        "def unassign_task(self, timestamp: int, task_id: str) -> bool: ...",
+        "def get_user_tasks(self, timestamp: int, user_id: str) -> list[str] | None: ..."
+      ]
+    },
+    {
+      "level": 4,
+      "title": "History",
+      "points": 25,
+      "methods": [
+        "def get_task_history(self, timestamp: int, task_id: str) -> list[str] | None: ...",
+        "def get_task_at(self, timestamp: int, task_id: str, time_at: int) -> dict | None: ...",
+        "def list_tasks_at(self, timestamp: int, time_at: int, limit: int) -> list[str]: ..."
+      ]
+    }
+  ]
+}

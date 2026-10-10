@@ -1,9 +1,9 @@
 """Default executor backend: run untrusted code in a resource-limited subprocess.
 
-Guarantees (see docs/code-execution.md): per-test CPU/wall-time limits, an
-address-space (memory) cap, a process cap (anti fork-bomb), a file-size cap, a
-minimal environment with no secrets, its own process group (killed on timeout),
-and a throwaway working directory deleted afterwards.
+The process-level guarantees — rlimits, own process group, minimal environment,
+throwaway workdir — live in `sandbox.py`, which is shared with every other
+harness in the tree. This module is the problem-grading half: build the payload
+`harness.py` expects, and turn its result.json back into `Outcome`s.
 
 NOTE: a subprocess does NOT block network access. For untrusted multi-user
 deployments use the `docker` backend. This backend suits a personal/home
@@ -11,113 +11,69 @@ instance and is the zero-dependency default.
 """
 from __future__ import annotations
 
-import contextlib
-import json
 import os
-import shutil
-import signal
-import subprocess
-import sys
-import tempfile
 
+from . import sandbox
 from .base import Limits, Outcome, TestSpec
 
 HARNESS = os.path.join(os.path.dirname(__file__), "harness.py")
 
-# Room in the file-size rlimit for the JSON around the captured output: every
-# test's returned value, name, status and timing. Still small enough that the
-# cap remains a real anti-disk-fill control (the workdir is deleted afterwards).
-_RESULT_HEADROOM_BYTES = 1024 * 1024
 
-try:
-    import resource  # POSIX only
-except ImportError:  # pragma: no cover - Windows fallback
-    resource = None  # type: ignore[assignment]  # every use is guarded by `is None`
+def build_payload(code: str, function_name: str, params: list, return_type: str,
+                  tests: list[TestSpec], limits: Limits, *, kind: str,
+                  class_name: str | None, class_methods: list | None) -> dict:
+    """What `harness.py` reads out of payload.json. Shared with the docker
+    backend so the two can never drift into grading differently."""
+    per_test_s = limits.time_limit_ms / 1000.0
+    return {
+        "kind": kind,
+        "function_name": function_name,
+        "params": params,
+        "return_type": return_type,
+        "class_name": class_name,
+        "class_methods": class_methods,
+        "import_budget_s": limits.import_budget_s,
+        "max_output_bytes": limits.max_output_kb * 1024,
+        "tests": [{"name": t.name, "input": t.input, "time_limit_s": per_test_s}
+                  for t in tests],
+    }
 
 
-def _preexec(mem_bytes: int, cpu_seconds: int, fsize_bytes: int):
-    def apply() -> None:
-        # Note: the new session/process group is created by start_new_session=True;
-        # don't call os.setsid() here (it would fail — already a session leader).
-        if resource is None:
-            return
-        resource.setrlimit(resource.RLIMIT_AS, (mem_bytes, mem_bytes))
-        resource.setrlimit(resource.RLIMIT_CPU, (cpu_seconds, cpu_seconds))
-        resource.setrlimit(resource.RLIMIT_FSIZE, (fsize_bytes, fsize_bytes))
-        # Not every platform/user can set NPROC; the other limits still apply.
-        with contextlib.suppress(ValueError, OSError):
-            resource.setrlimit(resource.RLIMIT_NPROC, (256, 256))  # anti fork-bomb
-
-    return apply
+def overall_timeout_s(tests: list[TestSpec], limits: Limits) -> float:
+    """Wall-clock budget for the whole harness process: every test's own limit,
+    plus the import budget, plus slack for start-up and writing results."""
+    return limits.import_budget_s + (limits.time_limit_ms / 1000.0) * len(tests) + 5.0
 
 
 def run(code: str, function_name: str, params: list,
         return_type: str, tests: list[TestSpec], limits: Limits,
         *, kind: str = "function", class_name: str | None = None,
         class_methods: list | None = None) -> dict[str, Outcome]:
-    workdir = tempfile.mkdtemp(prefix="lc_run_")
-    per_test_s = limits.time_limit_ms / 1000.0
-    try:
-        with open(os.path.join(workdir, "solution.py"), "w", encoding="utf-8") as f:
-            f.write(code)
-        payload = {
-            "kind": kind,
-            "function_name": function_name,
-            "params": params,
-            "return_type": return_type,
-            "class_name": class_name,
-            "class_methods": class_methods,
-            "import_budget_s": limits.import_budget_s,
-            "max_output_bytes": limits.max_output_kb * 1024,
-            "tests": [{"name": t.name, "input": t.input, "time_limit_s": per_test_s}
-                      for t in tests],
-        }
-        with open(os.path.join(workdir, "payload.json"), "w", encoding="utf-8") as f:
-            json.dump(payload, f)
-
-        overall_s = limits.import_budget_s + per_test_s * len(tests) + 5.0
-        cpu_s = int(overall_s) + 1
-        mem_bytes = limits.memory_limit_mb * 1024 * 1024
-        # The file cap has to fit the whole result.json: the run-wide stdout
-        # budget the harness enforces, plus every test's returned value. Sizing
-        # it for one test's output made a solution that prints in a loop die
-        # mid-write with no results at all.
-        fsize_bytes = limits.max_output_kb * 1024 + _RESULT_HEADROOM_BYTES
-        env = {"PATH": "/usr/bin:/bin", "PYTHONDONTWRITEBYTECODE": "1",
-               "PYTHONIOENCODING": "utf-8", "HOME": workdir}
-
-        proc = subprocess.Popen(
-            [sys.executable, "-I", HARNESS, workdir],
-            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-            cwd=workdir, env=env, start_new_session=True,
-            preexec_fn=_preexec(mem_bytes, cpu_s, fsize_bytes) if resource else None,
-        )
-        timed_out = False
-        try:
-            proc.communicate(timeout=overall_s)
-        except subprocess.TimeoutExpired:
-            timed_out = True
-            # Already dead, or not ours to kill — either way, move on and reap.
-            with contextlib.suppress(ProcessLookupError, PermissionError):
-                os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
-            proc.communicate()
-
-        return _collect(workdir, tests, timed_out)
-    finally:
-        shutil.rmtree(workdir, ignore_errors=True)
+    data, timed_out = sandbox.run_harness(
+        harness_path=HARNESS,
+        files={"solution.py": code},
+        payload=build_payload(code, function_name, params, return_type, tests,
+                              limits, kind=kind, class_name=class_name,
+                              class_methods=class_methods),
+        limits=limits,
+        overall_s=overall_timeout_s(tests, limits),
+    )
+    return outcomes(data, tests, timed_out)
 
 
-def _collect(workdir: str, tests: list[TestSpec], timed_out: bool) -> dict[str, Outcome]:
-    result_path = os.path.join(workdir, "result.json")
+def outcomes(data: dict | None, tests: list[TestSpec],
+             timed_out: bool) -> dict[str, Outcome]:
+    """Map a harness result.json onto one `Outcome` per requested test.
+
+    result.json is written *inside* the sandbox, so its shape is untrusted:
+    an entry that is not a dict with a string name is dropped, and the test it
+    should have covered falls through to the error fallback below rather than
+    raising out of the request.
+    """
     by_name: dict[str, Outcome] = {}
-    if os.path.exists(result_path):
-        try:
-            with open(result_path, encoding="utf-8") as fh:
-                data = json.load(fh)
-            for r in data.get("results", []):
-                by_name[r["name"]] = Outcome.from_dict(r)
-        except (ValueError, OSError):
-            pass
+    for r in (data or {}).get("results", []):
+        if isinstance(r, dict) and isinstance(r.get("name"), str):
+            by_name[r["name"]] = Outcome.from_dict(r)
 
     # Fill in any test the harness didn't report (crash / kill / OOM / timeout).
     fallback_status = "timeout" if timed_out else "error"
@@ -127,3 +83,9 @@ def _collect(workdir: str, tests: list[TestSpec], timed_out: bool) -> dict[str, 
         if t.name not in by_name:
             by_name[t.name] = Outcome(status=fallback_status, error=fallback_error)
     return by_name
+
+
+def _collect(workdir: str, tests: list[TestSpec], timed_out: bool) -> dict[str, Outcome]:
+    """Read a finished workdir and grade it. Used by the docker backend, which
+    owns its own container lifecycle but writes the same result.json."""
+    return outcomes(sandbox.read_results(workdir), tests, timed_out)

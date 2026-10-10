@@ -25,6 +25,24 @@ later — exists only here and is not in git. Treat the file accordingly.
 There are no migrations: `init_db` runs `create_all`, so adding a column means
 either recreating the database or issuing the `ALTER` yourself.
 
+### A second database, when the ICF extension is installed
+
+`icf/data/icf.db` is a **separate SQLite file** with its own engine and schema
+(`icf/db.py`, `icf/models.py`). Optional features keep their state out of
+`lootcode.db` deliberately — deleting `icf/` should leave nothing behind — so
+it references a user by the id in the `lc_uid` cookie, with no cross-file
+foreign key.
+
+| Table | Source of truth | If lost |
+|---|---|---|
+| ICF problems | `icf/problems/` on disk — never seeded into any database | nothing to lose |
+| `icf_attempts`, `icf_level_state` | **the database** | **gone** |
+| `icf_runs`, `icf_run_cases`, `icf_drafts` | **the database** | **gone** |
+
+So it is user data too: attempts, timings, and the code people submitted.
+Everything on this page — the three-files-together rule, the git rule, the
+recovery procedure — applies to it as well. Point it elsewhere with `ICF_DB`.
+
 ## git must never track any part of the database
 
 `.gitignore` covers `*.db`, `*.db-wal`, `*.db-shm` and `*.db-journal`, and
@@ -74,6 +92,8 @@ transactions:
 
 ```bash
 cp lootcode.db lootcode.db-wal lootcode.db-shm /somewhere/safe/
+# ...and, if the ICF extension is installed, its database too:
+cp icf/data/icf.db icf/data/icf.db-wal icf/data/icf.db-shm /somewhere/safe/
 ```
 
 Or, without stopping anything, let SQLite make a consistent copy:
@@ -145,7 +165,10 @@ the files, not to give up concurrency.
 
 `tests/conftest.py` points `LOOTCODE_DB` at a temporary file *before* anything
 imports `app.config`, and `pytest_configure` fails the run outright if that did
-not take. The suite used to run against the live database, inserting real users
+not take. The repo-root `conftest.py` does the same for both databases on
+*every* invocation — running an extension's suite on its own
+(`pytest icf/tests`) does not load `tests/conftest.py`, and it started the app
+against the live database until that was fixed. The suite used to run against the live database, inserting real users
 and mutating collections.
 
 The consequence is worth stating plainly, because it bit us: **the test suite

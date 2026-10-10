@@ -8,6 +8,7 @@ import markdown as _md
 from fastapi.templating import Jinja2Templates
 
 from .config import settings
+from .extensions import REGISTRY
 
 templates = Jinja2Templates(directory=str(settings.TEMPLATES_DIR))
 
@@ -45,4 +46,8 @@ def _static_url(path: str) -> str:
 templates.env.filters["markdown"] = _render_markdown
 templates.env.filters["localdt"] = _local_dt
 templates.env.globals["app_name"] = settings.APP_NAME
+# Live object, not a snapshot: extensions register during startup, after this
+# module is imported. `extensions.nav` is empty on a stock install, and the
+# header then renders exactly the links it always did.
+templates.env.globals["extensions"] = REGISTRY
 templates.env.globals["static"] = _static_url

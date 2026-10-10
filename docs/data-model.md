@@ -5,6 +5,12 @@
 > (The implemented model is a lean subset: User, Problem, TestCase, Submission,
 > TestResult, KnownProblem; starters/canonical solution live as columns on Problem.)
 
+> The optional ICF extension has **its own model in its own database file**
+> (`icf/models.py` → `icf/data/icf.db`): attempts, per-level state, runs, run
+> cases and editor drafts, keyed by the `lc_uid` user id with no cross-file
+> foreign key. Nothing below describes it; see `icf/README.md` and
+> `docs/database.md`.
+
 ## Entities
 
 ### User
