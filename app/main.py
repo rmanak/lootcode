@@ -5,10 +5,11 @@ Or:            python -m app.main      (honours HOST/PORT from .env)
 """
 from __future__ import annotations
 
+import asyncio
 import ipaddress
 import os
 import sys
-from contextlib import asynccontextmanager
+from contextlib import asynccontextmanager, suppress
 
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
@@ -44,19 +45,29 @@ async def lifespan(_: FastAPI):
         # problem re-seed. Unknown slugs are logged, not fatal (see store).
         seed_collections(db)
 
-    # Probe the optional "Get More Help with AI" endpoint once. The problem page
-    # enables the button only when this succeeds; any failure just leaves it off.
-    # It can be re-probed later without a restart via POST /api/llm/refresh (the
-    # "re-check" buttons on the admin and problem pages).
+    # Probe the optional LLM endpoint ("Get More Help with AI", "Analysis", admin
+    # generation); any failure just leaves the features off. A background watcher
+    # then re-probes every LLM_HELP_PROBE_INTERVAL seconds, so starting or
+    # stopping the LLM server later turns them on or off without a restart. The
+    # admin page's "Re-check connection" (POST /api/llm/refresh) is the manual
+    # equivalent, and the only one when the interval is 0.
     try:
-        from .llm.help_generator import refresh_availability
+        from .llm.help_generator import refresh_availability, watch_availability
 
         refresh_availability()
     except Exception:  # noqa: BLE001 - never let an optional probe block startup
         settings.llm_help_available = False
     log.info("AI help endpoint %s",
              "available" if settings.llm_help_available else "unavailable")
+    watcher = None
+    if settings.LLM_HELP_PROBE_INTERVAL > 0:
+        watcher = asyncio.create_task(
+            watch_availability(settings.LLM_HELP_PROBE_INTERVAL))
     yield
+    if watcher is not None:
+        watcher.cancel()
+        with suppress(asyncio.CancelledError):
+            await watcher
     log.info("shutting down")
 
 

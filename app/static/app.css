@@ -401,7 +401,6 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 .ai-help-btn { display: inline-flex; align-items: center; gap: 7px; margin-top: 0; }
 .ai-help-btn:not(.disabled):hover { background: var(--primary-d); }
 .ai-help-btn.is-busy { cursor: progress; }
-.ai-help-note { font-size: 12.5px; margin: 8px 0 0; }
 
 /* Inline "re-check the LLM connection" button, shown on the admin page when AI
    generation is off (the endpoint is otherwise only probed at startup). */
@@ -411,6 +410,7 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 
 /* Streaming progress shown next to the button while a hint is generated. */
 .ai-help-progress { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+.ai-help-progress[hidden] { display: none; }  /* `display: flex` would override [hidden] */
 .ai-help-bar { flex: 0 1 220px; height: 6px; border-radius: 999px;
   background: var(--border); overflow: hidden; }
 .ai-help-bar > span { display: block; height: 100%; width: 0; border-radius: 999px;
@@ -471,17 +471,43 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
    after LeetCode's — a lavender→blue wash with purple→indigo gradient text. The
    button sits at the right end of the Run & Score row; the report renders in
    #analysis, between that row and the test results. */
-.analysis-btn { margin-left: auto; display: inline-flex; align-items: center; gap: 7px;
+.analysis-btn { display: inline-flex; align-items: center; gap: 7px;
   padding: 10px 18px; border: 0; border-radius: 8px; cursor: pointer;
-  font: inherit; font-weight: 700;
+  font: inherit; font-weight: 700; color: var(--ink);
   background: linear-gradient(90deg, var(--ai-wash-1), var(--ai-wash-2)); }
 .analysis-btn .analysis-label { background: linear-gradient(90deg, var(--ai-purple), var(--ai-indigo));
   -webkit-background-clip: text; background-clip: text; color: transparent; }
 .analysis-btn:hover:not(:disabled) { background: linear-gradient(90deg, #ecd9fb, #d9e2fb); }
-.analysis-btn:disabled { cursor: not-allowed; filter: grayscale(1); opacity: .55; }
-.analysis-btn.is-busy { cursor: progress; filter: none; opacity: 1; }
+/* Off (no LLM endpoint): the same grey as "Get More Help with AI"'s `.btn.disabled`.
+   `:disabled` alone also matches mid-analysis, which keeps the gradient. (The
+   explicit `color`s here and on .analysis-btn replace the browser's translucent
+   disabled text colour, whose alpha would otherwise wash out the ✨.) */
+.analysis-btn:disabled:not(.is-busy) { background: var(--muted); color: #fff; opacity: .6; }
+.analysis-btn:disabled:not(.is-busy) .analysis-label { background: none; color: inherit; }
+.analysis-btn.is-busy { cursor: progress; }
 .analysis-btn.is-busy .ai-spark { display: inline-block;
   animation: ai-sparkle 1s ease-in-out infinite; }
+
+/* Why an AI button is greyed out (no LLM endpoint), on hover. A CSS tooltip on a
+   wrapper rather than the button's `title`: browsers deliver no pointer events
+   to a disabled button (`.btn.disabled` also sets pointer-events: none) and may
+   never show its native tooltip — and where they do, it takes a second or two.
+   So the off button lets the mouse through to the wrapper, which shows its
+   `data-tip` at once. Off-but-busy (mid-stream) shows nothing. */
+.ai-tip { position: relative; display: inline-flex; }
+.analysis-tip { margin-left: auto; }  /* right end of the Run & Score row */
+.ai-tip > button:disabled:not(.is-busy) { pointer-events: none; }
+.ai-tip:has(> button:disabled:not(.is-busy)) { cursor: not-allowed; }
+.ai-tip::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px);
+  left: 0; z-index: 50; width: max-content; max-width: 320px; padding: 8px 11px;
+  border-radius: 8px; background: var(--ink); color: #fff; font-size: 12.5px;
+  font-weight: 400; line-height: 1.45; text-align: left; white-space: normal;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .18); pointer-events: none;
+  opacity: 0; visibility: hidden; transform: translateY(4px);
+  transition: opacity .12s, transform .12s, visibility .12s; }
+.ai-tip-end::after { left: auto; right: 0; }
+.ai-tip:hover:has(> button:disabled:not(.is-busy))::after {
+  opacity: 1; visibility: visible; transform: none; }
 
 .analysis { display: flex; flex-direction: column; gap: 12px; margin: 0 0 14px; }
 .an-card { border-radius: 12px; padding: 16px 20px;

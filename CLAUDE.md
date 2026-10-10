@@ -239,10 +239,11 @@ works for a fresh checkout.
   rules in `specs/problem-schema.md`; pipeline in `docs/hint-generation.md`. A
   separate **on-demand** "Get More Help with AI" button on the problem page streams
   one extra, more-revealing hint from an OpenAI-compatible LLM endpoint
-  (`LLM_HELP_URL`, probed at startup → `settings.llm_help_available`; re-probe later
-  without a restart via the "↻ Re-check connection" button on **/admin** →
-  `POST /api/llm/refresh` → `help_generator.refresh_availability`); engine in
-  `app/llm/help_generator.py`, see `docs/ai-help.md`.
+  (`LLM_HELP_URL`, probed at startup and then every `LLM_HELP_PROBE_INTERVAL` s by
+  `help_generator.watch_availability` → `settings.llm_help_available`; the problem
+  page polls `GET /api/llm/status` and flips it and **✨ Analysis** on/off live;
+  "↻ Re-check connection" on **/admin** → `POST /api/llm/refresh` re-probes
+  immediately); engine in `app/llm/help_generator.py`, see `docs/ai-help.md`.
 - **Optional extensions (`icf/`)**: the contract is that the folder can be
   deleted and nothing notices. So core must never import an extension, must
   never gain a branch naming one (the registry in `app/extensions.py` is the

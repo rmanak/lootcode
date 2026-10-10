@@ -16,8 +16,9 @@ that verdict. The report renders between the Run & Score row and the test
 results, and closes with ×.
 
 It uses the same endpoint as "Get More Help with AI" ([ai-help.md](ai-help.md)):
-the button is enabled exactly when `settings.llm_help_available` is, and the
-admin page's **↻ Re-check connection** turns both on.
+the button is enabled exactly when `settings.llm_help_available` is, and both
+switch on and off live as the LLM server comes and goes (see "Following the LLM
+server up and down" there). Disabled, it takes the same grey as the help button.
 
 ## How it works
 

@@ -11,7 +11,7 @@
   const root = document.querySelector(".solve");
   const btn = document.getElementById("analysis-btn");
   const panel = document.getElementById("analysis");
-  if (!root || !btn || !panel || btn.dataset.enabled !== "1") return;
+  if (!root || !btn || !panel) return;
 
   const slug = root.dataset.slug;
   const label = btn.querySelector(".analysis-label");
@@ -161,9 +161,24 @@
   }
 
   let busy = false;
+  // Follows the LLM endpoint live (llm_status.js). An analysis in flight is left
+  // to finish; `finally` applies the latest state.
+  let available = btn.dataset.enabled === "1";
+  // While off, the .ai-tip wrapper's CSS tooltip says why; a native `title`
+  // would show a second copy of it, so the button carries one only while on.
+  function applyAvailable() {
+    btn.disabled = !available;
+    if (available) btn.title = btn.dataset.titleOn;
+    else btn.removeAttribute("title");
+  }
+  document.addEventListener("lootcode:llm-status", (e) => {
+    available = e.detail.available;
+    btn.dataset.enabled = available ? "1" : "0";
+    if (!busy) applyAvailable();
+  });
 
   async function analyze() {
-    if (busy) return;
+    if (busy || !available) return;
     const editor = window.lootcode && window.lootcode.editor;
     const code = editor ? editor.getValue() : "";
     busy = true;
@@ -208,7 +223,7 @@
     } finally {
       if (timer) clearInterval(timer);
       busy = false;
-      btn.disabled = false;
+      applyAvailable();
       btn.classList.remove("is-busy");
       label.textContent = "Analysis";
     }

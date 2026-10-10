@@ -76,8 +76,15 @@ class Settings:
     # A forced-but-unavailable choice falls back to whatever is reachable.
     LLM_GEN_BACKEND = os.environ.get("LLM_GEN_BACKEND", "auto").strip().lower()
 
-    # Set once at startup by a health probe (see app/main.py lifespan). The problem
-    # page enables the "Get More Help with AI" button only when this is True.
+    # Seconds between background re-probes of LLM_HELP_URL, so the AI features
+    # follow the LLM server coming up or going down without a lootcode restart
+    # (see help_generator.watch_availability). 0 disables the watcher, leaving
+    # only the startup probe and the admin "Re-check connection" button.
+    LLM_HELP_PROBE_INTERVAL = float(os.environ.get("LLM_HELP_PROBE_INTERVAL", "10"))
+
+    # Set at startup by a health probe (see app/main.py lifespan), then kept
+    # current by the background watcher. The problem page enables "Get More Help
+    # with AI" and "Analysis" only when this is True.
     llm_help_available: bool = False
 
     @property
@@ -87,8 +94,8 @@ class Settings:
     @property
     def generation_enabled(self) -> bool:
         """Whether admin "Generate with AI" can run: either the Claude API is
-        configured (preferred) or a reachable OpenAI-compatible endpoint was found
-        at startup (the same one the "Get More Help with AI" button uses)."""
+        configured (preferred) or the OpenAI-compatible endpoint answered its last
+        probe (the same one the "Get More Help with AI" button uses)."""
         return self.ai_enabled or self.llm_help_available
 
     @property

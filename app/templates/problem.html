@@ -98,27 +98,25 @@
     {% endfor %}
 
     {# On-the-fly AI help: one extra, more-concrete hint generated on demand from
-       the title + statement + existing hints. Enabled only when the server's
-       startup probe found a reachable OpenAI-compatible LLM endpoint. #}
+       the title + statement + existing hints. Enabled only while the server's
+       probe finds a reachable OpenAI-compatible LLM endpoint; static/llm_status.js
+       switches it on and off live as that changes. While it is off, hovering it
+       (or "Analysis", which shares the endpoint) explains why: `ai_off`, shown by
+       the `.ai-tip` wrapper (a CSS tooltip — see app.css for why not `title`). #}
+    {% set ai_off = "AI help is off: no OpenAI-compatible endpoint answers at LLM_HELP_URL (set LLM_HELP_API_KEY too if yours needs auth). Start your LLM server and this switches on by itself within a few seconds." %}
     <hr class="section-sep ai-help-sep">
     <div class="ai-help" id="ai-help" data-enabled="{{ '1' if ai_help_enabled else '0' }}">
+      <span class="ai-tip" data-tip="{{ ai_off }}">
       <button type="button" class="btn ai-help-btn {{ '' if ai_help_enabled else 'disabled' }}"
               id="ai-help-btn" {{ '' if ai_help_enabled else 'disabled' }}>
         <span class="ai-spark" aria-hidden="true">✨</span>
         <span class="ai-help-label">Get More Help with AI</span>
       </button>
+      </span>
       <div class="ai-help-progress" id="ai-help-progress" hidden>
         <div class="ai-help-bar"><span id="ai-help-bar-fill"></span></div>
         <span class="ai-help-status" id="ai-help-status"></span>
       </div>
-      {# Probed at startup; if the LLM server came up later, the admin page's
-         "↻ Re-check connection" button re-probes and turns this on. #}
-      {% if not ai_help_enabled %}
-      <p class="muted ai-help-note">AI help is off. Point <code>LLM_HELP_URL</code>
-        (and <code>LLM_HELP_API_KEY</code> if your endpoint needs auth) at a running
-        OpenAI-compatible endpoint, then re-check the connection on the admin page
-        (or restart), to enable this.</p>
-      {% endif %}
       <div class="ai-help-output" id="ai-help-output" hidden></div>
     </div>
     </div>{# /description panel #}
@@ -164,14 +162,17 @@
       <span id="status"></span>
       {# AI "Analysis" of the editor's code (Approach / Efficiency / Code Style),
          on the same LLM endpoint as "Get More Help with AI" — so it is greyed out
-         under the same condition. Report renders into #analysis, above results. #}
+         under the same condition, and toggled live with it. Report renders into
+         #analysis, above results. #}
+      {% set an_on = "Analyze your solution's approach, efficiency and code style with AI" %}
+      <span class="ai-tip ai-tip-end analysis-tip" data-tip="{{ ai_off }}">
       <button type="button" class="analysis-btn" id="analysis-btn"
-              data-enabled="{{ '1' if ai_help_enabled else '0' }}"
-              {% if ai_help_enabled %}title="Analyze your solution's approach, efficiency and code style with AI"
-              {% else %}disabled title="AI analysis is off — the LLM endpoint (LLM_HELP_URL) isn't reachable. Re-check the connection on the admin page."{% endif %}>
+              data-enabled="{{ '1' if ai_help_enabled else '0' }}" data-title-on="{{ an_on }}"
+              {% if ai_help_enabled %}title="{{ an_on }}"{% else %}disabled{% endif %}>
         <span class="ai-spark" aria-hidden="true">✨</span>
         <span class="analysis-label">Analysis</span>
       </button>
+      </span>
     </div>
     <div class="analysis" id="analysis" hidden aria-live="polite"></div>
     <div id="results"></div>
@@ -185,6 +186,7 @@
 <script src="{{ static('sse.js') }}"></script>
 <script src="{{ static('app.js') }}"></script>
 <script src="{{ static('analysis.js') }}"></script>
+<script src="{{ static('llm_status.js') }}" data-available="{{ '1' if ai_help_enabled else '0' }}"></script>
 <script>
   // Left-panel tabs: swap between the problem statement ("Description") and this
   // user's attempt history ("Submissions"). Both panels are in the DOM; we just

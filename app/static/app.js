@@ -182,11 +182,12 @@
 })();
 
 // "Get More Help with AI": stream one extra, more-concrete hint from the server's
-// optional LLM endpoint (Server-Sent Events). Inert when the button is greyed out.
+// optional LLM endpoint (Server-Sent Events). Greyed out while the endpoint is
+// unreachable; llm_status.js tells us when that changes.
 (function () {
   const root = document.querySelector(".solve");
   const wrap = document.getElementById("ai-help");
-  if (!root || !wrap || wrap.dataset.enabled !== "1") return;
+  if (!root || !wrap) return;
 
   const btn = document.getElementById("ai-help-btn");
   const label = btn.querySelector(".ai-help-label");
@@ -202,6 +203,20 @@
   const TARGET = 460;
 
   let busy = false, timer = null, t0 = 0;
+  let available = wrap.dataset.enabled === "1";
+
+  // A hint already streaming is left to finish (or fail); `finally` applies the
+  // latest state once it does. (While off, the .ai-tip wrapper's CSS tooltip
+  // says why — it keys off `disabled`, so there is nothing else to toggle.)
+  function applyAvailable() {
+    btn.disabled = !available;
+    btn.classList.toggle("disabled", !available);
+  }
+  document.addEventListener("lootcode:llm-status", (e) => {
+    available = e.detail.available;
+    wrap.dataset.enabled = available ? "1" : "0";
+    if (!busy) applyAvailable();
+  });
 
   const showStatus = (t) => { statusEl.textContent = t; };
   const tick = () =>
@@ -224,7 +239,7 @@
   }
 
   async function getHelp() {
-    if (busy) return;
+    if (busy || !available) return;
     busy = true;
     btn.disabled = true;
     btn.classList.add("is-busy");
@@ -261,7 +276,7 @@
       if (timer) { clearInterval(timer); timer = null; }
       bar.style.width = "100%";
       busy = false;
-      btn.disabled = false;
+      applyAvailable();
       btn.classList.remove("is-busy");
       if (errored) {
         progress.hidden = true;

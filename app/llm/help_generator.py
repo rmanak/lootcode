@@ -19,6 +19,9 @@ Two entry points:
 * :func:`refresh_availability` — re-run that probe and update
   ``settings.llm_help_available``, so a server started before the local LLM can pick
   it up later without a restart (the "re-check" button in the UI).
+* :func:`watch_availability` — the background loop that calls it every
+  ``LLM_HELP_PROBE_INTERVAL`` seconds, so the flag follows the LLM server coming
+  up *and* going down on its own.
 * :func:`stream_help` — a generator yielding the hint text in chunks as the model
   produces it, so the UI can render it live and show progress.
 
@@ -27,11 +30,15 @@ without touching code.
 """
 from __future__ import annotations
 
+import asyncio
 from collections.abc import Iterator
 from pathlib import Path
 
 from ..config import settings
+from ..logging_config import get_logger
 from . import client as llm_client
+
+log = get_logger(__name__)
 
 _PROMPT_TEMPLATE_PATH = Path(__file__).with_name("help_prompt.txt")
 
@@ -71,10 +78,9 @@ def probe_endpoint(
 def refresh_availability(*, timeout: float = 2.5) -> bool:
     """Re-probe the endpoint and store the result in ``settings.llm_help_available``.
 
-    The startup probe runs once, so a server launched before the local LLM leaves
-    both AI features off for its whole lifetime. This is the same probe, callable
-    later: the UI's "re-check" button (``POST /api/llm/refresh``) and the startup
-    lifespan both go through here. Never raises.
+    Everything that decides whether the AI features are on goes through here: the
+    startup lifespan, the background :func:`watch_availability` loop, and the
+    admin "re-check" button (``POST /api/llm/refresh``). Never raises.
     """
     try:
         available = probe_endpoint(timeout=timeout)
@@ -82,6 +88,24 @@ def refresh_availability(*, timeout: float = 2.5) -> bool:
         available = False
     settings.llm_help_available = available
     return available
+
+
+async def watch_availability(interval: float) -> None:
+    """Re-probe every ``interval`` seconds until cancelled; log only transitions.
+
+    Started by the app lifespan. The probe is blocking HTTP, so it runs in a
+    worker thread rather than on the event loop. Pages poll the cached flag
+    (``GET /api/llm/status``), never the endpoint itself, so the outbound traffic
+    is one cheap ``GET /v1/models`` per interval however many tabs are open.
+    """
+    was = settings.llm_help_available
+    while True:
+        await asyncio.sleep(interval)
+        now = await asyncio.to_thread(refresh_availability)
+        if now != was:
+            log.info("LLM endpoint %s became %s", settings.LLM_HELP_URL,
+                     "available" if now else "unavailable")
+            was = now
 
 
 def _format_hints(hints: list[str]) -> str:

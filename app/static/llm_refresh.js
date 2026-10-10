@@ -1,10 +1,10 @@
 // "Re-check" button for the optional LLM endpoint.
 //
-// The server probes LLM_HELP_URL once at startup, so launching lootcode before the
-// local LLM server leaves both AI features (admin "Generate with AI", the problem
-// page's "Get More Help with AI") disabled until a restart. Any element carrying
-// data-llm-refresh re-runs that probe; if the endpoint is now reachable we reload,
-// so the server re-renders the page with the features enabled.
+// The server re-probes LLM_HELP_URL in the background every
+// LLM_HELP_PROBE_INTERVAL seconds; this is the immediate, manual version (and the
+// only one when that interval is 0). Any element carrying data-llm-refresh re-runs
+// the probe; if the endpoint is now reachable we reload, so the server re-renders
+// the page with the AI features enabled.
 (function () {
   const buttons = document.querySelectorAll("[data-llm-refresh]");
   if (!buttons.length) return;

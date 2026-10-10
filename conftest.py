@@ -33,6 +33,12 @@ _TMP = Path(tempfile.mkdtemp(prefix="lootcode-ext-tests-"))
 # still asserts the result is not the real file.
 os.environ["LOOTCODE_DB"] = str(_TMP / "lootcode-test.db")
 
+# No background LLM re-probe during a run: tests set `settings.llm_help_available`
+# by hand, and a watcher probing the developer's real llama-server every few
+# seconds would flip it underneath them. Tests that want the watcher drive
+# `help_generator.watch_availability` directly.
+os.environ["LLM_HELP_PROBE_INTERVAL"] = "0"
+
 #: Extension name -> (env var for its database, the test database file).
 _EXTENSION_DATABASES = {"icf": ("ICF_DB", _TMP / "icf-test.db")}
 

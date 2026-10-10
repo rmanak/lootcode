@@ -168,12 +168,12 @@ _last_refresh = {"at": 0.0, "result": None}
 
 @router.post("/llm/refresh")
 def refresh_llm():
-    """Re-probe the optional LLM endpoint and report what it enables.
+    """Re-probe the optional LLM endpoint now and report what it enables.
 
-    The startup probe runs once, so starting lootcode before the local LLM server
-    leaves "Get More Help with AI" and admin "Generate with AI" off until a restart.
-    The small "re-check" buttons the UI shows while those are disabled post here;
-    on success the page reloads and re-renders with the features on.
+    The background watcher (``help_generator.watch_availability``) re-probes on
+    its own every ``LLM_HELP_PROBE_INTERVAL`` seconds; this is the immediate,
+    manual version behind the admin page's "re-check" button — and the only one
+    when that interval is 0. On success the page reloads with the features on.
 
     Throttled: within ``_REFRESH_MIN_INTERVAL_S`` the previous answer is replayed
     rather than re-probed, so this can't be used to hammer the LLM endpoint or to
@@ -197,6 +197,22 @@ def refresh_llm():
     log.info("LLM endpoint re-probed: %s",
              "available" if available else "unavailable")
     return result
+
+
+@router.get("/llm/status")
+def llm_status():
+    """What the optional LLM endpoint currently enables, as last probed.
+
+    Reads the cached flag that the background watcher keeps current
+    (``help_generator.watch_availability``) and makes no outbound request, so
+    the problem page can poll it to switch "Get More Help with AI" and
+    "Analysis" on and off live as the LLM server comes and goes.
+    """
+    return {
+        "available": settings.llm_help_available,
+        "ai_help_enabled": settings.llm_help_available,
+        "generation_enabled": settings.generation_enabled,
+    }
 
 
 def _sse(payload: dict) -> str:

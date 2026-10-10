@@ -202,10 +202,11 @@ python scripts/generate_problem_from_statement.py path/to/staging/ --kind class
 Both request the same `PROBLEM_SCHEMA` (with a structured-output fallback chain on
 the openai path) and run through the same sandbox verify, so generated problems are
 interchangeable regardless of backend. The admin button is enabled when **either**
-backend is available (`settings.generation_enabled`). That probe runs at startup, so
-if the local endpoint came up later the admin page's off-state note offers a
-**↻ Re-check connection** button (`POST /api/llm/refresh`) that re-probes and enables
-generation without restarting lootcode — see `docs/ai-help.md`.
+backend is available (`settings.generation_enabled`). That probe runs at startup and
+then in the background every `LLM_HELP_PROBE_INTERVAL` seconds, so a local endpoint
+that comes up later is picked up without restarting lootcode; the admin page's
+off-state note also offers a **↻ Re-check connection** button
+(`POST /api/llm/refresh`) for an immediate re-probe — see `docs/ai-help.md`.
 
 **Constrained decoding.** `PROBLEM_SCHEMA` carries each test's `input`/`expected` as
 *native* JSON values, not JSON-encoded strings. On the openai path this is sent as an

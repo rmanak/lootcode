@@ -1,10 +1,14 @@
 """Public routes that had no test: /random/{difficulty}, /me/name, /account,
-POST /api/llm/refresh, POST /problems/{slug}/help.
+POST /api/llm/refresh, GET /api/llm/status, POST /problems/{slug}/help.
 
 The two LLM routes are exercised in both states — endpoint off (the deterministic
 case, which is what CI sees) and endpoint on — without ever requiring a live
 model: the probe and the stream are stubbed.
 """
+import asyncio
+import re
+import threading
+
 import pytest
 
 from app.config import settings
@@ -165,6 +169,78 @@ def test_llm_refresh_replays_its_answer_instead_of_re_probing(
     second = client.post("/api/llm/refresh").json()
     assert first == second
     assert len(calls) == 1, "the second call inside the window must be replayed"
+
+
+# --- GET /api/llm/status + the background watcher -------------------------
+def test_llm_status_reports_the_cached_flag_without_probing(client, monkeypatch):
+    """Every open problem page polls this, so it must never reach the endpoint."""
+    from app.llm import help_generator
+
+    def no_probe(**kw):
+        raise AssertionError("GET /api/llm/status must not probe the endpoint")
+
+    monkeypatch.setattr(help_generator, "probe_endpoint", no_probe)
+    monkeypatch.setattr(settings, "ANTHROPIC_API_KEY", "")
+    monkeypatch.setattr(settings, "llm_help_available", True)
+    assert client.get("/api/llm/status").json() == {
+        "available": True, "ai_help_enabled": True, "generation_enabled": True}
+
+    monkeypatch.setattr(settings, "llm_help_available", False)
+    assert client.get("/api/llm/status").json()["available"] is False
+
+
+def test_the_watcher_follows_the_endpoint_up_and_down(monkeypatch):
+    """The LLM server starting after lootcode turns the features on, and
+    stopping turns them off again — no restart, no button."""
+    from app.llm import help_generator
+
+    answers = [True, False, True]
+    flag_before_each_probe = []
+    exhausted = threading.Event()
+
+    def probe(**kw):  # runs in the watcher's worker thread
+        if not answers:
+            return True  # script done: hold the last answer until cancelled
+        flag_before_each_probe.append(settings.llm_help_available)
+        answer = answers.pop(0)
+        if not answers:
+            exhausted.set()
+        return answer
+
+    monkeypatch.setattr(help_generator, "probe_endpoint", probe)
+    monkeypatch.setattr(settings, "llm_help_available", False)
+
+    async def drive():
+        task = asyncio.create_task(help_generator.watch_availability(0.01))
+        while not exhausted.is_set():
+            await asyncio.sleep(0.01)
+        await asyncio.sleep(0.05)  # let the last answer land
+        task.cancel()
+
+    asyncio.run(drive())
+    assert flag_before_each_probe == [False, True, False]
+    assert settings.llm_help_available is True
+
+
+def test_the_problem_page_wires_the_ai_buttons_for_live_updates(client, monkeypatch):
+    """Both AI buttons sit in an .ai-tip wrapper carrying the same "why it's off"
+    hover text in either state — CSS shows it only while the button is disabled,
+    so llm_status.js has nothing to flip but the button. No note below, and no
+    native `title` copy of the message (it would pop up a second time)."""
+    off_msg = "AI help is off: no OpenAI-compatible endpoint answers at LLM_HELP_URL"
+
+    monkeypatch.setattr(settings, "llm_help_available", True)
+    on = client.get("/problems/two-sum").text
+    assert re.search(r'llm_status\.js[^"]*" data-available="1"', on)
+    assert on.count('class="ai-tip') == 2
+    assert on.count(f'data-tip="{off_msg}') == 2
+
+    monkeypatch.setattr(settings, "llm_help_available", False)
+    off = client.get("/problems/two-sum").text
+    assert re.search(r'llm_status\.js[^"]*" data-available="0"', off)
+    assert off.count(f'data-tip="{off_msg}') == 2
+    assert f'title="{off_msg}' not in off
+    assert "ai-help-note" not in off
 
 
 def test_the_admin_page_offers_a_recheck_button_only_while_generation_is_off(
