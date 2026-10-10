@@ -84,9 +84,9 @@
     {
       "name": "gen-1",
       "input": {
-        "expression": "(addd1 2)"
+        "expression": "(mult -3 (let x 7 (add x -10)))"
       },
-      "expected": 2,
+      "expected": 9,
       "weight": 1,
       "hidden": true
     }

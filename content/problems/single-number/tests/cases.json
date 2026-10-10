@@ -10130,10 +10130,10 @@
         "nums": [
           -6,
           939,
-          -502
+          -6
         ]
       },
-      "expected": 603,
+      "expected": 939,
       "weight": 1,
       "hidden": true
     },
@@ -10142,8 +10142,8 @@
       "input": {
         "nums": [
           0,
-          0,
-          0
+          7,
+          7
         ]
       },
       "expected": 0,
@@ -10156,10 +10156,10 @@
         "nums": [
           -516,
           -587,
-          -698
+          -516
         ]
       },
-      "expected": -753,
+      "expected": -587,
       "weight": 1,
       "hidden": true
     }

@@ -5,7 +5,7 @@ move.
 
 ## Constraints
 - `1 <= n <= 100`
-- moves are valid: distinct cells, players alternate
+- moves are valid: each move targets a distinct cell
 
 ## Examples
 Input: `n = 3, moves = [[0,0,1],[1,1,2],[0,1,1],[2,2,2],[0,2,1]]`

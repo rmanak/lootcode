@@ -75,9 +75,9 @@
     {
       "name": "gen-1",
       "input": {
-        "S": "a"
+        "S": "1234567890"
       },
-      "expected": "***-***-",
+      "expected": "***-***-7890",
       "weight": 1,
       "hidden": true
     }

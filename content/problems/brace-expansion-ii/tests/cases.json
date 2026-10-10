@@ -95,7 +95,7 @@
     {
       "name": "gen-1",
       "input": {
-        "expression": "{{a,bd,{b,c}}"
+        "expression": "{a,bd,{b,c}}"
       },
       "expected": [
         "a",

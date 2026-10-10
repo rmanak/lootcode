@@ -120,9 +120,9 @@
     {
       "name": "gen-1",
       "input": {
-        "formula": "K4(ON(SO3)2d2"
+        "formula": "K4(ON(SO3)2)12"
       },
-      "expected": "K4",
+      "expected": "K4N12O84S24",
       "weight": 1,
       "hidden": true
     }

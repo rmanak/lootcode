@@ -7,6 +7,7 @@ accounts**. Within each merged account put the name first, then its emails in
 ## Constraints
 - `1 <= len(accounts) <= 1000`; each account has a name and at least one email.
 - Emails are lowercase and unique within an account.
+- All accounts of the same person have the same name.
 
 ## Examples
 Input: `accounts = [["John","a@m.com","b@m.com"],["John","b@m.com","c@m.com"],["Mary","x@m.com"]]`

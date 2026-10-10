@@ -129,6 +129,13 @@ Rules:
    that describe the answer rather than the input — e.g. "exactly one valid answer
    exists", "the array is guaranteed to have a peak", "a solution always exists".
    Skip these; they are promises, not checkable input bounds.
+   This exception is ONLY for promises about the answer. A promise about the
+   input's own format IS an input constraint, and you must enforce it even when
+   that takes a small parser: "s is a valid expression", "a valid formula",
+   "well-formed", "balanced", "a valid email or phone number", "a valid roman
+   numeral", "sorted", "distinct", "forms a valid tree". Parsing is not solving.
+   (Exception: when deciding validity IS the task -- "return true if s is valid"
+   -- any string is a legal input; do not filter it.)
 3. Do NOT invent constraints. If the statement gives no bound for something, do
    not impose one. When it is silent on element type, infer it from the declared
    parameter types shown below.

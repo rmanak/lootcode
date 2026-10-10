@@ -49,12 +49,14 @@
       "input": {
         "root": [
           2,
+          null,
           1
         ]
       },
       "expected": [
-        2,
-        1
+        1,
+        null,
+        2
       ],
       "weight": 1,
       "hidden": true
@@ -79,11 +81,11 @@
       "input": {
         "root": [
           5,
-          3,
+          7,
           8,
           2,
           4,
-          7,
+          3,
           10
         ]
       },

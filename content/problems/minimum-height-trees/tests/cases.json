@@ -491,16 +491,18 @@
         "n": 3,
         "edges": [
           [
-            0,
+            1,
             0
           ],
           [
-            0,
-            0
+            2,
+            1
           ]
         ]
       },
-      "expected": [],
+      "expected": [
+        1
+      ],
       "weight": 1,
       "hidden": true
     },

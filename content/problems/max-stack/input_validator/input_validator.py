@@ -8,6 +8,10 @@ declared method, and each arg list matching its op's arity and per-arg type.
 Structure + type, plus the value bounds from the statement's Constraints
 (hand-added at the bottom of `validate_input`, as in `design-min-stack`; re-running
 the generator with --force regenerates the structural part and drops them).
+
+Hand-tightened: the generated check is kept as `_generated_validate_input`;
+`validate_input` (bottom of file) adds the statement's input promises it
+skipped. Do not overwrite this file with regenerated output; that drops them.
 """
 
 
@@ -52,7 +56,7 @@ def _type_ok(v, base, dims):
     return all(_type_ok(e, base, dims - 1) for e in v)
 
 
-def validate_input(operations, args):
+def _generated_validate_input(operations, args):
     if not isinstance(operations, list) or not isinstance(args, list):
         return False
     if len(operations) != len(args):
@@ -83,3 +87,30 @@ def validate_input(operations, args):
             if not (-10**7 <= a[0] <= 10**7):  # x
                 return False
     return True
+
+
+# --- Hand-added: statement promises the generated check skipped --------------
+# The statement promises these about the input; they are checkable from the
+# input alone, so they belong here (see docs/input-validators.md):
+#   - There is at least one element in the stack when `pop`, `top`, `peekMax`
+#     or `popMax` is called.
+
+def _stated_promises(operations, args):
+    size = 0
+    for op, a in zip(operations[1:], args[1:]):
+        if op in ('pop', 'popMax', 'top', 'peekMax') and size == 0:
+            return False
+        if op in ('push',):
+            size += 1
+        elif op in ('pop', 'popMax'):
+            size -= 1
+    return True
+
+
+def validate_input(operations, args):
+    if not _generated_validate_input(operations, args):
+        return False
+    try:
+        return bool(_stated_promises(operations, args))
+    except Exception:  # malformed input the generated check let through
+        return False

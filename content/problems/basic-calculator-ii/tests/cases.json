@@ -192,9 +192,9 @@
     {
       "name": "gen-1",
       "input": {
-        "s": " 3b2 "
+        "s": " 312 "
       },
-      "expected": 32,
+      "expected": 312,
       "weight": 1,
       "hidden": true
     }

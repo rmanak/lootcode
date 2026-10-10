@@ -85,8 +85,8 @@
       "name": "gen-1",
       "input": {
         "grid": [
-          "@aa.#",
-          "###a#"
+          "@Ab.#",
+          "###aB"
         ]
       },
       "expected": -1,

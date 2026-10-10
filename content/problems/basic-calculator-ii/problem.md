@@ -4,6 +4,7 @@ Integer division **truncates toward zero**. Return the integer result.
 
 ## Constraints
 - `1 <= len(s) <= 3*10^5`
+- `s` consists of digits, spaces and `+ - * /`
 - `s` is a valid expression; division is never by zero
 
 ## Examples

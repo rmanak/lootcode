@@ -9,4 +9,6 @@ fewest moves to collect every key, or `-1` if impossible.**
 ["@..aA","..B#.","....b"]   ->  6
 ```
 
-**Constraints:** `1 <= rows, cols <= 30`, keys are `a..f`, `1..6` keys.
+**Constraints:** `1 <= rows, cols <= 30`; there is exactly one `@`; the keys are the
+first `k` letters of `a..f` (`1 <= k <= 6`), each appearing exactly once; each lock
+appears at most once, and only if its key is in the grid.

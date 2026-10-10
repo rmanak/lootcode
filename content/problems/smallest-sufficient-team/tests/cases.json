@@ -286,7 +286,8 @@
       "name": "gen-1",
       "input": {
         "req_skills": [
-          ""
+          "java",
+          "nodejs"
         ],
         "people": [
           [
@@ -294,10 +295,14 @@
           ],
           [
             "java"
+          ],
+          [
+            "java",
+            "nodejs"
           ]
         ]
       },
-      "expected": Infinity,
+      "expected": 1,
       "weight": 1,
       "hidden": true
     }

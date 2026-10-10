@@ -97,10 +97,11 @@
           "7",
           "7",
           "2",
-          "-"
+          "-",
+          "*"
         ]
       },
-      "expected": 7,
+      "expected": 35,
       "weight": 1,
       "hidden": true
     },
@@ -127,11 +128,12 @@
       "name": "hidden-fuzz-2",
       "input": {
         "tokens": [
-          "7",
-          "2"
+          "-7",
+          "2",
+          "/"
         ]
       },
-      "expected": 7,
+      "expected": -3,
       "weight": 1,
       "hidden": true
     }
