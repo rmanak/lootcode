@@ -49,6 +49,18 @@ Thumbs.db
 /problemset2.txt
 /problemset3.txt
 /coding_exercise_examples.txt
+/new.txt
+# ICF (icf/) problem briefs — crib notes and statements from the web; the
+# authored problems live in icf/problems/. See icf/docs/problem-format.md.
+/icf.txt
+/banking.txt
+/inmem.txt
+/cloud_storage.txt
+/inventory.txt
+/chat.txt
+/task.txt
+/worker.txt
+/new_task_manager.txt
 # Import worklogs:
 /bulk-import*.md
 # Scratch notes:
