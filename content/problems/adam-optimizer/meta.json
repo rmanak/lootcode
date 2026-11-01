@@ -1,0 +1,63 @@
+{
+  "slug": "adam-optimizer",
+  "title": "Adam Optimizer",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "design"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "kind": "class",
+  "class": {
+    "name": "Adam",
+    "constructor": {
+      "params": [
+        {
+          "name": "params",
+          "type": "float[]"
+        },
+        {
+          "name": "lr",
+          "type": "float"
+        },
+        {
+          "name": "beta1",
+          "type": "float"
+        },
+        {
+          "name": "beta2",
+          "type": "float"
+        },
+        {
+          "name": "eps",
+          "type": "float"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "step",
+        "params": [
+          {
+            "name": "grad",
+            "type": "float[]"
+          }
+        ],
+        "returns": {
+          "type": "float[]"
+        }
+      }
+    ]
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

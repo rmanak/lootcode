@@ -1,0 +1,40 @@
+{
+  "slug": "perceptron-learning-rule",
+  "title": "Perceptron Learning Rule",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "perceptron",
+    "params": [
+      {
+        "name": "X",
+        "type": "int[][]"
+      },
+      {
+        "name": "y",
+        "type": "int[]"
+      },
+      {
+        "name": "maxEpochs",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

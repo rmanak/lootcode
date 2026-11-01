@@ -1,0 +1,41 @@
+{
+  "slug": "classifier-free-guidance",
+  "title": "Classifier-Free Guidance with Rescale",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "classifierFreeGuidance",
+    "params": [
+      {
+        "name": "noisePred",
+        "type": "float[][]"
+      },
+      {
+        "name": "guidanceScale",
+        "type": "float"
+      },
+      {
+        "name": "guidanceRescale",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "float[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

@@ -1,0 +1,40 @@
+{
+  "slug": "standard-scaler-and-one-hot",
+  "title": "Standard Scaler and One-Hot Encoder",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "preprocess",
+    "params": [
+      {
+        "name": "train",
+        "type": "any[][]"
+      },
+      {
+        "name": "test",
+        "type": "any[][]"
+      },
+      {
+        "name": "columnTypes",
+        "type": "string[]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

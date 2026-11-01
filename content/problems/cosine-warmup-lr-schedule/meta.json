@@ -1,0 +1,49 @@
+{
+  "slug": "cosine-warmup-lr-schedule",
+  "title": "Cosine Learning-Rate Schedule with Warmup",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "learningRates",
+    "params": [
+      {
+        "name": "steps",
+        "type": "int[]"
+      },
+      {
+        "name": "baseLr",
+        "type": "float"
+      },
+      {
+        "name": "minLr",
+        "type": "float"
+      },
+      {
+        "name": "warmupSteps",
+        "type": "int"
+      },
+      {
+        "name": "totalSteps",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "float[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

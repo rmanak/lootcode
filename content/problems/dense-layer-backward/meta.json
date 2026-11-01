@@ -1,0 +1,49 @@
+{
+  "slug": "dense-layer-backward",
+  "title": "Dense Layer: Backward Pass",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "denseBackward",
+    "params": [
+      {
+        "name": "X",
+        "type": "float[][]"
+      },
+      {
+        "name": "W",
+        "type": "float[][]"
+      },
+      {
+        "name": "b",
+        "type": "float[]"
+      },
+      {
+        "name": "dY",
+        "type": "float[][]"
+      },
+      {
+        "name": "activation",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

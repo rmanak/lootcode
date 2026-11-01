@@ -1,0 +1,38 @@
+{
+  "slug": "autograd-on-a-graph",
+  "title": "Autograd: Backpropagation Through an Expression Graph",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "graph",
+    "topological-sort"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "autogradGraph",
+    "params": [
+      {
+        "name": "nodes",
+        "type": "object[]"
+      },
+      {
+        "name": "output",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

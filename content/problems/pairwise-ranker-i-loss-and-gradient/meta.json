@@ -1,0 +1,41 @@
+{
+  "slug": "pairwise-ranker-i-loss-and-gradient",
+  "title": "Pairwise Ranker I: Loss and Gradient",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning"
+  ],
+  "hints": [
+    "Each pair affects the loss only through one number, its margin. Work out how one pair's cost changes with its margin, then how the margin changes with w.",
+    "Use the chain rule through the margin, and vectorize: stack the difference vectors into a matrix so every margin comes from a single matrix-vector product.",
+    "A pair pulls on w hardest when it is badly mis-ranked, and barely at all once it is ranked confidently. Rewrite log(1 + e^z) so you never exponentiate a large positive number."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "rankingLossAndGrad",
+    "params": [
+      {
+        "name": "preferences",
+        "type": "float[][][]"
+      },
+      {
+        "name": "w",
+        "type": "float[]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

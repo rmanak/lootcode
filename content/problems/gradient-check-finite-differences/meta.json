@@ -1,0 +1,52 @@
+{
+  "slug": "gradient-check-finite-differences",
+  "title": "Gradient Check with Finite Differences",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "gradientCheck",
+    "params": [
+      {
+        "name": "X",
+        "type": "float[][]"
+      },
+      {
+        "name": "y",
+        "type": "int[]"
+      },
+      {
+        "name": "w",
+        "type": "float[]"
+      },
+      {
+        "name": "lam",
+        "type": "float"
+      },
+      {
+        "name": "analyticGrad",
+        "type": "float[]"
+      },
+      {
+        "name": "h",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

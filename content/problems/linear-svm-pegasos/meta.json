@@ -1,0 +1,44 @@
+{
+  "slug": "linear-svm-pegasos",
+  "title": "Linear SVM with Pegasos",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "pegasos",
+    "params": [
+      {
+        "name": "X",
+        "type": "float[][]"
+      },
+      {
+        "name": "y",
+        "type": "int[]"
+      },
+      {
+        "name": "lam",
+        "type": "float"
+      },
+      {
+        "name": "order",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "float[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

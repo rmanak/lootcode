@@ -1,0 +1,42 @@
+{
+  "slug": "tf-idf-cosine-retrieval",
+  "title": "TF-IDF Retrieval with Cosine Similarity",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "string",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "tfidfSearch",
+    "params": [
+      {
+        "name": "documents",
+        "type": "string[]"
+      },
+      {
+        "name": "queries",
+        "type": "string[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

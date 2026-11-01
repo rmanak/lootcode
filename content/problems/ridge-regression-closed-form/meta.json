@@ -1,0 +1,41 @@
+{
+  "slug": "ridge-regression-closed-form",
+  "title": "Ridge Regression in Closed Form",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "ridgeRegression",
+    "params": [
+      {
+        "name": "X",
+        "type": "float[][]"
+      },
+      {
+        "name": "y",
+        "type": "float[]"
+      },
+      {
+        "name": "lam",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

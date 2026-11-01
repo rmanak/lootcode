@@ -1,0 +1,50 @@
+{
+  "slug": "jacobi-gauss-seidel-solver",
+  "title": "Jacobi and Gauss-Seidel Iterative Solvers",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "matrix",
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "solveIterative",
+    "params": [
+      {
+        "name": "A",
+        "type": "float[][]"
+      },
+      {
+        "name": "b",
+        "type": "float[]"
+      },
+      {
+        "name": "method",
+        "type": "string"
+      },
+      {
+        "name": "tol",
+        "type": "float"
+      },
+      {
+        "name": "maxIterations",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

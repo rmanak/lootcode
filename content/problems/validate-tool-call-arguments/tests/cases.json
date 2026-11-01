@@ -1,0 +1,5291 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "tools": [
+          {
+            "name": "get_weather",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "unit": {
+                  "enum": [
+                    "celsius",
+                    "fahrenheit"
+                  ]
+                },
+                "days": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 7
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "additionalProperties": false
+            }
+          }
+        ],
+        "calls": [
+          {
+            "name": "get_weather",
+            "arguments": "{\"city\": \"Paris\", \"days\": 3.0}"
+          },
+          {
+            "name": "get_weather",
+            "arguments": "{\"unit\": \"kelvin\", \"days\": true, \"country\": \"FR\", \"area\": 5}"
+          },
+          {
+            "name": "get_weather",
+            "arguments": "{'city': 'Paris'}"
+          },
+          {
+            "name": "get_forecast",
+            "arguments": "{city: Paris}"
+          }
+        ]
+      },
+      "expected": [
+        [],
+        [
+          [
+            "$.city",
+            "required"
+          ],
+          [
+            "$.unit",
+            "enum"
+          ],
+          [
+            "$.days",
+            "type"
+          ],
+          [
+            "$.country",
+            "additionalProperties"
+          ],
+          [
+            "$.area",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "unknownTool"
+          ]
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "tools": [
+          {
+            "name": "get_weather",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "unit": {
+                  "enum": [
+                    "celsius",
+                    "fahrenheit"
+                  ]
+                },
+                "days": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 7
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "send_email",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "to": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 3
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true
+                },
+                "priority": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "exclusiveMinimum": 0
+                }
+              },
+              "required": [
+                "to",
+                "subject"
+              ]
+            }
+          }
+        ],
+        "calls": [
+          {
+            "name": "send_email",
+            "arguments": "{\"to\": [\"bob@x.io\", \"al\", \"bob@x.io\"], \"priority\": 0}"
+          },
+          {
+            "name": "send_email",
+            "arguments": "{\"to\": [], \"subject\": \"hi\", \"priority\": null}"
+          },
+          {
+            "name": "send_email",
+            "arguments": "[1, 2]"
+          }
+        ]
+      },
+      "expected": [
+        [
+          [
+            "$.subject",
+            "required"
+          ],
+          [
+            "$.to",
+            "uniqueItems"
+          ],
+          [
+            "$.to[1]",
+            "minLength"
+          ],
+          [
+            "$.priority",
+            "exclusiveMinimum"
+          ]
+        ],
+        [
+          [
+            "$.to",
+            "minItems"
+          ]
+        ],
+        [
+          [
+            "$",
+            "type"
+          ]
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "tools": [
+          {
+            "name": "set_flag",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "enum": [
+                    1,
+                    "on"
+                  ]
+                },
+                "level": {
+                  "type": "integer",
+                  "minimum": 5
+                }
+              },
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "calls": [
+          {
+            "name": "set_flag",
+            "arguments": "{\"value\": true, \"level\": 2.5, \"note\": 3}"
+          },
+          {
+            "name": "set_flag",
+            "arguments": "{\"value\": 1.0, \"level\": 7, \"note\": \"ok\"}"
+          },
+          {
+            "name": "set_flag",
+            "arguments": ""
+          }
+        ]
+      },
+      "expected": [
+        [
+          [
+            "$.value",
+            "enum"
+          ],
+          [
+            "$.level",
+            "type"
+          ],
+          [
+            "$.note",
+            "type"
+          ]
+        ],
+        [],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ]
+      ],
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "json-equality-edge-cases",
+      "input": {
+        "tools": [
+          {
+            "name": "nums",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "xs": {
+                  "type": "array",
+                  "uniqueItems": true
+                },
+                "ys": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "enum": [
+                      true,
+                      1,
+                      {
+                        "a": [
+                          1,
+                          2
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "calls": [
+          {
+            "name": "nums",
+            "arguments": "{\"xs\": [1, 1.0]}"
+          },
+          {
+            "name": "nums",
+            "arguments": "{\"xs\": [true, 1]}"
+          },
+          {
+            "name": "nums",
+            "arguments": "{\"xs\": [{\"a\": 1, \"b\": 2}, {\"b\": 2, \"a\": 1}]}"
+          },
+          {
+            "name": "nums",
+            "arguments": "{\"ys\": [true, 1, {\"a\": [1, 2]}]}"
+          },
+          {
+            "name": "nums",
+            "arguments": "{\"ys\": [1.0, false]}"
+          },
+          {
+            "name": "nums",
+            "arguments": "{\"xs\": [[1, 2], [1, 2.0]], \"ys\": [{\"a\": [1.0, 2]}]}"
+          },
+          {
+            "name": "nums",
+            "arguments": "{\"xs\": [0, false, null, \"\"]}"
+          }
+        ]
+      },
+      "expected": [
+        [
+          [
+            "$.xs",
+            "uniqueItems"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.xs",
+            "uniqueItems"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.ys[1]",
+            "enum"
+          ]
+        ],
+        [
+          [
+            "$.xs",
+            "uniqueItems"
+          ]
+        ],
+        []
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "malformed-json-zoo",
+      "input": {
+        "tools": [
+          {
+            "name": "get_weather",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "unit": {
+                  "enum": [
+                    "celsius",
+                    "fahrenheit"
+                  ]
+                },
+                "days": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 7
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "additionalProperties": false
+            }
+          }
+        ],
+        "calls": [
+          {
+            "name": "get_weather",
+            "arguments": "{'q': 1}"
+          },
+          {
+            "name": "get_weather",
+            "arguments": "{\"a\": 1,}"
+          },
+          {
+            "name": "get_weather",
+            "arguments": "{\"a\": True}"
+          },
+          {
+            "name": "get_weather",
+            "arguments": "{\"a\": 1"
+          },
+          {
+            "name": "get_weather",
+            "arguments": ""
+          },
+          {
+            "name": "get_weather",
+            "arguments": "   "
+          },
+          {
+            "name": "get_weather",
+            "arguments": "None"
+          },
+          {
+            "name": "get_weather",
+            "arguments": "{a: 1}"
+          },
+          {
+            "name": "get_weather",
+            "arguments": "{\"a\": 1} {\"b\": 2}"
+          },
+          {
+            "name": "get_weather",
+            "arguments": "{\"a\": 1}]"
+          },
+          {
+            "name": "get_weather",
+            "arguments": "[1, 2,]"
+          },
+          {
+            "name": "get_weather",
+            "arguments": "{\"a\": 01}"
+          },
+          {
+            "name": "get_weather",
+            "arguments": "{\"a\": \"unterminated}"
+          },
+          {
+            "name": "get_weather",
+            "arguments": "{\"a\": .5}"
+          },
+          {
+            "name": "get_weather",
+            "arguments": "undefined"
+          },
+          {
+            "name": "get_weather",
+            "arguments": "{\"a\": +1}"
+          },
+          {
+            "name": "get_weather",
+            "arguments": " {\"city\": \"Oslo\"} \n"
+          },
+          {
+            "name": "get_weather",
+            "arguments": "{\"city\": \"Oslo\"}\t"
+          }
+        ]
+      },
+      "expected": [
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [],
+        []
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "random-flat-mostly-valid",
+      "input": {
+        "tools": [
+          {
+            "name": "tool_0",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "mode": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [],
+                  "additionalProperties": false
+                },
+                "retries": {
+                  "type": "object",
+                  "properties": {
+                    "dry_run": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "dry_run"
+                  ]
+                },
+                "offset": {
+                  "enum": [
+                    "a",
+                    1
+                  ]
+                }
+              },
+              "required": [
+                "offset",
+                "retries",
+                "mode"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_1",
+            "parameters": {
+              "properties": {
+                "timeout": {
+                  "type": "null"
+                },
+                "user_id": {
+                  "type": "number",
+                  "minimum": 7
+                },
+                "recursive": {
+                  "type": "boolean"
+                },
+                "end": {
+                  "type": "number",
+                  "minimum": 9.4,
+                  "exclusiveMinimum": 2
+                }
+              },
+              "required": [
+                "end",
+                "recursive"
+              ],
+              "additionalProperties": true
+            }
+          },
+          {
+            "name": "tool_2",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "recursive": {
+                  "type": "object",
+                  "properties": {
+                    "pattern": {
+                      "type": "string"
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "minimum": -0.7,
+                      "exclusiveMinimum": 6
+                    },
+                    "lang": {
+                      "type": "boolean"
+                    },
+                    "tags": {
+                      "type": "null"
+                    },
+                    "dry_run": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "dry_run",
+                    "lang"
+                  ]
+                },
+                "path": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 3
+                  },
+                  "maxItems": 3
+                },
+                "k": {
+                  "type": "null"
+                },
+                "end": {
+                  "type": "integer"
+                },
+                "tags": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "recursive"
+              ]
+            }
+          }
+        ],
+        "calls": [
+          {
+            "name": "tool_1",
+            "arguments": "6"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"retries\": {\"zz\": 3, \"dry_run\": false}, \"offset\": 1, \"mode\": {\"path\": true}}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "-6"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"tags\": -19,\n  \"recursive\": {\"tags\": null,\n  \"limit\": 7,\n  \"pattern\": \"yb-\u00e9\",\n  \"dry_run\": true,\n  \"lang\": false},\n  \"k\": null}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"mode\":\"x\",\"retries\":{\"dry_run\":false},\"offset\":1}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"end\": 17,\n  \"timeout\": null,\n  \"user_id\": 13.25,\n  \"recursive\": true}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"retries\":{\"query\":\"s\",\"dry_run\":false},\"offset\":\"a\",\"mode\":{\"a\":1}}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"recursive\": {\"pattern\": \"_\u00e9zy\", \"limit\": 10.0, \"dry_run\": true, \"lang\": false}, \"k\": null, \"end\": -20}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"offset\":1,\"retries\":{\"dry_run\":true},\"mode\":{\"path\":true}}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"mode\": {}, \"offset\": 1, \"retries\": {\"dry_run\": false}}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"retries\":{\"timeout\":3,\"dry_run\":true,\"pattern\":\"s\"},\"mode\":{\"path\":false},\"offset\":1}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"mode\": {},\n  \"offset\": \"a\",\n  \"retries\": {\"dry_run\": true}}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"recursive\": {\"dry_run\": false, \"limit\": 18, \"pattern\": \"\", \"tags\": null, \"lang\": false}, \"end\": 0, \"k\": null}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"a\": True}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"offset\": \"a\",\n  \"mode\": {},\n  \"retries\": {\"dry_run\": true}}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"retries\": {\"dry_run\": false}, \"mode\": {}, \"offset\": {}}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"recursive\": {\"pattern\": \"ax\\u00e9y-\", \"limit\": 19.0, \"dry_run\": false, \"lang\": true, \"tags\": null}, \"path\": [], \"tags\": 17, \"k\": null}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "undefined"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"retries\":{\"dry_run\":true},\"offset\":\"a\",\"mode\":{\"path\":false}}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"offset\": 1, \"mode\": {\"path\": false}, \"retries\": {\"dry_run\": false}}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"temperature\": \"s\",\n  \"recursive\": true,\n  \"end\": 19.25}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"a\": 1,}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"a\": .5}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"k\": 3,\n  \"timeout\": null,\n  \"end\": 9.25,\n  \"recursive\": false}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"tags\":-9,\"k\":null,\"recursive\":{\"pattern\":\"_xx-y_-a.\u00e9\",\"dry_run\":false,\"lang\":false,\"tags\":null}}"
+          }
+        ]
+      },
+      "expected": [
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            "$.mode",
+            "type"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.mode.a",
+            "additionalProperties"
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.offset",
+            "enum"
+          ]
+        ],
+        [],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [],
+        [],
+        [],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$.end",
+            "minimum"
+          ]
+        ],
+        []
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "random-nested-many-errors",
+      "input": {
+        "tools": [
+          {
+            "name": "tool_0",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "mode": {
+                  "type": "object",
+                  "properties": {
+                    "dry_run": {
+                      "type": [
+                        "boolean",
+                        "integer"
+                      ],
+                      "minimum": 4
+                    },
+                    "end": {
+                      "type": "null"
+                    },
+                    "url": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "type": "string",
+                          "minLength": 2,
+                          "maxLength": 4
+                        },
+                        "k": {
+                          "type": "string",
+                          "maxLength": 8
+                        },
+                        "recursive": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "maxLength": 2
+                        },
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "boolean"
+                          }
+                        }
+                      },
+                      "additionalProperties": true
+                    },
+                    "k": {
+                      "type": "boolean"
+                    },
+                    "pattern": {
+                      "properties": {
+                        "mode": {
+                          "type": "integer"
+                        },
+                        "start": {
+                          "type": "object",
+                          "properties": {
+                            "limit": {
+                              "enum": [
+                                -3,
+                                "fast"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "limit"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "end": {
+                          "type": "string"
+                        },
+                        "timeout": {
+                          "type": "integer",
+                          "exclusiveMinimum": 1
+                        },
+                        "items": {
+                          "type": "number",
+                          "minimum": 3,
+                          "exclusiveMaximum": 5
+                        }
+                      },
+                      "required": [
+                        "end",
+                        "mode"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "end",
+                    "url",
+                    "k",
+                    "pattern",
+                    "dry_run"
+                  ],
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                },
+                "query": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          {
+            "name": "tool_1",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "lang": {
+                  "type": "string",
+                  "maxLength": 6
+                },
+                "id": {
+                  "type": "array",
+                  "minItems": 2
+                },
+                "retries": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 5
+                },
+                "url": {
+                  "type": "integer",
+                  "exclusiveMinimum": 4
+                },
+                "recursive": {
+                  "enum": [
+                    "1",
+                    [
+                      1,
+                      2
+                    ],
+                    1.5,
+                    null
+                  ]
+                }
+              },
+              "required": [
+                "url",
+                "lang"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_2",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "recursive": {
+                  "type": "string",
+                  "maxLength": 6
+                },
+                "path": {
+                  "type": "object",
+                  "properties": {
+                    "end": {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer"
+                        },
+                        "minItems": 1
+                      }
+                    },
+                    "limit": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": {
+                    "type": "integer",
+                    "minimum": -1.7
+                  }
+                },
+                "lang": {
+                  "type": "boolean"
+                },
+                "user_id": {
+                  "type": "string",
+                  "maxLength": 3
+                },
+                "tags": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "tags"
+              ]
+            }
+          },
+          {
+            "name": "tool_3",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "temperature": {
+                  "type": "object",
+                  "properties": {
+                    "pattern": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 6
+                    },
+                    "items": {
+                      "type": "string",
+                      "maxLength": 5
+                    },
+                    "filters": {
+                      "type": [
+                        "array",
+                        "null"
+                      ]
+                    },
+                    "path": {
+                      "type": "object",
+                      "properties": {
+                        "top_p": {
+                          "type": "null"
+                        },
+                        "offset": {
+                          "type": "boolean"
+                        },
+                        "tags": {
+                          "type": "object",
+                          "properties": {
+                            "k": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "offset",
+                        "tags",
+                        "top_p"
+                      ]
+                    },
+                    "id": {
+                      "enum": [
+                        [
+                          1,
+                          2
+                        ],
+                        null
+                      ],
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "pattern",
+                    "path",
+                    "filters",
+                    "id",
+                    "items"
+                  ],
+                  "additionalProperties": {
+                    "type": "boolean"
+                  }
+                },
+                "offset": {
+                  "type": "null"
+                },
+                "end": {
+                  "type": "integer",
+                  "minimum": -1,
+                  "exclusiveMaximum": -2
+                },
+                "recursive": {
+                  "type": "object",
+                  "properties": {
+                    "query": {
+                      "type": "string",
+                      "maxLength": 6
+                    },
+                    "k": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "offset": {
+                            "enum": [
+                              1,
+                              [
+                                1,
+                                2
+                              ],
+                              false,
+                              "1"
+                            ]
+                          },
+                          "temperature": {
+                            "type": "string",
+                            "maxLength": 6
+                          },
+                          "end": {
+                            "type": "integer"
+                          },
+                          "url": {
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "mode": {
+                            "type": [
+                              "string",
+                              "array"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "mode",
+                          "temperature"
+                        ]
+                      }
+                    },
+                    "pattern": {
+                      "type": "object",
+                      "properties": {
+                        "items": {
+                          "type": "null"
+                        },
+                        "temperature": {
+                          "type": "array",
+                          "items": {
+                            "type": "null"
+                          }
+                        },
+                        "recursive": {
+                          "type": [
+                            "array",
+                            "string"
+                          ],
+                          "maxLength": 1
+                        },
+                        "k": {
+                          "type": "number",
+                          "exclusiveMaximum": 0.5
+                        }
+                      },
+                      "required": [
+                        "k"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "query",
+                    "k"
+                  ],
+                  "additionalProperties": false
+                },
+                "limit": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": true
+            }
+          }
+        ],
+        "calls": [
+          {
+            "name": "tool_1",
+            "arguments": "{\"recursive\": null,\n  \"id\": [null,\n  null],\n  \"top_p\": 2.0,\n  \"retries\": [1],\n  \"lang\": \"_xcb-\"}"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"a\": +1}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": ""
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"dry_run\": 2.0,\n  \"user_id\": 3,\n  \"url\": 20,\n  \"lang\": \"\",\n  \"id\": [\"cacbxzyxza_\",\n  7,\n  \"acxy_yax\\u00e9_c\",\n  {\"a\": 1}]}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"start\": 3,\n  \"lang\": \"y..bb\",\n  \"retries\": \"\",\n  \"id\": [-10,\n  7,\n  3.0],\n  \"url\": 8,\n  \"end\": null,\n  \"recursive\": null}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "3.0"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"limit\": true,\n  \"dry_run\": 3,\n  \"recursive\": 2.5,\n  \"temperature\": {\"retries\": true,\n  \"filters\": null,\n  \"query\": null,\n  \"pattern\": \"\",\n  \"path\": {\"tags\": {},\n  \"top_p\": 2.5,\n  \"temperature\": null}}}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"a\": 1"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"query\":\"z.\u00e9\u00e9cz\",\"k\":true,\"tags\":null}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"a\": 1}]"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"tags\":2.5,\"lang\":true,\"path\":{\"limit\":false,\"k\":3},\"user_id\":\"\"}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"url\": {\"a\": 1},\n  \"id\": [14,\n  -20.0,\n  {\"a\": 1},\n  0],\n  \"recursive\": 10.0,\n  \"lang\": {\"a\": 1},\n  \"retries\": 3.0}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{'q': 1}"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"items\": \"s\", \"limit\": true, \"recursive\": {\"user_id\": \"s\", \"dry_run\": 2.0, \"query\": \".aaxybc\"}}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"query\": {\"a\": 1}}"
+          },
+          {
+            "name": "search",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"id\": null,\n  \"temperature\": null,\n  \"lang\": true}"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"end\":-2,\"limit\":false,\"offset\":null}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"mode\": {\"url\": {\"items\": [true, false, true, false, true], \"recursive\": null, \"path\": \"z\", \"k\": \"zy\", \"zz\": 2.0}, \"pattern\": \"x\", \"end\": null, \"k\": false, \"dry_run\": 0}, \"aa\": null}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "[1]"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"end\":-2,\"k\":\"s\",\"temperature\":{\"id\":[1,2],\"pattern\":\"\",\"items\":\"cbyxb.\",\"timeout\":null,\"lang\":2.0},\"offset\":null}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"query\":\"\",\"mode\":{\"temperature\":3,\"dry_run\":true,\"url\":{\"k\":\"xczax_zy\u00e9\",\"items\":[false,{\"a\":1},false],\"offset\":2.0,\"path\":3.0,\"id\":\"s\",\"recursive\":\"_\u00e9c\"},\"k\":true,\"query\":true},\"user_id\":3}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"mode\": {\"pattern\": -13,\n  \"top_p\": \"s\",\n  \"dry_run\": true,\n  \"url\": {\"path\": \"x\",\n  \"items\": [true,\n  false,\n  true,\n  true],\n  \"k\": \"z.ay_.c\",\n  \"recursive\": \".y\",\n  \"filters\": 3},\n  \"k\": true}}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "undefined"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"a\": 1}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"id\":2.0,\"mode\":{\"dry_run\":false,\"aa\":3,\"url\":{\"user_id\":3,\"items\":[],\"path\":\"y\",\"aa\":true,\"recursive\":null},\"k\":false}}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"query\": \"aby\u00e9.a\"}"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"offset\": null,\n  \"url\": 3,\n  \"end\": true,\n  \"path\": 3}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"id\": 2.5,\n  \"lang\": \"--\",\n  \"timeout\": \"s\",\n  \"retries\": 0,\n  \"temperature\": null,\n  \"url\": -31}"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"limit\": true,\n  \"end\": \"x\"}"
+          }
+        ]
+      },
+      "expected": [
+        [
+          [
+            "$.url",
+            "required"
+          ],
+          [
+            "$.retries",
+            "type"
+          ],
+          [
+            "$.top_p",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$.dry_run",
+            "additionalProperties"
+          ],
+          [
+            "$.user_id",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$.retries",
+            "minLength"
+          ],
+          [
+            "$.start",
+            "additionalProperties"
+          ],
+          [
+            "$.end",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.temperature.id",
+            "required"
+          ],
+          [
+            "$.temperature.items",
+            "required"
+          ],
+          [
+            "$.temperature.pattern",
+            "minLength"
+          ],
+          [
+            "$.temperature.path.offset",
+            "required"
+          ],
+          [
+            "$.temperature.path.top_p",
+            "type"
+          ],
+          [
+            "$.temperature.query",
+            "type"
+          ],
+          [
+            "$.recursive",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$.tags",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.lang",
+            "type"
+          ],
+          [
+            "$.retries",
+            "type"
+          ],
+          [
+            "$.url",
+            "type"
+          ],
+          [
+            "$.recursive",
+            "enum"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$.recursive.k",
+            "required"
+          ],
+          [
+            "$.recursive.query",
+            "maxLength"
+          ],
+          [
+            "$.recursive.user_id",
+            "additionalProperties"
+          ],
+          [
+            "$.recursive.dry_run",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$.query",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$",
+            "unknownTool"
+          ]
+        ],
+        [
+          [
+            "$.url",
+            "required"
+          ],
+          [
+            "$.lang",
+            "type"
+          ],
+          [
+            "$.id",
+            "type"
+          ],
+          [
+            "$.temperature",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$.end",
+            "minimum"
+          ],
+          [
+            "$.end",
+            "exclusiveMaximum"
+          ]
+        ],
+        [
+          [
+            "$.mode.dry_run",
+            "minimum"
+          ],
+          [
+            "$.mode.url.path",
+            "minLength"
+          ]
+        ],
+        [
+          [
+            "$",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.temperature.path",
+            "required"
+          ],
+          [
+            "$.temperature.filters",
+            "required"
+          ],
+          [
+            "$.temperature.pattern",
+            "minLength"
+          ],
+          [
+            "$.temperature.items",
+            "maxLength"
+          ],
+          [
+            "$.temperature.id",
+            "type"
+          ],
+          [
+            "$.temperature.timeout",
+            "type"
+          ],
+          [
+            "$.temperature.lang",
+            "type"
+          ],
+          [
+            "$.end",
+            "minimum"
+          ],
+          [
+            "$.end",
+            "exclusiveMaximum"
+          ]
+        ],
+        [
+          [
+            "$.mode.end",
+            "required"
+          ],
+          [
+            "$.mode.pattern",
+            "required"
+          ],
+          [
+            "$.mode.url.path",
+            "type"
+          ],
+          [
+            "$.mode.url.k",
+            "maxLength"
+          ],
+          [
+            "$.mode.url.recursive",
+            "maxLength"
+          ],
+          [
+            "$.mode.url.items[1]",
+            "type"
+          ],
+          [
+            "$.mode.temperature",
+            "type"
+          ],
+          [
+            "$.mode.query",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.mode.end",
+            "required"
+          ],
+          [
+            "$.mode.url.path",
+            "minLength"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.mode.end",
+            "required"
+          ],
+          [
+            "$.mode.pattern",
+            "required"
+          ],
+          [
+            "$.mode.url.path",
+            "minLength"
+          ],
+          [
+            "$.mode.aa",
+            "type"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.end",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.id",
+            "type"
+          ],
+          [
+            "$.retries",
+            "type"
+          ],
+          [
+            "$.url",
+            "exclusiveMinimum"
+          ],
+          [
+            "$.timeout",
+            "additionalProperties"
+          ],
+          [
+            "$.temperature",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$.end",
+            "type"
+          ]
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "random-deep-schemas",
+      "input": {
+        "tools": [
+          {
+            "name": "tool_0",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "retries": {
+                  "enum": [
+                    "a",
+                    null,
+                    -3,
+                    "b"
+                  ],
+                  "type": "string"
+                },
+                "end": {
+                  "type": "number"
+                },
+                "user_id": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ],
+                  "minimum": 2
+                },
+                "start": {
+                  "type": "boolean"
+                },
+                "recursive": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "exclusiveMinimum": 0.5,
+                  "exclusiveMaximum": 0.2
+                }
+              },
+              "required": [
+                "start"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_1",
+            "parameters": {
+              "properties": {
+                "offset": {
+                  "enum": [
+                    "b",
+                    "slow",
+                    null,
+                    [
+                      1,
+                      2
+                    ]
+                  ]
+                },
+                "temperature": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "lang": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "temperature",
+                "offset"
+              ],
+              "additionalProperties": true
+            }
+          },
+          {
+            "name": "tool_2",
+            "parameters": {
+              "properties": {
+                "retries": {
+                  "type": "integer",
+                  "exclusiveMaximum": 1.5
+                },
+                "filters": {
+                  "enum": [
+                    true,
+                    {
+                      "x": 1
+                    },
+                    "b"
+                  ]
+                },
+                "dry_run": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "retries",
+                "filters"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_3",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "filters": {
+                  "type": "object",
+                  "properties": {
+                    "dry_run": {
+                      "type": "object",
+                      "properties": {
+                        "items": {
+                          "type": "boolean"
+                        },
+                        "path": {
+                          "type": "string",
+                          "minLength": 3
+                        },
+                        "dry_run": {
+                          "type": "object",
+                          "properties": {
+                            "offset": {
+                              "type": [
+                                "string",
+                                "array"
+                              ]
+                            }
+                          },
+                          "required": [],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "path"
+                      ],
+                      "additionalProperties": {
+                        "type": "string",
+                        "minLength": 0
+                      }
+                    },
+                    "query": {
+                      "type": "null"
+                    },
+                    "tags": {
+                      "type": "boolean"
+                    },
+                    "retries": {
+                      "type": "integer",
+                      "exclusiveMinimum": 10,
+                      "maximum": -3
+                    },
+                    "top_p": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 6
+                    }
+                  }
+                },
+                "items": {
+                  "type": [
+                    "string",
+                    "array"
+                  ]
+                },
+                "timeout": {
+                  "type": "object",
+                  "properties": {
+                    "end": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "object",
+                      "properties": {
+                        "temperature": {
+                          "type": "array",
+                          "items": {
+                            "type": [
+                              "integer",
+                              "number"
+                            ],
+                            "minimum": 5
+                          },
+                          "maxItems": 2,
+                          "uniqueItems": false
+                        },
+                        "k": {
+                          "type": "null"
+                        },
+                        "url": {
+                          "type": "object",
+                          "properties": {
+                            "limit": {
+                              "type": "number",
+                              "exclusiveMinimum": 6.4,
+                              "maximum": 1.9,
+                              "exclusiveMaximum": 9
+                            },
+                            "tags": {
+                              "type": "number"
+                            },
+                            "lang": {
+                              "type": "number",
+                              "exclusiveMaximum": 9.7
+                            },
+                            "temperature": {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "integer"
+                            },
+                            "path": {
+                              "type": [
+                                "array",
+                                "number"
+                              ],
+                              "minimum": 4
+                            }
+                          },
+                          "required": [
+                            "lang",
+                            "temperature"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "items": {
+                          "type": "integer",
+                          "maximum": 8.0
+                        },
+                        "query": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "number",
+                              "minimum": 0,
+                              "exclusiveMinimum": 0,
+                              "maximum": -5
+                            },
+                            "dry_run": {
+                              "type": [
+                                "number",
+                                "null"
+                              ],
+                              "minimum": 1
+                            },
+                            "start": {
+                              "type": "integer",
+                              "minimum": 2,
+                              "exclusiveMinimum": 2.6
+                            },
+                            "retries": {
+                              "type": "integer",
+                              "exclusiveMaximum": 3
+                            }
+                          }
+                        }
+                      },
+                      "required": [
+                        "items"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "k": {
+                      "type": "object",
+                      "properties": {
+                        "items": {
+                          "type": "integer",
+                          "maximum": 10
+                        },
+                        "id": {
+                          "type": "null"
+                        },
+                        "query": {
+                          "type": "integer",
+                          "exclusiveMaximum": 0
+                        },
+                        "user_id": {
+                          "type": "null"
+                        },
+                        "lang": {
+                          "type": "string",
+                          "minLength": 0,
+                          "maxLength": 7
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ],
+                      "additionalProperties": {
+                        "type": "string",
+                        "minLength": 3,
+                        "maxLength": 6
+                      }
+                    }
+                  },
+                  "required": [],
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                },
+                "temperature": {
+                  "type": "integer"
+                },
+                "k": {
+                  "properties": {
+                    "start": {
+                      "type": "object",
+                      "properties": {
+                        "mode": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [
+                        "mode"
+                      ],
+                      "additionalProperties": true
+                    },
+                    "query": {
+                      "type": "integer"
+                    },
+                    "pattern": {
+                      "type": [
+                        "string",
+                        "number"
+                      ],
+                      "minimum": 4,
+                      "maxLength": 1
+                    },
+                    "k": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "start": {
+                            "type": "null"
+                          },
+                          "end": {
+                            "type": "string",
+                            "minLength": 0,
+                            "maxLength": 6
+                          },
+                          "tags": {
+                            "enum": [
+                              ""
+                            ],
+                            "type": "string"
+                          },
+                          "timeout": {
+                            "enum": [
+                              "slow",
+                              2,
+                              0
+                            ],
+                            "type": "string"
+                          },
+                          "user_id": {
+                            "type": "integer"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "integer",
+                          "maximum": 10,
+                          "exclusiveMaximum": 8.3
+                        }
+                      },
+                      "uniqueItems": true
+                    }
+                  },
+                  "required": [],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "temperature",
+                "items",
+                "k"
+              ]
+            }
+          },
+          {
+            "name": "tool_4",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "timeout": {
+                  "type": "boolean"
+                },
+                "temperature": {
+                  "type": [
+                    "null",
+                    "array"
+                  ],
+                  "minimum": 4,
+                  "maxLength": 1
+                },
+                "items": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "temperature",
+                "timeout"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_5",
+            "parameters": {
+              "properties": {
+                "k": {
+                  "type": "null"
+                },
+                "url": {
+                  "type": [
+                    "string",
+                    "boolean"
+                  ],
+                  "minimum": 0,
+                  "maxLength": 1
+                },
+                "offset": {
+                  "type": "number"
+                },
+                "top_p": {
+                  "enum": [
+                    1.5
+                  ],
+                  "type": "number"
+                },
+                "pattern": {
+                  "type": "integer",
+                  "exclusiveMaximum": 3
+                }
+              },
+              "required": [
+                "offset",
+                "k"
+              ]
+            }
+          }
+        ],
+        "calls": [
+          {
+            "name": "tool_4",
+            "arguments": "{\"zz\": null, \"temperature\": [], \"items\": 13, \"offset\": \"s\", \"timeout\": true}"
+          },
+          {
+            "name": "tool_5",
+            "arguments": "6"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"end\":-13.75,\"user_id\":0}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"recursive\": -0.5,\n  \"k\": 3,\n  \"query\": true,\n  \"start\": false,\n  \"end\": 0.25}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"limit\":null,\"path\":null,\"start\":false,\"retries\":-3,\"recursive\":-0.5,\"end\":-2}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"recursive\":1.0,\"start\":false,\"user_id\":null,\"end\":12.25}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "\"\""
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"timeout\":2.5,\"items\":\"x\",\"k\":31,\"filters\":{\"retries\":10,\"top_p\":\"..y_\u00e9a\",\"tags\":true}}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "-31"
+          },
+          {
+            "name": "tool_4",
+            "arguments": "{\"timeout\": false,\n  \"retries\": \"s\",\n  \"query\": true,\n  \"temperature\": [\"\\u00e9\\u00e9a.abayy\",\n  \"-aac-\\u00e9yza\",\n  \"\",\n  \".\\u00e9\\u00e9x_y\"]}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"recursive\": 1,\n  \"user_id\": null,\n  \"retries\": \"b\",\n  \"start\": true}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "-31"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"end\":7,\"user_id\":null,\"recursive\":1}"
+          },
+          {
+            "name": "tool_4",
+            "arguments": "{\"timeout\": false, \"temperature\": null}"
+          },
+          {
+            "name": "tool_5",
+            "arguments": "\"x.bz_ya\u00e9\""
+          },
+          {
+            "name": "tool_2",
+            "arguments": "0"
+          },
+          {
+            "name": "tool_5",
+            "arguments": "{\"a\": 1"
+          },
+          {
+            "name": "tool_4",
+            "arguments": "{\"items\": null,\n  \"timeout\": true}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"lang\": null, \"offset\": {}, \"temperature\": 1.5}"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"items\": [\"\", \"czzc\", [1], \"\u00e9..bycb-.\", \"z_xbxb\u00e9.c\"], \"temperature\": -6.0}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "17"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"recursive\": 1, \"retries\": \"ycbz\\u00e9_x\"}"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"recursive\": \"s\", \"k\": {\"query\": -5.0, \"k\": [], \"pattern\": \"\"}, \"filters\": {\"top_p\": \"-\u00e9_.\", \"items\": 2.0}, \"temperature\": -19.0, \"top_p\": 3, \"timeout\": {\"end\": \"bbbxzyy\", \"url\": {\"query\": {\"start\": 15, \"dry_run\": null, \"url\": 0.25}, \"user_id\": 3, \"temperature\": [0], \"items\": -17, \"k\": null}}}"
+          },
+          {
+            "name": "tool_5",
+            "arguments": "6.0"
+          },
+          {
+            "name": "tool_4",
+            "arguments": "{\"tags\": true, \"temperature\": [12, 31], \"items\": -3, \"top_p\": true}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "\"x\""
+          },
+          {
+            "name": "tool_3",
+            "arguments": "\"x\""
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"k\":\"\",\"items\":\"ab\",\"temperature\":3.0,\"filters\":{\"tags\":true,\"query\":null,\"top_p\":{\"a\":1}}}"
+          },
+          {
+            "name": "tool_4",
+            "arguments": "{\"id\": \"s\", \"k\": \"s\", \"timeout\": true}"
+          },
+          {
+            "name": "tool_4",
+            "arguments": "{\"items\":null,\"timeout\":{\"a\":1}}"
+          },
+          {
+            "name": "tool_5",
+            "arguments": "{a: 1}"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"filters\": {\"user_id\": 3,\n  \"query\": 3.0,\n  \"dry_run\": {\"path\": \"yxc--xbcb\"}},\n  \"items\": [15],\n  \"temperature\": 0}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"end\":0,\"start\":false}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "3.0"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"items\":[\"_\u00e9cc\u00e9-yz\",\"x\u00e9-a\"],\"temperature\":-5,\"offset\":null,\"dry_run\":3}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"start\": false, \"end\": -18.75}"
+          },
+          {
+            "name": "tool_4",
+            "arguments": "{\"timeout\": false,\n  \"temperature\": [],\n  \"items\": null}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"a\": \"unterminated}"
+          },
+          {
+            "name": "Tool_0",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"filters\":{\"x\":1},\"dry_run\":true}"
+          }
+        ]
+      },
+      "expected": [
+        [
+          [
+            "$.zz",
+            "additionalProperties"
+          ],
+          [
+            "$.offset",
+            "additionalProperties"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.start",
+            "required"
+          ],
+          [
+            "$.user_id",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.recursive",
+            "type"
+          ],
+          [
+            "$.k",
+            "additionalProperties"
+          ],
+          [
+            "$.query",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$.retries",
+            "type"
+          ],
+          [
+            "$.recursive",
+            "type"
+          ],
+          [
+            "$.limit",
+            "additionalProperties"
+          ],
+          [
+            "$.path",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$.recursive",
+            "exclusiveMaximum"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.temperature",
+            "required"
+          ],
+          [
+            "$.filters.retries",
+            "exclusiveMinimum"
+          ],
+          [
+            "$.filters.retries",
+            "maximum"
+          ],
+          [
+            "$.timeout",
+            "type"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.retries",
+            "additionalProperties"
+          ],
+          [
+            "$.query",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$.recursive",
+            "exclusiveMaximum"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.start",
+            "required"
+          ],
+          [
+            "$.recursive",
+            "exclusiveMaximum"
+          ]
+        ],
+        [],
+        [],
+        [],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$.temperature",
+            "required"
+          ]
+        ],
+        [
+          [
+            "$.offset",
+            "enum"
+          ],
+          [
+            "$.lang",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.k",
+            "required"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.start",
+            "required"
+          ],
+          [
+            "$.retries",
+            "enum"
+          ],
+          [
+            "$.recursive",
+            "exclusiveMaximum"
+          ]
+        ],
+        [
+          [
+            "$.items",
+            "required"
+          ],
+          [
+            "$.timeout.url.temperature[0]",
+            "minimum"
+          ],
+          [
+            "$.timeout.url.query.url",
+            "maximum"
+          ],
+          [
+            "$.timeout.url.user_id",
+            "additionalProperties"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.timeout",
+            "required"
+          ],
+          [
+            "$.tags",
+            "additionalProperties"
+          ],
+          [
+            "$.top_p",
+            "additionalProperties"
+          ]
+        ],
+        [],
+        [
+          [
+            "$",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.filters.top_p",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.temperature",
+            "required"
+          ],
+          [
+            "$.id",
+            "additionalProperties"
+          ],
+          [
+            "$.k",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$.temperature",
+            "required"
+          ],
+          [
+            "$.timeout",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$.k",
+            "required"
+          ],
+          [
+            "$.filters.query",
+            "type"
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            "$.k",
+            "required"
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "unknownTool"
+          ]
+        ],
+        [
+          [
+            "$.retries",
+            "required"
+          ]
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "random-heavy-junk",
+      "input": {
+        "tools": [
+          {
+            "name": "tool_0",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "start": {
+                  "type": "integer",
+                  "minimum": 2.2,
+                  "maximum": -1
+                },
+                "temperature": {
+                  "type": "array",
+                  "maxItems": 3
+                },
+                "retries": {
+                  "type": "number",
+                  "minimum": 5.9
+                }
+              },
+              "required": [
+                "retries",
+                "start"
+              ],
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          },
+          {
+            "name": "tool_1",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "filters": {
+                  "type": "number",
+                  "maximum": 2,
+                  "exclusiveMaximum": 0
+                },
+                "temperature": {
+                  "type": "number",
+                  "maximum": 8,
+                  "exclusiveMaximum": 0
+                },
+                "items": {
+                  "enum": [
+                    1,
+                    0,
+                    false
+                  ],
+                  "type": "integer"
+                },
+                "limit": {
+                  "type": "boolean"
+                },
+                "lang": {
+                  "type": "number",
+                  "exclusiveMinimum": -2.6,
+                  "exclusiveMaximum": 3.8
+                }
+              },
+              "required": []
+            }
+          }
+        ],
+        "calls": [
+          {
+            "name": "tool_1",
+            "arguments": "{\"path\": null, \"items\": 1, \"id\": 2.0, \"temperature\": -15.75, \"lang\": 1, \"limit\": true}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"items\": 0, \"lang\": 1, \"temperature\": 9, \"filters\": -13.75, \"limit\": true}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"limit\": true,\n  \"filters\": 3.0}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"a\": .5}"
+          },
+          {
+            "name": "Tool_0",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"a\": 01}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"temperature\": -16.75, \"items\": false, \"limit\": false, \"lang\": 1.25}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"filters\": -9,\n  \"temperature\": -17,\n  \"limit\": [1],\n  \"lang\": 31,\n  \"items\": 0}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"start\":2,\"retries\":12.25,\"temperature\":[\"bybz\\u00e9z\\u00e9aa\",\"z-\"]}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"start\": -1,\n  \"retries\": 18,\n  \"temperature\": [\"yc\",\n  \"\",\n  \"\u00e9.xz\",\n  \".-\"]}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"a\": \"unterminated}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"a\": 1} {\"b\": 2}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"items\":0,\"lang\":-0.75,\"limit\":true}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"items\":false,\"tags\":3,\"filters\":3.0,\"limit\":true}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "null"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"temperature\": [\"zcxyy\u00e9\u00e9az\", \"\"], \"retries\": {\"a\": 1}, \"start\": 1}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"temperature\": true,\n  \"start\": 1.0,\n  \"retries\": 16.25}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "[1, 2,]"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "7"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"temperature\": [-31],\n  \"start\": null}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"recursive\":null,\"retries\":18,\"start\":2}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"lang\":1.5,\"temperature\":-1.75,\"filters\":{\"a\":1},\"limit\":false}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"items\": 0, \"limit\": false}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"retries\":14.25,\"pattern\":true,\"dry_run\":3,\"start\":0}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"temperature\": [\"c-\u00e9-c..\",\n  \"-ybbabb_\",\n  \"\"],\n  \"start\": -1}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"retries\": 5.4,\n  \"start\": 0,\n  \"temperature\": [7]}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"temperature\": [14,\n  0,\n  -16],\n  \"retries\": 15,\n  \"start\": 1,\n  \"dry_run\": true}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"filters\": -10.75, \"items\": 0, \"lang\": 1, \"limit\": false, \"temperature\": -13.75}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": ""
+          }
+        ]
+      },
+      "expected": [
+        [],
+        [
+          [
+            "$.temperature",
+            "maximum"
+          ],
+          [
+            "$.temperature",
+            "exclusiveMaximum"
+          ]
+        ],
+        [
+          [
+            "$.filters",
+            "maximum"
+          ],
+          [
+            "$.filters",
+            "exclusiveMaximum"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "unknownTool"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$.items",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.limit",
+            "type"
+          ],
+          [
+            "$.lang",
+            "exclusiveMaximum"
+          ]
+        ],
+        [
+          [
+            "$.start",
+            "minimum"
+          ],
+          [
+            "$.start",
+            "maximum"
+          ]
+        ],
+        [
+          [
+            "$.start",
+            "minimum"
+          ],
+          [
+            "$.temperature",
+            "maxItems"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.filters",
+            "maximum"
+          ],
+          [
+            "$.filters",
+            "exclusiveMaximum"
+          ],
+          [
+            "$.items",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.start",
+            "minimum"
+          ],
+          [
+            "$.start",
+            "maximum"
+          ],
+          [
+            "$.retries",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.start",
+            "minimum"
+          ],
+          [
+            "$.start",
+            "maximum"
+          ],
+          [
+            "$.temperature",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.retries",
+            "required"
+          ],
+          [
+            "$.start",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.start",
+            "minimum"
+          ],
+          [
+            "$.start",
+            "maximum"
+          ],
+          [
+            "$.recursive",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.filters",
+            "type"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.start",
+            "minimum"
+          ],
+          [
+            "$.start",
+            "maximum"
+          ],
+          [
+            "$.dry_run",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.retries",
+            "required"
+          ],
+          [
+            "$.start",
+            "minimum"
+          ]
+        ],
+        [
+          [
+            "$.start",
+            "minimum"
+          ],
+          [
+            "$.start",
+            "maximum"
+          ],
+          [
+            "$.retries",
+            "minimum"
+          ]
+        ],
+        [
+          [
+            "$.start",
+            "minimum"
+          ],
+          [
+            "$.start",
+            "maximum"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.retries",
+            "required"
+          ],
+          [
+            "$.start",
+            "required"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "random-half-broken",
+      "input": {
+        "tools": [
+          {
+            "name": "tool_0",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "type": "string",
+                  "maxLength": 4
+                },
+                "top_p": {
+                  "type": "object",
+                  "properties": {
+                    "recursive": {
+                      "type": "boolean"
+                    },
+                    "limit": {
+                      "enum": [
+                        "slow",
+                        "a",
+                        -3,
+                        false
+                      ]
+                    }
+                  },
+                  "required": [],
+                  "additionalProperties": false
+                }
+              },
+              "required": [],
+              "additionalProperties": true
+            }
+          },
+          {
+            "name": "tool_1",
+            "parameters": {
+              "properties": {
+                "items": {
+                  "enum": [
+                    {
+                      "x": 1
+                    },
+                    2,
+                    "fast"
+                  ],
+                  "type": "string"
+                },
+                "pattern": {
+                  "type": "object",
+                  "properties": {
+                    "recursive": {
+                      "type": "boolean"
+                    },
+                    "temperature": {
+                      "type": "number",
+                      "exclusiveMinimum": -3.7,
+                      "exclusiveMaximum": 2
+                    }
+                  },
+                  "required": []
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_2",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "limit": {
+                  "type": "null"
+                },
+                "recursive": {
+                  "type": "integer",
+                  "minimum": 7.4,
+                  "maximum": 1.7
+                },
+                "dry_run": {
+                  "type": "integer",
+                  "exclusiveMinimum": 2,
+                  "exclusiveMaximum": 8
+                },
+                "id": {
+                  "type": "null"
+                },
+                "top_p": {
+                  "type": "null"
+                }
+              },
+              "required": [
+                "dry_run",
+                "top_p"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_3",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "dry_run": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "type": "null"
+                },
+                "pattern": {
+                  "type": "array",
+                  "items": {
+                    "type": "null"
+                  }
+                },
+                "start": {
+                  "type": "string"
+                },
+                "user_id": {
+                  "type": [
+                    "null",
+                    "array"
+                  ]
+                }
+              },
+              "required": [
+                "user_id",
+                "dry_run",
+                "start",
+                "id"
+              ],
+              "additionalProperties": true
+            }
+          },
+          {
+            "name": "tool_4",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "offset": {
+                  "type": [
+                    "string",
+                    "integer"
+                  ],
+                  "maxLength": 1
+                },
+                "url": {
+                  "type": "object",
+                  "properties": {
+                    "mode": {
+                      "type": "object",
+                      "properties": {
+                        "mode": {
+                          "type": "number",
+                          "exclusiveMinimum": 0.2
+                        },
+                        "lang": {
+                          "type": "object",
+                          "properties": {
+                            "lang": {
+                              "type": "null"
+                            },
+                            "user_id": {
+                              "type": "string",
+                              "minLength": 3,
+                              "maxLength": 4
+                            },
+                            "limit": {
+                              "type": "boolean"
+                            },
+                            "k": {
+                              "type": "string",
+                              "maxLength": 4
+                            }
+                          },
+                          "required": [
+                            "user_id"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "start": {
+                          "type": "null"
+                        },
+                        "top_p": {
+                          "enum": [
+                            {
+                              "x": 1
+                            },
+                            "a",
+                            1
+                          ],
+                          "type": "number"
+                        },
+                        "pattern": {
+                          "type": "integer",
+                          "minimum": 2.1,
+                          "exclusiveMinimum": 9,
+                          "exclusiveMaximum": 1
+                        }
+                      },
+                      "additionalProperties": true
+                    },
+                    "temperature": {
+                      "type": [
+                        "string",
+                        "integer"
+                      ],
+                      "maxLength": 5
+                    },
+                    "limit": {
+                      "type": "number",
+                      "minimum": -4,
+                      "exclusiveMaximum": 7
+                    },
+                    "timeout": {
+                      "type": "number"
+                    }
+                  },
+                  "additionalProperties": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 5
+                  }
+                }
+              },
+              "required": [],
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          },
+          {
+            "name": "tool_5",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "recursive": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "maxItems": 2
+                },
+                "query": {
+                  "type": "boolean"
+                },
+                "lang": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": []
+            }
+          },
+          {
+            "name": "tool_6",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "array",
+                  "items": {
+                    "type": "boolean"
+                  },
+                  "minItems": 2
+                }
+              },
+              "required": []
+            }
+          },
+          {
+            "name": "tool_7",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "filters": {
+                  "type": "null"
+                },
+                "timeout": {
+                  "type": "string",
+                  "minLength": 0
+                }
+              },
+              "required": [],
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          }
+        ],
+        "calls": [
+          {
+            "name": "tool_1",
+            "arguments": "4"
+          },
+          {
+            "name": "Tool_0",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"pattern\":{\"temperature\":-0.75},\"items\":\"cz_b_byy\"}"
+          },
+          {
+            "name": "tool_7",
+            "arguments": "{\"filters\":null}"
+          },
+          {
+            "name": "tool_99",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_6",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"limit\": null, \"recursive\": 6.9, \"dry_run\": 3, \"top_p\": null}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"dry_run\": 6.0,\n  \"id\": null,\n  \"top_p\": null}"
+          },
+          {
+            "name": "tool_5",
+            "arguments": "{\"recursive\": [true, -20], \"zz\": \"s\", \"query\": false, \"lang\": \"-_..yxcxc\"}"
+          },
+          {
+            "name": "tool_7",
+            "arguments": "   "
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{a: 1}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"dry_run\":5.0,\"recursive\":null,\"top_p\":null}"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"dry_run\": true, \"id\": null, \"start\": \"zcc_xxx\", \"pattern\": [null, null, 3.0, null, null]}"
+          },
+          {
+            "name": "tool_6",
+            "arguments": "{\"top_p\": null, \"user_id\": null, \"id\": [false, false, false, true, true]}"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"user_id\": null, \"dry_run\": true, \"pattern\": [null, 0]}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "3.0"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"dry_run\": false, \"limit\": null, \"recursive\": 7, \"id\": null, \"top_p\": null}"
+          },
+          {
+            "name": "tool_5",
+            "arguments": "{\"query\": {\"a\": 1}}"
+          },
+          {
+            "name": "tool_5",
+            "arguments": "{\"recursive\":[0,18],\"lang\":\"b.cz-\"}"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "2.5"
+          },
+          {
+            "name": "tool_5",
+            "arguments": "{\"aa\": 3,\n  \"id\": \"s\",\n  \"query\": true,\n  \"recursive\": [14,\n  5]}"
+          },
+          {
+            "name": "",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "\"\""
+          },
+          {
+            "name": "tool_3",
+            "arguments": "2.5"
+          },
+          {
+            "name": "search",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_6",
+            "arguments": "2.5"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "6"
+          },
+          {
+            "name": "tool_6",
+            "arguments": "{\"id\": 7}"
+          },
+          {
+            "name": "tool_7",
+            "arguments": "{\"recursive\":2.0,\"filters\":null}"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"k\": true,\n  \"start\": \"z\",\n  \"user_id\": null,\n  \"dry_run\": 7}"
+          },
+          {
+            "name": "search",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"id\": \"_\u00e9\", \"top_p\": {\"recursive\": false}, \"recursive\": 2.0, \"tags\": 3}"
+          },
+          {
+            "name": "tool_7",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"limit\":true,\"top_p\":null}"
+          },
+          {
+            "name": "tool_4",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "\"z-\u00e9a\u00e9x\u00e9_b\""
+          },
+          {
+            "name": "Tool_0",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"dry_run\": 5.0, \"top_p\": true}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "{\"start\":2.0,\"items\":false,\"id\":\"\",\"top_p\":{\"limit\":false,\"url\":2.0,\"recursive\":false},\"user_id\":null}"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"pattern\":[null],\"user_id\":false,\"id\":null,\"start\":\"-_a_c\"}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "true"
+          },
+          {
+            "name": "tool_6",
+            "arguments": "{a: 1}"
+          },
+          {
+            "name": "tool_4",
+            "arguments": "{\"url\":{\"temperature\":5.0,\"limit\":1.25,\"mode\":{\"start\":null,\"pattern\":5.0},\"dry_run\":null,\"timeout\":-2.75,\"url\":2.0}}"
+          },
+          {
+            "name": "tool_7",
+            "arguments": "{\"timeout\":\"yy_\u00e9.-\",\"filters\":null}"
+          },
+          {
+            "name": "tool_5",
+            "arguments": "{\"recursive\": [],\n  \"query\": true}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"dry_run\":7,\"limit\":null}"
+          },
+          {
+            "name": "tool_99",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"dry_run\": null,\n  \"top_p\": null}"
+          },
+          {
+            "name": "tool_5",
+            "arguments": "{\"recursive\": [0, 1], \"lang\": \"x\", \"query\": true}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{\"id\": null, \"recursive\": 6.9, \"dry_run\": 7, \"top_p\": null, \"limit\": null}"
+          }
+        ]
+      },
+      "expected": [
+        [],
+        [
+          [
+            "$",
+            "unknownTool"
+          ]
+        ],
+        [
+          [
+            "$.items",
+            "enum"
+          ]
+        ],
+        [],
+        [
+          [
+            "$",
+            "unknownTool"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.recursive",
+            "type"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.recursive[0]",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$.recursive",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.user_id",
+            "required"
+          ],
+          [
+            "$.pattern[2]",
+            "type"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.start",
+            "required"
+          ],
+          [
+            "$.id",
+            "required"
+          ],
+          [
+            "$.pattern[1]",
+            "type"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.recursive",
+            "minimum"
+          ],
+          [
+            "$.recursive",
+            "maximum"
+          ],
+          [
+            "$.dry_run",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.query",
+            "type"
+          ]
+        ],
+        [],
+        [
+          [
+            "$",
+            "type"
+          ]
+        ],
+        [],
+        [
+          [
+            "$",
+            "unknownTool"
+          ]
+        ],
+        [],
+        [
+          [
+            "$",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$",
+            "unknownTool"
+          ]
+        ],
+        [
+          [
+            "$",
+            "type"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.id",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.recursive",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.id",
+            "required"
+          ],
+          [
+            "$.dry_run",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$",
+            "unknownTool"
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            "$.dry_run",
+            "required"
+          ],
+          [
+            "$.limit",
+            "type"
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            "$",
+            "unknownTool"
+          ]
+        ],
+        [
+          [
+            "$.top_p",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.top_p.url",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$.dry_run",
+            "required"
+          ],
+          [
+            "$.user_id",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$.url.mode.pattern",
+            "exclusiveMinimum"
+          ],
+          [
+            "$.url.mode.pattern",
+            "exclusiveMaximum"
+          ],
+          [
+            "$.url.dry_run",
+            "type"
+          ],
+          [
+            "$.url.url",
+            "type"
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            "$.top_p",
+            "required"
+          ]
+        ],
+        [
+          [
+            "$",
+            "unknownTool"
+          ]
+        ],
+        [
+          [
+            "$.dry_run",
+            "type"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.recursive",
+            "type"
+          ]
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "full-size-20-tools-50-calls",
+      "input": {
+        "tools": [
+          {
+            "name": "tool_0",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "mode": {
+                  "type": [
+                    "boolean",
+                    "array"
+                  ],
+                  "maxLength": 1
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_1",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "mode": {
+                  "type": "null"
+                },
+                "offset": {
+                  "type": "integer",
+                  "exclusiveMinimum": 8,
+                  "maximum": 4.9,
+                  "exclusiveMaximum": 3
+                },
+                "limit": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 9
+                    },
+                    "id": {
+                      "type": [
+                        "array",
+                        "boolean"
+                      ],
+                      "minimum": 3,
+                      "maxLength": 1
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "maximum": -5,
+                        "exclusiveMaximum": -4
+                      },
+                      "maxItems": 3
+                    },
+                    "tags": {
+                      "enum": [
+                        0,
+                        false,
+                        2,
+                        null
+                      ],
+                      "type": "string"
+                    },
+                    "limit": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "limit",
+                    "items",
+                    "tags"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_2",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "offset": {
+                  "type": "number",
+                  "maximum": 3
+                }
+              },
+              "additionalProperties": {
+                "type": "string",
+                "minLength": 2
+              }
+            }
+          },
+          {
+            "name": "tool_3",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "boolean"
+                },
+                "mode": {
+                  "type": "number",
+                  "maximum": 0.2
+                }
+              },
+              "required": []
+            }
+          },
+          {
+            "name": "tool_4",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "timeout": {
+                  "enum": [
+                    {
+                      "x": 1
+                    },
+                    1,
+                    1.5
+                  ]
+                },
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "pattern": {
+                  "type": "object",
+                  "properties": {
+                    "recursive": {
+                      "type": "object",
+                      "properties": {
+                        "filters": {
+                          "enum": [
+                            true,
+                            "1",
+                            1.5,
+                            "a"
+                          ]
+                        },
+                        "k": {
+                          "type": "boolean"
+                        },
+                        "mode": {
+                          "enum": [
+                            2
+                          ]
+                        },
+                        "limit": {
+                          "type": "number",
+                          "exclusiveMaximum": 9
+                        }
+                      },
+                      "required": [
+                        "limit"
+                      ],
+                      "additionalProperties": {
+                        "type": "boolean"
+                      }
+                    },
+                    "limit": {
+                      "type": "string"
+                    },
+                    "k": {
+                      "type": "number",
+                      "exclusiveMinimum": 0.6
+                    },
+                    "tags": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "limit",
+                    "tags"
+                  ]
+                }
+              },
+              "required": [
+                "pattern",
+                "id",
+                "timeout"
+              ],
+              "additionalProperties": true
+            }
+          },
+          {
+            "name": "tool_5",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "dry_run": {
+                  "type": "null"
+                },
+                "id": {
+                  "type": "null"
+                },
+                "mode": {
+                  "type": "number",
+                  "exclusiveMinimum": 6
+                }
+              }
+            }
+          },
+          {
+            "name": "tool_6",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "timeout": {
+                  "type": "null"
+                },
+                "filters": {
+                  "type": "string"
+                },
+                "query": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "retries": {
+                        "type": "boolean"
+                      },
+                      "k": {
+                        "enum": [
+                          "fast",
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "k"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "maxItems": 2
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_7",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "filters": {
+                  "enum": [
+                    1
+                  ]
+                },
+                "url": {
+                  "type": "string",
+                  "maxLength": 8
+                },
+                "user_id": {
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_8",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "mode": {
+                  "enum": [
+                    [
+                      1,
+                      2
+                    ],
+                    "slow",
+                    0,
+                    "a"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_9",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "minimum": 5,
+                  "exclusiveMaximum": 2
+                }
+              }
+            }
+          },
+          {
+            "name": "tool_10",
+            "parameters": {
+              "properties": {
+                "limit": {
+                  "type": "object",
+                  "properties": {
+                    "retries": {
+                      "type": "object",
+                      "properties": {
+                        "items": {
+                          "enum": [
+                            {
+                              "x": 1
+                            },
+                            -3,
+                            "",
+                            [
+                              1,
+                              2
+                            ]
+                          ]
+                        },
+                        "offset": {
+                          "type": "string"
+                        },
+                        "user_id": {
+                          "type": "object",
+                          "properties": {
+                            "end": {
+                              "enum": [
+                                1
+                              ]
+                            }
+                          },
+                          "required": [
+                            "end"
+                          ]
+                        },
+                        "lang": {
+                          "type": "string",
+                          "maxLength": 6
+                        },
+                        "query": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [
+                        "user_id",
+                        "lang",
+                        "query",
+                        "items"
+                      ],
+                      "additionalProperties": {
+                        "type": "integer",
+                        "exclusiveMinimum": -3,
+                        "maximum": 6
+                      }
+                    },
+                    "recursive": {
+                      "type": "boolean"
+                    },
+                    "mode": {
+                      "type": "object",
+                      "properties": {
+                        "start": {
+                          "enum": [
+                            {
+                              "x": 1
+                            },
+                            false,
+                            1.5,
+                            "b"
+                          ]
+                        },
+                        "temperature": {
+                          "type": "null"
+                        },
+                        "id": {
+                          "type": "number",
+                          "minimum": 3,
+                          "exclusiveMinimum": 1.1
+                        }
+                      },
+                      "required": [
+                        "start",
+                        "temperature",
+                        "id"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "offset": {
+                      "type": [
+                        "array",
+                        "string"
+                      ],
+                      "minimum": 1
+                    },
+                    "query": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string"
+                        },
+                        "offset": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 8
+                        },
+                        "k": {
+                          "type": "null"
+                        },
+                        "user_id": {
+                          "type": "object",
+                          "properties": {
+                            "k": {
+                              "type": "number",
+                              "exclusiveMinimum": 4,
+                              "maximum": -3
+                            },
+                            "tags": {
+                              "type": [
+                                "integer",
+                                "array"
+                              ],
+                              "minimum": 3
+                            }
+                          },
+                          "required": [],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": []
+                    }
+                  },
+                  "required": [
+                    "offset",
+                    "retries",
+                    "recursive",
+                    "mode"
+                  ]
+                },
+                "timeout": {
+                  "type": [
+                    "string",
+                    "integer"
+                  ]
+                }
+              },
+              "required": [],
+              "additionalProperties": {
+                "type": "string",
+                "minLength": 3
+              }
+            }
+          },
+          {
+            "name": "tool_11",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "object",
+                  "properties": {
+                    "limit": {
+                      "type": [
+                        "number",
+                        "array"
+                      ]
+                    },
+                    "timeout": {
+                      "type": "object",
+                      "properties": {
+                        "timeout": {
+                          "type": [
+                            "integer",
+                            "number"
+                          ],
+                          "maxLength": 3
+                        },
+                        "mode": {
+                          "type": "boolean"
+                        },
+                        "end": {
+                          "type": "number",
+                          "maximum": 9.0
+                        },
+                        "offset": {
+                          "type": "array",
+                          "minItems": 1,
+                          "maxItems": 2
+                        },
+                        "path": {
+                          "type": "array",
+                          "minItems": 2,
+                          "maxItems": 2
+                        }
+                      },
+                      "required": [
+                        "path",
+                        "end",
+                        "offset",
+                        "timeout"
+                      ],
+                      "additionalProperties": {
+                        "type": "string",
+                        "maxLength": 8
+                      }
+                    }
+                  },
+                  "required": [],
+                  "additionalProperties": false
+                },
+                "k": {
+                  "type": "integer"
+                },
+                "filters": {
+                  "type": "integer"
+                },
+                "lang": {
+                  "type": "null"
+                },
+                "limit": {
+                  "enum": [
+                    1.5,
+                    "1",
+                    "fast",
+                    0
+                  ],
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "limit",
+                "filters",
+                "k",
+                "tags",
+                "lang"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_12",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "start": {
+                  "type": "number",
+                  "exclusiveMinimum": 7,
+                  "maximum": -3
+                },
+                "dry_run": {
+                  "type": "null"
+                },
+                "items": {
+                  "enum": [
+                    false,
+                    "b",
+                    2,
+                    "slow"
+                  ]
+                },
+                "top_p": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "",
+                      1,
+                      "fast"
+                    ],
+                    "type": "string"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "uniqueItems": false
+                },
+                "pattern": {
+                  "type": "string",
+                  "minLength": 3
+                }
+              },
+              "required": [
+                "start",
+                "dry_run",
+                "pattern",
+                "items"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_13",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "offset": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "exclusiveMinimum": 4
+                  }
+                }
+              },
+              "required": [
+                "offset"
+              ]
+            }
+          },
+          {
+            "name": "tool_14",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "enum": [
+                    "slow",
+                    0
+                  ]
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_15",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "top_p": {
+                  "type": "string"
+                },
+                "pattern": {
+                  "type": "boolean"
+                },
+                "timeout": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "maxItems": 4
+                },
+                "temperature": {
+                  "enum": [
+                    false,
+                    true,
+                    -3
+                  ]
+                },
+                "mode": {
+                  "type": "number",
+                  "exclusiveMaximum": 10
+                }
+              },
+              "required": [
+                "pattern",
+                "mode",
+                "top_p"
+              ],
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          },
+          {
+            "name": "tool_16",
+            "parameters": {
+              "properties": {
+                "offset": {
+                  "properties": {
+                    "end": {
+                      "type": "number",
+                      "exclusiveMinimum": 3,
+                      "maximum": -3
+                    },
+                    "top_p": {
+                      "type": "integer",
+                      "exclusiveMinimum": -4,
+                      "maximum": 0
+                    }
+                  },
+                  "required": [
+                    "top_p",
+                    "end"
+                  ]
+                },
+                "items": {
+                  "enum": [
+                    0,
+                    [
+                      1,
+                      2
+                    ],
+                    "fast",
+                    2
+                  ],
+                  "type": "string"
+                },
+                "dry_run": {
+                  "type": [
+                    "integer",
+                    "boolean"
+                  ],
+                  "minimum": 3,
+                  "maxLength": 3
+                },
+                "timeout": {
+                  "enum": [
+                    1,
+                    {
+                      "x": 1
+                    },
+                    "fast",
+                    "b"
+                  ]
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "tool_17",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "retries": {
+                  "type": [
+                    "array",
+                    "integer"
+                  ],
+                  "minimum": 2
+                },
+                "timeout": {
+                  "type": "null"
+                },
+                "pattern": {
+                  "type": "null"
+                },
+                "id": {
+                  "type": "array",
+                  "items": {
+                    "type": "null"
+                  },
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "timeout",
+                "retries",
+                "id",
+                "pattern"
+              ]
+            }
+          },
+          {
+            "name": "tool_18",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "filters": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": [
+                        "null",
+                        "boolean"
+                      ],
+                      "maxLength": 2
+                    },
+                    "start": {
+                      "type": "object",
+                      "properties": {
+                        "recursive": {
+                          "type": [
+                            "number",
+                            "boolean"
+                          ]
+                        },
+                        "lang": {
+                          "enum": [
+                            -3,
+                            "a",
+                            2,
+                            "slow"
+                          ]
+                        },
+                        "start": {
+                          "type": "object",
+                          "properties": {
+                            "lang": {
+                              "type": "integer",
+                              "minimum": 6
+                            },
+                            "items": {
+                              "type": [
+                                "string",
+                                "number"
+                              ]
+                            },
+                            "end": {
+                              "type": [
+                                "string",
+                                "array"
+                              ]
+                            },
+                            "tags": {
+                              "enum": [
+                                {
+                                  "x": 1
+                                }
+                              ]
+                            },
+                            "dry_run": {
+                              "type": "number",
+                              "exclusiveMinimum": -3.2,
+                              "exclusiveMaximum": 6
+                            }
+                          },
+                          "required": [
+                            "items",
+                            "dry_run",
+                            "lang"
+                          ]
+                        },
+                        "mode": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "start",
+                        "lang"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "filters": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer",
+                        "exclusiveMaximum": 4
+                      },
+                      "maxItems": 4,
+                      "uniqueItems": true
+                    },
+                    "top_p": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "filters",
+                    "start"
+                  ]
+                },
+                "mode": {
+                  "type": "string",
+                  "minLength": 3
+                },
+                "query": {
+                  "type": "object",
+                  "properties": {
+                    "offset": {
+                      "type": "number",
+                      "maximum": -4
+                    }
+                  },
+                  "required": []
+                },
+                "path": {
+                  "enum": [
+                    -3,
+                    true,
+                    "a",
+                    2
+                  ]
+                }
+              },
+              "required": [
+                "path",
+                "query"
+              ]
+            }
+          },
+          {
+            "name": "tool_19",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "k": {
+                  "type": "integer"
+                },
+                "query": {
+                  "type": "null"
+                },
+                "id": {
+                  "type": "object",
+                  "properties": {
+                    "offset": {
+                      "enum": [
+                        "b",
+                        1.5,
+                        null
+                      ]
+                    }
+                  },
+                  "required": [],
+                  "additionalProperties": false
+                },
+                "pattern": {
+                  "enum": [
+                    1.5,
+                    null,
+                    -3,
+                    true
+                  ],
+                  "type": "number"
+                },
+                "tags": {
+                  "enum": [
+                    "a"
+                  ],
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "k",
+                "pattern",
+                "id",
+                "query"
+              ]
+            }
+          }
+        ],
+        "calls": [
+          {
+            "name": "tool_16",
+            "arguments": "\"za-\""
+          },
+          {
+            "name": "tool_15",
+            "arguments": "{\"tags\":true,\"top_p\":\"bc_-_azax\\u00e9-\",\"temperature\":-3,\"filters\":\"s\",\"mode\":-31}"
+          },
+          {
+            "name": "tool_5",
+            "arguments": "{\"mode\": 20,\n  \"id\": null,\n  \"path\": \"s\",\n  \"dry_run\": null}"
+          },
+          {
+            "name": "tool_14",
+            "arguments": "{\"url\": \"slow\"}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "None"
+          },
+          {
+            "name": "tool_8",
+            "arguments": "{\"end\":\"s\",\"items\":2.0}"
+          },
+          {
+            "name": "tool_6",
+            "arguments": "{\"timeout\": null,\n  \"query\": []}"
+          },
+          {
+            "name": "tool_10",
+            "arguments": "{\"pattern\":true,\"id\":\"s\",\"limit\":{\"mode\":7,\"retries\":{\"items\":-3,\"lang\":\"acx-z\",\"recursive\":2.0,\"user_id\":{\"end\":1},\"offset\":\"y\",\"query\":null},\"offset\":\"-a.z\\u00e9y-x_\",\"recursive\":true}}"
+          },
+          {
+            "name": "tool_3",
+            "arguments": "{\"mode\": -7.75,\n  \"query\": true}"
+          },
+          {
+            "name": "tool_5",
+            "arguments": "{\"mode\": 19.25, \"id\": null}"
+          },
+          {
+            "name": "tool_9",
+            "arguments": "{}"
+          },
+          {
+            "name": "Tool_0",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_2",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_19",
+            "arguments": "{\"pattern\": null, \"id\": {\"offset\": null}, \"mode\": 3, \"query\": null}"
+          },
+          {
+            "name": "tool_19",
+            "arguments": "{\"a\": .5}"
+          },
+          {
+            "name": "tool_13",
+            "arguments": "7"
+          },
+          {
+            "name": "tool_99",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_12",
+            "arguments": "{\"start\": 1,\n  \"pattern\": \"._xa_xx\",\n  \"items\": 13}"
+          },
+          {
+            "name": "tool_8",
+            "arguments": "[1]"
+          },
+          {
+            "name": "tool_14",
+            "arguments": "{\"url\": 12, \"offset\": true}"
+          },
+          {
+            "name": "tool_17",
+            "arguments": "{\"retries\": [11.0],\n  \"id\": [null,\n  null,\n  null,\n  null,\n  null,\n  null],\n  \"pattern\": null}"
+          },
+          {
+            "name": "tool_17",
+            "arguments": "{\"id\": [null,\n  2.5,\n  7,\n  null],\n  \"timeout\": null,\n  \"pattern\": null,\n  \"retries\": []}"
+          },
+          {
+            "name": "tool_14",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_6",
+            "arguments": "{\"timeout\":null}"
+          },
+          {
+            "name": "tool_8",
+            "arguments": "{\"temperature\":true,\"filters\":3}"
+          },
+          {
+            "name": "tool_12",
+            "arguments": "None"
+          },
+          {
+            "name": "tool_17",
+            "arguments": "{\"timeout\": null, \"pattern\": null, \"id\": [null, null]}"
+          },
+          {
+            "name": "tool_9",
+            "arguments": "{\"id\":0}"
+          },
+          {
+            "name": "tool_9",
+            "arguments": "[1]"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"offset\": 5.9}"
+          },
+          {
+            "name": "tool_4",
+            "arguments": "{\"retries\":3,\"timeout\":1}"
+          },
+          {
+            "name": "tool_0",
+            "arguments": "0"
+          },
+          {
+            "name": "tool_17",
+            "arguments": "{\"id\": [], \"retries\": 1, \"pattern\": null, \"timeout\": null}"
+          },
+          {
+            "name": "tool_15",
+            "arguments": "{\"pattern\": false,\n  \"top_p\": \"\",\n  \"temperature\": false,\n  \"mode\": 1.5}"
+          },
+          {
+            "name": "tool_18",
+            "arguments": "{\"query\": {\"timeout\": \"s\"},\n  \"path\": \"a\",\n  \"mode\": \"\\u00e9.az.-yy.\"}"
+          },
+          {
+            "name": "tool_4",
+            "arguments": "{\"id\": \"-c_y\", \"end\": 2.0}"
+          },
+          {
+            "name": "Tool_0",
+            "arguments": "{}"
+          },
+          {
+            "name": "",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_9",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_14",
+            "arguments": "{\"url\": 0}"
+          },
+          {
+            "name": "tool_4",
+            "arguments": "{\"id\":\"ax_axzx_\",\"timeout\":1.5,\"pattern\":false}"
+          },
+          {
+            "name": "tool_16",
+            "arguments": "\".-zz-.\""
+          },
+          {
+            "name": "tool_13",
+            "arguments": "{\"offset\": [2.5, 6, 5, [1]], \"filters\": true}"
+          },
+          {
+            "name": "tool_1",
+            "arguments": "{\"limit\":[1],\"pattern\":true,\"offset\":8}"
+          },
+          {
+            "name": "tool_8",
+            "arguments": "{\"url\": true,\n  \"start\": \"s\",\n  \"mode\": \"a\"}"
+          },
+          {
+            "name": "tool_11",
+            "arguments": "{\"lang\": null,\n  \"filters\": -15.0,\n  \"k\": -13,\n  \"tags\": {\"filters\": \"s\"},\n  \"limit\": -3}"
+          },
+          {
+            "name": "tool_19",
+            "arguments": "{\"id\": true,\n  \"retries\": \"s\",\n  \"pattern\": true,\n  \"query\": null,\n  \"k\": -15.0}"
+          },
+          {
+            "name": "tool_8",
+            "arguments": "{}"
+          },
+          {
+            "name": "tool_5",
+            "arguments": "{\"mode\":1.5,\"dry_run\":null,\"id\":null}"
+          },
+          {
+            "name": "tool_17",
+            "arguments": "{\"pattern\":null,\"retries\":[\"\u00e9zy\"],\"timeout\":null}"
+          }
+        ]
+      },
+      "expected": [
+        [],
+        [
+          [
+            "$.pattern",
+            "required"
+          ],
+          [
+            "$.filters",
+            "type"
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$.end",
+            "additionalProperties"
+          ],
+          [
+            "$.items",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$.query",
+            "minItems"
+          ]
+        ],
+        [
+          [
+            "$.limit.mode",
+            "type"
+          ],
+          [
+            "$.pattern",
+            "type"
+          ],
+          [
+            "$.id",
+            "minLength"
+          ]
+        ],
+        [],
+        [],
+        [],
+        [
+          [
+            "$",
+            "unknownTool"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.k",
+            "required"
+          ],
+          [
+            "$.pattern",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$",
+            "unknownTool"
+          ]
+        ],
+        [
+          [
+            "$.dry_run",
+            "required"
+          ],
+          [
+            "$.start",
+            "exclusiveMinimum"
+          ],
+          [
+            "$.start",
+            "maximum"
+          ],
+          [
+            "$.items",
+            "enum"
+          ]
+        ],
+        [
+          [
+            "$",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.url",
+            "enum"
+          ],
+          [
+            "$.offset",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$.timeout",
+            "required"
+          ],
+          [
+            "$.id",
+            "uniqueItems"
+          ]
+        ],
+        [
+          [
+            "$.id",
+            "uniqueItems"
+          ],
+          [
+            "$.id[1]",
+            "type"
+          ],
+          [
+            "$.id[2]",
+            "type"
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            "$.temperature",
+            "additionalProperties"
+          ],
+          [
+            "$.filters",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$",
+            "invalidJson"
+          ]
+        ],
+        [
+          [
+            "$.retries",
+            "required"
+          ],
+          [
+            "$.id",
+            "uniqueItems"
+          ]
+        ],
+        [
+          [
+            "$.id",
+            "minimum"
+          ]
+        ],
+        [
+          [
+            "$",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.offset",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.pattern",
+            "required"
+          ],
+          [
+            "$.id",
+            "required"
+          ]
+        ],
+        [
+          [
+            "$",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.retries",
+            "minimum"
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            "$.pattern",
+            "required"
+          ],
+          [
+            "$.timeout",
+            "required"
+          ]
+        ],
+        [
+          [
+            "$",
+            "unknownTool"
+          ]
+        ],
+        [
+          [
+            "$",
+            "unknownTool"
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            "$.pattern",
+            "type"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.offset[0]",
+            "exclusiveMinimum"
+          ],
+          [
+            "$.offset[3]",
+            "type"
+          ]
+        ],
+        [
+          [
+            "$.offset",
+            "exclusiveMinimum"
+          ],
+          [
+            "$.offset",
+            "maximum"
+          ],
+          [
+            "$.offset",
+            "exclusiveMaximum"
+          ],
+          [
+            "$.limit",
+            "type"
+          ],
+          [
+            "$.pattern",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$.url",
+            "additionalProperties"
+          ],
+          [
+            "$.start",
+            "additionalProperties"
+          ]
+        ],
+        [
+          [
+            "$.tags.filters",
+            "additionalProperties"
+          ],
+          [
+            "$.limit",
+            "enum"
+          ]
+        ],
+        [
+          [
+            "$.id",
+            "type"
+          ],
+          [
+            "$.pattern",
+            "type"
+          ]
+        ],
+        [],
+        [
+          [
+            "$.mode",
+            "exclusiveMinimum"
+          ]
+        ],
+        [
+          [
+            "$.id",
+            "required"
+          ]
+        ]
+      ],
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "slug": "softmax-cross-entropy-loss-and-gradient",
+  "title": "Softmax Cross-Entropy: Loss and Gradient",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning"
+  ],
+  "hints": [
+    "Treat each row on its own and work in log space: the loss only needs the log-probability of each example's correct class.",
+    "Differentiate a single example's loss with respect to its own logits first. The softmax Jacobian looks messy, but combined with the −log it collapses into something simple.",
+    "A row's softmax is unchanged if you add one constant to every logit. Choose it so no exponent is positive, and never take the log of a probability."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "softmaxCrossEntropy",
+    "params": [
+      {
+        "name": "logits",
+        "type": "float[][]"
+      },
+      {
+        "name": "labels",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

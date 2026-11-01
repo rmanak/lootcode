@@ -1,0 +1,50 @@
+{
+  "slug": "moe-top-k-gating",
+  "title": "Mixture of Experts: Top-k Routing with Capacity",
+  "difficulty": "hard",
+  "tags": [
+    "machine-learning",
+    "matrix",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "moeLayer",
+    "params": [
+      {
+        "name": "X",
+        "type": "float[][]"
+      },
+      {
+        "name": "Wg",
+        "type": "float[][]"
+      },
+      {
+        "name": "experts",
+        "type": "float[][][]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      },
+      {
+        "name": "capacity",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

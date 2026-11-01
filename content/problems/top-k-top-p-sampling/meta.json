@@ -1,0 +1,48 @@
+{
+  "slug": "top-k-top-p-sampling",
+  "title": "Temperature, Top-k and Top-p Sampling",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "sampleToken",
+    "params": [
+      {
+        "name": "logits",
+        "type": "float[]"
+      },
+      {
+        "name": "temperature",
+        "type": "float"
+      },
+      {
+        "name": "topK",
+        "type": "int"
+      },
+      {
+        "name": "topP",
+        "type": "float"
+      },
+      {
+        "name": "u",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

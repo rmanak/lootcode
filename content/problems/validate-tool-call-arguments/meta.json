@@ -1,0 +1,38 @@
+{
+  "slug": "validate-tool-call-arguments",
+  "title": "Validate Tool-Call Arguments Against a JSON Schema",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "recursion",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "validateToolCalls",
+    "params": [
+      {
+        "name": "tools",
+        "type": "object[]"
+      },
+      {
+        "name": "calls",
+        "type": "object[]"
+      }
+    ],
+    "returns": {
+      "type": "string[][][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

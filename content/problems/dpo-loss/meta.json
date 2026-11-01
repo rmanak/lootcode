@@ -1,0 +1,57 @@
+{
+  "slug": "dpo-loss",
+  "title": "DPO Loss: Direct Preference Optimization",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "dpoLoss",
+    "params": [
+      {
+        "name": "policyChosen",
+        "type": "float[]"
+      },
+      {
+        "name": "policyRejected",
+        "type": "float[]"
+      },
+      {
+        "name": "refChosen",
+        "type": "float[]"
+      },
+      {
+        "name": "refRejected",
+        "type": "float[]"
+      },
+      {
+        "name": "beta",
+        "type": "float"
+      },
+      {
+        "name": "labelSmoothing",
+        "type": "float"
+      },
+      {
+        "name": "lossType",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

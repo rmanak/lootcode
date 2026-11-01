@@ -1,0 +1,73 @@
+{
+  "slug": "conversation-memory-window",
+  "title": "Token-Budgeted Conversation Memory",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "design"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "kind": "class",
+  "class": {
+    "name": "ConversationMemory",
+    "constructor": {
+      "params": [
+        {
+          "name": "maxTokens",
+          "type": "int"
+        },
+        {
+          "name": "placeholderTokens",
+          "type": "int"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "add",
+        "params": [
+          {
+            "name": "role",
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "type": "string"
+          },
+          {
+            "name": "tokens",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "getContext",
+        "params": [],
+        "returns": {
+          "type": "string[][]"
+        }
+      },
+      {
+        "name": "contextTokens",
+        "params": [],
+        "returns": {
+          "type": "int"
+        }
+      }
+    ]
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

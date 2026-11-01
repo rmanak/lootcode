@@ -1,0 +1,41 @@
+{
+  "slug": "roc-auc",
+  "title": "ROC-AUC",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning"
+  ],
+  "hints": [
+    "Sort the examples by score. Then count, for each positive, how many negatives sit below it, without ever pairing examples up explicitly.",
+    "Handle a run of equal scores as one group: its positives beat every negative below the group and tie with the negatives inside it.",
+    "Rank all the scores together, letting tied scores share their average rank. A positive's rank then tells you how many negatives it beats, ties included."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 2000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "rocAuc",
+    "params": [
+      {
+        "name": "scores",
+        "type": "float[]"
+      },
+      {
+        "name": "labels",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "float"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

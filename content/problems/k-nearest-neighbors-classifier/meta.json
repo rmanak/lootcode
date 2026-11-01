@@ -1,0 +1,44 @@
+{
+  "slug": "k-nearest-neighbors-classifier",
+  "title": "k-Nearest Neighbors Classifier",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "knnClassify",
+    "params": [
+      {
+        "name": "trainX",
+        "type": "float[][]"
+      },
+      {
+        "name": "trainY",
+        "type": "int[]"
+      },
+      {
+        "name": "testX",
+        "type": "float[][]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

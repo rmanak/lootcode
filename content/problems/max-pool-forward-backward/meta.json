@@ -1,0 +1,45 @@
+{
+  "slug": "max-pool-forward-backward",
+  "title": "Max Pooling: Forward and Backward",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "maxPool",
+    "params": [
+      {
+        "name": "x",
+        "type": "float[][][]"
+      },
+      {
+        "name": "dout",
+        "type": "float[][][]"
+      },
+      {
+        "name": "kernel",
+        "type": "int[]"
+      },
+      {
+        "name": "stride",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

@@ -1,0 +1,41 @@
+{
+  "slug": "gpt2-block-forward",
+  "title": "GPT-2 Transformer Block: Forward Pass",
+  "difficulty": "hard",
+  "tags": [
+    "machine-learning",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "gpt2Block",
+    "params": [
+      {
+        "name": "x",
+        "type": "float[][]"
+      },
+      {
+        "name": "params",
+        "type": "object"
+      },
+      {
+        "name": "numHeads",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "float[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

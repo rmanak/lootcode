@@ -1,0 +1,45 @@
+{
+  "slug": "pairwise-ranker-ii-training",
+  "title": "Pairwise Ranker II: Training",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning"
+  ],
+  "hints": [
+    "The procedure is fully specified, so the real work is getting the gradient right at every step. Everything else is bookkeeping.",
+    "This is full-batch gradient descent: each step uses all N pairs at once. Compute whatever does not depend on w once, before the loop.",
+    "The difference vectors never change during training; only w does. Each step needs just the margins at the current w. Step against the gradient, not along it."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "trainRanker",
+    "params": [
+      {
+        "name": "preferences",
+        "type": "float[][][]"
+      },
+      {
+        "name": "lr",
+        "type": "float"
+      },
+      {
+        "name": "steps",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "float[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

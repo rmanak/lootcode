@@ -1,0 +1,61 @@
+{
+  "slug": "q-learning-updates",
+  "title": "Tabular Q-Learning, SARSA and Expected SARSA",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "simulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "qLearning",
+    "params": [
+      {
+        "name": "numStates",
+        "type": "int"
+      },
+      {
+        "name": "numActions",
+        "type": "int"
+      },
+      {
+        "name": "episodes",
+        "type": "any[][][]"
+      },
+      {
+        "name": "algorithm",
+        "type": "string"
+      },
+      {
+        "name": "alpha",
+        "type": "float"
+      },
+      {
+        "name": "gamma",
+        "type": "float"
+      },
+      {
+        "name": "epsilon",
+        "type": "float"
+      },
+      {
+        "name": "initialQ",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

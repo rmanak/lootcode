@@ -1,0 +1,84 @@
+{
+  "slug": "idempotency-key-retries",
+  "title": "Idempotency Keys: Safe Retries for a Payments API",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "design",
+    "hash-table"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "kind": "class",
+  "class": {
+    "name": "IdempotentLedger",
+    "constructor": {
+      "params": [
+        {
+          "name": "ttl",
+          "type": "int"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "charge",
+        "params": [
+          {
+            "name": "key",
+            "type": "string"
+          },
+          {
+            "name": "account",
+            "type": "string"
+          },
+          {
+            "name": "amount",
+            "type": "int"
+          },
+          {
+            "name": "now",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "any[]"
+        }
+      },
+      {
+        "name": "balance",
+        "params": [
+          {
+            "name": "account",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "int"
+        }
+      },
+      {
+        "name": "failNext",
+        "params": [
+          {
+            "name": "mode",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      }
+    ]
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,45 @@
+{
+  "slug": "rotary-position-embedding",
+  "title": "Rotary Position Embedding (RoPE)",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "applyRope",
+    "params": [
+      {
+        "name": "x",
+        "type": "float[][]"
+      },
+      {
+        "name": "positions",
+        "type": "int[]"
+      },
+      {
+        "name": "base",
+        "type": "float"
+      },
+      {
+        "name": "style",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "float[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

@@ -1,0 +1,33 @@
+{
+  "slug": "merge-partial-softmax-blocks",
+  "title": "Flash Attention: Merge Partial Softmax Blocks",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "mergeSoftmaxBlocks",
+    "params": [
+      {
+        "name": "queries",
+        "type": "any[][][]"
+      }
+    ],
+    "returns": {
+      "type": "any[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

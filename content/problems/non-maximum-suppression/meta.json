@@ -1,0 +1,40 @@
+{
+  "slug": "non-maximum-suppression",
+  "title": "Non-Maximum Suppression",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "nonMaxSuppression",
+    "params": [
+      {
+        "name": "boxes",
+        "type": "float[][]"
+      },
+      {
+        "name": "scores",
+        "type": "float[]"
+      },
+      {
+        "name": "iouThreshold",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

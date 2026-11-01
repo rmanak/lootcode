@@ -1,0 +1,37 @@
+{
+  "slug": "int8-affine-quantization",
+  "title": "Int8 Affine Quantization",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "quantizeInt8",
+    "params": [
+      {
+        "name": "calibration",
+        "type": "float[]"
+      },
+      {
+        "name": "x",
+        "type": "float[]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

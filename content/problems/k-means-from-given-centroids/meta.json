@@ -1,0 +1,45 @@
+{
+  "slug": "k-means-from-given-centroids",
+  "title": "K-Means from Given Centroids",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning"
+  ],
+  "hints": [
+    "Build all point-to-centroid squared distances at once as an N×K array via broadcasting, then reduce along the centroid axis to label every point.",
+    "Keep the previous labels so you can detect an assignment that changes nothing, and return the labels the final centroids were averaged from.",
+    "argmin already breaks ties toward the lowest index. The trap is averaging an empty selection: it gives nan, not the old centroid."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "kMeans",
+    "params": [
+      {
+        "name": "points",
+        "type": "float[][]"
+      },
+      {
+        "name": "initialCentroids",
+        "type": "float[][]"
+      },
+      {
+        "name": "maxIters",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

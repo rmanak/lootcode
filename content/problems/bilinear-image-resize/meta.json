@@ -1,0 +1,45 @@
+{
+  "slug": "bilinear-image-resize",
+  "title": "Bilinear Image Resize",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "resizeBilinear",
+    "params": [
+      {
+        "name": "image",
+        "type": "float[][]"
+      },
+      {
+        "name": "outHeight",
+        "type": "int"
+      },
+      {
+        "name": "outWidth",
+        "type": "int"
+      },
+      {
+        "name": "alignCorners",
+        "type": "bool"
+      }
+    ],
+    "returns": {
+      "type": "float[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

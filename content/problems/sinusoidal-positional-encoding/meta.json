@@ -1,0 +1,41 @@
+{
+  "slug": "sinusoidal-positional-encoding",
+  "title": "Sinusoidal Positional Encoding",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "positionalEncoding",
+    "params": [
+      {
+        "name": "positions",
+        "type": "int[]"
+      },
+      {
+        "name": "d",
+        "type": "int"
+      },
+      {
+        "name": "base",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "float[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

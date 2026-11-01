@@ -1,0 +1,44 @@
+{
+  "slug": "multinomial-naive-bayes",
+  "title": "Multinomial Naive Bayes",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "multinomialNB",
+    "params": [
+      {
+        "name": "trainX",
+        "type": "int[][]"
+      },
+      {
+        "name": "trainY",
+        "type": "int[]"
+      },
+      {
+        "name": "testX",
+        "type": "int[][]"
+      },
+      {
+        "name": "alpha",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

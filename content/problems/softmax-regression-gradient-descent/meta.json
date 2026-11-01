@@ -1,0 +1,48 @@
+{
+  "slug": "softmax-regression-gradient-descent",
+  "title": "Softmax Regression by Gradient Descent",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "softmaxRegressionGD",
+    "params": [
+      {
+        "name": "X",
+        "type": "float[][]"
+      },
+      {
+        "name": "y",
+        "type": "int[]"
+      },
+      {
+        "name": "numClasses",
+        "type": "int"
+      },
+      {
+        "name": "lr",
+        "type": "float"
+      },
+      {
+        "name": "steps",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

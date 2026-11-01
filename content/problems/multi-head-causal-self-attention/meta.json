@@ -1,0 +1,52 @@
+{
+  "slug": "multi-head-causal-self-attention",
+  "title": "Multi-Head Causal Self-Attention",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "multiHeadSelfAttention",
+    "params": [
+      {
+        "name": "X",
+        "type": "float[][]"
+      },
+      {
+        "name": "Wq",
+        "type": "float[][]"
+      },
+      {
+        "name": "Wk",
+        "type": "float[][]"
+      },
+      {
+        "name": "Wv",
+        "type": "float[][]"
+      },
+      {
+        "name": "Wo",
+        "type": "float[][]"
+      },
+      {
+        "name": "numHeads",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "float[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

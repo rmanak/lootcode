@@ -1,0 +1,38 @@
+{
+  "slug": "covariance-and-correlation",
+  "title": "Covariance and Correlation Matrices",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "matrix",
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "covarianceAndCorrelation",
+    "params": [
+      {
+        "name": "X",
+        "type": "float[][]"
+      },
+      {
+        "name": "ddof",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "float[][][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

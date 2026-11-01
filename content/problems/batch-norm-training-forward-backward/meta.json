@@ -1,0 +1,61 @@
+{
+  "slug": "batch-norm-training-forward-backward",
+  "title": "Batch Norm: Training Forward and Backward",
+  "difficulty": "hard",
+  "tags": [
+    "machine-learning",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "batchNormTrain",
+    "params": [
+      {
+        "name": "x",
+        "type": "float[][]"
+      },
+      {
+        "name": "gamma",
+        "type": "float[]"
+      },
+      {
+        "name": "beta",
+        "type": "float[]"
+      },
+      {
+        "name": "dy",
+        "type": "float[][]"
+      },
+      {
+        "name": "eps",
+        "type": "float"
+      },
+      {
+        "name": "runningMean",
+        "type": "float[]"
+      },
+      {
+        "name": "runningVar",
+        "type": "float[]"
+      },
+      {
+        "name": "momentum",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

@@ -1,0 +1,40 @@
+{
+  "slug": "multiclass-precision-recall-f1",
+  "title": "Multiclass Precision, Recall and F1",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "multiclassReport",
+    "params": [
+      {
+        "name": "yTrue",
+        "type": "int[]"
+      },
+      {
+        "name": "yPred",
+        "type": "int[]"
+      },
+      {
+        "name": "numClasses",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

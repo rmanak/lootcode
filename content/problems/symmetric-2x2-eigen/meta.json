@@ -1,0 +1,34 @@
+{
+  "slug": "symmetric-2x2-eigen",
+  "title": "Eigen-Decomposition of a Symmetric 2x2 Matrix",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "matrix",
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "symmetricEigen2x2",
+    "params": [
+      {
+        "name": "matrices",
+        "type": "float[][][]"
+      }
+    ],
+    "returns": {
+      "type": "any[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

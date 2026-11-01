@@ -1,0 +1,53 @@
+{
+  "slug": "matrix-factorization-gradient-descent",
+  "title": "Matrix Factorization by Gradient Descent",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "matrixFactorizationGD",
+    "params": [
+      {
+        "name": "ratings",
+        "type": "any[][]"
+      },
+      {
+        "name": "U",
+        "type": "float[][]"
+      },
+      {
+        "name": "V",
+        "type": "float[][]"
+      },
+      {
+        "name": "lr",
+        "type": "float"
+      },
+      {
+        "name": "reg",
+        "type": "float"
+      },
+      {
+        "name": "steps",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

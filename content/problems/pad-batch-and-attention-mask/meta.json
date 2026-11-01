@@ -1,0 +1,45 @@
+{
+  "slug": "pad-batch-and-attention-mask",
+  "title": "Pad a Batch and Build Its Attention Masks",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "array"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "padBatch",
+    "params": [
+      {
+        "name": "sequences",
+        "type": "int[][]"
+      },
+      {
+        "name": "padId",
+        "type": "int"
+      },
+      {
+        "name": "side",
+        "type": "string"
+      },
+      {
+        "name": "padToMultipleOf",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

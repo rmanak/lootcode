@@ -1,0 +1,57 @@
+{
+  "slug": "grpo-clipped-objective",
+  "title": "GRPO: Group Advantages and the Clipped Objective",
+  "difficulty": "hard",
+  "tags": [
+    "machine-learning",
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "grpoLoss",
+    "params": [
+      {
+        "name": "rewards",
+        "type": "float[][]"
+      },
+      {
+        "name": "newLogps",
+        "type": "float[][]"
+      },
+      {
+        "name": "oldLogps",
+        "type": "float[][]"
+      },
+      {
+        "name": "refLogps",
+        "type": "float[][]"
+      },
+      {
+        "name": "clipEps",
+        "type": "float"
+      },
+      {
+        "name": "beta",
+        "type": "float"
+      },
+      {
+        "name": "aggregation",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

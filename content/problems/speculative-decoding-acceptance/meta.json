@@ -1,0 +1,49 @@
+{
+  "slug": "speculative-decoding-acceptance",
+  "title": "Speculative Decoding: Accept, Reject, Resample",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "simulation"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "speculativeStep",
+    "params": [
+      {
+        "name": "draftTokens",
+        "type": "int[]"
+      },
+      {
+        "name": "draftProbs",
+        "type": "float[][]"
+      },
+      {
+        "name": "targetProbs",
+        "type": "float[][]"
+      },
+      {
+        "name": "u",
+        "type": "float[]"
+      },
+      {
+        "name": "uSample",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

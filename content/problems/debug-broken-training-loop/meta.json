@@ -1,0 +1,61 @@
+{
+  "slug": "debug-broken-training-loop",
+  "title": "Debug a Broken Training Loop",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "trainLogistic",
+    "params": [
+      {
+        "name": "X",
+        "type": "float[][]"
+      },
+      {
+        "name": "y",
+        "type": "int[]"
+      },
+      {
+        "name": "epochs",
+        "type": "int"
+      },
+      {
+        "name": "batchSize",
+        "type": "int"
+      },
+      {
+        "name": "lr",
+        "type": "float"
+      },
+      {
+        "name": "lrDecay",
+        "type": "float"
+      },
+      {
+        "name": "l2",
+        "type": "float"
+      },
+      {
+        "name": "permutations",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

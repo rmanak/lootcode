@@ -1,0 +1,44 @@
+{
+  "slug": "linear-regression-gradient-descent",
+  "title": "Linear Regression by Gradient Descent",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "linearRegressionGD",
+    "params": [
+      {
+        "name": "X",
+        "type": "float[][]"
+      },
+      {
+        "name": "y",
+        "type": "float[]"
+      },
+      {
+        "name": "lr",
+        "type": "float"
+      },
+      {
+        "name": "steps",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

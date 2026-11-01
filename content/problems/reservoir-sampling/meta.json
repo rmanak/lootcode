@@ -1,0 +1,58 @@
+{
+  "slug": "reservoir-sampling",
+  "title": "Reservoir Sampling",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "design"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "kind": "class",
+  "class": {
+    "name": "ReservoirSampler",
+    "constructor": {
+      "params": [
+        {
+          "name": "k",
+          "type": "int"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "add",
+        "params": [
+          {
+            "name": "item",
+            "type": "int"
+          },
+          {
+            "name": "u",
+            "type": "float"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "sample",
+        "params": [],
+        "returns": {
+          "type": "int[]"
+        }
+      }
+    ]
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

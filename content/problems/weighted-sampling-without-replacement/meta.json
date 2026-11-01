@@ -1,0 +1,41 @@
+{
+  "slug": "weighted-sampling-without-replacement",
+  "title": "Weighted Sampling Without Replacement",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "weightedSample",
+    "params": [
+      {
+        "name": "weights",
+        "type": "float[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      },
+      {
+        "name": "u",
+        "type": "float[]"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

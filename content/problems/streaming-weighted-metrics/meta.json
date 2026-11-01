@@ -1,0 +1,69 @@
+{
+  "slug": "streaming-weighted-metrics",
+  "title": "Streaming Weighted Metrics",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "design"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "kind": "class",
+  "class": {
+    "name": "WeightedMetrics",
+    "constructor": {
+      "params": [
+        {
+          "name": "threshold",
+          "type": "float"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "update",
+        "params": [
+          {
+            "name": "scores",
+            "type": "float[]"
+          },
+          {
+            "name": "labels",
+            "type": "int[]"
+          },
+          {
+            "name": "weights",
+            "type": "float[]"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "result",
+        "params": [],
+        "returns": {
+          "type": "float[]"
+        }
+      },
+      {
+        "name": "reset",
+        "params": [],
+        "returns": {
+          "type": "void"
+        }
+      }
+    ]
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

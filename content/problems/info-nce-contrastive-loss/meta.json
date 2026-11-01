@@ -1,0 +1,41 @@
+{
+  "slug": "info-nce-contrastive-loss",
+  "title": "InfoNCE Contrastive Loss (CLIP)",
+  "difficulty": "hard",
+  "tags": [
+    "machine-learning",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "infoNCE",
+    "params": [
+      {
+        "name": "U",
+        "type": "float[][]"
+      },
+      {
+        "name": "V",
+        "type": "float[][]"
+      },
+      {
+        "name": "temperature",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

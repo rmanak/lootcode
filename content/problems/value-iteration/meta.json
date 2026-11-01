@@ -1,0 +1,45 @@
+{
+  "slug": "value-iteration",
+  "title": "Value Iteration for an MDP",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "dynamic-programming"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "valueIteration",
+    "params": [
+      {
+        "name": "transitions",
+        "type": "any[]"
+      },
+      {
+        "name": "gamma",
+        "type": "float"
+      },
+      {
+        "name": "theta",
+        "type": "float"
+      },
+      {
+        "name": "maxIterations",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

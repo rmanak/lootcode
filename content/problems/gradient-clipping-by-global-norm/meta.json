@@ -1,0 +1,37 @@
+{
+  "slug": "gradient-clipping-by-global-norm",
+  "title": "Gradient Clipping by Global Norm",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "clipGradients",
+    "params": [
+      {
+        "name": "grads",
+        "type": "float[][]"
+      },
+      {
+        "name": "maxNorm",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

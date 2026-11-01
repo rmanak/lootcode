@@ -1,0 +1,40 @@
+{
+  "slug": "stratified-k-fold-indices",
+  "title": "Stratified K-Fold Split",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "stratifiedKFold",
+    "params": [
+      {
+        "name": "labels",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      },
+      {
+        "name": "perm",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "int[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

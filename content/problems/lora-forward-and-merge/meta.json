@@ -1,0 +1,53 @@
+{
+  "slug": "lora-forward-and-merge",
+  "title": "LoRA: Forward Pass and Weight Merge",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "loraForward",
+    "params": [
+      {
+        "name": "X",
+        "type": "float[][]"
+      },
+      {
+        "name": "W",
+        "type": "float[][]"
+      },
+      {
+        "name": "A",
+        "type": "float[][]"
+      },
+      {
+        "name": "B",
+        "type": "float[][]"
+      },
+      {
+        "name": "alpha",
+        "type": "float"
+      },
+      {
+        "name": "useRsLora",
+        "type": "bool"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

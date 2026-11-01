@@ -1,0 +1,49 @@
+{
+  "slug": "conv2d-stride-padding",
+  "title": "2-D Convolution with Stride and Padding",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "conv2d",
+    "params": [
+      {
+        "name": "x",
+        "type": "float[][][]"
+      },
+      {
+        "name": "weight",
+        "type": "any[]"
+      },
+      {
+        "name": "bias",
+        "type": "float[]"
+      },
+      {
+        "name": "stride",
+        "type": "int"
+      },
+      {
+        "name": "padding",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "float[][][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

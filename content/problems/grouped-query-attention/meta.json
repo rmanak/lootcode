@@ -1,0 +1,57 @@
+{
+  "slug": "grouped-query-attention",
+  "title": "Grouped-Query Attention",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "groupedQueryAttention",
+    "params": [
+      {
+        "name": "X",
+        "type": "float[][]"
+      },
+      {
+        "name": "Wq",
+        "type": "float[][]"
+      },
+      {
+        "name": "Wk",
+        "type": "float[][]"
+      },
+      {
+        "name": "Wv",
+        "type": "float[][]"
+      },
+      {
+        "name": "Wo",
+        "type": "float[][]"
+      },
+      {
+        "name": "numHeads",
+        "type": "int"
+      },
+      {
+        "name": "numKvHeads",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "float[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

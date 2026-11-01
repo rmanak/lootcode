@@ -1,0 +1,79 @@
+{
+  "slug": "kv-cache-attention",
+  "title": "KV Cache Attention",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "design"
+  ],
+  "hints": [
+    "Attention ignores the order of the entries, so all the class must track is which entries are currently inside the window.",
+    "Preallocate fixed-size key and value arrays and overwrite slots in a cycle; a running count tells you both the next slot and the current size.",
+    "Scores can reach tens of thousands. Softmax is unchanged by subtracting one constant from every score, so pick the constant that keeps every exponent non-positive."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "kind": "class",
+  "class": {
+    "name": "KVCache",
+    "constructor": {
+      "params": [
+        {
+          "name": "dim",
+          "type": "int"
+        },
+        {
+          "name": "maxLen",
+          "type": "int"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "append",
+        "params": [
+          {
+            "name": "key",
+            "type": "float[]"
+          },
+          {
+            "name": "value",
+            "type": "float[]"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "attend",
+        "params": [
+          {
+            "name": "query",
+            "type": "float[]"
+          }
+        ],
+        "returns": {
+          "type": "float[]"
+        }
+      },
+      {
+        "name": "size",
+        "params": [],
+        "returns": {
+          "type": "int"
+        }
+      }
+    ]
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}
