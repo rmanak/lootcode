@@ -708,8 +708,8 @@ Committed as four commits: ML infra (numpy sandbox, `close` compare,
 `machine-learning` tag, docs), KaTeX math rendering, the 69 problems + the
 `ml-coding` collection, and the 🤖 ML Coding link in the top nav. The
 "Not part of it" files below were handled separately: `house-robber-iii` was
-committed on its own and `ml_problems.txt` is gitignored (owner, 2026-11-01);
-the two big `cases.json` edits and the `.bak` are still uncommitted. The plan
+committed on its own, the two big `cases.json` edits were committed as test
+hardening, and `ml_problems.txt` is gitignored (owner, 2026-11-01). The plan
 as written:
 
 Stage **explicitly**, never `git add -A` / `commit -a` (CLAUDE.md). These belong
