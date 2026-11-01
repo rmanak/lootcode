@@ -50,6 +50,8 @@ Thumbs.db
 /problemset3.txt
 /coding_exercise_examples.txt
 /new.txt
+# ML coding problem brief; the authored problems are the ml-coding collection.
+/ml_problems.txt
 # ICF (icf/) problem briefs — crib notes and statements from the web; the
 # authored problems live in icf/problems/. See icf/docs/problem-format.md.
 /icf.txt

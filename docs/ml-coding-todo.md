@@ -31,8 +31,7 @@ the "Machine-learning problems" section of `specs/problem-authoring-guidelines.m
   returns (`harness._snapshot`); see item 2, Wave A notes. The
   `executor-security-reviewer` result is recorded there.
 
-**Committed 2026-11-01** (see item 5). The three pre-existing edits listed
-there were left out on purpose and are still uncommitted.
+**Committed 2026-11-01** (see item 5).
 
 ---
 
@@ -708,7 +707,10 @@ These are low severity and **predate** this work. Each one touches
 Committed as four commits: ML infra (numpy sandbox, `close` compare,
 `machine-learning` tag, docs), KaTeX math rendering, the 69 problems + the
 `ml-coding` collection, and the 🤖 ML Coding link in the top nav. The
-"Not part of it" files below were not committed. The plan as written:
+"Not part of it" files below were handled separately: `house-robber-iii` was
+committed on its own and `ml_problems.txt` is gitignored (owner, 2026-11-01);
+the two big `cases.json` edits and the `.bak` are still uncommitted. The plan
+as written:
 
 Stage **explicitly**, never `git add -A` / `commit -a` (CLAUDE.md). These belong
 to this work:
