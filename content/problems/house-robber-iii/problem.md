@@ -1,14 +1,40 @@
-> **Format:** your function works with `TreeNode` objects (`value`, `left`, `right`); `None` is an empty tree. Trees are shown below in LeetCode **level-order array** form (`null` = missing child; trailing `null`s dropped).
+> **Format:** your function receives the root of the tree as a `TreeNode` (`value`, `left`, `right`). The examples draw each tree. The grey line under a drawing is the same tree in level-order form (`null` = missing child), which is how the tests store it.
 
-Houses form a binary tree, given as a `TreeNode` (`null`/`None`
-marks a missing child). The alarm triggers if two
-**directly-linked** houses (a parent and its child) are both robbed. Return the
-maximum total amount that can be robbed without alerting the police.
+A thief has found a new neighborhood to rob. It has a single entrance, the house
+at `root`, and every other house has exactly one parent house, so the houses form
+a **binary tree**. Each house holds `node.value` dollars.
 
-**Examples**
-```
-root = [3,2,3,null,3,null,1]   ->  7   (3 + 3 + 1)
-root = [3,4,5,1,3,null,1]      ->  9   (4 + 5)
-```
+The houses share an alarm system: if two **directly-linked** houses (a parent and
+its child) are both robbed on the same night, the police are called. Houses that
+are not linked, such as two siblings or a grandparent and a grandchild, can be
+robbed together.
 
-**Constraints:** `1 <= number of nodes <= 10^4`, `0 <= node value <= 10^4`.
+Return **the maximum amount of money the thief can rob without alerting the
+police**.
+
+## Examples
+
+**Example 1**
+
+![Example 1: rob the root 3 and the two bottom houses 3 and 1, for 7](/problems/house-robber-iii/assets/example-1.svg)
+
+- **Output:** `7`
+- **Explanation:** Rob the root `3` and the two bottom houses `3` and `1`. No two of them are linked, so the total is 3 + 3 + 1 = 7.
+
+**Example 2**
+
+![Example 2: rob the root's two children 4 and 5, for 9](/problems/house-robber-iii/assets/example-2.svg)
+
+- **Output:** `9`
+- **Explanation:** Rob the root's children `4` and `5`. Robbing the root instead rules both of them out, and the best total is then 3 + 1 + 3 + 1 = 8.
+
+**Example 3**
+
+![Example 3: rob 3 and 4, which sit on different levels, for 7](/problems/house-robber-iii/assets/example-3.svg)
+
+- **Output:** `7`
+- **Explanation:** Rob `3` and `4`. They are on different levels, which is fine because they are not linked. Taking whole alternate levels gives only 2 + 4 = 6 or 1 + 3 = 4.
+
+## Constraints
+- The number of nodes is in the range `[1, 10^4]`.
+- `0 <= node.value <= 10^4`

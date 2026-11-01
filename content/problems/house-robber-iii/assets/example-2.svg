@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 316 282" width="316" height="282" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <title>Example 2: rob the two children 4 and 5 for 9</title>
+  <g transform="translate(107,20) scale(0.5)"><polygon points="0,-21 23,-2 17,-2 17,21 -17,21 -17,-2 -23,-2" fill="#d6efea" stroke="#0f766e" stroke-width="2" stroke-linejoin="round"/></g>
+  <text x="125" y="23" fill="#0f766e" font-size="14" font-weight="700">rob 4 + 5 = 9</text>
+  <line x1="158" y1="74" x2="88" y2="148" stroke="#b9b4a8" stroke-width="2"/>
+  <line x1="158" y1="74" x2="228" y2="148" stroke="#b9b4a8" stroke-width="2"/>
+  <line x1="88" y1="148" x2="53" y2="222" stroke="#b9b4a8" stroke-width="2"/>
+  <line x1="88" y1="148" x2="123" y2="222" stroke="#b9b4a8" stroke-width="2"/>
+  <line x1="228" y1="148" x2="263" y2="222" stroke="#b9b4a8" stroke-width="2"/>
+  <polygon points="158.0,49 181.0,68 175.0,68 175.0,91 141.0,91 141.0,68 135.0,68" fill="#fff" stroke="#1f2430" stroke-width="2" stroke-linejoin="round"/><text x="158" y="80" fill="#1f2430" font-size="15" font-weight="700" text-anchor="middle" dominant-baseline="central">3</text>
+  <polygon points="88.0,123 111.0,142 105.0,142 105.0,165 71.0,165 71.0,142 65.0,142" fill="#d6efea" stroke="#0f766e" stroke-width="2" stroke-linejoin="round"/><text x="88" y="154" fill="#0f766e" font-size="15" font-weight="700" text-anchor="middle" dominant-baseline="central">4</text>
+  <polygon points="228.0,123 251.0,142 245.0,142 245.0,165 211.0,165 211.0,142 205.0,142" fill="#d6efea" stroke="#0f766e" stroke-width="2" stroke-linejoin="round"/><text x="228" y="154" fill="#0f766e" font-size="15" font-weight="700" text-anchor="middle" dominant-baseline="central">5</text>
+  <polygon points="53.0,197 76.0,216 70.0,216 70.0,239 36.0,239 36.0,216 30.0,216" fill="#fff" stroke="#1f2430" stroke-width="2" stroke-linejoin="round"/><text x="53" y="228" fill="#1f2430" font-size="15" font-weight="700" text-anchor="middle" dominant-baseline="central">1</text>
+  <polygon points="123.0,197 146.0,216 140.0,216 140.0,239 106.0,239 106.0,216 100.0,216" fill="#fff" stroke="#1f2430" stroke-width="2" stroke-linejoin="round"/><text x="123" y="228" fill="#1f2430" font-size="15" font-weight="700" text-anchor="middle" dominant-baseline="central">3</text>
+  <polygon points="263.0,197 286.0,216 280.0,216 280.0,239 246.0,239 246.0,216 240.0,216" fill="#fff" stroke="#1f2430" stroke-width="2" stroke-linejoin="round"/><text x="263" y="228" fill="#1f2430" font-size="15" font-weight="700" text-anchor="middle" dominant-baseline="central">1</text>
+  <text x="158" y="270" fill="#6b7280" font-size="12" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">root = [3,4,5,1,3,null,1]</text>
+</svg>
