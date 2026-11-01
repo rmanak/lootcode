@@ -5,6 +5,9 @@ jinja2>=3.1
 sqlalchemy>=2.0
 python-multipart>=0.0.9
 markdown>=3.6
+# Math in statements: arithmatex lifts $…$ / $$…$$ out before Markdown can
+# mangle it, and the vendored KaTeX typesets it (docs/math-in-statements.md).
+pymdown-extensions>=10.0
 python-dotenv>=1.0
 # Importable by submitted solutions (machine-learning problems). The subprocess
 # executor runs submissions with this same interpreter, and the docker runner

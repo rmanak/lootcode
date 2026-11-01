@@ -13,8 +13,23 @@ from .extensions import REGISTRY
 templates = Jinja2Templates(directory=str(settings.TEMPLATES_DIR))
 
 
-def _render_markdown(text: str | None) -> str:
-    return _md.markdown(text or "", extensions=["fenced_code", "tables", "sane_lists"])
+_MD_EXTENSIONS = ["fenced_code", "tables", "sane_lists", "pymdownx.arithmatex"]
+_MD_CONFIG = {
+    # `generic` emits <span class="arithmatex">\(…\)</span> (inline) and
+    # <div class="arithmatex">\[…\]</div> (display) for static/math.js to hand to
+    # KaTeX, instead of MathJax <script> tags. The math is lifted out before
+    # Markdown runs, so `_`, `*` and `\{` inside a formula survive intact, and
+    # its text is HTML-escaped. `smart_dollar` (the default) only pairs a `$`
+    # that hugs its content, so prose like "buy for $1, sell for $9" stays text.
+    # See docs/math-in-statements.md.
+    "pymdownx.arithmatex": {"generic": True, "smart_dollar": True},
+}
+
+
+def render_markdown(text: str | None) -> str:
+    """Render statement Markdown to HTML, with math lifted out for KaTeX."""
+    return _md.markdown(text or "", extensions=_MD_EXTENSIONS,
+                        extension_configs=_MD_CONFIG)
 
 
 def _local_dt(dt: datetime | None, tz: tzinfo, fmt: str = "%Y-%m-%d %H:%M") -> str:
@@ -43,7 +58,7 @@ def _static_url(path: str) -> str:
     return f"/static/{path}?v={version}"
 
 
-templates.env.filters["markdown"] = _render_markdown
+templates.env.filters["markdown"] = render_markdown
 templates.env.filters["localdt"] = _local_dt
 templates.env.globals["app_name"] = settings.APP_NAME
 # Live object, not a snapshot: extensions register during startup, after this

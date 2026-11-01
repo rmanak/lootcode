@@ -15,7 +15,7 @@ JOBS    ?= $(shell nproc 2>/dev/null || echo 8)
 EXTENSIONS := $(wildcard icf)
 
 .PHONY: help install hooks seed dev run test test-fast test-cov lint lint-fix \
-        format typecheck audit verify validators db-check check check-bank \
+        format typecheck audit verify validators math db-check check check-bank \
         icf-verify docker clean
 
 help:           ## list the targets
@@ -75,6 +75,9 @@ db-check:       ## assert the local database is physically intact
 validators:     ## assert every stored test input satisfies its validate_input()
 	$(PY) scripts/check_constraint_validators.py
 
+math:           ## every $…$ / $$…$$ in a statement parses in the vendored KaTeX (needs node; skips without)
+	$(PY) scripts/check_math.py
+
 icf-verify:     ## ICF extension: every canonical passes every level (no-op if absent)
 ifneq ($(EXTENSIONS),)
 	$(PY) icf/scripts/verify_icf.py
@@ -103,10 +106,11 @@ check:  ## everything (deduplicated + parallel); serial output with -j1
 	@$(MAKE) --no-print-directory lint typecheck
 	@$(MAKE) --no-print-directory -j2 test check-bank
 
-check-bank:     ## the bank half of `check`: db -> seed -> audit -> verify -> validators
+check-bank:     ## the bank half of `check`: db -> seed -> audit -> math -> verify -> validators
 	@$(PY) scripts/check_db.py
 	@$(PY) scripts/seed.py --no-verify
 	@$(PY) scripts/audit.py --skip-canonical -q
+	@$(PY) scripts/check_math.py
 	@$(PY) scripts/verify_bank.py -j $(JOBS) -q
 	@$(PY) scripts/check_constraint_validators.py
 	@$(MAKE) --no-print-directory icf-verify

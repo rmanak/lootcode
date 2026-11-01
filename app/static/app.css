@@ -355,6 +355,13 @@ a.topic:hover { color: var(--primary); border-color: var(--primary); background:
 .statement .md pre code { background: none; padding: 0; }
 .statement .md img { display: block; max-width: 100%; height: auto; margin: 14px 0;
   background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
+/* Math (KaTeX, via static/math.js). Not scoped to .statement: any rendered
+   Markdown can carry it (ICF statements too). A wide display equation scrolls
+   inside its own box instead of widening the panel. */
+.md .katex { font-size: 1.1em; }
+.md div.arithmatex { overflow-x: auto; overflow-y: hidden; margin: 12px 0;
+  padding: 2px 0; }
+.md div.arithmatex .katex-display { margin: 0; }
 .limits { font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--border);
   padding-top: 10px; margin-top: 14px; }
 .provided-types { margin: 10px 0 4px; }

@@ -6,6 +6,13 @@
   <title>{% block title %}{{ app_name }}{% endblock %}</title>
   <link rel="icon" type="image/svg+xml" href="{{ static('favicon.svg') }}">
   <link rel="stylesheet" href="{{ static('app.css') }}">
+  {# Math in statements ($…$ / $$…$$): KaTeX, vendored so a LAN install needs
+     no CDN. Fonts load only when a page actually shows math. `defer` keeps both
+     scripts off the critical path and runs them in order, before
+     DOMContentLoaded. See docs/math-in-statements.md. #}
+  <link rel="stylesheet" href="{{ static('vendor/katex/katex.min.css') }}">
+  <script defer src="{{ static('vendor/katex/katex.min.js') }}"></script>
+  <script defer src="{{ static('math.js') }}"></script>
   <script>
     // Tell the server our timezone so per-day stats (the weekly grid) bucket
     // solves by the user's local day, not UTC. Runs once per browser; reloads
