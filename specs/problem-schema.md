@@ -15,7 +15,7 @@ How a coding problem is defined on disk. The canonical example is
 
 ```
 content/problems/<slug>/
-├── problem.md                  # statement (Markdown)
+├── problem.md                  # statement (Markdown; LaTeX math in $…$ / $$…$$ — docs/math-in-statements.md)
 ├── meta.json                   # metadata (below)
 ├── tests/
 │   └── cases.json              # test cases (visible + hidden)
@@ -43,7 +43,10 @@ The harness calls it once per test as `twoSum(**input)` and compares the return
 value to the test's `expected` using the problem's `compare` mode (see below).
 Return values must be JSON-serializable — **except** for parameters/returns
 declared as a rich type (see "Rich types" below), where the harness converts
-between the JSON wire form and a real object for you.
+between the JSON wire form and a real object for you, and for **numpy** arrays
+and scalars (anything with a `.tolist()`), which the harness converts to plain
+lists and numbers before grading. numpy is importable in the sandbox, but only
+`machine-learning` problems may rely on it.
 
 > The no-class-wrapper rule applies to ordinary (`kind: "function"`) problems.
 > **Stateful "design" problems** (`kind: "class"`) instead ask the solver to
@@ -71,7 +74,7 @@ between the JSON wire form and a real object for you.
     "returns": { "type": "int[]" }
   },
   "scoring": { "type": "weighted", "points": 100 },
-  "compare": "exact"                  // exact | unordered | set_of_lists
+  "compare": "exact"                  // exact | unordered | set_of_lists | close
 }
 ```
 
@@ -154,6 +157,7 @@ statement promises:
 | `exact` (default) | structural equality; order matters | requires a specific order, or returns a scalar / a sequence whose order is meaningful (sorted lists, linked-list order, positional arrays). |
 | `unordered` | the returned **list** is a multiset (top-level order ignored; elements compared exactly) | says the elements may be returned **in any order** — e.g. Two Sum's index pair, "return the cells in any order". |
 | `set_of_lists` | list of lists; outer order **and** each inner list's order are ignored | the answer is a collection of groups/tuples where neither the group order nor the order within a group matters — e.g. 3Sum, Combination Sum, Group Anagrams. |
+| `close` | like `exact` (lists position by position, dicts by key), but when either side is a **float** the two numbers match when `math.isclose(a, b, rel_tol=1e-6, abs_tol=1e-9)`; two ints still compare exactly (a label or a count is never "nearly right"); `NaN` never matches; bools, strings and `null` compare as in `exact` | the answer is (or contains) floats — a probability, a loss and its gradient, trained weights — and the statement says answers within that tolerance are accepted. Prefer it to "return the value rounded to 5 decimals". Tolerances: `CLOSE_REL_TOL` / `CLOSE_ABS_TOL` in `app/executor/__init__.py`. |
 
 > If the answer is genuinely non-unique (e.g. "return *any* longest palindrome"),
 > either pin it in the statement (e.g. "the one starting at the smallest index")

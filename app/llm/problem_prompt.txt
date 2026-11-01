@@ -65,18 +65,19 @@ Fields common to BOTH kinds:
 
   "tags"               array of 1-4 lowercase topic strings describing the core
                        technique/structure. Use ONLY this canonical vocabulary
-                       (44 tags):
+                       (45 tags):
                          array, backtracking, binary-indexed-tree, binary-search,
                          binary-search-tree, binary-tree, bit-manipulation,
                          bitmask, breadth-first-search, combinatorics, counting,
                          depth-first-search, design, divide-and-conquer,
                          dynamic-programming, geometry, graph, greedy,
-                         hash-function, hash-table, heap, linked-list, math,
-                         matrix, memoization, monotonic-stack, number-theory,
-                         ordered-set, prefix-sum, queue, recursion, segment-tree,
-                         shortest-path, simulation, sliding-window, sorting,
-                         stack, string, suffix-array, topological-sort, tree,
-                         trie, two-pointers, union-find.
+                         hash-function, hash-table, heap, linked-list,
+                         machine-learning, math, matrix, memoization,
+                         monotonic-stack, number-theory, ordered-set, prefix-sum,
+                         queue, recursion, segment-tree, shortest-path,
+                         simulation, sliding-window, sorting, stack, string,
+                         suffix-array, topological-sort, tree, trie,
+                         two-pointers, union-find.
                        Do NOT invent tags or use near-synonyms (use
                        "breadth-first-search" not "bfs", "queue" not
                        "monotonic-queue"). "math" is a catch-all umbrella — use it
@@ -84,7 +85,7 @@ Fields common to BOTH kinds:
                        (design) problem with "design".
 
   "compare"            string. EXACTLY one of "exact", "unordered",
-                       "set_of_lists". Declares how the grader matches output to
+                       "set_of_lists", "close". Declares how the grader matches output to
                        `expected` (see COMPARE MODES). It MUST agree with what the
                        statement promises about ordering.
 
@@ -249,6 +250,14 @@ COMPARE MODES (how "expected" is matched to the produced output)
                  groups/tuples where neither ordering matters (3Sum triplets,
                  grouped anagrams, combination sums). Every "expected" MUST be a
                  list of lists.
+
+  "close"        Like "exact" (order matters), but every FLOAT only has to match
+                 within a relative 1e-6 / absolute 1e-9 tolerance (two ints still
+                 compare exactly). Use when the
+                 answer is a float or contains floats (a probability, an average,
+                 a loss and its gradient) instead of asking the solver to round;
+                 say in the statement that answers within that tolerance are
+                 accepted.
 
 Rule of thumb: if the statement allows "any order", do NOT use "exact"; if it pins
 a single ordering, use "exact".

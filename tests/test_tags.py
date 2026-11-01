@@ -14,10 +14,10 @@ from app.tags import (
 )
 
 
-def test_vocabulary_is_forty_four_tags():
+def test_vocabulary_is_forty_five_tags():
     # Not a tautology: four other files hard-code this list (see
     # test_docs_consistency.py), and the count is quoted in CLAUDE.md.
-    assert len(CANONICAL_TAGS) == 44
+    assert len(CANONICAL_TAGS) == 45
 
 
 def test_aliases_and_dropped_never_overlap_the_vocabulary():

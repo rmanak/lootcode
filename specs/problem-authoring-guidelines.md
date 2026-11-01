@@ -39,8 +39,13 @@ Set `meta.json.compare` to the weakest mode the statement actually promises:
 - `unordered` — the returned list is a multiset; top-level order ignored.
 - `set_of_lists` — list of groups; neither the outer order nor each inner list's
   order matters (3Sum, Combination Sum, Group Anagrams).
+- `close` — like `exact`, but floats match within a relative `1e-6` / absolute
+  `1e-9` tolerance (two ints still compare exactly). Use it for float answers (or answers containing floats)
+  instead of asking the solver to round, and say in the statement that answers
+  within that tolerance are accepted.
 
-If the prose says "any order" / "any valid answer" the mode must NOT be `exact`.
+If the prose says "any order" / "any valid answer" the mode must NOT be `exact`
+(or `close`, which is just as order-sensitive).
 `scripts/audit.py` fails the build on a statement/judge mismatch, and also checks
 that a deliberately re-ordered valid answer is still accepted.
 
@@ -78,14 +83,15 @@ that a deliberately re-ordered valid answer is still accepted.
 
 - `solution/solution.py` is **complete, correct, and passes every test** within
   the time/memory limits. Use the **Python standard library only** — the sandbox
-  has no network and no third-party packages (see `docs/code-execution.md`).
+  has no network, and its one third-party package, **numpy**, is reserved for
+  `machine-learning` problems (see `docs/code-execution.md`).
 - `starters/python/solution.py` is just the signature plus a short docstring or
   `pass` — never any solution logic.
 
 ## Difficulty & tags
 
 - Keep `difficulty` honest relative to the existing problems in `content/problems/`.
-- Tags MUST come from the **canonical vocabulary** (44 tags) — see
+- Tags MUST come from the **canonical vocabulary** (45 tags) — see
   `specs/tags.md` / `app/tags.py`. Pick 1–4 that describe the core
   technique/structure. Don't coin new tags or use near-synonyms (use
   `breadth-first-search` not `bfs`, `queue` not `monotonic-queue`); `math` is a
@@ -101,7 +107,8 @@ that a deliberately re-ordered valid answer is still accepted.
      your own. -->
 
 - _(example — keep or replace)_ Solutions must rely only on the Python standard
-  library; do not assume any third-party package is importable.
+  library; do not assume any third-party package is importable (numpy is the one
+  exception, and only for `machine-learning` problems).
 - _(example)_ Prefer fresh framings over verbatim copies of famous problems.
 - **TODO(owner):** add your requirements here.
 
@@ -131,6 +138,50 @@ specifics:
 Format details and the scaffolding tool are in `specs/problem-schema.md` and
 `docs/design-problems.md`.
 
+## Machine-learning problems (authoring-time only)
+
+ML coding problems — "implement this loss and its gradient", "train this model",
+"compute this metric", the from-scratch numpy interview round — are tagged
+`machine-learning`, listed in `content/collections/ml-coding.json`, and may use
+**numpy** (the solver's statement says "numpy and the standard library"). They
+compare with `close`. The reasoning behind these rules, and an inventory of
+candidate problems, is in `docs/ml-coding-plan.md` and
+`docs/ml-coding-problem-bank.md`.
+
+- **Pin every degree of freedom**, so the answer is a function of the input:
+  initialization, learning rate, step count, the update rule, mean vs. sum, the
+  bias term, `eps`, biased vs. unbiased variance, rounding mode, tie-breaks and
+  sign conventions. "Learn the minimizer" is not gradeable — on separable data it
+  doesn't even exist — so a training problem fixes the procedure and takes the
+  hyperparameters as inputs.
+- **Randomness is an input** (initial centroids, a dropout mask, uniform draws,
+  a sample order). Never "use seed 42": the answer would depend on which RNG API
+  the solver happened to call, and in what order.
+- **Second-implementation check before publishing.** Run an independently
+  written solution with a different op order (a pure-Python loop is a good one)
+  over every case. A case on which it disagrees beyond the `close` tolerance is
+  ill-conditioned — near-ties, kinks, chaotic trajectories — so drop it.
+- **Stability cases.** If the statement says the computation must be
+  numerically stable, give it hidden cases where the naive formula overflows.
+- **Small inputs, small outputs.** Test data is JSON, and every test's returned
+  value shares one ~1 MB result budget per run.
+- **The validator enforces the statement's promises about the answer** (full
+  rank, distinct eigenvalues, no ties unless a tie rule is stated), not just
+  input ranges.
+- **Solvers may return numpy arrays and scalars**; the harness converts anything
+  with a `.tolist()` before grading. Inputs arrive as plain lists.
+- **Formulas in LaTeX**: `$…$` inline, and a `$$ … $$` block for display
+  (rendered by KaTeX; see `docs/math-in-statements.md`). Tie every symbol to the
+  argument it stands for ("$\eta$ is `lr`"), keep display math narrow (one
+  relation per line with `aligned`, never two equations side by side, notes in
+  the prose), and leave the `## Constraints` bullets and `Input:`/`Output:`
+  blocks in code as everywhere else. A literal dollar sign in prose is `\$`.
+  Keep `$$` blocks out of numbered and bulleted lists: put the formula inline,
+  or after the list. `python scripts/check_math.py` must pass. Every ML
+  statement with a formula is written this way (converted 2026-11-01).
+- **Write our own statements.** Deep-ML's problems are licensed for educational
+  use only.
+
 ## Figures (authoring-time only)
 
 Some problems read far more clearly with a diagram (matrices, trees, graphs, grid
@@ -159,6 +210,12 @@ python scripts/check_constraint_validators.py --slug <slug>   # each input must 
 ```
 
 See `docs/input-validators.md`.
+
+If the statement contains LaTeX math, every formula must parse in KaTeX:
+
+```bash
+python scripts/check_math.py <slug>   # each $…$ / $$…$$ typesets (needs node)
+```
 
 The in-app generator additionally runs every generated problem through the real
 sandbox executor before returning it, and retries once if the reference solution

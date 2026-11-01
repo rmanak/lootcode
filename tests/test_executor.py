@@ -367,6 +367,166 @@ def _assert_bank_canonical_solved(slug):
     assert run_submission(d["canonical_solution"], prob, tests).solved, slug
 
 
+# --- numpy (machine-learning problems) -------------------------------------
+def _np_problem(compare="close", return_type="float[]"):
+    return NS(function_name="f", params=[{"name": "x", "type": "float[]"}],
+              return_type=return_type, time_limit_ms=3000, memory_limit_mb=512,
+              points=100, compare=compare)
+
+
+def _np_tests(expected):
+    return [NS(name="t", input={"x": [1.0, 2.0, 3.0]}, expected=expected,
+               weight=1, hidden=False)]
+
+
+def test_numpy_imports_and_computes_under_the_default_limits():
+    # Without SINGLE_THREAD_ENV, OpenBLAS sizes a buffer per core at import and
+    # blows through RLIMIT_AS on a many-core machine: the run dies before the
+    # solution's first line, with every test reported as an error.
+    code = ("import numpy as np\n"
+            "def f(x):\n"
+            "    a = np.outer(x, x) + np.eye(len(x))\n"
+            "    return float(np.linalg.solve(a @ a, np.ones(len(x))).sum())\n")
+    graded = run_submission(code, _np_problem(return_type="float"),
+                            _np_tests(0.44))
+    assert graded.solved, [(r.status, r.error) for r in graded.results]
+
+
+def test_numpy_arrays_and_scalars_may_be_returned_as_is():
+    # `return w` is the natural ML answer; the harness converts anything with a
+    # .tolist() (array, np.float32, np.int64, a tuple holding them) to JSON data.
+    code = ("import numpy as np\n"
+            "def f(x):\n"
+            "    v = np.asarray(x)\n"
+            "    return np.float32(v.mean()), v * 2, np.int64(len(x))\n")
+    graded = run_submission(code, _np_problem(), _np_tests([2.0, [2.0, 4.0, 6.0], 3]))
+    assert graded.solved, [(r.status, r.error) for r in graded.results]
+
+
+def test_close_grades_float_noise_as_correct_end_to_end():
+    # Summing in a different order than whoever computed `expected` is correct
+    # code; `exact` fails it, `close` doesn't.
+    code = "def f(x):\n    return [0.1 + 0.2, sum(x) / 3]\n"
+    assert run_submission(code, _np_problem("close"), _np_tests([0.3, 2.0])).solved
+    assert not run_submission(code, _np_problem("exact"), _np_tests([0.3, 2.0])).solved
+
+
+def test_an_unconvertible_return_still_reports_why():
+    code = "def f(x):\n    return object()\n"
+    graded = run_submission(code, _np_problem(), _np_tests([1.0]))
+    assert graded.results[0].status == "error"
+    assert "not JSON-serializable: object" in graded.results[0].error
+
+
+def test_a_hanging_tolist_times_out_instead_of_stalling_the_run():
+    # tolist() is the solution's own code, so it runs under the per-test alarm.
+    code = ("class Evil:\n"
+            "    def tolist(self):\n"
+            "        while True:\n"
+            "            pass\n"
+            "def f(x):\n"
+            "    return Evil()\n")
+    started = time.monotonic()
+    graded = run_submission(code, _np_problem(), _np_tests([1.0]))
+    assert graded.results[0].status == "timeout"
+    assert time.monotonic() - started < 20
+
+
+def test_numpy_returns_from_a_class_problem_are_converted():
+    prob = NS(kind="class", function_name="", return_type="", params=[],
+              class_name="Acc", time_limit_ms=3000, memory_limit_mb=512, points=100,
+              compare="close",
+              class_methods=[{"name": "add", "params": [{"name": "v", "type": "float"}],
+                              "returns": {"type": "float[]"}}])
+    code = ("import numpy as np\n"
+            "class Acc:\n"
+            "    def __init__(self):\n"
+            "        self.s = np.zeros(2)\n"
+            "    def add(self, v):\n"
+            "        self.s += v\n"
+            "        return self.s.copy()\n")
+    tests = [NS(name="t", input={"operations": ["Acc", "add", "add"],
+                                 "args": [[], [0.5], [0.25]]},
+                expected=[None, [0.5, 0.5], [0.75, 0.75]], weight=1, hidden=False)]
+    graded = run_submission(code, prob, tests)
+    assert graded.solved, [(r.status, r.error) for r in graded.results]
+
+
+def test_class_outputs_are_recorded_when_each_call_returns():
+    # A method that returns its internal list / array and mutates it on a later
+    # call must still be graded on what it returned at the time (LeetCode
+    # semantics), not on the object's final state.
+    prob = NS(kind="class", function_name="", return_type="", params=[],
+              class_name="Acc", time_limit_ms=3000, memory_limit_mb=512, points=100,
+              compare="close",
+              class_methods=[{"name": "add", "params": [{"name": "v", "type": "float"}],
+                              "returns": {"type": "float[]"}},
+                             {"name": "hist", "params": [], "returns": {"type": "float[]"}}])
+    code = ("import numpy as np\n"
+            "class Acc:\n"
+            "    def __init__(self):\n"
+            "        self.s = np.zeros(2)\n"
+            "        self.h = []\n"
+            "    def add(self, v):\n"
+            "        self.s += v\n"
+            "        self.h.append(v)\n"
+            "        return self.s\n"            # the same array, mutated in place next call
+            "    def hist(self):\n"
+            "        return self.h\n")           # the same list, appended to next call
+    tests = [NS(name="t", input={"operations": ["Acc", "add", "hist", "add", "hist"],
+                                 "args": [[], [0.5], [], [0.25], []]},
+                expected=[None, [0.5, 0.5], [0.5], [0.75, 0.75], [0.5, 0.25]],
+                weight=1, hidden=False)]
+    graded = run_submission(code, prob, tests)
+    assert graded.solved, [(r.status, r.error, r.returned) for r in graded.results]
+
+
+def test_class_output_that_is_not_json_names_the_method():
+    prob = NS(kind="class", function_name="", return_type="", params=[],
+              class_name="Box", time_limit_ms=3000, memory_limit_mb=512, points=100,
+              compare="exact",
+              class_methods=[{"name": "get", "params": [], "returns": {"type": "int"}}])
+    code = ("class Box:\n"
+            "    def __init__(self):\n"
+            "        pass\n"
+            "    def get(self):\n"
+            "        return object()\n")
+    tests = [NS(name="t", input={"operations": ["Box", "get"], "args": [[], []]},
+                expected=[None, 1], weight=1, hidden=False)]
+    graded = run_submission(code, prob, tests)
+    assert graded.results[0].status == "error"
+    assert "`get`" in graded.results[0].error
+
+
+def test_a_class_return_that_hangs_while_encoding_times_out_alone():
+    # Copying a class method's return runs the solution's own __iter__, so it
+    # must happen under that test's alarm. Before the per-call copy it ran after
+    # the alarm was disarmed, and the whole run was killed with every test lost.
+    prob = NS(kind="class", function_name="", return_type="", params=[],
+              class_name="Box", time_limit_ms=1000, memory_limit_mb=512, points=100,
+              compare="exact",
+              class_methods=[{"name": "get", "params": [{"name": "x", "type": "int"}],
+                              "returns": {"type": "int[]"}}])
+    code = ("class L(list):\n"
+            "    def __iter__(self):\n"
+            "        while True:\n"
+            "            pass\n"
+            "class Box:\n"
+            "    def __init__(self):\n"
+            "        pass\n"
+            "    def get(self, x):\n"
+            "        return L([x]) if x < 0 else [x]\n")
+    tests = [NS(name=f"t{x}", input={"operations": ["Box", "get"], "args": [[], [x]]},
+                expected=[None, [x]], weight=1, hidden=False) for x in (-1, 2)]
+    started = time.monotonic()
+    graded = run_submission(code, prob, tests)
+    assert graded.results[0].status == "timeout"
+    # The per-test alarm, not the whole-run kill (which also reports "timeout").
+    assert graded.results[0].error == "Time limit exceeded."
+    assert graded.results[1].passed
+    assert time.monotonic() - started < 8
+
+
 def test_migrated_tree_problems_pass_canonical():
     for slug in ("invert-binary-tree", "maximum-depth-of-binary-tree", "same-tree"):
         _assert_bank_canonical_solved(slug)

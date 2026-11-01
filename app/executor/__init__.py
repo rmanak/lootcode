@@ -6,6 +6,7 @@ Public API:
 from __future__ import annotations
 
 import json
+import math
 from dataclasses import dataclass
 
 from ..config import settings
@@ -63,8 +64,38 @@ def _normalize(x: object, mode: str) -> object:
     return x
 
 
+#: Tolerances for ``compare: "close"`` (``math.isclose`` semantics). Correct
+#: float code differs in the last bits — op order, BLAS, numpy version — while
+#: a wrong answer (a missing 1/N, a flipped sign, the wrong axis) is off by
+#: orders of magnitude more than this.
+CLOSE_REL_TOL = 1e-6
+CLOSE_ABS_TOL = 1e-9
+
+
+def _close(a: object, b: object) -> bool:
+    """Structural equality where floats only need to be close: lists element-wise
+    (same length, order matters), dicts by key, a float on either side via
+    ``math.isclose`` (NaN never matches), two ints exactly — a label, an index or
+    a count is never "nearly right" — and bools, strings and null as ``==`` does."""
+    if (isinstance(a, (int, float)) and isinstance(b, (int, float))
+            and not isinstance(a, bool) and not isinstance(b, bool)):
+        if isinstance(a, int) and isinstance(b, int):
+            return a == b
+        try:
+            return math.isclose(a, b, rel_tol=CLOSE_REL_TOL, abs_tol=CLOSE_ABS_TOL)
+        except OverflowError:  # an int past float range (the solution can return 10**400)
+            return False
+    if isinstance(a, list) and isinstance(b, list):
+        return len(a) == len(b) and all(_close(x, y) for x, y in zip(a, b))
+    if isinstance(a, dict) and isinstance(b, dict):
+        return a.keys() == b.keys() and all(_close(a[k], b[k]) for k in a)
+    return a == b
+
+
 def _equal(a: object, b: object, mode: str) -> bool:
     # Both values have passed through JSON, so structural == is the right check.
+    if mode == "close":
+        return _close(a, b)
     try:
         return _normalize(a, mode) == _normalize(b, mode)
     except TypeError:

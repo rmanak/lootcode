@@ -120,6 +120,16 @@ works for a fresh checkout.
   codec in `app/executor/harness.py` (`_CODECS`) builds/serializes the real object at
   the sandbox boundary and injects the class, so the judge still compares JSON. Adding
   one = a `_CODECS` entry + `executor-security-reviewer`. See `specs/problem-schema.md`.
+- **ML coding problems** (tag `machine-learning`, collection `ml-coding`): the
+  sandbox can import **numpy** (and only these problems may rely on it). Solutions
+  may return numpy arrays/scalars (the harness `.tolist()`s them), answers grade
+  with `compare: "close"` (floats within rel `1e-6` / abs `1e-9`, ints exact), and
+  every degree of freedom (init, lr, steps, ties, randomness) is pinned so the
+  answer is a function of the input. numpy only imports because the sandbox pins
+  BLAS to one thread (`sandbox.SINGLE_THREAD_ENV`) — without it OpenBLAS blows
+  through `RLIMIT_AS`. Authoring rules: the "Machine-learning problems" section
+  of `specs/problem-authoring-guidelines.md`; candidates and rationale:
+  `docs/ml-coding-plan.md`, `docs/ml-coding-problem-bank.md`. No PyTorch.
 
 ## Working agreements for Claude
 
@@ -171,13 +181,14 @@ works for a fresh checkout.
   `python scripts/remove_problem.py <slug>` (or `<old>=<new>` to **deduplicate**,
   which points collection references at the surviving twin instead of shortening
   the list). `--dry-run` first. See `docs/removing-problems.md`.
-- **Tags:** use the canonical vocabulary only (44 tags). `app/tags.py` is the
+- **Tags:** use the canonical vocabulary only (45 tags). `app/tags.py` is the
   source of truth (`normalize_tags` runs on every content write); `specs/tags.md`
   is the prose taxonomy; the `canonical-tags` skill is the authoring workflow. If
   a problem fits no canonical tag, discuss adding one — don't invent it inline.
 - **Statement ↔ judge consistency:** a problem's `compare` mode (meta.json) must
   match what the statement promises about answer order (`exact` / `unordered` /
-  `set_of_lists`). `python scripts/audit.py` must stay green.
+  `set_of_lists` / `close`, the float-tolerant `exact`). `python scripts/audit.py`
+  must stay green.
 - **Adding test cases?** Each problem has an input-constraint validator at
   `content/problems/<slug>/input_validator/input_validator.py` exposing
   `validate_input(<params>) -> bool`. A new `(input, expected)` case's input must

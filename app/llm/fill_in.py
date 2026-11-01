@@ -172,7 +172,7 @@ def _kind_schema(kind: str) -> dict:
         props["params"] = {"type": "array", "items": _PARAM}
         props["class_methods"] = {"type": "array", "items": _METHOD}
         extra_required = ["class_name", "class_methods"]
-    props["compare"] = {"type": "string", "enum": ["exact", "unordered", "set_of_lists"]}
+    props["compare"] = {"type": "string", "enum": ["exact", "unordered", "set_of_lists", "close"]}
     props["starter_code"] = {"type": "string"}
     props["canonical_solution"] = {"type": "string"}
     props["tests"] = {"type": "array", "items": _test_schema(kind), "minItems": 1}

@@ -59,6 +59,15 @@ TASK_SLACK = 64
 #: Floor for that budget, so a machine we cannot measure still gets a cap.
 MIN_TASK_LIMIT = 256
 
+#: Keep the math libraries a submission may load (numpy's OpenBLAS) on one
+#: thread. OpenBLAS reserves a buffer per core when it is imported, which on a
+#: 16-core machine is more address space than RLIMIT_AS allows, so without this
+#: `import numpy` dies before user code runs. A threaded BLAS would also spend
+#: the CPU budget several cores at a time, and change float summation order
+#: from one machine to the next.
+SINGLE_THREAD_ENV = {"OPENBLAS_NUM_THREADS": "1", "OMP_NUM_THREADS": "1",
+                     "MKL_NUM_THREADS": "1"}
+
 try:
     import resource  # POSIX only
 except ImportError:  # pragma: no cover - Windows fallback
@@ -219,6 +228,7 @@ def docker_command(workdir: str, limits: Limits, harness_in_container: str,
         "-v", f"{workdir}:/sandbox:rw",
         "-w", "/sandbox",
         "--user", f"{uid}:{gid}",  # us, so the run directory stays deletable
+        *(arg for k, v in SINGLE_THREAD_ENV.items() for arg in ("-e", f"{k}={v}")),
         settings.DOCKER_IMAGE,
         "python", "-I", harness_in_container, "/sandbox",
     ]
@@ -339,7 +349,7 @@ def _run_harness_subprocess(harness_path: str, files: Mapping[str, str],
         # mid-write with no results at all.
         fsize_bytes = limits.max_output_kb * 1024 + RESULT_HEADROOM_BYTES
         env = {"PATH": "/usr/bin:/bin", "PYTHONDONTWRITEBYTECODE": "1",
-               "PYTHONIOENCODING": "utf-8", "HOME": workdir}
+               "PYTHONIOENCODING": "utf-8", "HOME": workdir, **SINGLE_THREAD_ENV}
 
         # Nothing grades on the harness's own stdout/stderr, and *reading*
         # them is a liability: `communicate()` waits for EOF on those pipes,

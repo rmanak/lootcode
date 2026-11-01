@@ -119,10 +119,11 @@ def audit_problem(p: Problem, *, run_canonical: bool = True) -> list[str]:
     #    line-wrapped "any\norder" is still detected)
     text = " ".join((p.statement_md or "").lower().split())
     amb = any(kw in text for kw in AMBIGUITY)
-    if amb and mode == "exact" and _returns_are_orderless(p):
+    ordered = mode in ("exact", "close")  # both compare lists position by position
+    if amb and ordered and _returns_are_orderless(p):
         amb = False  # scalar answer: nothing to order, so the phrase isn't about the output
-    if amb and mode == "exact":
-        issues.append("statement allows 'any order' but compare=exact (judge is strict)")
+    if amb and ordered:
+        issues.append(f"statement allows 'any order' but compare={mode} (judge is strict)")
 
     # 3) fairness: re-ordered valid answers must still pass for relaxed modes.
     # Skipped for class-based ("design") problems: the in-process check calls a

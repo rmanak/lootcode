@@ -115,6 +115,52 @@ Two backends implement one interface (`app/executor/`); pick via `EXECUTOR_BACKE
 Expected outputs never enter the sandbox (only inputs do); comparison and scoring
 happen in the trusted parent (`app/executor/__init__.py`).
 
+### What a submission can import: the standard library, plus numpy
+
+The contract is the standard library plus **numpy**, for the
+`machine-learning` problems. numpy is pinned in `requirements.txt` /
+`constraints.txt` and installed into the runner image by
+`infra/runner.Dockerfile`, so the **docker** backend offers exactly that set.
+The **subprocess** backend runs the harness with the web app's own interpreter,
+and `python -I` drops only the *user* site-packages, so there a submission can
+import everything in `.venv` (FastAPI, SQLAlchemy, the Anthropic SDK…). That is
+no new boundary problem, because that backend already shares the server's uid,
+filesystem and network. But a solution leaning on one of them passes on
+subprocess and fails on docker, and problems must never rely on more than the
+contract. numpy itself does not widen the boundary: the boundary is the process
+and its limits, and the standard library already ships `ctypes`. Rebuild the
+runner image after changing what it installs; an image built before numpy was
+added fails every numpy submission (it fails closed, as `ModuleNotFoundError`).
+
+The sandbox environment pins numpy's BLAS to **one thread**
+(`sandbox.SINGLE_THREAD_ENV`: `OPENBLAS_NUM_THREADS` / `OMP_NUM_THREADS` /
+`MKL_NUM_THREADS` = 1, on both backends). This is load-bearing, not tuning:
+OpenBLAS reserves a buffer per core when it is imported, and on a 16-core
+machine that is more address space than the default 512 MB `RLIMIT_AS`, so
+without it `import numpy` dies with *"OpenBLAS error: Memory allocation still
+failed"* before user code runs. One thread also keeps a run inside its CPU
+budget and keeps float summation order the same from machine to machine.
+
+A numpy array or scalar returned by a solution is converted to plain JSON data
+in the sandbox (`harness._plain` for function problems, `harness._snapshot` for
+each class-method return; both call its `tolist()` while the per-test alarm is
+still armed, because that is the solution's own code). A class method's return
+is copied when the call returns, so a later call that mutates the returned
+object cannot change an earlier output. Float answers
+are graded with `compare: "close"` (`specs/problem-schema.md`). PyTorch is
+deliberately **not** available: the CUDA build will not even import below about
+4 GB of address space.
+
+**The per-test time limit cannot interrupt a numpy call.** `SIGALRM`'s Python
+handler only runs between bytecodes, and BLAS/LAPACK never checks for signals,
+so a single long C call (an `eigvals` on a 2500×2500 matrix took 13 s) runs on
+past its test's limit. Containment still holds — the overall wall-clock kill,
+`RLIMIT_CPU` and the process-group kill all apply — but the run is then stopped
+as a whole, and every test, including ones already passed, reports *"The run was
+stopped"*. So size ML test inputs so that each numpy call the canonical makes
+finishes far inside the limit; for these problems the ceiling on input size is
+the judge's granularity, not the time limit.
+
 ### The second harness: ICF
 
 The optional `icf/` extension (`docs/extensions.md`) grades differently — its

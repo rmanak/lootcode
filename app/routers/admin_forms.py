@@ -21,7 +21,7 @@ from pydantic import BaseModel
 from .. import content
 from ..config import settings
 
-COMPARE_MODES = ("exact", "unordered", "set_of_lists")
+COMPARE_MODES = ("exact", "unordered", "set_of_lists", "close")
 KINDS = ("function", "class")
 
 

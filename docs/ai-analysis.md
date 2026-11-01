@@ -82,7 +82,7 @@ result (status, error, returned value) is attacker-controlled.
 The answer is constrained by `ANALYSIS_SCHEMA` (`response_format: json_schema`,
 which llama.cpp compiles to a grammar):
 
-- **Approach labels** are an enum: the 44 canonical tags (`app/tags.py`)
+- **Approach labels** are an enum: the 45 canonical tags (`app/tags.py`)
   rendered for reading (`heap` → "Heap (Priority Queue)") plus the
   analysis-only label **"Brute Force"**. Without it, the grammar forced a model
   that had begun writing "Brute Force" into the nearest legal label, and a

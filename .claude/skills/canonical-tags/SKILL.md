@@ -14,7 +14,7 @@ taxonomy + rationale is **`specs/tags.md`**. This skill is the authoring
 workflow. If those files and this list ever disagree, `app/tags.py` wins — refresh
 this skill from it.
 
-## Canonical tags (44)
+## Canonical tags (45)
 
 Pick **1–4** that best describe the *technique/structure*, not incidental detail.
 
@@ -30,6 +30,9 @@ Pick **1–4** that best describe the *technique/structure*, not incidental deta
   `shortest-path` · `bit-manipulation` · `bitmask`
 - **Counting / numeric:** `combinatorics` · `counting` · `simulation` ·
   `number-theory` · `geometry` · `math`
+- **Domain:** `machine-learning` — ML coding problems (losses, gradients,
+  training loops, metrics, attention…). Usually the only tag such a problem
+  needs; also add the problem to `content/collections/ml-coding.json`.
 
 `math` is a **catch-all umbrella** — use it only when no more specific tag
 applies (arithmetic-formula and probability problems; prefer `number-theory` for
@@ -69,6 +72,7 @@ Common aliases (full map in `app/tags.py:TAG_ALIASES`):
 | `biconnected-component`, `bridges`, `eulerian-path`, `eulerian-circuit`, `minimum-spanning-tree` | `graph` |
 | `dijkstra` | `shortest-path` |
 | `probability`, `probability-and-statistics` | `math` |
+| `ml`, `deep-learning`, `neural-network` | `machine-learning` |
 
 **Dropped entirely** (never use): `enumeration`, `queries`, `brainteaser`, and
 the delivery-style tags `database`, `shell`, `concurrency`, `interactive`,

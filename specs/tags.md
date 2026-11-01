@@ -10,7 +10,7 @@ browse/filter facets stay meaningful and near-synonyms don't multiply.
   every write (manual admin, AI generator, bulk-import generators), so aliases
   are corrected, dropped tags removed, and no problem is ever left tagless.
 
-## Canonical tags (44)
+## Canonical tags (45)
 
 | Group | Tags |
 |---|---|
@@ -18,12 +18,20 @@ browse/filter facets stay meaningful and near-synonyms don't multiply.
 | Structures | `stack`, `monotonic-stack`, `queue`, `heap`, `hash-table`, `hash-function`, `binary-search-tree`, `ordered-set`, `trie`, `union-find`, `binary-indexed-tree`, `segment-tree`, `suffix-array`, `design` |
 | Techniques | `two-pointers`, `sliding-window`, `prefix-sum`, `binary-search`, `sorting`, `greedy`, `backtracking`, `recursion`, `divide-and-conquer`, `dynamic-programming`, `memoization`, `depth-first-search`, `breadth-first-search`, `topological-sort`, `shortest-path`, `bit-manipulation`, `bitmask` |
 | Counting / numeric | `combinatorics`, `counting`, `simulation`, `number-theory`, `geometry`, `math` |
+| Domain | `machine-learning` |
 
 `design` tags problems that ask you to **implement a data structure** driven by a
 sequence of operations (the input is an operations list, e.g.
 `["LRUCache", "put", "get", ...]` with per-op arguments; the harness
 support this shape). Use it for the "build/design a structure" pattern, not for
 one-shot computational problems.
+
+`machine-learning` tags **ML coding** problems: losses and their gradients, training
+loops, metrics, model building blocks (attention, normalization, sampling), the
+"implement it from scratch with numpy" interview round. It names the *domain*, so
+it is usually the only tag such a problem needs; add a technique tag only when the
+problem is genuinely about one too (`heap` for a top-k retrieval, `design` for a
+KV cache). Every such problem is also listed in the `ml-coding` collection.
 
 `math` is a **catch-all umbrella**: kept only when no more specific canonical tag
 applies (arithmetic-formula and probability problems), and used as the fallback so
@@ -54,6 +62,7 @@ category. Full map in `app/tags.py:TAG_ALIASES`:
 - `biconnected-component`, `bridges`, `eulerian-path`, `eulerian-circuit`,
   `minimum-spanning-tree` → `graph`; `dijkstra` → `shortest-path`
 - `probability`, `probability-and-statistics` → `math`
+- `ml`, `deep-learning`, `neural-network` → `machine-learning`
 
 ## Dropped (removed entirely)
 

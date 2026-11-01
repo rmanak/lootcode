@@ -221,6 +221,46 @@ def _short_tb(limit: int = 2000) -> str:
     return tb[-limit:]
 
 
+def _tolist(obj):
+    """`json` fallback for a value it can't encode: anything with a callable
+    ``tolist()`` — a numpy array or numpy scalar — becomes the plain list or
+    number it stands for. Duck-typed, so this module still imports nothing."""
+    tolist = getattr(obj, "tolist", None)
+    if callable(tolist):
+        return tolist()
+    raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
+
+
+def _plain(value):
+    """``value`` as JSON data, so a solution may return numpy arrays as-is.
+
+    A value that already encodes is returned untouched — the common case costs
+    the one ``json.dumps`` the JSON gate always did. Otherwise it is re-encoded
+    with `_tolist` and decoded back, which is exactly what the parent would
+    have read from result.json. Raises TypeError/ValueError if it still can't
+    be encoded. ``tolist()`` is the solution's own code, so call this while the
+    per-test alarm is still armed.
+    """
+    try:
+        json.dumps(value)
+        return value
+    except (TypeError, ValueError):
+        return json.loads(json.dumps(value, default=_tolist))
+
+
+def _snapshot(value):
+    """``value`` as a fresh JSON copy that shares no object with the solution.
+
+    A class method's output is what it returned *at that call*, as on LeetCode.
+    Holding the live object until the sequence ends would let a later call
+    rewrite an earlier output — a solution that returns its internal list or
+    numpy array and then mutates it in place. Encodes like `_plain` (numpy via
+    `_tolist`) and raises TypeError/ValueError the same way; it may call the
+    solution's ``tolist()``, so call it while the per-test alarm is armed.
+    """
+    return json.loads(json.dumps(value, default=_tolist))
+
+
 # --- Rich input/return types -------------------------------------------------
 # Some problems declare a parameter or return as a custom structure (e.g.
 # TreeNode) instead of a plain JSON value. The on-disk and across-the-boundary
@@ -530,15 +570,15 @@ def _run_one(func, params, decoders, encoder, inp, time_limit_s, out_budget) -> 
         returned = func(**args)
         if encoder is not None:
             returned = encoder(returned)  # bounded; stays under the per-test alarm
-        signal.setitimer(signal.ITIMER_REAL, 0)
-        sys.stdout = real_stdout
-        elapsed = (time.perf_counter() - start) * 1000
         try:
-            json.dumps(returned)
+            returned = _plain(returned)  # may call the solution's tolist()
         except (TypeError, ValueError):
-            return {"status": "error", "time_ms": elapsed,
+            return {"status": "error", "time_ms": (time.perf_counter() - start) * 1000,
                     "error": f"Return value is not JSON-serializable: {type(returned).__name__}",
                     "stdout": out_budget.take(_value(buf))}
+        elapsed = (time.perf_counter() - start) * 1000
+        signal.setitimer(signal.ITIMER_REAL, 0)
+        sys.stdout = real_stdout
         return {"status": "ok", "returned": returned, "time_ms": elapsed,
                 "stdout": out_budget.take(_value(buf))}
     except _Timeout:
@@ -585,7 +625,8 @@ def _run_class(cls, ctor_decoders, method_dispatch, inp, time_limit_s,
 
     Mirrors `_run_one`'s contract: the whole operation sequence runs under a
     single per-test SIGALRM (LeetCode-style overall time budget), stdout is
-    captured, and the collected outputs list is JSON-gated before returning."""
+    captured, and each call's output is JSON-gated and copied (`_snapshot`) as
+    soon as the call returns."""
     buf = out_budget.new_buffer()
     real_stdout = sys.stdout
     start = time.perf_counter()
@@ -626,17 +667,20 @@ def _run_class(cls, ctor_decoders, method_dispatch, inp, time_limit_s,
             result = getattr(instance, op)(*call_args)
             if encoder is not None:
                 result = encoder(result)
-            outputs.append(result)
+            try:
+                # Copy it now: a later call may mutate the object it returned.
+                outputs.append(_snapshot(result))  # may call the solution's tolist()
+            except (TypeError, ValueError):
+                # Disarm first, as the unknown-method branch does: still inside
+                # the outer try, so an alarm already pending is caught there.
+                signal.setitimer(signal.ITIMER_REAL, 0)
+                sys.stdout = real_stdout
+                return {"status": "error", "time_ms": (time.perf_counter() - start) * 1000,
+                        "error": f"`{op}` returned a value that is not JSON-serializable.",
+                        "stdout": out_budget.take(_value(buf))}
+        elapsed = (time.perf_counter() - start) * 1000
         signal.setitimer(signal.ITIMER_REAL, 0)
         sys.stdout = real_stdout
-        elapsed = (time.perf_counter() - start) * 1000
-        try:
-            json.dumps(outputs)
-        except (TypeError, ValueError):
-            return {"status": "error", "time_ms": elapsed,
-                    "error": "An operation returned a value that is not "
-                             "JSON-serializable.",
-                    "stdout": out_budget.take(_value(buf))}
         return {"status": "ok", "returned": outputs, "time_ms": elapsed,
                 "stdout": out_budget.take(_value(buf))}
     except _Timeout:

@@ -22,7 +22,11 @@ sandbox seam differs:
 - **Harness** (`app/executor/harness.py`): `main()` branches on
   `payload["kind"]`. `_run_class` instantiates `class_name(*ctor_args)` (output
   `null`), then for each later operation calls `getattr(instance, op)(*args)` and
-  collects the return (`null` for `void`). The whole operation sequence runs under
+  collects the return (`null` for `void`) as a fresh JSON copy taken the moment
+  the call returns (`_snapshot`). So a method may return its internal list or
+  numpy array and mutate it on a later call, as on LeetCode; before 2026-10-31
+  the list was serialized only at the end, and every earlier output showed the
+  object's final state. The whole operation sequence runs under
   one per-test SIGALRM — a LeetCode-style overall time budget. Rich/helper-typed
   args are decoded and rich-typed returns encoded via `_CODECS`, per method.
 - **Grading** (`app/executor/__init__.py`): unchanged. The collected outputs list

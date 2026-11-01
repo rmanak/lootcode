@@ -118,6 +118,7 @@ class Problem(Base):
     #   exact         — structural equality (default; order is significant)
     #   unordered     — the returned list is a multiset (top-level order ignored)
     #   set_of_lists  — list of lists; outer order AND each inner list's order ignored
+    #   close         — like exact, but numbers match within a float tolerance
     compare: Mapped[str] = mapped_column(String, default="exact")
 
     starter_code: Mapped[str] = mapped_column(Text, default="")

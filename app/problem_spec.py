@@ -99,14 +99,14 @@ except ImportError:  # pragma: no cover - environment problem, not LLM problem
 # Constants that mirror the rest of the codebase (kept in sync intentionally).
 # ---------------------------------------------------------------------------
 
-# The three comparison modes the judge understands. Source of truth:
+# The comparison modes the judge understands. Source of truth:
 # app/executor/__init__.py (_normalize/_equal) and specs/problem-schema.md.
-COMPARE_MODES = ("exact", "unordered", "set_of_lists")
+COMPARE_MODES = ("exact", "unordered", "set_of_lists", "close")
 
 # Allowed difficulty levels (specs/problem-schema.md / meta.json).
 DIFFICULTIES = ("easy", "medium", "hard")
 
-# The 44 canonical tags. Source of truth is app/tags.py::CANONICAL_TAGS; this is a
+# The 45 canonical tags. Source of truth is app/tags.py::CANONICAL_TAGS; this is a
 # copy so the validator stays standalone (no dependency on the `app` package).
 # Non-canonical tags are only WARNED about, because app.tags.normalize_tags folds
 # aliases and passes unknown tags through on write -- they are not fatal.
@@ -115,11 +115,12 @@ CANONICAL_TAGS = frozenset({
     "binary-search-tree", "binary-tree", "bit-manipulation", "bitmask",
     "breadth-first-search", "combinatorics", "counting", "depth-first-search",
     "design", "divide-and-conquer", "dynamic-programming", "geometry", "graph",
-    "greedy", "hash-function", "hash-table", "heap", "linked-list", "math",
-    "matrix", "memoization", "monotonic-stack", "number-theory", "ordered-set",
-    "prefix-sum", "queue", "recursion", "segment-tree", "shortest-path",
-    "simulation", "sliding-window", "sorting", "stack", "string", "suffix-array",
-    "topological-sort", "tree", "trie", "two-pointers", "union-find",
+    "greedy", "hash-function", "hash-table", "heap", "linked-list",
+    "machine-learning", "math", "matrix", "memoization", "monotonic-stack",
+    "number-theory", "ordered-set", "prefix-sum", "queue", "recursion",
+    "segment-tree", "shortest-path", "simulation", "sliding-window", "sorting",
+    "stack", "string", "suffix-array", "topological-sort", "tree", "trie",
+    "two-pointers", "union-find",
 })
 
 # How many tests we expect. The prompt asks for 6-10; fewer than MIN is an error,

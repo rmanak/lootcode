@@ -52,7 +52,7 @@ from app.config import settings  # noqa: E402
 from app.executor import problem_view, run_submission  # noqa: E402
 
 # Mirrors app/routers/admin.py so we accept exactly what the Admin UI accepts.
-COMPARE_MODES = ("exact", "unordered", "set_of_lists")
+COMPARE_MODES = ("exact", "unordered", "set_of_lists", "close")
 
 
 def validate(data: object) -> list[str]:

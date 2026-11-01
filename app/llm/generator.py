@@ -64,7 +64,7 @@ PROBLEM_SCHEMA = {
         "return_type": {"type": "string"},
         "starter_code": {"type": "string"},
         "canonical_solution": {"type": "string"},
-        "compare": {"type": "string", "enum": ["exact", "unordered", "set_of_lists"]},
+        "compare": {"type": "string", "enum": ["exact", "unordered", "set_of_lists", "close"]},
         "tests": {
             "type": "array",
             "items": {
@@ -132,7 +132,9 @@ Rules:
 - `statement_md` is Markdown: a clear statement, **Constraints**, and 2-3 examples.
 - `compare` is how the judge matches the returned value: `exact` (order matters),
   `unordered` (the returned list is a multiset; top-level order ignored), or
-  `set_of_lists` (list of groups; outer order AND each inner list's order ignored).
+  `set_of_lists` (list of groups; outer order AND each inner list's order ignored),
+  or `close` (like `exact`, but floats match within a relative 1e-6 / absolute
+  1e-9 tolerance — use it for float answers instead of asking for rounding).
   It MUST agree with the statement — if the statement allows "any order", do NOT
   use `exact`. Every test's expected value must be correct under this mode.
 - Keep difficulty honest. Return values must be JSON-serializable.

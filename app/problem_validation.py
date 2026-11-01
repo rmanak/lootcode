@@ -58,7 +58,7 @@ from .tags import (
     unknown_tags,
 )
 
-COMPARE_MODES = ("exact", "unordered", "set_of_lists")
+COMPARE_MODES = ("exact", "unordered", "set_of_lists", "close")
 
 # A slug is the durable identity + on-disk directory name: strict kebab-case.
 SLUG_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
@@ -169,13 +169,14 @@ def validate_problem(data: dict, *, db: Session | None = None, is_new: bool = Tr
             res.warnings.append(note)
 
     # --- statement ↔ compare consistency (text, safe) -----------------------
-    if data.get("compare") == "exact":
+    if data.get("compare") in ("exact", "close"):
         text = " ".join((data.get("statement_md") or "").lower().split())
         if any(kw in text for kw in _AMBIGUITY):
             res.errors.append(
                 "The statement says the answer may be in 'any order', but compare is "
-                "'exact' — the judge would reject a valid re-ordering. Set compare to "
-                "'unordered' or 'set_of_lists', or pin the exact order in the statement.")
+                f"{data.get('compare')!r} — the judge would reject a valid re-ordering. "
+                "Set compare to 'unordered' or 'set_of_lists', or pin the exact order "
+                "in the statement.")
 
     # --- slug collision (new problems only) ---------------------------------
     if is_new and slug and SLUG_RE.match(slug):

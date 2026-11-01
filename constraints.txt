@@ -19,6 +19,10 @@ python-multipart>=0.0.32,<0.1
 markdown>=3.10,<4
 python-dotenv>=1.2,<2
 
+# The sandbox's numpy. A stored `expected` was computed with it, which is one
+# reason ML problems compare with `close` rather than `exact`.
+numpy>=2.5,<3
+
 # Optional (AI problem generation / hints). Both move fast, so the ceiling is
 # the next major only.
 anthropic>=0.116,<1

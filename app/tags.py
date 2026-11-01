@@ -23,7 +23,7 @@ from __future__ import annotations
 # The umbrella catch-all (kept only when nothing more specific applies).
 MATH = "math"
 
-# Allowed vocabulary (44 tags). Keep alphabetised.
+# Allowed vocabulary (45 tags). Keep alphabetised.
 CANONICAL_TAGS: frozenset[str] = frozenset({
     "array",
     "backtracking",
@@ -47,6 +47,7 @@ CANONICAL_TAGS: frozenset[str] = frozenset({
     "hash-table",
     "heap",
     "linked-list",
+    "machine-learning",
     "math",
     "matrix",
     "memoization",
@@ -106,6 +107,9 @@ TAG_ALIASES: dict[str, str] = {
     "dijkstra": "shortest-path",
     "probability": "math",
     "probability-and-statistics": "math",
+    "ml": "machine-learning",
+    "deep-learning": "machine-learning",
+    "neural-network": "machine-learning",
 }
 
 # Tags removed entirely: too vague / a problem-type meta-tag, or describing how a
