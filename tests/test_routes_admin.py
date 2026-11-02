@@ -148,6 +148,40 @@ def test_edit_updates_the_problem(client, db, tmp_content_dir):
 
 
 @pytest.mark.slow
+def test_saves_store_linux_line_breaks(client, db, tmp_content_dir):
+    """Browsers post textarea line breaks as CRLF. A save must store LF, or
+    changing one test flag rewrites every line of three files as far as git can
+    tell. Covers both save routes, and both places a save lands."""
+    def crlf(text: str) -> str:
+        return text.replace("\n", "\r\n")
+
+    body = form(
+        slug="zz-crlf", title="ZZ CRLF",
+        statement_md=crlf("Return `a + b`.\n\nSecond paragraph.\n"),
+        starter_code=crlf("def addTwo(a, b):\n    pass\n"),
+        canonical_solution=crlf(CANONICAL),
+    )
+
+    def assert_stored_as_lf() -> None:
+        db.expire_all()
+        prob = db.scalar(select(Problem).where(Problem.slug == "zz-crlf"))
+        assert prob.statement_md == "Return `a + b`.\n\nSecond paragraph.\n"
+        assert prob.starter_code == "def addTwo(a, b):\n    pass\n"
+        assert prob.canonical_solution == CANONICAL
+        base = tmp_content_dir / "zz-crlf"
+        for name in ("problem.md", "starters/python/solution.py",
+                     "solution/solution.py"):
+            assert b"\r" not in (base / name).read_bytes(), name
+
+    assert client.post("/admin/new", data=body,
+                       follow_redirects=False).status_code in (200, 303)
+    assert_stored_as_lf()
+
+    assert client.post("/admin/problems/zz-crlf/edit", data=body).status_code == 200
+    assert_stored_as_lf()
+
+
+@pytest.mark.slow
 def test_edit_rejects_a_bad_change_without_saving(client, db, tmp_content_dir):
     client.post("/admin/new", data=form(slug="zz-keep-me", title="ZZ Keep Me"))
     r = client.post("/admin/problems/zz-keep-me/edit",
