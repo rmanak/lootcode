@@ -22,6 +22,8 @@ takes effect everywhere at once:
 ## Statement
 
 - Open with the task in one or two sentences; bold the thing to return.
+- Never start with the title. The problem page prints it above the statement,
+  so a first line like `# Two Sum` shows the title twice.
 - Include a `## Constraints` section with concrete bounds — array lengths, value
   ranges, and any guarantees the solver may rely on (e.g. "exactly one valid
   answer exists", "the list is non-empty"). Bounds drive the test design.
@@ -198,7 +200,7 @@ Before a problem is considered done, both of these must be green:
 
 ```bash
 python scripts/seed.py     # canonical solution passes ALL of its own tests
-python scripts/audit.py    # statement ↔ compare ↔ fairness are consistent
+python scripts/audit.py    # statement ↔ compare ↔ fairness are consistent; statement doesn't repeat the title
 ```
 
 When you add or edit test cases, also confirm every case input is **in-bounds**

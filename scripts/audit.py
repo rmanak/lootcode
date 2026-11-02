@@ -7,7 +7,9 @@ For each problem it verifies:
   2. the statement's ordering language matches the judge's compare mode —
      a statement that promises "any order" must NOT use exact matching;
   3. fairness: for order-insensitive modes, a deliberately RE-ORDERED valid
-     answer is still accepted (proving the judge honours the promised flexibility).
+     answer is still accepted (proving the judge honours the promised flexibility);
+  4. the statement doesn't open by repeating the title, which the problem page
+     already prints above it.
 
 Exits non-zero if any inconsistency is found.
 
@@ -36,6 +38,7 @@ from app.db import SessionLocal, init_db  # noqa: E402
 from app.executor import _equal, run_submission  # noqa: E402
 from app.executor.harness import _CODECS  # noqa: E402 - reuse the in-sandbox codec
 from app.models import Problem  # noqa: E402
+from app.problem_validation import statement_repeats_title  # noqa: E402
 from app.store import seed_collections, seed_from_content  # noqa: E402
 
 AMBIGUITY = ("any order", "in any order", "any valid", "you may return",
@@ -157,6 +160,10 @@ def audit_problem(p: Problem, *, run_canonical: bool = True) -> list[str]:
         except Exception as exc:  # noqa: BLE001
             fair = "error"
             issues.append(f"fairness check error: {exc}")
+
+    # 4) the page prints the title above the statement, so it must not repeat it
+    if statement_repeats_title(p.title, p.statement_md or ""):
+        issues.append("statement's first line repeats the title (the page already prints it)")
 
     p._mode, p._amb, p._fair, p._canon = mode, amb, fair, canon_ok  # for the report
     return issues
