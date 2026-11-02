@@ -1,5 +1,3 @@
-# ROC-AUC
-
 A binary classifier gives each example a **score**, where higher means "more
 likely positive". **ROC-AUC** measures how well the scores rank positives above
 negatives, without picking any threshold. It is the probability that a randomly

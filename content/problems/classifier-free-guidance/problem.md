@@ -1,5 +1,3 @@
-# Classifier-Free Guidance with Rescale
-
 Text-to-image diffusion models follow the prompt more closely thanks to
 **classifier-free guidance** (CFG). At each denoising step the model predicts
 the noise twice, once with the prompt (*conditional*, $c$) and once without it

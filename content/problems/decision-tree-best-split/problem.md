@@ -1,5 +1,3 @@
-# Decision Tree: Best Gini Split
-
 A decision tree grows by repeatedly splitting a node's examples in two with a
 question of the form "is feature $j$ at most $t$?". CART-style trees pick the
 question that most reduces the **Gini impurity**. Find that best split for one

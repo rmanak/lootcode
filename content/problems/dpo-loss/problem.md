@@ -1,5 +1,3 @@
-# DPO Loss: Direct Preference Optimization
-
 **DPO** aligns a language model with human preferences without training a
 reward model or running RL. For each prompt there is a *chosen* (preferred)
 response and a *rejected* one. DPO pushes the policy to raise the chosen

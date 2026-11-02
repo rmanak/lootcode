@@ -1,5 +1,3 @@
-# KV Cache Attention
-
 When a transformer generates text one token at a time, each new token
 **attends** to the tokens before it. Recomputing every earlier token's key and
 value vectors at each step would waste work, so inference engines keep them in a

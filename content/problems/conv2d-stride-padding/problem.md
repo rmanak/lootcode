@@ -1,5 +1,3 @@
-# 2-D Convolution with Stride and Padding
-
 Implement the forward pass of a 2-D convolution layer, as in
 `torch.nn.Conv2d`, for a single image.
 

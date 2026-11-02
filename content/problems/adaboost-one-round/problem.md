@@ -1,5 +1,3 @@
-# AdaBoost: One Boosting Round
-
 **AdaBoost** builds a strong classifier from many weak ones. Each round, it
 fits a **decision stump** (a one-feature threshold rule) to weighted data. It
 gives the stump a vote $\alpha$ based on how well it did, then raises the

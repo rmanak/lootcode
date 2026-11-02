@@ -1,5 +1,3 @@
-# GRPO: Group Advantages and the Clipped Objective
-
 **GRPO** (Group Relative Policy Optimization, from DeepSeekMath and used to
 train DeepSeek-R1) is PPO without a value network. For each prompt the model
 samples a **group** of $G$ completions, and each completion's advantage is

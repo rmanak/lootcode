@@ -1,5 +1,3 @@
-# Reservoir Sampling
-
 You are reading a stream of items one at a time. You don't know how long it is,
 and it does not fit in memory. You need a uniform random sample of $k$ items
 from everything seen so far. **Reservoir sampling** (Algorithm R) keeps a

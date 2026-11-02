@@ -1,5 +1,3 @@
-# Softmax Cross-Entropy: Loss and Gradient
-
 The last layer of a classifier outputs **logits**: one raw score per class for
 each example. Softmax turns a row of logits into probabilities, and the
 **cross-entropy loss** charges each example the negative log of the probability

@@ -1,5 +1,3 @@
-# GELU and a Numerically Stable Sigmoid
-
 Activation functions look trivial until an input is large. For every value $x$
 in `x`, compute five things:
 

@@ -1,5 +1,3 @@
-# Elastic Net by Subgradient Descent
-
 **Elastic net** regression adds both an L1 penalty (which pushes weights to
 exactly zero) and an L2 penalty (which shrinks them) to least squares. Fit it
 with full-batch **subgradient** descent, exactly as follows.

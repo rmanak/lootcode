@@ -1,5 +1,3 @@
-# Multi-Head Causal Self-Attention
-
 A decoder-only transformer (GPT-style) mixes information between the tokens of a
 sequence with **multi-head causal self-attention**. Every token is projected into
 a query, a key and a value; the projections are cut into `numHeads` smaller

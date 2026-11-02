@@ -1,5 +1,3 @@
-# Logistic Regression by Gradient Descent
-
 **Logistic regression** predicts the probability that an example is positive as
 $\sigma(w \cdot x + b)$, where $\sigma(z) = 1 / (1 + e^{-z})$. It is trained by
 minimizing the mean **binary cross-entropy** (log loss) over the training set.

@@ -1,5 +1,3 @@
-# Principal Component Analysis
-
 **Principal component analysis (PCA)** finds the directions along which a
 dataset varies the most. They are the eigenvectors of the data's covariance
 matrix, ranked by their eigenvalues, the variance along each direction.

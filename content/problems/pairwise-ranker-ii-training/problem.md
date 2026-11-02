@@ -1,5 +1,3 @@
-# Pairwise Ranker II: Training
-
 A recommender system logs **pairwise preferences**. Each example is a pair of
 feature vectors $[x_1, x_2]$, and the user preferred item 1 over item 2 — say
 they clicked restaurant 1 but not restaurant 2. Items are scored by a linear

@@ -1,5 +1,3 @@
-# Covariance and Correlation Matrices
-
 Given a data matrix `X` with $n$ samples (rows) of $d$ features (columns),
 compute its **covariance matrix** and its **correlation matrix**. With
 $\bar x_j$ the average of column $j$ and $\delta$ = `ddof`:

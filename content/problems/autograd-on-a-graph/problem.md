@@ -1,5 +1,3 @@
-# Autograd: Backpropagation Through an Expression Graph
-
 Every deep-learning framework is built on **reverse-mode automatic
 differentiation**. It runs the computation forward, then walks the graph
 backward once, using the chain rule to accumulate the gradient of one output

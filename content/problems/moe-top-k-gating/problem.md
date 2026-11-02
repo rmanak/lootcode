@@ -1,5 +1,3 @@
-# Mixture of Experts: Top-k Routing with Capacity
-
 A **mixture-of-experts** (MoE) layer, as in Mixtral, Switch Transformer and
 DeepSeek-V3, holds $E$ expert networks but runs only $k$ of them per token. A
 small **router** picks the experts. Implement the routing, the capacity limit,

@@ -1,5 +1,3 @@
-# Eigen-Decomposition of a Symmetric 2x2 Matrix
-
 A symmetric $2 \times 2$ matrix `[[a, b], [b, c]]`, that is
 
 $$

@@ -1,5 +1,3 @@
-# LayerNorm: Forward and Backward
-
 **Layer normalization** rescales each example's features to zero mean and unit
 variance, then applies a learned per-feature scale `γ` and shift `β`. Every
 transformer block uses it. Implement its forward pass and its backward pass.

@@ -1,5 +1,3 @@
-# Value Iteration for an MDP
-
 **Value iteration** solves a Markov decision process: it computes how much
 long-run discounted reward each state is worth, and which action to take
 there. Implement it exactly as specified.

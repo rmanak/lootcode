@@ -1,5 +1,3 @@
-# Cosine Learning-Rate Schedule with Warmup
-
 Most large models train with the same learning-rate shape. The rate climbs
 linearly from `0` during a short **warmup**, then follows half a cosine wave
 down to a floor, and then stays there. Given a list of step numbers, return

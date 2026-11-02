@@ -1,5 +1,3 @@
-# BPE Tokenizer: Learn Merges and Encode
-
 **Byte-pair encoding (BPE)** is how GPT-style models build their vocabulary.
 It starts from single characters and repeatedly **merges the most frequent
 adjacent pair of symbols** into a new symbol. Common words end up as one token

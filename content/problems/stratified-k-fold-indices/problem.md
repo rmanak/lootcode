@@ -1,5 +1,3 @@
-# Stratified K-Fold Split
-
 **K-fold cross-validation** splits a dataset into $k$ folds. Each fold takes a
 turn as the validation set. A **stratified** split keeps every class's share
 roughly the same in every fold, which matters when some classes are rare.

@@ -1,5 +1,3 @@
-# Temperature, Top-k and Top-p Sampling
-
 To pick the next token, a language model turns its **logits** (one score per
 token in the vocabulary) into a probability distribution and samples from it.
 Three knobs shape that distribution: **temperature** sharpens or flattens it,

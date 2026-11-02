@@ -1,5 +1,3 @@
-# LoRA: Forward Pass and Weight Merge
-
 **LoRA** (low-rank adaptation) fine-tunes a big model without touching its
 weights. A frozen weight matrix $W$ gets a trainable low-rank update $AB$,
 where $A$ is $d_\text{in} \times r$ and $B$ is $r \times d_\text{out}$ with a

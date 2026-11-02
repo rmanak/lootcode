@@ -1,5 +1,3 @@
-# Tabular Q-Learning, SARSA and Expected SARSA
-
 Train a tabular action-value function `Q[s][a]` from **recorded experience**.
 The episodes are given, so the result is fully determined. Implement the
 three classic temporal-difference (TD) control updates.

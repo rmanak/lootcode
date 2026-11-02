@@ -1,5 +1,3 @@
-# Bilinear Image Resize
-
 Every vision pipeline resizes images, and "bilinear" means slightly different
 things in different libraries. That is how the same model gives different
 results in training and in production. Implement bilinear resizing exactly as

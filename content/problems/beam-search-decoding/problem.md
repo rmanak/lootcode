@@ -1,5 +1,3 @@
-# Beam Search Decoding
-
 A language model generates text one token at a time. **Greedy decoding** always
 takes the single most likely next token, which can paint it into a corner.
 **Beam search** keeps the `beamWidth` best partial sequences (the *beam*) at

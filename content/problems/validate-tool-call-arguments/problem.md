@@ -1,5 +1,3 @@
-# Validate Tool-Call Arguments Against a JSON Schema
-
 An LLM agent calls tools by emitting a tool name and its arguments as a
 **JSON string**. Before running anything, the agent runtime checks each call
 against the tool's declared parameter schema and reports every problem, so the

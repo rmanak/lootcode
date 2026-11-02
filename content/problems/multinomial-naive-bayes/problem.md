@@ -1,5 +1,3 @@
-# Multinomial Naive Bayes
-
 **Multinomial naive Bayes** is the classic text classifier. It describes each
 document as a bag of word counts and assumes the words are drawn independently
 given the class. Train it on labelled documents and classify new ones.

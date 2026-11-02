@@ -1,5 +1,3 @@
-# Perceptron Learning Rule
-
 The **perceptron** is the oldest linear classifier. It predicts $+1$ when
 $w \cdot x + b > 0$ and $-1$ otherwise, and it learns by fixing its own
 mistakes one example at a time. Train it exactly as follows.

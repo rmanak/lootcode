@@ -1,5 +1,3 @@
-# Scaled Dot-Product Attention
-
 **Attention** is the core operation of a transformer. Each **query** vector
 scores every **key** vector by a dot product, the scores become weights through
 a softmax, and the query's output is the weighted average of the **value**

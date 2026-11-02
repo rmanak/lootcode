@@ -1,5 +1,3 @@
-# Token-Budgeted Conversation Memory
-
 A chat agent can only send its model a limited number of tokens, so long
 conversations must be trimmed before each call. Doing that naively breaks
 things. If you drop an assistant's tool call but keep its tool result, most

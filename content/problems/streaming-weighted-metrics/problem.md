@@ -1,5 +1,3 @@
-# Streaming Weighted Metrics
-
 Evaluation loops see the data in batches, and the dataset may not fit in
 memory. Implement a metric object that accumulates **weighted** binary
 classification metrics batch by batch, like the stateful metrics in Keras or

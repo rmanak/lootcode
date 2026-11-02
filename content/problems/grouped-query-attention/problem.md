@@ -1,5 +1,3 @@
-# Grouped-Query Attention
-
 During generation, a transformer keeps every past token's keys and values in a
 **KV cache**, and for long contexts that cache dominates memory.
 **Grouped-query attention** (GQA, used in Llama 2/3 and Mistral) shrinks it.
