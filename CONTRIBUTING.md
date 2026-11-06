@@ -2,9 +2,11 @@
 
 ## Workflow
 
-1. Branch from `main`: `feat/<short-name>` or `fix/<short-name>`.
+1. Branch from `master`: `feat/<short-name>` or `fix/<short-name>`.
 2. Keep changes focused. One concern per PR.
-3. Make sure `pnpm typecheck`, `pnpm lint`, and `pnpm test` pass.
+3. Make sure `make check` passes (lint, types, tests and the whole problem
+   bank). See [`docs/development.md`](docs/development.md) for the individual
+   checks.
 4. Use [Conventional Commits](https://www.conventionalcommits.org/)
    (`feat:`, `fix:`, `docs:`, `chore:`, `refactor:`…).
 5. Open a PR; fill in the description and link the relevant doc/issue.
