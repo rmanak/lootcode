@@ -1,5 +1,3 @@
-# GPT-2 Transformer Block: Forward Pass
-
 Implement one **GPT-2 transformer block** from its weights, exactly as GPT-2
 (and Hugging Face's `GPT2Block`) computes it. `x` holds $T$ token vectors of
 width $d$. Vectors are rows, so every linear layer is $y = x W + b$ with $W$

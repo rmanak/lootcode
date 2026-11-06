@@ -1,5 +1,3 @@
-# Sinusoidal Positional Encoding
-
 Self-attention has no built-in sense of order. The original transformer
 ("Attention Is All You Need") fixes this by adding a **positional encoding**
 to each token's embedding: a vector of sines and cosines whose frequencies

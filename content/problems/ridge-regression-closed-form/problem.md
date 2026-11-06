@@ -1,5 +1,3 @@
-# Ridge Regression in Closed Form
-
 **Ridge regression** is linear regression with an L2 penalty on the weights. It
 shrinks the weights toward zero, and it still has a unique answer when the
 features are collinear or there are more features than examples.

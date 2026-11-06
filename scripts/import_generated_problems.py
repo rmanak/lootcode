@@ -36,7 +36,8 @@ broken slug:
   5. **Statement ↔ judge consistency** — ``scripts/audit.py``'s per-problem audit:
      a statement promising "any order" must not use ``compare=exact``; for relaxed
      modes a re-ordered valid answer must still be accepted (skipped for class
-     problems, which are always ``compare=exact``).
+     problems, which are always ``compare=exact``); and the statement must not
+     open by repeating the title.
 
 Only slugs that clear **all** of these qualify. The script prints a full report,
 asks for confirmation (``--yes`` to skip), then imports the qualifying ones the
@@ -120,7 +121,7 @@ def _rewrite_asset_paths(body: str, slug: str) -> str:
     return _ASSET_REF.sub(f"](/problems/{slug}/assets/", body)
 
 
-def _problem_ns(gen: dict, statement: str) -> SimpleNamespace:
+def _problem_ns(gen: dict, statement: str, title: str) -> SimpleNamespace:
     """A Problem-like stand-in with exactly the attributes ``run_submission`` and
     ``audit.audit_problem`` read — kind-aware, mirroring ``verify_json.grade``.
 
@@ -143,6 +144,7 @@ def _problem_ns(gen: dict, statement: str) -> SimpleNamespace:
         class_methods=(gen.get("class_methods") or None),
         compare=gen.get("compare", "exact"),
         canonical_solution=gen.get("canonical_solution", ""),
+        title=title,
         statement_md=statement,
         time_limit_ms=settings.EXEC_TIME_LIMIT_MS,
         memory_limit_mb=settings.EXEC_MEMORY_LIMIT_MB,
@@ -301,7 +303,7 @@ def check_slug(src_dir: Path, out_slugs: set[str], foreign: dict[str, str],
 
     # 6) BEHAVIORAL + 7) CONSISTENCY — one sandbox run via audit.audit_problem.
     #    Its step 1 IS the authoritative behavioral check (canonical passes all
-    #    tests in the real sandbox); steps 2-3 are the statement<->judge audit.
+    #    tests in the real sandbox); steps 2-4 are the statement audits.
     statement = body   # audit reads statement_md for "any order" language; no title heading (see _problem_dict)
 
     refs = re.findall(r"\]\(\s*(?:\./)?assets/([^)]+)\)", body)
@@ -313,7 +315,7 @@ def check_slug(src_dir: Path, out_slugs: set[str], foreign: dict[str, str],
     if assets_dir.is_dir() and any(assets_dir.iterdir()):
         c.asset_src = assets_dir
 
-    ns = _problem_ns(gen, statement)
+    ns = _problem_ns(gen, statement, title)
     issues = audit.audit_problem(ns)
     if not ns._canon:  # canonical did NOT pass all its tests
         c.reason = "behavioral: canonical solution fails its own tests"

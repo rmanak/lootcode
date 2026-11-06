@@ -1,5 +1,3 @@
-# Batch Norm: Training Forward and Backward
-
 **Batch normalization** normalizes each feature (each column) over the batch,
 then rescales it with learned parameters. Implement one training step for a
 batch-norm layer: the forward pass, the backward pass, and the update of the

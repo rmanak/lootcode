@@ -1,5 +1,3 @@
-# Gradient Clipping by Global Norm
-
 One bad batch can produce a huge gradient, and a single step along it can
 wreck a model. **Clipping by global norm** guards against this. It treats
 every parameter's gradient as one long vector and, when that vector is too

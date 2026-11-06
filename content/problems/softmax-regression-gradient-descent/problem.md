@@ -1,5 +1,3 @@
-# Softmax Regression by Gradient Descent
-
 **Softmax regression** (multinomial logistic regression) is the multi-class
 version of logistic regression. A linear map gives each class a score (a
 **logit**), and the softmax turns the scores into probabilities. Train it with

@@ -1,5 +1,3 @@
-# Gradient Check with Finite Differences
-
 Before trusting a hand-derived gradient, you **check** it against a numerical
 estimate. If the two disagree, the derivation (or the code) has a bug. Write
 the check for this loss, L2-regularized logistic regression:

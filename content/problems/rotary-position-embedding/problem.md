@@ -1,5 +1,3 @@
-# Rotary Position Embedding (RoPE)
-
 Llama, Mistral, Qwen and most modern LLMs encode position with **rotary
 position embedding**. Instead of adding a position vector, RoPE rotates each
 query and key vector by an angle proportional to its position. The dot

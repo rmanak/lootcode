@@ -1,5 +1,3 @@
-# Speculative Decoding: Accept, Reject, Resample
-
 Generating with a big model is slow because it produces one token per forward
 pass. **Speculative decoding** lets a small *draft* model guess $k$ tokens
 ahead. The big *target* model then scores all of them in a single pass. A

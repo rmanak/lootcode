@@ -1,5 +1,3 @@
-# Binary Classification Metrics
-
 A binary classifier outputs a **score** for each example, and a **threshold**
 turns scores into predictions: predict `1` when `score >= threshold`, otherwise
 `0`. A score exactly equal to the threshold is predicted positive.

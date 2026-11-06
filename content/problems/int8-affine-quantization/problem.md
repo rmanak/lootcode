@@ -1,5 +1,3 @@
-# Int8 Affine Quantization
-
 To run a model in 8-bit integers, every float tensor is mapped onto the 256
 values $-128, \dots, 127$. **Affine quantization** picks a scale $s$ and an
 integer zero point $z$ so that a real value $r$ is stored as roughly

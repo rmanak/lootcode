@@ -1,5 +1,3 @@
-# Jacobi and Gauss-Seidel Iterative Solvers
-
 Solve the linear system $A x = b$ with one of the two classic **iterative**
 methods. These are the building blocks behind large sparse solvers, and the
 Gauss-Seidel sweep is the same "use the newest values" idea as asynchronous

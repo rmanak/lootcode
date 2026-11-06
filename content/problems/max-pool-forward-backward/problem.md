@@ -1,5 +1,3 @@
-# Max Pooling: Forward and Backward
-
 A **max-pooling** layer slides a $k_H \times k_W$ window over each channel of
 its input and keeps the largest value in each window. There is no padding.
 Implement its forward pass and its backward pass.

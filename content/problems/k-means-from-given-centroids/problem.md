@@ -1,5 +1,3 @@
-# K-Means from Given Centroids
-
 **k-means** groups $N$ points into $K$ clusters, each represented by a
 **centroid**. Implement **Lloyd's algorithm**, the standard way to run it,
 starting from the centroids you're given:

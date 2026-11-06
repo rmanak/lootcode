@@ -1,5 +1,3 @@
-# Multiclass Precision, Recall and F1
-
 Build the core of a classification report for a multi-class classifier. The
 classes are $0, 1, \dots, C - 1$, where $C$ = `numClasses`. You get the true
 labels `yTrue` and the predicted labels `yPred` for $N$ examples; write $y_i$

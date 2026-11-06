@@ -1,5 +1,3 @@
-# Pad a Batch and Build Its Attention Masks
-
 A transformer processes a batch as one rectangular tensor, but the sequences
 in a batch have different lengths. So each sequence is **padded** to a common
 length, and the model is told which positions are real. Build everything a

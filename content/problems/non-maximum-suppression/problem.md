@@ -1,5 +1,3 @@
-# Non-Maximum Suppression
-
 An object detector usually fires several overlapping boxes on the same object.
 **Non-maximum suppression (NMS)** cleans that up: it keeps the most confident
 box, throws away every box that overlaps it too much, and repeats with the most

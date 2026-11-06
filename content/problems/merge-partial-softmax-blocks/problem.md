@@ -1,5 +1,3 @@
-# Flash Attention: Merge Partial Softmax Blocks
-
 Flash attention never materializes a full row of attention scores. It splits
 the keys into blocks and computes a small summary of the softmax over each
 block. It then **merges** the summaries into the exact result, as if the

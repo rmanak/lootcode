@@ -10,6 +10,10 @@ authoritative step; it is exercised in its own ``slow``-marked tests and switche
 off with ``run_behavioral=False`` everywhere else so the structural rules stay
 fast to test.
 """
+import importlib.util
+import pathlib
+from types import SimpleNamespace
+
 import pytest
 
 from app.problem_validation import (
@@ -153,6 +157,47 @@ def test_dropped_tags_warn_rather_than_block():
 def test_any_order_statement_with_exact_compare_is_refused():
     res = check(statement_md="Return the pairs in any order.", compare="exact")
     assert errors_mentioning(res, "any order")
+
+
+@pytest.mark.parametrize("opening", [
+    "# Add Two", "## Add Two", "# add two", "# Add  Two #", "**Add Two**",
+    "Add Two", "Add Two:", "1. Add Two", "1. **Add Two**",
+])
+def test_a_statement_opening_with_the_title_is_refused(opening):
+    res = check(statement_md=f"{opening}\n\nReturn `a + b`.\n")
+    assert errors_mentioning(res, "repeats the title")
+
+
+def test_the_title_is_found_past_blank_lines_and_browser_line_breaks():
+    res = check(statement_md="\r\n\r\n# Add Two\r\n\r\nReturn `a + b`.\r\n")
+    assert errors_mentioning(res, "repeats the title")
+
+
+@pytest.mark.parametrize("statement", [
+    "Add two numbers and return the result.",   # begins with the title's words
+    "Return `a + b`.\n\n# Add Two\n",          # not the opening line
+    "# Examples\n\nAdd Two\n",                 # a different heading comes first
+    "",
+])
+def test_a_statement_that_does_not_open_with_the_title_passes(statement):
+    res = check(statement_md=statement)
+    assert not errors_mentioning(res, "repeats the title")
+
+
+def test_the_audit_flags_a_repeated_title():
+    """`make check` and the bulk importer reach this rule through audit_problem."""
+    spec = importlib.util.spec_from_file_location(
+        "audit", pathlib.Path(__file__).parent.parent / "scripts" / "audit.py")
+    audit = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(audit)
+
+    def issues(statement: str) -> list[str]:
+        p = SimpleNamespace(title="Add Two", statement_md=statement, compare="exact",
+                            canonical_solution=CANONICAL, kind="function", tests=[])
+        return audit.audit_problem(p, run_canonical=False)
+
+    assert any("repeats the title" in i for i in issues("# Add Two\n\nReturn it.\n"))
+    assert issues("Return `a + b`.\n") == []
 
 
 def test_any_order_is_fine_once_compare_is_relaxed():

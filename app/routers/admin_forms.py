@@ -96,6 +96,14 @@ def parse_params(text: str) -> list[dict]:
     return out
 
 
+def _lf(text: str) -> str:
+    """Browsers post textarea line breaks as CRLF. Store LF instead, or one admin
+    save rewrites every line of the statement, starter and solution as far as git
+    can tell. The same translation `content._read` applies on load, so what is
+    saved here is what the next re-seed reads back."""
+    return text.replace("\r\n", "\n").replace("\r", "\n")
+
+
 def to_data(form: ProblemForm, *, slug: str, source: str) -> dict:
     """Form -> the internal problem dict that `validate_problem` and the store take.
 
@@ -113,12 +121,12 @@ def to_data(form: ProblemForm, *, slug: str, source: str) -> dict:
         "topics": [t.strip() for t in form.topics.split(",") if t.strip()],
         # One hint per line; normalize_hints trims blanks and caps at MAX_HINTS.
         "hints": content.normalize_hints(form.hints.splitlines()),
-        "statement_md": form.statement_md,
+        "statement_md": _lf(form.statement_md),
         # For a class problem the params textarea holds the *constructor* params.
         "params": parse_params(form.params),
         "compare": form.compare if form.compare in COMPARE_MODES else "exact",
-        "starter_code": form.starter_code,
-        "canonical_solution": form.canonical_solution or None,
+        "starter_code": _lf(form.starter_code),
+        "canonical_solution": _lf(form.canonical_solution) or None,
         "scoring_type": "weighted", "points": 100, "source": source, "kind": kind,
         "time_limit_ms": settings.EXEC_TIME_LIMIT_MS,
         "memory_limit_mb": settings.EXEC_MEMORY_LIMIT_MB, "tests": tests,

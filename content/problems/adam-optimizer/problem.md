@@ -1,5 +1,3 @@
-# Adam Optimizer
-
 **Adam** is the default optimizer for training neural networks. For every
 parameter it keeps a running average of the gradient (the **first moment**,
 like momentum) and of the squared gradient (the **second moment**), and it

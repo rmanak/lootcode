@@ -1,5 +1,3 @@
-# Two-Layer MLP: Backpropagation
-
 Write the forward and backward pass of a small neural network classifier by
 hand: one hidden layer with ReLU, then a softmax cross-entropy loss. This is
 the classic "backprop from scratch" interview question.

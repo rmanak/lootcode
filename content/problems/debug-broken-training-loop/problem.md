@@ -1,5 +1,3 @@
-# Debug a Broken Training Loop
-
 A colleague wrote a mini-batch SGD loop for L2-regularized logistic
 regression. It runs without errors and the loss even goes down, but the
 numbers are wrong. **The starter code is that loop. It has seven bugs.** Fix

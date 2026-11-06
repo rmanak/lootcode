@@ -1,5 +1,3 @@
-# Minimum Cost to Travel
-
 A car must drive from point `A` to point `B`, which are `target` units apart.
 Its fuel tank holds at most `capacity` units and **starts completely full**.
 Driving consumes exactly **1 unit of fuel per unit of distance**.

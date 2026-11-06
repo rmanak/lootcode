@@ -1,5 +1,3 @@
-# InfoNCE Contrastive Loss (CLIP)
-
 **CLIP** learns a shared embedding space for images and text from matching
 pairs. In a batch of $N$ pairs, image $i$ should be closer to its own caption
 $i$ than to the other $N - 1$ captions, and the other way round. The

@@ -1,5 +1,3 @@
-# k-Nearest Neighbors Classifier
-
 The **k-nearest neighbors** classifier has no training step. To label a new
 point, it finds the `k` training points closest to it and takes a **majority
 vote** of their labels.

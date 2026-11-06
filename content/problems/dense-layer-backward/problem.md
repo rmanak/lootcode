@@ -1,5 +1,3 @@
-# Dense Layer: Backward Pass
-
 A dense (fully connected) layer computes, with $f$ the `activation` applied
 element-wise and the bias $b$ added to every row,
 

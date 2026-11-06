@@ -1,5 +1,3 @@
-# Standard Scaler and One-Hot Encoder
-
 Before most models can use a table, the numeric columns are standardized and
 the categorical columns are one-hot encoded. The statistics must be **fit on
 the training rows only** and then applied unchanged to the test rows.

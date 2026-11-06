@@ -1,5 +1,3 @@
-# Weighted Sampling Without Replacement
-
 You need to draw $k$ distinct items from $N$, where item $i$ is picked with
 probability proportional to its weight `weights[i]`. This is how many systems
 choose negative samples, replay-buffer entries or ads. The method of

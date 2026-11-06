@@ -29,6 +29,10 @@ content/problems/<slug>/
 
 `<slug>` is kebab-case, unique, and matches `meta.json.slug`.
 
+`problem.md` starts with the statement itself, never the title: the problem page
+prints `meta.json.title` above it, so a first line like `# Two Sum` would show the
+title twice. `scripts/audit.py` and the admin save gate both reject it.
+
 ## Solver contract
 
 The solver defines a **top-level function** named `meta.function.name` that takes
@@ -285,6 +289,7 @@ solution doesn't pass everything — keep it green.
 ## Checklist before publishing
 
 - [ ] `meta.json` is valid; `starters/python/solution.py` exists.
+- [ ] `problem.md` doesn't start with the title (`python scripts/audit.py`).
 - [ ] `solution/solution.py` passes **all** tests (`python scripts/seed.py`).
 - [ ] Hidden cases cover edge/large inputs.
 - [ ] Every case input is in-bounds (`python scripts/check_constraint_validators.py --slug <slug>`).

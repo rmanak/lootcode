@@ -87,6 +87,29 @@ _HOUSE_STYLE = {"str": "string", "integer": "int", "boolean": "bool",
                 "double": "float", "number": "float", "list": "<elem>[]",
                 "dict": "object", "null": "any", "none": "any"}
 
+# What an opening line may wrap the title in: "# Two Sum", "**Two Sum**", "Two Sum:",
+# "1. Two Sum". The bulk text imports arrive with the last two.
+_TITLE_MARKUP = " \t#*_`:."
+_LIST_NUMBER = re.compile(r"^\d+[.)]\s+")
+
+
+def _bare_title(text: str) -> str:
+    text = _LIST_NUMBER.sub("", text.strip(_TITLE_MARKUP)).strip(_TITLE_MARKUP)
+    return " ".join(text.casefold().split())
+
+
+def statement_repeats_title(title: str, statement_md: str) -> bool:
+    """Does the statement open by restating the title?
+
+    The problem page prints the title directly above the statement, so a leading
+    ``# Two Sum`` shows it twice. Only a whole first line counts: a sentence that
+    merely begins with the title's words is fine. Shared by the save gate below
+    and ``scripts/audit.py`` (which ``make check`` and the bulk importer run).
+    """
+    first = next((ln for ln in (statement_md or "").splitlines() if ln.strip()), "")
+    bare = _bare_title(title or "")
+    return bool(bare) and _bare_title(first) == bare
+
 
 @dataclass
 class ValidationResult:
@@ -177,6 +200,13 @@ def validate_problem(data: dict, *, db: Session | None = None, is_new: bool = Tr
                 f"{data.get('compare')!r} — the judge would reject a valid re-ordering. "
                 "Set compare to 'unordered' or 'set_of_lists', or pin the exact order "
                 "in the statement.")
+
+    # --- statement doesn't restate the title (text, safe) -------------------
+    if statement_repeats_title(title, data.get("statement_md") or ""):
+        res.errors.append(
+            f"The statement's first line repeats the title ({title!r}). The problem "
+            "page already shows the title above the statement, so it would appear "
+            "twice. Delete that line.")
 
     # --- slug collision (new problems only) ---------------------------------
     if is_new and slug and SLUG_RE.match(slug):

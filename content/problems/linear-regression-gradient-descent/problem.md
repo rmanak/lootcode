@@ -1,5 +1,3 @@
-# Linear Regression by Gradient Descent
-
 **Linear regression** predicts a number as $w \cdot x + b$. Fit it by
 minimizing the **mean squared error** with plain full-batch gradient descent,
 exactly as follows. `X` has $N$ rows (examples) $x_i$ of $d$ features, `y` has

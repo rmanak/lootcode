@@ -1,5 +1,3 @@
-# Matrix Factorization by Gradient Descent
-
 Collaborative filtering predicts how a user would rate an item from a few known
 ratings. **Matrix factorization** gives every user $u$ a vector $U_u$ and every
 item $i$ a vector $V_i$, each of length $k$. The predicted rating is their dot

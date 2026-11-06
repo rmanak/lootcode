@@ -1,5 +1,3 @@
-# Linear SVM with Pegasos
-
 **Pegasos** trains a linear support vector machine by stochastic subgradient
 descent on the regularized hinge loss, where $\lambda$ = `lam`, $x_i$ =
 `X[i]` and $y_i$ = `y[i]`:

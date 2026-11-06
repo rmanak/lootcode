@@ -1,5 +1,3 @@
-# Idempotency Keys: Safe Retries for a Payments API
-
 Agents and services retry failed requests, and that is dangerous for anything
 that moves money. A timeout does **not** mean the request failed. The charge
 may have gone through and only the response was lost. Payment APIs solve this

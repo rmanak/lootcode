@@ -1,5 +1,3 @@
-# TF-IDF Retrieval with Cosine Similarity
-
 Before dense embeddings, search ran on **TF-IDF**, and it is still the
 keyword half of most hybrid retrieval systems. Build a tiny search engine:
 index `documents`, then return the `k` best matches for each query.
