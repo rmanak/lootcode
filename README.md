@@ -4,8 +4,8 @@
 
 **Practice coding exercises, write a solution, run it against tests, get scored.**
 
-A lightweight, self-hostable LeetCode-style platform for your home or LAN server.
-Python 3 · FastAPI · SQLite · 800+ problems.
+A lightweight, local LeetCode-style platform from your laptop/server.
+Python 3 · FastAPI · SQLite · 800+ leetcode style problems, 60+ ML problems, 10+ CodeSignal style industrial assessment problems
 
 <img src="images/code.png" alt="Solving a problem in lootcode: statement on the left, in-browser Python editor on the right" width="800">
 
