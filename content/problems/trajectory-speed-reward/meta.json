@@ -1,0 +1,42 @@
+{
+  "slug": "trajectory-speed-reward",
+  "title": "Speed-Limit Penalty and Remaining Distance for Trajectories",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "prefix-sum",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "trajectoryFeatures",
+    "params": [
+      {
+        "name": "trajectories",
+        "type": "float[][][]"
+      },
+      {
+        "name": "speedLimits",
+        "type": "float[]"
+      },
+      {
+        "name": "dt",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

@@ -1,0 +1,50 @@
+{
+  "slug": "streaming-softmax-entropy",
+  "title": "Streaming Softmax Entropy",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "math",
+    "design"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "kind": "class",
+  "class": {
+    "name": "StreamingEntropy",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "name": "update",
+        "params": [
+          {
+            "name": "chunk",
+            "type": "float[]"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "entropy",
+        "params": [],
+        "returns": {
+          "type": "float"
+        }
+      }
+    ]
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

@@ -1,0 +1,47 @@
+{
+  "slug": "markov-chain-text-generator",
+  "title": "Markov-Chain Text Generator",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "generateText",
+    "params": [
+      {
+        "name": "corpus",
+        "type": "string"
+      },
+      {
+        "name": "startWord",
+        "type": "string"
+      },
+      {
+        "name": "steps",
+        "type": "int"
+      },
+      {
+        "name": "draws",
+        "type": "float[]"
+      }
+    ],
+    "returns": {
+      "type": "string[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

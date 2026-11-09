@@ -1,0 +1,49 @@
+{
+  "slug": "best-answer-span",
+  "title": "Answer-Span Extraction: Loss and Decoding",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "array"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "spanLossAndDecode",
+    "params": [
+      {
+        "name": "startLogits",
+        "type": "float[][]"
+      },
+      {
+        "name": "endLogits",
+        "type": "float[][]"
+      },
+      {
+        "name": "goldStarts",
+        "type": "int[]"
+      },
+      {
+        "name": "goldEnds",
+        "type": "int[]"
+      },
+      {
+        "name": "maxLen",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

@@ -1,0 +1,43 @@
+{
+  "slug": "sparse-matrix-multiplication",
+  "title": "Sparse Matrix Multiplication",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "hash-table",
+    "matrix"
+  ],
+  "hints": [
+    "Most entries of both matrices are zero, and a zero contributes nothing to any product term. Think about which multiplications the standard triple loop performs that can never matter.",
+    "Instead of computing each output cell as a dot product of a row and a column, consider what a single non-zero entry mat1[i][k] contributes to the output, and which entries of mat2 it pairs with.",
+    "All the cost of the triple loop sits in the shared inner dimension. Organize the work around that shared index, so that a non-zero of mat1 only ever meets the non-zeros of mat2 it can actually pair with."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "multiply",
+    "params": [
+      {
+        "name": "mat1",
+        "type": "int[][]"
+      },
+      {
+        "name": "mat2",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int[][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

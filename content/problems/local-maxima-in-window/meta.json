@@ -1,0 +1,43 @@
+{
+  "slug": "local-maxima-in-window",
+  "title": "Strict Local Peaks in a Signal",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "prefix-sum",
+    "dynamic-programming"
+  ],
+  "hints": [
+    "Checking up to localArea neighbours on each side of every index costs O(n · localArea), which is too slow when both are large. The condition on each side only depends on how far a strictly monotone run reaches.",
+    "For every index, how long is the strictly increasing run that ends there coming from the left? And how long is the strictly decreasing run that starts there going right? Each can be computed for all indices in one pass.",
+    "An index qualifies when its left run covers min(localArea, i) steps and its right run covers min(localArea, n − 1 − i) steps; those minimums are what take care of the edges."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "localPeaks",
+    "params": [
+      {
+        "name": "rawData",
+        "type": "int[]"
+      },
+      {
+        "name": "localArea",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

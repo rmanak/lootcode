@@ -1,0 +1,96 @@
+{
+  "slug": "vector-store-metadata-filter",
+  "title": "In-Memory Vector Store with Metadata Filters",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "design",
+    "hash-table",
+    "heap"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "kind": "class",
+  "class": {
+    "name": "VectorStore",
+    "constructor": {
+      "params": [
+        {
+          "name": "dim",
+          "type": "int"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "upsert",
+        "params": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "vector",
+            "type": "float[]"
+          },
+          {
+            "name": "metadata",
+            "type": "object"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "delete",
+        "params": [
+          {
+            "name": "id",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "query",
+        "params": [
+          {
+            "name": "vector",
+            "type": "float[]"
+          },
+          {
+            "name": "topK",
+            "type": "int"
+          },
+          {
+            "name": "filter",
+            "type": "object"
+          }
+        ],
+        "returns": {
+          "type": "any[]"
+        }
+      },
+      {
+        "name": "size",
+        "params": [],
+        "returns": {
+          "type": "int"
+        }
+      }
+    ]
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

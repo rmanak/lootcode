@@ -1,6 +1,6 @@
 # ML coding: what's left (resume here)
 
-**Last updated 2026-10-31.** To pick this up in a new session, say
+**Last updated 2026-11-07.** To pick this up in a new session, say
 **"resume docs/ml-coding-todo.md"**, or name one item, e.g. "do item 1b". Items are
 in the recommended order. Tick them off here as they land, so this file stays the
 single source of what's left.
@@ -32,6 +32,11 @@ the "Machine-learning problems" section of `specs/problem-authoring-guidelines.m
   `executor-security-reviewer` result is recorded there.
 
 **Committed 2026-11-01** (see item 5).
+
+- **Phase 4, the company interview-question sweep, done 2026-11-07** (not yet
+  committed). 27 ML problems were added to `content/problems` and the
+  collection (96 now), plus 8 ML-adjacent algorithm problems (also in
+  `content/problems`, not in the collection). See item 2b.
 
 ---
 
@@ -648,6 +653,75 @@ Beyond the plan (optional, each is its own decision):
   one-line scaling check.
 
 Not doable: `#60`–`#62` (custom judge, torch, not code).
+
+## 2b. Phase 4: `ml_coding_interview_questions_by_company.md` sweep (2026-11-07)
+
+The owner asked for every question in that file to be checked against the
+bank and the missing ones added. PyTorch questions were rewritten in numpy
+where the point survives, and dropped where it does not.
+
+**Added to `content/problems` + `ml-coding` (27):**
+gaussian-naive-bayes, bernoulli-naive-bayes, bagging-decision-stumps,
+k-medians-manhattan, label-smoothed-masked-cross-entropy,
+streaming-softmax-entropy (class), kl-and-js-divergence,
+matrix-prefix-products-backward, attention-backward-pass,
+distance-decay-attention (ALiBi), best-answer-span, longest-match-tokenizer,
+markov-chain-text-generator, radix-prefix-cache (class),
+continuous-batching-engine (class), context-window-packing, ransac-plane-fit,
+ucb1-bandit, trajectory-speed-reward, vector-store-metadata-filter (class),
+noisy-annotator-filter, weighted-data-batcher (class, smooth WRR + state
+dict), dynamic-request-batching (event simulation, not threads),
+prune-computation-graph, storage-full-forecast (class), bootstrap-and-jackknife,
+streaming-mean-variance (class, Welford + Chan merge).
+
+**Added to `content/problems` (moved out of `problems-extended` at the owner's
+request on 2026-11-09), not in the collection, with 3 hints
+each (8):** sparse-matrix-multiplication (LC 311),
+dot-product-of-two-sparse-vectors, run-length-encoded-dot-product,
+sparse-matrix-vector-products (class), weighted-pick-by-draw (class, Fenwick),
+bucket-batching-min-padding, hyperparameter-grid, local-maxima-in-window.
+
+**Already covered:** #1–5, 7, 9, 12, 16–18, 22, 23, 28, 32, 35, 38, 41, 42,
+44, 49–51, 56, 57, 61, 62, 74, 98, 108, 111–117, 125, 128–131, 135, 136.
+
+**Dropped:**
+- Need an LLM API, PyTorch or a notebook, or are not code: #6, 10, 11, 20,
+  21, 27, 48, 54, 55, 60, 64, 66–73, 76, 77, 79, 133, 134, 137.
+- #14 speculative edits (underspecified); #30 byte tokenizer (scope); #34
+  (covered by kNN).
+- #36, 43, 123 (covered by logreg / debug-broken-training-loop).
+- #78 (threads); #81, 83 (transpose); #82 (interactive group testing); #90
+  (callable input).
+- #92, 94, 122, 124 (need a randomness judge); #118 (too vague); #132 (needs
+  an encoder).
+
+**How they were built:** one generator per problem in
+`scratchpad/ml-coding/co/<slug>.py`. The shared `scaffold.py` stages files
+under `scratchpad/ml-coding/staging/`, and `promote.py` moves a staged
+problem into its content root. `mlgen.vet` checks four things:
+- every input passes the validator;
+- independent alternates agree with the canonical to 1e-9;
+- every wrong variant fails a visible case;
+- every stability variant fails a hidden case.
+
+Notes:
+
+- **Compact `cases.json`.** `mlgen` now writes through
+  `scratchpad/ml-coding/compact_cases.py`, which keeps short lists on one line
+  and wraps long tables. Indent-2 put every number on its own line, and
+  suites came out 3–16 MB. The data is unchanged and every new suite is
+  under about 1 MB.
+- **Large-offset data.** For bootstrap-and-jackknife and
+  streaming-mean-variance, the canonical subtracts a constant first: the
+  overall mean, or each shard's first value. Even plain Welford was ~1e-8
+  off the exact answer on 1e8-offset data. That is inside the 1e-6
+  tolerance (checked: plain Welford passes all 10 cases), but too loose for
+  an oracle. The naive formulas, E[x²]−E[x]² and (sum−x)/(k−1), fail the
+  hidden offset cases.
+- **Promises live in the validators.** Validators reject near-ties (UCB1
+  indices, vector-store scores), distances within 1e-6 of the RANSAC
+  threshold, near-zero regression slopes (exact Fractions), and
+  `loadStateDict` of a state that was never saved.
 
 ## 3. Hint quality gate: not needed for ML problems (owner, 2026-10-31)
 

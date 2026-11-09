@@ -1,0 +1,43 @@
+{
+  "slug": "hyperparameter-grid",
+  "title": "Index into a Hyperparameter Grid",
+  "difficulty": "easy",
+  "tags": [
+    "math",
+    "combinatorics",
+    "array"
+  ],
+  "hints": [
+    "The grid can hold up to 10¹⁸ combinations, so listing them is impossible. Look at the order of the combinations in a small grid and notice how often each key's value changes.",
+    "The last key cycles fastest, the one before it changes once per full cycle of the last, and so on: the order is the same as counting with digits, except that every position has its own base.",
+    "Ask what the index alone tells you about the last key's value, and then what is left of the index once that choice is accounted for."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "gridLookup",
+    "params": [
+      {
+        "name": "values",
+        "type": "any[][]"
+      },
+      {
+        "name": "queries",
+        "type": "int[]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

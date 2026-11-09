@@ -1,0 +1,50 @@
+{
+  "slug": "continuous-batching-engine",
+  "title": "Continuous Batching for LLM Inference",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "simulation",
+    "queue"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "runEngine",
+    "params": [
+      {
+        "name": "requests",
+        "type": "any[]"
+      },
+      {
+        "name": "batchSize",
+        "type": "int"
+      },
+      {
+        "name": "stopToken",
+        "type": "int"
+      },
+      {
+        "name": "vocabSize",
+        "type": "int"
+      },
+      {
+        "name": "continuous",
+        "type": "bool"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

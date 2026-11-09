@@ -1,0 +1,49 @@
+{
+  "slug": "attention-backward-pass",
+  "title": "Attention Backward Pass",
+  "difficulty": "hard",
+  "tags": [
+    "machine-learning",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "attentionBackward",
+    "params": [
+      {
+        "name": "Q",
+        "type": "float[][]"
+      },
+      {
+        "name": "K",
+        "type": "float[][]"
+      },
+      {
+        "name": "V",
+        "type": "float[][]"
+      },
+      {
+        "name": "dO",
+        "type": "float[][]"
+      },
+      {
+        "name": "causal",
+        "type": "bool"
+      }
+    ],
+    "returns": {
+      "type": "float[][][]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

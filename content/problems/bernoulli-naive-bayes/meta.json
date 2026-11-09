@@ -1,0 +1,46 @@
+{
+  "slug": "bernoulli-naive-bayes",
+  "title": "Bernoulli Naive Bayes",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "math",
+    "counting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "bernoulliNaiveBayes",
+    "params": [
+      {
+        "name": "X",
+        "type": "int[][]"
+      },
+      {
+        "name": "y",
+        "type": "int[]"
+      },
+      {
+        "name": "XTest",
+        "type": "int[][]"
+      },
+      {
+        "name": "alpha",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "int[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

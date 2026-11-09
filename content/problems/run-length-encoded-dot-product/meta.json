@@ -1,0 +1,42 @@
+{
+  "slug": "run-length-encoded-dot-product",
+  "title": "Dot Product of Run-Length Encoded Vectors",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "two-pointers"
+  ],
+  "hints": [
+    "The decoded vectors can be 10¹⁴ entries long, so decoding is impossible. But within a stretch where neither vector changes value, every position contributes the same product.",
+    "Both encodings list their runs from left to right. Think about how to move through the two lists together so that, at every point, you know which run of each vector covers the current position.",
+    "The answer is a sum over stretches where both vectors are constant, and every run boundary in either encoding starts a new stretch, so there are at most len(a) + len(b) stretches to visit."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "rleDot",
+    "params": [
+      {
+        "name": "a",
+        "type": "int[][]"
+      },
+      {
+        "name": "b",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

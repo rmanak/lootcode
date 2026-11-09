@@ -1,0 +1,50 @@
+{
+  "slug": "bootstrap-and-jackknife",
+  "title": "Bootstrap Interval and Jackknife Error for an A/B Difference",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "math",
+    "sorting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "abUncertainty",
+    "params": [
+      {
+        "name": "groups",
+        "type": "int[]"
+      },
+      {
+        "name": "values",
+        "type": "float[]"
+      },
+      {
+        "name": "resample0",
+        "type": "int[][]"
+      },
+      {
+        "name": "resample1",
+        "type": "int[][]"
+      },
+      {
+        "name": "alpha",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "float[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

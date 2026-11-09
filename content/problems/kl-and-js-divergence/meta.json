@@ -1,0 +1,38 @@
+{
+  "slug": "kl-and-js-divergence",
+  "title": "KL and Jensen-Shannon Divergence",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "math",
+    "array"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "divergences",
+    "params": [
+      {
+        "name": "p",
+        "type": "float[]"
+      },
+      {
+        "name": "q",
+        "type": "float[]"
+      }
+    ],
+    "returns": {
+      "type": "float[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

@@ -1,0 +1,72 @@
+{
+  "slug": "storage-full-forecast",
+  "title": "Forecast When a Storage Volume Fills Up",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "design",
+    "math",
+    "queue"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "kind": "class",
+  "class": {
+    "name": "StorageForecaster",
+    "constructor": {
+      "params": [
+        {
+          "name": "windowSize",
+          "type": "int"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "recordUsage",
+        "params": [
+          {
+            "name": "timestamp",
+            "type": "int"
+          },
+          {
+            "name": "usedBytes",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "forecastFull",
+        "params": [
+          {
+            "name": "totalBytes",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "float"
+        }
+      },
+      {
+        "name": "getGrowthRatePerDay",
+        "params": [],
+        "returns": {
+          "type": "float"
+        }
+      }
+    ]
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

@@ -1,0 +1,93 @@
+{
+  "slug": "sparse-matrix-vector-products",
+  "title": "Sparse Matrix Times Vector, From Both Sides",
+  "difficulty": "medium",
+  "tags": [
+    "design",
+    "hash-table",
+    "matrix"
+  ],
+  "hints": [
+    "Neither the matrix nor the vectors can ever be expanded: the dimensions reach a billion. Every operation has to touch only stored non-zero entries.",
+    "For M·v, the only matrix entries that matter are those in the columns where v is non-zero; for vᵀ·M, those in the rows where v is non-zero. A single storage layout makes one of these cheap and the other expensive.",
+    "Keeping two indexes of the same entries, one grouped by column and one grouped by row, makes both products cheap; the price is that every set has to update both consistently, including removing an entry when its value becomes zero."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "kind": "class",
+  "class": {
+    "name": "SparseMatrix",
+    "constructor": {
+      "params": [
+        {
+          "name": "rows",
+          "type": "int"
+        },
+        {
+          "name": "cols",
+          "type": "int"
+        },
+        {
+          "name": "entries",
+          "type": "int[][]"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "set",
+        "params": [
+          {
+            "name": "i",
+            "type": "int"
+          },
+          {
+            "name": "j",
+            "type": "int"
+          },
+          {
+            "name": "value",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "multiplyVector",
+        "params": [
+          {
+            "name": "vector",
+            "type": "int[][]"
+          }
+        ],
+        "returns": {
+          "type": "int[][]"
+        }
+      },
+      {
+        "name": "vectorMultiply",
+        "params": [
+          {
+            "name": "vector",
+            "type": "int[][]"
+          }
+        ],
+        "returns": {
+          "type": "int[][]"
+        }
+      }
+    ]
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

@@ -1,0 +1,38 @@
+{
+  "slug": "noisy-annotator-filter",
+  "title": "Find the Noisy Annotators",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "counting",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "filterAnnotators",
+    "params": [
+      {
+        "name": "annotations",
+        "type": "int[][]"
+      },
+      {
+        "name": "threshold",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

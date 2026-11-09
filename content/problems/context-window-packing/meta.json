@@ -1,0 +1,42 @@
+{
+  "slug": "context-window-packing",
+  "title": "Pack Retrieved Documents into a Context Window",
+  "difficulty": "hard",
+  "tags": [
+    "machine-learning",
+    "dynamic-programming",
+    "array"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "packContext",
+    "params": [
+      {
+        "name": "budget",
+        "type": "int"
+      },
+      {
+        "name": "minTokens",
+        "type": "int"
+      },
+      {
+        "name": "documents",
+        "type": "any[]"
+      }
+    ],
+    "returns": {
+      "type": "float[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

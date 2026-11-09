@@ -1,0 +1,81 @@
+{
+  "slug": "radix-prefix-cache",
+  "title": "Radix Prefix Cache for Token Sequences",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "trie",
+    "design"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "kind": "class",
+  "class": {
+    "name": "RadixCache",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "name": "insert",
+        "params": [
+          {
+            "name": "sequence",
+            "type": "int[]"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "search",
+        "params": [
+          {
+            "name": "sequence",
+            "type": "int[]"
+          }
+        ],
+        "returns": {
+          "type": "bool"
+        }
+      },
+      {
+        "name": "prefixMatch",
+        "params": [
+          {
+            "name": "sequence",
+            "type": "int[]"
+          }
+        ],
+        "returns": {
+          "type": "int[]"
+        }
+      },
+      {
+        "name": "getAllSequences",
+        "params": [],
+        "returns": {
+          "type": "int[][]"
+        }
+      },
+      {
+        "name": "structure",
+        "params": [],
+        "returns": {
+          "type": "any[]"
+        }
+      }
+    ]
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

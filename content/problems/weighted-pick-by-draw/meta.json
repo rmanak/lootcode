@@ -1,0 +1,77 @@
+{
+  "slug": "weighted-pick-by-draw",
+  "title": "Weighted Random Pick with Changing Weights",
+  "difficulty": "hard",
+  "tags": [
+    "design",
+    "binary-indexed-tree",
+    "binary-search",
+    "prefix-sum"
+  ],
+  "hints": [
+    "Lay the items out on a number line, one after another, with item i taking up a stretch as long as its weight. A draw r then lands in exactly one stretch.",
+    "Without updates, prefix sums and a binary search answer each pick in logarithmic time; the trouble is that one weight change shifts every later prefix sum.",
+    "You need a structure that supports both 'change one weight' and 'find where a running total first exceeds r' in logarithmic time. A Fenwick (binary indexed) tree can do the second by walking down its levels rather than binary-searching over prefix queries."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "kind": "class",
+  "class": {
+    "name": "WeightedPicker",
+    "constructor": {
+      "params": [
+        {
+          "name": "weights",
+          "type": "int[]"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "pick",
+        "params": [
+          {
+            "name": "r",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "int"
+        }
+      },
+      {
+        "name": "update",
+        "params": [
+          {
+            "name": "i",
+            "type": "int"
+          },
+          {
+            "name": "weight",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "total",
+        "params": [],
+        "returns": {
+          "type": "int"
+        }
+      }
+    ]
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

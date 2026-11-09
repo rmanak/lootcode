@@ -1,0 +1,43 @@
+{
+  "slug": "dot-product-of-two-sparse-vectors",
+  "title": "Dot Product of Two Sparse Vectors",
+  "difficulty": "medium",
+  "tags": [
+    "array",
+    "two-pointers",
+    "binary-search"
+  ],
+  "hints": [
+    "The vectors can have a billion dimensions, so expanding either one into a dense list is out of the question. Only indices present in both lists can contribute to the sum.",
+    "Both lists are sorted by index. Think about how merging two sorted lists lets you find all shared indices in one simultaneous pass.",
+    "When one vector has far fewer non-zeros than the other, walking the long list is wasted work; consider searching the long list for each entry of the short one instead, so the cost depends mostly on the short length."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "sparseDot",
+    "params": [
+      {
+        "name": "a",
+        "type": "int[][]"
+      },
+      {
+        "name": "b",
+        "type": "int[][]"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

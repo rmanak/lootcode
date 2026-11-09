@@ -1,0 +1,42 @@
+{
+  "slug": "k-medians-manhattan",
+  "title": "K Pickup Points: k-Medians under Manhattan Distance",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "sorting",
+    "geometry"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "kMedians",
+    "params": [
+      {
+        "name": "points",
+        "type": "int[][]"
+      },
+      {
+        "name": "initialCenters",
+        "type": "float[][]"
+      },
+      {
+        "name": "maxIters",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

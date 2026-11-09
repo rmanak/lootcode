@@ -1,0 +1,70 @@
+{
+  "slug": "weighted-data-batcher",
+  "title": "Weighted Data Mixing with Resumable State",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "design",
+    "greedy"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "kind": "class",
+  "class": {
+    "name": "DataBatcher",
+    "constructor": {
+      "params": [
+        {
+          "name": "names",
+          "type": "string[]"
+        },
+        {
+          "name": "weights",
+          "type": "int[]"
+        },
+        {
+          "name": "batchSize",
+          "type": "int"
+        }
+      ]
+    },
+    "methods": [
+      {
+        "name": "nextBatch",
+        "params": [],
+        "returns": {
+          "type": "string[]"
+        }
+      },
+      {
+        "name": "stateDict",
+        "params": [],
+        "returns": {
+          "type": "int[][]"
+        }
+      },
+      {
+        "name": "loadStateDict",
+        "params": [
+          {
+            "name": "state",
+            "type": "int[][]"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      }
+    ]
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

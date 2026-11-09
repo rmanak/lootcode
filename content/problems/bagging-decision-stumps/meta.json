@@ -1,0 +1,46 @@
+{
+  "slug": "bagging-decision-stumps",
+  "title": "Bagging with Decision Stumps",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "sorting",
+    "counting"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "baggingStumps",
+    "params": [
+      {
+        "name": "X",
+        "type": "float[][]"
+      },
+      {
+        "name": "y",
+        "type": "int[]"
+      },
+      {
+        "name": "bootstraps",
+        "type": "int[][]"
+      },
+      {
+        "name": "XTest",
+        "type": "float[][]"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

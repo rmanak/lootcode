@@ -1,0 +1,46 @@
+{
+  "slug": "label-smoothed-masked-cross-entropy",
+  "title": "Masked Cross-Entropy with Label Smoothing",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "math",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "smoothedMaskedCrossEntropy",
+    "params": [
+      {
+        "name": "logits",
+        "type": "float[][]"
+      },
+      {
+        "name": "targets",
+        "type": "int[]"
+      },
+      {
+        "name": "mask",
+        "type": "int[]"
+      },
+      {
+        "name": "smoothing",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

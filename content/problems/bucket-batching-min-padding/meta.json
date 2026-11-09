@@ -1,0 +1,43 @@
+{
+  "slug": "bucket-batching-min-padding",
+  "title": "Batch Documents to Minimize Padding",
+  "difficulty": "medium",
+  "tags": [
+    "dynamic-programming",
+    "sorting",
+    "array"
+  ],
+  "hints": [
+    "A batch's cost depends only on how many documents it holds and on its longest one. Ask yourself whether it can ever help to put a short document in the same batch as a long one while a medium-length document sits in a different batch.",
+    "After sorting, an optimal solution can be assumed to cut the sorted list into G contiguous groups. That turns the problem into choosing G − 1 cut points.",
+    "Think of the best cost for the first i sorted documents using g batches. The last batch is some suffix ending at i, and its cost is fixed by its size and its last (longest) element."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "minPaddedTokens",
+    "params": [
+      {
+        "name": "lengths",
+        "type": "int[]"
+      },
+      {
+        "name": "G",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "int"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}

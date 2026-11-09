@@ -1,0 +1,75 @@
+{
+  "slug": "streaming-mean-variance",
+  "title": "Streaming Mean and Variance with Mergeable Shards",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "design",
+    "math"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "kind": "class",
+  "class": {
+    "name": "StreamStats",
+    "constructor": {
+      "params": []
+    },
+    "methods": [
+      {
+        "name": "add",
+        "params": [
+          {
+            "name": "shard",
+            "type": "int"
+          },
+          {
+            "name": "x",
+            "type": "float"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "merge",
+        "params": [
+          {
+            "name": "dst",
+            "type": "int"
+          },
+          {
+            "name": "src",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "stats",
+        "params": [
+          {
+            "name": "shard",
+            "type": "int"
+          }
+        ],
+        "returns": {
+          "type": "float[]"
+        }
+      }
+    ]
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

@@ -1,0 +1,46 @@
+{
+  "slug": "ransac-plane-fit",
+  "title": "Point-to-Plane Distance and RANSAC Plane Fitting",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "geometry",
+    "matrix"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "fitPlane",
+    "params": [
+      {
+        "name": "points",
+        "type": "float[][]"
+      },
+      {
+        "name": "plane",
+        "type": "float[]"
+      },
+      {
+        "name": "triples",
+        "type": "int[][]"
+      },
+      {
+        "name": "threshold",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close"
+}

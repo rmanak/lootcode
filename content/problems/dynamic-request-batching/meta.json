@@ -1,0 +1,50 @@
+{
+  "slug": "dynamic-request-batching",
+  "title": "Dynamic Batching for an Inference Server",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "simulation",
+    "queue"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 512
+  },
+  "function": {
+    "name": "batchRequests",
+    "params": [
+      {
+        "name": "arrivals",
+        "type": "int[]"
+      },
+      {
+        "name": "maxBatchSize",
+        "type": "int"
+      },
+      {
+        "name": "maxWaitMs",
+        "type": "int"
+      },
+      {
+        "name": "setupMs",
+        "type": "int"
+      },
+      {
+        "name": "perItemMs",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "exact"
+}
