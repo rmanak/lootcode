@@ -33,8 +33,8 @@ the "Machine-learning problems" section of `specs/problem-authoring-guidelines.m
 
 **Committed 2026-11-01** (see item 5).
 
-- **Phase 4, the company interview-question sweep, done 2026-11-07** (not yet
-  committed). 27 ML problems were added to `content/problems` and the
+- **Phase 4, the company interview-question sweep, done 2026-11-07**
+  (committed 2026-11-09 in 2c59b00). 27 ML problems were added to `content/problems` and the
   collection (96 now), plus 8 ML-adjacent algorithm problems (also in
   `content/problems`, not in the collection). See item 2b.
 
