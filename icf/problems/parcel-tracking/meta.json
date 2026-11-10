@@ -1,0 +1,49 @@
+{
+  "slug": "parcel-tracking",
+  "title": "Parcel Tracking System",
+  "difficulty": "medium",
+  "blurb": "Tally scan events per parcel, then rank the busiest parcels, assign couriers who record their own events, and undo courier changes or sign a courier out.",
+  "tags": ["hash-map", "design", "simulation", "sorting", "stack"],
+  "class_name": "ParcelTracker",
+  "time_cap_minutes": 90,
+  "case_time_limit_ms": 4000,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Recording events",
+      "points": 25,
+      "methods": [
+        "def record_event(self, parcel_id: str, event_type: str, count: int) -> int: ...",
+        "def get_event_count(self, parcel_id: str, event_type: str) -> int | None: ...",
+        "def remove_event(self, parcel_id: str, event_type: str) -> bool: ..."
+      ]
+    },
+    {
+      "level": 2,
+      "title": "The busiest parcels",
+      "points": 25,
+      "methods": [
+        "def top_parcels(self, n: int) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Couriers",
+      "points": 25,
+      "methods": [
+        "def assign_courier(self, parcel_id: str, courier_id: str) -> bool: ...",
+        "def record_courier_event(self, courier_id: str, parcel_id: str, event_type: str, count: int) -> int | None: ...",
+        "def get_courier_parcels(self, courier_id: str) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 4,
+      "title": "Undo and sign-out",
+      "points": 25,
+      "methods": [
+        "def undo_assignment(self, parcel_id: str) -> bool: ...",
+        "def sign_out(self, courier_id: str) -> int: ..."
+      ]
+    }
+  ]
+}

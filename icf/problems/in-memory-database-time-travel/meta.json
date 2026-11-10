@@ -1,0 +1,49 @@
+{
+  "slug": "in-memory-database-time-travel",
+  "title": "In-Memory Database: Time Travel",
+  "difficulty": "medium",
+  "blurb": "A key/field store with compare-and-set and compare-and-delete, then sorted scans, fields that expire, and reading any field as it was at an earlier moment.",
+  "tags": ["hash-map", "design", "binary-search", "sorting"],
+  "class_name": "Database",
+  "time_cap_minutes": 90,
+  "case_time_limit_ms": 4000,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Records and conditional writes",
+      "points": 25,
+      "methods": [
+        "def set(self, timestamp: int, key: str, field: str, value: str) -> None: ...",
+        "def get(self, timestamp: int, key: str, field: str) -> str | None: ...",
+        "def compare_and_set(self, timestamp: int, key: str, field: str, expected_value: str, new_value: str) -> bool: ...",
+        "def compare_and_delete(self, timestamp: int, key: str, field: str, expected_value: str) -> bool: ..."
+      ]
+    },
+    {
+      "level": 2,
+      "title": "Scanning a record",
+      "points": 25,
+      "methods": [
+        "def scan(self, timestamp: int, key: str) -> list[str]: ...",
+        "def scan_by_prefix(self, timestamp: int, key: str, prefix: str) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Fields that expire",
+      "points": 25,
+      "methods": [
+        "def set_with_ttl(self, timestamp: int, key: str, field: str, value: str, ttl: int) -> None: ...",
+        "def compare_and_set_with_ttl(self, timestamp: int, key: str, field: str, expected_value: str, new_value: str, ttl: int) -> bool: ..."
+      ]
+    },
+    {
+      "level": 4,
+      "title": "Reading the past",
+      "points": 25,
+      "methods": [
+        "def get_when(self, timestamp: int, key: str, field: str, at_timestamp: int) -> str | None: ..."
+      ]
+    }
+  ]
+}

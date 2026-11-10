@@ -1,0 +1,51 @@
+{
+  "slug": "dns-resolver",
+  "title": "DNS Resolver",
+  "difficulty": "hard",
+  "blurb": "Address records with normalized names, then alias chains that can loop, fallback names with errors that must propagate, and records that expire.",
+  "tags": ["hash-map", "design", "graph", "depth-first-search", "simulation"],
+  "class_name": "Resolver",
+  "time_cap_minutes": 90,
+  "case_time_limit_ms": 4000,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Address records",
+      "points": 25,
+      "methods": [
+        "def add_record(self, timestamp: int, name: str, ip: str) -> bool: ...",
+        "def remove_record(self, timestamp: int, name: str, ip: str) -> bool: ...",
+        "def resolve(self, timestamp: int, name: str) -> list[str] | None: ..."
+      ]
+    },
+    {
+      "level": 2,
+      "title": "Aliases",
+      "points": 25,
+      "methods": [
+        "def add_alias(self, timestamp: int, name: str, target: str) -> bool: ...",
+        "def remove_alias(self, timestamp: int, name: str) -> bool: ...",
+        "def get_chain(self, timestamp: int, name: str) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Fallbacks and errors",
+      "points": 25,
+      "methods": [
+        "def add_fallback(self, timestamp: int, name: str, fallback: str) -> bool: ...",
+        "def get_status(self, timestamp: int, name: str) -> str: ..."
+      ]
+    },
+    {
+      "level": 4,
+      "title": "Records that expire",
+      "points": 25,
+      "methods": [
+        "def add_record_with_ttl(self, timestamp: int, name: str, ip: str, ttl: int) -> bool: ...",
+        "def add_alias_with_ttl(self, timestamp: int, name: str, target: str, ttl: int) -> bool: ...",
+        "def get_answer_ttl(self, timestamp: int, name: str) -> int | None: ..."
+      ]
+    }
+  ]
+}

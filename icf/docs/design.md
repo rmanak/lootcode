@@ -86,7 +86,23 @@ makes level 4 cheap or expensive:
 - an owner on every item from level 1, so the unlimited `"admin"` needs no
   special case (`inventory-management`) — and the same shape again in the
   original CodeSignal wording, where a directory is only part of a name and a
-  compressed file is decompressed under its own name (`cloud-storage`).
+  compressed file is decompressed under its own name (`cloud-storage`);
+- an id that names a sequence of accounts over time, so a merged-away
+  account's past stays queryable and a re-created id starts clean, and a
+  scheduled payment recorded at its own due time (`banking-scheduled-payments`);
+- a completed transaction written once with a bank-wide sequence number, so
+  a merged history is a sort and activity is a sum, and a held transfer that
+  points at account objects rather than ids (`banking-pending-transfers`);
+- writes that append versions instead of overwriting, a delete being one more
+  version, so "as of `at_timestamp`" is a binary search that can never fall
+  back past a delete or an expiry (`in-memory-database-time-travel`);
+- a user record that carries its own capacity, usage and backup, so a merge is
+  arithmetic and a restore is delete-then-recreate (`cloud-storage-backup`);
+- a parcel that keeps a stack of its previous couriers, so undo is a pop and
+  a sign-out is one more push (`parcel-tracking`);
+- one resolution routine returning status, addresses and the records behind
+  them, so `resolve`, `get_status` and the answer's TTL can never disagree,
+  and every record carrying an optional expiry from level 1 (`dns-resolver`).
 
 That is the thing the
 format is actually testing, and the level statements are written so the

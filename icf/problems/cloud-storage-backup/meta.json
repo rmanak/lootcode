@@ -1,0 +1,50 @@
+{
+  "slug": "cloud-storage-backup",
+  "title": "Cloud Storage: Users and Backups",
+  "difficulty": "medium",
+  "blurb": "Files you can add, copy and delete, then the largest files by prefix, users with capacities that can be merged, and per-user backups you can restore.",
+  "tags": ["hash-map", "design", "simulation", "sorting"],
+  "class_name": "CloudStorage",
+  "time_cap_minutes": 90,
+  "case_time_limit_ms": 4000,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Files",
+      "points": 25,
+      "methods": [
+        "def add_file(self, name: str, size: int) -> bool: ...",
+        "def get_file_size(self, name: str) -> int | None: ...",
+        "def delete_file(self, name: str) -> int | None: ...",
+        "def copy_file(self, name_from: str, name_to: str) -> bool: ..."
+      ]
+    },
+    {
+      "level": 2,
+      "title": "The largest files",
+      "points": 25,
+      "methods": [
+        "def get_n_largest(self, prefix: str, n: int) -> list[str]: ..."
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Users, capacity and merging",
+      "points": 25,
+      "methods": [
+        "def add_user(self, user_id: str, capacity: int) -> bool: ...",
+        "def add_file_by(self, user_id: str, name: str, size: int) -> int | None: ...",
+        "def merge_user(self, user_id_1: str, user_id_2: str) -> int | None: ..."
+      ]
+    },
+    {
+      "level": 4,
+      "title": "Backup and restore",
+      "points": 25,
+      "methods": [
+        "def backup_user(self, user_id: str) -> int | None: ...",
+        "def restore_user(self, user_id: str) -> int | None: ..."
+      ]
+    }
+  ]
+}
