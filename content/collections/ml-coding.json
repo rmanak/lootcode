@@ -66,7 +66,6 @@
     "q-learning-updates",
     "validate-tool-call-arguments",
     "conversation-memory-window",
-    "idempotency-key-retries",
     "covariance-and-correlation",
     "jacobi-gauss-seidel-solver",
     "symmetric-2x2-eigen",
@@ -96,7 +95,6 @@
     "weighted-data-batcher",
     "dynamic-request-batching",
     "prune-computation-graph",
-    "storage-full-forecast",
     "bootstrap-and-jackknife",
     "streaming-mean-variance",
     "clip-loss-pytorch"

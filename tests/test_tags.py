@@ -138,3 +138,18 @@ def test_every_canonical_tag_survives_normalization():
     for tag in CANONICAL_TAGS:
         # Paired with a second tag so the `math` umbrella rule doesn't fire.
         assert tag in normalize_tags([tag, "array"]) or tag in ("math", "array")
+
+
+def test_ml_coding_collection_is_exactly_the_ml_tagged_problems():
+    # specs/tags.md promises every `machine-learning` problem is in the
+    # collection; the converse keeps a non-ML problem (e.g. one whose tag was
+    # dropped) from lingering in it.
+    coll = json.loads((ROOT / "content/collections/ml-coding.json")
+                      .read_text(encoding="utf-8"))["problems"]
+    tagged = {slug for slug, tags in _bank_tags() if "machine-learning" in tags}
+    on_disk = {slug for slug, _ in _bank_tags()}
+    # A fresh clone lacks the gitignored extended root: judge only what exists.
+    listed = {slug for slug in coll if slug in on_disk}
+    assert listed == tagged, (
+        f"in collection but not tagged: {sorted(listed - tagged)}; "
+        f"tagged but not in collection: {sorted(tagged - listed)}")
