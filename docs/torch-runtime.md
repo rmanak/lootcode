@@ -254,6 +254,20 @@ personal, single-user instance, where the only person who could cheat is the
 one practising. Use the docker backend if submissions come from people you
 don't trust.
 
+To run the docker backend for torch problems:
+
+```bash
+docker build -f infra/runner-torch.Dockerfile -t lootcode-runner-torch .   # ~1.5 GB
+EXECUTOR_BACKEND=docker uvicorn app.main:app
+```
+
+The tests at the end of `tests/test_torch_runtime.py` (skipped when the image
+is not built) pin what docker adds: the canonical's file and the repo are
+absent from the submission's container, its run directory holds only its own
+files, it sees one PID, no network and no GPU, and a memory hog or a hang is
+contained. The pilot grades identically on both backends (verified
+2026-11-21 on torch 2.15.0+cpu).
+
 The reference solution's own errors are logged server-side and never shown
 to the solver, because its traceback quotes its source.
 
@@ -272,5 +286,3 @@ to the solver, because its traceback quotes its source.
   every submission (in parallel, ~0.9 s total per Run). A cache keyed by
   canonical hash + input hash + torch version would halve the CPU, but it isn't
   needed at one user.
-- **Docker.** `infra/runner-torch.Dockerfile` builds the image, but it has not
-  been exercised the way the subprocess backend has.

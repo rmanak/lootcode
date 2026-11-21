@@ -442,3 +442,80 @@ def test_a_sabotaged_decoder_times_out_per_test_not_per_run():
     g = run_submission(code, prob, TESTS)
     assert [r.status for r in g.results] == ["passed", "timeout"]
     assert time.perf_counter() - t < 15
+
+
+# --- the docker backend -------------------------------------------------------
+def _torch_image_ready() -> bool:
+    import shutil
+    if shutil.which("docker") is None:
+        return False
+    probe = subprocess.run(["docker", "image", "inspect", settings.TORCH_DOCKER_IMAGE],
+                           capture_output=True, check=False)
+    return probe.returncode == 0
+
+
+needs_torch_image = pytest.mark.skipif(
+    not _torch_image_ready(),
+    reason="needs docker and the lootcode-runner-torch image "
+           "(docker build -f infra/runner-torch.Dockerfile -t lootcode-runner-torch .)")
+
+
+@pytest.fixture
+def docker_backend(monkeypatch):
+    monkeypatch.setattr(settings, "EXECUTOR_BACKEND", "docker")
+    assert unavailable_reason() is None
+
+
+@needs_torch_image
+@pytest.mark.slow
+def test_docker_grades_the_pilot_like_the_subprocess_backend(docker_backend):
+    prob = content.load_problem_dir(PILOT)
+    g = run_submission(prob["canonical_solution"], prob, prob["tests"])
+    assert g.solved, [(r.name, r.error) for r in g.results if not r.passed]
+    one_way = ("import torch.nn.functional as F\n"
+               "def clip_loss(image_feat, text_feat, temperature):\n"
+               "    L = F.normalize(image_feat, dim=-1) @ F.normalize(text_feat, dim=-1).T\n"
+               "    return F.cross_entropy(L / temperature, torch.arange(L.shape[0]))\n")
+    g = run_submission(one_way, prob, prob["tests"])
+    first_bad = next(r for r in g.results if not r.passed)
+    assert "values differ" in first_bad.error
+
+
+@needs_torch_image
+@pytest.mark.slow
+def test_docker_hides_the_canonical_and_the_host(docker_backend):
+    """What the subprocess backend cannot promise (docs/torch-runtime.md, "Trust
+    model"): the submission's container mounts only its own run directory, has
+    its own PID namespace, no network and no GPU, so the canonical is neither on
+    its disk nor in its process table."""
+    canon_path = str(PILOT / "solution" / "solution.py")
+    code = ("import os, socket\n"
+            "def softmax_rows(x):\n"
+            f"    assert not os.path.exists({canon_path!r})\n"
+            f"    assert not os.path.exists({str(ROOT)!r})\n"
+            "    assert sorted(os.listdir('/sandbox')) <= ['__pycache__', '_lc_core_harness.py',"
+            " 'harness.py', 'payload.json', 'solution.py'], os.listdir('/sandbox')\n"
+            "    assert [p for p in os.listdir('/proc') if p.isdigit()] == ['1']\n"
+            "    assert not torch.cuda.is_available()\n"
+            "    try:\n"
+            "        socket.create_connection(('1.1.1.1', 53), timeout=2)\n"
+            "        raise AssertionError('network reachable')\n"
+            "    except OSError:\n"
+            "        pass\n"
+            "    return torch.softmax(x, dim=-1)\n")
+    g = run_submission(code, PROB, TESTS)
+    assert g.solved, [(r.name, r.error) for r in g.results if not r.passed]
+
+
+@needs_torch_image
+@pytest.mark.slow
+def test_docker_contains_a_memory_hog_and_a_hang(docker_backend):
+    hog = ("def softmax_rows(x):\n"
+           "    return torch.empty(2**30, dtype=torch.float32).fill_(1.0).sum()\n")
+    g = run_submission(hog, {**PROB, "runtime_config": {}}, TESTS[:1])
+    assert not g.solved and g.results[0].status in ("error", "timeout")
+    hang = ("def softmax_rows(x):\n"
+            "    if x.shape[0] == 1:\n        return torch.softmax(x, -1)\n"
+            "    while True:\n        pass\n")
+    g = run_submission(hang, {**PROB, "time_limit_ms": 500, "runtime_config": {}}, TESTS)
+    assert [r.status for r in g.results] == ["passed", "timeout"]
