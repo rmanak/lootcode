@@ -32,7 +32,8 @@ _PROBLEM_FIELDS = (
     "title", "difficulty", "topics", "hints", "statement_md", "function_name",
     "params", "return_type", "kind", "class_name", "class_methods",
     "time_limit_ms", "memory_limit_mb", "scoring_type",
-    "points", "compare", "starter_code", "canonical_solution", "source",
+    "points", "compare", "runtime", "runtime_config", "starter_code",
+    "canonical_solution", "source",
 )
 
 

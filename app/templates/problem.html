@@ -53,7 +53,7 @@
     <p class="limits">
       Class <code>{{ prob.class_name }}</code> — implement the methods below
       · time limit {{ prob.time_limit_ms }} ms
-      · {{ visible_count }} visible / {{ hidden_count }} hidden tests · Python 3
+      · {{ visible_count }} visible / {{ hidden_count }} hidden tests{% if prob.runtime == 'torch' %}{% set rnd = (prob.runtime_config or {}).get('random_tests', 0) %}{% if rnd %} + {{ rnd }} random, drawn fresh each run{% endif %} · Python 3 + PyTorch{% else %} · Python 3{% endif %}
     </p>
     <div class="class-signature">
       <p class="provided-types-label">Your solution must define this class (a sequence of calls is replayed against one instance):</p>
@@ -67,7 +67,7 @@
     <p class="limits">
       Function <code>{{ prob.function_name }}({{ prob.params | map(attribute='name') | join(', ') }})</code>
       · time limit {{ prob.time_limit_ms }} ms
-      · {{ visible_count }} visible / {{ hidden_count }} hidden tests · Python 3
+      · {{ visible_count }} visible / {{ hidden_count }} hidden tests{% if prob.runtime == 'torch' %}{% set rnd = (prob.runtime_config or {}).get('random_tests', 0) %}{% if rnd %} + {{ rnd }} random, drawn fresh each run{% endif %} · Python 3 + PyTorch{% else %} · Python 3{% endif %}
     </p>
     {% endif %}
     {% if provided_types %}

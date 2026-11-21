@@ -123,6 +123,20 @@ class ProblemView:
     kind: str
     class_name: str | None
     class_methods: list | None
+    # Which interpreter grades the problem: "python" (the core harness — every
+    # problem that does not say otherwise) or "torch" (the optional PyTorch
+    # runtime, docs/torch-runtime.md). The torch runtime grades against the
+    # canonical as a live oracle, so it is the one grader that reads
+    # `canonical_solution`, and `runtime_config` holds its tolerances and
+    # random-input generator. All three default, so a view built before they
+    # existed still grades exactly as it did.
+    runtime: str = "python"
+    runtime_config: dict | None = None
+    canonical_solution: str | None = None
+
+
+#: Every runtime a problem may name. Anything else is refused, not guessed at.
+RUNTIMES = ("python", "torch")
 
 
 @dataclass(frozen=True)
@@ -194,7 +208,37 @@ def problem_view(src) -> ProblemView:
         kind=get("kind", "function") or "function",
         class_name=get("class_name"),
         class_methods=get("class_methods"),
+        runtime=(get("runtime") or "python"),
+        runtime_config=get("runtime_config"),
+        canonical_solution=get("canonical_solution"),
     )
+
+
+def runtime_unavailable(problem) -> str | None:
+    """Why this problem's runtime cannot run on this machine, or ``None``.
+
+    Always ``None`` for a plain Python problem. Offline tooling (seed,
+    verify_bank, audit) uses it to *skip* a torch problem on a checkout that
+    never installed the torch environment instead of reporting a content bug.
+    """
+    pv = problem_view(problem)
+    if pv.runtime == "python":
+        return None
+    if pv.runtime == "torch":
+        from .torch_runtime import unavailable_reason
+
+        return unavailable_reason()
+    return f"unknown runtime {pv.runtime!r} (expected one of {', '.join(RUNTIMES)})"
+
+
+def unrunnable(tests: list[CaseView], message: str) -> GradedRun:
+    """A run in which every test errors with ``message`` — what a submission
+    gets when its problem's runtime cannot run here at all."""
+    results = [TestResult(name=t.name, hidden=t.hidden, passed=False, status="error",
+                          time_ms=None, error=message, stdout="") for t in tests]
+    return GradedRun(results=results, passed_count=0, total_count=len(tests),
+                     earned_weight=0, total_weight=sum(t.weight for t in tests),
+                     score=0, solved=False, runtime_ms=0.0)
 
 
 def run_submission(code: str, problem, tests) -> GradedRun:
@@ -213,6 +257,14 @@ def run_submission(code: str, problem, tests) -> GradedRun:
     # Forward the full param specs ({name, type}) and the return type so the
     # harness can build/serialize custom types (e.g. TreeNode) at the boundary.
     pv = problem_view(problem)
+    if pv.runtime != "python":
+        # The one branch the core grader has for other runtimes. Imported
+        # lazily, so a plain problem never even loads the torch runtime.
+        if pv.runtime == "torch":
+            from .torch_runtime.grader import grade
+
+            return grade(code, pv, tests)
+        return unrunnable(tests, runtime_unavailable(pv) or "")
     limits = Limits(
         time_limit_ms=pv.time_limit_ms or settings.EXEC_TIME_LIMIT_MS,
         memory_limit_mb=pv.memory_limit_mb or settings.EXEC_MEMORY_LIMIT_MB,

@@ -1,0 +1,109 @@
+{
+  "slug": "clip-loss-pytorch",
+  "title": "CLIP Contrastive Loss (PyTorch)",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 5000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "clip_loss",
+    "params": [
+      {
+        "name": "image_feat",
+        "type": "Tensor"
+      },
+      {
+        "name": "text_feat",
+        "type": "Tensor"
+      },
+      {
+        "name": "temperature",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "Tensor"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "dims": {
+      "N": [
+        1,
+        32
+      ],
+      "D": [
+        2,
+        64
+      ]
+    },
+    "inputs": {
+      "image_feat": {
+        "$random": {
+          "shape": [
+            "N",
+            "D"
+          ],
+          "dist": "randn",
+          "mean": [
+            -2.0,
+            2.0
+          ],
+          "std": [
+            0.5,
+            10.0
+          ]
+        }
+      },
+      "text_feat": {
+        "$random": {
+          "shape": [
+            "N",
+            "D"
+          ],
+          "dist": "randn",
+          "mean": [
+            -2.0,
+            2.0
+          ],
+          "std": [
+            0.5,
+            10.0
+          ]
+        }
+      },
+      "temperature": {
+        "$random": {
+          "dist": "choice",
+          "values": [
+            0.01,
+            0.02,
+            0.05,
+            0.07,
+            0.1,
+            0.2,
+            0.5,
+            1.0,
+            2.0,
+            10.0
+          ]
+        }
+      }
+    }
+  }
+}

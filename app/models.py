@@ -120,6 +120,12 @@ class Problem(Base):
     #   set_of_lists  — list of lists; outer order AND each inner list's order ignored
     #   close         — like exact, but numbers match within a float tolerance
     compare: Mapped[str] = mapped_column(String, default="exact")
+    # Which interpreter grades it: "python" (every problem unless it says
+    # otherwise) or "torch" (the optional PyTorch runtime — the canonical is a
+    # live oracle on literal or random inputs; docs/torch-runtime.md).
+    # `runtime_config` is meta.json's `torch` block (tolerances, generator).
+    runtime: Mapped[str] = mapped_column(String, default="python")
+    runtime_config: Mapped[dict | None] = mapped_column(JSON, nullable=True)
 
     starter_code: Mapped[str] = mapped_column(Text, default="")
     # Reference solution that passes all tests. Never exposed to solvers.

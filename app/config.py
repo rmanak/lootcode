@@ -54,6 +54,26 @@ class Settings:
     EXEC_MAX_OUTPUT_KB = _int("EXEC_MAX_OUTPUT_KB", 64)
     DOCKER_IMAGE = os.environ.get("EXEC_DOCKER_IMAGE", "lootcode-runner")
 
+    # The optional PyTorch runtime (problems with `"runtime": "torch"`; see
+    # docs/torch-runtime.md). Torch lives in its OWN interpreter, never in the
+    # app's ./.venv, so the web app and every plain problem stay as light as
+    # they were. A missing interpreter just makes torch problems report that
+    # the runtime is not installed.
+    TORCH_PYTHON = os.environ.get(
+        "LOOTCODE_TORCH_PYTHON", str(BASE_DIR / ".venv-torch" / "bin" / "python"))
+    TORCH_DOCKER_IMAGE = os.environ.get("EXEC_TORCH_DOCKER_IMAGE", "lootcode-runner-torch")
+    # RLIMIT_AS for a torch run. CPU-only torch 2.15 needs ~768 MB of address
+    # space just to import (it dies with std::bad_alloc at 512); 2 GB leaves
+    # >1 GB for the solution's own tensors. A problem may ask for more.
+    EXEC_TORCH_MEMORY_LIMIT_MB = _int("EXEC_TORCH_MEMORY_LIMIT_MB", 2048)
+    # ...and the most a problem's own memoryLimitMb may raise it to.
+    EXEC_TORCH_MEMORY_LIMIT_MAX_MB = _int("EXEC_TORCH_MEMORY_LIMIT_MAX_MB", 8192)
+    # Torch sandboxes alive at once across the server (each Run starts two).
+    EXEC_TORCH_MAX_PARALLEL = _int("EXEC_TORCH_MAX_PARALLEL", 4)
+    # Wall-clock allowance for `import torch` itself (~0.7 s warm), added to the
+    # run's overall budget. Generous so a cold page cache is not a failure.
+    TORCH_STARTUP_S = _int("EXEC_TORCH_STARTUP_S", 30)
+
     # AI problem generation (optional)
     ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
     ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-opus-4-8")

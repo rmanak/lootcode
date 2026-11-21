@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .venv/
+# The optional PyTorch runtime's own interpreter (`make torch-env`).
+.venv-torch/
 venv/
 env/
 

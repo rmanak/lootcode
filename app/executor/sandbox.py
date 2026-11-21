@@ -175,13 +175,13 @@ def read_results(workdir: str) -> dict | None:
 
     try:
         data = json.loads(b"".join(chunks).decode("utf-8", "replace"))
-    except ValueError:
+    except (ValueError, RecursionError):  # "[" * 200000 nests past the parser
         return None
     return data if isinstance(data, dict) else None
 
 
 def docker_command(workdir: str, limits: Limits, harness_in_container: str,
-                   name: str) -> list[str]:
+                   name: str, image: str | None = None) -> list[str]:
     """The container flags that make the docker backend a real boundary.
 
     Written once, here, because there are now two callers (the core executor
@@ -213,6 +213,9 @@ def docker_command(workdir: str, limits: Limits, harness_in_container: str,
     fsize = limits.max_output_kb * 1024 + RESULT_HEADROOM_BYTES
     return [
         "docker", "run", "--rm", "--name", name,
+        # A missing runner image must fail closed here, never be fetched from
+        # a registry by whatever name the setting happens to hold.
+        "--pull", "never",
         "--ulimit", f"fsize={fsize}",
         "--network", "none",
         "--memory", f"{limits.memory_limit_mb}m",
@@ -229,7 +232,7 @@ def docker_command(workdir: str, limits: Limits, harness_in_container: str,
         "-w", "/sandbox",
         "--user", f"{uid}:{gid}",  # us, so the run directory stays deletable
         *(arg for k, v in SINGLE_THREAD_ENV.items() for arg in ("-e", f"{k}={v}")),
-        settings.DOCKER_IMAGE,
+        image or settings.DOCKER_IMAGE,
         "python", "-I", harness_in_container, "/sandbox",
     ]
 
@@ -295,7 +298,8 @@ def _write_inputs(workdir: str, files: Mapping[str, str], payload: dict) -> None
 
 def run_harness(*, harness_path: str, files: Mapping[str, str], payload: dict,
                 limits: Limits, overall_s: float,
-                prefix: str = "lc_run_") -> tuple[dict | None, bool]:
+                prefix: str = "lc_run_", python: str | None = None,
+                image: str | None = None) -> tuple[dict | None, bool]:
     """Run ``harness_path`` over ``files`` in a throwaway, resource-limited
     sandbox and return ``(parsed result.json | None, timed_out)``.
 
@@ -303,17 +307,22 @@ def run_harness(*, harness_path: str, files: Mapping[str, str], payload: dict,
     as payload.json. **The backend is whatever ``EXECUTOR_BACKEND`` says** —
     an operator who turned on `docker` for containment gets it here too, which
     is the whole point of every harness sharing this function.
+
+    ``python`` (subprocess backend) and ``image`` (docker backend) choose a
+    different *interpreter* for the same boundary — the torch runtime's own
+    environment. They change what runs, never the limits it runs under; left
+    as ``None`` the run is exactly what it always was.
     """
     if settings.EXECUTOR_BACKEND == "docker":
         return _run_harness_docker(harness_path, files, payload, limits,
-                                   overall_s, prefix)
+                                   overall_s, prefix, image)
     return _run_harness_subprocess(harness_path, files, payload, limits,
-                                   overall_s, prefix)
+                                   overall_s, prefix, python)
 
 
 def _run_harness_docker(harness_path: str, files: Mapping[str, str], payload: dict,
                         limits: Limits, overall_s: float,
-                        prefix: str) -> tuple[dict | None, bool]:
+                        prefix: str, image: str | None = None) -> tuple[dict | None, bool]:
     """Same contract, inside a throwaway container: no network, no privileges,
     read-only rootfs, non-root user (see docs/code-execution.md)."""
     workdir = make_workdir(prefix)
@@ -324,7 +333,7 @@ def _run_harness_docker(harness_path: str, files: Mapping[str, str], payload: di
         timed_out = False
         try:
             subprocess.run(  # noqa: S603 - fixed argv, no shell
-                docker_command(workdir, limits, "/sandbox/harness.py", name),
+                docker_command(workdir, limits, "/sandbox/harness.py", name, image),
                 timeout=overall_s + 5, capture_output=True, check=False)
         except subprocess.TimeoutExpired:
             timed_out = True
@@ -336,7 +345,7 @@ def _run_harness_docker(harness_path: str, files: Mapping[str, str], payload: di
 
 def _run_harness_subprocess(harness_path: str, files: Mapping[str, str],
                             payload: dict, limits: Limits, overall_s: float,
-                            prefix: str) -> tuple[dict | None, bool]:
+                            prefix: str, python: str | None = None) -> tuple[dict | None, bool]:
     workdir = make_workdir(prefix)
     try:
         _write_inputs(workdir, files, payload)
@@ -358,7 +367,7 @@ def _run_harness_subprocess(harness_path: str, files: Mapping[str, str],
         # threadpool worker, up to a full timeout. Discard both and wait on
         # the process itself.
         proc = subprocess.Popen(
-            [sys.executable, "-I", harness_path, workdir],
+            [python or sys.executable, "-I", harness_path, workdir],
             stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
             cwd=workdir, env=env, start_new_session=True,

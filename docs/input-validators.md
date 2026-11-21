@@ -130,6 +130,15 @@ node values** in order. A validator validates that stored form.
 
 See `app/executor/harness.py` `_CODECS` for the canonical decoding.
 
+### Torch-runtime problems
+
+A torch problem's test inputs may be random specs, and its grader draws fresh
+random tests on every run. The checker therefore makes each stored input
+concrete first (tensors arrive at `validate_input` as plain nested lists) and
+also runs the validator over 300 draws from the problem's generator. A
+generator that can produce an input the statement rules out fails the check.
+See `docs/torch-runtime.md`.
+
 ## Checking a problem (or the whole bank)
 
 `scripts/check_constraint_validators.py` loads each validator and runs it over

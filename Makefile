@@ -16,7 +16,7 @@ EXTENSIONS := $(wildcard icf)
 
 .PHONY: help install hooks seed dev run test test-fast test-cov lint lint-fix \
         format typecheck audit verify validators math db-check check check-bank \
-        icf-verify docker clean
+        icf-verify torch-env docker clean
 
 help:           ## list the targets
 	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -25,6 +25,12 @@ help:           ## list the targets
 install:        ## create ./.venv and install dev deps (pinned by constraints.txt)
 	python3 -m venv .venv && $(PIP) install -U pip \
 	  && $(PIP) install -r requirements-dev.txt -c constraints.txt
+
+# A conda env when conda is on PATH (how ./.venv is made here too), else a venv.
+torch-env:      ## create ./.venv-torch, the optional PyTorch runtime's own interpreter (docs/torch-runtime.md)
+	@if command -v conda >/dev/null 2>&1; then conda create -y -p ./.venv-torch python=3.12; \
+	  else python3 -m venv .venv-torch; fi
+	.venv-torch/bin/python -m pip install -r requirements-torch.txt
 
 hooks:          ## install the pre-commit git hooks
 	.venv/bin/pre-commit install

@@ -1,0 +1,373 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "image_feat": [
+          [
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "text_feat": [
+          [
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "temperature": 1.0
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "image_feat": [
+          [
+            3.0,
+            4.0
+          ],
+          [
+            0.0,
+            -2.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "text_feat": [
+          [
+            6.0,
+            8.0
+          ],
+          [
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            -5.0
+          ]
+        ],
+        "temperature": 0.5
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "image_feat": [
+          [
+            0.5,
+            -1.5,
+            2.0
+          ]
+        ],
+        "text_feat": [
+          [
+            -4.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "temperature": 0.07
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "batch-4-clip-temperature",
+      "input": {
+        "image_feat": {
+          "$random": {
+            "shape": [
+              4,
+              8
+            ],
+            "dist": "randn"
+          }
+        },
+        "text_feat": {
+          "$random": {
+            "shape": [
+              4,
+              8
+            ],
+            "dist": "randn"
+          }
+        },
+        "temperature": 0.07
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "mismatched-scales",
+      "input": {
+        "image_feat": {
+          "$random": {
+            "shape": [
+              8,
+              16
+            ],
+            "dist": "randn",
+            "std": 20.0
+          }
+        },
+        "text_feat": {
+          "$random": {
+            "shape": [
+              8,
+              16
+            ],
+            "dist": "randn",
+            "std": 0.05
+          }
+        },
+        "temperature": 0.1
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "shared-offset",
+      "input": {
+        "image_feat": {
+          "$random": {
+            "shape": [
+              16,
+              32
+            ],
+            "dist": "randn",
+            "mean": 3.0
+          }
+        },
+        "text_feat": {
+          "$random": {
+            "shape": [
+              16,
+              32
+            ],
+            "dist": "randn",
+            "mean": 3.0
+          }
+        },
+        "temperature": 0.05
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "tiny-temperature",
+      "input": {
+        "image_feat": {
+          "$random": {
+            "shape": [
+              16,
+              32
+            ],
+            "dist": "randn"
+          }
+        },
+        "text_feat": {
+          "$random": {
+            "shape": [
+              16,
+              32
+            ],
+            "dist": "randn"
+          }
+        },
+        "temperature": 0.01
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "aligned-pairs-tiny-temperature",
+      "input": {
+        "image_feat": {
+          "$random": {
+            "shape": [
+              12,
+              24
+            ],
+            "dist": "randn",
+            "seed": 7
+          }
+        },
+        "text_feat": {
+          "$random": {
+            "shape": [
+              12,
+              24
+            ],
+            "dist": "randn",
+            "seed": 7
+          }
+        },
+        "temperature": 0.01
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "low-dim-tiny-temperature",
+      "input": {
+        "image_feat": {
+          "$random": {
+            "shape": [
+              16,
+              2
+            ],
+            "dist": "randn"
+          }
+        },
+        "text_feat": {
+          "$random": {
+            "shape": [
+              16,
+              2
+            ],
+            "dist": "randn"
+          }
+        },
+        "temperature": 0.01
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "large-temperature",
+      "input": {
+        "image_feat": {
+          "$random": {
+            "shape": [
+              32,
+              64
+            ],
+            "dist": "randn"
+          }
+        },
+        "text_feat": {
+          "$random": {
+            "shape": [
+              32,
+              64
+            ],
+            "dist": "randn"
+          }
+        },
+        "temperature": 10.0
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "one-feature",
+      "input": {
+        "image_feat": {
+          "$random": {
+            "shape": [
+              8,
+              1
+            ],
+            "dist": "randn",
+            "mean": 0.5
+          }
+        },
+        "text_feat": {
+          "$random": {
+            "shape": [
+              8,
+              1
+            ],
+            "dist": "randn",
+            "mean": -0.5
+          }
+        },
+        "temperature": 0.2
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "max-size",
+      "input": {
+        "image_feat": {
+          "$random": {
+            "shape": [
+              64,
+              128
+            ],
+            "dist": "randn",
+            "std": 4.0
+          }
+        },
+        "text_feat": {
+          "$random": {
+            "shape": [
+              64,
+              128
+            ],
+            "dist": "randn",
+            "std": 0.5
+          }
+        },
+        "temperature": 0.07
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "single-pair-hidden",
+      "input": {
+        "image_feat": {
+          "$random": {
+            "shape": [
+              1,
+              16
+            ],
+            "dist": "randn"
+          }
+        },
+        "text_feat": {
+          "$random": {
+            "shape": [
+              1,
+              16
+            ],
+            "dist": "randn"
+          }
+        },
+        "temperature": 0.03
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

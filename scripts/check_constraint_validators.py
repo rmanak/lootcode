@@ -62,6 +62,28 @@ def _validator_file(slug: str, flat_dir: pathlib.Path | None,
     return flat_dir / f"{slug}_input_test.py"
 
 
+#: Generator draws audited per torch problem (each a full random test).
+TORCH_GENERATOR_DRAWS = 300
+
+
+def _torch_cases(meta: dict, params: list, cases: list) -> list:
+    """Stored torch-runtime inputs made concrete, plus ``TORCH_GENERATOR_DRAWS``
+    draws from the problem's random-test generator — exactly the inputs the
+    grader can hand a submission. See docs/torch-runtime.md."""
+    from app.executor.torch_runtime.inputs import (
+        generated_inputs,
+        materialize_input,
+        to_plain,
+    )
+
+    out = [{"name": c.get("name"), "input": to_plain(materialize_input(
+        c.get("input") or {}, params, seed_base=c.get("name")))} for c in cases]
+    for i, inp in enumerate(generated_inputs(meta.get("torch"), params, seed=0,
+                                             count=TORCH_GENERATOR_DRAWS)):
+        out.append({"name": f"generated-{i + 1}", "input": to_plain(inp)})
+    return out
+
+
 def _iter_problem_dirs(content_dirs):
     """Yield each problem dir (one that has a meta.json) across the given content
     roots, in root order then sorted slug. Missing roots are skipped, so the
@@ -122,6 +144,11 @@ def main() -> int:
         cases = []
         if cases_path.exists():
             cases = json.loads(cases_path.read_text(encoding="utf-8")).get("cases", [])
+        if meta.get("runtime") == "torch":
+            # A torch test input may be a random spec, and the grader adds fresh
+            # random tests on every run. Hold both to the validator: concrete
+            # stored inputs (tensors as nested lists), plus generator draws.
+            cases = _torch_cases(meta, params, cases)
 
         try:
             npass, total, detail = gcv.verify_against_cases(code, cases, params)

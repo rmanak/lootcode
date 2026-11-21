@@ -27,6 +27,7 @@ target-version = "py312"
 # scratch; `constraint_validators/` is a stale generated copy of the same.
 extend-exclude = [
     ".venv",
+    ".venv-torch",
     "content",
     "staging",
     "constraint_validators",

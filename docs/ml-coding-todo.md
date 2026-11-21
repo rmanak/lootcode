@@ -914,8 +914,9 @@ collection.
   This would unlock "train however you like" problems and the deferred
   `getRandom`/`serialize` design problems. The checker is code, so it needs the
   trust model ICF chose (ADR 0003).
-- **PyTorch:** out for now. The CUDA build needs about 4 GB of address space just
-  to import.
+- **PyTorch:** ~~out for now~~. Shipped 2026-11-20 as the opt-in torch runtime
+  (CPU-only interpreter in `./.venv-torch`, live-oracle grading, random tests).
+  See `docs/torch-runtime.md`. Pilot: `clip-loss-pytorch`.
 - **Clean-up:** the real-server tests created guest users:
   `4d2bcbecd7284c9295d7179157d07e0f` (3 submissions), possibly one more from
   the startup probe, and one more on 2026-10-31 (about 20 submissions across softmax, k-means, KV cache and ROC-AUC, plus 28 for Wave A; its id is

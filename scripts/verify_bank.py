@@ -38,7 +38,7 @@ from types import SimpleNamespace
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from app import content  # noqa: E402
-from app.executor import problem_view, run_submission  # noqa: E402
+from app.executor import problem_view, run_submission, runtime_unavailable  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -108,6 +108,12 @@ def evaluate(p: dict) -> Result:
 
     if not (p.get("canonical_solution") or "").strip():
         return Result(slug, difficulty, "skip", total=len(tests))
+    # A torch-runtime problem on a checkout without the torch environment is
+    # not a content bug: skip it and say why (docs/torch-runtime.md).
+    why = runtime_unavailable(p)
+    if why:
+        return Result(slug, difficulty, "skip", total=len(tests),
+                      error=f"runtime unavailable: {why}")
 
     try:
         graded = run_submission(p["canonical_solution"], _as_prob(p), _as_tests(p))
@@ -145,7 +151,7 @@ def print_result(r: Result, c: Palette, args) -> None:
     if r.kind == "skip":
         if args.quiet:
             return
-        print(f"{c.yellow('[SKIP] ')} {r.slug}: no canonical solution")
+        print(f"{c.yellow('[SKIP] ')} {r.slug}: {r.error or 'no canonical solution'}")
         return
 
     if r.kind == "error":
@@ -211,9 +217,9 @@ def print_summary(results: list[Result], elapsed: float, c: Palette, args) -> No
                   f"{r.passed}/{r.total} ({_pct(r.passed, r.total)}%)")
 
     if by_kind["skip"] and not args.quiet:
-        print(c.yellow(f"\nProblems with no canonical solution ({n_skip}):"))
+        print(c.yellow(f"\nSkipped — no canonical solution, or runtime unavailable ({n_skip}):"))
         for r in sorted(by_kind["skip"], key=lambda r: r.slug):
-            print(f"  - {r.slug}")
+            print(f"  - {r.slug}" + (f": {r.error}" if r.error else ""))
 
     # Slowest problems — handy for spotting solutions creeping toward the TLE.
     if args.slowest > 0:

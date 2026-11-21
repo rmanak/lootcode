@@ -162,6 +162,9 @@ place that lists compare modes needs a line:
   CPU-only wheel is smaller, but it would still be a heavy dependency of the web
   app's own interpreter. **Recommendation: numpy only.** Most torch-phrased
   questions (attention, norms, LoRA, losses) translate to numpy without loss.
+  *Update 2026-11-20:* PyTorch now runs as an opt-in second runtime with its
+  own CPU-only interpreter (it imports under 768 MB), so torch-native questions
+  fit after all. See `docs/torch-runtime.md`. Pilot: `clip-loss-pytorch`.
 
 **Already fine as-is:** visible and hidden cases with weights; the canonical as
 oracle (`seed.py`, `verify_bank.py`); the hint pipeline; `kind: "class"` for

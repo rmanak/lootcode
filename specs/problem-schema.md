@@ -169,6 +169,18 @@ statement promises:
 > `python scripts/audit.py` flags any statement that promises "any order" while
 > the judge is still `exact`.
 
+### `runtime` and `torch` (optional) — PyTorch problems
+
+`"runtime": "torch"` grades the problem in the optional PyTorch runtime instead
+of the default `"python"` one. Parameters typed `Tensor` / `Tensor[]` arrive as
+`torch.Tensor`s, answers are compared with `torch.allclose` semantics (shape and
+dtype must match), and the **canonical is the oracle**. Stored tests keep
+`"expected": null`, and an input value may be a literal, a `{"$tensor": …}` or a
+`{"$random": …}` spec. The `torch` block holds `rtol`/`atol` and the random-test
+generator (`inputs`, `dims`, `random_tests`), whose fresh hidden tests are drawn
+on every run. Both keys are omitted for a plain problem. The full format and
+the authoring checklist are in `docs/torch-runtime.md`.
+
 ## `tests/cases.json`
 
 ```jsonc

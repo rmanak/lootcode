@@ -80,6 +80,10 @@ def load_problem_dir(dir_path: Path) -> dict:
         "scoring_type": scoring.get("type", "weighted"),
         "points": scoring.get("points", 100),
         "compare": meta.get("compare", "exact"),
+        # "python" unless the problem opts into the torch runtime, whose
+        # settings live in meta.json's `torch` block (docs/torch-runtime.md).
+        "runtime": meta.get("runtime", "python"),
+        "runtime_config": meta.get("torch") if meta.get("runtime") == "torch" else None,
         "starter_code": starter,
         "canonical_solution": canonical,
         "source": "file",
@@ -207,6 +211,12 @@ def write_problem_files(data: dict, content_dir: Path | None = None) -> Path:
             "points": data.get("points", 100),
         },
         "compare": data.get("compare", "exact"),
+        # Written only for a non-default runtime, so a plain problem's
+        # meta.json stays exactly what it was before runtimes existed.
+        **({"runtime": data["runtime"]}
+           if data.get("runtime") and data["runtime"] != "python" else {}),
+        **({"torch": data["runtime_config"]}
+           if data.get("runtime") == "torch" and data.get("runtime_config") else {}),
     }
     (base / "meta.json").write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
 

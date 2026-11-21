@@ -35,7 +35,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 from sqlalchemy.orm import selectinload  # noqa: E402
 
 from app.db import SessionLocal, init_db  # noqa: E402
-from app.executor import _equal, run_submission  # noqa: E402
+from app.executor import _equal, run_submission, runtime_unavailable  # noqa: E402
 from app.executor.harness import _CODECS  # noqa: E402 - reuse the in-sandbox codec
 from app.models import Problem  # noqa: E402
 from app.problem_validation import statement_repeats_title  # noqa: E402
@@ -113,6 +113,8 @@ def audit_problem(p: Problem, *, run_canonical: bool = True) -> list[str]:
         issues.append("no canonical solution")
     elif not run_canonical:
         canon_ok = True  # verify_bank.py's job; assumed done (see docstring)
+    elif runtime_unavailable(p):
+        canon_ok = False  # e.g. a torch problem with no torch env here: unknown, not a bug
     else:
         canon_ok = run_submission(p.canonical_solution, p, p.tests).solved
         if not canon_ok:

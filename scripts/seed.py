@@ -23,7 +23,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 from sqlalchemy.orm import selectinload  # noqa: E402
 
 from app.db import SessionLocal, init_db  # noqa: E402
-from app.executor import problem_view, run_submission  # noqa: E402
+from app.executor import problem_view, run_submission, runtime_unavailable  # noqa: E402
 from app.models import Problem  # noqa: E402
 from app.store import seed_collections, seed_from_content  # noqa: E402
 
@@ -80,7 +80,10 @@ def main(argv: list[str] | None = None) -> int:
             for slug in sorted(p.slug for p in problems if not p.canonical_solution):
                 print(f"  - {slug}: no canonical solution (skipped verification)")
 
-            work = _snapshot(problems)
+            for slug, why in sorted((p.slug, runtime_unavailable(p)) for p in problems):
+                if why:
+                    print(f"  - {slug}: runtime unavailable, skipped verification ({why})")
+            work = [w for w in _snapshot(problems) if not runtime_unavailable(w[2])]
             start = time.perf_counter()
             if args.jobs > 1:
                 with ThreadPoolExecutor(max_workers=args.jobs) as pool:

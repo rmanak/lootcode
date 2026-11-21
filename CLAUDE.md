@@ -31,6 +31,7 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `app/extensions.py` | The **optional-extension seam**: import a top-level package by name if it is on disk, let it `register(app)`, and collect its nav links + identity roots. Absent package = silent skip; any other import failure is raised. See `docs/extensions.md`. |
 | `app/routers/` | `pages.py` (HTML), `submissions.py` (run API), `admin.py`. |
 | `app/executor/` | Sandboxed code execution. `sandbox.py` is the shared launcher — rlimits (the process cap is *headroom* over current machine usage, see `nproc_limit`), own process group, throwaway workdir, and the `EXECUTOR_BACKEND` dispatch, so every harness in the tree gets the same boundary and the same backend; `harness.py` runs INSIDE the sandbox. |
+| `app/executor/torch_runtime/` | The optional **PyTorch runtime** (`"runtime": "torch"` in meta.json). Its own CPU-only interpreter (`./.venv-torch`, `make torch-env`) and 2 GB memory floor. The **canonical is a live oracle**: inputs (literal or `$random` specs, plus fresh random tests on every run) are made concrete in the parent, submission and canonical run in two sandboxes, and the outputs are compared in the parent with `torch.allclose` semantics (shape+dtype exact). `harness.py` is a thin adapter that loads the core harness and adds a `Tensor` codec. Plain problems never import it. See `docs/torch-runtime.md`. |
 | `app/llm/` | Problem generation. `client.py` is the one LLM transport (OpenAI/Anthropic construction, loose JSON parsing, the structured-output degradation ladder) every caller uses; `fill_in.py` is the Mode-A statement→problem generation the in-app generator **and** `scripts/generate_problem_from_statement.py` both run; `generator.py` is the in-app flow; `draft_store.py` holds AI-generated problems awaiting owner review (generation never auto-saves). `solution_analyzer.py` is the problem page's **✨ Analysis** (LeetCode-style Approach / Efficiency / Code Style review of the editor's code; grades it first, records nothing; schema-constrained, approach labels = canonical tags + "Brute Force"; see `docs/ai-analysis.md`). Prompt templates live here as `*.txt` (`hint_prompt.txt`, `help_prompt.txt`, `analysis_prompt.txt`, and `problem_prompt.txt` — the self-contained "Mode A" fill-in prompt: given a statement, emit the runnable core, contract + solution + tests + hints, for both function and class/design problems). **`problem_prompt.txt` embeds the canonical tag list verbatim — keep it in sync with `app/tags.py` when the vocabulary changes.** |
 | `app/problem_validation.py` | Pre-save gate shared by the manual **and** AI admin create flows: slug format+collision, structure (reuses `app/problem_spec.py`, static/no-exec), canonical-tags-only, statement↔compare consistency, the statement not repeating the title (the page prints it), and the canonical passing all tests in the sandbox; plus `find_similar_problems` (duplicate nudge). Nothing is written until it passes. |
 | `app/problem_spec.py` | The **structural** half of the problem contract: pydantic schema + static `ast` checks over one LLM-produced problem object. Never executes code, which is why it can run in the web process. Shared by `app/problem_validation.py`, `app/llm/fill_in.py` and `scripts/import_generated_problems.py`; `scripts/test_llm_output.py` is its CLI. |
@@ -88,6 +89,7 @@ python scripts/remove_problem.py <slug> --dry-run              # retire a proble
 python scripts/remove_problem.py <old-slug>=<new-slug>         # ...or dedupe: collection refs point at the surviving twin
 python icf/scripts/verify_icf.py           # ICF extension: every canonical passes every level
 make icf-verify                            # the same, and part of `make check` (no-op if icf/ is absent)
+make torch-env                             # optional: ./.venv-torch for "runtime": "torch" problems (docs/torch-runtime.md)
 uvicorn app.main:app --reload              # dev server (http://127.0.0.1:8000)
 HOST=0.0.0.0 uvicorn app.main:app          # reachable on your home network
 python -m pytest -q                        # run tests
@@ -131,7 +133,15 @@ works for a fresh checkout.
   BLAS to one thread (`sandbox.SINGLE_THREAD_ENV`) — without it OpenBLAS blows
   through `RLIMIT_AS`. Authoring rules: the "Machine-learning problems" section
   of `specs/problem-authoring-guidelines.md`; candidates and rationale:
-  `docs/ml-coding-plan.md`, `docs/ml-coding-problem-bank.md`. No PyTorch.
+  `docs/ml-coding-plan.md`, `docs/ml-coding-problem-bank.md`. No PyTorch in
+  this (numpy) sandbox.
+- **PyTorch problems** (`"runtime": "torch"`, pilot `clip-loss-pytorch`): graded
+  by the separate torch runtime. `Tensor` params, float32 by default, allclose
+  with shape+dtype exact. Stored tests have `expected: null` because the
+  canonical is the oracle. Vet the canonical against independent implementations
+  over thousands of generator draws, and give each typical wrong answer a
+  *stored* hidden test. Without `./.venv-torch` these problems are skipped, not
+  failed. See `docs/torch-runtime.md`.
 
 ## Working agreements for Claude
 

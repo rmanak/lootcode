@@ -96,6 +96,15 @@ def _migrate() -> None:
         if "class_methods" not in cols:
             conn.exec_driver_sql("ALTER TABLE problems ADD COLUMN class_methods JSON")
 
+        # The optional PyTorch runtime (docs/torch-runtime.md). Every existing
+        # row is a plain Python problem; the next seed sets torch problems.
+        if "runtime" not in cols:
+            conn.exec_driver_sql(
+                "ALTER TABLE problems ADD COLUMN runtime VARCHAR "
+                "NOT NULL DEFAULT 'python'")
+        if "runtime_config" not in cols:
+            conn.exec_driver_sql("ALTER TABLE problems ADD COLUMN runtime_config JSON")
+
         # V2 optional accounts: add nullable auth columns to an existing users
         # table. SQLite forbids adding a UNIQUE column via ALTER, so the columns
         # go in plain and uniqueness is enforced by separate indexes below.

@@ -1,0 +1,11 @@
+# The optional PyTorch runtime's interpreter (problems with "runtime": "torch").
+# Installed into its OWN environment, ./.venv-torch, never into ./.venv: the web
+# app never imports torch, and a plain problem never pays for it.
+# See docs/torch-runtime.md.   Install:  make torch-env
+#
+# CPU-only wheels (the sandbox has no GPU, by design): ~1.2 GB on disk, and it
+# imports under a 768 MB address-space cap. The CUDA build needs ~4 GB to import.
+--index-url https://download.pytorch.org/whl/cpu
+--extra-index-url https://pypi.org/simple
+torch==2.15.0+cpu
+numpy==2.5.5

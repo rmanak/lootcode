@@ -148,8 +148,11 @@ still armed, because that is the solution's own code). A class method's return
 is copied when the call returns, so a later call that mutates the returned
 object cannot change an earlier output. Float answers
 are graded with `compare: "close"` (`specs/problem-schema.md`). PyTorch is
-deliberately **not** available: the CUDA build will not even import below about
-4 GB of address space.
+**not** importable here. Problems that need it opt into the separate torch
+runtime (`"runtime": "torch"`). It has its own interpreter (`./.venv-torch`,
+CPU-only) and a 2 GB address-space floor, and it grades against the canonical
+as a live oracle in a second sandbox. Same launcher, same limits otherwise;
+see [torch-runtime.md](torch-runtime.md).
 
 **The per-test time limit cannot interrupt a numpy call.** `SIGALRM`'s Python
 handler only runs between bytecodes, and BLAS/LAPACK never checks for signals,

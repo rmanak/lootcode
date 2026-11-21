@@ -19,7 +19,7 @@ from sqlalchemy.orm import Session
 
 from .. import content, store
 from ..config import settings
-from ..db import get_db
+from ..db import SessionLocal, get_db
 from ..executor import case_views, run_submission
 from ..llm import draft_store
 from ..logging_config import audit, get_logger
@@ -155,6 +155,10 @@ def edit_submit(slug: str, request: Request,
     except (ValueError, KeyError, json.JSONDecodeError) as exc:
         return _edit_page(request, typed, status_code=400, errors=[
             f"Tests must be a valid JSON array of test objects: {exc}"])
+    # The form has no runtime field. Keep the stored one, or saving an edit
+    # would quietly rewrite a torch problem's meta.json as a plain one.
+    data.setdefault("runtime", getattr(prob, "runtime", None) or "python")
+    data.setdefault("runtime_config", getattr(prob, "runtime_config", None))
 
     # Same gate as create, minus the slug-collision check (editing in place).
     result = validate_problem(data, db=db, is_new=False)
@@ -183,7 +187,7 @@ class VerifyBody(BaseModel):
     compare: str = "exact"
 
 
-def _run_verify(body: VerifyBody) -> dict:
+def _run_verify(body: VerifyBody, runtime: tuple[str, dict | None] = ("python", None)) -> dict:
     """Run a solution against the posted (unsaved) tests and return full admin
     detail. Shared by the edit page and the AI review page — neither needs a saved
     problem; everything comes from the form fields in ``body``."""
@@ -219,26 +223,38 @@ def _run_verify(body: VerifyBody) -> dict:
         "time_limit_ms": settings.EXEC_TIME_LIMIT_MS,
         "memory_limit_mb": settings.EXEC_MEMORY_LIMIT_MB, "points": 100,
         "compare": body.compare if body.compare in COMPARE_MODES else "exact",
+        # A torch problem grades against its canonical as the oracle; on this
+        # page the code being verified *is* the canonical being edited.
+        "runtime": runtime[0], "runtime_config": runtime[1],
+        "canonical_solution": body.code,
     }
     tests = case_views(tests_raw)
     g = run_submission(body.code, prob, tests)
+    # By name, not position: a torch problem's run also holds the random tests
+    # it drew, which have no stored expected value (the canonical is the oracle).
+    expected = {t.name: t.expected for t in tests}
     # Admin sees full detail (including hidden tests' expected/actual).
     return {
         "solved": g.solved, "score": g.score, "passed_count": g.passed_count,
         "total_count": g.total_count, "runtime_ms": round(g.runtime_ms, 1),
         "results": [{
             "name": r.name, "hidden": r.hidden, "passed": r.passed, "status": r.status,
-            "time_ms": round(r.time_ms or 0, 1), "expected": tests[i].expected,
+            "time_ms": round(r.time_ms or 0, 1), "expected": expected.get(r.name),
             "actual": r.returned, "error": r.error,
-        } for i, r in enumerate(g.results)],
+        } for r in g.results],
     }
 
 
 @router.post("/problems/{slug}/verify")
 def verify(slug: str, body: VerifyBody):
-    """Edit page: run the canonical against the current tests (slug is unused —
-    the run is entirely from ``body`` — but keeps the per-problem URL)."""
-    return _run_verify(body)
+    """Edit page: run the canonical against the current tests. The run is
+    entirely from ``body`` except the runtime, which the form cannot change and
+    so is read from the stored problem."""
+    with SessionLocal() as db:
+        prob = db.scalar(select(Problem).where(Problem.slug == slug))
+        runtime = ((prob.runtime or "python", prob.runtime_config) if prob is not None
+                   else ("python", None))
+    return _run_verify(body, runtime)
 
 
 @router.post("/verify")

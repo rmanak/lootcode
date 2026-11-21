@@ -558,15 +558,21 @@ def _run_one(func, params, decoders, encoder, inp, time_limit_s, out_budget) -> 
         return {"status": "error", "error": f"Missing input for parameter {exc}.",
                 "time_ms": 0, "stdout": ""}
     try:
-        for name, decode in decoders.items():
-            args[name] = decode(args[name])
-    except Exception:  # noqa: BLE001 - malformed test input for a typed parameter
-        return {"status": "error", "time_ms": 0,
-                "error": "Could not build the typed input for this test:\n" + _short_tb(),
-                "stdout": ""}
-    try:
         sys.stdout = buf
         signal.setitimer(signal.ITIMER_REAL, time_limit_s)
+        # Decoding runs under the alarm too. A decoder is harness code, but what
+        # it calls (a codec class, `torch.tensor`) lives in modules the solution
+        # shares and can monkey-patch, so an earlier test can make the next
+        # decode hang. Unarmed, that ran on to the overall kill.
+        try:
+            for name, decode in decoders.items():
+                args[name] = decode(args[name])
+        except _Timeout:
+            raise
+        except Exception:  # noqa: BLE001 - malformed test input for a typed parameter
+            return {"status": "error", "time_ms": 0,
+                    "error": "Could not build the typed input for this test:\n" + _short_tb(),
+                    "stdout": ""}
         returned = func(**args)
         if encoder is not None:
             returned = encoder(returned)  # bounded; stays under the per-test alarm

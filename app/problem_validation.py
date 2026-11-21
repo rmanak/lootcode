@@ -187,6 +187,8 @@ def validate_problem(data: dict, *, db: Session | None = None, is_new: bool = Tr
 
     # --- type-label house-style nudges (soft) -------------------------------
     for label, typ in _iter_types(data):
+        if data.get("runtime") == "torch" and typ in ("Tensor", "Tensor[]"):
+            continue  # a real codec under the torch runtime (docs/torch-runtime.md)
         note = _type_note(label, typ)
         if note:
             res.warnings.append(note)

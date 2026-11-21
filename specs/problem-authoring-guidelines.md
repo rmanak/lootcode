@@ -183,6 +183,13 @@ candidate problems, is in `docs/ml-coding-plan.md` and
   statement with a formula is written this way (converted 2026-11-01).
 - **Write our own statements.** Deep-ML's problems are licensed for educational
   use only.
+- **PyTorch problems** (the question is about torch itself: "implement the CLIP
+  loss in PyTorch") set `"runtime": "torch"` and follow `docs/torch-runtime.md`.
+  Default to float32, say in the statement that shape and dtype must match, give
+  every typical wrong answer a stored hidden test that catches it (random tests
+  are a bonus), and vet the canonical against independent implementations over
+  thousands of generator draws. A problem that only *phrases* itself in torch
+  (attention, a norm layer) is still better as numpy, which runs without torch.
 
 ## Figures (authoring-time only)
 
