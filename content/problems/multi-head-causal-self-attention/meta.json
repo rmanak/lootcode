@@ -3,7 +3,8 @@
   "title": "Multi-Head Causal Self-Attention",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "transformer"
   ],
   "languages": [
     "python"

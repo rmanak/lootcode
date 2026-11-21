@@ -19,7 +19,8 @@ the "Machine-learning problems" section of `specs/problem-authoring-guidelines.m
   without it, `import numpy` dies under `RLIMIT_AS`.
 - `compare: "close"`: floats within rel `1e-6` / abs `1e-9`, ints exact,
   overflow-safe. Returned numpy values are converted by `harness._plain`.
-- The `machine-learning` tag (45 tags) and the `ml-coding` collection.
+- The `machine-learning` tag and the `ml-coding` collection (2026-11-21: plus 16 ML
+  topic tags, `app/tags.py::ML_TOPIC_TAGS`, 61 tags in all).
 - Problems: `pairwise-ranker-i-loss-and-gradient`, `pairwise-ranker-ii-training`,
   `softmax-cross-entropy-loss-and-gradient` (item 1a), `k-means-from-given-centroids` (item 1b),
   `kv-cache-attention` (item 1c), `roc-auc` (item 1d). **The pilot is complete.**
@@ -55,8 +56,8 @@ ill-conditioned case in Ranker II).
      `## Examples`. **Never write "you may return"**: `scripts/audit.py` reads it
      as any-order language.
    - **meta.json:** `compare: "close"`, a camelCase function name,
-     `tags: ["machine-learning"]` (plus a technique tag only if it is genuinely the
-     point, e.g. `design` for a class problem), and 3 hints (≤ ~25 words; tier 3 is
+     `tags: ["machine-learning", <1–3 ML topic tags>]` (see `specs/tags.md`; plus a
+     technique tag only if it is genuinely the point, e.g. `design` for a class problem), and 3 hints (≤ ~25 words; tier 3 is
      the insight, never the formula).
    - **Validator:** hand-written, with a docstring saying so. It enforces every
      stated bound **and every promise the statement makes about the answer**

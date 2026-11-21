@@ -3,7 +3,8 @@
   "title": "Temperature, Top-k and Top-p Sampling",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "decoding"
   ],
   "languages": [
     "python"

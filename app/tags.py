@@ -23,9 +23,10 @@ from __future__ import annotations
 # The umbrella catch-all (kept only when nothing more specific applies).
 MATH = "math"
 
-# Allowed vocabulary (45 tags). Keep alphabetised.
+# Allowed vocabulary (61 tags). Keep alphabetised.
 CANONICAL_TAGS: frozenset[str] = frozenset({
     "array",
+    "backpropagation",
     "backtracking",
     "binary-indexed-tree",
     "binary-search",
@@ -34,42 +35,80 @@ CANONICAL_TAGS: frozenset[str] = frozenset({
     "bit-manipulation",
     "bitmask",
     "breadth-first-search",
+    "classical-ml",
     "combinatorics",
+    "computer-vision",
     "counting",
+    "data-preprocessing",
+    "decoding",
     "depth-first-search",
     "design",
     "divide-and-conquer",
     "dynamic-programming",
+    "evaluation-metrics",
     "geometry",
     "graph",
     "greedy",
     "hash-function",
     "hash-table",
     "heap",
+    "linear-algebra",
     "linked-list",
+    "llm-apps",
+    "llm-inference",
+    "loss-function",
     "machine-learning",
     "math",
     "matrix",
     "memoization",
     "monotonic-stack",
+    "neural-networks",
+    "nlp",
     "number-theory",
+    "optimization",
     "ordered-set",
     "prefix-sum",
     "queue",
     "recursion",
+    "reinforcement-learning",
     "segment-tree",
     "shortest-path",
     "simulation",
     "sliding-window",
     "sorting",
     "stack",
+    "statistics",
     "string",
     "suffix-array",
     "topological-sort",
+    "transformer",
     "tree",
     "trie",
     "two-pointers",
     "union-find",
+})
+
+# The machine-learning *topic* tags: a sub-vocabulary that only ever appears
+# next to the ``machine-learning`` domain tag, so the ML problems (otherwise a
+# single 100-problem bucket) can be filtered by what they practise. Every ML
+# problem carries 1-3 of them; tests/test_tags.py pins both halves of that.
+ML_TOPIC_TAGS: frozenset[str] = frozenset({
+    "backpropagation",
+    "classical-ml",
+    "computer-vision",
+    "data-preprocessing",
+    "decoding",
+    "evaluation-metrics",
+    "linear-algebra",
+    "llm-apps",
+    "llm-inference",
+    "loss-function",
+    "neural-networks",
+    "nlp",
+    "optimization",
+    "reinforcement-learning",
+    "statistics",
+    "transformer",
 })
 
 # Non-canonical tag -> canonical tag. Synonyms/abbreviations and too-detailed

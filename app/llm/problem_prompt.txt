@@ -64,8 +64,9 @@ Fields common to BOTH kinds:
                        honest about how hard the problem actually is.
 
   "tags"               array of 1-4 lowercase topic strings describing the core
-                       technique/structure. Use ONLY this canonical vocabulary
-                       (45 tags):
+                       technique/structure (up to 5 for a machine-learning
+                       problem: the domain tag plus its topic tags). Use ONLY this canonical vocabulary
+                       (61 tags):
                          array, backtracking, binary-indexed-tree, binary-search,
                          binary-search-tree, binary-tree, bit-manipulation,
                          bitmask, breadth-first-search, combinatorics, counting,
@@ -78,6 +79,13 @@ Fields common to BOTH kinds:
                          simulation, sliding-window, sorting, stack, string,
                          suffix-array, topological-sort, tree, trie,
                          two-pointers, union-find.
+                       Machine-learning topic tags (ONLY together with
+                       "machine-learning"; give every ML problem 1-3 of them):
+                         backpropagation, classical-ml, computer-vision,
+                         data-preprocessing, decoding, evaluation-metrics,
+                         linear-algebra, llm-apps, llm-inference, loss-function,
+                         neural-networks, nlp, optimization,
+                         reinforcement-learning, statistics, transformer.
                        Do NOT invent tags or use near-synonyms (use
                        "breadth-first-search" not "bfs", "queue" not
                        "monotonic-queue"). "math" is a catch-all umbrella — use it

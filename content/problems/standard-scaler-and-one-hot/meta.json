@@ -3,7 +3,8 @@
   "title": "Standard Scaler and One-Hot Encoder",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "data-preprocessing"
   ],
   "languages": [
     "python"

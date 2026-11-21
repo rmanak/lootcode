@@ -3,7 +3,9 @@
   "title": "Linear Regression by Gradient Descent",
   "difficulty": "easy",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "classical-ml",
+    "optimization"
   ],
   "languages": [
     "python"

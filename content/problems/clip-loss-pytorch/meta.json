@@ -3,7 +3,9 @@
   "title": "CLIP Contrastive Loss (PyTorch)",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "loss-function",
+    "computer-vision"
   ],
   "languages": [
     "python"

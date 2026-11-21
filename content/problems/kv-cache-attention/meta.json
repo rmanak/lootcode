@@ -4,6 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "machine-learning",
+    "transformer",
+    "llm-inference",
     "design"
   ],
   "hints": [

@@ -58,6 +58,10 @@ _LABEL_OVERRIDES = {
     "heap": "Heap (Priority Queue)",
     "breadth-first-search": "Breadth-First Search",
     "depth-first-search": "Depth-First Search",
+    "classical-ml": "Classical ML",
+    "nlp": "NLP",
+    "llm-apps": "LLM Apps",
+    "llm-inference": "LLM Inference",
 }
 
 

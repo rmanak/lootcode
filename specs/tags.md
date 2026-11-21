@@ -10,7 +10,7 @@ browse/filter facets stay meaningful and near-synonyms don't multiply.
   every write (manual admin, AI generator, bulk-import generators), so aliases
   are corrected, dropped tags removed, and no problem is ever left tagless.
 
-## Canonical tags (45)
+## Canonical tags (61)
 
 | Group | Tags |
 |---|---|
@@ -19,6 +19,7 @@ browse/filter facets stay meaningful and near-synonyms don't multiply.
 | Techniques | `two-pointers`, `sliding-window`, `prefix-sum`, `binary-search`, `sorting`, `greedy`, `backtracking`, `recursion`, `divide-and-conquer`, `dynamic-programming`, `memoization`, `depth-first-search`, `breadth-first-search`, `topological-sort`, `shortest-path`, `bit-manipulation`, `bitmask` |
 | Counting / numeric | `combinatorics`, `counting`, `simulation`, `number-theory`, `geometry`, `math` |
 | Domain | `machine-learning` |
+| ML topics (only with `machine-learning`) | `loss-function`, `backpropagation`, `optimization`, `classical-ml`, `neural-networks`, `transformer`, `decoding`, `llm-inference`, `llm-apps`, `reinforcement-learning`, `evaluation-metrics`, `statistics`, `data-preprocessing`, `nlp`, `computer-vision`, `linear-algebra` |
 
 `design` tags problems that ask you to **implement a data structure** driven by a
 sequence of operations (the input is an operations list, e.g.
@@ -28,10 +29,38 @@ one-shot computational problems.
 
 `machine-learning` tags **ML coding** problems: losses and their gradients, training
 loops, metrics, model building blocks (attention, normalization, sampling), the
-"implement it from scratch with numpy" interview round. It names the *domain*, so
-it is usually the only tag such a problem needs; add a technique tag only when the
+"implement it from scratch with numpy" interview round. It names the *domain*;
+every such problem is also listed in the `ml-coding` collection.
+
+Next to it, every ML problem carries **1–3 ML topic tags** saying what it
+practises (`app/tags.py::ML_TOPIC_TAGS`). They never appear without
+`machine-learning`, and `tests/test_tags.py` checks both rules over the bank:
+
+| Tag | What it covers |
+|---|---|
+| `loss-function` | Cross-entropy, contrastive, preference and divergence losses |
+| `backpropagation` | Backward passes, autograd, gradient checking |
+| `optimization` | Optimizers, LR schedules, gradient clipping, gradient-descent training loops |
+| `classical-ml` | Pre-deep-learning models: linear/logistic/softmax regression, SVM, perceptron, naive Bayes, trees, ensembles, kNN, k-means, PCA |
+| `neural-networks` | Layers, activations, normalization, conv/pool, LoRA, MoE |
+| `transformer` | Attention variants, positional encodings, transformer blocks |
+| `decoding` | Turning model scores into outputs: beam search, top-k/top-p sampling, speculative decoding, span extraction, guidance |
+| `llm-inference` | Serving: batching, KV/prefix caches, quantization, speculative decoding, graph compilation |
+| `llm-apps` | RAG, agents, tool calls, context and memory management |
+| `reinforcement-learning` | MDPs, Q-learning, bandits, policy and preference objectives |
+| `evaluation-metrics` | Classification metrics, ROC-AUC, cross-validation, confidence intervals |
+| `statistics` | Moments, sampling, resampling, entropy |
+| `data-preprocessing` | Scaling and encoding, batching and padding, data-mixing loaders, label cleaning |
+| `nlp` | Tokenizers, text models, text retrieval |
+| `computer-vision` | Image ops, detection, 3-D fitting, image–text and diffusion |
+| `linear-algebra` | Eigen-decomposition, iterative solvers, closed forms, factorization |
+
+Pick the topic the problem *practises*, not every one it touches: a model fitted by
+gradient descent is `classical-ml` + `optimization`; a fused forward/backward layer
+is `neural-networks` + `backpropagation`. Add a general technique tag only when the
 problem is genuinely about one too (`heap` for a top-k retrieval, `design` for a
-KV cache). Every such problem is also listed in the `ml-coding` collection.
+KV cache). `statistics` and `linear-algebra` are ML topics, not general math tags:
+a non-ML probability or matrix problem stays `math` / `matrix`.
 
 `math` is a **catch-all umbrella**: kept only when no more specific canonical tag
 applies (arithmetic-formula and probability problems), and used as the fallback so

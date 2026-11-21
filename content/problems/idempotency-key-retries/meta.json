@@ -3,7 +3,6 @@
   "title": "Idempotency Keys: Safe Retries for a Payments API",
   "difficulty": "medium",
   "tags": [
-    "machine-learning",
     "design",
     "hash-table"
   ],

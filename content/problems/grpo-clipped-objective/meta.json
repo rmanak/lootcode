@@ -4,7 +4,8 @@
   "difficulty": "hard",
   "tags": [
     "machine-learning",
-    "math"
+    "loss-function",
+    "reinforcement-learning"
   ],
   "languages": [
     "python"

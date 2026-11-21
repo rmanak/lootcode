@@ -3,7 +3,8 @@
   "title": "Scaled Dot-Product Attention",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "transformer"
   ],
   "languages": [
     "python"

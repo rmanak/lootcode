@@ -3,7 +3,9 @@
   "title": "Multinomial Naive Bayes",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "classical-ml",
+    "nlp"
   ],
   "languages": [
     "python"

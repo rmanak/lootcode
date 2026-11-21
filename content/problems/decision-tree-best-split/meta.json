@@ -3,7 +3,8 @@
   "title": "Decision Tree: Best Gini Split",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "classical-ml"
   ],
   "languages": [
     "python"

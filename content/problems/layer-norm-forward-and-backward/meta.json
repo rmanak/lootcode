@@ -3,7 +3,9 @@
   "title": "LayerNorm: Forward and Backward",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "neural-networks",
+    "backpropagation"
   ],
   "languages": [
     "python"

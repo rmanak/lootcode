@@ -4,6 +4,7 @@
   "difficulty": "easy",
   "tags": [
     "machine-learning",
+    "reinforcement-learning",
     "prefix-sum",
     "matrix"
   ],

@@ -106,20 +106,24 @@ COMPARE_MODES = ("exact", "unordered", "set_of_lists", "close")
 # Allowed difficulty levels (specs/problem-schema.md / meta.json).
 DIFFICULTIES = ("easy", "medium", "hard")
 
-# The 45 canonical tags. Source of truth is app/tags.py::CANONICAL_TAGS; this is a
+# The 61 canonical tags. Source of truth is app/tags.py::CANONICAL_TAGS; this is a
 # copy so the validator stays standalone (no dependency on the `app` package).
 # Non-canonical tags are only WARNED about, because app.tags.normalize_tags folds
 # aliases and passes unknown tags through on write -- they are not fatal.
 CANONICAL_TAGS = frozenset({
-    "array", "backtracking", "binary-indexed-tree", "binary-search",
-    "binary-search-tree", "binary-tree", "bit-manipulation", "bitmask",
-    "breadth-first-search", "combinatorics", "counting", "depth-first-search",
-    "design", "divide-and-conquer", "dynamic-programming", "geometry", "graph",
-    "greedy", "hash-function", "hash-table", "heap", "linked-list",
-    "machine-learning", "math", "matrix", "memoization", "monotonic-stack",
-    "number-theory", "ordered-set", "prefix-sum", "queue", "recursion",
-    "segment-tree", "shortest-path", "simulation", "sliding-window", "sorting",
-    "stack", "string", "suffix-array", "topological-sort", "tree", "trie",
+    "array", "backpropagation", "backtracking", "binary-indexed-tree",
+    "binary-search", "binary-search-tree", "binary-tree", "bit-manipulation",
+    "bitmask", "breadth-first-search", "classical-ml", "combinatorics",
+    "computer-vision", "counting", "data-preprocessing", "decoding",
+    "depth-first-search", "design", "divide-and-conquer", "dynamic-programming",
+    "evaluation-metrics", "geometry", "graph", "greedy", "hash-function",
+    "hash-table", "heap", "linear-algebra", "linked-list", "llm-apps",
+    "llm-inference", "loss-function", "machine-learning", "math", "matrix",
+    "memoization", "monotonic-stack", "neural-networks", "nlp", "number-theory",
+    "optimization", "ordered-set", "prefix-sum", "queue", "recursion",
+    "reinforcement-learning", "segment-tree", "shortest-path", "simulation",
+    "sliding-window", "sorting", "stack", "statistics", "string",
+    "suffix-array", "topological-sort", "transformer", "tree", "trie",
     "two-pointers", "union-find",
 })
 

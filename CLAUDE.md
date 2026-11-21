@@ -124,7 +124,8 @@ works for a fresh checkout.
   codec in `app/executor/harness.py` (`_CODECS`) builds/serializes the real object at
   the sandbox boundary and injects the class, so the judge still compares JSON. Adding
   one = a `_CODECS` entry + `executor-security-reviewer`. See `specs/problem-schema.md`.
-- **ML coding problems** (tag `machine-learning`, collection `ml-coding`): the
+- **ML coding problems** (tag `machine-learning` + 1–3 ML topic tags such as
+  `loss-function` / `transformer`, see `specs/tags.md`; collection `ml-coding`): the
   sandbox can import **numpy** (and only these problems may rely on it). Solutions
   may return numpy arrays/scalars (the harness `.tolist()`s them), answers grade
   with `compare: "close"` (floats within rel `1e-6` / abs `1e-9`, ints exact), and
@@ -193,9 +194,10 @@ works for a fresh checkout.
   `python scripts/remove_problem.py <slug>` (or `<old>=<new>` to **deduplicate**,
   which points collection references at the surviving twin instead of shortening
   the list). `--dry-run` first. See `docs/removing-problems.md`.
-- **Tags:** use the canonical vocabulary only (45 tags). `app/tags.py` is the
-  source of truth (`normalize_tags` runs on every content write); `specs/tags.md`
-  is the prose taxonomy; the `canonical-tags` skill is the authoring workflow. If
+- **Tags:** use the canonical vocabulary only (61 tags: 45 general + 16 ML
+  topic tags, which only appear alongside `machine-learning`). `app/tags.py` is
+  the source of truth (`normalize_tags` runs on every content write);
+  `specs/tags.md` is the prose taxonomy; the `canonical-tags` skill is the authoring workflow. If
   a problem fits no canonical tag, discuss adding one — don't invent it inline.
 - **Statement ↔ judge consistency:** a problem's `compare` mode (meta.json) must
   match what the statement promises about answer order (`exact` / `unordered` /

@@ -3,7 +3,9 @@
   "title": "Pairwise Ranker I: Loss and Gradient",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "loss-function",
+    "backpropagation"
   ],
   "hints": [
     "Each pair affects the loss only through one number, its margin. Work out how one pair's cost changes with its margin, then how the margin changes with w.",

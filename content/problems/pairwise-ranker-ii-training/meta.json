@@ -3,7 +3,8 @@
   "title": "Pairwise Ranker II: Training",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "optimization"
   ],
   "hints": [
     "The procedure is fully specified, so the real work is getting the gradient right at every step. Everything else is bookkeeping.",

@@ -3,7 +3,10 @@
   "title": "Two-Layer MLP: Backpropagation",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "neural-networks",
+    "backpropagation",
+    "loss-function"
   ],
   "languages": [
     "python"

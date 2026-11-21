@@ -3,9 +3,7 @@
   "title": "Forecast When a Storage Volume Fills Up",
   "difficulty": "medium",
   "tags": [
-    "machine-learning",
     "design",
-    "math",
     "queue"
   ],
   "languages": [

@@ -14,7 +14,7 @@ taxonomy + rationale is **`specs/tags.md`**. This skill is the authoring
 workflow. If those files and this list ever disagree, `app/tags.py` wins — refresh
 this skill from it.
 
-## Canonical tags (45)
+## Canonical tags (61)
 
 Pick **1–4** that best describe the *technique/structure*, not incidental detail.
 
@@ -31,8 +31,17 @@ Pick **1–4** that best describe the *technique/structure*, not incidental deta
 - **Counting / numeric:** `combinatorics` · `counting` · `simulation` ·
   `number-theory` · `geometry` · `math`
 - **Domain:** `machine-learning` — ML coding problems (losses, gradients,
-  training loops, metrics, attention…). Usually the only tag such a problem
-  needs; also add the problem to `content/collections/ml-coding.json`.
+  training loops, metrics, attention…). Also add the problem to
+  `content/collections/ml-coding.json`.
+- **ML topics** — only together with `machine-learning`, and every ML problem
+  gets **1–3** of them: `loss-function` · `backpropagation` · `optimization` ·
+  `classical-ml` · `neural-networks` · `transformer` · `decoding` ·
+  `llm-inference` · `llm-apps` · `reinforcement-learning` ·
+  `evaluation-metrics` · `statistics` · `data-preprocessing` · `nlp` ·
+  `computer-vision` · `linear-algebra`. What each covers is in `specs/tags.md`.
+  Pick what the problem *practises* (a model fitted by gradient descent is
+  `classical-ml` + `optimization`). `statistics` / `linear-algebra` are ML-only:
+  a non-ML probability or matrix problem stays `math` / `matrix`.
 
 `math` is a **catch-all umbrella** — use it only when no more specific tag
 applies (arithmetic-formula and probability problems; prefer `number-theory` for

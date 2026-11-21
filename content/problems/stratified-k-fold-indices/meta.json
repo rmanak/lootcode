@@ -3,7 +3,9 @@
   "title": "Stratified K-Fold Split",
   "difficulty": "easy",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "data-preprocessing",
+    "evaluation-metrics"
   ],
   "languages": [
     "python"

@@ -3,7 +3,8 @@
   "title": "k-Nearest Neighbors Classifier",
   "difficulty": "easy",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "classical-ml"
   ],
   "languages": [
     "python"

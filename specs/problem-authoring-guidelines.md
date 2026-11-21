@@ -144,7 +144,8 @@ Format details and the scaffolding tool are in `specs/problem-schema.md` and
 
 ML coding problems — "implement this loss and its gradient", "train this model",
 "compute this metric", the from-scratch numpy interview round — are tagged
-`machine-learning`, listed in `content/collections/ml-coding.json`, and may use
+`machine-learning` plus 1–3 ML topic tags (`loss-function`, `transformer`, …; see
+`specs/tags.md`), listed in `content/collections/ml-coding.json`, and may use
 **numpy** (the solver's statement says "numpy and the standard library"). They
 compare with `close`. The reasoning behind these rules, and an inventory of
 candidate problems, is in `docs/ml-coding-plan.md` and

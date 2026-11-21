@@ -4,8 +4,9 @@
   "difficulty": "easy",
   "tags": [
     "machine-learning",
-    "matrix",
-    "math"
+    "statistics",
+    "linear-algebra",
+    "matrix"
   ],
   "languages": [
     "python"

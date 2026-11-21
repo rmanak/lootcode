@@ -3,7 +3,8 @@
   "title": "Non-Maximum Suppression",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "computer-vision"
   ],
   "languages": [
     "python"

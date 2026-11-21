@@ -3,7 +3,8 @@
   "title": "Gradient Check with Finite Differences",
   "difficulty": "easy",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "backpropagation"
   ],
   "languages": [
     "python"

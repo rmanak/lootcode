@@ -3,7 +3,8 @@
   "title": "Beam Search Decoding",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "decoding"
   ],
   "languages": [
     "python"

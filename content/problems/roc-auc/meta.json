@@ -3,7 +3,8 @@
   "title": "ROC-AUC",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "evaluation-metrics"
   ],
   "hints": [
     "Sort the examples by score. Then count, for each positive, how many negatives sit below it, without ever pairing examples up explicitly.",

@@ -3,7 +3,8 @@
   "title": "AdaBoost: One Boosting Round",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "classical-ml"
   ],
   "languages": [
     "python"

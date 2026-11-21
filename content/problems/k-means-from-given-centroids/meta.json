@@ -3,7 +3,8 @@
   "title": "K-Means from Given Centroids",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "classical-ml"
   ],
   "hints": [
     "Build all point-to-centroid squared distances at once as an N×K array via broadcasting, then reduce along the centroid axis to label every point.",

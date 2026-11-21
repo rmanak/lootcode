@@ -3,7 +3,8 @@
   "title": "Multiclass Precision, Recall and F1",
   "difficulty": "easy",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "evaluation-metrics"
   ],
   "languages": [
     "python"

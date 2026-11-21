@@ -4,6 +4,8 @@
   "difficulty": "hard",
   "tags": [
     "machine-learning",
+    "neural-networks",
+    "backpropagation",
     "matrix"
   ],
   "languages": [

@@ -3,7 +3,9 @@
   "title": "Linear SVM with Pegasos",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "classical-ml",
+    "optimization"
   ],
   "languages": [
     "python"

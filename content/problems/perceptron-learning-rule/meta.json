@@ -3,7 +3,9 @@
   "title": "Perceptron Learning Rule",
   "difficulty": "easy",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "classical-ml",
+    "optimization"
   ],
   "languages": [
     "python"

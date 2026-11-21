@@ -4,7 +4,8 @@
   "difficulty": "medium",
   "tags": [
     "machine-learning",
-    "math"
+    "transformer",
+    "llm-inference"
   ],
   "languages": [
     "python"

@@ -4,20 +4,50 @@
 bulk importers — so it is the last thing standing between an invented tag and the
 on-disk bank. It had no test.
 """
+import json
+from pathlib import Path
+
 from app.tags import (
     CANONICAL_TAGS,
     DROPPED_TAGS,
+    ML_TOPIC_TAGS,
     TAG_ALIASES,
     is_canonical,
     normalize_tags,
     unknown_tags,
 )
 
+ROOT = Path(__file__).resolve().parent.parent
 
-def test_vocabulary_is_forty_five_tags():
+
+def test_vocabulary_is_sixty_one_tags():
     # Not a tautology: four other files hard-code this list (see
     # test_docs_consistency.py), and the count is quoted in CLAUDE.md.
-    assert len(CANONICAL_TAGS) == 45
+    assert len(CANONICAL_TAGS) == 61
+    assert len(ML_TOPIC_TAGS) == 16
+    assert ML_TOPIC_TAGS < CANONICAL_TAGS
+
+
+def _bank_tags():
+    """(slug, tags) for every problem on disk, both content roots."""
+    for root in ("content/problems", "content/problems-extended"):
+        for meta in sorted((ROOT / root).glob("*/meta.json")):
+            yield meta.parent.name, json.loads(meta.read_text(encoding="utf-8"))["tags"]
+
+
+def test_every_ml_problem_has_one_to_three_ml_topic_tags():
+    bad = {slug: tags for slug, tags in _bank_tags()
+           if "machine-learning" in tags
+           and not 1 <= len(ML_TOPIC_TAGS & set(tags)) <= 3}
+    assert not bad, f"ML problems need 1-3 of ML_TOPIC_TAGS: {bad}"
+
+
+def test_ml_topic_tags_only_appear_on_ml_problems():
+    # `statistics` / `linear-algebra` would otherwise leak onto ordinary
+    # probability and matrix problems, which stay `math` / `matrix`.
+    bad = {slug: tags for slug, tags in _bank_tags()
+           if ML_TOPIC_TAGS & set(tags) and "machine-learning" not in tags}
+    assert not bad, f"ML topic tags without machine-learning: {bad}"
 
 
 def test_aliases_and_dropped_never_overlap_the_vocabulary():

@@ -3,7 +3,9 @@
   "title": "Elastic Net by Subgradient Descent",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "classical-ml",
+    "optimization"
   ],
   "languages": [
     "python"

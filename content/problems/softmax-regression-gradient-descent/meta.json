@@ -3,7 +3,9 @@
   "title": "Softmax Regression by Gradient Descent",
   "difficulty": "medium",
   "tags": [
-    "machine-learning"
+    "machine-learning",
+    "classical-ml",
+    "optimization"
   ],
   "languages": [
     "python"
