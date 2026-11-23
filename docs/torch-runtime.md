@@ -125,6 +125,7 @@ who forgets `import torch` is not failed for it. Default dtype is **float32**.
 | `{"$random": {"shape": [8, "D"], "dist": …, …}}` | a random tensor (a nested list for a non-tensor param) |
 | `{"$random": {"dist": …}}` (no `shape`) | a random scalar (a 0-dim tensor for a `Tensor` param) |
 | `{"$dim": "H"}` or `{"$dim": ["kh", "kw"]}` | the drawn dim(s) as a plain int (list), for a non-tensor param (generator only) |
+| `{"$list": {"count": …, "dims": {…}, "item": …, "share"?: "k"}}` | a ragged list: `count` items from one spec, each with its own dims (a `Tensor[]` param, or a plain list param); see "Ragged lists" |
 
 A `$tensor` literal takes only `data`, `shape`, `dtype` and `requires_grad`, and
 its integers must fit the dtype (`300` is not a `uint8`).
@@ -140,6 +141,35 @@ it governs agree in every test. Expressions are parsed by a small grammar (no
 `eval`) of at most 64 characters, and their ranges are worked out by interval
 arithmetic before anything is drawn: an expression that could go negative or
 divide by zero is an error on the first run, not on the one seed that hits it.
+
+**Ragged lists.** A `Tensor[]` parameter whose tensors differ in length (one
+gradient per model parameter, one log-prob vector per completion) draws from
+`$list`:
+
+```jsonc
+"newLogps": {"$list": {"count": "BG",            // an int, [lo, hi], or a dim name
+                       "dims": {"L": [1, 32]},   // drawn again for every item
+                       "share": "tokens",        // optional, see below
+                       "item": {"$random": {"shape": ["L"], "dtype": "float64",
+                                            "dist": "uniform", "low": -3.0, "high": 0.0}}}}
+```
+
+Each item sees the test's dims plus its own (which may not shadow them, at most
+32). Lists that name the same `share` key draw their count and per-item dims
+from the *test's* seed, so they agree item by item (`newLogps[k]`,
+`oldLogps[k]` and `refLogps[k]` have one length) while their values still
+differ. They must declare the same count and dims, in the same order. An item
+is a number or a `$random` / `$tensor` / `$dim` spec, never a literal list or
+string (it would be repeated `count` times at the cost of one), and a `$list`
+cannot nest. On a plain list parameter (`float[][]`, the numpy side) the items
+come out as nested lists.
+
+**Budgets count structure.** A test's inputs are charged by what they cost to
+build, not just by the numbers they hold: an empty row costs 1, a tensor costs
+its shape with every dim at least 1, and a `$list` item also costs its dim
+draws. The per-test limit (`MAX_ELEMENTS`) is checked key by key while the
+input is built, so a test cannot make the server build much more than it before
+it is refused.
 
 Distributions: `randn`/`normal` (`mean`, `std`), `rand`/`uniform` (`low`,
 `high`; half-open), `randint` (integer `low`, `high`, exclusive, defaults to

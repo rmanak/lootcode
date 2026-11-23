@@ -284,6 +284,138 @@ def test_bad_dim_expressions_fail_before_any_draw(dims):
         dim_ranges(dims)
 
 
+
+# --- ragged lists ($list) ------------------------------------------------------
+_LOGPS = {"$list": {"count": "BG", "dims": {"L": [1, 9]}, "share": "len",
+                    "item": {"$random": {"shape": ["L"], "dist": "uniform",
+                                         "low": -5.0, "high": 0.0, "dtype": "float64"}}}}
+
+
+def test_a_list_spec_draws_ragged_tensors_whose_lengths_can_be_shared():
+    cfg = {"dims": {"B": [1, 3], "G": [2, 4], "BG": "B*G"},
+           "inputs": {"new": _LOGPS, "old": _LOGPS,
+                      "g": {"$list": {"count": [1, 5], "dims": {"n": [1, 4]},
+                                      "item": {"$random": {"shape": ["n"]}}}}}}
+    params = [{"name": "new", "type": "Tensor[]"}, {"name": "old", "type": "Tensor[]"},
+              {"name": "g", "type": "float[][]"}]
+    lengths = set()
+    for inp in generated_inputs(cfg, params, seed=7, count=40):
+        new, old = inp["new"], inp["old"]
+        assert len(new) == len(old) in {b * g for b in range(1, 4) for g in range(2, 5)}
+        shapes = [t["$tensor"]["shape"] for t in new]
+        assert shapes == [t["$tensor"]["shape"] for t in old]   # aligned item by item
+        assert [t["$tensor"]["data"] for t in new] != [t["$tensor"]["data"] for t in old]
+        assert all(t["$tensor"]["dtype"] == "float64" for t in new)
+        lengths |= {s[0] for s in shapes}
+        assert 1 <= len(inp["g"]) <= 5 and all(isinstance(r, list) for r in inp["g"])
+    assert len(lengths) > 3   # ragged, not one length
+    # Deterministic per seed.
+    assert generated_inputs(cfg, params, seed=7, count=2) == generated_inputs(
+        cfg, params, seed=7, count=2)
+
+
+@pytest.mark.parametrize(("inputs", "ptype"), [
+    ({"x": {"$list": {"count": 2, "item": 1.0}}}, "Tensor"),              # not a list type
+    ({"x": {"$list": {"count": 2}}}, "Tensor[]"),                         # no item
+    ({"x": {"$list": {"count": 2, "item": 1.0, "size": 3}}}, "Tensor[]"),  # unknown key
+    ({"x": {"$list": {"count": -1, "item": 1.0}}}, "Tensor[]"),
+    ({"x": {"$list": {"count": "K", "item": 1.0}}}, "Tensor[]"),          # no such dim
+    ({"x": {"$list": {"count": True, "item": 1.0}}}, "Tensor[]"),
+    ({"x": {"$list": {"count": 2, "item": {"$list": {"count": 2, "item": 1.0}}}}}, "Tensor[]"),
+    ({"x": {"$list": {"count": 2, "dims": {"N": 3}, "item": 1.0}}}, "Tensor[]"),  # shadows N
+    ({"x": {"$list": {"count": 2, "dims": {"L": [0, 3]},
+                      "item": {"$random": {"dist": "randint", "high": "L", "shape": [1]}}}}},
+     "Tensor[]"),                                                         # randint high 0
+    ({"x": {"$list": {"count": 60_000, "item": {"$random": {"dist": "rand"}}}}}, "Tensor[]"),
+    ({"x": {"$list": {"count": 2_000, "item": {"$random": {"shape": [30]}}}}}, "Tensor[]"),
+    # Structure costs, not just numbers: 50k empty rows per item, or a literal
+    # repeated `count` times, must not be nearly free (security review).
+    ({"x": {"$list": {"count": 2, "item": {"$random": {"shape": [50_000, 0]}}}}}, "float[][]"),
+    ({"x": {"$list": {"count": 2, "item": {"$random": {"shape": [50_000, 0]}}}}}, "Tensor[]"),
+    ({"x": {"$list": {"count": 2, "item": "x" * 1000}}}, ""),
+    ({"x": {"$list": {"count": 2, "item": {"a": 1, "b": 2}}}}, ""),
+    ({"x": {"$list": {"count": 2, "item": [1.0, 2.0]}}}, "Tensor[]"),
+    ({"x": {"$list": {"count": [0, 100_000], "item": 1.0}}}, "Tensor[]"),   # static, every seed
+    ({"x": {"$list": {"count": 1, "dims": {f"d{i}": 1 for i in range(40)}, "item": 1.0}}},
+     "Tensor[]"),
+])
+def test_bad_list_specs_are_spec_errors(inputs, ptype):
+    cfg = {"dims": {"N": [1, 2]}, "inputs": inputs}
+    with pytest.raises(SpecError):
+        generated_inputs(cfg, [{"name": "x", "type": ptype}], seed=1, count=2)
+
+
+@pytest.mark.parametrize("other_dims", [{"L": [1, 8]},
+                                        {"M": [1, 9], "L": [1, 9]}])  # same dims, other order
+def test_lists_sharing_lengths_must_draw_them_the_same_way(other_dims):
+    mine = {"$list": {**_LOGPS["$list"], "dims": {"L": [1, 9], "M": [1, 9]}}}
+    other = {"$list": {**_LOGPS["$list"], "dims": other_dims}}
+    cfg = {"dims": {"BG": 4}, "inputs": {"a": mine, "b": other}}
+    params = [{"name": "a", "type": "Tensor[]"}, {"name": "b", "type": "Tensor[]"}]
+    with pytest.raises(SpecError, match="share"):
+        generated_inputs(cfg, params, seed=1, count=1)
+
+
+def test_per_item_dim_draws_are_charged():
+    # 32 long expressions per item, ~50k items: refused before the loop.
+    local = {"a": [1, 9], **{f"d{i}": "+".join(["a"] * 30) for i in range(31)}}
+    spec = {"$list": {"count": 49_990, "dims": local, "item": {"$dim": "a"}}}
+    import time
+    start = time.monotonic()
+    with pytest.raises(SpecError):
+        materialize_input({"x": spec}, [{"name": "x", "type": "int[]"}], seed_base="t")
+    assert time.monotonic() - start < 1
+
+
+def test_the_input_budget_is_checked_key_by_key(monkeypatch):
+    import app.executor.torch_runtime.inputs as inputs_mod
+    built = []
+    real = inputs_mod.materialize_value
+    monkeypatch.setattr(inputs_mod, "materialize_value",
+                        lambda *a, **k: built.append(1) or real(*a, **k))
+    full = {"$random": {"shape": [MAX_ELEMENTS]}}
+    with pytest.raises(SpecError):
+        materialize_input({f"k{i}": full for i in range(10)}, [], seed_base="t")
+    assert len(built) == 2
+
+
+def test_a_malformed_tensor_literal_is_charged_not_a_crash():
+    # A plain (undeclared) input passes through as-is; costing it must not
+    # raise a KeyError the grader would turn into a 500.
+    from app.executor.torch_runtime.inputs import count_elements
+    assert count_elements({"x": 1.0, "junk": [{"$tensor": {}}]}) == 2
+
+
+def test_costing_a_huge_literal_shape_is_cheap():
+    import time
+
+    from app.executor.torch_runtime.inputs import count_elements
+    start = time.monotonic()
+    junk = [{"$tensor": {"shape": [10 ** 18] * 40_000}}]
+    assert count_elements({"junk": junk}) > MAX_ELEMENTS
+    assert time.monotonic() - start < 0.5
+
+
+def test_a_literal_tensor_list_is_charged_item_by_item(monkeypatch):
+    import app.executor.torch_runtime.inputs as inputs_mod
+    built = []
+    real = inputs_mod.tensor_value
+    monkeypatch.setattr(inputs_mod, "tensor_value",
+                        lambda *a, **k: built.append(1) or real(*a, **k))
+    with pytest.raises(SpecError):
+        materialize_input({"xs": [{"$random": {"shape": [MAX_ELEMENTS]}}] * 40},
+                          [{"name": "xs", "type": "Tensor[]"}], seed_base="t")
+    assert len(built) == 2
+
+
+def test_empty_rows_count_against_a_tests_input_budget():
+    # Without $list too: an undeclared input key with a zero-size dim builds
+    # 50k empty lists; that is not a free test.
+    inp = {"junk": {"$random": {"shape": [50_000, 0]}},
+           "more": {"$random": {"shape": [50_000, 0]}}}
+    with pytest.raises(SpecError):
+        materialize_input(inp, [], seed_base="t")
+
 def test_a_scalar_parameter_can_be_a_drawn_dim():
     cfg = {"dims": {"H": [1, 4], "kh": [1, 3], "kw": [1, 3]},
            "inputs": {"n": {"$dim": "H"}, "k": {"$dim": ["kh", "kw"]},

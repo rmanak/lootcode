@@ -107,13 +107,17 @@ def check_config(config: Mapping | None, default_rtol: float,
 
 
 # --- dims ------------------------------------------------------------------
-def draw_dims(spec: Mapping | None, rng: random.Random) -> dict[str, int]:
+def draw_dims(spec: Mapping | None, rng: random.Random,
+              base: Mapping[str, int] | None = None) -> dict[str, int]:
     """Resolve symbolic dims: an int is fixed, ``[lo, hi]`` is drawn inclusive,
     and a string is an expression over the dims declared before it
     (``"D": "H*hd"``, ``"Ho": "(H-kh)//s+1"``; see :func:`_parse_dim_expr`).
     ``%`` draws a dim bounded by another: with ``"r": [0, 9999]``,
-    ``"hd": "1 + r % (32 // H)"`` keeps ``H * hd <= 32`` for every ``H``."""
-    out: dict[str, int] = {}
+    ``"hd": "1 + r % (32 // H)"`` keeps ``H * hd <= 32`` for every ``H``.
+    ``base``: dims drawn already (a ``$list`` item's dims see the test's)."""
+    if spec is not None and len(spec) > MAX_DIMS:
+        raise SpecError(f"at most {MAX_DIMS} dims")
+    out: dict[str, int] = dict(base or {})
     for name, v in (spec or {}).items():
         if isinstance(v, bool):
             raise SpecError(f"dim {name!r} must be an int, [lo, hi] or an expression")
@@ -135,6 +139,8 @@ def draw_dims(spec: Mapping | None, rng: random.Random) -> dict[str, int]:
 
 #: Longest dim expression; it also bounds the parser's recursion depth.
 MAX_DIM_EXPR = 64
+#: Most dims one ``dims`` block may declare (the test's, or a ``$list``'s own).
+MAX_DIMS = 32
 
 
 def _parse_dim_expr(text: str) -> tuple:
@@ -256,12 +262,14 @@ def _dim_interval(node: tuple, ranges: Mapping[str, tuple[int, int]],
     return min(corners), max(corners)
 
 
-def dim_ranges(spec: Mapping | None) -> dict[str, tuple[int, int]]:
+def dim_ranges(spec: Mapping | None, *, limit: int = MAX_DIMS) -> dict[str, tuple[int, int]]:
     """Every dim's possible ``(min, max)``, checked statically: an expression
     that could go negative, or divide by zero, for some draw is an error now,
     not on the one seed that hits it."""
     if spec is not None and not isinstance(spec, Mapping):
         raise SpecError("torch.dims must be an object")
+    if spec is not None and len(spec) > limit:
+        raise SpecError(f"at most {MAX_DIMS} dims")
     out: dict[str, tuple[int, int]] = {}
     for name, v in (spec or {}).items():
         if isinstance(v, int) and not isinstance(v, bool):
@@ -283,7 +291,7 @@ def dim_ranges(spec: Mapping | None) -> dict[str, tuple[int, int]]:
 
 def _resolve_shape(shape: object, dims: Mapping[str, int]) -> list[int]:
     if not isinstance(shape, list) or len(shape) > MAX_RANK:
-        raise SpecError(f"shape must be a list of at most {MAX_RANK} dims, got {shape!r}")
+        raise SpecError(f"shape must be a list of at most {MAX_RANK} dims, got {str(shape)[:80]}")
     out = []
     for d in shape:
         if isinstance(d, str):
@@ -516,15 +524,31 @@ def _unflatten(flat: list, shape: list[int]) -> object:
 
 # --- one value -------------------------------------------------------------
 def materialize_value(value: object, ptype: str, *, seed: int,
-                      dims: Mapping[str, int] | None = None) -> object:
+                      dims: Mapping[str, int] | None = None,
+                      group_seed: object = None) -> object:
     """One parameter's test value, concrete. ``seed`` is used only when the
-    value is a ``$random`` spec that does not pin its own."""
+    value is a ``$random`` spec that does not pin its own. ``group_seed`` is
+    the whole test's seed (shared by its parameters), which a ``$list`` with a
+    ``share`` key draws its lengths from."""
     dims = dims or {}
+    group_seed = seed if group_seed is None else group_seed
+    if isinstance(value, dict) and set(value) == {"$list"}:
+        if ptype == TENSOR_TYPE:
+            raise SpecError("$list builds a list: declare the parameter Tensor[], not Tensor")
+        item_type = TENSOR_TYPE if ptype == TENSOR_LIST_TYPE else ""
+        return _materialize_list(value["$list"], item_type, seed=seed,
+                                 group_seed=group_seed, dims=dims)
     if ptype == TENSOR_LIST_TYPE:
         if not isinstance(value, list):
             raise SpecError("a Tensor[] parameter takes a list of tensor values")
-        return [materialize_value(v, TENSOR_TYPE, seed=derive_seed(seed, i), dims=dims)
-                for i, v in enumerate(value)]
+        items, total = [], 0
+        for i, v in enumerate(value):
+            items.append(materialize_value(v, TENSOR_TYPE, seed=derive_seed(seed, i),
+                                           dims=dims, group_seed=group_seed))
+            total += max(cost(items[-1]), 1)  # checked per item, like a $list
+            if total > MAX_ELEMENTS:
+                raise SpecError(f"a Tensor[] list larger than {MAX_ELEMENTS} elements")
+        return items
 
     is_tensor = ptype == TENSOR_TYPE
     if isinstance(value, dict) and set(value) == {"$random"}:
@@ -596,6 +620,89 @@ def materialize_value(value: object, ptype: str, *, seed: int,
         flat, shape = _flatten(value)
         return tensor_value(shape, DEFAULT_DTYPE, _coerce(flat, DEFAULT_DTYPE))
     return value
+
+
+#: Keys a ``$list`` spec may carry, and what its item may be.
+_LIST_KEYS = frozenset({"count", "item", "dims", "share"})
+_LIST_ITEMS = frozenset({"$random", "$tensor", "$dim"})
+
+
+def _list_parts(spec: object, outer: Mapping) -> tuple[Mapping, object, str | None]:
+    """``(local dims, item, share)`` of a ``$list`` spec, shape-checked. ``outer``
+    is the test's dims (values or specs): a local dim may not shadow one."""
+    if not isinstance(spec, Mapping):
+        raise SpecError("$list must be an object")
+    unknown = sorted(set(spec) - _LIST_KEYS)
+    if unknown:
+        raise SpecError(f"$list does not take {unknown}")
+    if "count" not in spec or "item" not in spec:
+        raise SpecError("$list needs a count and an item")
+    item = spec["item"]
+    # A drawn value or a number, never a literal list/string/object: a literal
+    # would be repeated `count` times at the cost of one.
+    if not (_finite_num(item) or (isinstance(item, Mapping) and len(item) == 1
+                                  and next(iter(item)) in _LIST_ITEMS)):
+        raise SpecError(f"a $list item is a number or one of {sorted(_LIST_ITEMS)}")
+    local = spec.get("dims") or {}
+    if not isinstance(local, Mapping) or len(local) > MAX_DIMS:
+        raise SpecError(f"$list dims must be an object of at most {MAX_DIMS} dims")
+    clash = sorted(set(local) & set(outer))
+    if clash:
+        raise SpecError(f"$list dims {clash} shadow the test's dims")
+    share = spec.get("share")
+    if share is not None and not (isinstance(share, str) and 0 < len(share) <= MAX_STRING):
+        raise SpecError(f"$list share must be a name of at most {MAX_STRING} characters")
+    return local, item, share
+
+
+def _list_count(count: object, dims: Mapping[str, int], rng: random.Random) -> int:
+    """A ``$list`` count: an int, an inclusive ``[lo, hi]`` drawn per test, or
+    the name of a test dim (``"BG"``: one entry per completion)."""
+    if isinstance(count, str):
+        if count not in dims:
+            raise SpecError(f"$list count names dim {count!r}, which no 'dims' entry defines")
+        n = dims[count]
+    elif isinstance(count, int) and not isinstance(count, bool):
+        n = count
+    elif (isinstance(count, list) and len(count) == 2
+          and all(isinstance(x, int) and not isinstance(x, bool) for x in count)
+          and count[0] <= count[1]):
+        n = rng.randint(count[0], count[1])
+    else:
+        raise SpecError(f"$list count must be an int, [lo, hi] or a dim name, got {count!r}")
+    if not 0 <= n <= MAX_ELEMENTS:
+        raise SpecError(f"$list count {n} is outside [0, {MAX_ELEMENTS}]")
+    return n
+
+
+def _materialize_list(spec: object, item_type: str, *, seed: int, group_seed: object,
+                      dims: Mapping[str, int]) -> list:
+    """A ragged list: ``count`` items drawn from one ``item`` spec, each with its
+    own ``dims`` (one tensor per completion, each of its own length).
+
+    Lists that name the same ``share`` key draw their count and per-item dims
+    from the test's seed, not their own, so they agree item by item: three
+    log-prob lists whose k-th entries have the same length. Their values still
+    come from each parameter's own seed."""
+    local, item, share = _list_parts(spec, dims)
+    base = (derive_seed(group_seed, "$list", share) if share is not None
+            else derive_seed(seed, "$list"))
+    n = _list_count(spec["count"], dims, random.Random(base))  # type: ignore[index]
+    # Each item costs its own dim draws too (up to MAX_DIMS expressions).
+    per_item = 1 + len(local)
+    if n * per_item > MAX_ELEMENTS:
+        raise SpecError(f"$list of {n} items with {len(local)} dims each is larger "
+                        f"than {MAX_ELEMENTS} elements")
+    out, total = [], 0
+    for i in range(n):
+        item_dims = draw_dims(local, random.Random(derive_seed(base, i)), base=dims)
+        v = materialize_value(item, item_type, seed=derive_seed(seed, i),
+                              dims=item_dims, group_seed=group_seed)
+        total += max(cost(v), 1) + len(local)  # an empty item still costs its draws
+        if total > MAX_ELEMENTS:
+            raise SpecError(f"$list is larger than {MAX_ELEMENTS} elements")
+        out.append(v)
+    return out
 
 
 def _quantize(data: list, step: object) -> list:
@@ -708,9 +815,37 @@ def _count(value: object) -> int:
     return total
 
 
+def cost(value: object, cap: int = MAX_ELEMENTS) -> int:
+    """What a value costs to build, which bounds the parent's work: like
+    :func:`_count`, but an empty list costs 1 and a tensor its shape's span
+    with every dim at least 1 (as :func:`_resolve_shape` charges it), so
+    thousands of empty rows are not free. Iterative, like ``_count``. Stops
+    counting once past ``cap`` (the answer is then just "too much")."""
+    total, stack = 0, [value]
+    while stack and total <= cap:
+        v = stack.pop()
+        if is_tensor_value(v):
+            t = v["$tensor"]  # type: ignore[index]
+            span, shape, data = 1, t.get("shape"), t.get("data")
+            for d in shape if isinstance(shape, list) else []:
+                span = min(span * (max(d, 1) if isinstance(d, int) else 1), cap + 1)
+                if span > cap:
+                    break
+            total += max(len(data) if isinstance(data, list) else 1, span)
+        elif isinstance(v, list):
+            if v:
+                stack.extend(v)
+            else:
+                total += 1
+        else:
+            total += 1
+    return total
+
+
 def count_elements(inp: Mapping) -> int:
-    """Numbers held by a materialized test input (all parameters)."""
-    return sum(_count(v) for v in inp.values())
+    """What a materialized test input costs (all parameters), by :func:`cost`:
+    its numbers, plus empty rows and zero-size dims, which are not free."""
+    return sum(cost(v) for v in inp.values())
 
 
 # --- a whole test ----------------------------------------------------------
@@ -735,12 +870,18 @@ def materialize_input(inp: Mapping, params: list, *, seed_base: object,
         raise SpecError("a test input must be an object")
     types = dict(_param_types(params))
     out = {}
+    total = 0
     for name, value in inp.items():
         out[name] = materialize_value(value, types.get(name, ""),
-                                      seed=derive_seed(seed_base, name), dims=dims)
-    total = sum(_count(v) for v in out.values())
+                                      seed=derive_seed(seed_base, name), dims=dims,
+                                      group_seed=seed_base)
+        # Checked per key, not after all of them: each key may build up to
+        # MAX_ELEMENTS, and a test may carry any number of keys.
+        total += cost(out[name])
+        if total > MAX_ELEMENTS:
+            break
     if total > MAX_ELEMENTS:
-        raise SpecError(f"test inputs hold {total} numbers (limit {MAX_ELEMENTS})")
+        raise SpecError(f"test inputs hold more than {MAX_ELEMENTS} numbers")
     return out
 
 
@@ -756,15 +897,40 @@ def _check_dim_bounds(dims: Mapping | None, inputs: Mapping) -> None:
     which shows up as an intermittent broken run instead of a content error.
     Computing the ranges also checks every dim expression statically."""
     ranges = dim_ranges(dims)
-    flat = [(name, v) for name, value in inputs.items()
-            for v in (value if isinstance(value, list) else [value])]  # Tensor[] too
-    for name, value in flat:
+    flat = []  # (param, value spec, the dim ranges it sees)
+    shared: dict[str, tuple[str, object, object]] = {}
+    for name, value in inputs.items():
+        if isinstance(value, Mapping) and set(value) == {"$list"}:
+            lspec = value["$list"]
+            local, item, share = _list_parts(lspec, ranges)
+            item_ranges = dim_ranges({**(dims or {}), **local}, limit=2 * MAX_DIMS)
+            count = lspec["count"]
+            lo_c, hi_c = (_dim_range(ranges, count) if isinstance(count, str)
+                          else (count, count) if isinstance(count, int)
+                          else tuple(count) if isinstance(count, list) and len(count) == 2
+                          else (None, None))
+            if not (isinstance(lo_c, int) and isinstance(hi_c, int)
+                    and not isinstance(lo_c, bool) and not isinstance(hi_c, bool)
+                    and 0 <= lo_c <= hi_c <= MAX_ELEMENTS):
+                raise SpecError(f"{name}: $list count {count!r} must lie in [0, {MAX_ELEMENTS}]")
+            if share is not None:
+                # Lists that share lengths must draw them the same way (dims in
+                # the same order: they are drawn in order).
+                prev = shared.setdefault(share, (name, count, list(local.items())))
+                if prev[1:] != (count, list(local.items())):
+                    raise SpecError(f"{name}: $list share {share!r} is used by "
+                                    f"{prev[0]} with a different count or dims")
+            flat.append((name, item, item_ranges))
+        else:
+            flat += [(name, v, ranges)
+                     for v in (value if isinstance(value, list) else [value])]  # Tensor[] too
+    for name, value, rng in flat:
         spec = value.get("$random") if isinstance(value, Mapping) else None
         if not isinstance(spec, Mapping) or spec.get("dist") != "randint":
             continue
         lo, hi = spec.get("low", 0), spec.get("high")
-        lo_max = _dim_range(ranges, lo)[1] if isinstance(lo, str) else lo
-        hi_min = _dim_range(ranges, hi)[0] if isinstance(hi, str) else hi
+        lo_max = _dim_range(rng, lo)[1] if isinstance(lo, str) else lo
+        hi_min = _dim_range(rng, hi)[0] if isinstance(hi, str) else hi
         if isinstance(lo_max, int) and isinstance(hi_min, int) and not lo_max < hi_min:
             raise SpecError(f"{name}: randint low < high fails when the dims are at "
                             f"their extremes (low up to {lo_max}, high down to {hi_min})")

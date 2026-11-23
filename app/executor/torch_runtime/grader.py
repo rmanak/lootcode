@@ -61,7 +61,7 @@ _slots = threading.BoundedSemaphore(max(1, settings.EXEC_TORCH_MAX_PARALLEL))
 #: generator option, a non-finite parameter); the generator's random tests get
 #: a fresh seed every run, so such a draw can surface live although `make
 #: check` was green.
-_CONTENT_ERRORS = (SpecError, ArithmeticError, ValueError, TypeError)
+_CONTENT_ERRORS = (SpecError, ArithmeticError, ValueError, TypeError, LookupError)
 
 
 def limits_for(pv: ProblemView) -> Limits:
