@@ -1,0 +1,104 @@
+{
+  "slug": "int8-affine-quantization-pytorch",
+  "title": "Int8 Affine Quantization (PyTorch)",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "llm-inference",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "quantizeInt8",
+    "params": [
+      {
+        "name": "calibration",
+        "type": "Tensor"
+      },
+      {
+        "name": "x",
+        "type": "Tensor"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "int8-affine-quantization",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.quantize_per_tensor",
+      "torch.quantize_per_tensor_dynamic",
+      "torch.fake_quantize_per_tensor_affine",
+      "torch._fake_quantize_learnable_per_tensor_affine",
+      "torch.ao.quantization.observer.UniformQuantizationObserverBase._calculate_qparams",
+      "torch.ops.aten.quantize_per_tensor",
+      "torch.ops.aten.fake_quantize_per_tensor_affine",
+      "torch.ops.aten.fake_quantize_per_tensor_affine_cachemask",
+      "torch.ops.aten._fake_quantize_learnable_per_tensor_affine",
+      "torch.ops.aten._fake_quantize_per_tensor_affine_cachemask_tensor_qparams",
+      "torch.ops.aten.choose_qparams_optimized"
+    ],
+    "dims": {
+      "Lc": [
+        1,
+        300
+      ],
+      "Lx": [
+        1,
+        300
+      ]
+    },
+    "inputs": {
+      "calibration": {
+        "$random": {
+          "shape": [
+            "Lc"
+          ],
+          "dist": "uniform",
+          "low": [
+            -100.0,
+            50.0
+          ],
+          "high": [
+            60.0,
+            10000.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "x": {
+        "$random": {
+          "shape": [
+            "Lx"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10000.0,
+            -1.0
+          ],
+          "high": [
+            1.0,
+            10000.0
+          ],
+          "dtype": "float64"
+        }
+      }
+    }
+  }
+}

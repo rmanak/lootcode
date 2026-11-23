@@ -1,0 +1,11 @@
+{
+  "dims": {
+    "n": [2, 300],
+    "d": [1, 20]
+  },
+  "inputs": {
+    "X": {"$random": {"shape": ["n", "d"], "dist": "normal",
+                      "mean": [-1e8, 1e8], "std": [0.5, 1e4], "dtype": "float64"}},
+    "ddof": {"$random": {"dist": "randint", "low": 0, "high": 2}}
+  }
+}

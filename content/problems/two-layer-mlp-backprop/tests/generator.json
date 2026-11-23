@@ -1,0 +1,119 @@
+{
+  "dims": {
+    "N": [
+      1,
+      64
+    ],
+    "D": [
+      1,
+      16
+    ],
+    "H": [
+      1,
+      32
+    ],
+    "C": [
+      2,
+      10
+    ]
+  },
+  "inputs": {
+    "X": {
+      "$random": {
+        "shape": [
+          "N",
+          "D"
+        ],
+        "dist": "uniform",
+        "low": [
+          -100.0,
+          -0.5
+        ],
+        "high": [
+          0.5,
+          100.0
+        ],
+        "dtype": "float64"
+      }
+    },
+    "y": {
+      "$random": {
+        "shape": [
+          "N"
+        ],
+        "dist": "randint",
+        "high": "C"
+      }
+    },
+    "W1": {
+      "$random": {
+        "shape": [
+          "D",
+          "H"
+        ],
+        "dist": "uniform",
+        "low": [
+          -100.0,
+          -0.1
+        ],
+        "high": [
+          0.1,
+          100.0
+        ],
+        "dtype": "float64"
+      }
+    },
+    "b1": {
+      "$random": {
+        "shape": [
+          "H"
+        ],
+        "dist": "uniform",
+        "low": [
+          -100.0,
+          -0.1
+        ],
+        "high": [
+          0.1,
+          100.0
+        ],
+        "dtype": "float64"
+      }
+    },
+    "W2": {
+      "$random": {
+        "shape": [
+          "H",
+          "C"
+        ],
+        "dist": "uniform",
+        "low": [
+          -100.0,
+          -0.1
+        ],
+        "high": [
+          0.1,
+          100.0
+        ],
+        "dtype": "float64"
+      }
+    },
+    "b2": {
+      "$random": {
+        "shape": [
+          "C"
+        ],
+        "dist": "uniform",
+        "low": [
+          -100.0,
+          -0.1
+        ],
+        "high": [
+          0.1,
+          100.0
+        ],
+        "dtype": "float64"
+      }
+    }
+  }
+}

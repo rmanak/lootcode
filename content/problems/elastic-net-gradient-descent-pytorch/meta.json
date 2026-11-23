@@ -1,0 +1,167 @@
+{
+  "slug": "elastic-net-gradient-descent-pytorch",
+  "title": "Elastic Net by Subgradient Descent (PyTorch)",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "classical-ml",
+    "optimization",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "elasticNetGD",
+    "params": [
+      {
+        "name": "X",
+        "type": "Tensor"
+      },
+      {
+        "name": "y",
+        "type": "Tensor"
+      },
+      {
+        "name": "alpha",
+        "type": "float"
+      },
+      {
+        "name": "l1Ratio",
+        "type": "float"
+      },
+      {
+        "name": "lr",
+        "type": "float"
+      },
+      {
+        "name": "steps",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "elastic-net-gradient-descent",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.Tensor.backward",
+      "torch.autograd.grad",
+      "torch.autograd.backward",
+      "torch.autograd.functional.jacobian",
+      "torch.autograd.functional.vjp",
+      "torch.autograd.functional.jvp",
+      "torch.autograd.functional.hessian",
+      "torch.autograd.functional.vhp",
+      "torch.autograd.functional.hvp",
+      "torch.func.grad",
+      "torch.func.grad_and_value",
+      "torch.func.vjp",
+      "torch.func.jvp",
+      "torch.func.jacrev",
+      "torch.func.jacfwd",
+      "torch.func.hessian",
+      "torch.func.linearize",
+      "torch.autograd.forward_ad.make_dual",
+      "torch.autograd.forward_ad.unpack_dual"
+    ],
+    "dims": {
+      "N": [
+        1,
+        200
+      ],
+      "d": [
+        1,
+        10
+      ]
+    },
+    "inputs": {
+      "X": {
+        "$random": {
+          "shape": [
+            "N",
+            "d"
+          ],
+          "dist": "uniform",
+          "low": [
+            -2.0,
+            -0.2
+          ],
+          "high": [
+            0.2,
+            2.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "y": {
+        "$random": {
+          "shape": [
+            "N"
+          ],
+          "dist": "uniform",
+          "low": [
+            -1000.0,
+            -1.0
+          ],
+          "high": [
+            1.0,
+            1000.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "alpha": {
+        "$random": {
+          "dist": "uniform",
+          "low": 0.0,
+          "high": [
+            0.5,
+            5.0
+          ]
+        }
+      },
+      "l1Ratio": {
+        "$random": {
+          "dist": "uniform",
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "lr": {
+        "$random": {
+          "dist": "uniform",
+          "low": [
+            0.001,
+            0.02
+          ],
+          "high": [
+            0.025,
+            0.04
+          ]
+        }
+      },
+      "steps": {
+        "$random": {
+          "dist": "randint",
+          "low": 1,
+          "high": 301
+        }
+      }
+    }
+  }
+}

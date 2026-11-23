@@ -1,0 +1,112 @@
+{
+  "slug": "bilinear-image-resize-pytorch",
+  "title": "Bilinear Image Resize (PyTorch)",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "computer-vision",
+    "matrix",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "resizeBilinear",
+    "params": [
+      {
+        "name": "image",
+        "type": "Tensor"
+      },
+      {
+        "name": "outHeight",
+        "type": "int"
+      },
+      {
+        "name": "outWidth",
+        "type": "int"
+      },
+      {
+        "name": "alignCorners",
+        "type": "bool"
+      }
+    ],
+    "returns": {
+      "type": "Tensor"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "bilinear-image-resize",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.nn.functional.interpolate",
+      "torch.nn.functional.upsample",
+      "torch.nn.functional.upsample_bilinear",
+      "torch.nn.functional.grid_sample",
+      "torch.grid_sampler",
+      "torch.grid_sampler_2d",
+      "torch.ops.aten.upsample_bilinear2d",
+      "torch.ops.aten._upsample_bilinear2d_aa",
+      "torch.ops.aten.upsample_linear1d",
+      "torch.ops.aten.upsample_trilinear3d",
+      "torch.ops.aten.grid_sampler",
+      "torch.ops.aten.grid_sampler_2d"
+    ],
+    "dims": {
+      "H": [
+        1,
+        64
+      ],
+      "W": [
+        1,
+        64
+      ],
+      "oh": [
+        1,
+        64
+      ],
+      "ow": [
+        1,
+        64
+      ]
+    },
+    "inputs": {
+      "image": {
+        "$random": {
+          "shape": [
+            "H",
+            "W"
+          ],
+          "dist": "uniform",
+          "low": 0.0,
+          "high": 255.0,
+          "dtype": "float64"
+        }
+      },
+      "outHeight": {
+        "$dim": "oh"
+      },
+      "outWidth": {
+        "$dim": "ow"
+      },
+      "alignCorners": {
+        "$random": {
+          "dist": "bernoulli",
+          "p": 0.5
+        }
+      }
+    }
+  }
+}

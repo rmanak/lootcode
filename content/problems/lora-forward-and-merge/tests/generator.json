@@ -1,0 +1,116 @@
+{
+  "dims": {
+    "N": [
+      1,
+      24
+    ],
+    "rk": [
+      1,
+      16
+    ],
+    "ei": [
+      0,
+      8
+    ],
+    "eo": [
+      0,
+      8
+    ],
+    "din": "rk + ei",
+    "dout": "rk + eo"
+  },
+  "inputs": {
+    "X": {
+      "$random": {
+        "shape": [
+          "N",
+          "din"
+        ],
+        "dist": "uniform",
+        "low": [
+          -10.0,
+          -0.5
+        ],
+        "high": [
+          0.5,
+          10.0
+        ],
+        "dtype": "float64"
+      }
+    },
+    "W": {
+      "$random": {
+        "shape": [
+          "din",
+          "dout"
+        ],
+        "dist": "uniform",
+        "low": [
+          -10.0,
+          -0.5
+        ],
+        "high": [
+          0.5,
+          10.0
+        ],
+        "dtype": "float64"
+      }
+    },
+    "A": {
+      "$random": {
+        "shape": [
+          "din",
+          "rk"
+        ],
+        "dist": "uniform",
+        "low": [
+          -10.0,
+          -0.1
+        ],
+        "high": [
+          0.1,
+          10.0
+        ],
+        "dtype": "float64"
+      }
+    },
+    "B": {
+      "$random": {
+        "shape": [
+          "rk",
+          "dout"
+        ],
+        "dist": "uniform",
+        "low": [
+          -10.0,
+          -0.1
+        ],
+        "high": [
+          0.1,
+          10.0
+        ],
+        "dtype": "float64"
+      }
+    },
+    "alpha": {
+      "$random": {
+        "dist": "choice",
+        "values": [
+          0.5,
+          1.0,
+          2.0,
+          8.0,
+          16.0,
+          32.0,
+          128.0
+        ]
+      }
+    },
+    "useRsLora": {
+      "$random": {
+        "dist": "bernoulli",
+        "p": 0.5
+      }
+    }
+  }
+}

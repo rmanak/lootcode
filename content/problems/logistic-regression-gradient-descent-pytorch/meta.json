@@ -1,0 +1,143 @@
+{
+  "slug": "logistic-regression-gradient-descent-pytorch",
+  "title": "Logistic Regression by Gradient Descent (PyTorch)",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "classical-ml",
+    "optimization",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "logisticRegressionGD",
+    "params": [
+      {
+        "name": "X",
+        "type": "Tensor"
+      },
+      {
+        "name": "y",
+        "type": "Tensor"
+      },
+      {
+        "name": "lr",
+        "type": "float"
+      },
+      {
+        "name": "steps",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "logistic-regression-gradient-descent",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.Tensor.backward",
+      "torch.autograd.grad",
+      "torch.autograd.backward",
+      "torch.autograd.functional.jacobian",
+      "torch.autograd.functional.vjp",
+      "torch.autograd.functional.jvp",
+      "torch.autograd.functional.hessian",
+      "torch.autograd.functional.vhp",
+      "torch.autograd.functional.hvp",
+      "torch.func.grad",
+      "torch.func.grad_and_value",
+      "torch.func.vjp",
+      "torch.func.jvp",
+      "torch.func.jacrev",
+      "torch.func.jacfwd",
+      "torch.func.hessian",
+      "torch.func.linearize",
+      "torch.autograd.forward_ad.make_dual",
+      "torch.autograd.forward_ad.unpack_dual",
+      "torch.nn.functional.logsigmoid",
+      "torch.nn.functional.softplus",
+      "torch.nn.functional.binary_cross_entropy_with_logits",
+      "torch.binary_cross_entropy_with_logits",
+      "torch.ops.aten.log_sigmoid",
+      "torch.ops.aten.log_sigmoid_forward",
+      "torch.ops.aten.softplus",
+      "torch.ops.aten.binary_cross_entropy_with_logits"
+    ],
+    "dims": {
+      "N": [
+        1,
+        200
+      ],
+      "d": [
+        1,
+        10
+      ]
+    },
+    "inputs": {
+      "X": {
+        "$random": {
+          "shape": [
+            "N",
+            "d"
+          ],
+          "dist": "uniform",
+          "low": [
+            -2.0,
+            -0.2
+          ],
+          "high": [
+            0.2,
+            2.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "y": {
+        "$random": {
+          "shape": [
+            "N"
+          ],
+          "dist": "randint",
+          "low": 0,
+          "high": 2
+        }
+      },
+      "lr": {
+        "$random": {
+          "dist": "uniform",
+          "low": [
+            0.001,
+            0.05
+          ],
+          "high": [
+            0.1,
+            0.19
+          ]
+        }
+      },
+      "steps": {
+        "$random": {
+          "dist": "randint",
+          "low": 1,
+          "high": 301
+        }
+      }
+    }
+  }
+}

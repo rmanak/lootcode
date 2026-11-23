@@ -1,0 +1,90 @@
+{
+  "slug": "kl-and-js-divergence-pytorch",
+  "title": "KL and Jensen-Shannon Divergence (PyTorch)",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "loss-function",
+    "statistics",
+    "array",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "divergences",
+    "params": [
+      {
+        "name": "p",
+        "type": "Tensor"
+      },
+      {
+        "name": "q",
+        "type": "Tensor"
+      }
+    ],
+    "returns": {
+      "type": "Tensor"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "kl-and-js-divergence",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.nn.functional.kl_div",
+      "torch.kl_div",
+      "torch.distributions.kl.kl_divergence",
+      "torch.distributions.kl_divergence",
+      "torch.ops.aten.kl_div"
+    ],
+    "dims": {
+      "n": [
+        1,
+        2000
+      ]
+    },
+    "inputs": {
+      "p": {
+        "$random": {
+          "shape": [
+            "n"
+          ],
+          "dist": "uniform",
+          "low": 1e-12,
+          "high": [
+            1e-06,
+            1000000.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "q": {
+        "$random": {
+          "shape": [
+            "n"
+          ],
+          "dist": "uniform",
+          "low": 1e-12,
+          "high": [
+            1e-06,
+            1000000.0
+          ],
+          "dtype": "float64"
+        }
+      }
+    }
+  }
+}

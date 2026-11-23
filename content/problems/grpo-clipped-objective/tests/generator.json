@@ -1,0 +1,144 @@
+{
+  "dims": {
+    "B": [
+      1,
+      4
+    ],
+    "G": [
+      2,
+      8
+    ],
+    "BG": "B*G"
+  },
+  "inputs": {
+    "rewards": {
+      "$random": {
+        "shape": [
+          "B",
+          "G"
+        ],
+        "dist": "uniform",
+        "low": [
+          -100.0,
+          -0.25
+        ],
+        "high": [
+          0.25,
+          100.0
+        ],
+        "step": 0.25,
+        "dtype": "float64"
+      }
+    },
+    "newLogps": {
+      "$list": {
+        "count": "BG",
+        "dims": {
+          "L": [
+            1,
+            32
+          ]
+        },
+        "share": "tokens",
+        "item": {
+          "$random": {
+            "shape": [
+              "L"
+            ],
+            "dist": "uniform",
+            "low": [
+              -3.0,
+              -0.05
+            ],
+            "high": 0.0,
+            "dtype": "float64"
+          }
+        }
+      }
+    },
+    "oldLogps": {
+      "$list": {
+        "count": "BG",
+        "dims": {
+          "L": [
+            1,
+            32
+          ]
+        },
+        "share": "tokens",
+        "item": {
+          "$random": {
+            "shape": [
+              "L"
+            ],
+            "dist": "uniform",
+            "low": [
+              -3.0,
+              -0.05
+            ],
+            "high": 0.0,
+            "dtype": "float64"
+          }
+        }
+      }
+    },
+    "refLogps": {
+      "$list": {
+        "count": "BG",
+        "dims": {
+          "L": [
+            1,
+            32
+          ]
+        },
+        "share": "tokens",
+        "item": {
+          "$random": {
+            "shape": [
+              "L"
+            ],
+            "dist": "uniform",
+            "low": [
+              -3.0,
+              -0.05
+            ],
+            "high": 0.0,
+            "dtype": "float64"
+          }
+        }
+      }
+    },
+    "clipEps": {
+      "$random": {
+        "dist": "choice",
+        "values": [
+          0.1,
+          0.2,
+          0.28,
+          0.5
+        ]
+      }
+    },
+    "beta": {
+      "$random": {
+        "dist": "choice",
+        "values": [
+          0.0,
+          0.01,
+          0.04,
+          0.1,
+          1.0
+        ]
+      }
+    },
+    "aggregation": {
+      "$random": {
+        "dist": "choice",
+        "values": [
+          "sequence",
+          "token"
+        ]
+      }
+    }
+  }
+}

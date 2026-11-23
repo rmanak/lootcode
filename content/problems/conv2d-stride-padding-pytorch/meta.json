@@ -1,0 +1,169 @@
+{
+  "slug": "conv2d-stride-padding-pytorch",
+  "title": "2-D Convolution with Stride and Padding (PyTorch)",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "neural-networks",
+    "computer-vision",
+    "matrix",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "conv2d",
+    "params": [
+      {
+        "name": "x",
+        "type": "Tensor"
+      },
+      {
+        "name": "weight",
+        "type": "Tensor"
+      },
+      {
+        "name": "bias",
+        "type": "Tensor"
+      },
+      {
+        "name": "stride",
+        "type": "int"
+      },
+      {
+        "name": "padding",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "Tensor"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "conv2d-stride-padding",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.nn.functional.conv2d",
+      "torch.conv2d",
+      "torch.nn.functional.conv1d",
+      "torch.conv1d",
+      "torch.nn.functional.conv3d",
+      "torch.conv3d",
+      "torch.nn.functional.conv_transpose2d",
+      "torch.conv_transpose2d",
+      "torch.convolution",
+      "torch._convolution",
+      "torch.ops.aten.conv2d",
+      "torch.ops.aten.conv1d",
+      "torch.ops.aten.conv3d",
+      "torch.ops.aten.convolution",
+      "torch.ops.aten._convolution",
+      "torch.ops.aten.mkldnn_convolution",
+      "torch.ops.aten._slow_conv2d_forward",
+      "torch.ops.aten.thnn_conv2d"
+    ],
+    "dims": {
+      "Cin": [
+        1,
+        8
+      ],
+      "Cout": [
+        1,
+        8
+      ],
+      "H": [
+        1,
+        12
+      ],
+      "W": [
+        1,
+        12
+      ],
+      "s": [
+        1,
+        4
+      ],
+      "p": [
+        0,
+        3
+      ],
+      "r": [
+        0,
+        9999
+      ],
+      "kh": "1 + (r % (H + 2*p)) % 7",
+      "kw": "1 + (r // 7 % (W + 2*p)) % 7"
+    },
+    "inputs": {
+      "x": {
+        "$random": {
+          "shape": [
+            "Cin",
+            "H",
+            "W"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "weight": {
+        "$random": {
+          "shape": [
+            "Cout",
+            "Cin",
+            "kh",
+            "kw"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "bias": {
+        "$random": {
+          "shape": [
+            "Cout"
+          ],
+          "dist": "uniform",
+          "low": -10.0,
+          "high": 10.0,
+          "dtype": "float64"
+        }
+      },
+      "stride": {
+        "$dim": "s"
+      },
+      "padding": {
+        "$dim": "p"
+      }
+    }
+  }
+}

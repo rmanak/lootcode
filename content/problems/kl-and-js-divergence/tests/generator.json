@@ -1,0 +1,38 @@
+{
+  "dims": {
+    "n": [
+      1,
+      2000
+    ]
+  },
+  "inputs": {
+    "p": {
+      "$random": {
+        "shape": [
+          "n"
+        ],
+        "dist": "uniform",
+        "low": 1e-12,
+        "high": [
+          1e-06,
+          1000000.0
+        ],
+        "dtype": "float64"
+      }
+    },
+    "q": {
+      "$random": {
+        "shape": [
+          "n"
+        ],
+        "dist": "uniform",
+        "low": 1e-12,
+        "high": [
+          1e-06,
+          1000000.0
+        ],
+        "dtype": "float64"
+      }
+    }
+  }
+}

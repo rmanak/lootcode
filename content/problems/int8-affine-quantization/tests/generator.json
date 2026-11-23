@@ -1,0 +1,12 @@
+{
+  "dims": {
+    "Lc": [1, 300],
+    "Lx": [1, 300]
+  },
+  "inputs": {
+    "calibration": {"$random": {"shape": ["Lc"], "dist": "uniform",
+                                "low": [-100.0, 50.0], "high": [60.0, 10000.0], "dtype": "float64"}},
+    "x": {"$random": {"shape": ["Lx"], "dist": "uniform",
+                      "low": [-10000.0, -1.0], "high": [1.0, 10000.0], "dtype": "float64"}}
+  }
+}

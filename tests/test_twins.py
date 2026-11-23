@@ -67,8 +67,9 @@ def test_the_contract_is_the_same(np_dir, tw_dir):
     assert tf["name"] == nf["name"]
     assert [p["name"] for p in tf["params"]] == [p["name"] for p in nf["params"]]
     for n, t in zip(nf["params"], tf["params"], strict=True):
-        # An array may become a Tensor; anything else keeps its numpy type.
-        assert t["type"] in (n["type"], twins.twin_param_type(n["type"])), t
+        # An array may become a Tensor (a ragged one a Tensor[]); anything
+        # else keeps its numpy type.
+        assert t["type"] in twins.allowed_twin_types(n["type"]), t
     assert twm["difficulty"] == npm["difficulty"]
     assert twm["tags"] == [*npm["tags"], "pytorch"]
 
@@ -152,6 +153,24 @@ def test_types_map_arrays_to_tensors_and_leave_the_rest():
     assert twins.twin_param_type("any[]") == "any[]"
     assert twins.twin_return_type("float") == "Tensor"
     assert twins.twin_return_type("any[]") == "any[]"
+
+
+def test_a_ragged_array_may_become_a_list_of_tensors():
+    assert twins.allowed_twin_types("float[][]") == ("float[][]", "Tensor", "Tensor[]")
+    assert twins.allowed_twin_types("float[]") == ("float[]", "Tensor")
+    np_params = [{"name": "g", "type": "float[][]"}]
+    tw_params = [{"name": "g", "type": "Tensor[]"}]
+    gen = {"inputs": {"g": {"$list": {"count": 2, "dims": {"L": [1, 3]},
+                                      "item": {"$random": {"shape": ["L"],
+                                                           "dtype": "float64"}}}}}}
+    cases = [{"name": "a", "input": {"g": [[1.0, 2.0], [3.0]]}, "expected": [0]}]
+    out = twins.port_cases(cases, np_params, tw_params, gen, [])
+    assert out[0]["input"]["g"] == [{"$tensor": {"data": [1.0, 2.0], "dtype": "float64"}},
+                                    {"$tensor": {"data": [3.0], "dtype": "float64"}}]
+    # float64 is pinned, so neither side rounds to float32.
+    assert twins.round_like_torch({"g": [[0.1]]}, gen, tw_params) == {"g": [[0.1]]}
+    para = twins.torch_paragraph(np_params, tw_params, "any[]", gen)
+    assert "`g` arrives as a list of float64 tensors" in para
 
 
 def test_port_wraps_integer_and_pinned_float_literals():

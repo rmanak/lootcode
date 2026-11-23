@@ -1,0 +1,201 @@
+{
+  "slug": "two-layer-mlp-backprop-pytorch",
+  "title": "Two-Layer MLP: Backpropagation (PyTorch)",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "neural-networks",
+    "backpropagation",
+    "loss-function",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "mlpBackprop",
+    "params": [
+      {
+        "name": "X",
+        "type": "Tensor"
+      },
+      {
+        "name": "y",
+        "type": "Tensor"
+      },
+      {
+        "name": "W1",
+        "type": "Tensor"
+      },
+      {
+        "name": "b1",
+        "type": "Tensor"
+      },
+      {
+        "name": "W2",
+        "type": "Tensor"
+      },
+      {
+        "name": "b2",
+        "type": "Tensor"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "two-layer-mlp-backprop",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.Tensor.backward",
+      "torch.autograd.grad",
+      "torch.autograd.backward",
+      "torch.autograd.functional.jacobian",
+      "torch.autograd.functional.vjp",
+      "torch.autograd.functional.jvp",
+      "torch.autograd.functional.hessian",
+      "torch.autograd.functional.vhp",
+      "torch.autograd.functional.hvp",
+      "torch.func.grad",
+      "torch.func.grad_and_value",
+      "torch.func.vjp",
+      "torch.func.jvp",
+      "torch.func.jacrev",
+      "torch.func.jacfwd",
+      "torch.func.hessian",
+      "torch.func.linearize",
+      "torch.autograd.forward_ad.make_dual",
+      "torch.autograd.forward_ad.unpack_dual"
+    ],
+    "dims": {
+      "N": [
+        1,
+        64
+      ],
+      "D": [
+        1,
+        16
+      ],
+      "H": [
+        1,
+        32
+      ],
+      "C": [
+        2,
+        10
+      ]
+    },
+    "inputs": {
+      "X": {
+        "$random": {
+          "shape": [
+            "N",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": [
+            -100.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            100.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "y": {
+        "$random": {
+          "shape": [
+            "N"
+          ],
+          "dist": "randint",
+          "high": "C"
+        }
+      },
+      "W1": {
+        "$random": {
+          "shape": [
+            "D",
+            "H"
+          ],
+          "dist": "uniform",
+          "low": [
+            -100.0,
+            -0.1
+          ],
+          "high": [
+            0.1,
+            100.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "b1": {
+        "$random": {
+          "shape": [
+            "H"
+          ],
+          "dist": "uniform",
+          "low": [
+            -100.0,
+            -0.1
+          ],
+          "high": [
+            0.1,
+            100.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "W2": {
+        "$random": {
+          "shape": [
+            "H",
+            "C"
+          ],
+          "dist": "uniform",
+          "low": [
+            -100.0,
+            -0.1
+          ],
+          "high": [
+            0.1,
+            100.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "b2": {
+        "$random": {
+          "shape": [
+            "C"
+          ],
+          "dist": "uniform",
+          "low": [
+            -100.0,
+            -0.1
+          ],
+          "high": [
+            0.1,
+            100.0
+          ],
+          "dtype": "float64"
+        }
+      }
+    }
+  }
+}

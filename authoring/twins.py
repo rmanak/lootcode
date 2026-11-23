@@ -28,6 +28,8 @@ from collections.abc import Mapping
 from pathlib import Path
 
 from app.executor.torch_runtime.inputs import (
+    TENSOR_LIST_TYPE,
+    TENSOR_TYPES,
     generated_inputs,
     is_tensor_value,
     materialize_input,
@@ -90,6 +92,17 @@ def twin_param_type(numpy_type: str) -> str:
     return "Tensor" if s and s[1] >= 1 else numpy_type
 
 
+def allowed_twin_types(numpy_type: str) -> tuple[str, ...]:
+    """Every type a twin may give a numpy param: its own, the default, and for
+    a list of arrays (``float[][]`` whose rows may differ in length: one
+    gradient per parameter, one log-prob list per completion) ``Tensor[]``."""
+    s = _split(numpy_type)
+    if numpy_type == "any[]":  # an array deeper than the schema names (a 4-D conv weight)
+        return (numpy_type, "Tensor")
+    ragged = (TENSOR_LIST_TYPE,) if s and s[1] >= 2 else ()
+    return (numpy_type, twin_param_type(numpy_type), *ragged)
+
+
 def twin_return_type(numpy_type: str) -> str:
     """A numeric return (scalar or array) comes back as a tensor (a 0-dim one
     for a scalar); a structured return (``any[]``) holds tensors inside."""
@@ -98,6 +111,18 @@ def twin_return_type(numpy_type: str) -> str:
 
 def _int_dtype(base: str) -> str | None:
     return {"int": "int64", "bool": "bool"}.get(base)
+
+
+def pinned_dtype(spec: object) -> str | None:
+    """The dtype a generator spec pins (``$random``, or a ``$list``'s item)."""
+    if not isinstance(spec, Mapping):
+        return None
+    if isinstance(spec.get("$list"), Mapping):
+        spec = spec["$list"].get("item")
+        if not isinstance(spec, Mapping):
+            return None
+    rnd = spec.get("$random")
+    return rnd.get("dtype") if isinstance(rnd, Mapping) else None
 
 
 def literal_dtypes(numpy_params: list, twin_params: list,
@@ -112,11 +137,10 @@ def literal_dtypes(numpy_params: list, twin_params: list,
     gen = (generator or {}).get("inputs") or {}
     out: dict[str, str] = {}
     for p in twin_params:
-        if p.get("type") != "Tensor":
+        if p.get("type") not in TENSOR_TYPES:
             continue
         name = p["name"]
-        spec = gen.get(name)
-        pinned = spec.get("$random", {}).get("dtype") if isinstance(spec, Mapping) else None
+        pinned = pinned_dtype(gen.get(name))
         s = _split(np_types.get(name, ""))
         if pinned:
             out[name] = pinned
@@ -125,10 +149,14 @@ def literal_dtypes(numpy_params: list, twin_params: list,
     return out
 
 
-def twin_value(value: object, dtype: str | None) -> object:
-    """A numpy literal as the twin stores it. Specs pass through unchanged."""
+def twin_value(value: object, dtype: str | None, *, many: bool = False) -> object:
+    """A numpy literal as the twin stores it. Specs pass through unchanged.
+    ``many``: a ``Tensor[]`` param, whose literal is a list of tensors (a
+    ragged numpy ``float[][]``), so each entry is wrapped on its own."""
     if dtype is None or not isinstance(value, list):
         return value
+    if many:
+        return [twin_value(v, dtype) for v in value]
     return {"$tensor": {"data": value, "dtype": dtype}}
 
 
@@ -188,10 +216,9 @@ def round_like_torch(inp: Mapping, generator: Mapping | None, params: list) -> d
         name, typ = p["name"], p.get("type", "")
         if name not in out:
             continue
-        spec = gen.get(name)
-        pinned = spec.get("$random", {}).get("dtype") if isinstance(spec, Mapping) else None
+        pinned = pinned_dtype(gen.get(name))
         s = _split(typ)
-        array = typ == "Tensor" or (s is not None and s[1] >= 1)
+        array = typ in TENSOR_TYPES or (s is not None and s[1] >= 1)
         if array and pinned not in ("float64",):
             out[name] = _round(out[name])
     return out
@@ -213,9 +240,10 @@ def port_cases(numpy_cases: list, numpy_params: list, twin_params: list,
     """The twin's cases: every numpy case in order (same name, weight, hidden
     flag; ``expected: null``), then the twin's own ``torch-*`` cases."""
     dtypes = literal_dtypes(numpy_params, twin_params, generator)
+    many = {p["name"] for p in twin_params if p.get("type") == TENSOR_LIST_TYPE}
     out = []
     for c in numpy_cases:
-        inp = {k: twin_value(v, dtypes.get(k)) for k, v in c["input"].items()}
+        inp = {k: twin_value(v, dtypes.get(k), many=k in many) for k, v in c["input"].items()}
         out.append({"name": c["name"], "input": inp, "expected": None,
                     "weight": c.get("weight", 1), "hidden": c.get("hidden", False)})
     out += [c for c in existing_twin_cases if c["name"].startswith(TWIN_ONLY_PREFIX)]
@@ -328,7 +356,9 @@ def stratify(draws: list[tuple[Mapping, object]], k: int) -> list[int]:
 
 
 # --- the statement's framework paragraph ----------------------------------------
-_NUMPY_PARAGRAPHS = ("You may use **numpy**", "Answers are accepted when")
+_NUMPY_PARAGRAPHS = ("You may use **numpy**",
+                     "You may use the Python standard library and **numpy**",
+                     "Answers are accepted when")
 #: The paragraphs :func:`torch_paragraph` writes, so a twin's can be refreshed.
 _TWIN_PARAGRAPHS = ("Write it in **PyTorch**", "Your answer is checked against the reference")
 _ATEN = "torch.ops.aten."
@@ -359,7 +389,16 @@ def torch_paragraph(np_params: list, twin_params: list, return_type: str,
         arrive.append(names(xs) + verb + ("a " if len(xs) == 1 and dtype[0] != "i" else
                                           "an " if len(xs) == 1 else "")
                       + f"{dtype} tensor{'' if len(xs) == 1 else 's'}")
-    others = [f"`{p['name']}`" for p in twin_params if p.get("type") != "Tensor"]
+    lists: dict[str, list[str]] = {}
+    for p in twin_params:
+        if p.get("type") == TENSOR_LIST_TYPE:
+            lists.setdefault(dtypes.get(p["name"], "float32"), []).append(f"`{p['name']}`")
+    for dtype, xs in lists.items():
+        verb = (" arrives as " if len(xs) == 1 else " arrive as ") if not arrive else " as "
+        arrive.append(names(xs) + verb + ("a list" if len(xs) == 1 else "lists")
+                      + f" of {dtype} tensors")
+        groups.setdefault(dtype, [])
+    others = [f"`{p['name']}`" for p in twin_params if p.get("type") not in TENSOR_TYPES]
     if others:
         arrive.append(f"{names(others)} as "
                       + ("a plain Python value" if len(others) == 1 else "plain Python values"))

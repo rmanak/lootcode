@@ -1,0 +1,177 @@
+{
+  "slug": "lora-forward-and-merge-pytorch",
+  "title": "LoRA: Forward Pass and Weight Merge (PyTorch)",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "neural-networks",
+    "matrix",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "loraForward",
+    "params": [
+      {
+        "name": "X",
+        "type": "Tensor"
+      },
+      {
+        "name": "W",
+        "type": "Tensor"
+      },
+      {
+        "name": "A",
+        "type": "Tensor"
+      },
+      {
+        "name": "B",
+        "type": "Tensor"
+      },
+      {
+        "name": "alpha",
+        "type": "float"
+      },
+      {
+        "name": "useRsLora",
+        "type": "bool"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "lora-forward-and-merge",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [],
+    "dims": {
+      "N": [
+        1,
+        24
+      ],
+      "rk": [
+        1,
+        16
+      ],
+      "ei": [
+        0,
+        8
+      ],
+      "eo": [
+        0,
+        8
+      ],
+      "din": "rk + ei",
+      "dout": "rk + eo"
+    },
+    "inputs": {
+      "X": {
+        "$random": {
+          "shape": [
+            "N",
+            "din"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "W": {
+        "$random": {
+          "shape": [
+            "din",
+            "dout"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "A": {
+        "$random": {
+          "shape": [
+            "din",
+            "rk"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.1
+          ],
+          "high": [
+            0.1,
+            10.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "B": {
+        "$random": {
+          "shape": [
+            "rk",
+            "dout"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.1
+          ],
+          "high": [
+            0.1,
+            10.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "alpha": {
+        "$random": {
+          "dist": "choice",
+          "values": [
+            0.5,
+            1.0,
+            2.0,
+            8.0,
+            16.0,
+            32.0,
+            128.0
+          ]
+        }
+      },
+      "useRsLora": {
+        "$random": {
+          "dist": "bernoulli",
+          "p": 0.5
+        }
+      }
+    }
+  }
+}

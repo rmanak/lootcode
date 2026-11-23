@@ -1,0 +1,186 @@
+{
+  "slug": "dpo-loss-pytorch",
+  "title": "DPO Loss: Direct Preference Optimization (PyTorch)",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "loss-function",
+    "reinforcement-learning",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "dpoLoss",
+    "params": [
+      {
+        "name": "policyChosen",
+        "type": "Tensor"
+      },
+      {
+        "name": "policyRejected",
+        "type": "Tensor"
+      },
+      {
+        "name": "refChosen",
+        "type": "Tensor"
+      },
+      {
+        "name": "refRejected",
+        "type": "Tensor"
+      },
+      {
+        "name": "beta",
+        "type": "float"
+      },
+      {
+        "name": "labelSmoothing",
+        "type": "float"
+      },
+      {
+        "name": "lossType",
+        "type": "string"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "dpo-loss",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.Tensor.backward",
+      "torch.autograd.grad",
+      "torch.autograd.backward",
+      "torch.autograd.functional.jacobian",
+      "torch.autograd.functional.vjp",
+      "torch.autograd.functional.jvp",
+      "torch.autograd.functional.hessian",
+      "torch.autograd.functional.vhp",
+      "torch.autograd.functional.hvp",
+      "torch.func.grad",
+      "torch.func.grad_and_value",
+      "torch.func.vjp",
+      "torch.func.jvp",
+      "torch.func.jacrev",
+      "torch.func.jacfwd",
+      "torch.func.hessian",
+      "torch.func.linearize",
+      "torch.autograd.forward_ad.make_dual",
+      "torch.autograd.forward_ad.unpack_dual",
+      "torch.nn.functional.logsigmoid",
+      "torch.nn.functional.softplus",
+      "torch.nn.functional.binary_cross_entropy_with_logits",
+      "torch.binary_cross_entropy_with_logits",
+      "torch.ops.aten.log_sigmoid",
+      "torch.ops.aten.log_sigmoid_forward",
+      "torch.ops.aten.softplus",
+      "torch.ops.aten.binary_cross_entropy_with_logits"
+    ],
+    "dims": {
+      "B": [
+        1,
+        64
+      ]
+    },
+    "inputs": {
+      "policyChosen": {
+        "$random": {
+          "shape": [
+            "B"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10000.0,
+            -0.5
+          ],
+          "high": 0.0,
+          "dtype": "float64"
+        }
+      },
+      "policyRejected": {
+        "$random": {
+          "shape": [
+            "B"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10000.0,
+            -0.5
+          ],
+          "high": 0.0,
+          "dtype": "float64"
+        }
+      },
+      "refChosen": {
+        "$random": {
+          "shape": [
+            "B"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10000.0,
+            -0.5
+          ],
+          "high": 0.0,
+          "dtype": "float64"
+        }
+      },
+      "refRejected": {
+        "$random": {
+          "shape": [
+            "B"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10000.0,
+            -0.5
+          ],
+          "high": 0.0,
+          "dtype": "float64"
+        }
+      },
+      "beta": {
+        "$random": {
+          "dist": "choice",
+          "values": [
+            0.01,
+            0.05,
+            0.1,
+            0.3,
+            1.0,
+            3.0,
+            10.0
+          ]
+        }
+      },
+      "labelSmoothing": {
+        "$random": {
+          "dist": "choice",
+          "values": [
+            0.0,
+            0.0,
+            0.1,
+            0.25,
+            0.49
+          ]
+        }
+      },
+      "lossType": "sigmoid"
+    }
+  }
+}

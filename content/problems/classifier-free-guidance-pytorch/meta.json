@@ -1,0 +1,103 @@
+{
+  "slug": "classifier-free-guidance-pytorch",
+  "title": "Classifier-Free Guidance with Rescale (PyTorch)",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "decoding",
+    "computer-vision",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "classifierFreeGuidance",
+    "params": [
+      {
+        "name": "noisePred",
+        "type": "Tensor"
+      },
+      {
+        "name": "guidanceScale",
+        "type": "float"
+      },
+      {
+        "name": "guidanceRescale",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "Tensor"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "classifier-free-guidance",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [],
+    "dims": {
+      "B": [
+        1,
+        8
+      ],
+      "B2": "2*B",
+      "N": [
+        4,
+        64
+      ]
+    },
+    "inputs": {
+      "noisePred": {
+        "$random": {
+          "shape": [
+            "B2",
+            "N"
+          ],
+          "dist": "uniform",
+          "low": [
+            -100.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            100.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "guidanceScale": {
+        "$random": {
+          "dist": "uniform",
+          "low": 0.0,
+          "high": 20.0,
+          "round": 2
+        }
+      },
+      "guidanceRescale": {
+        "$random": {
+          "dist": "choice",
+          "values": [
+            0.0,
+            0.0,
+            0.2,
+            0.5,
+            0.7,
+            1.0
+          ]
+        }
+      }
+    }
+  }
+}

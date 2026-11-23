@@ -1,0 +1,150 @@
+{
+  "slug": "label-smoothed-masked-cross-entropy-pytorch",
+  "title": "Masked Cross-Entropy with Label Smoothing (PyTorch)",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "loss-function",
+    "matrix",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "smoothedMaskedCrossEntropy",
+    "params": [
+      {
+        "name": "logits",
+        "type": "Tensor"
+      },
+      {
+        "name": "targets",
+        "type": "Tensor"
+      },
+      {
+        "name": "mask",
+        "type": "Tensor"
+      },
+      {
+        "name": "smoothing",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "label-smoothed-masked-cross-entropy",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.Tensor.backward",
+      "torch.autograd.grad",
+      "torch.autograd.backward",
+      "torch.autograd.functional.jacobian",
+      "torch.autograd.functional.vjp",
+      "torch.autograd.functional.jvp",
+      "torch.autograd.functional.hessian",
+      "torch.autograd.functional.vhp",
+      "torch.autograd.functional.hvp",
+      "torch.func.grad",
+      "torch.func.grad_and_value",
+      "torch.func.vjp",
+      "torch.func.jvp",
+      "torch.func.jacrev",
+      "torch.func.jacfwd",
+      "torch.func.hessian",
+      "torch.func.linearize",
+      "torch.autograd.forward_ad.make_dual",
+      "torch.autograd.forward_ad.unpack_dual",
+      "torch.nn.functional.cross_entropy",
+      "torch.nn.functional.nll_loss",
+      "torch.nn.functional.log_softmax",
+      "torch.log_softmax",
+      "torch.Tensor.log_softmax",
+      "torch.logsumexp",
+      "torch.Tensor.logsumexp",
+      "torch.special.logsumexp",
+      "torch.special.log_softmax",
+      "torch.ops.aten._log_softmax",
+      "torch.ops.aten.nll_loss_forward",
+      "torch.ops.aten.logsumexp",
+      "torch.ops.aten.cross_entropy_loss"
+    ],
+    "dims": {
+      "N": [
+        1,
+        32
+      ],
+      "C": [
+        2,
+        24
+      ]
+    },
+    "inputs": {
+      "logits": {
+        "$random": {
+          "shape": [
+            "N",
+            "C"
+          ],
+          "dist": "uniform",
+          "low": [
+            -1000.0,
+            -1.0
+          ],
+          "high": [
+            1.0,
+            1000.0
+          ],
+          "round": 3
+        }
+      },
+      "targets": {
+        "$random": {
+          "shape": [
+            "N"
+          ],
+          "dist": "randint",
+          "high": "C"
+        }
+      },
+      "mask": {
+        "$random": {
+          "shape": [
+            "N"
+          ],
+          "dist": "randint",
+          "high": 2
+        }
+      },
+      "smoothing": {
+        "$random": {
+          "dist": "choice",
+          "values": [
+            0.0,
+            0.05,
+            0.1,
+            0.2,
+            0.5,
+            0.9,
+            0.99
+          ]
+        }
+      }
+    }
+  }
+}

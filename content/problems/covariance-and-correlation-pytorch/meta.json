@@ -1,0 +1,92 @@
+{
+  "slug": "covariance-and-correlation-pytorch",
+  "title": "Covariance and Correlation Matrices (PyTorch)",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "statistics",
+    "linear-algebra",
+    "matrix",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "covarianceAndCorrelation",
+    "params": [
+      {
+        "name": "X",
+        "type": "Tensor"
+      },
+      {
+        "name": "ddof",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "Tensor"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "covariance-and-correlation",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.cov",
+      "torch.corrcoef",
+      "torch.Tensor.cov",
+      "torch.Tensor.corrcoef",
+      "torch.ops.aten.cov",
+      "torch.ops.aten.corrcoef"
+    ],
+    "dims": {
+      "n": [
+        2,
+        300
+      ],
+      "d": [
+        1,
+        20
+      ]
+    },
+    "inputs": {
+      "X": {
+        "$random": {
+          "shape": [
+            "n",
+            "d"
+          ],
+          "dist": "normal",
+          "mean": [
+            -100000000.0,
+            100000000.0
+          ],
+          "std": [
+            0.5,
+            10000.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "ddof": {
+        "$random": {
+          "dist": "randint",
+          "low": 0,
+          "high": 2
+        }
+      }
+    }
+  }
+}
