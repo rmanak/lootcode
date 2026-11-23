@@ -231,11 +231,13 @@ constraints. `info-nce-contrastive-loss-pytorch` is the real twin of
 **Done.** 33 twins in four waves: all of Tier A, and Tier B's wave 4.
 
 - Wave 1 is `cac4e15` and wave 2 is `bd4199f`.
-- Wave 3 is the ten twins from label-smoothed CE to KL/JS, plus `$list`.
-- Wave 4 is the nine twins from linear regression down.
+- Wave 3 (the ten twins from label-smoothed CE to KL/JS) and wave 4 (the nine
+  from linear regression down) are `6a39878`; the `$list` ragged inputs they
+  rely on are `fbeb601`.
+- The starters' Args/Returns docstrings, numpy and twin alike, are `db7752c`.
 
-Waves 3 and 4 are not yet committed. Every twin is in `ml-coding-pytorch` and
-is tagged like its numpy problem plus `pytorch`. Filters:
+Every twin is in `ml-coding-pytorch` and is tagged like its numpy problem plus
+`pytorch`. Filters:
 
 - `/?topic=pytorch` lists the PyTorch problems: the 33 twins and the
   `clip-loss-pytorch` pilot;
