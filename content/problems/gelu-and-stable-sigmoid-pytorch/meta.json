@@ -1,0 +1,92 @@
+{
+  "slug": "gelu-and-stable-sigmoid-pytorch",
+  "title": "GELU and a Numerically Stable Sigmoid (PyTorch)",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "neural-networks",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "activations",
+    "params": [
+      {
+        "name": "x",
+        "type": "Tensor"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "gelu-and-stable-sigmoid",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.Tensor.backward",
+      "torch.autograd.grad",
+      "torch.autograd.backward",
+      "torch.autograd.functional.jacobian",
+      "torch.autograd.functional.vjp",
+      "torch.autograd.functional.jvp",
+      "torch.autograd.functional.hessian",
+      "torch.autograd.functional.vhp",
+      "torch.autograd.functional.hvp",
+      "torch.func.grad",
+      "torch.func.grad_and_value",
+      "torch.func.vjp",
+      "torch.func.jvp",
+      "torch.func.jacrev",
+      "torch.func.jacfwd",
+      "torch.func.hessian",
+      "torch.nn.functional.gelu",
+      "torch.sigmoid",
+      "torch.Tensor.sigmoid",
+      "torch.nn.functional.sigmoid",
+      "torch.special.expit",
+      "torch.nn.functional.logsigmoid",
+      "torch.special.ndtr",
+      "torch.special.log_ndtr"
+    ],
+    "dims": {
+      "L": [
+        1,
+        1000
+      ]
+    },
+    "inputs": {
+      "x": {
+        "$random": {
+          "shape": [
+            "L"
+          ],
+          "dist": "uniform",
+          "low": [
+            -1000.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            1000.0
+          ],
+          "round": 3
+        }
+      }
+    }
+  }
+}

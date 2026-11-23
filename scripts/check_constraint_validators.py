@@ -84,6 +84,21 @@ def _torch_cases(meta: dict, params: list, cases: list) -> list:
     return out
 
 
+def _generator_cases(problem_dir, params: list) -> list:
+    """``TORCH_GENERATOR_DRAWS`` draws from a numpy problem's
+    ``tests/generator.json`` (the random-input generator it shares with its
+    PyTorch twin, docs/pytorch-twins.md), made concrete exactly as
+    ``scripts/sync_twin_tests.py bake`` makes them."""
+    from authoring import twins
+
+    gen = twins.load_generator(problem_dir)
+    if not gen:
+        return []
+    return [{"name": f"generated-{i + 1}", "input": inp}
+            for i, inp in enumerate(twins.draw_inputs(gen, params, seed=0,
+                                                      count=TORCH_GENERATOR_DRAWS))]
+
+
 def _iter_problem_dirs(content_dirs):
     """Yield each problem dir (one that has a meta.json) across the given content
     roots, in root order then sorted slug. Missing roots are skipped, so the
@@ -149,6 +164,10 @@ def main() -> int:
             # random tests on every run. Hold both to the validator: concrete
             # stored inputs (tensors as nested lists), plus generator draws.
             cases = _torch_cases(meta, params, cases)
+        else:
+            # A numpy problem's random-input generator must only produce legal
+            # inputs: its PyTorch twin draws from it on every run.
+            cases = cases + _generator_cases(d, params)
 
         try:
             npass, total, detail = gcv.verify_against_cases(code, cases, params)

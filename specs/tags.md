@@ -10,7 +10,7 @@ browse/filter facets stay meaningful and near-synonyms don't multiply.
   every write (manual admin, AI generator, bulk-import generators), so aliases
   are corrected, dropped tags removed, and no problem is ever left tagless.
 
-## Canonical tags (61)
+## Canonical tags (62)
 
 | Group | Tags |
 |---|---|
@@ -20,6 +20,7 @@ browse/filter facets stay meaningful and near-synonyms don't multiply.
 | Counting / numeric | `combinatorics`, `counting`, `simulation`, `number-theory`, `geometry`, `math` |
 | Domain | `machine-learning` |
 | ML topics (only with `machine-learning`) | `loss-function`, `backpropagation`, `optimization`, `classical-ml`, `neural-networks`, `transformer`, `decoding`, `llm-inference`, `llm-apps`, `reinforcement-learning`, `evaluation-metrics`, `statistics`, `data-preprocessing`, `nlp`, `computer-vision`, `linear-algebra` |
+| ML framework (only with `machine-learning`) | `pytorch` |
 
 `design` tags problems that ask you to **implement a data structure** driven by a
 sequence of operations (the input is an operations list, e.g.
@@ -62,6 +63,14 @@ problem is genuinely about one too (`heap` for a top-k retrieval, `design` for a
 KV cache). `statistics` and `linear-algebra` are ML topics, not general math tags:
 a non-ML probability or matrix problem stays `math` / `matrix`.
 
+`pytorch` is the one **framework** tag (`app/tags.py::ML_FRAMEWORK_TAGS`). It
+says which library the problem is solved in, not what it practises, so it does
+not count toward the 1–3 topic tags. A problem carries it **exactly** when it
+runs on the PyTorch runtime (`"runtime": "torch"`, `docs/torch-runtime.md`), and
+`tests/test_tags.py` pins that both ways. An ML problem without it is a numpy
+problem. Most PyTorch problems are deliberate twins of a numpy one
+(`docs/pytorch-twins.md`) and sit in the `ml-coding-pytorch` collection.
+
 `math` is a **catch-all umbrella**: kept only when no more specific canonical tag
 applies (arithmetic-formula and probability problems), and used as the fallback so
 a problem is never tagless. When a specific tag is present — including the two
@@ -92,6 +101,7 @@ category. Full map in `app/tags.py:TAG_ALIASES`:
   `minimum-spanning-tree` → `graph`; `dijkstra` → `shortest-path`
 - `probability`, `probability-and-statistics` → `math`
 - `ml`, `deep-learning`, `neural-network` → `machine-learning`
+- `torch` → `pytorch`
 
 ## Dropped (removed entirely)
 

@@ -1,0 +1,8 @@
+{
+  "dims": {"N": [1, 100], "C": [2, 20]},
+  "inputs": {
+    "logits": {"$random": {"shape": ["N", "C"], "dist": "uniform",
+                           "low": [-1000.0, -1.0], "high": [1.0, 1000.0], "round": 3}},
+    "labels": {"$random": {"shape": ["N"], "dist": "randint", "high": "C"}}
+  }
+}

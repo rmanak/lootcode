@@ -14,7 +14,7 @@ taxonomy + rationale is **`specs/tags.md`**. This skill is the authoring
 workflow. If those files and this list ever disagree, `app/tags.py` wins — refresh
 this skill from it.
 
-## Canonical tags (61)
+## Canonical tags (62)
 
 Pick **1–4** that best describe the *technique/structure*, not incidental detail.
 
@@ -42,6 +42,11 @@ Pick **1–4** that best describe the *technique/structure*, not incidental deta
   Pick what the problem *practises* (a model fitted by gradient descent is
   `classical-ml` + `optimization`). `statistics` / `linear-algebra` are ML-only:
   a non-ML probability or matrix problem stays `math` / `matrix`.
+- **ML framework:** `pytorch` — only with `machine-learning`, does **not** count
+  toward the 1–3 topic tags, and goes on a problem **exactly** when it runs on the
+  PyTorch runtime (`"runtime": "torch"`). Add it to
+  `content/collections/ml-coding-pytorch.json` instead of `ml-coding.json`
+  (see `docs/pytorch-twins.md`).
 
 `math` is a **catch-all umbrella** — use it only when no more specific tag
 applies (arithmetic-formula and probability problems; prefer `number-theory` for

@@ -352,6 +352,8 @@ def problem_detail(slug: str, request: Request, submission: str | None = None,
         "initial_code": initial_code, "loaded_submission": loaded_submission,
         "problem_submissions": problem_submissions,
         "provided_types": provided_types(prob),
+        # The numpy <-> PyTorch counterpart, if this problem has one.
+        "twin": store.twin_of(db, prob),
         # Initial state of "Get More Help with AI" and "Analysis"; static/llm_status.js
         # keeps them in step with the LLM endpoint after the page loads.
         "ai_help_enabled": settings.llm_help_available,

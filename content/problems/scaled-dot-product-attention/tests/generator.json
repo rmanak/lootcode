@@ -1,0 +1,90 @@
+{
+  "dims": {
+    "n": [
+      1,
+      64
+    ],
+    "m": [
+      1,
+      64
+    ],
+    "dk": [
+      1,
+      32
+    ],
+    "dv": [
+      1,
+      32
+    ]
+  },
+  "inputs": {
+    "Q": {
+      "$random": {
+        "shape": [
+          "n",
+          "dk"
+        ],
+        "dist": "uniform",
+        "low": [
+          -100.0,
+          -0.5
+        ],
+        "high": [
+          0.5,
+          100.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "K": {
+      "$random": {
+        "shape": [
+          "m",
+          "dk"
+        ],
+        "dist": "uniform",
+        "low": [
+          -100.0,
+          -0.5
+        ],
+        "high": [
+          0.5,
+          100.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "V": {
+      "$random": {
+        "shape": [
+          "m",
+          "dv"
+        ],
+        "dist": "uniform",
+        "low": [
+          -100.0,
+          -0.5
+        ],
+        "high": [
+          0.5,
+          100.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "mask": {
+      "$random": {
+        "shape": [
+          "n",
+          "m"
+        ],
+        "dist": "randint",
+        "high": 2,
+        "at_least_one_per_row": true
+      }
+    }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "slug": "info-nce-contrastive-loss-pytorch",
+  "title": "InfoNCE Contrastive Loss (CLIP) (PyTorch)",
+  "difficulty": "hard",
+  "tags": [
+    "machine-learning",
+    "loss-function",
+    "matrix",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "infoNCE",
+    "params": [
+      {
+        "name": "U",
+        "type": "Tensor"
+      },
+      {
+        "name": "V",
+        "type": "Tensor"
+      },
+      {
+        "name": "temperature",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "info-nce-contrastive-loss",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.Tensor.backward",
+      "torch.autograd.grad",
+      "torch.autograd.backward",
+      "torch.autograd.functional.jacobian",
+      "torch.autograd.functional.vjp",
+      "torch.autograd.functional.jvp",
+      "torch.autograd.functional.hessian",
+      "torch.autograd.functional.vhp",
+      "torch.autograd.functional.hvp",
+      "torch.func.grad",
+      "torch.func.grad_and_value",
+      "torch.func.vjp",
+      "torch.func.jvp",
+      "torch.func.jacrev",
+      "torch.func.jacfwd",
+      "torch.func.hessian"
+    ],
+    "dims": {
+      "N": [
+        1,
+        64
+      ],
+      "d": [
+        1,
+        32
+      ]
+    },
+    "inputs": {
+      "U": {
+        "$random": {
+          "shape": [
+            "N",
+            "d"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "min_abs": 0.1,
+          "dtype": "float64",
+          "round": 3
+        }
+      },
+      "V": {
+        "$random": {
+          "shape": [
+            "N",
+            "d"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "min_abs": 0.1,
+          "dtype": "float64",
+          "round": 3
+        }
+      },
+      "temperature": {
+        "$random": {
+          "dist": "choice",
+          "values": [
+            0.001,
+            0.01,
+            0.05,
+            0.07,
+            0.1,
+            0.5,
+            1.0,
+            2.0,
+            10.0
+          ]
+        }
+      }
+    }
+  }
+}

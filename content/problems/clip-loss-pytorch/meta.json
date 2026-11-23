@@ -5,7 +5,8 @@
   "tags": [
     "machine-learning",
     "loss-function",
-    "computer-vision"
+    "computer-vision",
+    "pytorch"
   ],
   "languages": [
     "python"

@@ -20,7 +20,7 @@ the "Machine-learning problems" section of `specs/problem-authoring-guidelines.m
 - `compare: "close"`: floats within rel `1e-6` / abs `1e-9`, ints exact,
   overflow-safe. Returned numpy values are converted by `harness._plain`.
 - The `machine-learning` tag and the `ml-coding` collection (2026-11-21: plus 16 ML
-  topic tags, `app/tags.py::ML_TOPIC_TAGS`, 61 tags in all).
+  topic tags, `app/tags.py::ML_TOPIC_TAGS`; 2026-11-21 also the `pytorch` framework tag, 62 tags in all).
 - Problems: `pairwise-ranker-i-loss-and-gradient`, `pairwise-ranker-ii-training`,
   `softmax-cross-entropy-loss-and-gradient` (item 1a), `k-means-from-given-centroids` (item 1b),
   `kv-cache-attention` (item 1c), `roc-auc` (item 1d). **The pilot is complete.**

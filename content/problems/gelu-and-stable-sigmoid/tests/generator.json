@@ -1,0 +1,7 @@
+{
+  "dims": {"L": [1, 1000]},
+  "inputs": {
+    "x": {"$random": {"shape": ["L"], "dist": "uniform",
+                      "low": [-1000.0, -0.5], "high": [0.5, 1000.0], "round": 3}}
+  }
+}

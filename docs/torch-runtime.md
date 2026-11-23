@@ -95,6 +95,9 @@ every input without error. Its correctness is the author's job; see
   "torch": {
     "rtol": 1e-5, "atol": 1e-6,    // optional; these are the defaults
     "random_tests": 5,             // fresh hidden tests drawn on EVERY run
+    "forbid": ["torch.nn.functional.cross_entropy"],   // optional; see below
+    "twin": "info-nce-contrastive-loss",  // optional: the numpy problem this one
+                                   // mirrors (docs/pytorch-twins.md)
     "dims": {"N": [1, 32], "D": [2, 64]},        // drawn once per test
     "inputs": {                    // the generator: one value spec per parameter
       "image_feat": {"$random": {"shape": ["N", "D"], "dist": "randn",
@@ -124,15 +127,35 @@ who forgets `import torch` is not failed for it. Default dtype is **float32**.
 
 Distributions: `randn`/`normal` (`mean`, `std`), `rand`/`uniform` (`low`,
 `high`; half-open), `randint` (integer `low`, `high`, exclusive, defaults to
-int64), `bernoulli` (`p`, defaults to bool), `choice` (`values`). Any numeric
+int64; either bound may name a dim, so `"high": "C"` draws labels below the
+class count, and `low < high` must hold at the dim's extremes), `bernoulli`
+(`p`, defaults to bool), `choice` (`values`: all finite numbers, or all strings
+of at most 64 characters, for one shape-less value of a non-tensor parameter
+such as an activation name). Any numeric
 distribution parameter may be a `[lo, hi]` pair, drawn once per test. So
 `"std": [0.5, 10]` covers features at many scales instead of one. `"dtype"`
-overrides the default, `"round": k` rounds a scalar, and `"seed"` pins the draw.
-Two parameters with the same spec and the same pinned seed get **identical**
-tensors, which is how the pilot builds "perfectly aligned pairs".
+overrides the default, `"round": k` rounds every value to `k` decimals
+(0–15), and `"seed"` pins the draw. Every number in a spec must be finite and
+every integer within int64, and an unknown key (a typo such as `"min-abs"`) is
+an error, not silently ignored. Two parameters with the same spec and the same pinned
+seed get **identical** tensors, which is how the pilot builds "perfectly
+aligned pairs".
+
+Three options keep a draw inside a statement's promises, applied in this order
+after `round`:
+
+- `"step": s` snaps every value to a multiple of `s`. With a power of two such as
+  `0.0625`, products and sums stay exact in float32, so a promise like "no ReLU
+  pre-activation is within 1e-9 of 0 unless it is exactly 0" survives;
+- `"min_abs": a` pushes every value with `|x| < a` out to `±a` ("every row has
+  a norm of at least 0.1"). `a` is first rounded up to a multiple of the step, and
+  to an integer for an integer dtype, so neither option undoes the other;
+- `"at_least_one_per_row": true` sets one random entry of an all-zero row (the
+  last dim) to 1 ("every row of `mask` contains at least one 1").
 
 dtypes: `float32 float64 float16 bfloat16 int64 int32 int16 int8 uint8 bool`.
-Only these names are ever looked up on the torch module.
+Only these names (and a problem's `torch.forbid` entries, below) are ever
+looked up on the torch module.
 
 **Stored tests** keep `expected: null`, because the canonical is the oracle. A
 `$random` value in a stored test is seeded from the test's *name*, so a stored
@@ -145,6 +168,27 @@ That is the point: an overfit or edge-case-blind solution cannot settle into
 passing a fixed suite. It also means a borderline-wrong solution can pass one
 run and fail the next, which is the honest result. `random_weight` (default 1)
 weights them.
+
+**Built-ins a submission may not use.** `torch.forbid` lists dotted torch
+names (`"torch.nn.functional.layer_norm"`, `"torch.Tensor.backward"`) that would
+do the exercise for the solver. In the **submission's** sandbox only, the harness
+replaces each with a stub that raises `"<name> is not allowed in this problem"`
+before the solution is loaded, so `from torch.nn.functional import layer_norm`
+binds the stub too. An entry must be `torch.` plus public segments (no
+leading `_`), walk only through torch's own modules and classes (`torch.os` is
+`os` and is refused), and name a function, never a class or a constant. The
+Tensor codec captures every torch callable it uses before anything is patched,
+so forbidding `torch.Tensor.detach` binds the solution, never the result
+writer. The canonical is never patched and may use the built-in as
+the reference, which makes it an implementation independent of a
+hand-written one. A name that is malformed or missing from this torch fails
+every test as a problem bug rather than quietly allowing the call, and so does
+a generator spec whose arithmetic fails (an overflow, a non-finite number): the
+grader catches it per test, never as a 500. `tests/test_twins.py` grades a wrong
+answer under every twin's forbid list, because `verify_bank` grades only the
+unpatched canonical and would never notice a list that breaks the harness. The
+problem page lists the names. This is an honesty aid for the person practising, not a
+security control: `torch._C` reaches the same kernels.
 
 **Size.** Every input is built in the web server's own process before any
 sandbox starts, so it is bounded there:

@@ -10,6 +10,7 @@ from pathlib import Path
 from app.tags import (
     CANONICAL_TAGS,
     DROPPED_TAGS,
+    ML_FRAMEWORK_TAGS,
     ML_TOPIC_TAGS,
     TAG_ALIASES,
     is_canonical,
@@ -20,19 +21,29 @@ from app.tags import (
 ROOT = Path(__file__).resolve().parent.parent
 
 
-def test_vocabulary_is_sixty_one_tags():
+def test_vocabulary_is_sixty_two_tags():
     # Not a tautology: four other files hard-code this list (see
     # test_docs_consistency.py), and the count is quoted in CLAUDE.md.
-    assert len(CANONICAL_TAGS) == 61
+    assert len(CANONICAL_TAGS) == 62
     assert len(ML_TOPIC_TAGS) == 16
     assert ML_TOPIC_TAGS < CANONICAL_TAGS
+    assert {"pytorch"} == ML_FRAMEWORK_TAGS
+    assert ML_FRAMEWORK_TAGS < CANONICAL_TAGS
+    # A framework is not a topic: it must never use up one of the 1-3 slots.
+    assert not ML_FRAMEWORK_TAGS & ML_TOPIC_TAGS
+
+
+def _bank_metas():
+    """(slug, meta) for every problem on disk, both content roots."""
+    for root in ("content/problems", "content/problems-extended"):
+        for meta in sorted((ROOT / root).glob("*/meta.json")):
+            yield meta.parent.name, json.loads(meta.read_text(encoding="utf-8"))
 
 
 def _bank_tags():
     """(slug, tags) for every problem on disk, both content roots."""
-    for root in ("content/problems", "content/problems-extended"):
-        for meta in sorted((ROOT / root).glob("*/meta.json")):
-            yield meta.parent.name, json.loads(meta.read_text(encoding="utf-8"))["tags"]
+    for slug, meta in _bank_metas():
+        yield slug, meta["tags"]
 
 
 def test_every_ml_problem_has_one_to_three_ml_topic_tags():
@@ -48,6 +59,27 @@ def test_ml_topic_tags_only_appear_on_ml_problems():
     bad = {slug: tags for slug, tags in _bank_tags()
            if ML_TOPIC_TAGS & set(tags) and "machine-learning" not in tags}
     assert not bad, f"ML topic tags without machine-learning: {bad}"
+
+
+def test_framework_tags_only_appear_on_ml_problems():
+    bad = {slug: tags for slug, tags in _bank_tags()
+           if ML_FRAMEWORK_TAGS & set(tags) and "machine-learning" not in tags}
+    assert not bad, f"ML framework tags without machine-learning: {bad}"
+
+
+def test_pytorch_tag_is_exactly_the_torch_runtime():
+    # Both directions: the tag is the filter a reader uses to find PyTorch
+    # practice, so it must never name a numpy problem, and a torch-runtime
+    # problem must never hide from it.
+    tagged = {slug for slug, meta in _bank_metas() if "pytorch" in meta["tags"]}
+    torch = {slug for slug, meta in _bank_metas() if meta.get("runtime") == "torch"}
+    assert tagged == torch, (
+        f"tagged pytorch but not runtime torch: {sorted(tagged - torch)}; "
+        f"runtime torch but not tagged pytorch: {sorted(torch - tagged)}")
+
+
+def test_torch_folds_to_pytorch():
+    assert normalize_tags(["machine-learning", "torch"]) == ["machine-learning", "pytorch"]
 
 
 def test_aliases_and_dropped_never_overlap_the_vocabulary():
@@ -140,16 +172,24 @@ def test_every_canonical_tag_survives_normalization():
         assert tag in normalize_tags([tag, "array"]) or tag in ("math", "array")
 
 
-def test_ml_coding_collection_is_exactly_the_ml_tagged_problems():
-    # specs/tags.md promises every `machine-learning` problem is in the
-    # collection; the converse keeps a non-ML problem (e.g. one whose tag was
-    # dropped) from lingering in it.
-    coll = json.loads((ROOT / "content/collections/ml-coding.json")
+def _collection(slug):
+    return json.loads((ROOT / f"content/collections/{slug}.json")
                       .read_text(encoding="utf-8"))["problems"]
-    tagged = {slug for slug, tags in _bank_tags() if "machine-learning" in tags}
+
+
+def test_ml_coding_collections_are_exactly_the_ml_tagged_problems():
+    # specs/tags.md promises every `machine-learning` problem is in one of the
+    # two collections — the numpy ones in `ml-coding`, the PyTorch ones in
+    # `ml-coding-pytorch` — and the converse keeps a non-ML problem (e.g. one
+    # whose tag was dropped) from lingering in either.
     on_disk = {slug for slug, _ in _bank_tags()}
-    # A fresh clone lacks the gitignored extended root: judge only what exists.
-    listed = {slug for slug in coll if slug in on_disk}
-    assert listed == tagged, (
-        f"in collection but not tagged: {sorted(listed - tagged)}; "
-        f"tagged but not in collection: {sorted(tagged - listed)}")
+    ml = {slug: set(tags) for slug, tags in _bank_tags() if "machine-learning" in tags}
+    for coll, want in (
+        ("ml-coding", {s for s, t in ml.items() if "pytorch" not in t}),
+        ("ml-coding-pytorch", {s for s, t in ml.items() if "pytorch" in t}),
+    ):
+        # A fresh clone lacks the gitignored extended root: judge only what exists.
+        listed = {slug for slug in _collection(coll) if slug in on_disk}
+        assert listed == want, (
+            f"{coll}: listed but not tagged: {sorted(listed - want)}; "
+            f"tagged but not listed: {sorted(want - listed)}")

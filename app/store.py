@@ -125,6 +125,24 @@ def collection_member_ids(db: Session, slug: str) -> list[int]:
     return [it.problem_id for it in coll.items] if coll else []
 
 
+def twin_of(db: Session, prob: Problem) -> Problem | None:
+    """The other half of a numpy/PyTorch twin pair, or ``None``.
+
+    The link lives on the PyTorch side only, as ``torch.twin`` in its meta.json
+    (stored in ``runtime_config``), so it cannot drift between two copies; the
+    numpy side finds its twin by looking it up in reverse. There are only a
+    handful of torch problems, so the reverse lookup just scans them.
+    See docs/pytorch-twins.md.
+    """
+    if prob.runtime == "torch":
+        slug = (prob.runtime_config or {}).get("twin")
+        return db.scalar(select(Problem).where(Problem.slug == slug)) if slug else None
+    for other in db.scalars(select(Problem).where(Problem.runtime == "torch")):
+        if (other.runtime_config or {}).get("twin") == prob.slug:
+            return other
+    return None
+
+
 def user_solved_problem_ids(db: Session, user_id: str) -> set[int]:
     rows = db.execute(
         select(Submission.problem_id).where(

@@ -1,0 +1,160 @@
+{
+  "slug": "layer-norm-forward-and-backward-pytorch",
+  "title": "LayerNorm: Forward and Backward (PyTorch)",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "neural-networks",
+    "backpropagation",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "layerNormForwardBackward",
+    "params": [
+      {
+        "name": "x",
+        "type": "Tensor"
+      },
+      {
+        "name": "gamma",
+        "type": "Tensor"
+      },
+      {
+        "name": "beta",
+        "type": "Tensor"
+      },
+      {
+        "name": "dy",
+        "type": "Tensor"
+      },
+      {
+        "name": "eps",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "layer-norm-forward-and-backward",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.Tensor.backward",
+      "torch.autograd.grad",
+      "torch.autograd.backward",
+      "torch.autograd.functional.jacobian",
+      "torch.autograd.functional.vjp",
+      "torch.autograd.functional.jvp",
+      "torch.autograd.functional.hessian",
+      "torch.autograd.functional.vhp",
+      "torch.autograd.functional.hvp",
+      "torch.func.grad",
+      "torch.func.grad_and_value",
+      "torch.func.vjp",
+      "torch.func.jvp",
+      "torch.func.jacrev",
+      "torch.func.jacfwd",
+      "torch.func.hessian",
+      "torch.nn.functional.layer_norm",
+      "torch.layer_norm",
+      "torch.native_layer_norm"
+    ],
+    "dims": {
+      "N": [
+        1,
+        64
+      ],
+      "D": [
+        1,
+        64
+      ]
+    },
+    "inputs": {
+      "x": {
+        "$random": {
+          "shape": [
+            "N",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": [
+            -1000.0,
+            -0.01
+          ],
+          "high": [
+            0.01,
+            1000.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "gamma": {
+        "$random": {
+          "shape": [
+            "D"
+          ],
+          "dist": "uniform",
+          "low": -10.0,
+          "high": 10.0,
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "beta": {
+        "$random": {
+          "shape": [
+            "D"
+          ],
+          "dist": "uniform",
+          "low": -10.0,
+          "high": 10.0,
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "dy": {
+        "$random": {
+          "shape": [
+            "N",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": -10.0,
+          "high": 10.0,
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "eps": {
+        "$random": {
+          "dist": "choice",
+          "values": [
+            1e-12,
+            1e-08,
+            1e-05,
+            0.001,
+            0.1,
+            1.0
+          ]
+        }
+      }
+    }
+  }
+}

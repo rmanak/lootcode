@@ -55,6 +55,14 @@ log = get_logger(__name__)
 _slots = threading.BoundedSemaphore(max(1, settings.EXEC_TORCH_MAX_PARALLEL))
 
 
+#: A bad input spec is a problem bug, reported per test, never a 500. Besides
+#: SpecError, arithmetic on author-supplied numbers can raise (an overflow in a
+#: generator option, a non-finite parameter); the generator's random tests get
+#: a fresh seed every run, so such a draw can surface live although `make
+#: check` was green.
+_CONTENT_ERRORS = (SpecError, ArithmeticError, ValueError, TypeError)
+
+
 def limits_for(pv: ProblemView) -> Limits:
     """The problem's limits, with the memory cap raised to what torch needs
     (a problem may ask for more than the runtime's floor, up to its ceiling)."""
@@ -67,21 +75,36 @@ def limits_for(pv: ProblemView) -> Limits:
 
 
 def _run(code: str, pv: ProblemView, specs: list[TestSpec],
-         limits: Limits) -> dict[str, Outcome]:
+         limits: Limits, forbid: list[str] | None = None) -> dict[str, Outcome]:
     with _slots:
-        return _run_unbounded(code, pv, specs, limits)
+        return _run_unbounded(code, pv, specs, limits, forbid)
+
+
+def forbidden_names(pv: ProblemView) -> list[str]:
+    """The problem's ``torch.forbid`` list: torch callables a *submission* may
+    not use (``"torch.nn.functional.layer_norm"``, ``"torch.Tensor.backward"``),
+    because they would do the exercise for it. Malformed entries are kept, so
+    the harness reports them as a problem bug instead of silently allowing
+    the call. Never applied to the canonical, which may use the built-in as
+    the reference. An honesty aid for the person practising, not a security
+    boundary: ``torch._C`` reaches the same kernels."""
+    raw = (pv.runtime_config or {}).get("forbid") or []
+    return [str(x) for x in raw] if isinstance(raw, list) else [str(raw)]
 
 
 def _run_unbounded(code: str, pv: ProblemView, specs: list[TestSpec],
-                   limits: Limits) -> dict[str, Outcome]:
+                   limits: Limits, forbid: list[str] | None = None) -> dict[str, Outcome]:
     with open(CORE_HARNESS, encoding="utf-8") as fh:
         core_source = fh.read()
+    payload = core_exec.build_payload(
+        code, pv.function_name, pv.params, pv.return_type, specs, limits,
+        kind=pv.kind, class_name=pv.class_name, class_methods=pv.class_methods)
+    if forbid:
+        payload["forbid"] = list(forbid)
     data, timed_out = sandbox.run_harness(
         harness_path=HARNESS,
         files={"solution.py": code, "_lc_core_harness.py": core_source},
-        payload=core_exec.build_payload(
-            code, pv.function_name, pv.params, pv.return_type, specs, limits,
-            kind=pv.kind, class_name=pv.class_name, class_methods=pv.class_methods),
+        payload=payload,
         limits=limits,
         overall_s=core_exec.overall_timeout_s(specs, limits) + settings.TORCH_STARTUP_S,
         prefix="lc_torch_",
@@ -130,7 +153,7 @@ def grade(code: str, pv: ProblemView, tests: list[CaseView], *,
         cases.append(t)
         try:
             inp = materialize_input(t.input, pv.params, seed_base=t.name)
-        except SpecError as exc:
+        except _CONTENT_ERRORS as exc:
             bad_input[t.name] = str(exc)
             continue
         budget -= count_elements(inp)
@@ -144,7 +167,7 @@ def grade(code: str, pv: ProblemView, tests: list[CaseView], *,
         budget -= sum(count_elements(inp) for inp in fresh)
         if budget < 0:
             raise SpecError(f"random tests exceed the run's {MAX_RUN_ELEMENTS}-number budget")
-    except SpecError as exc:
+    except _CONTENT_ERRORS as exc:
         fresh = []
         bad_input["random"] = str(exc)
     for i, inp in enumerate(fresh):
@@ -161,7 +184,7 @@ def grade(code: str, pv: ProblemView, tests: list[CaseView], *,
             mine = oracle = _run(code, pv, specs, limits)
         else:
             with ThreadPoolExecutor(max_workers=2) as pool:
-                f_mine = pool.submit(_run, code, pv, specs, limits)
+                f_mine = pool.submit(_run, code, pv, specs, limits, forbidden_names(pv))
                 f_oracle = pool.submit(_run, canonical, pv, specs, limits)
                 mine, oracle = f_mine.result(), f_oracle.result()
     else:

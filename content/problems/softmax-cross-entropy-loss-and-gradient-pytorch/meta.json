@@ -1,0 +1,117 @@
+{
+  "slug": "softmax-cross-entropy-loss-and-gradient-pytorch",
+  "title": "Softmax Cross-Entropy: Loss and Gradient (PyTorch)",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "loss-function",
+    "backpropagation",
+    "pytorch"
+  ],
+  "hints": [
+    "Treat each row on its own and work in log space: the loss only needs the log-probability of each example's correct class.",
+    "Differentiate a single example's loss with respect to its own logits first. The softmax Jacobian looks messy, but combined with the \u2212log it collapses into something simple.",
+    "A row's softmax is unchanged if you add one constant to every logit. Choose it so no exponent is positive, and never take the log of a probability."
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "softmaxCrossEntropy",
+    "params": [
+      {
+        "name": "logits",
+        "type": "Tensor"
+      },
+      {
+        "name": "labels",
+        "type": "Tensor"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "softmax-cross-entropy-loss-and-gradient",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.Tensor.backward",
+      "torch.autograd.grad",
+      "torch.autograd.backward",
+      "torch.autograd.functional.jacobian",
+      "torch.autograd.functional.vjp",
+      "torch.autograd.functional.jvp",
+      "torch.autograd.functional.hessian",
+      "torch.autograd.functional.vhp",
+      "torch.autograd.functional.hvp",
+      "torch.func.grad",
+      "torch.func.grad_and_value",
+      "torch.func.vjp",
+      "torch.func.jvp",
+      "torch.func.jacrev",
+      "torch.func.jacfwd",
+      "torch.func.hessian",
+      "torch.nn.functional.cross_entropy",
+      "torch.nn.functional.nll_loss",
+      "torch.nn.functional.log_softmax",
+      "torch.log_softmax",
+      "torch.Tensor.log_softmax",
+      "torch.logsumexp",
+      "torch.Tensor.logsumexp",
+      "torch.special.logsumexp",
+      "torch.special.log_softmax"
+    ],
+    "dims": {
+      "N": [
+        1,
+        100
+      ],
+      "C": [
+        2,
+        20
+      ]
+    },
+    "inputs": {
+      "logits": {
+        "$random": {
+          "shape": [
+            "N",
+            "C"
+          ],
+          "dist": "uniform",
+          "low": [
+            -1000.0,
+            -1.0
+          ],
+          "high": [
+            1.0,
+            1000.0
+          ],
+          "round": 3
+        }
+      },
+      "labels": {
+        "$random": {
+          "shape": [
+            "N"
+          ],
+          "dist": "randint",
+          "high": "C"
+        }
+      }
+    }
+  }
+}

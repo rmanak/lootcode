@@ -182,6 +182,83 @@ def test_generated_tests_agree_on_their_dims_and_vary_between_draws():
     assert draws != generated_inputs(cfg, params, seed=4)
 
 
+def test_randint_bounds_may_name_a_dim():
+    cfg = {"dims": {"N": [1, 30], "C": [2, 5]},
+           "inputs": {"x": {"$random": {"shape": ["N", "C"]}},
+                      "y": {"$random": {"shape": ["N"], "dist": "randint", "high": "C"}}}}
+    params = [{"name": "x", "type": "Tensor"}, {"name": "y", "type": "Tensor"}]
+    for inp in generated_inputs(cfg, params, seed=3, count=40):
+        c = inp["x"]["$tensor"]["shape"][1]
+        assert all(0 <= v < c for v in inp["y"]["$tensor"]["data"])
+    with pytest.raises(SpecError, match="dim 'K'"):
+        materialize_value({"$random": {"shape": [2], "dist": "randint", "high": "K"}},
+                          "Tensor", seed=1)
+
+
+def test_step_snaps_values_to_multiples():
+    v = materialize_value({"$random": {"shape": [200], "dist": "uniform", "low": -10,
+                                       "high": 10, "step": 0.0625}}, "float[]", seed=4)
+    assert all((x * 16).is_integer() and -10 <= x <= 10 for x in v)
+    with pytest.raises(SpecError, match="step"):
+        materialize_value({"$random": {"shape": [2], "step": 0}}, "float[]", seed=1)
+
+
+def test_a_choice_of_strings_stays_a_plain_string():
+    vals = {materialize_value({"$random": {"dist": "choice", "values": ["relu", "tanh"]}},
+                              "string", seed=s) for s in range(30)}
+    assert vals == {"relu", "tanh"}
+    with pytest.raises(SpecError, match="non-tensor"):
+        materialize_value({"$random": {"dist": "choice", "values": ["a"]}}, "Tensor", seed=1)
+
+
+def test_min_abs_keeps_values_off_zero():
+    v = materialize_value({"$random": {"shape": [500], "dist": "uniform", "low": -1,
+                                       "high": 1, "min_abs": 0.1}}, "float[]", seed=5)
+    assert all(0.1 <= abs(x) <= 1 for x in v)
+
+
+def test_at_least_one_per_row_fills_an_empty_row():
+    spec = {"$random": {"shape": [50, 3], "dist": "randint", "high": 2,
+                        "at_least_one_per_row": True}}
+    for seed in range(20):
+        rows = materialize_value(spec, "int[][]", seed=seed)
+        assert all(any(r) and set(r) <= {0, 1} for r in rows)
+
+
+@pytest.mark.parametrize("spec", [
+    {"shape": [4], "std": 1e9, "step": 1e-300},          # x/step overflows
+    {"shape": [4], "std": float("inf")},                  # json.loads accepts Infinity
+    {"shape": [4], "dist": "randint", "high": 10 ** 400},
+    {"shape": [4], "round": 400},
+    {"shape": [4], "min_abs": 1e-50},                     # 0 once it is a float32
+    {"shape": [4], "dist": "choice", "values": ["relu", 1.0]},
+    {"shape": [4], "dist": "choice", "values": ["relu"]},  # strings: scalar only
+    {"dist": "choice", "values": ["x" * 65]},
+    {"shape": [4], "min-abs": 0.1},                       # a typo is an error
+])
+def test_bad_generator_options_are_spec_errors(spec):
+    ptype = "string" if spec.get("dist") == "choice" else "float[]"
+    with pytest.raises(SpecError):
+        materialize_value({"$random": spec}, ptype, seed=1)
+
+
+def test_min_abs_survives_step_and_integer_dtypes():
+    v = materialize_value({"$random": {"shape": [2000], "dist": "uniform", "low": -1,
+                                       "high": 1, "step": 0.0625, "min_abs": 0.01}},
+                          "float[]", seed=2)
+    assert all(x != 0 and (x * 16).is_integer() for x in v)
+    v = materialize_value({"$random": {"shape": [200], "dist": "randint", "low": -2,
+                                       "high": 3, "min_abs": 0.5}}, "int[]", seed=3)
+    assert 0 not in v
+
+
+def test_a_randint_dim_bound_must_hold_at_the_dims_extremes():
+    cfg = {"dims": {"C": [0, 3]},
+           "inputs": {"y": {"$random": {"shape": [2], "dist": "randint", "high": "C"}}}}
+    with pytest.raises(SpecError, match="extremes"):
+        generated_inputs(cfg, [{"name": "y", "type": "Tensor"}], seed=1, count=1)
+
+
 def test_the_generator_must_cover_every_parameter():
     with pytest.raises(SpecError, match="no spec"):
         generated_inputs({"random_tests": 1, "inputs": {"z": 1.0}}, T, seed=0)
@@ -293,6 +370,93 @@ def test_wrong_answers_say_why(code, needle):
     g = run_submission(code, PROB, TESTS)
     assert not g.solved
     assert g.results[0].status == "wrong" and needle in g.results[0].error
+
+
+# --- torch.forbid: built-ins a submission may not use --------------------------
+FORBID_PROB = {**PROB, "runtime_config": {
+    **PROB["runtime_config"],
+    "forbid": ["torch.softmax", "torch.Tensor.softmax", "torch.nn.functional.softmax",
+               "torch.Tensor.backward", "torch.autograd.grad"]}}
+
+
+@needs_torch
+@pytest.mark.slow
+@pytest.mark.parametrize("code", [
+    "def softmax_rows(x):\n    return torch.softmax(x, -1)\n",
+    "def softmax_rows(x):\n    return x.softmax(-1)\n",
+    # bound at import time, after the harness patched it
+    "from torch.nn.functional import softmax\n\n"
+    "def softmax_rows(x):\n    return softmax(x, -1)\n",
+    "import torch.nn.functional as F\n\n"
+    "def softmax_rows(x):\n    return F.softmax(x, -1)\n",
+    # autograd is off-limits too (a hand-written gradient problem)
+    "def softmax_rows(x):\n    x = x.clone().requires_grad_()\n"
+    "    (x * 2).sum().backward()\n    return x.grad\n",
+])
+def test_a_forbidden_builtin_raises_in_the_submission(code):
+    g = run_submission(code, FORBID_PROB, TESTS)
+    assert not g.solved
+    assert g.results[0].status == "error"
+    assert "is not allowed in this problem" in g.results[0].error
+
+
+@needs_torch
+@pytest.mark.slow
+def test_forbid_spares_the_canonical_and_a_hand_written_answer():
+    # CANON itself calls torch.softmax: the reference run is never patched.
+    hand = ("def softmax_rows(x):\n"
+            "    e = (x - x.max(-1, keepdim=True).values).exp()\n"
+            "    return e / e.sum(-1, keepdim=True)\n")
+    g = run_submission(hand, FORBID_PROB, TESTS)
+    assert g.solved, [(r.name, r.error) for r in g.results]
+    # Grading the canonical itself (seed / verify_bank) forbids nothing.
+    assert run_submission(CANON, FORBID_PROB, TESTS).solved
+
+
+@needs_torch
+@pytest.mark.slow
+@pytest.mark.parametrize("bad", ["torch.no_such_function", "os.system", "torch..x", 7])
+def test_a_bad_forbid_list_is_a_problem_bug_on_every_test(bad):
+    prob = {**PROB, "runtime_config": {**PROB["runtime_config"], "forbid": [bad]}}
+    hand = "def softmax_rows(x):\n    return x\n"
+    g = run_submission(hand, prob, TESTS)
+    assert not g.solved
+    assert all(r.status == "error" and "a problem bug" in r.error for r in g.results)
+
+
+@needs_torch
+@pytest.mark.slow
+@pytest.mark.parametrize("bad", ["torch.os.fdopen", "torch.builtins.open",
+                                 "torch.Tensor", "torch.Tensor.__getattribute__",
+                                 "torch._C._nn", "torch.float32"])
+def test_forbid_cannot_leave_torch_or_name_a_non_function(bad):
+    prob = {**PROB, "runtime_config": {**PROB["runtime_config"], "forbid": [bad]}}
+    g = run_submission("def softmax_rows(x):\n    return x\n", prob, TESTS)
+    assert all(r.status == "error" and "a problem bug" in r.error for r in g.results)
+
+
+@needs_torch
+@pytest.mark.slow
+def test_forbidding_what_the_codec_uses_cannot_break_an_honest_answer():
+    prob = {**PROB, "runtime_config": {**PROB["runtime_config"], "forbid": [
+        "torch.Tensor.detach", "torch.Tensor.tolist", "torch.Tensor.reshape",
+        "torch.tensor", "torch.Tensor.numel"]}}
+    hand = ("def softmax_rows(x):\n"
+            "    e = (x - x.max(-1, keepdim=True).values).exp()\n"
+            "    return e / e.sum(-1, keepdim=True)\n")
+    g = run_submission(hand, prob, TESTS)
+    assert g.solved, [(r.name, r.error) for r in g.results]
+
+
+@needs_torch
+@pytest.mark.slow
+def test_a_generator_that_overflows_is_a_problem_bug_not_a_crash():
+    prob = {**PROB, "runtime_config": {**PROB["runtime_config"], "inputs": {
+        "x": {"$random": {"shape": [3], "std": 1e9, "step": 1e-300}}}}}
+    g = run_submission(CANON, prob, TESTS)
+    assert not g.solved
+    assert any(r.name == "random" and "generator is invalid" in r.error
+               for r in g.results)
 
 
 @needs_torch
@@ -428,19 +592,22 @@ def test_a_huge_sparse_answer_is_refused_before_it_is_densified():
 
 @needs_torch
 @pytest.mark.slow
-def test_a_sabotaged_decoder_times_out_per_test_not_per_run():
-    """Test 1 monkey-patches torch.tensor; test 2's input decode then hangs.
-    The per-test alarm now covers decoding, so it is a 1 s timeout rather than
-    a stall until the overall kill (~40 s)."""
+def test_a_solution_cannot_sabotage_the_decoder_for_later_tests():
+    """Test 1 monkey-patches torch.tensor to hang. Once that made test 2's input
+    decode hang (bounded only by the per-test alarm, which covers decoding).
+    The codec now captures every torch callable it uses before the solution
+    loads (so a ``torch.forbid`` list cannot break it either), and test 2 is
+    decoded and graded normally."""
     import time
     code = ("import time\n"
             "def softmax_rows(x):\n"
             "    torch.tensor = lambda *a, **k: time.sleep(1e6)\n"
+            "    torch.Tensor.reshape = lambda *a, **k: time.sleep(1e6)\n"
             "    return torch.softmax(x, -1)\n")
     prob = {**PROB, "time_limit_ms": 1000, "runtime_config": {}}
     t = time.perf_counter()
     g = run_submission(code, prob, TESTS)
-    assert [r.status for r in g.results] == ["passed", "timeout"]
+    assert [r.status for r in g.results] == ["passed", "passed"]
     assert time.perf_counter() - t < 15
 
 

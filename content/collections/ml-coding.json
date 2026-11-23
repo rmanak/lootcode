@@ -1,7 +1,7 @@
 {
   "slug": "ml-coding",
   "title": "ML Coding",
-  "subtitle": "Implement-it-from-scratch machine-learning interview problems \u2014 losses, gradients and training loops \u2014 in numpy, plus a PyTorch track.",
+  "subtitle": "Implement-it-from-scratch machine-learning interview problems \u2014 losses, gradients and training loops \u2014 in numpy. Their PyTorch twins are in ML Coding \u00b7 PyTorch.",
   "problems": [
     "pairwise-ranker-i-loss-and-gradient",
     "pairwise-ranker-ii-training",
@@ -96,7 +96,6 @@
     "dynamic-request-batching",
     "prune-computation-graph",
     "bootstrap-and-jackknife",
-    "streaming-mean-variance",
-    "clip-loss-pytorch"
+    "streaming-mean-variance"
   ]
 }

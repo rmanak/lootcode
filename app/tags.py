@@ -23,7 +23,7 @@ from __future__ import annotations
 # The umbrella catch-all (kept only when nothing more specific applies).
 MATH = "math"
 
-# Allowed vocabulary (61 tags). Keep alphabetised.
+# Allowed vocabulary (62 tags). Keep alphabetised.
 CANONICAL_TAGS: frozenset[str] = frozenset({
     "array",
     "backpropagation",
@@ -68,6 +68,7 @@ CANONICAL_TAGS: frozenset[str] = frozenset({
     "optimization",
     "ordered-set",
     "prefix-sum",
+    "pytorch",
     "queue",
     "recursion",
     "reinforcement-learning",
@@ -111,6 +112,17 @@ ML_TOPIC_TAGS: frozenset[str] = frozenset({
     "transformer",
 })
 
+# The machine-learning *framework* tags: which library a problem is solved in,
+# not what it practises, so they sit outside ML_TOPIC_TAGS and do not count
+# toward an ML problem's 1-3 topic tags. Like the topic tags they only appear
+# next to ``machine-learning``. A problem tagged ``pytorch`` is exactly one that
+# runs on the PyTorch runtime (``"runtime": "torch"``); without the tag an ML
+# problem is a numpy one. tests/test_tags.py pins both rules over the bank, and
+# docs/pytorch-twins.md says how a PyTorch twin of a numpy problem is built.
+ML_FRAMEWORK_TAGS: frozenset[str] = frozenset({
+    "pytorch",
+})
+
 # Non-canonical tag -> canonical tag. Synonyms/abbreviations and too-detailed
 # techniques folded up into a broader kept category.
 TAG_ALIASES: dict[str, str] = {
@@ -149,6 +161,7 @@ TAG_ALIASES: dict[str, str] = {
     "ml": "machine-learning",
     "deep-learning": "machine-learning",
     "neural-network": "machine-learning",
+    "torch": "pytorch",
 }
 
 # Tags removed entirely: too vague / a problem-type meta-tag, or describing how a

@@ -42,6 +42,7 @@ optional) · **Anthropic Claude API** for optional problem generation.
 | `content/problems/` | Problem definitions (see `specs/problem-schema.md`); optional `<slug>/assets/` holds statement figures (see `docs/problem-images.md`); `<slug>/input_validator/input_validator.py` is the per-problem `validate_input()` legal-input predicate (see `docs/input-validators.md`). |
 | `content/problems-extended/` | Optional **extended** problem set — extra problems kept local (**gitignored**), seeded alongside the default set when present. A fresh clone drops these (and any collection references to them) cleanly; skipped references are reported by `seed.py` but non-fatal. See `docs/extended-problems.md`. |
 | `content/collections/` | Curated, system-defined problem lists (e.g. `blind-73.json`) used as a list filter (see `docs/collections.md`). |
+| `scripts/sync_twin_tests.py` · `authoring/twins.py` | **numpy ⇄ PyTorch twins.** `scaffold` a `<slug>-pytorch` twin from a numpy ML problem; `port` the numpy cases + `tests/generator.json` into it; `check` the two canonicals agree (twin in the torch sandbox vs numpy on the same float32-rounded input, stored cases + generator draws, in units of the twin's tolerance); `bake` generator draws into hidden numpy cases (`gen-<seed>-<i>`, output-stratified, size-budgeted). See `docs/pytorch-twins.md`. |
 | `scripts/check_db.py` | Assert the local database is physically intact (`PRAGMA quick_check`; `--full` for `integrity_check`). Runs **first** in `make check-bank`, before `seed.py` can write into a damaged file. Prints the backup/`.recover` procedure on failure. See `docs/database.md`. |
 | `scripts/seed.py` | Load content into the DB + verify canonical solutions. `-j N` verifies in parallel; `--no-verify` seeds only (use when `verify_bank.py` runs next — it does the same work). |
 | `scripts/generate_problem_from_statement.py` | **Mode A (fill-in) CLI:** take a problem-statement file, inject it into `app/llm/problem_prompt.txt`, and call an OpenAI-compatible endpoint (defaults to the app's `LLM_HELP_*` env) asking for **schema-constrained JSON** (`PROBLEM_SCHEMA`, consistent with the data model / `app/problem_spec.py`). Emits the problem object and (unless `--no-validate`) validates it. **CLI front end only** — the generation itself is `app/llm/fill_in.py`, which the in-app generator runs too. Warns if the prompt's hard-coded tag list has drifted from `app/tags.py`. See `docs/problem-generation.md`. |
@@ -142,7 +143,19 @@ works for a fresh checkout.
   canonical is the oracle. Vet the canonical against independent implementations
   over thousands of generator draws, and give each typical wrong answer a
   *stored* hidden test. Without `./.venv-torch` these problems are skipped, not
-  failed. See `docs/torch-runtime.md`.
+  failed. Tag `pytorch` ⟺ `"runtime": "torch"`; collection `ml-coding-pytorch`.
+  See `docs/torch-runtime.md`.
+- **PyTorch twins** (`<numpy-slug>-pytorch`, `torch.twin` in meta.json): the
+  numpy ML problem again in PyTorch, kept **as close as possible** — same
+  function/param names, shapes, constraints, statement, validator (byte-identical
+  copy) and tests; hand-written gradients stay hand-written (`torch.forbid` the
+  autograd entry points and the built-in that *is* the exercise). One generator,
+  `<numpy>/tests/generator.json`, feeds both: the twin draws fresh tests from it
+  every run, and `bake` stores draws as hidden numpy cases. Float64 when float32
+  can't meet the tolerance on the numpy constraints (most of them). Workflow
+  `scripts/sync_twin_tests.py scaffold|port|check|bake`; `tests/test_twins.py`
+  pins the pairing. **After changing a numpy problem's tests or generator, re-run
+  `port`.** See `docs/pytorch-twins.md`.
 
 ## Working agreements for Claude
 
@@ -194,8 +207,9 @@ works for a fresh checkout.
   `python scripts/remove_problem.py <slug>` (or `<old>=<new>` to **deduplicate**,
   which points collection references at the surviving twin instead of shortening
   the list). `--dry-run` first. See `docs/removing-problems.md`.
-- **Tags:** use the canonical vocabulary only (61 tags: 45 general + 16 ML
-  topic tags, which only appear alongside `machine-learning`). `app/tags.py` is
+- **Tags:** use the canonical vocabulary only (62 tags: 45 general + 16 ML
+  topic tags + the `pytorch` framework tag, which only appear alongside
+  `machine-learning`; `pytorch` ⟺ `"runtime": "torch"`). `app/tags.py` is
   the source of truth (`normalize_tags` runs on every content write);
   `specs/tags.md` is the prose taxonomy; the `canonical-tags` skill is the authoring workflow. If
   a problem fits no canonical tag, discuss adding one — don't invent it inline.

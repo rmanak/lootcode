@@ -13,7 +13,9 @@ core harness (``app/executor/harness.py``) plus one codec:
    values ``{"$tensor": {shape, dtype, data}}`` become real tensors on the way
    in, and anything returned — a tensor, or tuples/lists/dicts of them — comes
    back out as the same JSON form;
-4. hand control to the core harness's ``main()``.
+4. replace the problem's ``torch.forbid`` callables (submission runs only)
+   with stubs that raise;
+5. hand control to the core harness's ``main()``.
 
 Both are loaded before the solution runs, so nothing the submission does can
 change them for this run. Must not import anything from the ``app`` package
@@ -25,6 +27,7 @@ import contextlib
 import importlib.util
 import json
 import os
+import re
 import sys
 import traceback
 
@@ -47,17 +50,24 @@ def _load_core(workdir: str):
 
 
 def _make_codec(torch):
+    """The Tensor codec. Every torch callable it uses is captured HERE, before
+    a problem's ``torch.forbid`` list replaces anything, so forbidding e.g.
+    ``torch.Tensor.detach`` binds the submission and never the codec."""
     dtypes = {name: getattr(torch, name) for name in _DTYPE_NAMES}
+    tensor_cls, make, strided = torch.Tensor, torch.tensor, torch.strided
+    t_reshape, t_requires_grad = tensor_cls.reshape, tensor_cls.requires_grad_
+    t_detach, t_numel, t_is_complex = tensor_cls.detach, tensor_cls.numel, tensor_cls.is_complex
+    t_to_dense, t_cpu, t_tolist = tensor_cls.to_dense, tensor_cls.cpu, tensor_cls.tolist
 
     def decode(value):
         if isinstance(value, dict) and "$tensor" in value:
             t = value["$tensor"]
-            x = torch.tensor(t["data"], dtype=dtypes[t.get("dtype", "float32")])
-            x = x.reshape(t["shape"])
+            x = make(t["data"], dtype=dtypes[t.get("dtype", "float32")])
+            x = t_reshape(x, t["shape"])
             if t.get("requires_grad"):
-                x.requires_grad_(True)
+                t_requires_grad(x, True)
             return x
-        return torch.tensor(value, dtype=torch.float32)
+        return make(value, dtype=dtypes["float32"])
 
     def decode_list(value):
         return [decode(v) for v in value]
@@ -66,22 +76,23 @@ def _make_codec(torch):
         """Tensors -> ``{"$tensor": ...}``; containers walked; the rest as-is
         (the core harness's JSON gate still judges it). Runs under the per-test
         alarm, so a cyclic container hits RecursionError, not a hang."""
-        if isinstance(value, torch.Tensor):
-            t = value.detach()
+        if isinstance(value, tensor_cls):
+            t = t_detach(value)
             # Size first: densifying a sparse (200000, 200000) answer would try
             # to allocate 160 GB before any later check could refuse it.
-            if t.numel() > _MAX_RETURN_ELEMENTS:
-                raise ValueError(f"returned tensor has {t.numel()} elements; "
+            n = t_numel(t)
+            if n > _MAX_RETURN_ELEMENTS:
+                raise ValueError(f"returned tensor has {n} elements; "
                                  f"answers are capped at {_MAX_RETURN_ELEMENTS}")
-            if t.is_complex():
+            if t_is_complex(t):
                 raise ValueError("complex tensors are not supported as answers")
-            if t.layout != torch.strided:
-                t = t.to_dense()
+            if t.layout != strided:
+                t = t_to_dense(t)
             if t.device.type != "cpu":
-                t = t.cpu()
+                t = t_cpu(t)
             return {"$tensor": {"shape": list(t.shape),
                                 "dtype": str(t.dtype).removeprefix("torch."),
-                                "data": t.reshape(-1).tolist()}}
+                                "data": t_tolist(t_reshape(t, (-1,)))}}
         if isinstance(value, (tuple, list)):
             return [encode(v) for v in value]
         if isinstance(value, dict):
@@ -123,6 +134,65 @@ def _register(core, torch, payload: dict) -> None:
             core._CODECS[typ] = (torch, dec, enc)
 
 
+#: A forbid entry: ``torch`` then public (no leading ``_``) dotted segments.
+_FORBID_NAME = re.compile(r"torch(\.[A-Za-z][A-Za-z0-9_]*)+")
+
+
+def _torch_owned(obj) -> bool:
+    """A torch module, or a class defined in one. Walking a forbid name through
+    anything else (``torch.os`` *is* ``os``) would patch the stdlib the harness
+    and its result writer depend on."""
+    import types  # noqa: PLC0415
+
+    if isinstance(obj, types.ModuleType):
+        name = obj.__name__
+    elif isinstance(obj, type):
+        name = getattr(obj, "__module__", "") or ""
+    else:
+        return False
+    return name == "torch" or name.startswith("torch.")
+
+
+def _forbid(torch, names) -> str | None:
+    """Replace each named torch callable with a stub that raises, so a
+    submission cannot let the built-in do the exercise (``torch.forbid`` in
+    meta.json; the grader sends it for the submission's run only). Returns an
+    error message for a name that is malformed or does not exist — a problem
+    bug, reported on every test rather than quietly allowing the call.
+
+    Patched before the solution is loaded, so ``from torch.nn.functional import
+    layer_norm`` in a submission binds the stub too. An honesty aid, not a
+    security control: nothing here widens or narrows the sandbox.
+    """
+    if not isinstance(names, list):
+        return "torch.forbid must be a list of names"
+    for name in names:
+        if not isinstance(name, str) or not _FORBID_NAME.fullmatch(name):
+            return f"torch.forbid entry {name!r} is not a dotted torch name"
+        parts = name.split(".")
+        owner = torch
+        try:
+            for part in parts[1:-1]:
+                owner = getattr(owner, part)
+                if not _torch_owned(owner):
+                    return f"torch.forbid entry {name!r} walks outside torch"
+            target = getattr(owner, parts[-1])
+        except AttributeError:
+            return f"torch.forbid names {name!r}, which this torch does not have"
+        if isinstance(target, type) or not callable(target):
+            return f"torch.forbid entry {name!r} is not a function"
+
+        def stub(*_args, _name=name, **_kwargs):
+            raise RuntimeError(f"{_name} is not allowed in this problem: the point "
+                               f"is to write it yourself.")
+
+        try:
+            setattr(owner, parts[-1], stub)
+        except (AttributeError, TypeError) as exc:
+            return f"torch.forbid cannot replace {name!r}: {exc}"
+    return None
+
+
 def _fail_all(core, workdir: str, payload: dict, message: str) -> None:
     core._write_results(workdir, [
         {"name": t["name"], "status": "error", "error": message,
@@ -148,6 +218,12 @@ def main() -> None:
     # use reproducible from run to run.
     torch.manual_seed(0)
     _register(core, torch, payload)
+    if payload.get("forbid"):
+        problem = _forbid(torch, payload["forbid"])
+        if problem:
+            _fail_all(core, workdir, payload, "This problem's list of disallowed torch "
+                      f"functions is invalid (a problem bug, not yours): {problem}")
+            return
     core.main()
 
 

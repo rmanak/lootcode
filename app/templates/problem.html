@@ -70,6 +70,17 @@
       · {{ visible_count }} visible / {{ hidden_count }} hidden tests{% if prob.runtime == 'torch' %}{% set rnd = (prob.runtime_config or {}).get('random_tests', 0) %}{% if rnd %} + {{ rnd }} random, drawn fresh each run{% endif %} · Python 3 + PyTorch{% else %} · Python 3{% endif %}
     </p>
     {% endif %}
+    {% set forbid = (prob.runtime_config or {}).get('forbid') if prob.runtime == 'torch' else none %}
+    {% if forbid %}
+    <p class="twin-link">Not allowed in this problem (they would do it for you):
+      {% for f in forbid %}<code>{{ f }}</code>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+    {% endif %}
+    {% if twin %}
+    <p class="twin-link">
+      {% if prob.runtime == 'torch' %}Also as a numpy problem:{% else %}Also in PyTorch:{% endif %}
+      <a href="/problems/{{ twin.slug }}">{{ twin.title }} →</a>
+    </p>
+    {% endif %}
     {% if provided_types %}
     <div class="provided-types">
       <p class="provided-types-label">Provided to your solution (already in scope — don't redefine):</p>

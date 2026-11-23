@@ -1,0 +1,92 @@
+{
+  "dims": {
+    "N": [
+      1,
+      100
+    ],
+    "Din": [
+      1,
+      32
+    ],
+    "Dout": [
+      1,
+      32
+    ]
+  },
+  "inputs": {
+    "X": {
+      "$random": {
+        "shape": [
+          "N",
+          "Din"
+        ],
+        "dist": "uniform",
+        "low": [
+          -10.0,
+          -0.5
+        ],
+        "high": [
+          0.5,
+          10.0
+        ],
+        "step": 0.0625,
+        "dtype": "float64"
+      }
+    },
+    "W": {
+      "$random": {
+        "shape": [
+          "Din",
+          "Dout"
+        ],
+        "dist": "uniform",
+        "low": [
+          -10.0,
+          -0.5
+        ],
+        "high": [
+          0.5,
+          10.0
+        ],
+        "step": 0.0625,
+        "dtype": "float64"
+      }
+    },
+    "b": {
+      "$random": {
+        "shape": [
+          "Dout"
+        ],
+        "dist": "uniform",
+        "low": -10.0,
+        "high": 10.0,
+        "step": 0.0625,
+        "dtype": "float64"
+      }
+    },
+    "dY": {
+      "$random": {
+        "shape": [
+          "N",
+          "Dout"
+        ],
+        "dist": "uniform",
+        "low": -10.0,
+        "high": 10.0,
+        "step": 0.0625,
+        "dtype": "float64"
+      }
+    },
+    "activation": {
+      "$random": {
+        "dist": "choice",
+        "values": [
+          "linear",
+          "relu",
+          "tanh",
+          "sigmoid"
+        ]
+      }
+    }
+  }
+}

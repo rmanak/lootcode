@@ -1,0 +1,14 @@
+{
+  "slug": "ml-coding-pytorch",
+  "title": "ML Coding \u00b7 PyTorch",
+  "subtitle": "The ML Coding problems again, in PyTorch: the same statement, constraints and tests as the numpy version, with tensors in and tensors out, plus fresh random tests on every run.",
+  "problems": [
+    "clip-loss-pytorch",
+    "softmax-cross-entropy-loss-and-gradient-pytorch",
+    "scaled-dot-product-attention-pytorch",
+    "layer-norm-forward-and-backward-pytorch",
+    "gelu-and-stable-sigmoid-pytorch",
+    "dense-layer-backward-pytorch",
+    "info-nce-contrastive-loss-pytorch"
+  ]
+}

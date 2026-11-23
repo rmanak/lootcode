@@ -62,6 +62,7 @@ _LABEL_OVERRIDES = {
     "nlp": "NLP",
     "llm-apps": "LLM Apps",
     "llm-inference": "LLM Inference",
+    "pytorch": "PyTorch",
 }
 
 
