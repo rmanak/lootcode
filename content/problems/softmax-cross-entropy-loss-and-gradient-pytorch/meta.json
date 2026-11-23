@@ -64,6 +64,9 @@
       "torch.func.jacrev",
       "torch.func.jacfwd",
       "torch.func.hessian",
+      "torch.func.linearize",
+      "torch.autograd.forward_ad.make_dual",
+      "torch.autograd.forward_ad.unpack_dual",
       "torch.nn.functional.cross_entropy",
       "torch.nn.functional.nll_loss",
       "torch.nn.functional.log_softmax",
@@ -72,7 +75,12 @@
       "torch.logsumexp",
       "torch.Tensor.logsumexp",
       "torch.special.logsumexp",
-      "torch.special.log_softmax"
+      "torch.special.log_softmax",
+      "torch.ops.aten._log_softmax",
+      "torch.ops.aten._log_softmax_backward_data",
+      "torch.ops.aten.nll_loss_forward",
+      "torch.ops.aten.nll_loss_backward",
+      "torch.ops.aten.logsumexp"
     ],
     "dims": {
       "N": [

@@ -71,18 +71,27 @@
       "torch.func.jacrev",
       "torch.func.jacfwd",
       "torch.func.hessian",
+      "torch.func.linearize",
+      "torch.autograd.forward_ad.make_dual",
+      "torch.autograd.forward_ad.unpack_dual",
       "torch.nn.functional.layer_norm",
       "torch.layer_norm",
-      "torch.native_layer_norm"
+      "torch.native_layer_norm",
+      "torch.nn.functional.group_norm",
+      "torch.group_norm",
+      "torch.ops.aten.native_layer_norm",
+      "torch.ops.aten.native_layer_norm_backward",
+      "torch.ops.aten.native_group_norm",
+      "torch.ops.aten.native_group_norm_backward"
     ],
     "dims": {
       "N": [
         1,
-        64
+        32
       ],
       "D": [
         1,
-        64
+        48
       ]
     },
     "inputs": {

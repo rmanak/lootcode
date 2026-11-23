@@ -1,0 +1,548 @@
+{
+  "cases": [
+    {
+      "name": "example-1",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              0,
+              1,
+              2
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 4,
+        "base": 10000.0
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-2",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              3,
+              10
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 6,
+        "base": 100.0
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "example-3",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              1,
+              0
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 5,
+        "base": 10000.0
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": false
+    },
+    {
+      "name": "d-1",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              0,
+              1,
+              2,
+              3,
+              100
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 1,
+        "base": 10000.0
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "d-2",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 2,
+        "base": 10000.0
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "odd-d-127",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              1764,
+              709,
+              1906,
+              1141,
+              622,
+              253,
+              96,
+              1376,
+              403,
+              1770,
+              1117,
+              1373,
+              53,
+              890,
+              1718,
+              1368,
+              1457,
+              1631,
+              1400,
+              1418,
+              190,
+              1670,
+              512,
+              1743,
+              0,
+              237,
+              1042,
+              1030,
+              1948,
+              279
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 127,
+        "base": 10000.0
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "unsorted-with-repeats",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              9,
+              2,
+              9,
+              0,
+              41,
+              2
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 10,
+        "base": 10000.0
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "large-positions",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              50726,
+              52105,
+              54149,
+              54344,
+              55016,
+              58139,
+              59226,
+              66685,
+              74322,
+              75938,
+              75942,
+              79291,
+              79828,
+              86305,
+              89754,
+              90345,
+              91288,
+              92234,
+              99137,
+              99303
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 32,
+        "base": 10000.0
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "small-base",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              0,
+              3,
+              6,
+              9,
+              12,
+              15,
+              18,
+              21,
+              24,
+              27,
+              30,
+              33,
+              36,
+              39
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 12,
+        "base": 2.0
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "big-base",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 16,
+        "base": 500000.0
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "full-size-100x128",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92,
+              93,
+              94,
+              95,
+              96,
+              97,
+              98,
+              99
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 128,
+        "base": 10000.0
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-1-1",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              55584,
+              86505,
+              69219,
+              40604,
+              69878,
+              71092,
+              90474,
+              84298,
+              8228,
+              11369,
+              92159,
+              18101,
+              43182,
+              24146,
+              18257,
+              78887,
+              38068,
+              33501
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 6,
+        "base": 593840.6
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-1-2",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              96594,
+              62138,
+              94567
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 5,
+        "base": 87939.6
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-1-3",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              22146,
+              12483,
+              60202,
+              20616,
+              72089,
+              93851,
+              37829,
+              57319
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 2,
+        "base": 357201.9
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-1-4",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              54136,
+              72245
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 5,
+        "base": 68064.3
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-1-5",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              22696,
+              1488,
+              17501,
+              93715,
+              56543,
+              20946
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 4,
+        "base": 409022.9
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    },
+    {
+      "name": "gen-1-6",
+      "input": {
+        "positions": {
+          "$tensor": {
+            "data": [
+              47928
+            ],
+            "dtype": "int64"
+          }
+        },
+        "d": 3,
+        "base": 765657.5
+      },
+      "expected": null,
+      "weight": 1,
+      "hidden": true
+    }
+  ]
+}

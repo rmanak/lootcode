@@ -1,0 +1,139 @@
+{
+  "dims": {
+    "N": [
+      2,
+      48
+    ],
+    "d": [
+      1,
+      24
+    ]
+  },
+  "inputs": {
+    "x": {
+      "$random": {
+        "shape": [
+          "N",
+          "d"
+        ],
+        "dist": "normal",
+        "mean": [
+          -5000.0,
+          5000.0
+        ],
+        "std": [
+          0.001,
+          800.0
+        ],
+        "dtype": "float64"
+      }
+    },
+    "gamma": {
+      "$random": {
+        "shape": [
+          "d"
+        ],
+        "dist": "uniform",
+        "low": [
+          -10.0,
+          -0.5
+        ],
+        "high": [
+          0.5,
+          10.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "beta": {
+      "$random": {
+        "shape": [
+          "d"
+        ],
+        "dist": "uniform",
+        "low": [
+          -10.0,
+          -0.5
+        ],
+        "high": [
+          0.5,
+          10.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "dy": {
+      "$random": {
+        "shape": [
+          "N",
+          "d"
+        ],
+        "dist": "uniform",
+        "low": [
+          -10.0,
+          -0.5
+        ],
+        "high": [
+          0.5,
+          10.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "eps": {
+      "$random": {
+        "dist": "choice",
+        "values": [
+          1e-08,
+          1e-05,
+          0.001,
+          0.1
+        ]
+      }
+    },
+    "runningMean": {
+      "$random": {
+        "shape": [
+          "d"
+        ],
+        "dist": "uniform",
+        "low": [
+          -10000.0,
+          -500.0
+        ],
+        "high": [
+          500.0,
+          10000.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "runningVar": {
+      "$random": {
+        "shape": [
+          "d"
+        ],
+        "dist": "uniform",
+        "low": 0.0,
+        "high": [
+          1.0,
+          100000000.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "momentum": {
+      "$random": {
+        "dist": "uniform",
+        "low": 0.0,
+        "high": 1.0,
+        "round": 3
+      }
+    }
+  }
+}

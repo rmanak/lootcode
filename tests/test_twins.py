@@ -113,7 +113,7 @@ def test_forbid_names_are_well_formed(np_dir, tw_dir):
     forbid = _meta(tw_dir)["torch"].get("forbid") or []
     assert isinstance(forbid, list)
     for name in forbid:
-        assert re.fullmatch(r"torch(\.[A-Za-z][A-Za-z0-9_]*)+", name), name
+        assert re.fullmatch(r"torch(\.[A-Za-z][A-Za-z0-9_]*)*\._?[A-Za-z][A-Za-z0-9_]*", name), name
 
 
 @pytest.mark.slow

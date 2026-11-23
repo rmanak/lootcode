@@ -36,6 +36,7 @@ from .inputs import (
     MAX_RUN_ELEMENTS,
     MAX_RUN_TESTS,
     SpecError,
+    check_config,
     count_elements,
     generated_inputs,
     materialize_input,
@@ -137,8 +138,11 @@ def grade(code: str, pv: ProblemView, tests: list[CaseView], *,
                                  "grade against (a problem bug, not yours).")
 
     cfg = pv.runtime_config or {}
-    rtol = float(cfg.get("rtol", DEFAULT_RTOL))
-    atol = float(cfg.get("atol", DEFAULT_ATOL))
+    try:
+        rtol, atol, random_weight = check_config(cfg, DEFAULT_RTOL, DEFAULT_ATOL)
+    except SpecError as exc:
+        return unrunnable(tests, f"This problem's torch settings are invalid (a problem "
+                                 f"bug, not yours): {exc}")
 
     # --- 1. concrete inputs -------------------------------------------------
     cases: list[CaseView] = []
@@ -173,7 +177,7 @@ def grade(code: str, pv: ProblemView, tests: list[CaseView], *,
     for i, inp in enumerate(fresh):
         name = _unique(f"random-{i + 1}", taken)
         cases.append(CaseView(name=name, input=inp, expected=None,
-                              weight=int(cfg.get("random_weight", 1)), hidden=True))
+                              weight=random_weight, hidden=True))
         specs.append(TestSpec(name=name, input=inp))
 
     # --- 2. two sandboxes, in parallel --------------------------------------

@@ -26,6 +26,9 @@ from app.executor.torch_runtime.compare import compare
 from app.executor.torch_runtime.inputs import (
     MAX_ELEMENTS,
     SpecError,
+    check_config,
+    dim_ranges,
+    draw_dims,
     generated_inputs,
     materialize_input,
     materialize_value,
@@ -235,11 +238,83 @@ def test_at_least_one_per_row_fills_an_empty_row():
     {"shape": [4], "dist": "choice", "values": ["relu"]},  # strings: scalar only
     {"dist": "choice", "values": ["x" * 65]},
     {"shape": [4], "min-abs": 0.1},                       # a typo is an error
+    {"shape": [4], "dist": "randint", "high": 1000, "dtype": "int8"},
+    {"shape": [4], "dist": "randint", "high": 9, "step": 1.5},   # int dtype, fractional step
+    {"shape": [4], "dist": "uniform", "low": -1e308, "high": 1e308},  # inf in float32
+    {"shape": [4], "min_abs": 1e-9, "dtype": "float16"},  # 0 once it is a float16
 ])
 def test_bad_generator_options_are_spec_errors(spec):
     ptype = "string" if spec.get("dist") == "choice" else "float[]"
     with pytest.raises(SpecError):
         materialize_value({"$random": spec}, ptype, seed=1)
+
+
+def test_a_tensor_literal_rejects_unknown_keys_and_out_of_range_ints():
+    with pytest.raises(SpecError, match="does not take"):
+        materialize_value({"$tensor": {"data": [1, 2], "dtpye": "int64"}}, "Tensor", seed=1)
+    for data, dtype in (([300], "uint8"), ([1e30], "int64"), ([1.5], "int32"),
+                        ([1e10], "float16")):
+        with pytest.raises(SpecError):
+            materialize_value({"$tensor": {"data": data, "dtype": dtype}}, "Tensor", seed=1)
+    # an explicit inf / nan in a literal is allowed (a test of overflow handling)
+    materialize_value({"$tensor": {"data": [float("inf"), 2.0]}}, "Tensor", seed=1)
+    materialize_value({"$tensor": {"data": [3.0], "dtype": "int64"}}, "Tensor", seed=1)
+
+
+def test_dims_can_be_expressions_over_earlier_dims():
+    spec = {"H": [1, 16], "r": [0, 9999], "hd": "1 + r % (32 // H)", "D": "H*hd",
+            "s": [1, 4], "Ho": [1, 7], "k": [1, 5], "W": "(Ho-1)*s + k + r % s"}
+    import random
+    for i in range(300):
+        d = draw_dims(spec, random.Random(i))
+        assert d["D"] == d["H"] * d["hd"] <= 32 and d["D"] % d["H"] == 0
+        assert (d["W"] - d["k"]) // d["s"] + 1 == d["Ho"]
+    assert dim_ranges(spec)["hd"] == (1, 32)
+
+
+@pytest.mark.parametrize("dims", [
+    {"a": "b"},                    # not declared before it
+    {"a": [0, 2], "b": "3 // a"},  # may divide by zero
+    {"a": [0, 3], "b": "a - 2"},   # may go negative
+    {"a": "1 +"}, {"a": "(1"}, {"a": "2 ** 3"}, {"a": "__import__"},
+    {"a": "x" * 70}, [1, 2],
+])
+def test_bad_dim_expressions_fail_before_any_draw(dims):
+    with pytest.raises(SpecError):
+        dim_ranges(dims)
+
+
+def test_a_scalar_parameter_can_be_a_drawn_dim():
+    cfg = {"dims": {"H": [1, 4], "kh": [1, 3], "kw": [1, 3]},
+           "inputs": {"n": {"$dim": "H"}, "k": {"$dim": ["kh", "kw"]},
+                      "x": {"$random": {"shape": ["H", "kw"]}}}}
+    params = [{"name": "n", "type": "int"}, {"name": "k", "type": "int[]"},
+              {"name": "x", "type": "Tensor"}]
+    for inp in generated_inputs(cfg, params, seed=3, count=20):
+        shape = inp["x"]["$tensor"]["shape"]
+        assert inp["n"] == shape[0] and inp["k"][1] == shape[1] and len(inp["k"]) == 2
+    with pytest.raises(SpecError):
+        materialize_value({"$dim": "H"}, "Tensor", seed=1, dims={"H": 2})
+    with pytest.raises(SpecError):
+        materialize_value({"$dim": "Q"}, "int", seed=1, dims={"H": 2})
+
+
+@pytest.mark.parametrize("cfg", [
+    {"random_test": 5},                       # a typo would silently mean "no random tests"
+    {"rtol": float("nan")}, {"atol": -1}, {"rtol": "1e-5"},
+    {"random_weight": 0}, {"random_tests": 51},
+])
+def test_a_bad_torch_block_is_a_spec_error(cfg):
+    with pytest.raises(SpecError):
+        check_config(cfg, 1e-5, 1e-6)
+
+
+def test_dim_named_randint_bounds_are_checked_inside_tensor_lists_too():
+    cfg = {"dims": {"A": [0, 5], "B": [1, 6]},
+           "inputs": {"xs": [{"$random": {"dist": "randint", "low": "A", "high": "B",
+                                           "shape": [2]}}]}}
+    with pytest.raises(SpecError, match="extremes"):
+        generated_inputs(cfg, [{"name": "xs", "type": "Tensor[]"}], seed=1, count=1)
 
 
 def test_min_abs_survives_step_and_integer_dtypes():
@@ -426,7 +501,8 @@ def test_a_bad_forbid_list_is_a_problem_bug_on_every_test(bad):
 
 @needs_torch
 @pytest.mark.slow
-@pytest.mark.parametrize("bad", ["torch.os.fdopen", "torch.builtins.open",
+@pytest.mark.parametrize("bad", ["torch.os.fdopen", "torch.builtins.open", "torch.classes.foo.bar",
+                                 "torch._C._nn.linear", "torch.ops.aten.__x",
                                  "torch.Tensor", "torch.Tensor.__getattribute__",
                                  "torch._C._nn", "torch.float32"])
 def test_forbid_cannot_leave_torch_or_name_a_non_function(bad):
@@ -446,6 +522,26 @@ def test_forbidding_what_the_codec_uses_cannot_break_an_honest_answer():
             "    return e / e.sum(-1, keepdim=True)\n")
     g = run_submission(hand, prob, TESTS)
     assert g.solved, [(r.name, r.error) for r in g.results]
+
+
+@needs_torch
+@pytest.mark.slow
+def test_a_bad_torch_block_is_a_problem_bug_on_every_test():
+    prob = {**PROB, "runtime_config": {"rtol": "loose"}}
+    g = run_submission(CANON, prob, TESTS)
+    assert all(r.status == "error" and "a problem bug" in r.error for r in g.results)
+
+
+@needs_torch
+@pytest.mark.slow
+@pytest.mark.parametrize("name", ["torch.ops.aten._softmax", "torch.ops.aten.softmax"])
+def test_forbid_may_name_a_private_aten_kernel(name):
+    prob = {**PROB, "runtime_config": {**PROB["runtime_config"], "forbid": [name]}}
+    code = ("def softmax_rows(x):\n"
+            f"    return {name}(x, -1, False)\n")
+    g = run_submission(code, prob, TESTS)
+    assert all(r.status == "error" and "not allowed" in r.error for r in g.results)
+    assert run_submission(CANON, prob, TESTS).solved  # the public softmax still works
 
 
 @needs_torch

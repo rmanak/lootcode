@@ -1,0 +1,197 @@
+{
+  "slug": "grouped-query-attention-pytorch",
+  "title": "Grouped-Query Attention (PyTorch)",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "transformer",
+    "matrix",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "groupedQueryAttention",
+    "params": [
+      {
+        "name": "X",
+        "type": "Tensor"
+      },
+      {
+        "name": "Wq",
+        "type": "Tensor"
+      },
+      {
+        "name": "Wk",
+        "type": "Tensor"
+      },
+      {
+        "name": "Wv",
+        "type": "Tensor"
+      },
+      {
+        "name": "Wo",
+        "type": "Tensor"
+      },
+      {
+        "name": "numHeads",
+        "type": "int"
+      },
+      {
+        "name": "numKvHeads",
+        "type": "int"
+      }
+    ],
+    "returns": {
+      "type": "Tensor"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "grouped-query-attention",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.nn.functional.scaled_dot_product_attention",
+      "torch.nn.functional.multi_head_attention_forward",
+      "torch.ops.aten.scaled_dot_product_attention",
+      "torch.ops.aten._scaled_dot_product_attention_math"
+    ],
+    "dims": {
+      "T": [
+        1,
+        32
+      ],
+      "Hkv": [
+        1,
+        4
+      ],
+      "g": [
+        1,
+        8
+      ],
+      "H": "Hkv*g",
+      "r": [
+        0,
+        9999
+      ],
+      "hd": "1 + r % (32 // H)",
+      "D": "H*hd",
+      "KV": "Hkv*hd"
+    },
+    "inputs": {
+      "X": {
+        "$random": {
+          "shape": [
+            "T",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "Wq": {
+        "$random": {
+          "shape": [
+            "D",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "Wk": {
+        "$random": {
+          "shape": [
+            "D",
+            "KV"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "Wv": {
+        "$random": {
+          "shape": [
+            "D",
+            "KV"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "Wo": {
+        "$random": {
+          "shape": [
+            "D",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "numHeads": {
+        "$dim": "H"
+      },
+      "numKvHeads": {
+        "$dim": "Hkv"
+      }
+    }
+  }
+}

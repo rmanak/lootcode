@@ -43,10 +43,9 @@ The derivative is evaluated at the pre-activation $Z$, not at $Y$.
 Write it in **PyTorch** (`torch` is already imported). `X`, `W`, `b` and `dY`
 arrive as float64 tensors and `activation` as a plain Python value. Return the
 structure described above with a tensor in place of each list of numbers and a
-0-dim tensor in place of each single number (of the inputs' float dtype, or
-int64 for integers). The examples print tensors as nested lists. **Autograd is
-off-limits**: derive the gradients by hand (`.backward()`, `torch.autograd` and
-`torch.func` raise).
+0-dim tensor in place of each single number (float64; int64 for integers). The
+examples print tensors as nested lists. **Autograd is off-limits**: derive the
+gradients by hand (`.backward()`, `torch.autograd` and `torch.func` raise).
 
 Your answer is checked against the reference implementation with
 `torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape

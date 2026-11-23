@@ -71,7 +71,10 @@
       "torch.func.jvp",
       "torch.func.jacrev",
       "torch.func.jacfwd",
-      "torch.func.hessian"
+      "torch.func.hessian",
+      "torch.func.linearize",
+      "torch.autograd.forward_ad.make_dual",
+      "torch.autograd.forward_ad.unpack_dual"
     ],
     "dims": {
       "N": [

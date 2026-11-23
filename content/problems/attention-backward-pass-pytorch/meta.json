@@ -1,0 +1,182 @@
+{
+  "slug": "attention-backward-pass-pytorch",
+  "title": "Attention Backward Pass (PyTorch)",
+  "difficulty": "hard",
+  "tags": [
+    "machine-learning",
+    "backpropagation",
+    "transformer",
+    "matrix",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "attentionBackward",
+    "params": [
+      {
+        "name": "Q",
+        "type": "Tensor"
+      },
+      {
+        "name": "K",
+        "type": "Tensor"
+      },
+      {
+        "name": "V",
+        "type": "Tensor"
+      },
+      {
+        "name": "dO",
+        "type": "Tensor"
+      },
+      {
+        "name": "causal",
+        "type": "bool"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "attention-backward-pass",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.Tensor.backward",
+      "torch.autograd.grad",
+      "torch.autograd.backward",
+      "torch.autograd.functional.jacobian",
+      "torch.autograd.functional.vjp",
+      "torch.autograd.functional.jvp",
+      "torch.autograd.functional.hessian",
+      "torch.autograd.functional.vhp",
+      "torch.autograd.functional.hvp",
+      "torch.func.grad",
+      "torch.func.grad_and_value",
+      "torch.func.vjp",
+      "torch.func.jvp",
+      "torch.func.jacrev",
+      "torch.func.jacfwd",
+      "torch.func.hessian",
+      "torch.func.linearize",
+      "torch.autograd.forward_ad.make_dual",
+      "torch.autograd.forward_ad.unpack_dual",
+      "torch.nn.functional.scaled_dot_product_attention",
+      "torch.nn.functional.multi_head_attention_forward",
+      "torch.ops.aten.scaled_dot_product_attention",
+      "torch.ops.aten._scaled_dot_product_attention_math",
+      "torch.ops.aten._softmax_backward_data"
+    ],
+    "dims": {
+      "n": [
+        1,
+        32
+      ],
+      "d": [
+        1,
+        16
+      ],
+      "dv": [
+        1,
+        16
+      ]
+    },
+    "inputs": {
+      "Q": {
+        "$random": {
+          "shape": [
+            "n",
+            "d"
+          ],
+          "dist": "uniform",
+          "low": [
+            -30.0,
+            -1.5
+          ],
+          "high": [
+            1.5,
+            30.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "K": {
+        "$random": {
+          "shape": [
+            "n",
+            "d"
+          ],
+          "dist": "uniform",
+          "low": [
+            -30.0,
+            -1.5
+          ],
+          "high": [
+            1.5,
+            30.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "V": {
+        "$random": {
+          "shape": [
+            "n",
+            "dv"
+          ],
+          "dist": "uniform",
+          "low": [
+            -30.0,
+            -1.5
+          ],
+          "high": [
+            1.5,
+            30.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "dO": {
+        "$random": {
+          "shape": [
+            "n",
+            "dv"
+          ],
+          "dist": "uniform",
+          "low": [
+            -30.0,
+            -1.5
+          ],
+          "high": [
+            1.5,
+            30.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "causal": {
+        "$random": {
+          "dist": "bernoulli"
+        }
+      }
+    }
+  }
+}

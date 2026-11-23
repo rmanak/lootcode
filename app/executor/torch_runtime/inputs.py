@@ -72,23 +72,212 @@ def derive_seed(*parts: object) -> int:
     return zlib.crc32("\x1f".join(map(str, parts)).encode("utf-8"))
 
 
+# --- the torch block -------------------------------------------------------
+#: Every key a problem's ``torch`` block may carry. A typo (``"random_test"``)
+#: would otherwise silently mean "no random tests".
+CONFIG_KEYS = frozenset({"twin", "rtol", "atol", "random_tests", "random_weight",
+                         "forbid", "dims", "inputs"})
+
+
+def check_config(config: Mapping | None, default_rtol: float,
+                 default_atol: float) -> tuple[float, float, int]:
+    """Validate the ``torch`` block up front; ``(rtol, atol, random_weight)``.
+    A bad value is a problem bug reported on every test, never a 500, and never
+    a NaN tolerance that would silently fail every answer."""
+    config = config or {}
+    if not isinstance(config, Mapping):
+        raise SpecError("the torch block must be an object")
+    unknown = sorted(set(config) - CONFIG_KEYS)
+    if unknown:
+        raise SpecError(f"the torch block does not take {unknown}")
+    tol = []
+    for key, default in (("rtol", default_rtol), ("atol", default_atol)):
+        v = config.get(key, default)
+        if not _finite_num(v) or v < 0:  # type: ignore[operator]
+            raise SpecError(f"torch.{key} must be a finite number >= 0, got {v!r}")
+        tol.append(float(v))  # type: ignore[arg-type]
+    weight = config.get("random_weight", 1)
+    if not (isinstance(weight, int) and not isinstance(weight, bool) and 1 <= weight <= 100):
+        raise SpecError(f"torch.random_weight must be an int from 1 to 100, got {weight!r}")
+    n = config.get("random_tests", 0)
+    if not (isinstance(n, int) and not isinstance(n, bool) and 0 <= n <= MAX_RANDOM_TESTS):
+        raise SpecError(f"torch.random_tests must be an int from 0 to {MAX_RANDOM_TESTS}, "
+                        f"got {n!r}")
+    return tol[0], tol[1], weight
+
+
 # --- dims ------------------------------------------------------------------
 def draw_dims(spec: Mapping | None, rng: random.Random) -> dict[str, int]:
-    """Resolve symbolic dims: an int is fixed, ``[lo, hi]`` is drawn inclusive."""
+    """Resolve symbolic dims: an int is fixed, ``[lo, hi]`` is drawn inclusive,
+    and a string is an expression over the dims declared before it
+    (``"D": "H*hd"``, ``"Ho": "(H-kh)//s+1"``; see :func:`_parse_dim_expr`).
+    ``%`` draws a dim bounded by another: with ``"r": [0, 9999]``,
+    ``"hd": "1 + r % (32 // H)"`` keeps ``H * hd <= 32`` for every ``H``."""
     out: dict[str, int] = {}
     for name, v in (spec or {}).items():
         if isinstance(v, bool):
-            raise SpecError(f"dim {name!r} must be an int or [lo, hi]")
+            raise SpecError(f"dim {name!r} must be an int, [lo, hi] or an expression")
         if isinstance(v, int):
             out[name] = v
         elif (isinstance(v, list) and len(v) == 2
               and all(isinstance(x, int) and not isinstance(x, bool) for x in v)
               and v[0] <= v[1]):
             out[name] = rng.randint(v[0], v[1])
+        elif isinstance(v, str):
+            out[name] = _eval_dim(_parse_dim_expr(v), out, name)
         else:
-            raise SpecError(f"dim {name!r} must be an int or [lo, hi], got {v!r}")
-        if out[name] < 0:
-            raise SpecError(f"dim {name!r} is negative")
+            raise SpecError(f"dim {name!r} must be an int, [lo, hi] or an expression, "
+                            f"got {v!r}")
+        if not 0 <= out[name] <= MAX_ELEMENTS:
+            raise SpecError(f"dim {name!r} = {out[name]} is outside [0, {MAX_ELEMENTS}]")
+    return out
+
+
+#: Longest dim expression; it also bounds the parser's recursion depth.
+MAX_DIM_EXPR = 64
+
+
+def _parse_dim_expr(text: str) -> tuple:
+    """A dim expression as a small tree. Grammar (no ``eval``, no ``ast``)::
+
+        expr := term (("+" | "-") term)*
+        term := atom (("*" | "//" | "%") atom)*
+        atom := INT | NAME | "(" expr ")"
+    """
+    if len(text) > MAX_DIM_EXPR:
+        raise SpecError(f"dim expression {text[:20]!r}... is over {MAX_DIM_EXPR} characters")
+    tokens: list[str] = []
+    i = 0
+    while i < len(text):
+        c = text[i]
+        if c == " ":
+            i += 1
+        elif text.startswith("//", i):
+            tokens.append("//")
+            i += 2
+        elif c in "+-*%()":
+            tokens.append(c)
+            i += 1
+        elif c.isascii() and (c.isalnum() or c == "_"):
+            j = i
+            while j < len(text) and text[j].isascii() and (text[j].isalnum() or text[j] == "_"):
+                j += 1
+            tokens.append(text[i:j])
+            i = j
+        else:
+            raise SpecError(f"dim expression {text!r}: unexpected {c!r}")
+    pos = 0
+
+    def peek() -> str | None:
+        return tokens[pos] if pos < len(tokens) else None
+
+    def take() -> str:
+        nonlocal pos
+        if pos >= len(tokens):
+            raise SpecError(f"dim expression {text!r} ends early")
+        pos += 1
+        return tokens[pos - 1]
+
+    def atom() -> tuple:
+        t = take()
+        if t == "(":
+            node = expr()
+            if take() != ")":
+                raise SpecError(f"dim expression {text!r}: unbalanced parentheses")
+            return node
+        if t.isdigit():
+            return ("int", int(t))
+        if t[0].isalpha() or t[0] == "_":
+            return ("dim", t)
+        raise SpecError(f"dim expression {text!r}: unexpected {t!r}")
+
+    def term() -> tuple:
+        node = atom()
+        while peek() in ("*", "//", "%"):
+            node = (take(), node, atom())
+        return node
+
+    def expr() -> tuple:
+        node = term()
+        while peek() in ("+", "-"):
+            node = (take(), node, term())
+        return node
+
+    tree = expr()
+    if pos != len(tokens):
+        raise SpecError(f"dim expression {text!r}: unexpected {tokens[pos]!r}")
+    return tree
+
+
+def _eval_dim(node: tuple, dims: Mapping[str, int], name: str) -> int:
+    kind = node[0]
+    if kind == "int":
+        return node[1]
+    if kind == "dim":
+        if node[1] not in dims:
+            raise SpecError(f"dim {name!r} uses {node[1]!r}, which is not declared before it")
+        return dims[node[1]]
+    a, b = _eval_dim(node[1], dims, name), _eval_dim(node[2], dims, name)
+    if kind == "+":
+        return a + b
+    if kind == "-":
+        return a - b
+    if kind == "*":
+        return a * b
+    if b <= 0:
+        raise SpecError(f"dim {name!r} divides by {b}")
+    return a // b if kind == "//" else a % b
+
+
+def _dim_interval(node: tuple, ranges: Mapping[str, tuple[int, int]],
+                  name: str) -> tuple[int, int]:
+    """The range an expression can take, by interval arithmetic over the
+    ranges of the dims it names (sound, possibly loose)."""
+    kind = node[0]
+    if kind == "int":
+        return node[1], node[1]
+    if kind == "dim":
+        if node[1] not in ranges:
+            raise SpecError(f"dim {name!r} uses {node[1]!r}, which is not declared before it")
+        return ranges[node[1]]
+    (a, b), (c, d) = _dim_interval(node[1], ranges, name), _dim_interval(node[2], ranges, name)
+    if kind == "+":
+        return a + c, b + d
+    if kind == "-":
+        return a - d, b - c
+    if kind == "*":
+        corners = (a * c, a * d, b * c, b * d)
+        return min(corners), max(corners)
+    if c <= 0:
+        raise SpecError(f"dim {name!r} may divide by {c}")
+    if kind == "%":
+        return (a, b) if a >= 0 and b < c else (0, d - 1)
+    corners = (a // c, a // d, b // c, b // d)
+    return min(corners), max(corners)
+
+
+def dim_ranges(spec: Mapping | None) -> dict[str, tuple[int, int]]:
+    """Every dim's possible ``(min, max)``, checked statically: an expression
+    that could go negative, or divide by zero, for some draw is an error now,
+    not on the one seed that hits it."""
+    if spec is not None and not isinstance(spec, Mapping):
+        raise SpecError("torch.dims must be an object")
+    out: dict[str, tuple[int, int]] = {}
+    for name, v in (spec or {}).items():
+        if isinstance(v, int) and not isinstance(v, bool):
+            out[name] = (v, v)
+        elif isinstance(v, list) and len(v) == 2 and all(
+                isinstance(x, int) and not isinstance(x, bool) for x in v) and v[0] <= v[1]:
+            out[name] = (v[0], v[1])
+        elif isinstance(v, str):
+            out[name] = _dim_interval(_parse_dim_expr(v), out, name)
+        else:
+            raise SpecError(f"dim {name!r} must be an int, [lo, hi] or an expression, "
+                            f"got {v!r}")
+        lo, hi = out[name]
+        if lo < 0 or hi > MAX_ELEMENTS:
+            raise SpecError(f"dim {name!r} can be {lo if lo < 0 else hi}, outside "
+                            f"[0, {MAX_ELEMENTS}]")
     return out
 
 
@@ -290,11 +479,18 @@ def is_tensor_value(v: object) -> bool:
     return isinstance(v, dict) and set(v) == {"$tensor"} and isinstance(v["$tensor"], dict)
 
 
+_TENSOR_KEYS = frozenset({"data", "shape", "dtype", "requires_grad"})
+
+
 def _literal_tensor(spec: Mapping) -> dict:
     if "data" not in spec:
         raise SpecError("$tensor needs 'data'")
+    unknown = sorted(set(spec) - _TENSOR_KEYS)
+    if unknown:  # "dtpye" would silently make an int tensor float32
+        raise SpecError(f"$tensor does not take {unknown}")
     flat, inferred = _flatten(spec["data"])
     dtype = _dtype(spec.get("dtype", DEFAULT_DTYPE))
+    _check_range(flat, dtype, finite=False)
     shape = inferred
     if "shape" in spec:
         shape = _resolve_shape(spec["shape"], {})
@@ -361,15 +557,34 @@ def materialize_value(value: object, ptype: str, *, seed: int,
             data = [round(x, digits) for x in data]
         step = spec.get("step")
         if step is not None:  # e.g. multiples of 1/16, so sums are exact in float32
+            if dtype not in FLOAT_DTYPES and not (_finite_num(step) and float(step).is_integer()):
+                raise SpecError(f"an {dtype} draw needs an integer step, got {step!r}")
             data = _quantize(data, step)
         if "min_abs" in spec:  # keep values off zero (e.g. "row norm >= 0.1")
             data = _off_zero(data, spec["min_abs"], step, dtype)
+        _check_range(data, dtype, finite=True)
         if spec.get("at_least_one_per_row"):
             _ensure_each_row(data, shape, rng)
         if is_tensor:
             return tensor_value(shape or [], dtype, data,
                                 requires_grad=bool(spec.get("requires_grad")))
         return data[0] if shape is None else _unflatten(data, shape)
+
+    if isinstance(value, dict) and set(value) == {"$dim"}:
+        # A plain int equal to a drawn dim (``numHeads`` = ``"H"``), or a list
+        # of them (a kernel size ``["kh", "kw"]``), so a scalar parameter and
+        # the shapes it governs agree in every generated test.
+        ref = value["$dim"]
+        names = ref if isinstance(ref, list) else [ref]
+        if is_tensor or not names or len(names) > MAX_RANK or not all(
+                isinstance(n, str) for n in names):
+            raise SpecError("$dim is a dim name or a short list of them, for a "
+                            "non-tensor parameter")
+        missing = [n for n in names if n not in dims]
+        if missing:
+            raise SpecError(f"$dim uses {missing}, which no 'dims' entry defines")
+        got = [dims[n] for n in names]
+        return got if isinstance(ref, list) else got[0]
 
     if isinstance(value, dict) and set(value) == {"$tensor"}:
         if not isinstance(value["$tensor"], dict):
@@ -402,8 +617,35 @@ def _quantize(data: list, step: object) -> list:
     return out
 
 
-#: Below this a ``min_abs`` would underflow to 0 in a float32 tensor.
-_FLOAT32_TINY = 1.1754943508222875e-38
+#: Each dtype's representable range, and its smallest normal float: a value
+#: outside it would reach both sandboxes as inf, 0 or a wrapped integer.
+_INT_RANGE = {"int64": (INT64_MIN, INT64_MAX), "int32": (-(2 ** 31), 2 ** 31 - 1),
+              "int16": (-(2 ** 15), 2 ** 15 - 1), "int8": (-128, 127), "uint8": (0, 255)}
+_FLOAT_MAX = {"float64": 1.7976931348623157e308, "float32": 3.4028234663852886e38,
+              "bfloat16": 3.3895313892515355e38, "float16": 65504.0}
+_FLOAT_TINY = {"float64": 2.2250738585072014e-308, "float32": 1.1754943508222875e-38,
+               "bfloat16": 1.1754943508222875e-38, "float16": 6.103515625e-05}
+
+
+def _check_range(data: list, dtype: str, *, finite: bool) -> None:
+    """Every value fits ``dtype``: an integer dtype takes integers (or integral
+    floats) in its range, a float dtype finite values below its max. Random
+    draws must be finite; a literal may hold inf or nan on purpose."""
+    nums = [x for x in data if not isinstance(x, bool)]
+    if dtype in _INT_RANGE:
+        lo, hi = _INT_RANGE[dtype]
+        for x in nums:
+            if isinstance(x, float) and not (math.isfinite(x) and x.is_integer()):
+                raise SpecError(f"{x!r} is not an integer, so it does not fit {dtype}")
+            if not lo <= x <= hi:
+                raise SpecError(f"a value does not fit {dtype} [{lo}, {hi}]")
+    elif dtype in _FLOAT_MAX:
+        top = _FLOAT_MAX[dtype]
+        for x in nums:
+            if math.isfinite(x) and abs(x) > top:
+                raise SpecError(f"{x!r} overflows {dtype}")
+            if finite and not math.isfinite(x):
+                raise SpecError(f"a random value is not finite in {dtype}")
 
 
 def _off_zero(data: list, a: object, step: object, dtype: str) -> list:
@@ -413,8 +655,8 @@ def _off_zero(data: list, a: object, step: object, dtype: str) -> list:
     an integer for an integer dtype), so neither option can undo the other."""
     if not _finite_num(a) or a < 0:  # type: ignore[operator]
         raise SpecError(f"min_abs must be a non-negative number, got {a!r}")
-    if 0 < a < _FLOAT32_TINY:  # type: ignore[operator]
-        raise SpecError(f"min_abs {a!r} would underflow to 0 in a float32 tensor")
+    if 0 < a < _FLOAT_TINY.get(dtype, 0.0):  # type: ignore[operator]
+        raise SpecError(f"min_abs {a!r} would underflow to 0 in a {dtype} tensor")
     bound = float(a)  # type: ignore[arg-type]
     if step is not None:
         bound = math.ceil(bound / step) * step  # type: ignore[operator]
@@ -452,11 +694,18 @@ def _coerce(data: list, dtype: str) -> list:
 
 
 def _count(value: object) -> int:
-    if is_tensor_value(value):
-        return len(value["$tensor"]["data"])  # type: ignore[index]
-    if isinstance(value, list):
-        return sum(_count(v) for v in value)
-    return 1
+    """Numbers in a value. Iterative: a deeply nested plain input must be a
+    SpecError-free count, not a RecursionError the grader does not catch."""
+    total, stack = 0, [value]
+    while stack:
+        v = stack.pop()
+        if is_tensor_value(v):
+            total += len(v["$tensor"]["data"])  # type: ignore[index]
+        elif isinstance(v, list):
+            stack.extend(v)
+        else:
+            total += 1
+    return total
 
 
 def count_elements(inp: Mapping) -> int:
@@ -495,26 +744,27 @@ def materialize_input(inp: Mapping, params: list, *, seed_base: object,
     return out
 
 
-def _dim_range(dims: Mapping | None, name: str) -> tuple[int, int]:
-    v = (dims or {}).get(name)
-    if isinstance(v, list) and len(v) == 2:
-        return int(v[0]), int(v[1])
-    if isinstance(v, int) and not isinstance(v, bool):
-        return v, v
-    raise SpecError(f"randint bound names dim {name!r}, which no 'dims' entry defines")
+def _dim_range(ranges: Mapping[str, tuple[int, int]], name: str) -> tuple[int, int]:
+    if name not in ranges:
+        raise SpecError(f"randint bound names dim {name!r}, which no 'dims' entry defines")
+    return ranges[name]
 
 
 def _check_dim_bounds(dims: Mapping | None, inputs: Mapping) -> None:
     """A ``randint`` bound that names a dim must keep ``low < high`` for EVERY
     value the dim can take — otherwise the generator fails on some seeds only,
-    which shows up as an intermittent broken run instead of a content error."""
-    for name, value in inputs.items():
+    which shows up as an intermittent broken run instead of a content error.
+    Computing the ranges also checks every dim expression statically."""
+    ranges = dim_ranges(dims)
+    flat = [(name, v) for name, value in inputs.items()
+            for v in (value if isinstance(value, list) else [value])]  # Tensor[] too
+    for name, value in flat:
         spec = value.get("$random") if isinstance(value, Mapping) else None
         if not isinstance(spec, Mapping) or spec.get("dist") != "randint":
             continue
         lo, hi = spec.get("low", 0), spec.get("high")
-        lo_max = _dim_range(dims, lo)[1] if isinstance(lo, str) else lo
-        hi_min = _dim_range(dims, hi)[0] if isinstance(hi, str) else hi
+        lo_max = _dim_range(ranges, lo)[1] if isinstance(lo, str) else lo
+        hi_min = _dim_range(ranges, hi)[0] if isinstance(hi, str) else hi
         if isinstance(lo_max, int) and isinstance(hi_min, int) and not lo_max < hi_min:
             raise SpecError(f"{name}: randint low < high fails when the dims are at "
                             f"their extremes (low up to {lo_max}, high down to {hi_min})")

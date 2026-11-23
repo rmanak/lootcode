@@ -6,9 +6,17 @@
     "clip-loss-pytorch",
     "softmax-cross-entropy-loss-and-gradient-pytorch",
     "scaled-dot-product-attention-pytorch",
+    "multi-head-causal-self-attention-pytorch",
     "layer-norm-forward-and-backward-pytorch",
     "gelu-and-stable-sigmoid-pytorch",
     "dense-layer-backward-pytorch",
-    "info-nce-contrastive-loss-pytorch"
+    "batch-norm-training-forward-backward-pytorch",
+    "max-pool-forward-backward-pytorch",
+    "grouped-query-attention-pytorch",
+    "rotary-position-embedding-pytorch",
+    "sinusoidal-positional-encoding-pytorch",
+    "info-nce-contrastive-loss-pytorch",
+    "attention-backward-pass-pytorch",
+    "distance-decay-attention-pytorch"
   ]
 }

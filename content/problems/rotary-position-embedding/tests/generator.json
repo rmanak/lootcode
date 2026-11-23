@@ -1,0 +1,67 @@
+{
+  "dims": {
+    "T": [
+      1,
+      64
+    ],
+    "half": [
+      1,
+      32
+    ],
+    "d": "2*half"
+  },
+  "inputs": {
+    "x": {
+      "$random": {
+        "shape": [
+          "T",
+          "d"
+        ],
+        "dist": "uniform",
+        "low": [
+          -10.0,
+          -0.5
+        ],
+        "high": [
+          0.5,
+          10.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "positions": {
+      "$random": {
+        "shape": [
+          "T"
+        ],
+        "dist": "randint",
+        "low": 0,
+        "high": 100001
+      }
+    },
+    "base": {
+      "$random": {
+        "dist": "uniform",
+        "low": [
+          2.0,
+          100.0
+        ],
+        "high": [
+          200.0,
+          1000000.0
+        ],
+        "round": 1
+      }
+    },
+    "style": {
+      "$random": {
+        "dist": "choice",
+        "values": [
+          "interleaved",
+          "half"
+        ]
+      }
+    }
+  }
+}

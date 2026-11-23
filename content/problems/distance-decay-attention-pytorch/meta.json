@@ -1,0 +1,159 @@
+{
+  "slug": "distance-decay-attention-pytorch",
+  "title": "Distance-Decay Attention (ALiBi) (PyTorch)",
+  "difficulty": "medium",
+  "tags": [
+    "machine-learning",
+    "transformer",
+    "matrix",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "distanceDecayAttention",
+    "params": [
+      {
+        "name": "Q",
+        "type": "Tensor"
+      },
+      {
+        "name": "K",
+        "type": "Tensor"
+      },
+      {
+        "name": "V",
+        "type": "Tensor"
+      },
+      {
+        "name": "slopes",
+        "type": "Tensor"
+      },
+      {
+        "name": "causal",
+        "type": "bool"
+      }
+    ],
+    "returns": {
+      "type": "Tensor"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "distance-decay-attention",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.nn.functional.scaled_dot_product_attention",
+      "torch.nn.functional.multi_head_attention_forward",
+      "torch.ops.aten.scaled_dot_product_attention",
+      "torch.ops.aten._scaled_dot_product_attention_math"
+    ],
+    "dims": {
+      "n": [
+        1,
+        64
+      ],
+      "H": [
+        1,
+        8
+      ],
+      "r": [
+        0,
+        9999
+      ],
+      "hd": "1 + r % (64 // H)",
+      "D": "H*hd"
+    },
+    "inputs": {
+      "Q": {
+        "$random": {
+          "shape": [
+            "n",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": [
+            -30.0,
+            -1.5
+          ],
+          "high": [
+            1.5,
+            30.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "K": {
+        "$random": {
+          "shape": [
+            "n",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": [
+            -30.0,
+            -1.5
+          ],
+          "high": [
+            1.5,
+            30.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "V": {
+        "$random": {
+          "shape": [
+            "n",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": [
+            -30.0,
+            -1.5
+          ],
+          "high": [
+            1.5,
+            30.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "slopes": {
+        "$random": {
+          "shape": [
+            "H"
+          ],
+          "dist": "uniform",
+          "low": 0.0,
+          "high": [
+            0.01,
+            50.0
+          ],
+          "round": 4,
+          "dtype": "float64"
+        }
+      },
+      "causal": {
+        "$random": {
+          "dist": "bernoulli"
+        }
+      }
+    }
+  }
+}

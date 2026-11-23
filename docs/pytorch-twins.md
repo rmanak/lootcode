@@ -102,7 +102,10 @@ being practised.
 S=scripts/sync_twin_tests.py
 # 1. A generator for the numpy problem, written from its validator's bounds
 #    (uniform low/high ranges keep draws in bounds; see torch-runtime.md for
-#    min_abs / step / at_least_one_per_row / randint "high": "<dim>").
+#    min_abs / step / at_least_one_per_row / randint "high": "<dim>", dim
+#    expressions such as "D": "H*hd", and {"$dim": "H"} for a scalar like
+#    numHeads). Size the dims for the OUTPUTS: one run's answers share a ~1 MB
+#    result budget (check fails past 60% of it).
 $EDITOR content/problems/<slug>/tests/generator.json
 # 2. Bake random hidden cases into the numpy problem.
 .venv/bin/python $S bake <slug> --write
@@ -110,13 +113,20 @@ $EDITOR content/problems/<slug>/tests/generator.json
 .venv/bin/python $S scaffold <slug> --autograd-forbidden --write
 #    Then by hand:
 #    - solution/solution.py: the reference, using autograd/built-ins freely;
-#    - meta.json torch.forbid: add the built-in that IS the exercise;
+#    - meta.json torch.forbid: add the built-in that IS the exercise, its
+#      neighbours that do the same job (F.layer_norm on x.T is a batch norm)
+#      and their torch.ops.aten kernels (private ones too: _log_softmax);
 #    - meta.json function.returns: "any[]" when the numpy answer is a list of
 #      separate arrays, not one matrix;
 #    - starters/python/solution.py: a docstring with shapes and dtypes;
+#    - a parameter that should stay a plain list (a kernel size [kH, kW]):
+#      set its type back to the numpy one, e.g. "int[]";
 #    - problem.md: scaffold replaced the "You may use numpy" and "Answers are
 #      accepted" paragraphs; fix anything else numpy-specific
-#      (math.exp, OverflowError, "about 709" in float32).
+#      (math.exp, OverflowError, "about 709" in float32, numpy.argmax).
+#      After any meta edit (forbid, return type, dtypes) refresh the generated
+#      paragraphs; --out-dtype when integer inputs give a float answer:
+.venv/bin/python $S statement <slug> [--out-dtype float64] --write
 # 4. Copy the tests across and cross-check.
 .venv/bin/python $S port <slug> --write
 .venv/bin/python $S check <slug>       # fails? usually float32: pin float64 in the
@@ -143,9 +153,25 @@ run `port <slug> --write`. `tests/test_twins.py` fails until you do. It pins:
 | `info-nce-contrastive-loss-pytorch` | float64 | autograd | 6e-8 (float32 was 5×, at τ = 0.001) |
 | `softmax-cross-entropy-loss-and-gradient-pytorch` | float32 | autograd, `cross_entropy`, `nll_loss`, `log_softmax`, `logsumexp` | 0.017 |
 | `scaled-dot-product-attention-pytorch` | float64 | `F.scaled_dot_product_attention` | 2e-6 (float32 was 596×) |
-| `layer-norm-forward-and-backward-pytorch` | float64 | autograd, `layer_norm` | 1e-4 (float32 was 1.5e5×) |
+| `layer-norm-forward-and-backward-pytorch` | float64 | autograd, `layer_norm`, `group_norm` | 7e-6 (float32 was 1.5e5×). The reference differentiates the explicit two-pass formula: `F.layer_norm`'s fused backward returned -4e-7 for an exact 0 (a constant row, eps = 1e-12), 0.42× tolerance on its own |
 | `gelu-and-stable-sigmoid-pytorch` | float32 | autograd, `gelu`, `sigmoid`, `logsigmoid`, `ndtr` | 0.25 |
 | `dense-layer-backward-pytorch` | float64 | autograd | 5e-8 (float32 was 7×: `1 − tanh²`) |
+| `sinusoidal-positional-encoding-pytorch` | int64 positions in, float64 out | — | 1e-5 (positions up to 1e5: float32 angles are off by ~4e-3) |
+| `rotary-position-embedding-pytorch` | float64 | — | 3e-5 |
+| `multi-head-causal-self-attention-pytorch` | float64 | `F.scaled_dot_product_attention`, `F.multi_head_attention_forward` | 4e-6 |
+| `grouped-query-attention-pytorch` | float64 | the same | 8e-7 |
+| `distance-decay-attention-pytorch` | float64 | the same | 8e-8 |
+| `attention-backward-pass-pytorch` | float64 | autograd, the same, `_softmax_backward_data` | 4e-6 |
+| `batch-norm-training-forward-backward-pytorch` | float64 | autograd, `batch_norm`, and `instance_norm` / `layer_norm` / `group_norm` (each does a batch norm on a reshaped input) | 5e-6 |
+| `max-pool-forward-backward-pytorch` | float32 (`x` on integers, `dout` on a 1/16 grid, so sums are exact) | autograd, `max_pool1d/2d/3d`, `adaptive_max_pool2d`, `max_unpool2d` | 0.12 (a stored case with arbitrary decimals) |
+
+Every forbid list also names the `torch.ops.aten` kernels behind its built-ins.
+Wave 2 needed dim expressions (`"D": "H*hd"`, `"H": "(Ho-1)*s + kh + r % s"`) and
+`{"$dim": "H"}` for `numHeads` / `kernel` / `stride`. Two generators were cut
+below the validator's sizes to fit the run's result budget (batch norm N ≤ 48,
+d ≤ 24; attention backward n ≤ 32, d ≤ 16; sinusoidal 32 positions × d ≤ 64; and wave 1's layer norm, N ≤ 32,
+D ≤ 48, whose old 64 × 64 draws could overflow it). The stored cases still
+reach the full sizes.
 
 `clip-loss-pytorch` (the torch-runtime pilot) is a PyTorch problem but **not a
 twin**. It is forward-only, with `F` allowed, and has its own names and
@@ -163,19 +189,11 @@ and shapes stay the numpy ones.
 
 | numpy problem | twin focus | notes |
 |---|---|---|
-| `multi-head-causal-self-attention` | `view`/`transpose`/`contiguous`, causal `triu` | F: `F.sdpa`, `nn.MultiheadAttention` |
-| `grouped-query-attention` | `repeat_interleave` vs `expand` | F: `F.sdpa` |
-| `distance-decay-attention` (ALiBi) | bias via broadcasting `arange` | |
-| `attention-backward-pass` | hand-written backward of attention | F: autograd |
 | `label-smoothed-masked-cross-entropy` | masked mean | F: autograd?, `F.cross_entropy` (it has `label_smoothing` and `ignore_index`) |
 | `kl-and-js-divergence` | | ⚠ the generator must emit normalized distributions; the spec language cannot yet |
 | `dpo-loss` | `logsigmoid`-style stability | F: `F.logsigmoid` |
 | `grpo-clipped-objective` | `clamp`, per-token masks, aggregation modes | |
-| `batch-norm-training-forward-backward` | running-stat update, unbiased running var | F: autograd, `F.batch_norm` |
-| `rotary-position-embedding` | interleaved vs half-rotate via `view`/`stack` | int64 `positions` |
-| `sinusoidal-positional-encoding` | `arange` broadcasting | small, a good warm-up |
 | `conv2d-stride-padding` | `unfold` / `as_strided` | F: `F.conv2d`; canonical = the built-in |
-| `max-pool-forward-backward` | `unfold` + `argmax`, scatter-add backward | F: `F.max_pool2d`, autograd; torch's tie rule = first occurrence, as the numpy statement (verified) |
 | `two-layer-mlp-backprop` | | F: autograd |
 | `lora-forward-and-merge` | | |
 | `classifier-free-guidance` | `std` over dims | ⚠ `torch.std` defaults to unbiased |

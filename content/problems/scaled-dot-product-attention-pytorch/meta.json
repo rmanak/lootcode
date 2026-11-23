@@ -50,7 +50,9 @@
     "atol": 1e-06,
     "random_tests": 5,
     "forbid": [
-      "torch.nn.functional.scaled_dot_product_attention"
+      "torch.nn.functional.scaled_dot_product_attention",
+      "torch.ops.aten.scaled_dot_product_attention",
+      "torch.ops.aten._scaled_dot_product_attention_math"
     ],
     "dims": {
       "n": [

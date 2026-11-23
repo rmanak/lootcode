@@ -9,6 +9,8 @@ shapes, constraints, validator, tests). See docs/pytorch-twins.md.
                             problem (meta, statement copy, starter, validator,
                             collection entry). The canonical and the statement's
                             framework paragraph are then written by hand.
+    statement <numpy-slug>  refresh the twin's generated PyTorch paragraphs in
+                            problem.md from its meta (forbid, dtypes, return type).
     port <numpy-slug>       numpy cases -> the twin's cases (expected: null), and
                             the numpy tests/generator.json -> the twin's torch block.
     check <numpy-slug>      cross-check the two canonicals: the twin's (float32,
@@ -43,6 +45,7 @@ sys.path.insert(0, str(ROOT))
 from app import content  # noqa: E402
 from app.config import settings  # noqa: E402
 from app.executor import run_submission  # noqa: E402
+from app.executor.sandbox import RESULT_HEADROOM_BYTES  # noqa: E402
 from app.executor.torch_runtime import unavailable_reason  # noqa: E402
 from app.executor.torch_runtime.inputs import generated_inputs, to_plain  # noqa: E402
 from authoring import twins  # noqa: E402
@@ -94,17 +97,30 @@ def _outputs(code: str, prob: dict, inputs: list[tuple[str, dict]]) -> dict[str,
         chunks[-1].append(item)
         size += n
     for chunk in chunks:
-        tests = [{"name": n, "input": inp, "expected": None, "hidden": True}
-                 for n, inp in chunk]
-        if not tests:
-            continue
-        g = run_submission(code, prob, tests)
-        for r in g.results:
-            if r.name in out or not any(r.name == t["name"] for t in tests):
-                continue  # the torch grader's own random-k tests
+        if chunk:
+            _run_chunk(code, prob, chunk, out)
+    return out
+
+
+def _run_chunk(code: str, prob: dict, chunk: list[tuple[str, dict]],
+               out: dict[str, object]) -> None:
+    """One run; when NO test of a multi-test chunk returns, split it and retry.
+    The chunk limits count input numbers, but an answer can be far larger than
+    its input (a positional-encoding table), and a run's results share one
+    ~1 MB budget whose overflow fails every test of the run at once."""
+    names = {n for n, _ in chunk}
+    tests = [{"name": n, "input": inp, "expected": None, "hidden": True} for n, inp in chunk]
+    g = run_submission(code, prob, tests)
+    mine = [r for r in g.results if r.name in names]  # not the torch grader's random-k
+    if len(chunk) > 1 and not any(r.status in ("passed", "wrong") for r in mine):
+        half = len(chunk) // 2
+        _run_chunk(code, prob, chunk[:half], out)
+        _run_chunk(code, prob, chunk[half:], out)
+        return
+    for r in mine:
+        if r.name not in out:
             out[r.name] = (r.returned if r.status in ("passed", "wrong")
                            else RuntimeError(f"{r.status}: {(r.error or '')[-300:]}"))
-    return out
 
 
 def _pair(numpy_slug: str) -> tuple[pathlib.Path, pathlib.Path]:
@@ -168,7 +184,8 @@ def cmd_scaffold(a: argparse.Namespace) -> int:
     _write_json(tw_dir / "meta.json", tmeta)
     md, replaced = twins.twin_statement(
         (np_dir / "problem.md").read_text(encoding="utf-8"),
-        twins.torch_paragraph(fn["params"], params, ret, tmeta["torch"]))
+        twins.torch_paragraph(fn["params"], params, ret, tmeta["torch"],
+                              np_return=fn["returns"]["type"]))
     (tw_dir / "problem.md").write_text(md, encoding="utf-8")
     if not replaced:
         print("  note: no 'You may use **numpy**' paragraph found; write the "
@@ -200,6 +217,34 @@ def _add_to_collection(numpy_slug: str, tw: str) -> None:
     # Twins in the numpy study order; anything else (a torch-only problem) first.
     coll["problems"].sort(key=lambda s: rank.get(s, -1))
     _write_json(COLLECTION, coll)
+
+
+# --- statement -----------------------------------------------------------------
+def cmd_statement(a: argparse.Namespace) -> int:
+    """Rewrite the twin's generated PyTorch paragraphs from its current meta
+    (after a forbid, dtype or return-type edit). Hand edits elsewhere stay."""
+    np_dir, tw_dir = _pair(a.slug)
+    np_fn = _read_json(np_dir / "meta.json")["function"]
+    tmeta = _read_json(tw_dir / "meta.json")
+    md_path = tw_dir / "problem.md"
+    old = md_path.read_text(encoding="utf-8")
+    para = twins.torch_paragraph(np_fn["params"], tmeta["function"]["params"],
+                                 tmeta["function"]["returns"]["type"], tmeta["torch"],
+                                 np_return=np_fn["returns"]["type"], out_dtype=a.out_dtype)
+    new, replaced = twins.twin_statement(old, para)
+    if not replaced:
+        sys.exit(f"ERROR: {md_path.relative_to(ROOT)} has no generated PyTorch paragraph")
+    if new == old:
+        print(f"{tw_dir.name}: statement up to date")
+        return 0
+    import difflib  # noqa: PLC0415
+    sys.stdout.writelines(difflib.unified_diff(old.splitlines(True), new.splitlines(True),
+                                               "before", "after", n=0))
+    if a.write:
+        md_path.write_text(new, encoding="utf-8")
+    else:
+        print("(dry run; --write to apply)")
+    return 0
 
 
 # --- port ----------------------------------------------------------------------
@@ -245,6 +290,11 @@ def cmd_port(a: argparse.Namespace) -> int:
 
 
 # --- check ---------------------------------------------------------------------
+#: Share of the sandbox's result budget one run's answers may fill, leaving room
+#: for the per-test envelope and for a submission's slightly longer floats.
+RESULT_SHARE = 0.6
+
+
 def cmd_check(a: argparse.Namespace) -> int:
     reason = unavailable_reason()
     if reason:
@@ -291,6 +341,19 @@ def cmd_check(a: argparse.Namespace) -> int:
         print(f"  {score:9.3g}  {name:32}  {where}")
     if failed:
         print(f"FAIL: {failed} input(s) where a canonical did not return")
+        return 1
+    # One graded run returns every stored test plus `random_tests` fresh draws,
+    # and all of them share the sandbox's result budget; overflowing it fails
+    # EVERY test, a correct answer included. Our chunked runs never see that.
+    size = {name: len(json.dumps(t_out[name])) for name, _ in torch_in}
+    k = int(cfg.get("random_tests", 0))
+    drawn = sorted((v for n, v in size.items() if n.startswith("draw-")), reverse=True)
+    run = sum(size[c["name"]] for c in tw_prob["tests"]) + sum(drawn[:k])
+    print(f"  largest run's answers: ~{run / 1024:.0f} KB (stored + the {k} largest draws; "
+          f"budget {RESULT_HEADROOM_BYTES / 1024:.0f} KB)")
+    if run > RESULT_SHARE * RESULT_HEADROOM_BYTES:
+        print(f"FAIL: a run can return more than {RESULT_SHARE:.0%} of the result budget; "
+              "shrink the generator's dims (or the stored cases)")
         return 1
     if worst > a.max_score:
         print("FAIL: the canonicals disagree past the limit: a contract mismatch "
@@ -383,6 +446,11 @@ def main() -> int:
     p.add_argument("--autograd-forbidden", action="store_true",
                    help="a hand-written-gradient problem: forbid torch autograd")
     p.add_argument("--write", action="store_true")
+    p = sub.add_parser("statement")
+    p.add_argument("slug")
+    p.add_argument("--out-dtype", help="the answer's dtype when the inputs do not say "
+                                       "(integer inputs, float output)")
+    p.add_argument("--write", action="store_true")
     p = sub.add_parser("port")
     p.add_argument("slug")
     p.add_argument("--write", action="store_true")
@@ -402,8 +470,8 @@ def main() -> int:
     p.add_argument("--force", action="store_true")
     p.add_argument("--write", action="store_true")
     a = ap.parse_args()
-    return {"scaffold": cmd_scaffold, "port": cmd_port, "check": cmd_check,
-            "bake": cmd_bake}[a.cmd](a)
+    return {"scaffold": cmd_scaffold, "statement": cmd_statement, "port": cmd_port,
+            "check": cmd_check, "bake": cmd_bake}[a.cmd](a)
 
 
 if __name__ == "__main__":

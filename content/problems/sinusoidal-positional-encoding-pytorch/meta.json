@@ -1,0 +1,89 @@
+{
+  "slug": "sinusoidal-positional-encoding-pytorch",
+  "title": "Sinusoidal Positional Encoding (PyTorch)",
+  "difficulty": "easy",
+  "tags": [
+    "machine-learning",
+    "transformer",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "positionalEncoding",
+    "params": [
+      {
+        "name": "positions",
+        "type": "Tensor"
+      },
+      {
+        "name": "d",
+        "type": "int"
+      },
+      {
+        "name": "base",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "Tensor"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "sinusoidal-positional-encoding",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [],
+    "dims": {
+      "P": [
+        1,
+        32
+      ],
+      "D": [
+        1,
+        64
+      ]
+    },
+    "inputs": {
+      "positions": {
+        "$random": {
+          "shape": [
+            "P"
+          ],
+          "dist": "randint",
+          "low": 0,
+          "high": 100001
+        }
+      },
+      "d": {
+        "$dim": "D"
+      },
+      "base": {
+        "$random": {
+          "dist": "uniform",
+          "low": [
+            2.0,
+            100.0
+          ],
+          "high": [
+            200.0,
+            1000000.0
+          ],
+          "round": 1
+        }
+      }
+    }
+  }
+}

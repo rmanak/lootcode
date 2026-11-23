@@ -134,8 +134,11 @@ def _register(core, torch, payload: dict) -> None:
             core._CODECS[typ] = (torch, dec, enc)
 
 
-#: A forbid entry: ``torch`` then public (no leading ``_``) dotted segments.
-_FORBID_NAME = re.compile(r"torch(\.[A-Za-z][A-Za-z0-9_]*)+")
+#: A forbid entry: ``torch`` then dotted segments. The path walks only public
+#: names (no leading ``_``, so never through ``torch._C``); the function itself
+#: may be private with ONE leading underscore (``torch.ops.aten._log_softmax``),
+#: never a dunder.
+_FORBID_NAME = re.compile(r"torch(\.[A-Za-z][A-Za-z0-9_]*)*\._?[A-Za-z][A-Za-z0-9_]*")
 
 
 def _torch_owned(obj) -> bool:
@@ -177,7 +180,7 @@ def _forbid(torch, names) -> str | None:
                 if not _torch_owned(owner):
                     return f"torch.forbid entry {name!r} walks outside torch"
             target = getattr(owner, parts[-1])
-        except AttributeError:
+        except Exception:  # noqa: BLE001 - torch.classes.* raises RuntimeError
             return f"torch.forbid names {name!r}, which this torch does not have"
         if isinstance(target, type) or not callable(target):
             return f"torch.forbid entry {name!r} is not a function"

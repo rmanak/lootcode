@@ -1,0 +1,97 @@
+{
+  "dims": {
+    "n": [
+      1,
+      64
+    ],
+    "H": [
+      1,
+      8
+    ],
+    "r": [
+      0,
+      9999
+    ],
+    "hd": "1 + r % (64 // H)",
+    "D": "H*hd"
+  },
+  "inputs": {
+    "Q": {
+      "$random": {
+        "shape": [
+          "n",
+          "D"
+        ],
+        "dist": "uniform",
+        "low": [
+          -30.0,
+          -1.5
+        ],
+        "high": [
+          1.5,
+          30.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "K": {
+      "$random": {
+        "shape": [
+          "n",
+          "D"
+        ],
+        "dist": "uniform",
+        "low": [
+          -30.0,
+          -1.5
+        ],
+        "high": [
+          1.5,
+          30.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "V": {
+      "$random": {
+        "shape": [
+          "n",
+          "D"
+        ],
+        "dist": "uniform",
+        "low": [
+          -30.0,
+          -1.5
+        ],
+        "high": [
+          1.5,
+          30.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "slopes": {
+      "$random": {
+        "shape": [
+          "H"
+        ],
+        "dist": "uniform",
+        "low": 0.0,
+        "high": [
+          0.01,
+          50.0
+        ],
+        "round": 4,
+        "dtype": "float64"
+      }
+    },
+    "causal": {
+      "$random": {
+        "dist": "bernoulli"
+      }
+    }
+  }
+}

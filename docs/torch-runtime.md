@@ -98,7 +98,7 @@ every input without error. Its correctness is the author's job; see
     "forbid": ["torch.nn.functional.cross_entropy"],   // optional; see below
     "twin": "info-nce-contrastive-loss",  // optional: the numpy problem this one
                                    // mirrors (docs/pytorch-twins.md)
-    "dims": {"N": [1, 32], "D": [2, 64]},        // drawn once per test
+    "dims": {"N": [1, 32], "D": [2, 64]},        // drawn once per test; see "Dims"
     "inputs": {                    // the generator: one value spec per parameter
       "image_feat": {"$random": {"shape": ["N", "D"], "dist": "randn",
                                  "mean": [-2, 2], "std": [0.5, 10]}},
@@ -124,6 +124,22 @@ who forgets `import torch` is not failed for it. Default dtype is **float32**.
 | `{"$tensor": {"data": …, "shape"?: […], "dtype"?: "int64", "requires_grad"?: true}}` | a literal with an explicit dtype/shape |
 | `{"$random": {"shape": [8, "D"], "dist": …, …}}` | a random tensor (a nested list for a non-tensor param) |
 | `{"$random": {"dist": …}}` (no `shape`) | a random scalar (a 0-dim tensor for a `Tensor` param) |
+| `{"$dim": "H"}` or `{"$dim": ["kh", "kw"]}` | the drawn dim(s) as a plain int (list), for a non-tensor param (generator only) |
+
+A `$tensor` literal takes only `data`, `shape`, `dtype` and `requires_grad`, and
+its integers must fit the dtype (`300` is not a `uint8`).
+
+**Dims.** Each `dims` entry is an int, an inclusive `[lo, hi]` range drawn once
+per test, or a string expression over the dims declared *before* it, with
+`+ - * // %` and parentheses: `"D": "H*hd"` makes the model width a multiple of
+the head count, `"H": "(Ho-1)*s + kh + r % s"` builds an input whose pooled size
+is the drawn `Ho`, and `"hd": "1 + r % (32 // H)"` (with `"r": [0, 9999]`) draws
+a head size that keeps `H * hd <= 32` for every `H`. `{"$dim": "H"}` then hands
+the same number to a scalar parameter (`numHeads`), so the scalar and the shapes
+it governs agree in every test. Expressions are parsed by a small grammar (no
+`eval`) of at most 64 characters, and their ranges are worked out by interval
+arithmetic before anything is drawn: an expression that could go negative or
+divide by zero is an error on the first run, not on the one seed that hits it.
 
 Distributions: `randn`/`normal` (`mean`, `std`), `rand`/`uniform` (`low`,
 `high`; half-open), `randint` (integer `low`, `high`, exclusive, defaults to
@@ -137,7 +153,9 @@ distribution parameter may be a `[lo, hi]` pair, drawn once per test. So
 overrides the default, `"round": k` rounds every value to `k` decimals
 (0–15), and `"seed"` pins the draw. Every number in a spec must be finite and
 every integer within int64, and an unknown key (a typo such as `"min-abs"`) is
-an error, not silently ignored. Two parameters with the same spec and the same pinned
+an error, not silently ignored. Every drawn value must fit its dtype (an int8
+randint up to 1000, or a float32 uniform up to 1e308, is an error rather than a
+wrapped or infinite input). Two parameters with the same spec and the same pinned
 seed get **identical** tensors, which is how the pilot builds "perfectly
 aligned pairs".
 
@@ -146,7 +164,8 @@ after `round`:
 
 - `"step": s` snaps every value to a multiple of `s`. With a power of two such as
   `0.0625`, products and sums stay exact in float32, so a promise like "no ReLU
-  pre-activation is within 1e-9 of 0 unless it is exactly 0" survives;
+  pre-activation is within 1e-9 of 0 unless it is exactly 0" survives. An
+  integer dtype needs an integer step;
 - `"min_abs": a` pushes every value with `|x| < a` out to `±a` ("every row has
   a norm of at least 0.1"). `a` is first rounded up to a multiple of the step, and
   to an integer for an integer dtype, so neither option undoes the other;
@@ -169,14 +188,30 @@ passing a fixed suite. It also means a borderline-wrong solution can pass one
 run and fail the next, which is the honest result. `random_weight` (default 1)
 weights them.
 
+**The torch block is checked whole** before anything runs: only the keys in the
+example above (plus `random_weight`) are allowed, so `"random_test": 5` is an
+error instead of silently meaning no random tests, and `rtol`/`atol` must be
+finite and non-negative. A bad block fails every test as a problem bug.
+
+**Mind the result budget.** One run's answers (every stored test plus the
+random ones) share the sandbox's ~1 MB result file, and overflowing it fails
+every test, a correct answer included ("returned too much data"). Size the
+generator's dims for the *outputs*: a (256, 64) batch norm returns two 16k-number
+matrices per test, five random tests of which already overflow.
+`scripts/sync_twin_tests.py check` estimates the largest run and fails past 60%.
+
 **Built-ins a submission may not use.** `torch.forbid` lists dotted torch
 names (`"torch.nn.functional.layer_norm"`, `"torch.Tensor.backward"`) that would
 do the exercise for the solver. In the **submission's** sandbox only, the harness
 replaces each with a stub that raises `"<name> is not allowed in this problem"`
 before the solution is loaded, so `from torch.nn.functional import layer_norm`
 binds the stub too. An entry must be `torch.` plus public segments (no
-leading `_`), walk only through torch's own modules and classes (`torch.os` is
-`os` and is refused), and name a function, never a class or a constant. The
+leading `_`; only the last one, the function itself, may have a single leading
+underscore, as in `torch.ops.aten._log_softmax`), walk only through torch's own
+modules and classes (`torch.os` is `os` and is refused), and name a function,
+never a class or a constant. The public functions dispatch to their kernels in
+C++, so forbidding a `torch.ops.aten` kernel blocks only a direct call to it:
+`F.layer_norm` keeps working when `torch.ops.aten.native_layer_norm` is forbidden. The
 Tensor codec captures every torch callable it uses before anything is patched,
 so forbidding `torch.Tensor.detach` binds the solution, never the result
 writer. The canonical is never patched and may use the built-in as
@@ -188,7 +223,8 @@ grader catches it per test, never as a 500. `tests/test_twins.py` grades a wrong
 answer under every twin's forbid list, because `verify_bank` grades only the
 unpatched canonical and would never notice a list that breaks the harness. The
 problem page lists the names. This is an honesty aid for the person practising, not a
-security control: `torch._C` reaches the same kernels.
+security control: `torch._C` reaches the same kernels, and so does calling an
+autograd node directly (`y.grad_fn(dy)`), which no name can forbid.
 
 **Size.** Every input is built in the web server's own process before any
 sandbox starts, so it is bounded there:

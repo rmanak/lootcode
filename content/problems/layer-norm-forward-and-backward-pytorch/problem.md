@@ -32,12 +32,13 @@ gradients of $\ell$ with respect to the inputs and parameters:
 Write it in **PyTorch** (`torch` is already imported). `x`, `gamma`, `beta` and
 `dy` arrive as float64 tensors and `eps` as a plain Python value. Return the
 structure described above with a tensor in place of each list of numbers and a
-0-dim tensor in place of each single number (of the inputs' float dtype, or
-int64 for integers). The examples print tensors as nested lists. **Autograd is
-off-limits**: derive the gradients by hand (`.backward()`, `torch.autograd` and
-`torch.func` raise). These built-ins would do the exercise for you and raise if
-called: `torch.nn.functional.layer_norm`, `torch.layer_norm`,
-`torch.native_layer_norm`.
+0-dim tensor in place of each single number (float64; int64 for integers). The
+examples print tensors as nested lists. **Autograd is off-limits**: derive the
+gradients by hand (`.backward()`, `torch.autograd` and `torch.func` raise).
+These built-ins would do the exercise for you and raise if called:
+`torch.nn.functional.layer_norm`, `torch.layer_norm`, `torch.native_layer_norm`,
+`torch.nn.functional.group_norm`, `torch.group_norm` (and their `torch.ops.aten`
+kernels).
 
 Your answer is checked against the reference implementation with
 `torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape

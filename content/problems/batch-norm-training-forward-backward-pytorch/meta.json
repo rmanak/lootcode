@@ -1,0 +1,247 @@
+{
+  "slug": "batch-norm-training-forward-backward-pytorch",
+  "title": "Batch Norm: Training Forward and Backward (PyTorch)",
+  "difficulty": "hard",
+  "tags": [
+    "machine-learning",
+    "neural-networks",
+    "backpropagation",
+    "matrix",
+    "pytorch"
+  ],
+  "languages": [
+    "python"
+  ],
+  "limits": {
+    "timeLimitMs": 10000,
+    "memoryLimitMb": 2048
+  },
+  "function": {
+    "name": "batchNormTrain",
+    "params": [
+      {
+        "name": "x",
+        "type": "Tensor"
+      },
+      {
+        "name": "gamma",
+        "type": "Tensor"
+      },
+      {
+        "name": "beta",
+        "type": "Tensor"
+      },
+      {
+        "name": "dy",
+        "type": "Tensor"
+      },
+      {
+        "name": "eps",
+        "type": "float"
+      },
+      {
+        "name": "runningMean",
+        "type": "Tensor"
+      },
+      {
+        "name": "runningVar",
+        "type": "Tensor"
+      },
+      {
+        "name": "momentum",
+        "type": "float"
+      }
+    ],
+    "returns": {
+      "type": "any[]"
+    }
+  },
+  "scoring": {
+    "type": "weighted",
+    "points": 100
+  },
+  "compare": "close",
+  "runtime": "torch",
+  "torch": {
+    "twin": "batch-norm-training-forward-backward",
+    "rtol": 1e-05,
+    "atol": 1e-06,
+    "random_tests": 5,
+    "forbid": [
+      "torch.Tensor.backward",
+      "torch.autograd.grad",
+      "torch.autograd.backward",
+      "torch.autograd.functional.jacobian",
+      "torch.autograd.functional.vjp",
+      "torch.autograd.functional.jvp",
+      "torch.autograd.functional.hessian",
+      "torch.autograd.functional.vhp",
+      "torch.autograd.functional.hvp",
+      "torch.func.grad",
+      "torch.func.grad_and_value",
+      "torch.func.vjp",
+      "torch.func.jvp",
+      "torch.func.jacrev",
+      "torch.func.jacfwd",
+      "torch.func.hessian",
+      "torch.func.linearize",
+      "torch.autograd.forward_ad.make_dual",
+      "torch.autograd.forward_ad.unpack_dual",
+      "torch.nn.functional.batch_norm",
+      "torch.batch_norm",
+      "torch.native_batch_norm",
+      "torch.nn.functional.instance_norm",
+      "torch.instance_norm",
+      "torch.nn.functional.layer_norm",
+      "torch.layer_norm",
+      "torch.native_layer_norm",
+      "torch.nn.functional.group_norm",
+      "torch.group_norm",
+      "torch.ops.aten.batch_norm",
+      "torch.ops.aten.native_batch_norm",
+      "torch.ops.aten.native_batch_norm_backward",
+      "torch.ops.aten._native_batch_norm_legit",
+      "torch.ops.aten.native_layer_norm",
+      "torch.ops.aten.native_layer_norm_backward",
+      "torch.ops.aten.native_group_norm",
+      "torch.ops.aten.native_group_norm_backward"
+    ],
+    "dims": {
+      "N": [
+        2,
+        48
+      ],
+      "d": [
+        1,
+        24
+      ]
+    },
+    "inputs": {
+      "x": {
+        "$random": {
+          "shape": [
+            "N",
+            "d"
+          ],
+          "dist": "normal",
+          "mean": [
+            -5000.0,
+            5000.0
+          ],
+          "std": [
+            0.001,
+            800.0
+          ],
+          "dtype": "float64"
+        }
+      },
+      "gamma": {
+        "$random": {
+          "shape": [
+            "d"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "beta": {
+        "$random": {
+          "shape": [
+            "d"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "dy": {
+        "$random": {
+          "shape": [
+            "N",
+            "d"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "eps": {
+        "$random": {
+          "dist": "choice",
+          "values": [
+            1e-08,
+            1e-05,
+            0.001,
+            0.1
+          ]
+        }
+      },
+      "runningMean": {
+        "$random": {
+          "shape": [
+            "d"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10000.0,
+            -500.0
+          ],
+          "high": [
+            500.0,
+            10000.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "runningVar": {
+        "$random": {
+          "shape": [
+            "d"
+          ],
+          "dist": "uniform",
+          "low": 0.0,
+          "high": [
+            1.0,
+            100000000.0
+          ],
+          "round": 3,
+          "dtype": "float64"
+        }
+      },
+      "momentum": {
+        "$random": {
+          "dist": "uniform",
+          "low": 0.0,
+          "high": 1.0,
+          "round": 3
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "dims": {
+    "n": [
+      1,
+      32
+    ],
+    "d": [
+      1,
+      16
+    ],
+    "dv": [
+      1,
+      16
+    ]
+  },
+  "inputs": {
+    "Q": {
+      "$random": {
+        "shape": [
+          "n",
+          "d"
+        ],
+        "dist": "uniform",
+        "low": [
+          -30.0,
+          -1.5
+        ],
+        "high": [
+          1.5,
+          30.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "K": {
+      "$random": {
+        "shape": [
+          "n",
+          "d"
+        ],
+        "dist": "uniform",
+        "low": [
+          -30.0,
+          -1.5
+        ],
+        "high": [
+          1.5,
+          30.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "V": {
+      "$random": {
+        "shape": [
+          "n",
+          "dv"
+        ],
+        "dist": "uniform",
+        "low": [
+          -30.0,
+          -1.5
+        ],
+        "high": [
+          1.5,
+          30.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "dO": {
+      "$random": {
+        "shape": [
+          "n",
+          "dv"
+        ],
+        "dist": "uniform",
+        "low": [
+          -30.0,
+          -1.5
+        ],
+        "high": [
+          1.5,
+          30.0
+        ],
+        "round": 3,
+        "dtype": "float64"
+      }
+    },
+    "causal": {
+      "$random": {
+        "dist": "bernoulli"
+      }
+    }
+  }
+}
