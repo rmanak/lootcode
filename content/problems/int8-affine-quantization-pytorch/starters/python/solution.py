@@ -2,8 +2,19 @@ import torch
 
 
 def quantizeInt8(calibration, x):
-    """calibration: (Lc,) and x: (Lx,) float64 tensors.
-    Return [scale, zeroPoint, q, dequantized]: scale a 0-dim float64 tensor,
-    zeroPoint a 0-dim int64 tensor, q an (Lx,) int64 tensor, dequantized an
-    (Lx,) float64 tensor."""
+    """Asymmetric (affine) int8 quantization calibrated on sample data.
+
+    Args:
+        calibration: float64 tensor, shape (num_calibration,). Values that set
+            the range.
+        x: float64 tensor, shape (num_values,). Values to quantize.
+
+    Returns:
+        A list [scale, zeroPoint, q, dequantized] (a tuple works too):
+            scale: 0-dim float64 tensor. Quantization step.
+            zeroPoint: 0-dim int64 tensor. Integer that represents 0.0.
+            q: int64 tensor. Quantized x.
+            dequantized: float64 tensor. The quantized values mapped back to
+                floats.
+    """
     pass

@@ -2,8 +2,20 @@ import torch
 
 
 def softmaxRegressionGD(X, y, numClasses, lr, steps):
-    """X: (N, d) float64 tensor; y: (N,) int64 tensor of labels in
-    [0, numClasses); numClasses, steps: int; lr: float.
-    Return [W, b, lossHistory]: W (d, numClasses), b (numClasses,),
-    lossHistory (steps,), all float64."""
+    """Fit multinomial (softmax) regression with full-batch gradient descent.
+
+    Args:
+        X: float64 tensor, shape (num_samples, num_features). One sample per
+            row.
+        y: int64 tensor, shape (num_samples,). Labels in [0, numClasses).
+        numClasses: int. Number of classes.
+        lr: float. Learning rate.
+        steps: int. Number of gradient-descent steps.
+
+    Returns:
+        A list [W, b, lossHistory] (a tuple works too):
+            W: float64 tensor. Learned weights.
+            b: float64 tensor. Learned biases.
+            lossHistory: float64 tensor. Loss recorded at every step.
+    """
     pass

@@ -2,7 +2,15 @@ import torch
 
 
 def resizeBilinear(image, outHeight, outWidth, alignCorners):
-    """image: (H, W) float64 tensor; outHeight, outWidth: int;
-    alignCorners: bool.
-    Return the (outHeight, outWidth) float64 tensor."""
+    """Resize a single-channel image with bilinear interpolation.
+
+    Args:
+        image: float64 tensor, shape (height, width). Pixel values.
+        outHeight: int. Target height.
+        outWidth: int. Target width.
+        alignCorners: bool. The align_corners convention.
+
+    Returns:
+        A single float64 tensor: the resized image.
+    """
     pass

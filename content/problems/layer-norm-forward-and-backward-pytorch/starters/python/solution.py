@@ -2,6 +2,22 @@ import torch
 
 
 def layerNormForwardBackward(x, gamma, beta, dy, eps):
-    """x, dy: (N, D) float64 tensors; gamma, beta: (D,) float64 tensors; eps: float.
-    Return [y, dx, dgamma, dbeta] as float64 tensors."""
+    """Layer norm forward and backward pass.
+
+    Args:
+        x: float64 tensor, shape (batch_size, num_features). Input, normalized
+            per row.
+        gamma: float64 tensor, shape (num_features,). Scale.
+        beta: float64 tensor, shape (num_features,). Shift.
+        dy: float64 tensor, shape (batch_size, num_features). Upstream gradient
+            dLoss/dy.
+        eps: float. Added to the variance for stability.
+
+    Returns:
+        A list [y, dx, dgamma, dbeta] (a tuple works too):
+            y: float64 tensor. Normalized output.
+            dx: float64 tensor. Gradient w.r.t. x.
+            dgamma: float64 tensor. Gradient w.r.t. gamma.
+            dbeta: float64 tensor. Gradient w.r.t. beta.
+    """
     pass

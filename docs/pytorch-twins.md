@@ -118,7 +118,11 @@ $EDITOR content/problems/<slug>/tests/generator.json
 #      and their torch.ops.aten kernels (private ones too: _log_softmax);
 #    - meta.json function.returns: "any[]" when the numpy answer is a list of
 #      separate arrays, not one matrix;
-#    - starters/python/solution.py: a docstring with shapes and dtypes;
+#    - starters/python/solution.py, and the numpy one to match: a multi-line
+#      Args/Returns docstring. Every input gets its type and its shape in
+#      named dims (batch_size, seq_len, d_model, num_classes, ...); outputs get
+#      their type only (list or single array/tensor, dtype, 0-dim for a
+#      scalar), never a shape, which can give the answer away;
 #    - a parameter that should stay a plain list (a kernel size [kH, kW]):
 #      set its type back to the numpy one, e.g. "int[]";
 #    - a ragged numpy float[][] (one gradient per parameter, one log-prob

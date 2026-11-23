@@ -2,7 +2,15 @@ import torch
 
 
 def trainRanker(preferences, lr, steps):
-    """preferences: (N, 2, d) float64 tensor, preferences[i] = [x1, x2] with x1
-    preferred; lr: float; steps: int.
-    Return w, a (d,) float64 tensor."""
+    """Train a pairwise linear ranker with gradient descent from w = 0.
+
+    Args:
+        preferences: float64 tensor, shape (num_pairs, 2, num_features).
+            Preferences[i] = [x1, x2], with x1 preferred over x2.
+        lr: float. Learning rate.
+        steps: int. Number of gradient-descent steps.
+
+    Returns:
+        A single float64 tensor: the learned weight vector w.
+    """
     pass
