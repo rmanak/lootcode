@@ -9,6 +9,7 @@ canonicals is ``scripts/sync_twin_tests.py check``'s job (it needs torch).
 """
 from __future__ import annotations
 
+import importlib.util
 import json
 import re
 from pathlib import Path
@@ -32,6 +33,14 @@ def _meta(d: Path) -> dict:
 
 def _cases(d: Path) -> list:
     return json.loads((d / "tests" / "cases.json").read_text(encoding="utf-8"))["cases"]
+
+
+def _validator(d: Path):
+    path = d / "input_validator" / "input_validator.py"
+    spec = importlib.util.spec_from_file_location(f"_v_{d.name}", path)
+    mod = importlib.util.module_from_spec(spec)  # type: ignore[arg-type]
+    spec.loader.exec_module(mod)  # type: ignore[union-attr]
+    return mod.validate_input
 
 
 def _pairs() -> list[tuple[Path, Path]]:
@@ -82,8 +91,10 @@ def test_the_validator_is_the_numpy_one(np_dir, tw_dir):
 
 
 @pytest.mark.parametrize(("np_dir", "tw_dir"), PAIRS, ids=IDS)
-def test_the_generator_is_shared(np_dir, tw_dir):
-    gen = twins.load_generator(np_dir)
+def test_the_generator_is_shared_or_the_twins_own(np_dir, tw_dir):
+    # The numpy tests/generator.json, unless the twin has its own in
+    # tests/twin.json (float32-scale draws, docs/pytorch-twins.md "dtype").
+    gen = twins.twin_generator(np_dir, tw_dir)
     cfg = _meta(tw_dir)["torch"]
     if gen is None:
         assert not cfg.get("inputs") and not cfg.get("random_tests"), (
@@ -99,11 +110,30 @@ def test_the_generator_is_shared(np_dir, tw_dir):
     assert generated_inputs(gen, tw_params, seed=1, count=3)
 
 
+OWN = [(n, t) for n, t in PAIRS if (t / twins.OVERRIDES_FILE).exists()
+       and twins.load_overrides(t)["generator"]]
+
+
+@pytest.mark.parametrize(("np_dir", "tw_dir"), OWN, ids=[t.name for _, t in OWN])
+def test_a_twins_own_generator_stays_inside_the_shared_constraints(np_dir, tw_dir):
+    own = twins.load_overrides(tw_dir)["generator"]
+    valid = _validator(tw_dir)
+    draws = twins.draw_inputs(own, _meta(tw_dir)["function"]["params"], seed=7, count=50)
+    assert all(valid(**d) for d in draws)
+
+
+@pytest.mark.parametrize(("np_dir", "tw_dir"), PAIRS, ids=IDS)
+def test_skipped_cases_exist_in_the_numpy_problem(np_dir, tw_dir):
+    skip = twins.load_overrides(tw_dir)["skip"]
+    assert set(skip) <= {c["name"] for c in _cases(np_dir)}, "a stale skip"
+
+
 @pytest.mark.parametrize(("np_dir", "tw_dir"), PAIRS, ids=IDS)
 def test_the_twin_holds_every_numpy_case(np_dir, tw_dir):
-    gen = twins.load_generator(np_dir)
+    gen = twins.twin_generator(np_dir, tw_dir)
     want = twins.port_cases(_cases(np_dir), _meta(np_dir)["function"]["params"],
-                            _meta(tw_dir)["function"]["params"], gen, _cases(tw_dir))
+                            _meta(tw_dir)["function"]["params"], gen, _cases(tw_dir),
+                            skip=twins.load_overrides(tw_dir)["skip"])
     assert _cases(tw_dir) == want, (
         f"the twin's cases are stale: run scripts/sync_twin_tests.py port "
         f"{np_dir.name} --write")
@@ -212,3 +242,37 @@ def test_stratify_spreads_over_the_answers():
     draws = [({"x": [1]}, [0.0])] * 20 + [({"x": [1]}, [100.0]), ({"x": [1]}, [-50.0])]
     picks = twins.stratify(draws, 3)
     assert {20, 21} <= set(picks) and len(set(picks)) == 3
+
+
+def test_overrides_give_a_twin_its_own_generator_and_skips(tmp_path):
+    assert twins.load_overrides(tmp_path) == {"generator": None, "skip": {}}
+    (tmp_path / "tests").mkdir()
+    own = {"dims": {"n": [1, 3]},
+           "inputs": {"x": {"$random": {"shape": ["n"], "low": -1.0, "high": 1.0}}}}
+    (tmp_path / "tests" / "twin.json").write_text(json.dumps(
+        {"generator": {"why": "float32 scale", **own}, "skip": {"big": "unrepresentable"}}))
+    assert twins.load_overrides(tmp_path) == {"generator": own, "skip": {"big": "unrepresentable"}}
+    assert twins.twin_generator(tmp_path / "no-numpy-sibling", tmp_path) == own
+
+
+@pytest.mark.parametrize("bad", [
+    {"generator": {"dims": {}, "inputs": {}}},           # no why
+    {"generator": {"why": " ", "inputs": {}}},           # empty why
+    {"skip": {"case": ""}},                              # skip without a reason
+    {"skip": ["case"]},
+    {"generatr": {}},                                    # a typo is an error, not a no-op
+])
+def test_overrides_reject_a_missing_reason_or_an_unknown_key(tmp_path, bad):
+    (tmp_path / "tests").mkdir()
+    (tmp_path / "tests" / "twin.json").write_text(json.dumps(bad))
+    with pytest.raises(ValueError):
+        twins.load_overrides(tmp_path)
+
+
+def test_port_leaves_out_skipped_cases_and_keeps_torch_ones():
+    params = [{"name": "x", "type": "float[]"}]
+    tparams = [{"name": "x", "type": "Tensor"}]
+    cases = [{"name": n, "input": {"x": [1.0]}, "expected": [1.0]} for n in ("a", "huge", "b")]
+    mine = [{"name": "torch-huge-at-float32-scale", "input": {"x": [1.0]}, "expected": None}]
+    out = twins.port_cases(cases, params, tparams, None, mine, skip={"huge": "why"})
+    assert [c["name"] for c in out] == ["a", "b", "torch-huge-at-float32-scale"]

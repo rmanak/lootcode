@@ -38,20 +38,20 @@ $$
 $\sqrt{d_h}$, the width of one head, not $\sqrt{D}$.
 
 Write it in **PyTorch** (`torch` is already imported). `X`, `Wq`, `Wk`, `Wv` and
-`Wo` arrive as float64 tensors and `numHeads` as a plain Python value. Return a
-float64 tensor. The examples print tensors as nested lists. These built-ins
+`Wo` arrive as float32 tensors and `numHeads` as a plain Python value. Return a
+float32 tensor. The examples print tensors as nested lists. These built-ins
 would do the exercise for you and raise if called:
 `torch.nn.functional.scaled_dot_product_attention`,
 `torch.nn.functional.multi_head_attention_forward` (and their `torch.ops.aten`
 kernels).
 
 Your answer is checked against the reference implementation with
-`torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape
+`torch.allclose` semantics (`rtol=1e-4`, `atol=1e-5`), and every tensor's shape
 and dtype must match exactly. Besides the stored tests, every run adds 5 hidden
 tests drawn at random within the constraints.
 
 **Numerical stability matters.** Some tests have scores in the tens of
-thousands, far past the point (about 709) where `exp` overflows a float64.
+thousands, far past the point (about 88.7) where `exp` overflows a float32.
 
 ## Constraints
 

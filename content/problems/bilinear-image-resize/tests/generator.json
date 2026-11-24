@@ -6,7 +6,7 @@
     "ow": [1, 64]
   },
   "inputs": {
-    "image": {"$random": {"shape": ["H", "W"], "dist": "uniform", "low": 0.0, "high": 255.0, "dtype": "float64"}},
+    "image": {"$random": {"shape": ["H", "W"], "dist": "uniform", "low": 0.0, "high": 255.0}},
     "outHeight": {"$dim": "oh"},
     "outWidth": {"$dim": "ow"},
     "alignCorners": {"$random": {"dist": "bernoulli", "p": 0.5}}

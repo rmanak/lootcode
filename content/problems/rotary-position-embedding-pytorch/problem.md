@@ -42,6 +42,12 @@ Your answer is checked against the reference implementation with
 and dtype must match exactly. Besides the stored tests, every run adds 5 hidden
 tests drawn at random within the constraints.
 
+**Why float64?** Positions reach $10^5$, and the fastest pair rotates by one
+radian per position. float32 stores an angle near $10^5$ radians only to about
+$0.004$, so its cosines and sines are off by that much. That is the long-context
+precision problem RoPE implementations have to watch for, and the tests need the
+angles to $10^{-5}$.
+
 ## Constraints
 
 - `1 <= T <= 64`, and `d` is even with `2 <= d <= 64`

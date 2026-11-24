@@ -171,6 +171,50 @@ def load_generator(problem_dir: Path) -> dict | None:
     return {"dims": gen.get("dims") or {}, "inputs": gen["inputs"]}
 
 
+#: A twin's own departures from its numpy sibling, for when float32 cannot
+#: reproduce the numpy inputs (docs/pytorch-twins.md, "dtype").
+OVERRIDES_FILE = Path("tests") / "twin.json"
+
+
+def load_overrides(twin_dir: Path) -> dict:
+    """``<twin>/tests/twin.json``, normalized: ``{"generator": ... | None,
+    "skip": {numpy case name: why}}``.
+
+    * ``generator`` (``{"why", "dims", "inputs"}``) replaces the numpy
+      ``tests/generator.json`` for the twin only: draws at the scale a real
+      float32 model sees, still inside the shared validator.
+    * ``skip`` leaves numpy stored cases out of the twin: inputs float32
+      cannot represent (a mean of 1000 with a spread of 0.001). A ``torch-*``
+      case usually stands in, with the same trap at float32 scale.
+
+    Every entry carries a non-empty ``why``. The file sits beside the cases
+    rather than in meta.json's ``torch`` block, which the runtime keeps strict.
+    """
+    path = twin_dir / OVERRIDES_FILE
+    if not path.exists():
+        return {"generator": None, "skip": {}}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict) or set(data) - {"generator", "skip"}:
+        raise ValueError(f"{path}: takes only \"generator\" and \"skip\"")
+    gen = data.get("generator")
+    if gen is not None and not (isinstance(gen, dict) and isinstance(gen.get("inputs"), dict)
+                                and isinstance(gen.get("why"), str) and gen["why"].strip()):
+        raise ValueError(f"{path}: \"generator\" is {{\"why\": ..., \"dims\": {{...}}, "
+                         "\"inputs\": {...}}")
+    skip = data.get("skip") or {}
+    if not (isinstance(skip, dict)
+            and all(isinstance(v, str) and v.strip() for v in skip.values())):
+        raise ValueError(f"{path}: \"skip\" maps each numpy case name to why it is skipped")
+    return {"generator": ({"dims": gen.get("dims") or {}, "inputs": gen["inputs"]}
+                          if gen else None),
+            "skip": dict(skip)}
+
+
+def twin_generator(numpy_dir: Path, twin_dir: Path) -> dict | None:
+    """The generator the twin draws from: its own, else the shared numpy one."""
+    return load_overrides(twin_dir)["generator"] or load_generator(numpy_dir)
+
+
 def draw_inputs(generator: Mapping, params: list, *, seed: int, count: int) -> list[dict]:
     """``count`` concrete inputs from a generator, as plain JSON (tensors as
     nested lists), floats rounded to what the twin actually sees (float32,
@@ -236,13 +280,17 @@ TWIN_ONLY_PREFIX = "torch-"
 
 
 def port_cases(numpy_cases: list, numpy_params: list, twin_params: list,
-               generator: Mapping | None, existing_twin_cases: list) -> list:
+               generator: Mapping | None, existing_twin_cases: list,
+               skip: Mapping | frozenset = frozenset()) -> list:
     """The twin's cases: every numpy case in order (same name, weight, hidden
-    flag; ``expected: null``), then the twin's own ``torch-*`` cases."""
+    flag; ``expected: null``) except the ``skip``ped ones, then the twin's own
+    ``torch-*`` cases."""
     dtypes = literal_dtypes(numpy_params, twin_params, generator)
     many = {p["name"] for p in twin_params if p.get("type") == TENSOR_LIST_TYPE}
     out = []
     for c in numpy_cases:
+        if c["name"] in skip:
+            continue
         inp = {k: twin_value(v, dtypes.get(k), many=k in many) for k, v in c["input"].items()}
         out.append({"name": c["name"], "input": inp, "expected": None,
                     "weight": c.get("weight", 1), "hidden": c.get("hidden", False)})
@@ -445,8 +493,11 @@ def torch_paragraph(np_params: list, twin_params: list, return_type: str,
 
 
 def _num(x: float) -> str:
-    """``1e-05`` → ``1e-5``: how the statements write a tolerance."""
-    return re.sub(r"e([-+])0*(\d)", r"e\1\2", f"{x:g}").replace("e+", "e")
+    """``1e-05`` → ``1e-5``, ``0.0001`` → ``1e-4``: how the statements write a
+    tolerance (``0.01`` stays as it is)."""
+    s = f"{x:e}" if 0 < abs(x) < 1e-3 else f"{x:g}"
+    s = re.sub(r"\.?0+e", "e", s)
+    return re.sub(r"e([-+])0*(\d)", r"e\1\2", s).replace("e+", "e")
 
 
 def twin_statement(numpy_md: str, paragraph: str) -> tuple[str, bool]:

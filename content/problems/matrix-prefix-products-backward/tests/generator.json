@@ -5,8 +5,8 @@
   },
   "inputs": {
     "W": {"$random": {"shape": ["N", "D", "D"], "dist": "uniform",
-                      "low": [-0.7, -0.1], "high": [0.1, 0.7], "dtype": "float64"}},
+                      "low": [-0.7, -0.1], "high": [0.1, 0.7]}},
     "dP": {"$random": {"shape": ["N", "D", "D"], "dist": "uniform",
-                       "low": [-2.0, -0.1], "high": [0.1, 2.0], "dtype": "float64"}}
+                       "low": [-2.0, -0.1], "high": [0.1, 2.0]}}
   }
 }

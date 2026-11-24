@@ -1,0 +1,64 @@
+{
+  "generator": {
+    "why": "Targets within ±10, as standardized targets are in practice. With y up to 1000 the weights reach the hundreds, and float32's absolute error on them (~1e-5 after hundreds of steps) fails allclose on the small weights; the stored cases keep the full range.",
+    "dims": {
+      "N": [
+        1,
+        200
+      ],
+      "d": [
+        1,
+        10
+      ]
+    },
+    "inputs": {
+      "X": {
+        "$random": {
+          "shape": [
+            "N",
+            "d"
+          ],
+          "dist": "uniform",
+          "low": [
+            -1.5,
+            -0.2
+          ],
+          "high": [
+            0.2,
+            1.5
+          ]
+        }
+      },
+      "y": {
+        "$random": {
+          "shape": [
+            "N"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -1.0
+          ],
+          "high": [
+            1.0,
+            10.0
+          ]
+        }
+      },
+      "lr": {
+        "$random": {
+          "dist": "uniform",
+          "low": 0.001,
+          "high": 0.04
+        }
+      },
+      "steps": {
+        "$random": {
+          "dist": "randint",
+          "low": 1,
+          "high": 301
+        }
+      }
+    }
+  }
+}

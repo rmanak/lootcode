@@ -41,8 +41,8 @@
   "runtime": "torch",
   "torch": {
     "twin": "matrix-prefix-products-backward",
-    "rtol": 1e-05,
-    "atol": 1e-06,
+    "rtol": 0.0001,
+    "atol": 1e-05,
     "random_tests": 5,
     "forbid": [
       "torch.Tensor.backward",
@@ -68,7 +68,7 @@
     "dims": {
       "N": [
         1,
-        20
+        10
       ],
       "D": [
         1,
@@ -91,8 +91,7 @@
           "high": [
             0.1,
             0.7
-          ],
-          "dtype": "float64"
+          ]
         }
       },
       "dP": {
@@ -110,8 +109,7 @@
           "high": [
             0.1,
             2.0
-          ],
-          "dtype": "float64"
+          ]
         }
       }
     }

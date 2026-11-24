@@ -38,15 +38,15 @@ $$
 - `lossHistory`: the `steps` recorded losses, in order
 
 **Numerical stability matters.** Some tests use large learning rates, and the
-logits reach the thousands. $e^{1000}$ overflows a float. In a badly
+logits reach the thousands. $e^{1000}$ overflows a float32. In a badly
 misclassified example the true class's probability also underflows to $0$, so
 $\log p$ is $-\infty$ even when the softmax itself was computed stably. Compute
 the loss in log space, with log-sum-exp.
 
-Write it in **PyTorch** (`torch` is already imported). `X` arrives as a float64
+Write it in **PyTorch** (`torch` is already imported). `X` arrives as a float32
 tensor, `y` as an int64 tensor and `numClasses`, `lr` and `steps` as plain
 Python values. Return the structure described above with a tensor in place of
-each list of numbers and a 0-dim tensor in place of each single number (float64;
+each list of numbers and a 0-dim tensor in place of each single number (float32;
 int64 for integers). The examples print tensors as nested lists. **Autograd is
 off-limits**: derive the gradients by hand (`.backward()`, `torch.autograd` and
 `torch.func` raise). These built-ins would do the exercise for you and raise if

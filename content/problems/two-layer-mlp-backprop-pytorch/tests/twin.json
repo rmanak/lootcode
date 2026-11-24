@@ -1,0 +1,120 @@
+{
+  "generator": {
+    "why": "Inputs within ±3 and weights within ±1; X, W1 and b1 on a 1/16 grid, so every hidden pre-activation is exact in float32 whatever the summation order and ReLU's kink at 0 cannot flip between two correct solutions (one draw in 3000 did, off the grid). The numpy generator draws everything up to ±100: hidden units reach 1e5 and logits far more, softmax saturates, and float32's absolute error on the logits swamps the small gradients. Stored cases keep the full range.",
+    "dims": {
+      "N": [
+        1,
+        64
+      ],
+      "D": [
+        1,
+        16
+      ],
+      "H": [
+        1,
+        32
+      ],
+      "C": [
+        2,
+        10
+      ]
+    },
+    "inputs": {
+      "X": {
+        "$random": {
+          "shape": [
+            "N",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": [
+            -3.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            3.0
+          ],
+          "step": 0.0625
+        }
+      },
+      "y": {
+        "$random": {
+          "shape": [
+            "N"
+          ],
+          "dist": "randint",
+          "high": "C"
+        }
+      },
+      "W1": {
+        "$random": {
+          "shape": [
+            "D",
+            "H"
+          ],
+          "dist": "uniform",
+          "low": [
+            -1.0,
+            -0.05
+          ],
+          "high": [
+            0.05,
+            1.0
+          ],
+          "step": 0.0625
+        }
+      },
+      "b1": {
+        "$random": {
+          "shape": [
+            "H"
+          ],
+          "dist": "uniform",
+          "low": [
+            -1.0,
+            -0.05
+          ],
+          "high": [
+            0.05,
+            1.0
+          ],
+          "step": 0.0625
+        }
+      },
+      "W2": {
+        "$random": {
+          "shape": [
+            "H",
+            "C"
+          ],
+          "dist": "uniform",
+          "low": [
+            -1.0,
+            -0.05
+          ],
+          "high": [
+            0.05,
+            1.0
+          ]
+        }
+      },
+      "b2": {
+        "$random": {
+          "shape": [
+            "C"
+          ],
+          "dist": "uniform",
+          "low": [
+            -1.0,
+            -0.05
+          ],
+          "high": [
+            0.05,
+            1.0
+          ]
+        }
+      }
+    }
+  }
+}

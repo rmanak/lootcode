@@ -62,10 +62,10 @@ $\log \sigma(z) = -\log\left(1 + e^{-z}\right)$, written so it never
 exponentiates a large positive number.
 
 Write it in **PyTorch** (`torch` is already imported). `policyChosen`,
-`policyRejected`, `refChosen` and `refRejected` arrive as float64 tensors and
+`policyRejected`, `refChosen` and `refRejected` arrive as float32 tensors and
 `beta`, `labelSmoothing` and `lossType` as plain Python values. Return the
 structure described above with a tensor in place of each list of numbers and a
-0-dim tensor in place of each single number (float64; int64 for integers). The
+0-dim tensor in place of each single number (float32; int64 for integers). The
 examples print tensors as nested lists. **Autograd is off-limits**: derive the
 gradients by hand (`.backward()`, `torch.autograd` and `torch.func` raise).
 These built-ins would do the exercise for you and raise if called:

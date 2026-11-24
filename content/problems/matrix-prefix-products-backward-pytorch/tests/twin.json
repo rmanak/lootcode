@@ -1,0 +1,53 @@
+{
+  "generator": {
+    "why": "Chains of at most 10 matrices. A product of 20 random matrices grows or shrinks geometrically, and float32's rounding, compounded over 20 factors, swamps the small entries of the gradient (two draws in 3000 failed). Stored cases keep chains of up to 60.",
+    "dims": {
+      "N": [
+        1,
+        10
+      ],
+      "D": [
+        1,
+        6
+      ]
+    },
+    "inputs": {
+      "W": {
+        "$random": {
+          "shape": [
+            "N",
+            "D",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": [
+            -0.7,
+            -0.1
+          ],
+          "high": [
+            0.1,
+            0.7
+          ]
+        }
+      },
+      "dP": {
+        "$random": {
+          "shape": [
+            "N",
+            "D",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": [
+            -2.0,
+            -0.1
+          ],
+          "high": [
+            0.1,
+            2.0
+          ]
+        }
+      }
+    }
+  }
+}

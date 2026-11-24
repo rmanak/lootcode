@@ -5,13 +5,13 @@ def dpoLoss(policyChosen, policyRejected, refChosen, refRejected, beta, labelSmo
     """Direct Preference Optimization loss, rewards and gradients.
 
     Args:
-        policyChosen: float64 tensor, shape (batch_size,). Policy log-probs of
+        policyChosen: float32 tensor, shape (batch_size,). Policy log-probs of
             the chosen responses.
-        policyRejected: float64 tensor, shape (batch_size,). Policy log-probs
+        policyRejected: float32 tensor, shape (batch_size,). Policy log-probs
             of the rejected responses.
-        refChosen: float64 tensor, shape (batch_size,). Reference log-probs of
+        refChosen: float32 tensor, shape (batch_size,). Reference log-probs of
             the chosen responses.
-        refRejected: float64 tensor, shape (batch_size,). Reference log-probs
+        refRejected: float32 tensor, shape (batch_size,). Reference log-probs
             of the rejected responses.
         beta: float. KL-penalty strength.
         labelSmoothing: float. Label-smoothing rate (0 for ipo).
@@ -20,15 +20,15 @@ def dpoLoss(policyChosen, policyRejected, refChosen, refRejected, beta, labelSmo
     Returns:
         A list [loss, chosenRewards, rejectedRewards, rewardAccuracy,
         gradChosen, gradRejected] (a tuple works too):
-            loss: 0-dim float64 tensor. Mean loss over the batch.
-            chosenRewards: float64 tensor. Implicit rewards of the chosen
+            loss: 0-dim float32 tensor. Mean loss over the batch.
+            chosenRewards: float32 tensor. Implicit rewards of the chosen
                 responses.
-            rejectedRewards: float64 tensor. Implicit rewards of the rejected
+            rejectedRewards: float32 tensor. Implicit rewards of the rejected
                 responses.
-            rewardAccuracy: 0-dim float64 tensor. Fraction of pairs ranked
+            rewardAccuracy: 0-dim float32 tensor. Fraction of pairs ranked
                 correctly.
-            gradChosen: float64 tensor. Gradient of loss w.r.t. policyChosen.
-            gradRejected: float64 tensor. Gradient of loss w.r.t.
+            gradChosen: float32 tensor. Gradient of loss w.r.t. policyChosen.
+            gradRejected: float32 tensor. Gradient of loss w.r.t.
                 policyRejected.
     """
     pass

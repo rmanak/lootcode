@@ -47,8 +47,7 @@
         "high": [
           0.5,
           10.0
-        ],
-        "dtype": "float64"
+        ]
       }
     },
     "weight": {
@@ -67,8 +66,7 @@
         "high": [
           0.5,
           10.0
-        ],
-        "dtype": "float64"
+        ]
       }
     },
     "bias": {
@@ -78,8 +76,7 @@
         ],
         "dist": "uniform",
         "low": -10.0,
-        "high": 10.0,
-        "dtype": "float64"
+        "high": 10.0
       }
     },
     "stride": {

@@ -1,0 +1,114 @@
+{
+  "generator": {
+    "why": "Inputs within ±3, W within ±1, A within ±0.5, B within ±0.2 (LoRA starts B at zero) and alpha up to 32. The numpy generator draws everything up to ±10 with alpha up to 128 at rank 1, so outputs are sums of terms in the thousands and float32's cancellation error swamps the small entries. Stored cases keep the full range.",
+    "dims": {
+      "N": [
+        1,
+        24
+      ],
+      "rk": [
+        1,
+        16
+      ],
+      "ei": [
+        0,
+        8
+      ],
+      "eo": [
+        0,
+        8
+      ],
+      "din": "rk + ei",
+      "dout": "rk + eo"
+    },
+    "inputs": {
+      "X": {
+        "$random": {
+          "shape": [
+            "N",
+            "din"
+          ],
+          "dist": "uniform",
+          "low": [
+            -3.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            3.0
+          ]
+        }
+      },
+      "W": {
+        "$random": {
+          "shape": [
+            "din",
+            "dout"
+          ],
+          "dist": "uniform",
+          "low": [
+            -1.0,
+            -0.05
+          ],
+          "high": [
+            0.05,
+            1.0
+          ]
+        }
+      },
+      "A": {
+        "$random": {
+          "shape": [
+            "din",
+            "rk"
+          ],
+          "dist": "uniform",
+          "low": [
+            -0.5,
+            -0.01
+          ],
+          "high": [
+            0.01,
+            0.5
+          ]
+        }
+      },
+      "B": {
+        "$random": {
+          "shape": [
+            "rk",
+            "dout"
+          ],
+          "dist": "uniform",
+          "low": [
+            -0.2,
+            -0.01
+          ],
+          "high": [
+            0.01,
+            0.2
+          ]
+        }
+      },
+      "alpha": {
+        "$random": {
+          "dist": "choice",
+          "values": [
+            0.5,
+            1.0,
+            2.0,
+            8.0,
+            16.0,
+            32.0
+          ]
+        }
+      },
+      "useRsLora": {
+        "$random": {
+          "dist": "bernoulli",
+          "p": 0.5
+        }
+      }
+    }
+  }
+}

@@ -38,8 +38,8 @@ $\lambda_\text{row}\, \lambda_\text{col}$.
 **Return the `outHeight × outWidth` image**.
 
 Write it in **PyTorch** (`torch` is already imported). `image` arrives as a
-float64 tensor and `outHeight`, `outWidth` and `alignCorners` as plain Python
-values. Return a float64 tensor. The examples print tensors as nested lists.
+float32 tensor and `outHeight`, `outWidth` and `alignCorners` as plain Python
+values. Return a float32 tensor. The examples print tensors as nested lists.
 These built-ins would do the exercise for you and raise if called:
 `torch.nn.functional.interpolate`, `torch.nn.functional.upsample`,
 `torch.nn.functional.upsample_bilinear`, `torch.nn.functional.grid_sample`,
@@ -47,9 +47,13 @@ These built-ins would do the exercise for you and raise if called:
 kernels).
 
 Your answer is checked against the reference implementation with
-`torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape
+`torch.allclose` semantics (`rtol=1e-4`, `atol=0.01`), and every tensor's shape
 and dtype must match exactly. Besides the stored tests, every run adds 5 hidden
 tests drawn at random within the constraints.
+
+The absolute tolerance is on the pixel scale ($0$ to $255$). float32 rounds a
+source coordinate near $64$ by about `1e-5`, which moves an output by up to a
+few thousandths of a pixel; a misplaced sampling grid moves it by whole pixels.
 
 ## Constraints
 

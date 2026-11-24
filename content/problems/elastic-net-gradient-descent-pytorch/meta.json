@@ -55,8 +55,8 @@
   "runtime": "torch",
   "torch": {
     "twin": "elastic-net-gradient-descent",
-    "rtol": 1e-05,
-    "atol": 1e-06,
+    "rtol": 0.0001,
+    "atol": 1e-05,
     "random_tests": 5,
     "forbid": [
       "torch.Tensor.backward",
@@ -104,8 +104,7 @@
           "high": [
             0.2,
             2.0
-          ],
-          "dtype": "float64"
+          ]
         }
       },
       "y": {
@@ -115,14 +114,13 @@
           ],
           "dist": "uniform",
           "low": [
-            -1000.0,
+            -10.0,
             -1.0
           ],
           "high": [
             1.0,
-            1000.0
-          ],
-          "dtype": "float64"
+            10.0
+          ]
         }
       },
       "alpha": {

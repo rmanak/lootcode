@@ -44,8 +44,8 @@
   "runtime": "torch",
   "torch": {
     "twin": "pairwise-ranker-i-loss-and-gradient",
-    "rtol": 1e-05,
-    "atol": 1e-06,
+    "rtol": 0.0001,
+    "atol": 1e-05,
     "random_tests": 5,
     "forbid": [
       "torch.Tensor.backward",
@@ -96,14 +96,13 @@
           ],
           "dist": "uniform",
           "low": [
-            -100.0,
+            -3.0,
             -0.1
           ],
           "high": [
             0.1,
-            100.0
-          ],
-          "dtype": "float64"
+            3.0
+          ]
         }
       },
       "w": {
@@ -113,14 +112,13 @@
           ],
           "dist": "uniform",
           "low": [
-            -100.0,
+            -1.0,
             -0.01
           ],
           "high": [
             0.01,
-            100.0
-          ],
-          "dtype": "float64"
+            1.0
+          ]
         }
       }
     }

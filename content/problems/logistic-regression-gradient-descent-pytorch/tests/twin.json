@@ -1,0 +1,5 @@
+{
+  "skip": {
+    "confident-mistakes": "lr = 0.5 on features near 80 is far past gradient descent's stability bound, so the 300 steps oscillate and amplify rounding: two correct float32 solutions end ~1e-4 apart. torch-confident-mistakes keeps the trap (|z| past 270, where float32's exp overflows) in 5 steps."
+  }
+}

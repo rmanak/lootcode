@@ -248,15 +248,26 @@ def cmd_statement(a: argparse.Namespace) -> int:
 
 
 # --- port ----------------------------------------------------------------------
+#: Draws a twin's own generator must produce inside the validator before
+#: ``port`` copies it (every run draws more, so it must hold for any seed).
+OWN_GENERATOR_DRAWS = 500
+
+
 def cmd_port(a: argparse.Namespace) -> int:
     np_dir, tw_dir = _pair(a.slug)
     np_meta, tw_meta = _read_json(np_dir / "meta.json"), _read_json(tw_dir / "meta.json")
-    gen = twins.load_generator(np_dir)
+    overrides = twins.load_overrides(tw_dir)
+    gen = twins.twin_generator(np_dir, tw_dir)
     np_params = np_meta["function"]["params"]
     tw_params = tw_meta["function"]["params"]
     np_cases = _read_json(np_dir / "tests" / "cases.json")["cases"]
     tw_cases = _read_json(tw_dir / "tests" / "cases.json")["cases"]
-    new = twins.port_cases(np_cases, np_params, tw_params, gen, tw_cases)
+    stale = sorted(set(overrides["skip"]) - {c["name"] for c in np_cases})
+    if stale:
+        print(f"ERROR: {twins.OVERRIDES_FILE} skips {stale}, which {a.slug} does not have")
+        return 1
+    new = twins.port_cases(np_cases, np_params, tw_params, gen, tw_cases,
+                           skip=overrides["skip"])
 
     valid = _validator(tw_dir)
     bad = [c["name"] for c in new
@@ -265,6 +276,13 @@ def cmd_port(a: argparse.Namespace) -> int:
         print(f"ERROR: the twin's validator rejects {bad}; the twin's constraints "
               "must be the numpy problem's (docs/pytorch-twins.md)")
         return 1
+    if overrides["generator"]:
+        draws = twins.draw_inputs(gen, tw_params, seed=0, count=OWN_GENERATOR_DRAWS)
+        illegal = sum(1 for d in draws if not valid(**d))
+        if illegal:
+            print(f"ERROR: {illegal} of {len(draws)} draws from the twin's own generator "
+                  f"break the validator; fix {twins.OVERRIDES_FILE}")
+            return 1
 
     torch_block = dict(tw_meta.get("torch") or {})
     if gen:
@@ -272,8 +290,10 @@ def cmd_port(a: argparse.Namespace) -> int:
         torch_block.setdefault("random_tests", 5)
     changed_meta = torch_block != tw_meta.get("torch")
     changed_cases = new != tw_cases
-    print(f"{tw_dir.name}: {len(new)} cases ({len(np_cases)} from {a.slug}), "
-          f"cases {'change' if changed_cases else 'unchanged'}, generator "
+    skipped = f", {len(overrides['skip'])} skipped" if overrides["skip"] else ""
+    print(f"{tw_dir.name}: {len(new)} cases ({len(np_cases)} from {a.slug}{skipped}), "
+          f"cases {'change' if changed_cases else 'unchanged'}, "
+          f"{'own ' if overrides['generator'] else ''}generator "
           f"{'changes' if changed_meta else 'unchanged' if gen else 'absent'}")
     if not a.write:
         print("(dry run; --write to apply)")

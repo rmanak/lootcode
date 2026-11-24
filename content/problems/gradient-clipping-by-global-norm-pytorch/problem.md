@@ -47,6 +47,11 @@ Your answer is checked against the reference implementation with
 and dtype must match exactly. Besides the stored tests, every run adds 5 hidden
 tests drawn at random within the constraints.
 
+**Why float64?** Training usually runs in float32, but the entries here reach
+$10^{200}$, and float32 tops out near $3.4 \times 10^{38}$. float32 overflows
+much sooner, too: squaring any entry above about $1.8 \times 10^{19}$ already
+gives `inf`, so the same scaling trick matters there.
+
 ## Constraints
 
 - `1 <= len(grads) <= 50`, every tensor has at least one entry, and there are

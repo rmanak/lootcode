@@ -33,6 +33,11 @@ Your answer is checked against the reference implementation with
 and dtype must match exactly. Besides the stored tests, every run adds 5 hidden
 tests drawn at random within the constraints.
 
+**Why float64?** Columns in the tests are offset by up to $10^8$ with a spread
+as small as $0.5$. Near $10^8$, float32 can only represent every eighth integer,
+so it cannot store such data at all. In float64, computing the variance stably,
+as asked above, keeps the answer accurate at that offset.
+
 ## Constraints
 
 - `1 <= n <= 1000` and `1 <= d <= 20`

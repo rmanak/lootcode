@@ -1,0 +1,90 @@
+{
+  "generator": {
+    "why": "Q, K and V within ±3, so scores QKᵀ/√d stay in the tens, as in a trained model. The numpy generator draws up to ±100: scores reach the thousands, softmax becomes a hard argmax, and float32 rounding flips near-ties between keys. Stored cases keep the full range.",
+    "dims": {
+      "n": [
+        1,
+        64
+      ],
+      "m": [
+        1,
+        64
+      ],
+      "dk": [
+        1,
+        32
+      ],
+      "dv": [
+        1,
+        32
+      ]
+    },
+    "inputs": {
+      "Q": {
+        "$random": {
+          "shape": [
+            "n",
+            "dk"
+          ],
+          "dist": "uniform",
+          "low": [
+            -3.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            3.0
+          ],
+          "round": 3
+        }
+      },
+      "K": {
+        "$random": {
+          "shape": [
+            "m",
+            "dk"
+          ],
+          "dist": "uniform",
+          "low": [
+            -3.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            3.0
+          ],
+          "round": 3
+        }
+      },
+      "V": {
+        "$random": {
+          "shape": [
+            "m",
+            "dv"
+          ],
+          "dist": "uniform",
+          "low": [
+            -3.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            3.0
+          ],
+          "round": 3
+        }
+      },
+      "mask": {
+        "$random": {
+          "shape": [
+            "n",
+            "m"
+          ],
+          "dist": "randint",
+          "high": 2,
+          "at_least_one_per_row": true
+        }
+      }
+    }
+  }
+}

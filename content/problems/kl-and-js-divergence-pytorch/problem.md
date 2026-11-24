@@ -27,7 +27,7 @@ term as $P_i (\log P_i - \log Q_i)$, or use logs of the raw weights, rather than
 anything that can lose the small ones.
 
 Write it in **PyTorch** (`torch` is already imported). `p` and `q` arrive as
-float64 tensors. Return a float64 tensor. The examples print tensors as nested
+float32 tensors. Return a float32 tensor. The examples print tensors as nested
 lists. These built-ins would do the exercise for you and raise if called:
 `torch.nn.functional.kl_div`, `torch.kl_div`,
 `torch.distributions.kl.kl_divergence`, `torch.distributions.kl_divergence` (and

@@ -58,6 +58,11 @@ Your answer is checked against the reference implementation with
 and dtype must match exactly. Besides the stored tests, every run adds 5 hidden
 tests drawn at random within the constraints.
 
+**Why float64?** Calibration usually runs in float32, but the tests only promise
+that $v / s$ stays `1e-6` away from a halfway point, and float32 rounds $v / s$
+near $\pm 128$ by about `1e-5`. In float32, two correct solutions could round
+the same value to different integers, and integers must match exactly.
+
 Integers must match exactly. Floats are accepted when every number is within a
 relative `1e-6` (or an absolute `1e-9`) of the expected value. The tests never
 put a value of $v / s$, or of $-128 - r_\text{min} / s$, within `1e-6` of a

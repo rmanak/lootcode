@@ -43,8 +43,8 @@
   "runtime": "torch",
   "torch": {
     "twin": "info-nce-contrastive-loss",
-    "rtol": 1e-05,
-    "atol": 1e-06,
+    "rtol": 0.0001,
+    "atol": 1e-05,
     "random_tests": 5,
     "forbid": [
       "torch.Tensor.backward",
@@ -70,7 +70,7 @@
     "dims": {
       "N": [
         1,
-        64
+        48
       ],
       "d": [
         1,
@@ -94,7 +94,6 @@
             10.0
           ],
           "min_abs": 0.1,
-          "dtype": "float64",
           "round": 3
         }
       },
@@ -114,7 +113,6 @@
             10.0
           ],
           "min_abs": 0.1,
-          "dtype": "float64",
           "round": 3
         }
       },
@@ -122,8 +120,6 @@
         "$random": {
           "dist": "choice",
           "values": [
-            0.001,
-            0.01,
             0.05,
             0.07,
             0.1,

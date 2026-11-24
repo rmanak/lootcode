@@ -31,8 +31,7 @@
           1.5,
           30.0
         ],
-        "round": 3,
-        "dtype": "float64"
+        "round": 3
       }
     },
     "K": {
@@ -50,8 +49,7 @@
           1.5,
           30.0
         ],
-        "round": 3,
-        "dtype": "float64"
+        "round": 3
       }
     },
     "V": {
@@ -69,8 +67,7 @@
           1.5,
           30.0
         ],
-        "round": 3,
-        "dtype": "float64"
+        "round": 3
       }
     },
     "slopes": {
@@ -84,8 +81,7 @@
           0.01,
           50.0
         ],
-        "round": 4,
-        "dtype": "float64"
+        "round": 4
       }
     },
     "causal": {

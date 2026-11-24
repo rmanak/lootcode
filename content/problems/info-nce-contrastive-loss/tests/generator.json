@@ -26,7 +26,6 @@
           10.0
         ],
         "min_abs": 0.1,
-        "dtype": "float64",
         "round": 3
       }
     },
@@ -46,7 +45,6 @@
           10.0
         ],
         "min_abs": 0.1,
-        "dtype": "float64",
         "round": 3
       }
     },

@@ -109,7 +109,7 @@
             -0.5
           ],
           "high": 0.0,
-          "dtype": "float64"
+          "step": 0.015625
         }
       },
       "policyRejected": {
@@ -123,7 +123,7 @@
             -0.5
           ],
           "high": 0.0,
-          "dtype": "float64"
+          "step": 0.015625
         }
       },
       "refChosen": {
@@ -137,7 +137,7 @@
             -0.5
           ],
           "high": 0.0,
-          "dtype": "float64"
+          "step": 0.015625
         }
       },
       "refRejected": {
@@ -151,7 +151,7 @@
             -0.5
           ],
           "high": 0.0,
-          "dtype": "float64"
+          "step": 0.015625
         }
       },
       "beta": {

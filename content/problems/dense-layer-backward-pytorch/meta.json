@@ -52,8 +52,8 @@
   "runtime": "torch",
   "torch": {
     "twin": "dense-layer-backward",
-    "rtol": 1e-05,
-    "atol": 1e-06,
+    "rtol": 0.0001,
+    "atol": 1e-05,
     "random_tests": 5,
     "forbid": [
       "torch.Tensor.backward",
@@ -99,15 +99,14 @@
           ],
           "dist": "uniform",
           "low": [
-            -10.0,
-            -0.5
+            -1.0,
+            -0.25
           ],
           "high": [
-            0.5,
-            10.0
+            0.25,
+            1.0
           ],
-          "step": 0.0625,
-          "dtype": "float64"
+          "step": 0.0625
         }
       },
       "W": {
@@ -118,15 +117,14 @@
           ],
           "dist": "uniform",
           "low": [
-            -10.0,
-            -0.5
+            -1.0,
+            -0.25
           ],
           "high": [
-            0.5,
-            10.0
+            0.25,
+            1.0
           ],
-          "step": 0.0625,
-          "dtype": "float64"
+          "step": 0.0625
         }
       },
       "b": {
@@ -135,10 +133,9 @@
             "Dout"
           ],
           "dist": "uniform",
-          "low": -10.0,
-          "high": 10.0,
-          "step": 0.0625,
-          "dtype": "float64"
+          "low": -1.0,
+          "high": 1.0,
+          "step": 0.0625
         }
       },
       "dY": {
@@ -148,10 +145,9 @@
             "Dout"
           ],
           "dist": "uniform",
-          "low": -10.0,
-          "high": 10.0,
-          "step": 0.0625,
-          "dtype": "float64"
+          "low": -1.0,
+          "high": 1.0,
+          "step": 0.0625
         }
       },
       "activation": {

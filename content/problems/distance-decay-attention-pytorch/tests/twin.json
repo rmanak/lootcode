@@ -1,0 +1,99 @@
+{
+  "generator": {
+    "why": "Q, K and V within ±3 and slopes up to 1 (ALiBi's are 2⁻¹…2⁻⁸). The numpy generator draws up to ±30 and slopes to 50: scores reach the thousands and float32 rounding flips near-ties between keys. Stored cases keep the full range.",
+    "dims": {
+      "n": [
+        1,
+        64
+      ],
+      "H": [
+        1,
+        8
+      ],
+      "r": [
+        0,
+        9999
+      ],
+      "hd": "1 + r % (64 // H)",
+      "D": "H*hd"
+    },
+    "inputs": {
+      "Q": {
+        "$random": {
+          "shape": [
+            "n",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": [
+            -3.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            3.0
+          ],
+          "round": 3
+        }
+      },
+      "K": {
+        "$random": {
+          "shape": [
+            "n",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": [
+            -3.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            3.0
+          ],
+          "round": 3
+        }
+      },
+      "V": {
+        "$random": {
+          "shape": [
+            "n",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": [
+            -3.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            3.0
+          ],
+          "round": 3
+        }
+      },
+      "slopes": {
+        "$random": {
+          "shape": [
+            "H"
+          ],
+          "dist": "uniform",
+          "low": 0.0,
+          "high": [
+            0.01,
+            1.0
+          ],
+          "round": 4
+        }
+      },
+      "causal": {
+        "$random": {
+          "dist": "bernoulli"
+        }
+      }
+    }
+  },
+  "skip": {
+    "gen-1-5": "A baked draw from the numpy generator's full range: its attention scores reach the hundreds, and two keys within float32 rounding of each other decide the answer, so two correct float32 solutions disagree. The twin's own generator draws float32-scale inputs instead."
+  }
+}

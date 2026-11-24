@@ -50,19 +50,19 @@ head.
 **Return `output`**, $T$ rows of $D$ numbers.
 
 **Numerical stability matters.** Some tests have attention scores far past the
-point (about 709) where `exp` overflows. Subtract each row's largest score
+point (about 88.7) where `exp` overflows a float32. Subtract each row's largest score
 before exponentiating.
 
 Write it in **PyTorch** (`torch` is already imported). `X`, `Wq`, `Wk`, `Wv` and
-`Wo` arrive as float64 tensors and `numHeads` and `numKvHeads` as plain Python
-values. Return a float64 tensor. The examples print tensors as nested lists.
+`Wo` arrive as float32 tensors and `numHeads` and `numKvHeads` as plain Python
+values. Return a float32 tensor. The examples print tensors as nested lists.
 These built-ins would do the exercise for you and raise if called:
 `torch.nn.functional.scaled_dot_product_attention`,
 `torch.nn.functional.multi_head_attention_forward` (and their `torch.ops.aten`
 kernels).
 
 Your answer is checked against the reference implementation with
-`torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape
+`torch.allclose` semantics (`rtol=1e-4`, `atol=1e-5`), and every tensor's shape
 and dtype must match exactly. Besides the stored tests, every run adds 5 hidden
 tests drawn at random within the constraints.
 

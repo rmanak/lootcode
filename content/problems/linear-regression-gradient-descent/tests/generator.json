@@ -5,9 +5,9 @@
   },
   "inputs": {
     "X": {"$random": {"shape": ["N", "d"], "dist": "uniform",
-                      "low": [-1.5, -0.2], "high": [0.2, 1.5], "dtype": "float64"}},
+                      "low": [-1.5, -0.2], "high": [0.2, 1.5]}},
     "y": {"$random": {"shape": ["N"], "dist": "uniform",
-                      "low": [-1000.0, -1.0], "high": [1.0, 1000.0], "dtype": "float64"}},
+                      "low": [-1000.0, -1.0], "high": [1.0, 1000.0]}},
     "lr": {"$random": {"dist": "uniform", "low": 0.001, "high": 0.04}},
     "steps": {"$random": {"dist": "randint", "low": 1, "high": 301}}
   }

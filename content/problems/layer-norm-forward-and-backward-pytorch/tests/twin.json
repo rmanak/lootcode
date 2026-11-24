@@ -1,0 +1,85 @@
+{
+  "generator": {
+    "why": "Rows of 8 to 48 features with x within ±100 and a spread of at least 0.5, and gamma and dy within ±3. The numpy generator lets a row's spread fall to 0.01 (or, with 2 features, two nearby values: 39.48 and 39.54), with gamma and dy up to 10, so dx reaches 1e4 and float32's cancellation error swamps its small entries. Stored cases keep the full range, down to 1 feature.",
+    "dims": {
+      "N": [
+        1,
+        32
+      ],
+      "D": [
+        8,
+        48
+      ]
+    },
+    "inputs": {
+      "x": {
+        "$random": {
+          "shape": [
+            "N",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": [
+            -100.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            100.0
+          ],
+          "round": 3
+        }
+      },
+      "gamma": {
+        "$random": {
+          "shape": [
+            "D"
+          ],
+          "dist": "uniform",
+          "low": -3.0,
+          "high": 3.0,
+          "round": 3
+        }
+      },
+      "beta": {
+        "$random": {
+          "shape": [
+            "D"
+          ],
+          "dist": "uniform",
+          "low": -10.0,
+          "high": 10.0,
+          "round": 3
+        }
+      },
+      "dy": {
+        "$random": {
+          "shape": [
+            "N",
+            "D"
+          ],
+          "dist": "uniform",
+          "low": -3.0,
+          "high": 3.0,
+          "round": 3
+        }
+      },
+      "eps": {
+        "$random": {
+          "dist": "choice",
+          "values": [
+            1e-12,
+            1e-08,
+            1e-05,
+            0.001,
+            0.1,
+            1.0
+          ]
+        }
+      }
+    }
+  },
+  "skip": {
+    "large-mean-tiny-spread": "A mean of 1000 with a spread of 0.05: float32 rounds the mean itself by more than the answer can absorb, so even the two-pass formula is off by ~1e-3. torch-large-mean-small-spread keeps the trap at float32 scale (mean 100, spread ~3), where two-pass passes and one-pass E[x²] − E[x]² still fails."
+  }
+}

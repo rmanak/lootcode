@@ -38,11 +38,11 @@ ratio of two $\operatorname{std}$s is used.
 **Return the $B \times N$ result**.
 
 Write it in **PyTorch** (`torch` is already imported). `noisePred` arrives as a
-float64 tensor and `guidanceScale` and `guidanceRescale` as plain Python values.
-Return a float64 tensor. The examples print tensors as nested lists.
+float32 tensor and `guidanceScale` and `guidanceRescale` as plain Python values.
+Return a float32 tensor. The examples print tensors as nested lists.
 
 Your answer is checked against the reference implementation with
-`torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape
+`torch.allclose` semantics (`rtol=1e-4`, `atol=1e-5`), and every tensor's shape
 and dtype must match exactly. Besides the stored tests, every run adds 5 hidden
 tests drawn at random within the constraints.
 

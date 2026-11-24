@@ -33,7 +33,7 @@ There is no bias term, no regularization and no early stopping.
 > started. Fixing all three makes the answer well-defined.
 
 Write it in **PyTorch** (`torch` is already imported). `preferences` arrives as
-a float64 tensor and `lr` and `steps` as plain Python values. Return a float64
+a float32 tensor and `lr` and `steps` as plain Python values. Return a float32
 tensor. The examples print tensors as nested lists. **Autograd is off-limits**:
 derive the gradients by hand (`.backward()`, `torch.autograd` and `torch.func`
 raise).

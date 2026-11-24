@@ -31,8 +31,7 @@
           0.5,
           10.0
         ],
-        "round": 3,
-        "dtype": "float64"
+        "round": 3
       }
     },
     "Wq": {
@@ -50,8 +49,7 @@
           0.5,
           10.0
         ],
-        "round": 3,
-        "dtype": "float64"
+        "round": 3
       }
     },
     "Wk": {
@@ -69,8 +67,7 @@
           0.5,
           10.0
         ],
-        "round": 3,
-        "dtype": "float64"
+        "round": 3
       }
     },
     "Wv": {
@@ -88,8 +85,7 @@
           0.5,
           10.0
         ],
-        "round": 3,
-        "dtype": "float64"
+        "round": 3
       }
     },
     "Wo": {
@@ -107,8 +103,7 @@
           0.5,
           10.0
         ],
-        "round": 3,
-        "dtype": "float64"
+        "round": 3
       }
     },
     "numHeads": {

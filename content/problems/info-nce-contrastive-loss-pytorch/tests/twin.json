@@ -1,0 +1,69 @@
+{
+  "generator": {
+    "why": "Temperatures from 0.05 up (SimCLR and MoCo train at 0.07 to 0.5). At τ = 0.01 the logits reach 100, and float32 computes an exactly-zero gradient as 4e-6, close to atol; at τ = 0.001 rounding swamps the gradients. The stored cases keep τ = 0.01 and 0.001. Batches of at most 48 rows keep a run's answers (5 random draws plus the stored cases) inside the result budget.",
+    "dims": {
+      "N": [
+        1,
+        48
+      ],
+      "d": [
+        1,
+        32
+      ]
+    },
+    "inputs": {
+      "U": {
+        "$random": {
+          "shape": [
+            "N",
+            "d"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "min_abs": 0.1,
+          "round": 3
+        }
+      },
+      "V": {
+        "$random": {
+          "shape": [
+            "N",
+            "d"
+          ],
+          "dist": "uniform",
+          "low": [
+            -10.0,
+            -0.5
+          ],
+          "high": [
+            0.5,
+            10.0
+          ],
+          "min_abs": 0.1,
+          "round": 3
+        }
+      },
+      "temperature": {
+        "$random": {
+          "dist": "choice",
+          "values": [
+            0.05,
+            0.07,
+            0.1,
+            0.5,
+            1.0,
+            2.0,
+            10.0
+          ]
+        }
+      }
+    }
+  }
+}

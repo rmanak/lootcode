@@ -151,8 +151,12 @@ works for a fresh checkout.
   copy) and tests; hand-written gradients stay hand-written (`torch.forbid` the
   autograd entry points and the built-in that *is* the exercise). One generator,
   `<numpy>/tests/generator.json`, feeds both: the twin draws fresh tests from it
-  every run, and `bake` stores draws as hidden numpy cases. Float64 when float32
-  can't meet the tolerance on the numpy constraints (most of them). Workflow
+  every run, and `bake` stores draws as hidden numpy cases. **float32, as deep
+  learning trains** (mostly `rtol=1e-4`, `atol=1e-5`): where numpy's
+  float64-era inputs are meaningless in float32, the twin gets its own
+  float32-scale generator and skips those stored cases (`<twin>/tests/twin.json`,
+  every entry with a `why`) rather than switching to float64. float64 only when the
+  statement's own constraints need it (5 twins, each says why). Workflow
   `scripts/sync_twin_tests.py scaffold|statement|port|check|bake`; `tests/test_twins.py`
   pins the pairing. **After changing a numpy problem's tests or generator, re-run
   `port`.** See `docs/pytorch-twins.md`.

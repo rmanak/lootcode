@@ -25,8 +25,7 @@
           0.01,
           1000.0
         ],
-        "round": 3,
-        "dtype": "float64"
+        "round": 3
       }
     },
     "gamma": {
@@ -37,8 +36,7 @@
         "dist": "uniform",
         "low": -10.0,
         "high": 10.0,
-        "round": 3,
-        "dtype": "float64"
+        "round": 3
       }
     },
     "beta": {
@@ -49,8 +47,7 @@
         "dist": "uniform",
         "low": -10.0,
         "high": 10.0,
-        "round": 3,
-        "dtype": "float64"
+        "round": 3
       }
     },
     "dy": {
@@ -62,8 +59,7 @@
         "dist": "uniform",
         "low": -10.0,
         "high": 10.0,
-        "round": 3,
-        "dtype": "float64"
+        "round": 3
       }
     },
     "eps": {

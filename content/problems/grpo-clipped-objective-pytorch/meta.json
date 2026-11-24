@@ -59,8 +59,8 @@
   "runtime": "torch",
   "torch": {
     "twin": "grpo-clipped-objective",
-    "rtol": 1e-05,
-    "atol": 1e-06,
+    "rtol": 0.0001,
+    "atol": 1e-05,
     "random_tests": 5,
     "forbid": [],
     "dims": {
@@ -90,8 +90,7 @@
             0.25,
             100.0
           ],
-          "step": 0.25,
-          "dtype": "float64"
+          "step": 0.25
         }
       },
       "newLogps": {
@@ -114,8 +113,7 @@
                 -3.0,
                 -0.05
               ],
-              "high": 0.0,
-              "dtype": "float64"
+              "high": 0.0
             }
           }
         }
@@ -140,8 +138,7 @@
                 -3.0,
                 -0.05
               ],
-              "high": 0.0,
-              "dtype": "float64"
+              "high": 0.0
             }
           }
         }
@@ -166,8 +163,7 @@
                 -3.0,
                 -0.05
               ],
-              "high": 0.0,
-              "dtype": "float64"
+              "high": 0.0
             }
           }
         }

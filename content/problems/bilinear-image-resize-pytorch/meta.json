@@ -47,8 +47,8 @@
   "runtime": "torch",
   "torch": {
     "twin": "bilinear-image-resize",
-    "rtol": 1e-05,
-    "atol": 1e-06,
+    "rtol": 0.0001,
+    "atol": 0.01,
     "random_tests": 5,
     "forbid": [
       "torch.nn.functional.interpolate",
@@ -91,8 +91,7 @@
           ],
           "dist": "uniform",
           "low": 0.0,
-          "high": 255.0,
-          "dtype": "float64"
+          "high": 255.0
         }
       },
       "outHeight": {

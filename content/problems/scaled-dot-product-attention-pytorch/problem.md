@@ -30,21 +30,21 @@ key gets weight exactly `0`, however high its score.
 `weights` has `n` rows of `m` numbers.
 
 Write it in **PyTorch** (`torch` is already imported). `Q`, `K` and `V` arrive
-as float64 tensors and `mask` as an int64 tensor. Return the structure described
+as float32 tensors and `mask` as an int64 tensor. Return the structure described
 above with a tensor in place of each list of numbers and a 0-dim tensor in place
-of each single number (float64; int64 for integers). The examples print tensors
+of each single number (float32; int64 for integers). The examples print tensors
 as nested lists. These built-ins would do the exercise for you and raise if
 called: `torch.nn.functional.scaled_dot_product_attention` (and their
 `torch.ops.aten` kernels).
 
 Your answer is checked against the reference implementation with
-`torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape
+`torch.allclose` semantics (`rtol=1e-4`, `atol=1e-5`), and every tensor's shape
 and dtype must match exactly. Besides the stored tests, every run adds 5 hidden
 tests drawn at random within the constraints.
 
 **Numerical stability matters.** Entries in the tests reach ±100, so a score
-can reach the tens of thousands, far past the point (about 709) where `exp`
-overflows a float. That includes the scores of blocked keys.
+can reach the tens of thousands, far past the point (about 88.7) where `exp`
+overflows a float32. That includes the scores of blocked keys.
 
 ## Constraints
 

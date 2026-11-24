@@ -53,10 +53,10 @@ even though normalization uses the biased one.
 $\sigma^2 = \overline{x^2} - \mu^2$ then loses almost every significant digit. Subtract the mean first.
 
 Write it in **PyTorch** (`torch` is already imported). `x`, `gamma`, `beta`,
-`dy`, `runningMean` and `runningVar` arrive as float64 tensors and `eps` and
+`dy`, `runningMean` and `runningVar` arrive as float32 tensors and `eps` and
 `momentum` as plain Python values. Return the structure described above with a
 tensor in place of each list of numbers and a 0-dim tensor in place of each
-single number (float64; int64 for integers). The examples print tensors as
+single number (float32; int64 for integers). The examples print tensors as
 nested lists. **Autograd is off-limits**: derive the gradients by hand
 (`.backward()`, `torch.autograd` and `torch.func` raise). These built-ins would
 do the exercise for you and raise if called: `torch.nn.functional.batch_norm`,
@@ -67,7 +67,7 @@ do the exercise for you and raise if called: `torch.nn.functional.batch_norm`,
 kernels).
 
 Your answer is checked against the reference implementation with
-`torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape
+`torch.allclose` semantics (`rtol=1e-4`, `atol=1e-5`), and every tensor's shape
 and dtype must match exactly. Besides the stored tests, every run adds 5 hidden
 tests drawn at random within the constraints.
 

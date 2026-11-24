@@ -52,8 +52,8 @@
   "runtime": "torch",
   "torch": {
     "twin": "conv2d-stride-padding",
-    "rtol": 1e-05,
-    "atol": 1e-06,
+    "rtol": 0.0001,
+    "atol": 1e-05,
     "random_tests": 5,
     "forbid": [
       "torch.nn.functional.conv2d",
@@ -117,14 +117,13 @@
           ],
           "dist": "uniform",
           "low": [
-            -10.0,
+            -3.0,
             -0.5
           ],
           "high": [
             0.5,
-            10.0
-          ],
-          "dtype": "float64"
+            3.0
+          ]
         }
       },
       "weight": {
@@ -137,14 +136,13 @@
           ],
           "dist": "uniform",
           "low": [
-            -10.0,
-            -0.5
+            -1.0,
+            -0.05
           ],
           "high": [
-            0.5,
-            10.0
-          ],
-          "dtype": "float64"
+            0.05,
+            1.0
+          ]
         }
       },
       "bias": {
@@ -153,9 +151,8 @@
             "Cout"
           ],
           "dist": "uniform",
-          "low": -10.0,
-          "high": 10.0,
-          "dtype": "float64"
+          "low": -1.0,
+          "high": 1.0
         }
       },
       "stride": {

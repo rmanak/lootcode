@@ -6,7 +6,7 @@
   },
   "inputs": {
     "X": {"$random": {"shape": ["N", "d"], "dist": "uniform",
-                      "low": [-2.0, -0.2], "high": [0.2, 2.0], "dtype": "float64"}},
+                      "low": [-2.0, -0.2], "high": [0.2, 2.0]}},
     "y": {"$random": {"shape": ["N"], "dist": "randint", "low": 0, "high": "C"}},
     "numClasses": {"$dim": "C"},
     "lr": {"$random": {"dist": "uniform", "low": [0.001, 0.03], "high": [0.05, 0.09]}},

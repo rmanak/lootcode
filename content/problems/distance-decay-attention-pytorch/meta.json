@@ -51,8 +51,8 @@
   "runtime": "torch",
   "torch": {
     "twin": "distance-decay-attention",
-    "rtol": 1e-05,
-    "atol": 1e-06,
+    "rtol": 0.0001,
+    "atol": 1e-05,
     "random_tests": 5,
     "forbid": [
       "torch.nn.functional.scaled_dot_product_attention",
@@ -85,15 +85,14 @@
           ],
           "dist": "uniform",
           "low": [
-            -30.0,
-            -1.5
+            -3.0,
+            -0.5
           ],
           "high": [
-            1.5,
-            30.0
+            0.5,
+            3.0
           ],
-          "round": 3,
-          "dtype": "float64"
+          "round": 3
         }
       },
       "K": {
@@ -104,15 +103,14 @@
           ],
           "dist": "uniform",
           "low": [
-            -30.0,
-            -1.5
+            -3.0,
+            -0.5
           ],
           "high": [
-            1.5,
-            30.0
+            0.5,
+            3.0
           ],
-          "round": 3,
-          "dtype": "float64"
+          "round": 3
         }
       },
       "V": {
@@ -123,15 +121,14 @@
           ],
           "dist": "uniform",
           "low": [
-            -30.0,
-            -1.5
+            -3.0,
+            -0.5
           ],
           "high": [
-            1.5,
-            30.0
+            0.5,
+            3.0
           ],
-          "round": 3,
-          "dtype": "float64"
+          "round": 3
         }
       },
       "slopes": {
@@ -143,10 +140,9 @@
           "low": 0.0,
           "high": [
             0.01,
-            50.0
+            1.0
           ],
-          "round": 4,
-          "dtype": "float64"
+          "round": 4
         }
       },
       "causal": {

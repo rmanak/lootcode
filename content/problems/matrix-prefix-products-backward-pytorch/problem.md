@@ -28,14 +28,14 @@ through a cumulative sum accumulates a running suffix sum.
 **Return `[P, dW]`**, both $N \times D \times D$, in the order of `W`.
 
 Write it in **PyTorch** (`torch` is already imported). `W` and `dP` arrive as
-float64 tensors. Return the structure described above with a tensor in place of
-each list of numbers and a 0-dim tensor in place of each single number (float64;
+float32 tensors. Return the structure described above with a tensor in place of
+each list of numbers and a 0-dim tensor in place of each single number (float32;
 int64 for integers). The examples print tensors as nested lists. **Autograd is
 off-limits**: derive the gradients by hand (`.backward()`, `torch.autograd` and
 `torch.func` raise).
 
 Your answer is checked against the reference implementation with
-`torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape
+`torch.allclose` semantics (`rtol=1e-4`, `atol=1e-5`), and every tensor's shape
 and dtype must match exactly. Besides the stored tests, every run adds 5 hidden
 tests drawn at random within the constraints.
 
