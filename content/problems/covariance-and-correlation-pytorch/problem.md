@@ -24,9 +24,7 @@ about $1$. Compute the variance in a numerically stable way.
 
 Write it in **PyTorch** (`torch` is already imported). `X` arrives as a float64
 tensor and `ddof` as a plain Python value. Return a float64 tensor. The examples
-print tensors as nested lists. These built-ins would do the exercise for you and
-raise if called: `torch.cov`, `torch.corrcoef`, `torch.Tensor.cov`,
-`torch.Tensor.corrcoef` (and their `torch.ops.aten` kernels).
+print tensors as nested lists.
 
 Your answer is checked against the reference implementation with
 `torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape

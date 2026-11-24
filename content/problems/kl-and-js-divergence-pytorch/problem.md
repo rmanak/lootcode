@@ -28,10 +28,7 @@ anything that can lose the small ones.
 
 Write it in **PyTorch** (`torch` is already imported). `p` and `q` arrive as
 float32 tensors. Return a float32 tensor. The examples print tensors as nested
-lists. These built-ins would do the exercise for you and raise if called:
-`torch.nn.functional.kl_div`, `torch.kl_div`,
-`torch.distributions.kl.kl_divergence`, `torch.distributions.kl_divergence` (and
-their `torch.ops.aten` kernels).
+lists.
 
 Your answer is checked against the reference implementation with
 `torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape

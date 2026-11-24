@@ -148,8 +148,7 @@ works for a fresh checkout.
 - **PyTorch twins** (`<numpy-slug>-pytorch`, `torch.twin` in meta.json): the
   numpy ML problem again in PyTorch, kept **as close as possible** — same
   function/param names, shapes, constraints, statement, validator (byte-identical
-  copy) and tests; hand-written gradients stay hand-written (`torch.forbid` the
-  autograd entry points and the built-in that *is* the exercise). One generator,
+  copy) and tests; hand-written gradients stay hand-written exercises. One generator,
   `<numpy>/tests/generator.json`, feeds both: the twin draws fresh tests from it
   every run, and `bake` stores draws as hidden numpy cases. **float32, as deep
   learning trains** (mostly `rtol=1e-4`, `atol=1e-5`): where numpy's

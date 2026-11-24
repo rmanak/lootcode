@@ -39,31 +39,6 @@ from app.executor.torch_runtime.inputs import (
 TWIN_SUFFIX = "-pytorch"
 GENERATOR_FILE = Path("tests") / "generator.json"
 
-#: Autograd entry points. A twin of a hand-written-gradient problem forbids
-#: them (``torch.forbid``), because the numpy original is about deriving the
-#: gradient yourself. See docs/pytorch-twins.md.
-AUTOGRAD = [
-    "torch.Tensor.backward",
-    "torch.autograd.grad",
-    "torch.autograd.backward",
-    "torch.autograd.functional.jacobian",
-    "torch.autograd.functional.vjp",
-    "torch.autograd.functional.jvp",
-    "torch.autograd.functional.hessian",
-    "torch.autograd.functional.vhp",
-    "torch.autograd.functional.hvp",
-    "torch.func.grad",
-    "torch.func.grad_and_value",
-    "torch.func.vjp",
-    "torch.func.jvp",
-    "torch.func.jacrev",
-    "torch.func.jacfwd",
-    "torch.func.hessian",
-    "torch.func.linearize",
-    "torch.autograd.forward_ad.make_dual",
-    "torch.autograd.forward_ad.unpack_dual",
-]
-
 _ARRAY = re.compile(r"(float|int|bool)((?:\[\])*)")
 
 
@@ -409,7 +384,6 @@ _NUMPY_PARAGRAPHS = ("You may use **numpy**",
                      "Answers are accepted when")
 #: The paragraphs :func:`torch_paragraph` writes, so a twin's can be refreshed.
 _TWIN_PARAGRAPHS = ("Write it in **PyTorch**", "Your answer is checked against the reference")
-_ATEN = "torch.ops.aten."
 
 
 def torch_paragraph(np_params: list, twin_params: list, return_type: str,
@@ -417,7 +391,7 @@ def torch_paragraph(np_params: list, twin_params: list, return_type: str,
                     out_dtype: str | None = None) -> str:
     """The twin's replacement for the numpy statement's "You may use numpy…"
     and "Answers are accepted…" paragraphs: what arrives as a tensor, what
-    comes back, what is off-limits, and how the answer is judged.
+    comes back, and how the answer is judged.
 
     ``np_return`` (the numpy return type) tells a matrix from a single number;
     ``out_dtype`` names the answer's dtype when the inputs do not (integer
@@ -468,18 +442,6 @@ def torch_paragraph(np_params: list, twin_params: list, return_type: str,
                     "each list of numbers and a 0-dim tensor in place of each single "
                     f"number ({kind}int64 for integers).")
     text.append("The examples print tensors as nested lists.")
-    forbid = list(torch_cfg.get("forbid") or [])
-    autograd = [f for f in forbid if f in AUTOGRAD]
-    rest = [f for f in forbid if f not in AUTOGRAD]
-    if autograd:
-        text.append("**Autograd is off-limits**: derive the gradients by hand "
-                    "(`.backward()`, `torch.autograd` and `torch.func` raise).")
-    shown = [f for f in rest if not f.startswith(_ATEN)]
-    if shown:
-        text.append("These built-ins would do the exercise for you and raise if called: "
-                    + ", ".join(f"`{f}`" for f in shown)
-                    + (" (and their `torch.ops.aten` kernels)" if len(shown) < len(rest)
-                       else "") + ".")
     para1 = " ".join(text)
     rtol, atol = torch_cfg.get("rtol", 1e-5), torch_cfg.get("atol", 1e-6)
     k = int(torch_cfg.get("random_tests", 0))

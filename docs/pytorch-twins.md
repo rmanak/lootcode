@@ -30,8 +30,7 @@ tests**.
 | random tests | baked from `tests/generator.json` | drawn on **every run** from the same generator, or from the twin's own float32-scale one (`tests/twin.json`) |
 | inputs | plain lists | numeric arrays become **float32** tensors (`int`/`bool` arrays as int64/bool; float64 for the 5 that say why); scalars and strings stay plain values |
 | return | lists and numbers | the same structure, tensors in place of arrays, 0-dim tensors in place of numbers |
-| hand-written gradients | yes (numpy has no autograd) | **still hand-written**: `torch.forbid` lists the autograd entry points |
-| the built-in that *is* the exercise | n/a | forbidden (`F.cross_entropy` in the cross-entropy problem, `F.layer_norm` in layer norm, …) |
+| hand-written gradients | yes (numpy has no autograd) | the same exercise. Nothing blocks autograd or the built-in that *is* the exercise (`F.layer_norm`); this is practice, so that's the solver's call |
 | judging | `close`: rel 1e-6 / abs 1e-9 | allclose, mostly `rtol=1e-4`, `atol=1e-5` (see the table); shape and dtype exact |
 
 **dtype: float32, as deep learning trains.** A twin is float32 unless the
@@ -81,12 +80,6 @@ canonical against float64 truth on a sample: a rare draw can still fail a
 *correct* submission (one in 1000 layer-norm draws did, a 2-feature row), so
 also grade a hand-written correct solution against a few thousand draws.
 
-**What the twin forbids** is decided per problem by one rule: forbid what the
-statement asks you to implement, and nothing else. Indexing, broadcasting,
-`masked_fill`, `torch.erf`, `torch.softmax` (when the softmax is not the point)
-and `torch.log1p` stay allowed, because using them well is the PyTorch skill
-being practised.
-
 ## How tests flow
 
 ```
@@ -122,9 +115,9 @@ being practised.
   runs on the same, float32-rounded inputs. The worst disagreement is reported
   in units of the twin's tolerance, `|t − n| / (atol + rtol·|n|)`. Below 0.5
   (the limit), a correct submission with a different op order is safe. Write
-  the twin's canonical with **autograd and the library built-ins** (it is never
-  forbidden anything): it is then independent of the numpy canonical's
-  hand-derived math, so agreement is real evidence that both are right.
+  the twin's canonical with **autograd and the library built-ins**: it is then
+  independent of the numpy canonical's hand-derived math, so agreement is real
+  evidence that both are right.
 
 ## Adding a twin
 
@@ -139,13 +132,10 @@ S=scripts/sync_twin_tests.py
 $EDITOR content/problems/<slug>/tests/generator.json
 # 2. Bake random hidden cases into the numpy problem.
 .venv/bin/python $S bake <slug> --write
-# 3. Scaffold the twin (--autograd-forbidden for a hand-written-gradient problem).
-.venv/bin/python $S scaffold <slug> --autograd-forbidden --write
+# 3. Scaffold the twin.
+.venv/bin/python $S scaffold <slug> --write
 #    Then by hand:
 #    - solution/solution.py: the reference, using autograd/built-ins freely;
-#    - meta.json torch.forbid: add the built-in that IS the exercise, its
-#      neighbours that do the same job (F.layer_norm on x.T is a batch norm)
-#      and their torch.ops.aten kernels (private ones too: _log_softmax);
 #    - meta.json function.returns: "any[]" when the numpy answer is a list of
 #      separate arrays, not one matrix;
 #    - starters/python/solution.py, and the numpy one to match: a multi-line
@@ -162,7 +152,7 @@ $EDITOR content/problems/<slug>/tests/generator.json
 #    - problem.md: scaffold replaced the "You may use numpy" and "Answers are
 #      accepted" paragraphs; fix anything else numpy-specific
 #      (math.exp, OverflowError, "about 709" in float32, numpy.argmax).
-#      After any meta edit (forbid, return type, dtypes) refresh the generated
+#      After any meta edit (return type, dtypes) refresh the generated
 #      paragraphs; --out-dtype when integer inputs give a float answer:
 .venv/bin/python $S statement <slug> [--out-dtype float64] --write
 # 4. Copy the tests across and cross-check.
@@ -174,7 +164,7 @@ $EDITOR content/problems/<slug>/tests/generator.json
                                        # both in tests/twin.json. float64 only if
                                        # the constraints themselves need it.
 # 5. Hand-written solutions: one correct one passes, and the typical wrong ones
-#    and the forbidden built-ins fail. Then `make check`.
+#    fail. Then `make check`.
 ```
 
 **When the numpy problem changes** (new cases, a re-bake, a generator edit),
@@ -186,48 +176,45 @@ run `port <slug> --write`. `tests/test_twins.py` fails until you do. It pins:
 - the generator: the shared one, or the twin's own (its draws inside the
   validator);
 - the ported cases, minus the skipped ones (each of which must exist);
-- the forbid names;
 - the collection order.
 
 ## The twins
 
-| twin | dtype; tolerance; `tests/twin.json` | forbidden | cross-check (× tolerance; float32 rows: worst of the stored cases + 3000 draws) |
-|---|---|---|---|
-| `info-nce-contrastive-loss-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | autograd | 0.34 (float32 on the numpy inputs was 5×, at τ = 0.001) |
-| `softmax-cross-entropy-loss-and-gradient-pytorch` | float32; rtol 1e-5, atol 1e-6 | autograd, `cross_entropy`, `nll_loss`, `log_softmax`, `logsumexp` | 0.017 |
-| `scaled-dot-product-attention-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | `F.scaled_dot_product_attention` | 0.18 (float32 on the numpy inputs was 596×) |
-| `layer-norm-forward-and-backward-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator, skips 1 | autograd, `layer_norm`, `group_norm` | 0.27 (float32 on the numpy inputs was 1.5e5×). The reference differentiates the explicit two-pass formula: `F.layer_norm`'s fused backward returned -4e-7 for an exact 0 ) |
-| `gelu-and-stable-sigmoid-pytorch` | float32; rtol 1e-5, atol 1e-6 | autograd, `gelu`, `sigmoid`, `logsigmoid`, `ndtr` | 0.25 |
-| `dense-layer-backward-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | autograd | 0.22 (float32 on the numpy inputs was 7×: `1 − tanh²`) |
-| `sinusoidal-positional-encoding-pytorch` | int64 positions in, float64 out; rtol 1e-5, atol 1e-6 | — | 1e-5 (positions up to 1e5: float32 angles are off by ~4e-3) |
-| `rotary-position-embedding-pytorch` | float64; rtol 1e-5, atol 1e-6 | — | 3e-5 |
-| `multi-head-causal-self-attention-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | `F.scaled_dot_product_attention`, `F.multi_head_attention_forward` | 0.2 |
-| `grouped-query-attention-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator, skips 1 | the same | 0.22 |
-| `distance-decay-attention-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator, skips 1 | the same | 0.13 |
-| `attention-backward-pass-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator, skips 4 | autograd, the same, `_softmax_backward_data` | 0.2 |
-| `batch-norm-training-forward-backward-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator, skips 5 | autograd, `batch_norm`, and `instance_norm` / `layer_norm` / `group_norm` (each does a batch norm on a reshaped input) | 0.44 |
-| `max-pool-forward-backward-pytorch` | float32; rtol 1e-5, atol 1e-6 | autograd, `max_pool1d/2d/3d`, `adaptive_max_pool2d`, `max_unpool2d` | 0.12 (a stored case with arbitrary decimals) |
-| `label-smoothed-masked-cross-entropy-pytorch` | float32; rtol 1e-5, atol 1e-6 | autograd, `cross_entropy`, `nll_loss`, `log_softmax`, `logsumexp` | 0.039 |
-| `dpo-loss-pytorch` | float32; rtol 1e-5, atol 1e-6; own generator | autograd, `logsigmoid`, `softplus`, `binary_cross_entropy_with_logits` (`torch.logaddexp` stays allowed: numpy has it) | 0.069 (log-probs on a 1/64 grid) |
-| `grpo-clipped-objective-pytorch` | float32; rtol 1e-4, atol 1e-5; the three log-prob lists are `Tensor[]` (one tensor per completion, `$list` with `share`) | — | 0.043 |
-| `conv2d-stride-padding-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator; `weight` is `Tensor` | `conv1d/2d/3d`, `conv_transpose2d`, `torch.convolution` and the aten convolution kernels (`nn.Conv2d` raises too: it calls `F.conv2d`). `F.unfold` stays allowed | 0.32 |
-| `two-layer-mlp-backprop-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | autograd | 0.15 |
-| `lora-forward-and-merge-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | — | 0.26 |
-| `classifier-free-guidance-pytorch` | float32; rtol 1e-4, atol 1e-5 | — (`torch.std`'s unbiased default matches, and the rescale ratio cancels it anyway) | 0.28 |
-| `gradient-clipping-by-global-norm-pytorch` | float64; `grads` is `Tensor[]` (`$list`); rtol 1e-5, atol 1e-6 | `clip_grad_norm_` and friends. `torch.linalg.vector_norm` returns `inf` on the 1e200 entries, so the overflow trap survives | 5e-11 |
-| `pairwise-ranker-i-loss-and-gradient-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | autograd, as DPO | 0.017 |
-| `kl-and-js-divergence-pytorch` | float32; rtol 1e-5, atol 1e-6 | `kl_div`, `kl_divergence` | 0.082 |
-| `linear-regression-gradient-descent-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | autograd | 0.057 |
-| `logistic-regression-gradient-descent-pytorch` | float32; rtol 1e-4, atol 1e-5; skips 1 | autograd, as DPO (the stable log-loss is part of the exercise) | 0.023 |
-| `softmax-regression-gradient-descent-pytorch` | float32; rtol 1e-5, atol 1e-6 | autograd, as softmax CE | 0.2 |
-| `elastic-net-gradient-descent-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | autograd (autograd's `abs` gradient at 0 is 0, the statement's `sign(0)`) | 0.12 |
-| `pairwise-ranker-ii-training-pytorch` | float32; rtol 1e-5, atol 1e-6 | autograd (no loss is returned, so the loss built-ins stay allowed) | 0.12 |
-| `bilinear-image-resize-pytorch` | float32; rtol 1e-4, atol 0.01 | `interpolate`, `upsample`, `upsample_bilinear`, `grid_sample`, `grid_sampler(_2d)` | 0.09 at a pixel-scale `atol` (float32 rounds a source coordinate by ~1e-5, a few thousandths of a pixel; at `atol=1e-5` that was 7×) |
-| `covariance-and-correlation-pytorch` | float64; rtol 1e-5, atol 1e-6 | `torch.cov`, `torch.corrcoef` | 2e-7. The generator draws a per-test offset up to 1e8 with spread down to 0.5, so the one-pass-variance trap comes up live |
-| `int8-affine-quantization-pytorch` | float64 in; `zeroPoint` and `q` int64; rtol 1e-5, atol 1e-6 | `quantize_per_tensor(_dynamic)`, `fake_quantize_per_tensor_affine`, the learnable fake-quant, and the observers' shared `UniformQuantizationObserverBase._calculate_qparams` | 0 (exact). The statement warns that an int64 tensor × a Python float is float32 |
-| `matrix-prefix-products-backward-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | autograd | 0.05 |
-
-Every forbid list also names the `torch.ops.aten` kernels behind its built-ins.
+| twin | dtype; tolerance; `tests/twin.json` | cross-check (× tolerance; float32 rows: worst of the stored cases + 3000 draws) |
+|---|---|---|
+| `info-nce-contrastive-loss-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | 0.34 (float32 on the numpy inputs was 5×, at τ = 0.001) |
+| `softmax-cross-entropy-loss-and-gradient-pytorch` | float32; rtol 1e-5, atol 1e-6 | 0.017 |
+| `scaled-dot-product-attention-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | 0.18 (float32 on the numpy inputs was 596×) |
+| `layer-norm-forward-and-backward-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator, skips 1 | 0.27 (float32 on the numpy inputs was 1.5e5×). The reference differentiates the explicit two-pass formula: `F.layer_norm`'s fused backward returned -4e-7 for an exact 0 ) |
+| `gelu-and-stable-sigmoid-pytorch` | float32; rtol 1e-5, atol 1e-6 | 0.25 |
+| `dense-layer-backward-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | 0.22 (float32 on the numpy inputs was 7×: `1 − tanh²`) |
+| `sinusoidal-positional-encoding-pytorch` | int64 positions in, float64 out; rtol 1e-5, atol 1e-6 | 1e-5 (positions up to 1e5: float32 angles are off by ~4e-3) |
+| `rotary-position-embedding-pytorch` | float64; rtol 1e-5, atol 1e-6 | 3e-5 |
+| `multi-head-causal-self-attention-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | 0.2 |
+| `grouped-query-attention-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator, skips 1 | 0.22 |
+| `distance-decay-attention-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator, skips 1 | 0.13 |
+| `attention-backward-pass-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator, skips 4 | 0.2 |
+| `batch-norm-training-forward-backward-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator, skips 5 | 0.44 |
+| `max-pool-forward-backward-pytorch` | float32; rtol 1e-5, atol 1e-6 | 0.12 (a stored case with arbitrary decimals) |
+| `label-smoothed-masked-cross-entropy-pytorch` | float32; rtol 1e-5, atol 1e-6 | 0.039 |
+| `dpo-loss-pytorch` | float32; rtol 1e-5, atol 1e-6; own generator | 0.069 (log-probs on a 1/64 grid) |
+| `grpo-clipped-objective-pytorch` | float32; rtol 1e-4, atol 1e-5; the three log-prob lists are `Tensor[]` (one tensor per completion, `$list` with `share`) | 0.043 |
+| `conv2d-stride-padding-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator; `weight` is `Tensor` | 0.32 |
+| `two-layer-mlp-backprop-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | 0.15 |
+| `lora-forward-and-merge-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | 0.26 |
+| `classifier-free-guidance-pytorch` | float32; rtol 1e-4, atol 1e-5 | 0.28 |
+| `gradient-clipping-by-global-norm-pytorch` | float64; `grads` is `Tensor[]` (`$list`); rtol 1e-5, atol 1e-6 | 5e-11 |
+| `pairwise-ranker-i-loss-and-gradient-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | 0.017 |
+| `kl-and-js-divergence-pytorch` | float32; rtol 1e-5, atol 1e-6 | 0.082 |
+| `linear-regression-gradient-descent-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | 0.057 |
+| `logistic-regression-gradient-descent-pytorch` | float32; rtol 1e-4, atol 1e-5; skips 1 | 0.023 |
+| `softmax-regression-gradient-descent-pytorch` | float32; rtol 1e-5, atol 1e-6 | 0.2 |
+| `elastic-net-gradient-descent-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | 0.12 |
+| `pairwise-ranker-ii-training-pytorch` | float32; rtol 1e-5, atol 1e-6 | 0.12 |
+| `bilinear-image-resize-pytorch` | float32; rtol 1e-4, atol 0.01 | 0.09 at a pixel-scale `atol` (float32 rounds a source coordinate by ~1e-5, a few thousandths of a pixel; at `atol=1e-5` that was 7×) |
+| `covariance-and-correlation-pytorch` | float64; rtol 1e-5, atol 1e-6 | 2e-7. The generator draws a per-test offset up to 1e8 with spread down to 0.5, so the one-pass-variance trap comes up live |
+| `int8-affine-quantization-pytorch` | float64 in; `zeroPoint` and `q` int64; rtol 1e-5, atol 1e-6 | 0 (exact). The statement warns that an int64 tensor × a Python float is float32 |
+| `matrix-prefix-products-backward-pytorch` | float32; rtol 1e-4, atol 1e-5; own generator | 0.05 |
 
 **Wave 4: iterative problems need a well-posed generator.** Two correct
 implementations of an iteration agree only while it does not amplify rounding.
@@ -283,7 +270,6 @@ Tooling built along the way:
 - `scripts/sync_twin_tests.py` (`scaffold`, `statement`, `port`, `check`,
   `bake`) and `authoring/twins.py`;
 - `tests/test_twins.py`;
-- `torch.forbid`;
 - generator dim expressions and `{"$dim": …}`;
 - `$list`, for ragged `Tensor[]` inputs;
 - a structural input budget, `cost()`.
@@ -344,9 +330,9 @@ Per twin, the steps are under "Adding a twin" above. Watch for these traps:
 ## Candidates still to do
 
 Ranked by how much the PyTorch version is worth practising and how cleanly the
-tests port. Notation: **F** = forbid list, ⚠ = something to resolve when
-authoring. Backward problems keep hand-written gradients (autograd forbidden),
-and shapes stay the numpy ones.
+tests port. Notation: ⚠ = something to resolve when
+authoring. Backward problems keep hand-written gradients, and shapes stay the
+numpy ones.
 
 ### Tier A: done
 
@@ -360,7 +346,7 @@ Wave 4 did nine of these. What is left:
 
 | numpy problem | caveat |
 |---|---|
-| `matrix-factorization-gradient-descent` | iterative, so autograd forbidden and a float32-scale generator, as wave 4; blocked: `ratings` needs distinct (user, item) pairs, which a generator cannot draw |
+| `matrix-factorization-gradient-descent` | iterative, so a float32-scale generator, as wave 4; blocked: `ratings` needs distinct (user, item) pairs, which a generator cannot draw |
 | `adam-optimizer`, `kv-cache-attention` | class problems: `$random` inputs do not reach `{operations, args}` yet (torch-runtime "Not yet"), so `scaffold` refuses them |
 | `gpt2-block-forward` | its `params` is an `object` holding matrices, which the input materializer does not walk |
 | `merge-partial-softmax-blocks` | nested `any[][][]` input |

@@ -579,101 +579,12 @@ def test_wrong_answers_say_why(code, needle):
     assert g.results[0].status == "wrong" and needle in g.results[0].error
 
 
-# --- torch.forbid: built-ins a submission may not use --------------------------
-FORBID_PROB = {**PROB, "runtime_config": {
-    **PROB["runtime_config"],
-    "forbid": ["torch.softmax", "torch.Tensor.softmax", "torch.nn.functional.softmax",
-               "torch.Tensor.backward", "torch.autograd.grad"]}}
-
-
-@needs_torch
-@pytest.mark.slow
-@pytest.mark.parametrize("code", [
-    "def softmax_rows(x):\n    return torch.softmax(x, -1)\n",
-    "def softmax_rows(x):\n    return x.softmax(-1)\n",
-    # bound at import time, after the harness patched it
-    "from torch.nn.functional import softmax\n\n"
-    "def softmax_rows(x):\n    return softmax(x, -1)\n",
-    "import torch.nn.functional as F\n\n"
-    "def softmax_rows(x):\n    return F.softmax(x, -1)\n",
-    # autograd is off-limits too (a hand-written gradient problem)
-    "def softmax_rows(x):\n    x = x.clone().requires_grad_()\n"
-    "    (x * 2).sum().backward()\n    return x.grad\n",
-])
-def test_a_forbidden_builtin_raises_in_the_submission(code):
-    g = run_submission(code, FORBID_PROB, TESTS)
-    assert not g.solved
-    assert g.results[0].status == "error"
-    assert "is not allowed in this problem" in g.results[0].error
-
-
-@needs_torch
-@pytest.mark.slow
-def test_forbid_spares_the_canonical_and_a_hand_written_answer():
-    # CANON itself calls torch.softmax: the reference run is never patched.
-    hand = ("def softmax_rows(x):\n"
-            "    e = (x - x.max(-1, keepdim=True).values).exp()\n"
-            "    return e / e.sum(-1, keepdim=True)\n")
-    g = run_submission(hand, FORBID_PROB, TESTS)
-    assert g.solved, [(r.name, r.error) for r in g.results]
-    # Grading the canonical itself (seed / verify_bank) forbids nothing.
-    assert run_submission(CANON, FORBID_PROB, TESTS).solved
-
-
-@needs_torch
-@pytest.mark.slow
-@pytest.mark.parametrize("bad", ["torch.no_such_function", "os.system", "torch..x", 7])
-def test_a_bad_forbid_list_is_a_problem_bug_on_every_test(bad):
-    prob = {**PROB, "runtime_config": {**PROB["runtime_config"], "forbid": [bad]}}
-    hand = "def softmax_rows(x):\n    return x\n"
-    g = run_submission(hand, prob, TESTS)
-    assert not g.solved
-    assert all(r.status == "error" and "a problem bug" in r.error for r in g.results)
-
-
-@needs_torch
-@pytest.mark.slow
-@pytest.mark.parametrize("bad", ["torch.os.fdopen", "torch.builtins.open", "torch.classes.foo.bar",
-                                 "torch._C._nn.linear", "torch.ops.aten.__x",
-                                 "torch.Tensor", "torch.Tensor.__getattribute__",
-                                 "torch._C._nn", "torch.float32"])
-def test_forbid_cannot_leave_torch_or_name_a_non_function(bad):
-    prob = {**PROB, "runtime_config": {**PROB["runtime_config"], "forbid": [bad]}}
-    g = run_submission("def softmax_rows(x):\n    return x\n", prob, TESTS)
-    assert all(r.status == "error" and "a problem bug" in r.error for r in g.results)
-
-
-@needs_torch
-@pytest.mark.slow
-def test_forbidding_what_the_codec_uses_cannot_break_an_honest_answer():
-    prob = {**PROB, "runtime_config": {**PROB["runtime_config"], "forbid": [
-        "torch.Tensor.detach", "torch.Tensor.tolist", "torch.Tensor.reshape",
-        "torch.tensor", "torch.Tensor.numel"]}}
-    hand = ("def softmax_rows(x):\n"
-            "    e = (x - x.max(-1, keepdim=True).values).exp()\n"
-            "    return e / e.sum(-1, keepdim=True)\n")
-    g = run_submission(hand, prob, TESTS)
-    assert g.solved, [(r.name, r.error) for r in g.results]
-
-
 @needs_torch
 @pytest.mark.slow
 def test_a_bad_torch_block_is_a_problem_bug_on_every_test():
     prob = {**PROB, "runtime_config": {"rtol": "loose"}}
     g = run_submission(CANON, prob, TESTS)
     assert all(r.status == "error" and "a problem bug" in r.error for r in g.results)
-
-
-@needs_torch
-@pytest.mark.slow
-@pytest.mark.parametrize("name", ["torch.ops.aten._softmax", "torch.ops.aten.softmax"])
-def test_forbid_may_name_a_private_aten_kernel(name):
-    prob = {**PROB, "runtime_config": {**PROB["runtime_config"], "forbid": [name]}}
-    code = ("def softmax_rows(x):\n"
-            f"    return {name}(x, -1, False)\n")
-    g = run_submission(code, prob, TESTS)
-    assert all(r.status == "error" and "not allowed" in r.error for r in g.results)
-    assert run_submission(CANON, prob, TESTS).solved  # the public softmax still works
 
 
 @needs_torch
@@ -824,8 +735,7 @@ def test_a_solution_cannot_sabotage_the_decoder_for_later_tests():
     """Test 1 monkey-patches torch.tensor to hang. Once that made test 2's input
     decode hang (bounded only by the per-test alarm, which covers decoding).
     The codec now captures every torch callable it uses before the solution
-    loads (so a ``torch.forbid`` list cannot break it either), and test 2 is
-    decoded and graded normally."""
+    loads, and test 2 is decoded and graded normally."""
     import time
     code = ("import time\n"
             "def softmax_rows(x):\n"

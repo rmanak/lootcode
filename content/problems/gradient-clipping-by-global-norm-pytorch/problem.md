@@ -36,11 +36,7 @@ Write it in **PyTorch** (`torch` is already imported). `grads` arrives as a list
 of float64 tensors and `maxNorm` as a plain Python value. Return the structure
 described above with a tensor in place of each list of numbers and a 0-dim
 tensor in place of each single number (float64; int64 for integers). The
-examples print tensors as nested lists. These built-ins would do the exercise
-for you and raise if called: `torch.nn.utils.clip_grad_norm_`,
-`torch.nn.utils.clip_grad_norm`, `torch.nn.utils.clip_grad.clip_grad_norm_`,
-`torch.nn.utils.clip_grad.clip_grad_norm`, `torch.nn.utils.get_total_norm`,
-`torch.nn.utils.clip_grads_with_norm_`.
+examples print tensors as nested lists.
 
 Your answer is checked against the reference implementation with
 `torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape

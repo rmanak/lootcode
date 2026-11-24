@@ -43,13 +43,6 @@
     "rtol": 1e-05,
     "atol": 1e-06,
     "random_tests": 5,
-    "forbid": [
-      "torch.nn.functional.kl_div",
-      "torch.kl_div",
-      "torch.distributions.kl.kl_divergence",
-      "torch.distributions.kl_divergence",
-      "torch.ops.aten.kl_div"
-    ],
     "dims": {
       "n": [
         1,

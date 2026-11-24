@@ -27,12 +27,6 @@ Write it in **PyTorch** (`torch` is already imported). `preferences` and `w`
 arrive as float32 tensors. Return the structure described above with a tensor in
 place of each list of numbers and a 0-dim tensor in place of each single number
 (float32; int64 for integers). The examples print tensors as nested lists.
-**Autograd is off-limits**: derive the gradients by hand (`.backward()`,
-`torch.autograd` and `torch.func` raise). These built-ins would do the exercise
-for you and raise if called: `torch.nn.functional.logsigmoid`,
-`torch.nn.functional.softplus`,
-`torch.nn.functional.binary_cross_entropy_with_logits`,
-`torch.binary_cross_entropy_with_logits` (and their `torch.ops.aten` kernels).
 
 Your answer is checked against the reference implementation with
 `torch.allclose` semantics (`rtol=1e-4`, `atol=1e-5`), and every tensor's shape

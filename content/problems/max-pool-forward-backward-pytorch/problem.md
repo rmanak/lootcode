@@ -31,14 +31,7 @@ Write it in **PyTorch** (`torch` is already imported). `x` and `dout` arrive as
 float32 tensors and `kernel` and `stride` as plain Python values. Return the
 structure described above with a tensor in place of each list of numbers and a
 0-dim tensor in place of each single number (float32; int64 for integers). The
-examples print tensors as nested lists. **Autograd is off-limits**: derive the
-gradients by hand (`.backward()`, `torch.autograd` and `torch.func` raise).
-These built-ins would do the exercise for you and raise if called:
-`torch.nn.functional.max_pool2d`, `torch.nn.functional.max_pool2d_with_indices`,
-`torch.max_pool2d`, `torch.nn.functional.max_pool1d`, `torch.max_pool1d`,
-`torch.nn.functional.max_pool3d`, `torch.max_pool3d`,
-`torch.nn.functional.adaptive_max_pool2d`, `torch.nn.functional.max_unpool2d`
-(and their `torch.ops.aten` kernels).
+examples print tensors as nested lists.
 
 Your answer is checked against the reference implementation with
 `torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape

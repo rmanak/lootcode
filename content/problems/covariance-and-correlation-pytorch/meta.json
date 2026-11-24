@@ -43,14 +43,6 @@
     "rtol": 1e-05,
     "atol": 1e-06,
     "random_tests": 5,
-    "forbid": [
-      "torch.cov",
-      "torch.corrcoef",
-      "torch.Tensor.cov",
-      "torch.Tensor.corrcoef",
-      "torch.ops.aten.cov",
-      "torch.ops.aten.corrcoef"
-    ],
     "dims": {
       "n": [
         2,

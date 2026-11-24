@@ -35,12 +35,7 @@ is really **cross-correlation**: the filter is **not** flipped.
 
 Write it in **PyTorch** (`torch` is already imported). `x`, `weight` and `bias`
 arrive as float32 tensors and `stride` and `padding` as plain Python values.
-Return a float32 tensor. The examples print tensors as nested lists. These
-built-ins would do the exercise for you and raise if called:
-`torch.nn.functional.conv2d`, `torch.conv2d`, `torch.nn.functional.conv1d`,
-`torch.conv1d`, `torch.nn.functional.conv3d`, `torch.conv3d`,
-`torch.nn.functional.conv_transpose2d`, `torch.conv_transpose2d`,
-`torch.convolution`, `torch._convolution` (and their `torch.ops.aten` kernels).
+Return a float32 tensor. The examples print tensors as nested lists.
 
 Your answer is checked against the reference implementation with
 `torch.allclose` semantics (`rtol=1e-4`, `atol=1e-5`), and every tensor's shape

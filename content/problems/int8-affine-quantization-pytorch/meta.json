@@ -41,19 +41,6 @@
     "rtol": 1e-05,
     "atol": 1e-06,
     "random_tests": 5,
-    "forbid": [
-      "torch.quantize_per_tensor",
-      "torch.quantize_per_tensor_dynamic",
-      "torch.fake_quantize_per_tensor_affine",
-      "torch._fake_quantize_learnable_per_tensor_affine",
-      "torch.ao.quantization.observer.UniformQuantizationObserverBase._calculate_qparams",
-      "torch.ops.aten.quantize_per_tensor",
-      "torch.ops.aten.fake_quantize_per_tensor_affine",
-      "torch.ops.aten.fake_quantize_per_tensor_affine_cachemask",
-      "torch.ops.aten._fake_quantize_learnable_per_tensor_affine",
-      "torch.ops.aten._fake_quantize_per_tensor_affine_cachemask_tensor_qparams",
-      "torch.ops.aten.choose_qparams_optimized"
-    ],
     "dims": {
       "Lc": [
         1,

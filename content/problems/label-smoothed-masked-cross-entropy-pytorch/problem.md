@@ -40,14 +40,7 @@ Write it in **PyTorch** (`torch` is already imported). `logits` arrives as a
 float32 tensor, `targets` and `mask` as int64 tensors and `smoothing` as a plain
 Python value. Return the structure described above with a tensor in place of
 each list of numbers and a 0-dim tensor in place of each single number (float32;
-int64 for integers). The examples print tensors as nested lists. **Autograd is
-off-limits**: derive the gradients by hand (`.backward()`, `torch.autograd` and
-`torch.func` raise). These built-ins would do the exercise for you and raise if
-called: `torch.nn.functional.cross_entropy`, `torch.nn.functional.nll_loss`,
-`torch.nn.functional.log_softmax`, `torch.log_softmax`,
-`torch.Tensor.log_softmax`, `torch.logsumexp`, `torch.Tensor.logsumexp`,
-`torch.special.logsumexp`, `torch.special.log_softmax` (and their
-`torch.ops.aten` kernels).
+int64 for integers). The examples print tensors as nested lists.
 
 Your answer is checked against the reference implementation with
 `torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape

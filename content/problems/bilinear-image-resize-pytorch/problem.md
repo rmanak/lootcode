@@ -40,11 +40,6 @@ $\lambda_\text{row}\, \lambda_\text{col}$.
 Write it in **PyTorch** (`torch` is already imported). `image` arrives as a
 float32 tensor and `outHeight`, `outWidth` and `alignCorners` as plain Python
 values. Return a float32 tensor. The examples print tensors as nested lists.
-These built-ins would do the exercise for you and raise if called:
-`torch.nn.functional.interpolate`, `torch.nn.functional.upsample`,
-`torch.nn.functional.upsample_bilinear`, `torch.nn.functional.grid_sample`,
-`torch.grid_sampler`, `torch.grid_sampler_2d` (and their `torch.ops.aten`
-kernels).
 
 Your answer is checked against the reference implementation with
 `torch.allclose` semantics (`rtol=1e-4`, `atol=0.01`), and every tensor's shape

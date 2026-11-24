@@ -56,10 +56,6 @@ before exponentiating.
 Write it in **PyTorch** (`torch` is already imported). `X`, `Wq`, `Wk`, `Wv` and
 `Wo` arrive as float32 tensors and `numHeads` and `numKvHeads` as plain Python
 values. Return a float32 tensor. The examples print tensors as nested lists.
-These built-ins would do the exercise for you and raise if called:
-`torch.nn.functional.scaled_dot_product_attention`,
-`torch.nn.functional.multi_head_attention_forward` (and their `torch.ops.aten`
-kernels).
 
 Your answer is checked against the reference implementation with
 `torch.allclose` semantics (`rtol=1e-4`, `atol=1e-5`), and every tensor's shape

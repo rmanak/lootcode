@@ -45,13 +45,7 @@ times a Python float is a *float32* tensor, not a float64 one.
 Write it in **PyTorch** (`torch` is already imported). `calibration` and `x`
 arrive as float64 tensors. Return the structure described above with a tensor in
 place of each list of numbers and a 0-dim tensor in place of each single number
-(float64; int64 for integers). The examples print tensors as nested lists. These
-built-ins would do the exercise for you and raise if called:
-`torch.quantize_per_tensor`, `torch.quantize_per_tensor_dynamic`,
-`torch.fake_quantize_per_tensor_affine`,
-`torch._fake_quantize_learnable_per_tensor_affine`,
-`torch.ao.quantization.observer.UniformQuantizationObserverBase._calculate_qparams`
-(and their `torch.ops.aten` kernels).
+(float64; int64 for integers). The examples print tensors as nested lists.
 
 Your answer is checked against the reference implementation with
 `torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape

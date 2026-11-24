@@ -10,7 +10,7 @@ shapes, constraints, validator, tests). See docs/pytorch-twins.md.
                             collection entry). The canonical and the statement's
                             framework paragraph are then written by hand.
     statement <numpy-slug>  refresh the twin's generated PyTorch paragraphs in
-                            problem.md from its meta (forbid, dtypes, return type).
+                            problem.md from its meta (dtypes, return type).
     port <numpy-slug>       numpy cases -> the twin's cases (expected: null), and
                             the numpy tests/generator.json -> the twin's torch block.
     check <numpy-slug>      cross-check the two canonicals: the twin's (float32,
@@ -132,7 +132,7 @@ def _pair(numpy_slug: str) -> tuple[pathlib.Path, pathlib.Path]:
 
 
 # --- scaffold ------------------------------------------------------------------
-_TWIN_TORCH_KEYS = ("twin", "rtol", "atol", "random_tests", "forbid", "dims", "inputs")
+_TWIN_TORCH_KEYS = ("twin", "rtol", "atol", "random_tests", "dims", "inputs")
 
 
 def cmd_scaffold(a: argparse.Namespace) -> int:
@@ -166,7 +166,6 @@ def cmd_scaffold(a: argparse.Namespace) -> int:
         "runtime": "torch",
         "torch": {"twin": a.slug, "rtol": 1e-5, "atol": 1e-6,
                   "random_tests": 5 if gen else 0,
-                  "forbid": list(twins.AUTOGRAD) if a.autograd_forbidden else [],
                   **(gen or {})},
     }
     print(f"twin {tw}: {fn['name']}("
@@ -222,7 +221,7 @@ def _add_to_collection(numpy_slug: str, tw: str) -> None:
 # --- statement -----------------------------------------------------------------
 def cmd_statement(a: argparse.Namespace) -> int:
     """Rewrite the twin's generated PyTorch paragraphs from its current meta
-    (after a forbid, dtype or return-type edit). Hand edits elsewhere stay."""
+    (after a dtype or return-type edit). Hand edits elsewhere stay."""
     np_dir, tw_dir = _pair(a.slug)
     np_fn = _read_json(np_dir / "meta.json")["function"]
     tmeta = _read_json(tw_dir / "meta.json")
@@ -463,8 +462,6 @@ def main() -> int:
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("scaffold")
     p.add_argument("slug")
-    p.add_argument("--autograd-forbidden", action="store_true",
-                   help="a hand-written-gradient problem: forbid torch autograd")
     p.add_argument("--write", action="store_true")
     p = sub.add_parser("statement")
     p.add_argument("slug")

@@ -11,15 +11,10 @@ from __future__ import annotations
 
 import importlib.util
 import json
-import re
 from pathlib import Path
 
 import pytest
 
-from app import content
-from app.config import settings
-from app.executor import run_submission
-from app.executor.torch_runtime import unavailable_reason
 from app.executor.torch_runtime.inputs import generated_inputs
 from authoring import twins
 
@@ -137,30 +132,6 @@ def test_the_twin_holds_every_numpy_case(np_dir, tw_dir):
     assert _cases(tw_dir) == want, (
         f"the twin's cases are stale: run scripts/sync_twin_tests.py port "
         f"{np_dir.name} --write")
-
-
-@pytest.mark.parametrize(("np_dir", "tw_dir"), PAIRS, ids=IDS)
-def test_forbid_names_are_well_formed(np_dir, tw_dir):
-    forbid = _meta(tw_dir)["torch"].get("forbid") or []
-    assert isinstance(forbid, list)
-    for name in forbid:
-        assert re.fullmatch(r"torch(\.[A-Za-z][A-Za-z0-9_]*)*\._?[A-Za-z][A-Za-z0-9_]*", name), name
-
-
-@pytest.mark.slow
-@pytest.mark.skipif(settings.EXECUTOR_BACKEND == "docker" or unavailable_reason() is not None,
-                    reason="torch runtime not installed")
-@pytest.mark.parametrize(("np_dir", "tw_dir"), PAIRS, ids=IDS)
-def test_a_wrong_submission_is_wrong_not_broken_under_the_forbid_list(np_dir, tw_dir):
-    # verify_bank grades the canonical, which is never patched, so a forbid
-    # list that breaks the harness would stay invisible there. Grade a
-    # non-canonical answer instead: it must be judged, not crash.
-    prob = content.load_problem_dir(tw_dir)
-    prob["runtime_config"] = {**prob["runtime_config"], "random_tests": 1}
-    sig = ", ".join(p["name"] for p in prob["params"])
-    g = run_submission(f"def {prob['function_name']}({sig}):\n    return 0\n",
-                       prob, prob["tests"][:1])
-    assert [r.status for r in g.results] == ["wrong", "wrong"], g.results
 
 
 def test_the_pytorch_collection_follows_the_numpy_study_order():

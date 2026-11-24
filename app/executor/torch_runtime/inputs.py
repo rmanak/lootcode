@@ -76,7 +76,7 @@ def derive_seed(*parts: object) -> int:
 #: Every key a problem's ``torch`` block may carry. A typo (``"random_test"``)
 #: would otherwise silently mean "no random tests".
 CONFIG_KEYS = frozenset({"twin", "rtol", "atol", "random_tests", "random_weight",
-                         "forbid", "dims", "inputs"})
+                         "dims", "inputs"})
 
 
 def check_config(config: Mapping | None, default_rtol: float,

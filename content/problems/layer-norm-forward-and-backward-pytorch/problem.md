@@ -33,12 +33,7 @@ Write it in **PyTorch** (`torch` is already imported). `x`, `gamma`, `beta` and
 `dy` arrive as float32 tensors and `eps` as a plain Python value. Return the
 structure described above with a tensor in place of each list of numbers and a
 0-dim tensor in place of each single number (float32; int64 for integers). The
-examples print tensors as nested lists. **Autograd is off-limits**: derive the
-gradients by hand (`.backward()`, `torch.autograd` and `torch.func` raise).
-These built-ins would do the exercise for you and raise if called:
-`torch.nn.functional.layer_norm`, `torch.layer_norm`, `torch.native_layer_norm`,
-`torch.nn.functional.group_norm`, `torch.group_norm` (and their `torch.ops.aten`
-kernels).
+examples print tensors as nested lists.
 
 Your answer is checked against the reference implementation with
 `torch.allclose` semantics (`rtol=1e-4`, `atol=1e-5`), and every tensor's shape

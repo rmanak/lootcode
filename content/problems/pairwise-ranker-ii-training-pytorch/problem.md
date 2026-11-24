@@ -34,9 +34,7 @@ There is no bias term, no regularization and no early stopping.
 
 Write it in **PyTorch** (`torch` is already imported). `preferences` arrives as
 a float32 tensor and `lr` and `steps` as plain Python values. Return a float32
-tensor. The examples print tensors as nested lists. **Autograd is off-limits**:
-derive the gradients by hand (`.backward()`, `torch.autograd` and `torch.func`
-raise).
+tensor. The examples print tensors as nested lists.
 
 Your answer is checked against the reference implementation with
 `torch.allclose` semantics (`rtol=1e-5`, `atol=1e-6`), and every tensor's shape

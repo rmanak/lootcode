@@ -18,10 +18,7 @@ make torch-env          # ./.venv-torch: Python 3.12 + CPU-only torch, numpy, ei
 ```
 
 A submission can import exactly what `requirements-torch.txt` installs: torch,
-numpy and **einops** (`rearrange` / `reduce` / `repeat` / `einsum`). einops is
-pure Python and calls torch through attribute lookup when it runs, so a
-problem's `torch.forbid` list still applies to anything einops calls (e.g.
-`einops.einsum` → `torch.einsum`).
+numpy and **einops** (`rearrange` / `reduce` / `repeat` / `einsum`).
 
 That's all. The app finds the interpreter at `./.venv-torch/bin/python`
 (override with `LOOTCODE_TORCH_PYTHON`). Without it, torch problems still list
@@ -101,7 +98,6 @@ every input without error. Its correctness is the author's job; see
   "torch": {
     "rtol": 1e-5, "atol": 1e-6,    // optional; these are the defaults
     "random_tests": 5,             // fresh hidden tests drawn on EVERY run
-    "forbid": ["torch.nn.functional.cross_entropy"],   // optional; see below
     "twin": "info-nce-contrastive-loss",  // optional: the numpy problem this one
                                    // mirrors (docs/pytorch-twins.md)
     "dims": {"N": [1, 32], "D": [2, 64]},        // drawn once per test; see "Dims"
@@ -209,8 +205,7 @@ after `round`:
   last dim) to 1 ("every row of `mask` contains at least one 1").
 
 dtypes: `float32 float64 float16 bfloat16 int64 int32 int16 int8 uint8 bool`.
-Only these names (and a problem's `torch.forbid` entries, below) are ever
-looked up on the torch module.
+Only these names are ever looked up on the torch module.
 
 **Stored tests** keep `expected: null`, because the canonical is the oracle. A
 `$random` value in a stored test is seeded from the test's *name*, so a stored
@@ -235,32 +230,6 @@ every test, a correct answer included ("returned too much data"). Size the
 generator's dims for the *outputs*: a (256, 64) batch norm returns two 16k-number
 matrices per test, five random tests of which already overflow.
 `scripts/sync_twin_tests.py check` estimates the largest run and fails past 60%.
-
-**Built-ins a submission may not use.** `torch.forbid` lists dotted torch
-names (`"torch.nn.functional.layer_norm"`, `"torch.Tensor.backward"`) that would
-do the exercise for the solver. In the **submission's** sandbox only, the harness
-replaces each with a stub that raises `"<name> is not allowed in this problem"`
-before the solution is loaded, so `from torch.nn.functional import layer_norm`
-binds the stub too. An entry must be `torch.` plus public segments (no
-leading `_`; only the last one, the function itself, may have a single leading
-underscore, as in `torch.ops.aten._log_softmax`), walk only through torch's own
-modules and classes (`torch.os` is `os` and is refused), and name a function,
-never a class or a constant. The public functions dispatch to their kernels in
-C++, so forbidding a `torch.ops.aten` kernel blocks only a direct call to it:
-`F.layer_norm` keeps working when `torch.ops.aten.native_layer_norm` is forbidden. The
-Tensor codec captures every torch callable it uses before anything is patched,
-so forbidding `torch.Tensor.detach` binds the solution, never the result
-writer. The canonical is never patched and may use the built-in as
-the reference, which makes it an implementation independent of a
-hand-written one. A name that is malformed or missing from this torch fails
-every test as a problem bug rather than quietly allowing the call, and so does
-a generator spec whose arithmetic fails (an overflow, a non-finite number): the
-grader catches it per test, never as a 500. `tests/test_twins.py` grades a wrong
-answer under every twin's forbid list, because `verify_bank` grades only the
-unpatched canonical and would never notice a list that breaks the harness. The
-problem page lists the names. This is an honesty aid for the person practising, not a
-security control: `torch._C` reaches the same kernels, and so does calling an
-autograd node directly (`y.grad_fn(dy)`), which no name can forbid.
 
 **Size.** Every input is built in the web server's own process before any
 sandbox starts, so it is bounded there:

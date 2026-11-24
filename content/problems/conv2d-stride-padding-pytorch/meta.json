@@ -55,26 +55,6 @@
     "rtol": 0.0001,
     "atol": 1e-05,
     "random_tests": 5,
-    "forbid": [
-      "torch.nn.functional.conv2d",
-      "torch.conv2d",
-      "torch.nn.functional.conv1d",
-      "torch.conv1d",
-      "torch.nn.functional.conv3d",
-      "torch.conv3d",
-      "torch.nn.functional.conv_transpose2d",
-      "torch.conv_transpose2d",
-      "torch.convolution",
-      "torch._convolution",
-      "torch.ops.aten.conv2d",
-      "torch.ops.aten.conv1d",
-      "torch.ops.aten.conv3d",
-      "torch.ops.aten.convolution",
-      "torch.ops.aten._convolution",
-      "torch.ops.aten.mkldnn_convolution",
-      "torch.ops.aten._slow_conv2d_forward",
-      "torch.ops.aten.thnn_conv2d"
-    ],
     "dims": {
       "Cin": [
         1,
