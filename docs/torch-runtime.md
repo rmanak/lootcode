@@ -14,8 +14,14 @@ imports any of this. Pilot problem: `content/problems/clip-loss-pytorch/`.
 ## Installing it
 
 ```bash
-make torch-env          # ./.venv-torch: Python 3.12 + CPU-only torch (requirements-torch.txt)
+make torch-env          # ./.venv-torch: Python 3.12 + CPU-only torch, numpy, einops (requirements-torch.txt)
 ```
+
+A submission can import exactly what `requirements-torch.txt` installs: torch,
+numpy and **einops** (`rearrange` / `reduce` / `repeat` / `einsum`). einops is
+pure Python and calls torch through attribute lookup when it runs, so a
+problem's `torch.forbid` list still applies to anything einops calls (e.g.
+`einops.einsum` → `torch.einsum`).
 
 That's all. The app finds the interpreter at `./.venv-torch/bin/python`
 (override with `LOOTCODE_TORCH_PYTHON`). Without it, torch problems still list

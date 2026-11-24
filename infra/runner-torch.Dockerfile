@@ -1,7 +1,7 @@
 # Sandbox image for torch-runtime problems on the `docker` executor backend
 # (EXECUTOR_BACKEND=docker; problems with "runtime": "torch"). See
 # docs/torch-runtime.md. The harnesses are mounted in at runtime; this image
-# only provides Python + CPU-only torch + numpy.
+# only provides Python + CPU-only torch + numpy + einops.
 # Build:  docker build -f infra/runner-torch.Dockerfile -t lootcode-runner-torch .
 #
 # Same container flags as the plain runner (sandbox.docker_command): no network,

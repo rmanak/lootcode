@@ -9,3 +9,4 @@
 --extra-index-url https://pypi.org/simple
 torch==2.15.0+cpu
 numpy==2.5.5
+einops==0.8.2
